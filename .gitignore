@@ -1,0 +1,19 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# directory
+flash-attention/
+lib/
+checkpoint/
+log/
+Riboformer/
+RiboMIMO/
+Translatomer/
+
+# misc
+.DS_Store
+*.db
+
+# log files
+*.log
+*/*.log
+*/*/*.log
