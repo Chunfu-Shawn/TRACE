@@ -9,7 +9,7 @@ import torch
 # Custom model imports
 from model.translation_base_model import TranslationBaseModel
 from model.translation_predictor import TranslationProfilePredictor
-from model.mask_heads import PsiteDensityHead
+from model.mask_heads import TranslationProfileHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
 from model.orf_caller import TranslationSignalORFCaller
 
@@ -99,7 +99,7 @@ def main():
     base_model = TranslationBaseModel.from_config(args.config_path).to(args.device)
     base_model.add_head(
         "count",
-        PsiteDensityHead.create_from_model(base_model, d_pred_h=384),
+        TranslationProfileHead.create_from_model(base_model, d_pred_h=384),
         overwrite=True
     )
     base_model.load_pretrained_weights(args.weights_path, strict=False)
@@ -155,8 +155,8 @@ def main():
         hard_thresh_intensity=0,
         hard_thresh_periodicity=0.5,
         hard_thresh_uniformity=0.3,
-        hard_thresh_step_up=0.6,
-        hard_thresh_drop_off=0.6
+        hard_thresh_step_up=0.51,
+        hard_thresh_drop_off=0.51
     )
     
     if temp_tpm_path and os.path.exists(temp_tpm_path):
