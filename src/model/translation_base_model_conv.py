@@ -572,7 +572,7 @@ class TranslationBaseModel(nn.Module):
             raise KeyError(name)
         torch.save(self.heads[name].state_dict(), path)
 
-   def load_head(self, name: str, path: str, map_location: Optional[str] = None, overwrite: bool = False) -> None:
+    def load_head(self, name: str, path: str, map_location: Optional[str] = None, overwrite: bool = False) -> None:
         """Load saved head state dict into an existing head module.
         The head must already be registered via add_head() before calling this."""
         if name not in self.heads:

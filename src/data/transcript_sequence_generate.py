@@ -26,25 +26,25 @@ def fasta_iter(fasta_file):
             yield header, seq
 
 if __name__=="__main__":
-    # tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.pkl'
-    # fasta_tx_file = '/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/transcripts/gencode.v48.transcripts.fa'
-    # tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.v48.pkl'
+    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.pkl'
+    fasta_tx_file = '/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/transcripts/gencode.v48.transcripts.fa'
+    tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.v48.pkl'
 
-    # # load tx index
-    # with open(tx_meta_file, 'rb') as f:
-    #     tx_meta = pickle.load(f)
+    # load tx index
+    with open(tx_meta_file, 'rb') as f:
+        tx_meta = pickle.load(f)
 
-    # # process fasta data
-    # fasta_tx = fasta_iter(fasta_tx_file)
-    # # save pickle data
-    # tx_seq = {}
-    # for h, s in fasta_tx:
-    #     tx_id = h.split("|")[0]
-    #     if tx_id in tx_meta:
-    #         tx_seq[tx_id] = s
+    # process fasta data
+    fasta_tx = fasta_iter(fasta_tx_file)
+    # save pickle data
+    tx_seq = {}
+    for h, s in fasta_tx:
+        tx_id = h.split("|")[0]
+        if tx_id in tx_meta:
+            tx_seq[tx_id] = s
 
-    # with open(tx_seq_file, 'wb') as f_seq:
-    #     pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(tx_seq_file, 'wb') as f_seq:
+        pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
 
     ####### Macaque #######
     tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.macaque.pkl'
@@ -69,22 +69,22 @@ if __name__=="__main__":
         pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
 
     ####### Mouse #######
-    # tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.mouse.pkl'
-    # fasta_tx_file = '/home/user/data3/rbase/genome_ref/Mus_musculus/gencode.vM32.transcripts.fa'
-    # tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.mouse.vM32.pkl'
+    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.mouse.pkl'
+    fasta_tx_file = '/home/user/data3/rbase/genome_ref/Mus_musculus/gencode.vM32.transcripts.fa'
+    tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.mouse.vM32.pkl'
 
-    # # load tx index
-    # with open(tx_meta_file, 'rb') as f:
-    #     tx_meta = pickle.load(f)
+    # load tx index
+    with open(tx_meta_file, 'rb') as f:
+        tx_meta = pickle.load(f)
 
-    # # process fasta data
-    # fasta_tx = fasta_iter(fasta_tx_file)
-    # # save pickle data
-    # tx_seq = {}
-    # for h, s in fasta_tx:
-    #     tx_id = h.split("|")[0]
-    #     if tx_id in tx_meta:
-    #         tx_seq[tx_id] = s
+    # process fasta data
+    fasta_tx = fasta_iter(fasta_tx_file)
+    # save pickle data
+    tx_seq = {}
+    for h, s in fasta_tx:
+        tx_id = h.split("|")[0]
+        if tx_id in tx_meta:
+            tx_seq[tx_id] = s
 
-    # with open(tx_seq_file, 'wb') as f_seq:
-    #     pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(tx_seq_file, 'wb') as f_seq:
+        pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)

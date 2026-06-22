@@ -7,7 +7,7 @@ import ahocorasick
 import torch
 from tqdm import tqdm
 from typing import Literal
-from data.RPF_counter_v3 import *
+from data.rpf_counter import *
 from scipy.stats import linregress
 
 # 可选：如果想用 h5 存储

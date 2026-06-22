@@ -12,8 +12,6 @@ from model.translation_predictor import TranslationProfilePredictor
 from model.mask_heads import PsiteDensityHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
 from model.orf_caller import TranslationSignalORFCaller
-from eval.save_prediction_results import *
-from utils import *
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 os.environ['CUDA_LAUNCH_BLOCKING'] = '0'

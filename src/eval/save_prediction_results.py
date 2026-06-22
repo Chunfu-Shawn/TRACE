@@ -7,7 +7,7 @@ from typing import Union, List, Optional, Dict
 from torch.utils.data import DataLoader, Subset
 from torch.nn.utils.rnn import pad_sequence
 from utils import clean_up_memory, unwrap_model
-from train.distributed_bucket_sampler import DistributedBucketSampler 
+from train.distributed_balanced_bucket_sampler import DistributedBucketSampler 
 
 def _prepare_prediction_dataloader(
     dataset, 

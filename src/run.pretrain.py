@@ -2,7 +2,7 @@ import os
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
-from data.RPF_counter_v3 import *
+from data.rpf_counter import *
 from model.translation_base_model import TranslationBaseModel
 from model.mask_heads import TranslationProfileHead
 from train.model_pretrain import PretrainingTrainer

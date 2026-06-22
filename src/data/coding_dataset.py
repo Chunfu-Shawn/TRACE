@@ -3,7 +3,7 @@ sys.path.append("/home/user/data3/rbase/translation_model/models/src")
 import numpy as np
 import torch
 from torch.utils.data import Dataset
-from data.RPF_counter import *
+from data.rpf_counter import *
 
 # optinal
 try:
