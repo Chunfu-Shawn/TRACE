@@ -48,8 +48,16 @@ def build_automaton(motifs):
 
     return automaton
 
-# generate embeddings and return Dataset class
 
+class RenameUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        # 拦截旧模块名，替换为新模块名
+        if module == 'data.RPF_counter_v3':
+            module = 'data.rpf_counter'
+        return super().find_class(module, name)
+
+
+# generate embeddings and return Dataset class
 class DatasetGenerator():
     def __init__(self, transcript_seq_file: str, 
                  transcript_meta_file: str, 
@@ -91,12 +99,12 @@ class DatasetGenerator():
 
         for group in self.filtered_tids:
             print(f"Number of length-filtered transcript for group [{group}]: {len(self.filtered_tids[group])}")
-
+    
     def load_pickle_file(self, file_path):
         (_, filename) = os.path.split(file_path)
         name = filename.split('.')[0]
         with open(file_path, 'rb') as f:
-            dict = pickle.load(f)
+            dict = RenameUnpickler(f).load() # 使用自定义的 Unpickler
         
         return dict, name
 

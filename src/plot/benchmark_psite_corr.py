@@ -4,6 +4,7 @@ import pandas as pd
 from plotnine import *
 import matplotlib.pyplot as plt
 import pickle
+from matplotlib.ticker import FuncFormatter
 
 
 GLOBAL_MODEL_ORDER = [
@@ -167,7 +168,7 @@ def plot_multicell_performance(
     # --- 5. 绘图 ---
     plot = (
         ggplot(mapping=aes(x='Model'))
-        + geom_col(data=summary_df, mapping=aes(y='Overall_Mean', fill='Model'), width=0.7)
+        + geom_col(data=summary_df, mapping=aes(y='Overall_Mean', fill='Model'), width=0.8)
         + geom_errorbar(data=summary_df, mapping=aes(ymin='ymin', ymax='ymax'), width=0.2, size=0.8, color="black")
         
         # ==========================================
@@ -671,3 +672,145 @@ def plot_depth_robustness_line_chart(
     print(f">>> Combined chart saved to {plot_path}")
     
     return summary_df
+
+
+
+# ==============================================================================
+# Step 2: Visualization Engine (Correlation Rank Plot)
+# ==============================================================================
+def plot_sorted_correlation_rank(
+    df_ranked: pd.DataFrame, 
+    target_model: str = "TRACE",
+    trim_ratio: float = 0.05,        
+    window_fraction: float = 0.05,   
+    max_scatter_points: int = 10000, 
+    out_dir: str = "./results/correlation_plots",
+    suffix: str = ""
+):
+    """
+    Plot sorted correlation rank with trendlines.
+    - 6x6 square figure layout.
+    - Uses predefined GLOBAL_MODEL_COLORS.
+    - Formats X-axis ticks as integer thousands (e.g., 1k, 2k).
+    - Forces Y-axis minimum to 0.
+    """
+    if df_ranked.empty:
+        print("No data to plot.")
+        return
+        
+    df_ranked = df_ranked.copy()
+    os.makedirs(out_dir, exist_ok=True)
+    print("--- [Step 2] Generating Correlation Rank Plot with Fitted Curves ---")
+    
+    # 1. Trim extreme ranks to avoid edge artifacts in rolling average
+    max_rank = df_ranked['Rank'].max()
+    lower_bound = int(max_rank * trim_ratio)
+    upper_bound = int(max_rank * (1 - trim_ratio))
+    
+    df_filtered = df_ranked[(df_ranked['Rank'] >= lower_bound) & (df_ranked['Rank'] <= upper_bound)]
+    total_valid_transcripts = df_filtered['Tid'].nunique()
+    print(f"  -> Trimmed extremes: Kept ranks {lower_bound} to {upper_bound} (Trim ratio: {trim_ratio:.1%})")
+    print(f"  -> Total valid transcripts plotted: {total_valid_transcripts}")
+
+    # 2. Extract models present in the data
+    all_models = df_filtered['Model'].unique().tolist()
+    other_models = [m for m in all_models if m != target_model]
+    
+    # Calculate rolling window size dynamically
+    window_size = max(10, int((upper_bound - lower_bound) * window_fraction))
+    
+    # Initialize 6x6 square figure
+    fig, ax = plt.subplots(figsize=(6.5, 5), dpi=300)
+    
+    # 3. Plot each model iteratively
+    for model in all_models:
+        m_data = df_filtered[df_filtered['Model'] == model].sort_values('Rank')
+        
+        # Use global color mapping, fallback to light gray if model is not in dict
+        m_color = GLOBAL_MODEL_COLORS.get(model, "#CCCCCC")
+        
+        # Highlight target model with lower transparency and higher Z-order
+        alpha_scatter = 0.15 if model == target_model else 0.05
+        z_scatter = 2 if model == target_model else 1
+        z_trend = 4 if model == target_model else 3
+        
+        # -----------------------------------------------------
+        # Scatter Plot (Downsampled for rendering efficiency)
+        # -----------------------------------------------------
+        if len(m_data) > max_scatter_points:
+            scatter_data = m_data.sample(n=max_scatter_points, random_state=42)
+        else:
+            scatter_data = m_data
+            
+        ax.scatter(
+            scatter_data['Rank'], scatter_data['Correlation'], 
+            color=m_color, s=4, alpha=alpha_scatter, edgecolor="none", zorder=z_scatter
+        )
+        
+        # -----------------------------------------------------
+        # Trendline & Variance Corridor (Calculated on 100% data)
+        # -----------------------------------------------------
+        roll_mean = m_data['Correlation'].rolling(window=window_size, center=True, min_periods=1).mean()
+        roll_std = m_data['Correlation'].rolling(window=window_size, center=True, min_periods=1).std().fillna(0)
+        
+        ax.plot(
+            m_data['Rank'], roll_mean, 
+            color=m_color, linewidth=2.5, label=model, zorder=z_trend
+        )
+        ax.fill_between(
+            m_data['Rank'], roll_mean - roll_std, roll_mean + roll_std, 
+            color=m_color, alpha=0.15, zorder=z_trend - 1
+        )
+    
+    # Force Y-axis minimum to 0
+    ax.set_ylim(bottom=0)  
+    
+    # Labels
+    ax.set_xlabel(f"Transcripts ranked by true ribosome load density\n[Total Evaluated $N = {total_valid_transcripts}$]", 
+                  fontsize=12, fontweight='bold', labelpad=10)
+    ax.set_ylabel("Spearman Correlation ($R$)", fontsize=12, fontweight='bold')
+    
+    # -----------------------------------------------------
+    # Custom X-axis tick formatter (Thousands: '1k', '2k')
+    # -----------------------------------------------------
+    def thousand_formatter(x, pos):
+        # Calculate relative rank from the start of the plotted area
+        val = int(x - lower_bound)
+        if val < 0:
+            return ""
+        if val == 0:
+            return "0"
+        return f"{val // 1000}k"
+        
+    ax.xaxis.set_major_formatter(FuncFormatter(thousand_formatter))
+    
+    # Legend Reordering (Target model on top)
+    handles, labels = ax.get_legend_handles_labels()
+    ordered_labels = []
+    if target_model in labels: ordered_labels.append(target_model)
+    ordered_labels.extend([m for m in other_models if m in labels])
+    
+    ordered_handles = [handles[labels.index(lbl)] for lbl in ordered_labels]
+            
+    # Position legend outside the plot
+    ax.legend(
+        ordered_handles, ordered_labels, title="Predictive Models", 
+        bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False
+    )
+    
+    # Optimize spines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.5)
+        spine.set_color('black')
+        
+    plt.tight_layout()
+    
+    # Save the figure
+    file_suffix = f"_{suffix}" if suffix else ""
+    save_path = os.path.join(out_dir, f"correlation_density_rank_plot{file_suffix}.pdf")
+    plt.savefig(save_path, bbox_inches='tight', transparent=True)
+    plt.close()
+    
+    print(f"✅ Correlation Plot successfully saved to: {save_path}")

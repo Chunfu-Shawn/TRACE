@@ -348,8 +348,18 @@ def plot_te_correlation_performance(
 
     plot = (
         ggplot(mapping=aes(x='Model'))
-        + geom_col(data=summary_df, mapping=aes(y='Overall_Mean', fill='Model'), width=0.7)
-        + geom_errorbar(data=summary_df, mapping=aes(ymin='ymin', ymax='ymax'), width=0.2, size=0.8, color="black")
+        + geom_col(
+            data=summary_df, 
+            mapping=aes(y='Overall_Mean', fill='Model'), 
+            width=0.8
+        )
+        + geom_errorbar(
+            data=summary_df, 
+            mapping=aes(ymin='ymin', ymax='ymax'), 
+            width=0.2, 
+            size=0.8, 
+            color="black"
+        )
         + geom_jitter(data=agg_df, mapping=aes(y='Mean', shape='Cell_type', color='Cell_type'), 
                       width=0.2, size=3.5, alpha=0.8)
         + scale_color_manual(values=point_colors) 
@@ -807,7 +817,7 @@ def plot_polysome_correlation_bar(
         + geom_col(
             data=summary_df, 
             mapping=aes(x='Model', y='Overall_Mean', fill='Model'), 
-            width=0.7
+            width=0.8
         )
         + geom_errorbar(
             data=summary_df, 
@@ -844,13 +854,13 @@ def plot_polysome_correlation_bar(
             legend_position="right",
             legend_title=element_text(size=13, fontweight='bold'),
             legend_text=element_text(size=11),
-            figure_size=(7, 5) # Ensured figure size is properly set in theme
+            figure_size=(7.5, 5) # Ensured figure size is properly set in theme
         )
     )
 
     file_suffix = f".{suffix}" if suffix else ""
     save_path = os.path.join(out_dir, f"polysome_multidataset_correlation_bar{file_suffix}.pdf")
-    p.save(save_path, width=7, height=5, dpi=300, verbose=False)
+    p.save(save_path, width=7.5, height=5, dpi=300, verbose=False)
     print(f"✅ Bar chart saved to: {save_path}")
 
     return summary_df
@@ -1180,6 +1190,7 @@ def plot_silac_correlation_bar(
         agg_df: pd.DataFrame, 
         out_dir: str = "./", 
         metric_name: str = "Model Translation Prediction",
+        corr_abs: bool = False,
         suffix: str = ""
         ):
     """
@@ -1194,6 +1205,8 @@ def plot_silac_correlation_bar(
     os.makedirs(out_dir, exist_ok=True)
 
     agg_df.to_csv(out_dir + f"silac_correlation{file_suffix}.csv")
+    if corr_abs:
+        agg_df['Mean'] = np.absolute(agg_df['Mean'])
     plot_df = agg_df.copy()
 
     summary_df = plot_df.groupby('Model', observed=False).agg(
@@ -1228,7 +1241,7 @@ def plot_silac_correlation_bar(
         + geom_col(
             data=summary_df, 
             mapping=aes(x='Model', y='Overall_Mean', fill='Model'), 
-            width=0.7
+            width=0.8
         )
         + geom_errorbar(
             data=summary_df, 
@@ -1266,7 +1279,7 @@ def plot_silac_correlation_bar(
     )
 
     save_path = os.path.join(out_dir, f"silac_correlation_bar{file_suffix}.pdf")
-    p.save(save_path, width=6, height=5, dpi=300, verbose=False)
+    p.save(save_path, width=6.5, height=5, dpi=300, verbose=False)
     print(f"✅ Bar chart saved to: {save_path}")
 
     return summary_df

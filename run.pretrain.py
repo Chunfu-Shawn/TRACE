@@ -1,7 +1,9 @@
+import sys
 import os
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
+sys.path.append("/public-supool/home/annie/translation_model/TRACE/src")
 from data.rpf_counter import *
 from model.translation_base_model import TranslationBaseModel
 from model.mask_heads import TranslationProfileHead
@@ -35,7 +37,7 @@ mouse_val_dataset_path = os.path.join(dataset_dir, mouse_dataset_name + ".valid.
 
 # create model
 base_model = TranslationBaseModel.from_config(
-    "/public-supool/home/annie/translation_model/src/config/base_model_expr_384d_16h_12l_128env_32ad.yaml"
+    "/public-supool/home/annie/translation_model/TRACE/src/config/base_model_expr_384d_16h_12l_128env_32ad.yaml"
     ).cuda(rank)
 # create heads
 base_model.add_head(
