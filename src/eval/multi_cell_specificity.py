@@ -22,97 +22,111 @@ from eval.multi_cell_te_specificity import (
 # 忽略警告
 warnings.filterwarnings("ignore")
 
-def extract_gt_and_cds_from_dataset(dataset):
+def extract_gt_and_cds_from_datasets(datasets):
     """
-    从 TranslationDataset 提取真实序列 (GT) 和 CDS 信息。
-    返回结构: { cell_type: { tid: {'gt': [...], 'cds_start': x, 'cds_end': y, 'depth': z} } }
+    Extract Ground Truth (GT) sequences and CDS info from single or multiple TranslationDatasets.
+    Uses the dataset's own cell_type field (not uuid parsing).
+    Supports 7-value unpack: uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb.
+    Returns: { cell_type: { tid: {'gt': [...], 'cds_start': x, 'cds_end': y, 'depth': z} } }
     """
-    print("Extracting Ground Truth and CDS info from dataset...")
+    print("Extracting Ground Truth and CDS info from datasets...")
     info_dict = defaultdict(dict)
-    
-    # 我们必须完整遍历 dataset，因为需要拿到每个样本的 count_emb
-    for i in tqdm(range(len(dataset)), desc="Parsing Dataset"):
-        # 调用 dataset 的 __getitem__ 方法获取所有需要的信息
-        uuid, cell_type_idx, meta_info, seq_emb, count_emb = dataset[i]
-        
-        # 解析 uuid 获取 tid 和 cell_type
-        # 假设 uuid 格式仍然是 'ENST000001-HeLa-xxx'
-        parts = str(uuid).rsplit('-', 2)
-        if len(parts) < 2: 
-            continue
-            
-        tid = parts[0]
-        cell_type = parts[1]
-        
-        # 将 tensor 转换为 numpy 一维数组
-        if torch.is_tensor(count_emb):
-            gt_array = count_emb.numpy().reshape(-1)
-        else:
-            gt_array = np.array(count_emb).reshape(-1)
-            
-        info_dict[cell_type][tid] = {
-            'gt': gt_array,
-            'cds_start': meta_info['cds_start_pos'],
-            'cds_end': meta_info['cds_end_pos'],
-            'rpf_depth': meta_info.get('rpf_depth', 0) 
-        }
-        
-    print(f"Extraction complete for {len(info_dict)} cell types.")
+
+    if not isinstance(datasets, (list, tuple)):
+        datasets = [datasets]
+
+    for d_idx, dataset in enumerate(datasets):
+        print(f"Parsing Dataset {d_idx + 1}/{len(datasets)}...")
+        for i in tqdm(range(len(dataset)), desc=f"Dataset {d_idx + 1}"):
+            # 7-value unpack from TranslationDataset.__getitem__
+            uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = dataset[i]
+
+            # Parse tid from uuid; cell_type comes directly from the dataset
+            parts = str(uuid).rsplit('-', 2)
+            if len(parts) < 2:
+                continue
+            tid = parts[0]
+            # cell_type = parts[1]  # DO NOT overwrite—use the metadata cell_type from dataset
+
+            if torch.is_tensor(count_emb):
+                gt_array = count_emb.numpy().reshape(-1)
+            else:
+                gt_array = np.array(count_emb).reshape(-1)
+
+            # Revert log1p transformation back to linear scale
+            gt_array = np.expm1(gt_array)
+
+            info_dict[cell_type][tid] = {
+                'gt': gt_array,
+                'cds_start': meta_info['cds_start_pos'],
+                'cds_end': meta_info['cds_end_pos'],
+                'rpf_depth': meta_info.get('rpf_depth', 0)
+            }
+
+    print(f"Extraction complete for {len(info_dict)} unique cell types across all datasets.")
     return info_dict
 
 class MultiCellEvaluator:
-    # 这里的 dataset_info_dict 传入刚才提取的双层字典
-    def __init__(self, dataset, pkl_path, min_depth=1.0, min_cells=3):
-        
-        self.dataset_info = extract_gt_and_cds_from_dataset(dataset)
-        self.pkl_path = pkl_path
+    def __init__(self, datasets, pkl_paths, min_depth=1.0, min_cells=3):
+        """
+        Initialize with single or multiple datasets and pkl files.
+
+        Args:
+            datasets: a single TranslationDataset or a list/tuple of them
+            pkl_paths: a single pkl path string or a list/tuple of them
+        """
+        self.datasets = datasets if isinstance(datasets, (list, tuple)) else [datasets]
+        self.pkl_paths = pkl_paths if isinstance(pkl_paths, (list, tuple)) else [pkl_paths]
         self.min_depth = min_depth
         self.min_cells = min_cells
-        
+
+        self.dataset_info = extract_gt_and_cds_from_datasets(self.datasets)
         self.grouped_data = self._load_and_group_data()
         self.cell_types = self._get_all_cell_types()
-        
-        self.transcript_metrics_df = None 
+
+        self.transcript_metrics_df = None
         self.pairwise_data = None
+        self.te_pairwise_data = None
+        self.te_pred_pivot = None
         self._analysis_done = False
 
     def _load_and_group_data(self):
-        print(f"Loading predictions from {self.pkl_path}...")
-        with open(self.pkl_path, 'rb') as f:
-            raw_data = pickle.load(f)
-        
+        """
+        Iterate through multiple pkl files and merge all predictions into a single grouped dictionary.
+        """
         grouped = defaultdict(dict)
-        
-        # raw_data 结构为 {cell_type: {tid: predictions}}
-        for cell_type, tid_dict in raw_data.items():
-            for tid, pred_array in tid_dict.items():
-                try:
-                    # [修改核心]：检查 dataset 中是否存在对应的 (cell_type, tid)
-                    if cell_type not in self.dataset_info or tid not in self.dataset_info[cell_type]:
+
+        for pkl_path in self.pkl_paths:
+            print(f"Loading predictions from {pkl_path}...")
+            with open(pkl_path, 'rb') as f:
+                raw_data = pickle.load(f)
+
+            for cell_type, tid_dict in raw_data.items():
+                for tid, pred_array in tid_dict.items():
+                    try:
+                        if cell_type not in self.dataset_info or tid not in self.dataset_info[cell_type]:
+                            continue
+
+                        ds_info = self.dataset_info[cell_type][tid]
+                        cds_start = ds_info['cds_start']
+                        cds_end = ds_info['cds_end']
+                        gt_array = ds_info['gt']
+                        depth = ds_info.get('rpf_depth', 0)
+
+                        if cds_start < 0 or cds_end < 0:
+                            continue
+
+                        grouped[tid][cell_type] = {
+                            'pred': np.expm1(np.array(pred_array).reshape(-1)),
+                            'gt': gt_array,
+                            'cds_start': int(cds_start) - 1,   # 1-based -> 0-based
+                            'cds_end': int(cds_end) - 1,       # 1-based -> 0-based
+                            'depth': float(depth)
+                        }
+                    except Exception:
                         continue
-                        
-                    ds_info = self.dataset_info[cell_type][tid]
-                    
-                    # 获取 CDS 和 GT
-                    cds_start = ds_info['cds_start']
-                    cds_end = ds_info['cds_end']
-                    gt_array = ds_info['gt']
-                    depth = ds_info.get('rpf_depth', 0)
-                    
-                    if cds_start < 0 or cds_end < 0:
-                        continue
-                    
-                    grouped[tid][cell_type] = {
-                        'pred': np.array(pred_array).reshape(-1),
-                        'gt': gt_array, # 从 dataset 中来
-                        'cds_start': int(cds_start) - 1,  # 1-based -> 0-based
-                        'cds_end': int(cds_end) - 1,    # 1-based -> 0-based (Python slice end is exclusive)
-                        'depth': float(depth)
-                    }
-                except Exception as e:
-                    continue
-                    
-        print(f"Grouped into {len(grouped)} transcripts.")
+
+        print(f"Successfully integrated {len(self.pkl_paths)} files. Grouped into {len(grouped)} unique transcripts.")
         return grouped
 
     def _get_all_cell_types(self):
@@ -469,36 +483,57 @@ class MultiCellEvaluator:
         p.save(out_path)
         print(f"Saved: {out_path}")
 
-    def plot_merged_heatmap(self, out_path="merged_heatmap.pdf"):
-        # 调用 compute_pairwise_matrices 获取数据 DataFrame
+    def plot_merged_heatmap(self, out_path="merged_heatmap.pdf",
+                            tpm_file=None, mapping_file=None):
+        """
+        Profile-based merged-triangle heatmap.
+        Upper triangle = GT (observed).
+        Lower triangle = Pred (model) by default, or TPM if tpm_file/mapping_file provided.
+        """
+        self._run_global_analysis()
         pairwise_df = self.compute_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".")
-        
-        if len(pairwise_df) == 0: return
+        if len(pairwise_df) == 0:
+            return
 
-        # 构建查找表
+        # Build GT lookup from profile-based pairwise data
         lookup_gt = {}
-        lookup_pred = {}
         for _, row in pairwise_df.iterrows():
             c1, c2 = row['Cell 1'], row['Cell 2']
             lookup_gt[(c1, c2)] = row['GT Corr']
             lookup_gt[(c2, c1)] = row['GT Corr']
-            lookup_pred[(c1, c2)] = row['Pred Corr']
-            lookup_pred[(c2, c1)] = row['Pred Corr']
+
+        # Build lower-triangle lookup: Pred or TPM
+        if tpm_file is not None and mapping_file is not None:
+            tpm_corr = self._load_tpm_for_heatmap(tpm_file, mapping_file)
+            lookup_lower = {}
+            cells_tpm = list(tpm_corr.columns)
+            for i, c1 in enumerate(cells_tpm):
+                for j, c2 in enumerate(cells_tpm):
+                    if i != j:
+                        lookup_lower[(c1, c2)] = tpm_corr.loc[c1, c2]
+            lower_label = "TPM"
+            title = "Profile: Obs. (Upper) vs TPM (Lower)"
+        else:
+            lookup_lower = {}
+            for _, row in pairwise_df.iterrows():
+                c1, c2 = row['Cell 1'], row['Cell 2']
+                lookup_lower[(c1, c2)] = row['Pred Corr']
+                lookup_lower[(c2, c1)] = row['Pred Corr']
+            lower_label = "Pred"
+            title = "Profile: Obs. (Upper) vs Pred. (Lower)"
 
         cells = self.cell_types
         plot_data = []
-        
         for i, c1 in enumerate(cells):
             for j, c2 in enumerate(cells):
                 if i == j:
                     val = 1.0
-                elif i < j: # Upper -> GT
+                elif i < j:
                     val = lookup_gt.get((c1, c2), np.nan)
-                else:       # Lower -> Pred
-                    val = lookup_pred.get((c1, c2), np.nan)
-                
+                else:
+                    val = lookup_lower.get((c1, c2), np.nan)
                 plot_data.append({'Cell_X': c2, 'Cell_Y': c1, 'Correlation': val})
-        
+
         df_plot = pd.DataFrame(plot_data)
         df_plot['Cell_X'] = pd.Categorical(df_plot['Cell_X'], categories=cells)
         df_plot['Cell_Y'] = pd.Categorical(df_plot['Cell_Y'], categories=list(reversed(cells)))
@@ -508,9 +543,10 @@ class MultiCellEvaluator:
             + geom_tile(color="white", size=0.5)
             + geom_text(aes(label='Correlation'), format_string='{:.2f}', size=8)
             + scale_fill_distiller(palette="YlGnBu", direction=-1, limits=(0, 1))
-            + labs(title="Obs. correlation (Upper) vs Pred. correlation (Lower)", x="", y="")
+            + labs(title=title, x="", y="")
             + theme_minimal()
-            + theme(axis_text_x=element_text(rotation=45, hjust=1), figure_size=(7, 6), panel_grid=element_blank())
+            + theme(axis_text_x=element_text(rotation=45, hjust=1),
+                    figure_size=(7, 6), panel_grid=element_blank())
         )
         p.save(out_path)
         print(f"Saved: {out_path}")
@@ -603,48 +639,78 @@ class MultiCellEvaluator:
         
         return df_corr
 
-    def plot_te_merged_heatmap(self, out_path="te_merged_heatmap.pdf"):
+    def plot_te_merged_heatmap(self, out_path="te_merged_heatmap.pdf",
+                               tpm_file=None, mapping_file=None):
         """
-        绘制 TE 细胞间相关性的三角热图 (GT 上三角，Pred 下三角)
+        TE-based merged-triangle heatmap.
+        Upper triangle = GT (observed).
+        Lower triangle = Pred (model) by default, or TPM if tpm_file/mapping_file provided.
         """
-        # 确保数据已计算
         if not hasattr(self, 'te_pairwise_data') or self.te_pairwise_data is None:
-            self.compute_te_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".")
-            
+            self.compute_te_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".", log_transform=True)
+
         cells = self.cell_types
+
+        # Build lower-triangle lookup: Pred or TPM
+        if tpm_file is not None and mapping_file is not None:
+            tpm_corr = self._load_tpm_for_heatmap(tpm_file, mapping_file)
+            lookup_lower = {}
+            cells_tpm = list(tpm_corr.columns)
+            for i, c1 in enumerate(cells_tpm):
+                for j, c2 in enumerate(cells_tpm):
+                    if i != j:
+                        lookup_lower[(c1, c2)] = tpm_corr.loc[c1, c2]
+            lower_label = "TPM"
+            title = "TE: Obs. (Upper) vs TPM (Lower)"
+        else:
+            lookup_lower = None  # use self.te_pairwise_data['Pred']
+            title = "TE: Obs. (Upper) vs Pred. (Lower)"
+
         plot_data = []
-        
         for i, c1 in enumerate(cells):
             for j, c2 in enumerate(cells):
                 if i == j:
                     val = 1.0
-                elif i < j: # Upper -> GT
+                elif i < j:
                     val = self.te_pairwise_data.get((c1, c2), {}).get('GT', np.nan)
-                else:       # Lower -> Pred
-                    val = self.te_pairwise_data.get((c1, c2), {}).get('Pred', np.nan)
-                    
+                else:
+                    if lookup_lower is not None:
+                        val = lookup_lower.get((c1, c2), np.nan)
+                    else:
+                        val = self.te_pairwise_data.get((c1, c2), {}).get('Pred', np.nan)
                 plot_data.append({'Cell_X': c2, 'Cell_Y': c1, 'Correlation': val})
-                
+
         df_plot = pd.DataFrame(plot_data)
         df_plot['Cell_X'] = pd.Categorical(df_plot['Cell_X'], categories=cells)
         df_plot['Cell_Y'] = pd.Categorical(df_plot['Cell_Y'], categories=list(reversed(cells)))
 
-        # [贴士] 这里我换了橘红色系 (OrRd) 调色板，以便跟之前 Profile 的蓝绿色区分开
         p = (
             ggplot(df_plot, aes(x='Cell_X', y='Cell_Y', fill='Correlation'))
             + geom_tile(color="white", size=0.5)
             + geom_text(aes(label='Correlation'), format_string='{:.2f}', size=8)
-            + scale_fill_distiller(palette="OrRd", direction=-1, limits=(0, 1)) 
-            + labs(title="Transcript TE Correlation: Obs. (Upper) vs Pred. (Lower)", x="", y="")
+            + scale_fill_distiller(palette="OrRd", direction=-1, limits=(0, 1))
+            + labs(title=title, x="", y="")
             + theme_minimal()
-            + theme(axis_text_x=element_text(rotation=45, hjust=1), figure_size=(7, 6), panel_grid=element_blank())
+            + theme(axis_text_x=element_text(rotation=45, hjust=1),
+                    figure_size=(7, 6), panel_grid=element_blank())
         )
         p.save(out_path)
-        print(f"Saved TE Heatmap: {out_path}")
+        print(f"Saved: {out_path}")
 
-    # ==========================================
-    # 5. 案例研究：Bar Chart (GT) + Line (Pred)
-    # ==========================================
+    def _load_tpm_for_heatmap(self, tpm_file, mapping_file):
+        """Load TPM correlation matrix aligned to evaluator cells/transcripts."""
+        if self.te_pred_pivot is None:
+            self.compute_te_pairwise_matrices(log_transform=True)
+        return load_and_calculate_tpm_correlation(
+            tpm_file=tpm_file,
+            mapping_file=mapping_file,
+            target_cells=self.cell_types,
+            target_transcripts=list(self.grouped_data.keys()),
+            te_pivot=getattr(self, 'te_pred_pivot', None),
+            log_transform=True,
+        )
+
+
     def calculate_regional_specificity(self, out_dir="./results", min_cells=3, min_reads=10):
         os.makedirs(out_dir, exist_ok=True)
         results = []
@@ -1013,3 +1079,6 @@ class MultiCellEvaluator:
         
         out_path = os.path.join(out_dir, f"psite_profile_case_{target_tid}.pdf")
         p.save(out_path, verbose=False) # 关闭单独打印每个图的保存日志，避免刷屏
+    # =========================================================================
+    # Three-panel correlation comparison heatmap: GT | Pred | TPM
+    # =========================================================================
