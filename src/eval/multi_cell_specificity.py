@@ -12,6 +12,12 @@ from plotnine import *
 import warnings
 
 from eval.calculate_te import *
+from eval.multi_cell_te_specificity import (
+    load_and_calculate_tpm_correlation,
+    align_matrices,
+    evaluate_matrices_flat_correlation,
+    evaluate_matrices_ari
+)
 
 # 忽略警告
 warnings.filterwarnings("ignore")
@@ -99,8 +105,8 @@ class MultiCellEvaluator:
                     grouped[tid][cell_type] = {
                         'pred': np.array(pred_array).reshape(-1),
                         'gt': gt_array, # 从 dataset 中来
-                        'cds_start': int(cds_start),
-                        'cds_end': int(cds_end),
+                        'cds_start': int(cds_start) - 1,  # 1-based -> 0-based
+                        'cds_end': int(cds_end) - 1,    # 1-based -> 0-based (Python slice end is exclusive)
                         'depth': float(depth)
                     }
                 except Exception as e:
@@ -282,6 +288,134 @@ class MultiCellEvaluator:
         print(f"Pairwise correlation table saved to {csv_path}")
         return df
 
+    def extract_square_matrices_from_pairwise(self):
+        """
+        Reconstruct full square correlation DataFrames (GT and Pred)
+        from the profile-based self.pairwise_data dictionary.
+        """
+        self._run_global_analysis()
+        cells = self.cell_types
+
+        gt_matrix = pd.DataFrame(1.0, index=cells, columns=cells)
+        pred_matrix = pd.DataFrame(1.0, index=cells, columns=cells)
+
+        for (c1, c2), val_dict in self.pairwise_data.items():
+            if c1 == c2:
+                continue
+            gt_arr = np.array(val_dict['gt'], dtype=np.float32)
+            pred_arr = np.array(val_dict['pred'], dtype=np.float32)
+            gt_val = np.nanmedian(gt_arr) if len(gt_arr) > 0 else np.nan
+            pred_val = np.nanmedian(pred_arr) if len(pred_arr) > 0 else np.nan
+
+            gt_matrix.loc[c1, c2] = gt_val
+            gt_matrix.loc[c2, c1] = gt_val
+            pred_matrix.loc[c1, c2] = pred_val
+            pred_matrix.loc[c2, c1] = pred_val
+
+        print(f"Profile-based square matrices reconstructed: {len(cells)}x{len(cells)}")
+        return pred_matrix, gt_matrix
+
+    def compare_with_tpm(self, tpm_file, mapping_file, out_dir="./results"):
+        """
+        Compare profile-based GT/Pred cell-type correlation matrices with TPM.
+        """
+        self._run_global_analysis()
+        pred_mat, gt_mat = self.extract_square_matrices_from_pairwise()
+        # Also compute TE-based matrices for comparison
+        self.compute_te_pairwise_matrices(out_dir=out_dir, log_transform=True)
+        te_pred_mat, te_gt_mat = self.extract_te_square_matrices()
+
+        target_cells = self.cell_types
+        target_tids = list(self.grouped_data.keys())
+
+        # Profile-based pivots (for gene intersection with TPM)
+        # Build a pseudo-pivot: transcript x cell mean corr (we use TE pivot for gene-level matching)
+        te_pivot = getattr(self, 'te_pred_pivot', None) if hasattr(self, 'te_pred_pivot') else None
+
+        tpm_corr = load_and_calculate_tpm_correlation(
+            tpm_file=tpm_file,
+            mapping_file=mapping_file,
+            target_cells=target_cells,
+            target_transcripts=target_tids,
+            te_pivot=te_pivot,
+            log_transform=True
+        )
+
+        # Align all matrices to common cells
+        common = sorted(list(
+            set(gt_mat.columns) & set(pred_mat.columns) & set(tpm_corr.columns)
+        ))
+        if len(common) < 3:
+            raise ValueError(f"Only {len(common)} common cells—not enough to compare.")
+
+        gt_a = gt_mat.loc[common, common]
+        pr_a = pred_mat.loc[common, common]
+        tp_a = tpm_corr.loc[common, common]
+
+        # Also align TE-based matrices
+        te_pr_a, te_gt_a = align_matrices(te_pred_mat, te_gt_mat)
+        te_pr_a, te_gt_a = te_pr_a.loc[common, common], te_gt_a.loc[common, common]
+
+        sep = "=" * 60
+        print()
+        print(sep)
+        print(f"Aligned on {len(common)} common cells")
+        print(sep)
+
+        # Profile-based
+        r_pr_gt, p_pr_gt = evaluate_matrices_flat_correlation(pr_a, gt_a)
+        r_pr_tpm, p_pr_tpm = evaluate_matrices_flat_correlation(pr_a, tp_a)
+        r_gt_tpm, p_gt_tpm = evaluate_matrices_flat_correlation(gt_a, tp_a)
+        ari_pr_gt = evaluate_matrices_ari(pr_a, gt_a)
+        ari_gt_tpm = evaluate_matrices_ari(gt_a, tp_a)
+
+        print()
+        print("--- Profile-based correlation matrices ---")
+        print(f"Pred vs GT:    spearman R={r_pr_gt:.4f} (p={p_pr_gt:.2e}), ARI={ari_pr_gt:.4f}")
+        print(f"Pred vs TPM:   spearman R={r_pr_tpm:.4f} (p={p_pr_tpm:.2e})")
+        print(f"GT vs TPM:     spearman R={r_gt_tpm:.4f} (p={p_gt_tpm:.2e}), ARI={ari_gt_tpm:.4f}")
+
+        # TE-based
+        r_te_pr_gt, p_te_pr_gt = evaluate_matrices_flat_correlation(te_pr_a, te_gt_a)
+        r_te_pr_tpm, p_te_pr_tpm = evaluate_matrices_flat_correlation(te_pr_a, tp_a)
+        r_te_gt_tpm, p_te_gt_tpm = evaluate_matrices_flat_correlation(te_gt_a, tp_a)
+
+        print()
+        print("--- TE-based correlation matrices ---")
+        print(f"Pred vs GT:    spearman R={r_te_pr_gt:.4f} (p={p_te_pr_gt:.2e})")
+        print(f"Pred vs TPM:   spearman R={r_te_pr_tpm:.4f} (p={p_te_pr_tpm:.2e})")
+        print(f"GT vs TPM:     spearman R={r_te_gt_tpm:.4f} (p={p_te_gt_tpm:.2e})")
+
+        return {
+            "profile": {"pred_vs_gt": r_pr_gt, "pred_vs_tpm": r_pr_tpm, "gt_vs_tpm": r_gt_tpm},
+            "te": {"pred_vs_gt": r_te_pr_gt, "pred_vs_tpm": r_te_pr_tpm, "gt_vs_tpm": r_te_gt_tpm},
+            "n_cells": len(common)
+        }
+
+    def extract_te_square_matrices(self):
+        """
+        Reconstruct full square TE-based correlation DataFrames from self.te_pairwise_data.
+        Mirrors multi_cell_te_specificity.extract_square_matrices_from_evaluator.
+        """
+        if not hasattr(self, 'te_pairwise_data') or self.te_pairwise_data is None:
+            self.compute_te_pairwise_matrices()
+
+        cells = self.cell_types
+        gt_matrix = pd.DataFrame(1.0, index=cells, columns=cells)
+        pred_matrix = pd.DataFrame(1.0, index=cells, columns=cells)
+
+        for (c1, c2), metrics in self.te_pairwise_data.items():
+            if c1 == c2:
+                continue
+            gt_val = metrics.get('GT', np.nan)
+            pred_val = metrics.get('Pred', np.nan)
+            gt_matrix.loc[c1, c2] = gt_val
+            gt_matrix.loc[c2, c1] = gt_val
+            pred_matrix.loc[c1, c2] = pred_val
+            pred_matrix.loc[c2, c1] = pred_val
+
+        return pred_matrix, gt_matrix
+
     # ==========================================
     # 绘图函数保持不变，它们只负责调用上面的接口
     # ==========================================
@@ -414,18 +548,29 @@ class MultiCellEvaluator:
         te_df.to_csv(os.path.join(out_dir, "transcript_TE_values.csv"), index=False)
         
         # 2. 将长表透视为宽表 (Rows: TID, Columns: Cell Types)
-        # [修复 2 防御性编程]：使用 pivot_table 代替 pivot，防止极小概率出现的重复 TID 导致报错
         gt_pivot = te_df.pivot_table(index='TID', columns='Cell', values='GT_TE', aggfunc='mean')
         pred_pivot = te_df.pivot_table(index='TID', columns='Cell', values='Pred_TE', aggfunc='mean')
-        
-        # 3. 对数转换 (防止极高表达的管家基因主导 Pearson 相关性)
+
+        # Align GT and Pred pivots: keep only (tid, cell) pairs present in BOTH
+        common_mask = gt_pivot.notna() & pred_pivot.notna()
+        gt_pivot = gt_pivot.where(common_mask)
+        pred_pivot = pred_pivot.where(common_mask)
+        valid_rows = common_mask.any(axis=1)
+        gt_pivot = gt_pivot.loc[valid_rows]
+        pred_pivot = pred_pivot.loc[valid_rows]
+        print(f"Aligned TE pivot: {gt_pivot.shape[0]} transcripts x {gt_pivot.shape[1]} cells (shared mask)")
+
+        # Store for TPM intersection
+        self.te_pred_pivot = pred_pivot
+
+        # 3. 对数转换 (防止极高表达的管家基因主导 spearman 相关性)
         if log_transform:
             gt_pivot = np.log1p(gt_pivot)
             pred_pivot = np.log1p(pred_pivot)
             
-        # 4. 计算相关性矩阵
-        gt_corr_matrix = gt_pivot.corr()
-        pred_corr_matrix = pred_pivot.corr()
+        # 4. 计算相关性矩阵 (min_periods avoids spurious high corr from too few transcripts)
+        gt_corr_matrix = gt_pivot.corr(method="spearman", min_periods=5)
+        pred_corr_matrix = pred_pivot.corr(method="spearman", min_periods=5)
         
         # 5. 格式化并缓存，用于热图和 CSV
         cells = self.cell_types
