@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
 from plotnine import *
 
+
 # =====================================================================
-# [NEW] 动态寻找评估分数列的辅助函数
+# 辅助函数: 动态寻找评估分数列
 # =====================================================================
 def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
-    """优先使用指定分数，若无则按优先级降级寻找"""
     if target_col and target_col in df.columns:
         return target_col
     for col in ['expr_score', 'translation_score', 'score']:
@@ -21,112 +21,120 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
     raise ValueError(f"No valid score column found! Available columns: {df.columns.tolist()}")
 
 # =====================================================================
-# Module 1: Data Loading and Preprocessing
+# Module 1: Data Loading and Preprocessing (Array Preds + Dict GTs)
 # =====================================================================
 def load_and_filter_data(
-        pred_csv_path: str, 
-        gt_csv_path: str, 
+        pred_csv_paths: List[str],               
+        gt_csv_paths: Dict[str, str],            
         target_transcript_ids: Optional[List[str]] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         target_score_col: Optional[str] = None):
-    """Read, clean, and filter data based on target transcripts and exact length ranges."""
-    print(f"Loading Ground Truth from: {gt_csv_path}")
-    try:
-        gt_df = pd.read_csv(gt_csv_path, sep='\t')
-        if 'Tid' not in gt_df.columns:
-            gt_df = pd.read_csv(gt_csv_path, sep=',')
-    except Exception as e:
-        raise ValueError(f"Error reading GT: {e}")
-        
-    gt_df['Tid_clean'] = gt_df['Tid'].astype(str).apply(
-        lambda x: x.split('.')[0] if x.startswith('ENST') else x
-    )
     
-    gt_df['start_gt'] = gt_df['CDS_Start_0based']
-    gt_df['stop_gt'] = gt_df['CDS_End_0based']
-    gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt']
-    
-    print(f"Loading Predictions from: {pred_csv_path}")
-    pred_df = pd.read_csv(pred_csv_path)
-    
-    # =================================================================
-    # [MODIFIED] 动态决定用于评估的主分数
-    # =================================================================
-    score_col = resolve_score_col(pred_df, target_score_col)
-    print(f"  -> Using '{score_col}' as the primary score for ranking and evaluation.")
-
-    pred_df['Tid_clean'] = pred_df['Tid'].astype(str).apply(
-        lambda x: x.split('.')[0] if x.startswith('ENST') else x
-    )
-    
-    if 'length' not in pred_df.columns:
-        pred_df['length'] = pred_df['stop'] - pred_df['start']
-
-    if target_transcript_ids is not None:
-        print(f"Filtering datasets to {len(target_transcript_ids)} target transcripts...")
-        target_set = set(
-            str(t).split('.')[0] if str(t).startswith('ENST') else str(t) 
-            for t in target_transcript_ids
-        )
-        gt_df = gt_df[gt_df['Tid_clean'].isin(target_set)].copy()
-        pred_df = pred_df[pred_df['Tid_clean'].isin(target_set)].copy()
-        
-    if min_orf_len is not None or max_orf_len is not None:
-        if min_orf_len is not None and max_orf_len is not None and min_orf_len > max_orf_len:
-            raise ValueError(f"Invalid length range: min_orf_len ({min_orf_len}) cannot be greater than max_orf_len ({max_orf_len}).")
+    # 1. Load Ground Truths
+    gt_dfs = []
+    print("--- Loading Ground Truth Data ---")
+    for cell_type, gt_path in gt_csv_paths.items():
+        if not os.path.exists(gt_path):
+            print(f"  [Warning] GT file not found: {gt_path}. Skipping '{cell_type}'.")
+            continue
             
+        try:
+            gt_df = pd.read_csv(gt_path, sep='\t')
+            if 'Tid' not in gt_df.columns:
+                gt_df = pd.read_csv(gt_path, sep=',')
+        except Exception as e:
+            raise ValueError(f"Error reading GT for {cell_type}: {e}")
+            
+        gt_df['Tid_clean'] = gt_df['Tid'].astype(str).apply(lambda x: x.split('.')[0] if x.startswith('ENST') else x)
+        gt_df['start_gt'] = gt_df['CDS_Start_0based']
+        gt_df['stop_gt'] = gt_df['CDS_End_0based']
+        gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt']
+        gt_df['Cell_Type'] = cell_type
+        gt_dfs.append(gt_df)
+        print(f"  -> Loaded '{cell_type}' GT: {len(gt_df)} records.")
+
+    if not gt_dfs: raise ValueError("No valid Ground Truth data loaded!")
+    master_gt_df = pd.concat(gt_dfs, ignore_index=True)
+    valid_cell_types = set(master_gt_df['Cell_Type'].unique())
+
+    # 2. Load Predictions
+    pred_dfs = []
+    print("\n--- Loading Prediction Data ---")
+    for pred_path in pred_csv_paths:
+        if not os.path.exists(pred_path):
+            print(f"  [Warning] Prediction file not found: {pred_path}. Skipping...")
+            continue
+            
+        pred_df = pd.read_csv(pred_path)
+        if 'Cell_Type' not in pred_df.columns:
+            raise ValueError(f"Prediction file {pred_path} is missing the required 'Cell_Type' column!")
+            
+        pred_df['Tid_clean'] = pred_df['Tid'].astype(str).apply(lambda x: x.split('.')[0] if x.startswith('ENST') else x)
+        if 'length' not in pred_df.columns: pred_df['length'] = pred_df['stop'] - pred_df['start']
+        pred_dfs.append(pred_df)
+        print(f"  -> Loaded Pred chunk: {len(pred_df)} records.")
+
+    if not pred_dfs: raise ValueError("No valid Prediction data loaded!")
+    master_pred_df = pd.concat(pred_dfs, ignore_index=True)
+
+    # 3. Align Valid Cell Types
+    initial_pred_len = len(master_pred_df)
+    master_pred_df = master_pred_df[master_pred_df['Cell_Type'].isin(valid_cell_types)]
+    dropped_preds = initial_pred_len - len(master_pred_df)
+    if dropped_preds > 0:
+        print(f"  -> Dropped {dropped_preds} predictions whose Cell_Type lacks Ground Truth data.")
+
+    global_score_col = resolve_score_col(master_pred_df, target_score_col)
+    print(f"  -> Decided primary score column: '{global_score_col}'")
+
+    # 4. Filter by Transcript IDs
+    if target_transcript_ids is not None:
+        print(f"\nFiltering entire dataset to {len(target_transcript_ids)} target transcripts...")
+        target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids)
+        master_gt_df = master_gt_df[master_gt_df['Tid_clean'].isin(target_set)].copy()
+        master_pred_df = master_pred_df[master_pred_df['Tid_clean'].isin(target_set)].copy()
+        
+    # 5. Filter by ORF Length
+    if min_orf_len is not None or max_orf_len is not None:
         lower_bound = min_orf_len if min_orf_len is not None else 0
         upper_bound = max_orf_len if max_orf_len is not None else float('inf')
-        
-        print(f"Filtering ORFs by length range: {lower_bound} <= Length <= {upper_bound} nt...")
-        
-        gt_orig_len = len(gt_df)
-        pred_orig_len = len(pred_df)
-        
-        gt_df = gt_df[(gt_df['length'] >= lower_bound) & (gt_df['length'] <= upper_bound)].copy()
-        pred_df = pred_df[(pred_df['length'] >= lower_bound) & (pred_df['length'] <= upper_bound)].copy()
-        
-        print(f"  -> Ground Truth ORFs retained : {len(gt_df)} / {gt_orig_len}")
-        print(f"  -> Predicted ORFs retained    : {len(pred_df)} / {pred_orig_len}")
+        master_gt_df = master_gt_df[(master_gt_df['length'] >= lower_bound) & (master_gt_df['length'] <= upper_bound)].copy()
+        master_pred_df = master_pred_df[(master_pred_df['length'] >= lower_bound) & (master_pred_df['length'] <= upper_bound)].copy()
 
-    if len(gt_df) == 0:
-        raise ValueError("No Ground Truth data left after filtering! Please check your Transcript IDs or Length conditions.")
+    if len(master_gt_df) == 0: raise ValueError("No Ground Truth data left after filtering!")
 
-    gt_df = gt_df.reset_index(drop=True)
-    gt_df['gt_idx'] = gt_df.index
+    # 6. Indexing
+    master_gt_df = master_gt_df.reset_index(drop=True)
+    master_gt_df['gt_idx'] = master_gt_df.index
+    master_pred_df = master_pred_df.sort_values(global_score_col, ascending=False).reset_index(drop=True)
+    master_pred_df['pred_idx'] = master_pred_df.index
     
-    # =================================================================
-    # [MODIFIED] 使用选定好的 score_col 进行倒序排列
-    # =================================================================
-    pred_df = pred_df.sort_values(score_col, ascending=False).reset_index(drop=True)
-    pred_df['pred_idx'] = pred_df.index
-    
-    # [MODIFIED] 将 score_col 传递出去，供下游使用
-    return pred_df, gt_df, score_col
+    return master_pred_df, master_gt_df, global_score_col
+
 
 # =====================================================================
-# Module 2: NMS Matching and Unified Evaluation Table Construction
+# Module 2: Cell-Aware NMS Matching
 # =====================================================================
 def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_metrics: List[str], overlap_threshold: float) -> pd.DataFrame:
-    print(f"\nMemory-Safe Matching (Frame Consistent & Overlap > {overlap_threshold*100}%)...")
+    print(f"\nCell-Aware Memory-Safe Matching (Frame Consistent & Overlap > {overlap_threshold*100}%)...")
     
     gt_dict = {}
     for row in gt_df.itertuples(index=False):
-        if row.Tid_clean not in gt_dict:
-            gt_dict[row.Tid_clean] = []
-        gt_dict[row.Tid_clean].append((row.gt_idx, row.start_gt, row.stop_gt))
+        key = (row.Cell_Type, row.Tid_clean)
+        if key not in gt_dict: gt_dict[key] = []
+        gt_dict[key].append((row.gt_idx, row.start_gt, row.stop_gt))
         
     pred_to_gt = {} 
     matched_gt_indices = set()
     
     for row in pred_df.itertuples(index=False):
-        tid = row.Tid_clean
-        if tid not in gt_dict: continue
+        key = (row.Cell_Type, row.Tid_clean)
+        if key not in gt_dict: continue
             
         p_start, p_stop, p_idx, p_len = row.start, row.stop, row.pred_idx, row.length
         
-        for g_idx, g_start, g_stop in gt_dict[tid]:
+        for g_idx, g_start, g_stop in gt_dict[key]:
             if g_idx in matched_gt_indices: continue 
             if p_start % 3 != g_start % 3: continue
                 
@@ -149,202 +157,173 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
         is_tp = row.pred_idx in pred_to_gt
         eval_len = gt_lengths[pred_to_gt[row.pred_idx]] if is_tp else row.length
         
-        record = {'y_true': 1 if is_tp else 0, 'length': eval_len}
-        for m in eval_metrics:
-            val = getattr(row, m, 0.0) if hasattr(row, m) else 0.0 
-            record[m] = float(val)
+        record = {'Cell_Type': row.Cell_Type, 'y_true': 1 if is_tp else 0, 'length': eval_len}
+        for m in eval_metrics: record[m] = float(getattr(row, m, 0.0) if hasattr(row, m) else 0.0)
         eval_records.append(record)
         
     for row in gt_df.itertuples(index=False):
         if row.gt_idx not in matched_gt_indices:
-            record = {'y_true': 1, 'length': row.length}
+            record = {'Cell_Type': row.Cell_Type, 'y_true': 1, 'length': row.length}
             for m in eval_metrics: record[m] = -1.0 
             eval_records.append(record)
             
     eval_df = pd.DataFrame(eval_records)
-    
     print("-" * 40)
     print(f"Total Evaluated MS Ground Truth : {len(gt_df)}")
     print(f"Successfully Matched (TP)       : {len(matched_gt_indices)}")
     print(f"Missed Ground Truths (FN)       : {len(gt_df) - len(matched_gt_indices)}")
     print(f"False Positives (FP)            : {len(pred_df) - len(matched_gt_indices)}")
     print("-" * 40)
-    
     return eval_df
 
 # =====================================================================
-# Module 3: Global Evaluation Plotting (保持不变)
+# [MODIFIED] Module 3: Global Evaluation Plotting (Comprehensive Integration)
 # =====================================================================
 def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], display_names: dict, out_dir: str):
-    print("\nCalculating overall metrics and generating global plots...")
-    roc_dfs, pr_dfs, auc_records = [], [], []
-    y_true = eval_df['y_true'].values
-    baseline = np.sum(y_true) / len(y_true)
-
+    print("\nCalculating comprehensive metrics (ROC-AUC, PR-AUC, Best F1) globally and per cell type...")
+    
+    comprehensive_records = []
+    roc_dfs, pr_dfs = [], []
+    
     def subsample_curve(x_array, y_array, max_points=2000):
         if len(x_array) <= max_points: return x_array, y_array
         indices = np.linspace(0, len(x_array) - 1, max_points).astype(int)
         return x_array[indices], y_array[indices]
 
+    # ---------------------------------------------------------
+    # 1. 计算 Overall (所有细胞系汇总) 的性能指标
+    # ---------------------------------------------------------
+    y_true_all = eval_df['y_true'].values
+    baseline_all = np.sum(y_true_all) / len(y_true_all) if len(y_true_all) > 0 else 0
+
     for metric in eval_metrics:
         scores = eval_df[metric].values
         d_name = display_names.get(metric, metric)
         
-        fpr, tpr, _ = roc_curve(y_true, scores)
+        # ROC-AUC
+        fpr, tpr, _ = roc_curve(y_true_all, scores)
         roc_auc = auc(fpr, tpr)
         fpr_plot, tpr_plot = subsample_curve(fpr, tpr)
         roc_dfs.append(pd.DataFrame({'FPR': fpr_plot, 'TPR': tpr_plot, 'Metric': d_name, 'AUC': roc_auc}))
         
-        prec, rec, _ = precision_recall_curve(y_true, scores)
-        pr_auc = average_precision_score(y_true, scores)
+        # PR-AUC & Best F1
+        prec, rec, _ = precision_recall_curve(y_true_all, scores)
+        pr_auc = average_precision_score(y_true_all, scores)
+        
+        # 防止除零警告
+        f1_scores = 2 * (prec * rec) / (prec + rec + 1e-9)
+        best_f1 = np.max(f1_scores) if len(f1_scores) > 0 else 0.0
+        
         rec_plot, prec_plot = subsample_curve(rec, prec)
         pr_dfs.append(pd.DataFrame({'Recall': rec_plot, 'Precision': prec_plot, 'Metric': d_name, 'AUC': pr_auc}))
         
-        auc_records.append({'Feature': d_name, 'ROC-AUC': roc_auc, 'PR-AUC': pr_auc})
+        # 记录到总表
+        comprehensive_records.append({
+            'Cell_Type': 'Overall',
+            'Feature': d_name,
+            'ROC-AUC': roc_auc,
+            'PR-AUC': pr_auc,
+            'Best_F1': best_f1
+        })
 
+    # ---------------------------------------------------------
+    # 2. 计算按 Cell_Type 拆分的性能指标
+    # ---------------------------------------------------------
+    for cell_type, group_df in eval_df.groupby('Cell_Type'):
+        y_c = group_df['y_true'].values
+        # 必须同时存在正负样本才能计算 AUC
+        if sum(y_c) == 0 or sum(y_c) == len(y_c):
+            continue
+            
+        for metric in eval_metrics:
+            scores_c = group_df[metric].values
+            d_name = display_names.get(metric, metric)
+            
+            # ROC-AUC
+            fpr_c, tpr_c, _ = roc_curve(y_c, scores_c)
+            roc_auc_c = auc(fpr_c, tpr_c)
+            
+            # PR-AUC & Best F1
+            prec_c, rec_c, _ = precision_recall_curve(y_c, scores_c)
+            pr_auc_c = average_precision_score(y_c, scores_c)
+            
+            f1_scores_c = 2 * (prec_c * rec_c) / (prec_c + rec_c + 1e-9)
+            best_f1_c = np.max(f1_scores_c) if len(f1_scores_c) > 0 else 0.0
+            
+            # 记录到总表
+            comprehensive_records.append({
+                'Cell_Type': cell_type,
+                'Feature': d_name,
+                'ROC-AUC': roc_auc_c,
+                'PR-AUC': pr_auc_c,
+                'Best_F1': best_f1_c
+            })
+
+    # ---------------------------------------------------------
+    # 3. 保存大满贯 CSV 并绘制图形
+    # ---------------------------------------------------------
+    comprehensive_df = pd.DataFrame(comprehensive_records)
+    comprehensive_df.to_csv(os.path.join(out_dir, "comprehensive_metrics_summary.csv"), index=False)
+    print("  -> Saved unified metrics table to 'comprehensive_metrics_summary.csv'")
+
+    # --- 绘图：整体曲线 ---
     all_roc_df = pd.concat(roc_dfs, ignore_index=True)
     all_pr_df = pd.concat(pr_dfs, ignore_index=True)
-    metrics_df = pd.DataFrame(auc_records)
-
     all_roc_df['Legend'] = all_roc_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
     all_pr_df['Legend'] = all_pr_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
 
-    color_palette = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e"]
+    color_palette = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e", "#e67e22", "#1abc9c", "#7f8c8d"]
     
     p_roc = (
         ggplot(all_roc_df, aes(x='FPR', y='TPR', color='Legend'))
         + geom_line(size=1.2, alpha=0.8) + geom_abline(intercept=0, slope=1, linetype='dashed', color='gray')
         + scale_color_manual(values=color_palette) + theme_bw()
-        + labs(title="Overall ROC Curves", x="False Positive Rate", y="True Positive Rate")
+        + labs(title="Overall ROC Curves (All Cell Types)", x="False Positive Rate", y="True Positive Rate")
         + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
     )
     p_roc.save(os.path.join(out_dir, "Overall_ROC_Curves.pdf"), verbose=False)
 
     p_pr = (
         ggplot(all_pr_df, aes(x='Recall', y='Precision', color='Legend'))
-        + geom_line(size=1.2, alpha=0.8) + geom_hline(yintercept=baseline, linetype='dashed', color='gray')
+        + geom_line(size=1.2, alpha=0.8) + geom_hline(yintercept=baseline_all, linetype='dashed', color='gray')
         + scale_color_manual(values=color_palette) + theme_bw()
-        + labs(title="Overall PR Curves", x="Recall", y="Precision")
+        + labs(title="Overall PR Curves (All Cell Types)", x="Recall", y="Precision")
         + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
     )
     p_pr.save(os.path.join(out_dir, "Overall_PR_Curves.pdf"), verbose=False)
 
-    heatmap_data = metrics_df.set_index('Feature')[['ROC-AUC', 'PR-AUC']].sort_values(by='ROC-AUC', ascending=False)
-    plt.figure(figsize=(6, 5))
+    # --- 绘图：三合一指标热图 (仅展示 Overall) ---
+    overall_df = comprehensive_df[comprehensive_df['Cell_Type'] == 'Overall']
+    heatmap_data = overall_df.set_index('Feature')[['ROC-AUC', 'PR-AUC', 'Best_F1']].sort_values(by='ROC-AUC', ascending=False)
+    
+    plt.figure(figsize=(7, 5))
     sns.heatmap(heatmap_data, annot=True, fmt=".3f", cmap="YlGnBu", linewidths=1, linecolor='white')
-    plt.title("Overall AUC Metrics", pad=15, fontsize=14)
+    plt.title("Overall Metrics (ROC-AUC, PR-AUC, Best F1)", pad=15, fontsize=14)
     plt.ylabel("")
     plt.tight_layout()
-    plt.savefig(os.path.join(out_dir, "Overall_AUC_Heatmap.pdf"), dpi=300)
+    plt.savefig(os.path.join(out_dir, "Overall_Metrics_Heatmap.pdf"), dpi=300)
     plt.close()
-    metrics_df.to_csv(os.path.join(out_dir, "overall_metrics.csv"), index=False)
-
-
-# =====================================================================
-# Module 4: Binned Evaluation Plotting and Stacked Bar Charts
-# =====================================================================
-def evaluate_and_plot_binned(eval_df: pd.DataFrame, eval_metrics: List[str], display_names: dict, out_dir: str, 
-                             # =================================================================
-                             # [NEW] 传入需要进行分类的主分数列
-                             # =================================================================
-                             main_score_col: str):
-    print("\nCalculating Binned AUCs and Raw Classifications across ORF Lengths...")
-    
-    try:
-        q_bins = pd.qcut(eval_df['length'], q=8, duplicates='drop')
-        unique_intervals = sorted(q_bins.cat.categories, key=lambda x: x.left)
-        ordered_bin_labels = [f"[{int(i.left)}, {int(i.right)})" for i in unique_intervals]
-        interval_to_str = {inter: f"[{int(inter.left)}, {int(inter.right)})" for inter in unique_intervals}
-        eval_df['Length_Bin'] = [interval_to_str[inter] for inter in q_bins]
-    except ValueError:
-        print("  -> Insufficient variation in lengths for 8 bins. Skipping binned plotting.")
-        return
-    
-    binned_records, binned_counts = [], []
-    
-    for bin_label in ordered_bin_labels:
-        bin_df = eval_df[eval_df['Length_Bin'] == bin_label]
-        y_true_bin = bin_df['y_true'].values
-        valid_auc = (y_true_bin.sum() > 0) and ((1 - y_true_bin).sum() > 0)
-        
-        for metric in eval_metrics:
-            scores_bin = bin_df[metric].values
-            roc_auc = auc(*roc_curve(y_true_bin, scores_bin)[:2]) if valid_auc else np.nan
-            pr_auc = average_precision_score(y_true_bin, scores_bin) if valid_auc else np.nan
-            binned_records.append({
-                'Length_Bin': bin_label, 'Metric': display_names.get(metric, metric),
-                'ROC-AUC': roc_auc, 'PR-AUC': pr_auc
-            })
-            
-            # =================================================================
-            # [MODIFIED] 使用动态 main_score_col 进行截断
-            # =================================================================
-            if metric == main_score_col:
-                tp = ((y_true_bin == 1) & (scores_bin >= 0)).sum()
-                fn = ((y_true_bin == 1) & (scores_bin < 0)).sum()
-                fp = (y_true_bin == 0).sum()
-                
-                binned_counts.extend([
-                    {'Length_Bin': bin_label, 'Type': 'True Positive (TP)', 'Count': tp},
-                    {'Length_Bin': bin_label, 'Type': 'False Negative (FN)', 'Count': fn},
-                    {'Length_Bin': bin_label, 'Type': 'False Positive (FP)', 'Count': fp}
-                ])
-
-    binned_df = pd.DataFrame(binned_records)
-    binned_df['Length_Bin'] = pd.Categorical(binned_df['Length_Bin'], categories=ordered_bin_labels, ordered=True)
-    counts_df = pd.DataFrame(binned_counts)
-    counts_df['Length_Bin'] = pd.Categorical(counts_df['Length_Bin'], categories=ordered_bin_labels, ordered=True)
-
-    print("Generating Binned Line Plots and Stacked Bar Chart...")
-    color_palette = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e"]
-    
-    if not binned_df['ROC-AUC'].isna().all():
-        p_roc_binned = (ggplot(binned_df.dropna(subset=['ROC-AUC']), aes(x='Length_Bin', y='ROC-AUC', color='Metric', group='Metric'))
-            + geom_point(size=3) + geom_line(size=1.2) + scale_color_manual(values=color_palette) + theme_bw() 
-            + labs(title="ROC-AUC across ORF Lengths", x="ORF Length (nt)", y="ROC-AUC")
-            + theme(axis_text_x=element_text(rotation=30, hjust=1), figure_size=(7, 5), panel_border=element_rect(color="black", size=1), legend_title=element_blank()))
-        p_roc_binned.save(os.path.join(out_dir, "Binned_Length_ROC_AUC.pdf"), verbose=False)
-
-    if not binned_df['PR-AUC'].isna().all():
-        p_pr_binned = (ggplot(binned_df.dropna(subset=['PR-AUC']), aes(x='Length_Bin', y='PR-AUC', color='Metric', group='Metric'))
-            + geom_point(size=3) + geom_line(size=1.2) + scale_color_manual(values=color_palette) + theme_bw() 
-            + labs(title="PR-AUC across ORF Lengths", x="ORF Length (nt)", y="PR-AUC")
-            + theme(axis_text_x=element_text(rotation=30, hjust=1), figure_size=(7, 5), panel_border=element_rect(color="black", size=1), legend_title=element_blank()))
-        p_pr_binned.save(os.path.join(out_dir, "Binned_Length_PR_AUC.pdf"), verbose=False)
-
-    p_counts_bar = (ggplot(counts_df, aes(x='Length_Bin', y='Count', fill='Type'))
-        + geom_bar(stat='identity', position='stack', alpha=0.85)
-        + scale_fill_manual(values={'True Positive (TP)': '#2ecc71', 'False Negative (FN)': '#95a5a6', 'False Positive (FP)': '#e74c3c'})
-        + theme_bw() + labs(title="Raw Prediction Outcomes (NMS Matched) across Lengths", x="ORF Length (nt)", y="Count")
-        + theme(axis_text_x=element_text(rotation=30, hjust=1), figure_size=(7, 5), panel_border=element_rect(color="black", size=1), legend_title=element_blank(), legend_position="bottom"))
-    p_counts_bar.save(os.path.join(out_dir, "Binned_Length_Distribution.pdf"), verbose=False)
 
 
 # =====================================================================
 # Main Orchestrator
 # =====================================================================
 def evaluate_orf_level_predictions(
-        pred_csv_path: str, 
-        gt_csv_path: str, 
+        pred_csv_paths: List[str],               
+        gt_csv_paths: Dict[str, str],            
         target_transcript_ids: Optional[List[str]] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         out_dir: str = "./results/eval",
         overlap_threshold: float = 0.70,
         target_score_col: Optional[str] = None):
-    """
-    Main Orchestrator: Highly decoupled ORF evaluation pipeline.
-    Automatically identifies and plots available metrics, dropping missing ones.
-    """
+    
     os.makedirs(out_dir, exist_ok=True)
     
-    # 1. Filter and Load (解包接收动态确定的 score_col)
+    # 1. Filter and Load
     pred_df, gt_df, score_col = load_and_filter_data(
-        pred_csv_path, gt_csv_path, target_transcript_ids, min_orf_len, max_orf_len, target_score_col)
+        pred_csv_paths, gt_csv_paths, target_transcript_ids, min_orf_len, max_orf_len, target_score_col)
     
-    # =================================================================
-    # [MODIFIED] 将两种新分数纳入全集选项池中
-    # =================================================================
     all_possible_metrics = {
         'expr_score': 'Expression Score (TPM*Signal)',
         'translation_score': 'Pure Translation Score',
@@ -357,58 +336,42 @@ def evaluate_orf_level_predictions(
         'step_up_contrast': 'Step-up Contrast', 
         'drop_off': 'Drop-off'
     }
-    
     eval_metrics = [m for m in all_possible_metrics.keys() if m in pred_df.columns]
     print(f"\nDynamically selected metrics for evaluation: {eval_metrics}")
     
     display_names = {k: all_possible_metrics[k] for k in eval_metrics}
 
-    # 2. Match and build unified evaluation dataframe
+    # 2. Match
     eval_df = match_and_build_eval_df(pred_df, gt_df, eval_metrics, overlap_threshold)
     eval_df.to_csv(os.path.join(out_dir, "unified_evaluation_table.csv"), index=False)
     
-    print("\nCalculating Overall Prediction Summary and Best F1-Score...")
-    
-    # =================================================================
-    # [MODIFIED] 使用动态决定的 score_col 替代原本硬编码的 'score'
-    # =================================================================
+    # 3. Base Threshold Summary (基于主分数)
+    print("\nCalculating Threshold Summary on Primary Score...")
     tp_count = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= 0)).sum()
     fp_count = (eval_df['y_true'] == 0).sum()
-    total_predictions = tp_count + fp_count
-    overall_precision = tp_count / total_predictions if total_predictions > 0 else 0.0
+    total_preds = tp_count + fp_count
+    overall_prec = tp_count / total_preds if total_preds > 0 else 0.0
 
-    y_true_all = eval_df['y_true'].values
-    scores_all = eval_df[score_col].values
-    
-    prec, rec, pr_threshs = precision_recall_curve(y_true_all, scores_all)
-    f1_scores = 2 * (prec * rec) / (prec + rec + 1e-9)
-    
-    opt_idx = np.argmax(f1_scores)
-    opt_thresh_val = pr_threshs[opt_idx] if opt_idx < len(pr_threshs) else pr_threshs[-1]
-    best_f1 = f1_scores[opt_idx]
-    
-    best_tp_count = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= opt_thresh_val) & (eval_df[score_col] >= 0)).sum()
-    best_fp_count = ((eval_df['y_true'] == 0) & (eval_df[score_col] >= opt_thresh_val) & (eval_df[score_col] >= 0)).sum()
+    prec, rec, threshs = precision_recall_curve(eval_df['y_true'].values, eval_df[score_col].values)
+    f1 = 2 * (prec * rec) / (prec + rec + 1e-9)
+    opt_idx = np.argmax(f1)
+    opt_thresh = threshs[opt_idx] if opt_idx < len(threshs) else threshs[-1]
+    best_tp = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= opt_thresh) & (eval_df[score_col] >= 0)).sum()
+    best_fp = ((eval_df['y_true'] == 0) & (eval_df[score_col] >= opt_thresh) & (eval_df[score_col] >= 0)).sum()
 
-    summary_df = pd.DataFrame({
-        'Total_Predictions': [total_predictions],
+    pd.DataFrame({
+        'Total_Predictions': [total_preds],
         'True_Positives_TP': [tp_count],
         'False_Positives_FP': [fp_count],
-        'Overall_Precision': [overall_precision],
-        'Best_F1_Score': [best_f1],
-        'Best_Threshold': [opt_thresh_val],
-        'TP_at_Best_Threshold': [best_tp_count],
-        'FP_at_Best_Threshold': [best_fp_count]
-    })
+        'Overall_Precision': [overall_prec],
+        'Best_F1_Score': [f1[opt_idx]],
+        'Best_Threshold': [opt_thresh],
+        'TP_at_Best_Threshold': [best_tp],
+        'FP_at_Best_Threshold': [best_fp]
+    }).to_csv(os.path.join(out_dir, "primary_score_threshold_summary.csv"), index=False)
     
-    summary_save_path = os.path.join(out_dir, "overall_prediction_summary.csv")
-    summary_df.to_csv(summary_save_path, index=False)
-    print(f"  -> Saved Overall TP ({tp_count}) and Precision ({overall_precision:.4f})")
-    print(f"  -> Found Best F1 ({best_f1:.4f}) at Threshold {opt_thresh_val:.4f} (TP={best_tp_count}, FP={best_fp_count})")
-    
+    # 4. Global Plots & Comprehensive CSV Output
     evaluate_and_plot_global(eval_df, eval_metrics, display_names, out_dir)
-    # [MODIFIED] 传入选定的 score_col
-    evaluate_and_plot_binned(eval_df, eval_metrics, display_names, out_dir, score_col)
     
     print(f"\n✅ All Evaluation processes successfully finished! Output directory: {out_dir}")
 
