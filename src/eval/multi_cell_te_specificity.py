@@ -34,12 +34,13 @@ def extract_gt_and_cds_from_datasets(datasets):
         for i in tqdm(range(len(dataset)), desc=f"Dataset {d_idx + 1}"):
             uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = dataset[i]
             
+            # Use the cell_type directly from dataset, NOT from uuid parsing
+            # (uuid-based parsing may not match the actual metadata cell_type)
             parts = str(uuid).rsplit('-', 2)
             if len(parts) < 2: 
                 continue
-                
             tid = parts[0]
-            cell_type = parts[1]
+            # cell_type already comes from dataset[i]; do not overwrite
             
             if torch.is_tensor(count_emb):
                 gt_array = count_emb.numpy().reshape(-1)
@@ -114,8 +115,8 @@ class MultiCellEvaluator:
                             # [Fix]: Revert log1p transformation for predictions
                             'pred': np.expm1(np.array(pred_array).reshape(-1)),
                             'gt': gt_array, 
-                            'cds_start': int(cds_start) - 1, # 0-based
-                            'cds_end': int(cds_end),
+                            'cds_start': int(cds_start) - 1,  # 1-based -> 0-based
+                            'cds_end': int(cds_end) - 1,  # 1-based -> 0-based (Python slice end is exclusive)
                             'depth': float(depth)
                         }
                     except Exception as e:
@@ -265,13 +266,28 @@ class MultiCellEvaluator:
         gt_pivot = te_df.pivot_table(index='TID', columns='Cell', values='GT_TE', aggfunc='mean')
         pred_pivot = te_df.pivot_table(index='TID', columns='Cell', values='Pred_TE', aggfunc='mean')
         
+        # Align GT and Pred pivots: keep only (tid, cell) pairs present in BOTH
+        common_mask = gt_pivot.notna() & pred_pivot.notna()
+        gt_pivot = gt_pivot.where(common_mask)
+        pred_pivot = pred_pivot.where(common_mask)
+        
+        # Drop rows (transcripts) with no valid cells left after alignment
+        valid_rows = common_mask.any(axis=1)
+        gt_pivot = gt_pivot.loc[valid_rows]
+        pred_pivot = pred_pivot.loc[valid_rows]
+        print(f"Aligned pivot: {gt_pivot.shape[0]} transcripts x {gt_pivot.shape[1]} cells (shared mask)")
+        
         # Log transformation to prevent highly expressed housekeeping genes from dominating spearman correlation
         if log_transform:
             gt_pivot = np.log1p(gt_pivot)
             pred_pivot = np.log1p(pred_pivot)
+        
+        # Store pivots for external use (e.g., intersection with TPM)
+        self.gt_pivot = gt_pivot
+        self.pred_pivot = pred_pivot
             
-        gt_corr_matrix = gt_pivot.corr(method="spearman")
-        pred_corr_matrix = pred_pivot.corr(method="spearman")
+        gt_corr_matrix = gt_pivot.corr(method="spearman", min_periods=5)
+        pred_corr_matrix = pred_pivot.corr(method="spearman", min_periods=5)
         
         cells = self.cell_types
         records = []
@@ -436,7 +452,8 @@ class MultiCellEvaluator:
         print(f"Saved Clustermap to {clustermap_path}")
 
 
-def load_and_calculate_tpm_correlation(tpm_file, mapping_file, target_cells=None, target_transcripts=None, log_transform=False):
+def load_and_calculate_tpm_correlation(tpm_file, mapping_file, target_cells=None, target_transcripts=None,
+                                        te_pivot=None, log_transform=True):
     """
     Load TPM data, optionally filter by target transcripts (mapped to genes), 
     and compute the pairwise spearman correlation matrix between cell types.
@@ -486,6 +503,27 @@ def load_and_calculate_tpm_correlation(tpm_file, mapping_file, target_cells=None
         
         if len(intersecting_genes) < 2:
             raise ValueError("Not enough intersecting genes found between TPM matrix and Transcript evaluation list. Cannot compute correlation.")
+
+    # If te_pivot is provided, further restrict TPM genes to those whose corresponding
+    # transcripts are actually present (non-NaN) in the TE pivot. This ensures the
+    # TPM correlation matrix is computed over the same feature subspace.
+    if te_pivot is not None:
+        # te_pivot index = transcript IDs, columns = cell types
+        te_tids = set(str(t).split('.')[0] for t in te_pivot.index)
+        # Map TE transcripts to genes
+        mapping_df2 = pd.read_csv(mapping_file, sep='	')
+        mapping_df2.columns = mapping_df2.columns.str.strip()
+        tx_col2 = [c for c in mapping_df2.columns if 'Transcript' in c and 'ID' in c][0]
+        gene_col2 = [c for c in mapping_df2.columns if 'Gene' in c and 'ID' in c][0]
+        mapping_df2[tx_col2] = mapping_df2[tx_col2].astype(str).str.split('.').str[0]
+        mapping_df2[gene_col2] = mapping_df2[gene_col2].astype(str).str.split('.').str[0]
+        te_genes = set(mapping_df2[mapping_df2[tx_col2].isin(te_tids)][gene_col2].unique())
+        # Intersect with current TPM genes
+        shared_genes = list(te_genes.intersection(set(tpm_df.index)))
+        if len(shared_genes) < 2:
+            raise ValueError("Not enough shared genes between TE pivot and TPM matrix.")
+        tpm_df = tpm_df.loc[shared_genes]
+        print(f"After TE-pivot intersection: {len(shared_genes)} genes common to TPM, mapping, and TE pivot.")
 
     # Log1p transformation
     if log_transform:
