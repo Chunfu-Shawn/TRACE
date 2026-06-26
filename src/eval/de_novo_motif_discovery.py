@@ -45,12 +45,14 @@ def _extract_sample(dataset, idx):
     se_np = se.cpu().numpy() if torch.is_tensor(se) else np.array(se)
     ce_np = ce.cpu().numpy() if torch.is_tensor(ce) else np.array(ce)
 
-    # Expression vector: keep as-is (could be empty array if cell_type unknown)
+    # Expression vector: keep as-is
+    # dataset may return empty array if cell_type not in cell_expr_dict
     if torch.is_tensor(ev):
         ev_np = ev.cpu().numpy()
-    elif ev is not None and len(np.array(ev).shape) > 0:
-        ev_np = np.array(ev)
     else:
+        ev_np = np.array(ev) if ev is not None else None
+    # Normalize: shape-0 array -> None (will use fallback later)
+    if ev_np is not None and ev_np.ndim == 1 and ev_np.shape[0] == 0:
         ev_np = None
 
     cds_start = int(mi.get('cds_start_pos', -1)) - 1 if isinstance(mi, dict) else -1
@@ -100,17 +102,19 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
         s = _extract_sample(dataset, idx)
         if not s['valid'] or s['L'] > max_len:
             continue
-        if s['ev'] is None or len(s['ev']) == 0:
-            continue
-
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
         ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        # Use model's mean_expr_vector as fallback if ev is missing
+        if s['ev'] is not None and len(s['ev']) > 0:
+            ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        else:
+            ev = None
         L = s['L']
         cds_start = s['cds_start_0']
 
         with torch.no_grad():
             # Resolve expression + species through model's internal pipeline
+            # Pass ev=None to use fallback (mean_expr_vector)
             resolved_expr = raw._resolve_expr_vector(
                 cell_type=s['ct'], expr_vector=ev, batch_size=1
             ).to(device)
@@ -159,7 +163,8 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
                 attn_out = torch.matmul(attn_w, v)
                 attn_out = attn_out.transpose(1, 2).reshape(bs_, Lc, n_heads * head_dim)
                 attn_out = attn_mod.unifyheads(attn_out)
-                attn_out = attn_mod.dropout(attn_out)
+                if hasattr(attn_mod, 'dropout'):
+                    attn_out = attn_mod.dropout(attn_out)
                 src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
 
                 # --- FFN sublayer ---
@@ -208,12 +213,12 @@ def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200,
         s = _extract_sample(dataset, idx)
         if not s['valid'] or s['L'] > max_len:
             continue
-        if s['ev'] is None or len(s['ev']) == 0:
-            continue
-
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
         ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        if s['ev'] is not None and len(s['ev']) > 0:
+            ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        else:
+            ev = None
         L, cds_start, cds_end = s['L'], s['cds_start_0'], s['cds_end_0']
 
         # Use model.predict for clean forward (handles DDP and expression resolution)
@@ -361,12 +366,12 @@ def targeted_mutagenesis(model, dataset, seq_dict, tx_cds,
             continue
 
         s = _extract_sample(dataset, sample_idx)
-        if s['ev'] is None or len(s['ev']) == 0:
-            continue
-
         se_ref = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
         ce_ref = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev_ref = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        if s['ev'] is not None and len(s['ev']) > 0:
+            ev_ref = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
+        else:
+            ev_ref = None
 
         # Baseline TE via model.predict
         with torch.no_grad():
