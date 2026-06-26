@@ -86,8 +86,8 @@ def extract_attention_positional_importance(
     model.eval()
 
     n_layers = len(model.encoder.encoder_layers)
-    n_heads = model.n_heads
-    head_dim = model.encoder.encoder_layers[0].multi_headed_attention.head_dim
+    n_heads = base_model.n_heads
+    head_dim = base_model.encoder.encoder_layers[0].multi_headed_attention.head_dim
 
     # Per-position accumulators
     accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0})
@@ -113,14 +113,23 @@ def extract_attention_positional_importance(
             src_embs = model.src_emb(se, ce)
             src_mask = (se[:, :, 0] != 0).to(device)
 
-            species_idx = torch.zeros(1, dtype=torch.long, device=device)
-            species_emb = model.species_embedding(species_idx)
-            expr_input = torch.cat([ev, species_emb], dim=-1)
-            compact_style = model.expr_projector(expr_input)
+            # Resolve expression vector through model's internal pipeline.
+            # The model may be DDP-wrapped; unwrap to access internal methods.
+            base_model = model.module if hasattr(model, 'module') else model
+            # Use _resolve_expr_vector which handles d_expr and d_species correctly
+            resolved_expr = base_model._resolve_expr_vector(
+                cell_type=None, expr_vector=ev, batch_size=1
+            )
+            species_idx = base_model._normalize_species(
+                species=["human"], batch_size=1
+            )
+            species_emb = base_model.species_embedding(species_idx.to(device))
+            expr_input = torch.cat([resolved_expr.to(device), species_emb], dim=-1)
+            compact_style = base_model.expr_projector(expr_input)
 
             src_reps = src_embs
 
-            for layer_idx, encoder_layer in enumerate(model.encoder.encoder_layers):
+            for layer_idx, encoder_layer in enumerate(base_model.encoder.encoder_layers):
                 sublayer = encoder_layer.sublayers[0]
                 style = sublayer.adaLN_modulation(compact_style)
                 gamma, beta, alpha = style.chunk(3, dim=-1)
@@ -278,17 +287,18 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50):
 
     Returns DataFrame: layer_module, gene, gene_idx, score, score_norm
     """
-    n_layers = len(model.encoder.encoder_layers)
-    d_expr = model.d_expr
+    base_model = model.module if hasattr(model, 'module') else model
+    n_layers = len(base_model.encoder.encoder_layers)
+    d_expr = base_model.d_expr
 
-    W_proj1 = model.expr_projector[1].weight.detach().cpu().numpy()
+    W_proj1 = base_model.expr_projector[1].weight.detach().cpu().numpy()
     W_proj1_expr = np.abs(W_proj1[:, :d_expr])
-    W_proj2 = np.abs(model.expr_projector[3].weight.detach().cpu().numpy())
+    W_proj2 = np.abs(base_model.expr_projector[3].weight.detach().cpu().numpy())
 
     all_attr = []
     for layer_idx in range(n_layers):
         for sub_idx, sub_name in [(0, 'attn'), (1, 'ffn')]:
-            mod = model.encoder.encoder_layers[layer_idx].sublayers[sub_idx].adaLN_modulation[1]
+            mod = base_model.encoder.encoder_layers[layer_idx].sublayers[sub_idx].adaLN_modulation[1]
             W_ada = np.abs(mod.weight.detach().cpu().numpy())
             ada_imp = W_ada.sum(axis=0)
 
