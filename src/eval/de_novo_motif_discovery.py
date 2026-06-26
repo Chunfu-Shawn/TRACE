@@ -221,12 +221,20 @@ def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200,
             ev = None
         L, cds_start, cds_end = s['L'], s['cds_start_0'], s['cds_end_0']
 
-        # Use model.predict for clean forward (handles DDP and expression resolution)
+        # Use raw.forward directly to preserve gradients
+        # (model.predict wraps with torch.no_grad, which kills gradients)
+        raw.eval()
         with torch.enable_grad():
-            out = model.predict(
-                seq_batch=se, count_batch=ce, expr_vector=ev,
-                species=s['species'], head_names=['count'],
-                return_numpy=False,
+            # Resolve expression and species
+            resolved_expr = raw._resolve_expr_vector(
+                cell_type=s['ct'], expr_vector=ev, batch_size=1
+            ).to(device)
+            species_idx = raw._normalize_species(s['species'], 1).to(device)
+
+            out = raw.forward(
+                seq_batch=se, count_batch=ce,
+                expr_vector=resolved_expr, species=species_idx,
+                head_names=['count'],
             )
             pred = out['count']
             if isinstance(pred, dict):
@@ -467,3 +475,202 @@ def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions,
                 if 'N' not in ctx:
                     contexts[rel_pos].append(ctx)
     return dict(contexts)
+
+
+# ============================================================
+# Plotting utilities
+# ============================================================
+def plot_attention_profile(attn_df, out_path, cds_region=(-50, 600),
+                           stop_region=(-600, 50), layer_range=None):
+    """
+    Two-panel scatter plot of attention positional importance:
+      Left:  aligned to CDS start (pos 0)
+      Right: aligned to CDS stop  (pos 0 = last nt of CDS / first nt of 3'UTR)
+
+    CDS region is shaded light grey. Points have alpha=0.4.
+
+    Args:
+        attn_df: from extract_attention_positional_importance
+        out_path: output PDF path
+        cds_region: (start_offset, end_offset) relative to CDS start
+        stop_region: (start_offset, end_offset) relative to CDS stop
+        layer_range: (min_layer, max_layer) to filter; None = all layers
+    """
+    from plotnine import ggplot, aes, geom_point, geom_rect, annotate, labs, theme_bw, theme, element_text, facet_wrap
+
+    df = attn_df.copy()
+    if layer_range is not None:
+        df = df[df['layer'].between(*layer_range)]
+
+    # --- Left panel: aligned to CDS start ---
+    df_start = df[(df['pos_from_cds_start'] >= cds_region[0]) &
+                  (df['pos_from_cds_start'] <= cds_region[1])].copy()
+    df_start['panel'] = 'CDS start region'
+    df_start['x_pos'] = df_start['pos_from_cds_start']
+
+    # CDS shading: CDS starts at pos 0, ends at some average distance
+    # We need the average CDS end from the data—use typical CDS length ~1000
+    cds_shade_start = pd.DataFrame({
+        'xmin': [0], 'xmax': [1000], 'panel': ['CDS start region']
+    })
+
+    # --- Right panel: aligned to CDS stop ---
+    # pos_from_cds_start relative to start. To get relative to stop:
+    # We need cds_end info. Since attn_df only has pos_from_cds_start,
+    # we create a mirror: the stop region view shows positions that are
+    # near the typical CDS end. We approximate: positions where
+    # pos_from_cds_start is in the CDS range map to stop-aligned.
+    # Better: use a separate input or compute from dataset.
+    # For now, we use the same data but shifted: stop_pos = pos - typical_cds_len
+    typical_cds_len = 800  # approximate; adjust based on your data
+    df_stop = df[(df['pos_from_cds_start'] >= stop_region[0] + typical_cds_len) &
+                 (df['pos_from_cds_start'] <= stop_region[1] + typical_cds_len)].copy()
+    if len(df_stop) == 0:
+        # Fallback: just use the tail of the start-aligned data
+        df_stop = df[(df['pos_from_cds_start'] >= -stop_region[1]) &
+                     (df['pos_from_cds_start'] <= -stop_region[0])].copy()
+        df_stop['x_pos'] = -df_stop['pos_from_cds_start']  # flip
+    else:
+        df_stop['x_pos'] = df_stop['pos_from_cds_start'] - typical_cds_len
+    df_stop['panel'] = 'CDS stop region'
+
+    cds_shade_stop = pd.DataFrame({
+        'xmin': [-typical_cds_len], 'xmax': [0], 'panel': ['CDS stop region']
+    })
+
+    df_plot = pd.concat([df_start, df_stop], ignore_index=True)
+    df_plot['panel'] = pd.Categorical(df_plot['panel'],
+                                       categories=['CDS start region', 'CDS stop region'])
+
+    cds_shade = pd.concat([cds_shade_start, cds_shade_stop], ignore_index=True)
+    cds_shade['panel'] = pd.Categorical(cds_shade['panel'],
+                                         categories=['CDS start region', 'CDS stop region'])
+
+    p = (
+        ggplot(df_plot, aes(x='x_pos', y='mean_attn'))
+        + geom_rect(data=cds_shade,
+                    mapping=aes(xmin='xmin', xmax='xmax'),
+                    ymin=-float('inf'), ymax=float('inf'),
+                    fill='#E0E0E0', alpha=0.5, inherit_aes=False)
+        + geom_point(alpha=0.4, size=0.8, color='#2171B5')
+        + facet_wrap('~panel', scales='free_x', nrow=1)
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
+        + labs(x='Position relative to CDS boundary (nt)', y='Mean attention received')
+        + theme_bw()
+        + theme(figure_size=(16, 5))
+    )
+    p.save(out_path)
+    print(f"Attention profile saved to {out_path}")
+
+
+def plot_saliency_profile(sal_df, out_path, cds_region=(-50, 600),
+                           stop_region=(-600, 50)):
+    """
+    Two-panel scatter plot of input saliency, same layout as attention.
+    """
+    from plotnine import ggplot, aes, geom_point, geom_rect, geom_vline, labs, theme_bw, theme, facet_wrap
+    import pandas as pd
+
+    df = sal_df.copy()
+    typical_cds_len = 800
+
+    # Left: CDS start
+    df_start = df[(df['pos_from_cds_start'] >= cds_region[0]) &
+                  (df['pos_from_cds_start'] <= cds_region[1])].copy()
+    df_start['panel'] = 'CDS start region'
+    df_start['x_pos'] = df_start['pos_from_cds_start']
+
+    # Right: CDS stop
+    df_stop = df[(df['pos_from_cds_start'] >= stop_region[0] + typical_cds_len) &
+                 (df['pos_from_cds_start'] <= stop_region[1] + typical_cds_len)].copy()
+    if len(df_stop) == 0:
+        df_stop = df[(df['pos_from_cds_start'] >= -stop_region[1]) &
+                     (df['pos_from_cds_start'] <= -stop_region[0])].copy()
+        df_stop['x_pos'] = -df_stop['pos_from_cds_start']
+    else:
+        df_stop['x_pos'] = df_stop['pos_from_cds_start'] - typical_cds_len
+    df_stop['panel'] = 'CDS stop region'
+
+    df_plot = pd.concat([df_start, df_stop], ignore_index=True)
+    df_plot['panel'] = pd.Categorical(df_plot['panel'],
+                                       categories=['CDS start region', 'CDS stop region'])
+
+    cds_shade = pd.DataFrame({
+        'xmin': [0, -typical_cds_len],
+        'xmax': [typical_cds_len, 0],
+        'panel': ['CDS start region', 'CDS stop region']
+    })
+    cds_shade['panel'] = pd.Categorical(cds_shade['panel'],
+                                         categories=['CDS start region', 'CDS stop region'])
+
+    p = (
+        ggplot(df_plot, aes(x='x_pos', y='mean_saliency'))
+        + geom_rect(data=cds_shade,
+                    mapping=aes(xmin='xmin', xmax='xmax'),
+                    ymin=-float('inf'), ymax=float('inf'),
+                    fill='#E0E0E0', alpha=0.5, inherit_aes=False)
+        + geom_point(alpha=0.4, size=0.8, color='#238B45')
+        + facet_wrap('~panel', scales='free_x', nrow=1)
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
+        + labs(x='Position relative to CDS boundary (nt)', y='Mean |d(TE)/d(base)|')
+        + theme_bw()
+        + theme(figure_size=(16, 5))
+    )
+    p.save(out_path)
+    print(f"Saliency profile saved to {out_path}")
+
+
+def plot_mutagenesis_profile(pos_agg, out_path, cds_region=(-50, 600),
+                              stop_region=(-600, 50)):
+    """
+    Two-panel scatter plot of mutagenesis impact (mean |delta_TE|).
+    """
+    from plotnine import ggplot, aes, geom_point, geom_rect, geom_vline, labs, theme_bw, theme, facet_wrap
+
+    df = pos_agg.copy()
+    typical_cds_len = 800
+
+    # Left: CDS start
+    df_start = df[(df['pos_from_cds_start'] >= cds_region[0]) &
+                  (df['pos_from_cds_start'] <= cds_region[1])].copy()
+    df_start['panel'] = 'CDS start region'
+    df_start['x_pos'] = df_start['pos_from_cds_start']
+
+    # Right: CDS stop
+    df_stop = df[(df['pos_from_cds_start'] >= stop_region[0] + typical_cds_len) &
+                 (df['pos_from_cds_start'] <= stop_region[1] + typical_cds_len)].copy()
+    if len(df_stop) == 0:
+        df_stop = df[(df['pos_from_cds_start'] >= -stop_region[1]) &
+                     (df['pos_from_cds_start'] <= -stop_region[0])].copy()
+        df_stop['x_pos'] = -df_stop['pos_from_cds_start']
+    else:
+        df_stop['x_pos'] = df_stop['pos_from_cds_start'] - typical_cds_len
+    df_stop['panel'] = 'CDS stop region'
+
+    df_plot = pd.concat([df_start, df_stop], ignore_index=True)
+    df_plot['panel'] = pd.Categorical(df_plot['panel'],
+                                       categories=['CDS start region', 'CDS stop region'])
+
+    cds_shade = pd.DataFrame({
+        'xmin': [0, -typical_cds_len],
+        'xmax': [typical_cds_len, 0],
+        'panel': ['CDS start region', 'CDS stop region']
+    })
+    cds_shade['panel'] = pd.Categorical(cds_shade['panel'],
+                                         categories=['CDS start region', 'CDS stop region'])
+
+    p = (
+        ggplot(df_plot, aes(x='x_pos', y='mean_abs_delta'))
+        + geom_rect(data=cds_shade,
+                    mapping=aes(xmin='xmin', xmax='xmax'),
+                    ymin=-float('inf'), ymax=float('inf'),
+                    fill='#E0E0E0', alpha=0.5, inherit_aes=False)
+        + geom_point(alpha=0.4, size=0.8, color='#8C2D04')
+        + facet_wrap('~panel', scales='free_x', nrow=1)
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
+        + labs(x='Position relative to CDS boundary (nt)', y='Mean |Delta TE|')
+        + theme_bw()
+        + theme(figure_size=(16, 5))
+    )
+    p.save(out_path)
+    print(f"Mutagenesis profile saved to {out_path}")
