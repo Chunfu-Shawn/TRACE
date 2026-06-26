@@ -1,8 +1,7 @@
 """
 Jupyter notebook cells for de novo motif discovery.
 
-All position metrics are CDS-start-aligned (pos 0 = start codon).
-Two-panel plots show CDS start (left) and CDS stop (right) regions.
+Two-panel plots: CDS start (left) + CDS stop (right), per-layer LOESS curves.
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -32,14 +31,13 @@ from eval.de_novo_motif_discovery import (
 
 out_dir = "./results/de_novo"; os.makedirs(out_dir, exist_ok=True)
 device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"Device: {device}")
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
 # ║ Cell 2: Load model and data                                  ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
-# model = ...          # trained model (DDP or raw)
+# model = ...          # trained model
 # dataset = ...        # TranslationDataset
 # seq_dict = ...       # {tid: "ACGT..."}
 # tx_cds = ...         # {tid: {cds_start_pos, cds_end_pos, ...}}
@@ -55,25 +53,25 @@ print(f"Dataset: {len(dataset)} samples")
 # ║ Cell 3: Phase 1A — Attention positional importance           ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
-attn_df = extract_attention_positional_importance(
+attn_df_start, attn_df_stop, avg_cds_len = extract_attention_positional_importance(
     model, dataset, n_samples=200, max_len=1200, device=device,
 )
-attn_df.to_csv(os.path.join(out_dir, "attention_positional_importance.csv"), index=False)
+attn_df_start.to_csv(os.path.join(out_dir, "attention_start_aligned.csv"), index=False)
+attn_df_stop.to_csv(os.path.join(out_dir, "attention_stop_aligned.csv"), index=False)
 
-# Two-panel scatter: CDS start (left) + CDS stop (right)
-# --- adjust typical_cds_len in the call below to match your data ---
+# Two-panel: CDS start (left) + CDS stop (right), 12 layers colored
+# Uses real cds_end_pos from dataset metadata for stop alignment
 plot_attention_profile(
-    attn_df,
-    os.path.join(out_dir, "attention_profile_start_stop.pdf"),
-    cds_region=(-100, 800),
-    stop_region=(-800, 100),
+    attn_df_start, attn_df_stop,
+    out_path=os.path.join(out_dir, "attention_profile_start_stop.pdf"),
+    start_region=(-100, 300),
+    stop_region=(-300, 100),
 )
 
 # Top positions near CDS start
-near_start = attn_df[
-    attn_df['pos_from_cds_start'].between(-20, 20)
-].groupby('pos_from_cds_start')['mean_attn'].mean().nlargest(10)
-print("Top attention near CDS start:", dict(near_start))
+near = attn_df_start[attn_df_start['pos_from_cds_start'].between(-15, 15)]
+top = near.groupby('pos_from_cds_start')['mean_attn'].mean().nlargest(10)
+print("Top attention near CDS start:", dict(top))
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -87,13 +85,12 @@ sal_df.to_csv(os.path.join(out_dir, "input_saliency_profile.csv"), index=False)
 
 plot_saliency_profile(
     sal_df,
-    os.path.join(out_dir, "saliency_profile_start_stop.pdf"),
-    cds_region=(-100, 800),
-    stop_region=(-800, 100),
+    avg_cds_len=avg_cds_len,  # from Cell 3
+    out_path=os.path.join(out_dir, "saliency_profile_start_stop.pdf"),
 )
 
-top_sal = sal_df.nlargest(15, 'mean_saliency')
-print("Top saliency positions:", dict(zip(top_sal['pos_from_cds_start'], top_sal['mean_saliency'].round(6))))
+top_sal = sal_df.dropna(subset=['pos_from_cds_start']).nlargest(15, 'mean_saliency')
+print("Top saliency:", dict(zip(top_sal['pos_from_cds_start'], top_sal['mean_saliency'].round(6))))
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -105,11 +102,11 @@ adaLN_df.to_csv(os.path.join(out_dir, "adaLN_gene_attribution.csv"), index=False
 
 from plotnine import *
 top_genes = adaLN_df.groupby('gene')['score'].sum().nlargest(25).index
-plot_df = adaLN_df[adaLN_df['gene'].isin(top_genes)]
 (
-    ggplot(plot_df, aes(x='layer_module', y='gene', fill='score_norm'))
+    ggplot(adaLN_df[adaLN_df['gene'].isin(top_genes)],
+           aes(x='layer_module', y='gene', fill='score_norm'))
     + geom_tile()
-    + scale_fill_gradient(low='white', high='#08519C', name='Norm.')
+    + scale_fill_gradient(low='white', high='#08519C')
     + labs(x='Layer-Module', y='Gene', title='AdaLN gene attribution')
     + theme_bw()
     + theme(axis_text_x=element_text(rotation=45, hjust=1), figure_size=(14, 8))
@@ -120,7 +117,7 @@ print("Top 25 genes:"); [print(f"  {i+1:2d}. {g}: {s:.4f}") for i,(g,s) in enume
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
-# ║ Cell 6: Identify hotspot positions                           ║
+# ║ Cell 6: Identify hotspots                                    ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
 n_layers = len(raw.encoder.encoder_layers)
@@ -130,21 +127,19 @@ hotspot_positions, hotspot_df = identify_hotspot_positions(
 )
 hotspot_df.to_csv(os.path.join(out_dir, "hotspot_positions.csv"), index=False)
 
-# Bar chart with Kozak overlay
 kozak = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 4, 5]
 hotspot_df['is_kozak'] = hotspot_df['pos_from_cds_start'].astype(int).isin(kozak)
 (
     ggplot(hotspot_df, aes(x='pos_from_cds_start', y='combined_score', fill='is_kozak'))
     + geom_col(alpha=0.8)
-    + scale_fill_manual(values={True: '#C44E52', False: '#8C2D04'}, labels={True: 'Kozak', False: 'Novel'})
+    + scale_fill_manual(values={True: '#C44E52', False: '#8C2D04'})
     + geom_vline(xintercept=0, linetype='dashed')
-    + labs(x='Position relative to CDS start', y='Combined Z-score', title='Hotspots', fill='')
+    + labs(x='Position relative to CDS start', y='Combined Z-score', fill='')
     + theme_bw() + theme(figure_size=(14, 4))
 ).save(os.path.join(out_dir, "hotspots_with_kozak.pdf"))
 
 novel = set(hotspot_positions) - set(kozak)
-kozak_hit = set(hotspot_positions) & set(kozak)
-print(f"Kozak recovered: {sorted(kozak_hit)} ({len(kozak_hit)}/{len(kozak)})")
+print(f"Kozak recovered: {sorted(set(hotspot_positions) & set(kozak))}")
 print(f"Novel hotspots:  {sorted(novel)}")
 """
 
@@ -161,10 +156,10 @@ mut_df.to_csv(os.path.join(out_dir, "targeted_mutagenesis.csv"), index=False)
 
 pos_agg, base_agg = aggregate_mutagenesis(mut_df)
 
-# Impact scatter
 plot_mutagenesis_profile(
     pos_agg,
-    os.path.join(out_dir, "mutagenesis_impact_start_stop.pdf"),
+    avg_cds_len=avg_cds_len,
+    out_path=os.path.join(out_dir, "mutagenesis_impact_start_stop.pdf"),
 )
 
 # Base-specific heatmap
@@ -172,7 +167,7 @@ base_agg['sub'] = base_agg['ref_base'] + '\u2192' + base_agg['mut_base']
 (
     ggplot(base_agg, aes(x='pos_from_cds_start', y='sub', fill='mean_delta'))
     + geom_tile()
-    + scale_fill_gradient2(low='#2166AC', mid='white', high='#B2182B', name='Mean \u0394TE')
+    + scale_fill_gradient2(low='#2166AC', mid='white', high='#B2182B')
     + geom_vline(xintercept=0, linetype='dashed')
     + labs(x='Position relative to CDS start', y='Substitution')
     + theme_bw() + theme(figure_size=(14, 6))
@@ -182,7 +177,7 @@ print(pos_agg[['pos_from_cds_start', 'mean_abs_delta', 'n']].head(15))
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
-# ║ Cell 8: Extract contexts for MEME                            ║
+# ║ Cell 8: MEME context extraction                              ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
 top_impact = pos_agg.nlargest(10, 'mean_abs_delta')['pos_from_cds_start'].tolist()
@@ -194,7 +189,7 @@ for rel_pos, ctx_list in contexts.items():
         with open(fasta, 'w') as f:
             for i, ctx in enumerate(ctx_list[:100]):
                 f.write(f">ctx_{i}_pos{rel_pos}\n{ctx}\n")
-        print(f"  pos {rel_pos:4d}: {len(ctx_list[:100])} seqs \u2192 {fasta}")
+        print(f"  pos {rel_pos:4d}: {len(ctx_list[:100])} seqs -> {fasta}")
 
-print("\n\u2192 Upload .fasta files to https://meme-suite.org/meme/tools/meme")
+print("\n-> Upload .fasta to https://meme-suite.org/meme/tools/meme")
 """
