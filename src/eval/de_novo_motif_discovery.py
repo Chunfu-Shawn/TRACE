@@ -335,15 +335,76 @@ def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200,
 # ============================================================
 # Phase 1C: AdaLN gene attribution
 # ============================================================
-def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50):
-    """Pure weight inspection. Zero forward passes."""
+def _load_gene_names(gene_order_path=None, gene_annot_path=None):
+    """
+    Build gene name list aligned with expr_array column order.
+
+    Args:
+        gene_order_path: path to file listing ENSGs in expr_array column order
+                         (default: src/config/global_anchor_gene_order.txt relative to TRACE)
+        gene_annot_path: optional path to ENSG→gene_name mapping TSV
+                         (columns: Gene stable ID, Transcript stable ID, Gene name, ...)
+
+    Returns:
+        list of gene name strings, same length as gene_order file.
+    """
+    import os as _os
+    if gene_order_path is None:
+        gene_order_path = _os.path.join(_os.path.dirname(__file__), '..', '..',
+                                        'src', 'config', 'global_anchor_gene_order.txt')
+    with open(gene_order_path) as f:
+        ensg_list = [line.strip() for line in f if line.strip()]
+
+    # Build ENSG → gene_name map if annotation file provided
+    ensg2name = {}
+    if gene_annot_path is not None:
+        with open(gene_annot_path) as f:
+            header = f.readline().strip().split('\t')
+            # Expected columns: Gene stable ID, Transcript stable ID, Gene name, ...
+            gid_col = header.index('Gene stable ID') if 'Gene stable ID' in header else 0
+            gname_col = header.index('Gene name') if 'Gene name' in header else 2
+            for line in f:
+                cols = line.strip().split('\t')
+                if len(cols) > max(gid_col, gname_col):
+                    ensg2name[cols[gid_col]] = cols[gname_col]
+
+    # Map ENSG → gene_name; fallback to ENSG ID itself
+    gene_names = [ensg2name.get(e, e) for e in ensg_list]
+    print(f"Loaded {len(gene_names)} gene names "
+          f"({sum(1 for g in gene_names if g not in ensg_list)} with gene symbols)")
+    return gene_names
+
+
+def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50,
+                                    gene_annot_path=None):
+    """
+    Pure weight inspection — zero forward passes.
+
+    Traces gene expression influence through the cell-environment projector:
+      expr_array (16840) → Linear → LayerNorm → GELU → Linear → adaptive_dim
+    then into each AdaLN modulation layer, to rank genes by total contribution.
+
+    Args:
+        model: TranslationBaseModel (or DDP-wrapped).
+        gene_names: list of gene names, length = d_expr. If None, auto-loaded
+                    from src/config/global_anchor_gene_order.txt.
+        top_k: number of top genes per layer-module to record.
+        gene_annot_path: path to ENSG→gene_name TSV (e.g. ens_genes_v112.txt).
+                         If provided, gene_names will display gene symbols.
+
+    Returns:
+        DataFrame with columns: layer, layer_module, gene, gene_idx, score, score_norm
+    """
     raw = _unwrap(model)
     n_layers = len(raw.encoder.encoder_layers)
     d_expr = raw.d_expr
 
+    if gene_names is None:
+        gene_names = _load_gene_names(gene_annot_path=gene_annot_path)
+
     W_proj1 = raw.expr_projector[1].weight.detach().cpu().numpy()
     W_proj1_expr = np.abs(W_proj1[:, :d_expr])
-    W_proj2 = np.abs(raw.expr_projector[3].weight.detach().cpu().numpy())
+    W_proj2 = np.abs(raw.expr_projector[4].weight.detach().cpu().numpy())
 
     all_attr = []
     for layer_idx in range(n_layers):
@@ -355,7 +416,7 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50):
 
             top_idx = np.argsort(gene_scores)[::-1][:top_k]
             for gi in top_idx:
-                name = gene_names[gi] if gene_names and gi < len(gene_names) else f"GENE_{gi}"
+                name = gene_names[gi] if gi < len(gene_names) else f"GENE_{gi}"
                 all_attr.append({
                     'layer': layer_idx,
                     'layer_module': f'L{layer_idx}-{sub_name}',
@@ -544,28 +605,37 @@ def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions,
 # ============================================================
 # Plotting utilities — CDS-start and CDS-stop aligned, per-layer color
 # ============================================================
+
+def _cds_rect_data(start_region, stop_region):
+    """Build geom_rect data for CDS shading and START/STOP codon annotation."""
+    rect_cds = pd.DataFrame({
+        'panel': ['CDS start', 'CDS start', 'CDS stop', 'CDS stop'],
+        'xmin': [0, start_region[0], stop_region[0], -6],
+        'xmax': [start_region[1], 0, 0, 0],
+        'ymin': [-float('inf'), -float('inf'), -float('inf'), -float('inf')],
+        'ymax': [float('inf'), float('inf'), float('inf'), float('inf')],
+        'fill': ['#E8E8E8', '#F8F8F8', '#E8E8E8', '#D4B9B9'],
+    })
+    rect_cds['panel'] = pd.Categorical(rect_cds['panel'], categories=['CDS start', 'CDS stop'])
+    return rect_cds
+
+
 def plot_attention_profile(df_start, df_stop, out_path="attention_profile.pdf",
                             start_region=(-100, 300), stop_region=(-300, 100)):
     """
-    Two-panel per-layer attention profile.
+    Per-layer + combined attention profiles.
 
-    Left:  aligned to CDS start (pos 0 = first nt of start codon)
-    Right: aligned to CDS stop  (pos 0 = first nt of stop codon, first nt of 3'UTR)
-
-    Each layer is a different color with LOESS smooth curve.
-    CDS region is shaded light grey.
+    - One figure per layer: facet_wrap CDS-start / CDS-stop.
+    - One combined figure: all positions across layers, grey-blue scatter, no smoothing.
+    CDS region shaded grey; START/STOP codon annotated.
 
     Args:
-        df_start: DataFrame from extract_attention_positional_importance,
-                  column 'pos_from_cds_start'
-        df_stop:  DataFrame from extract_attention_positional_importance,
-                  column 'pos_from_cds_stop'
-        out_path: output PDF path
-        start_region, stop_region: (left, right) nt relative to CDS boundary
+        df_start: from extract_attention_positional_importance, col 'pos_from_cds_start'
+        df_stop:  from extract_attention_positional_importance, col 'pos_from_cds_stop'
+        out_path: output PDF path (inserted before .pdf for layer / combined variants)
     """
-    from plotnine import (ggplot, aes, geom_point, geom_smooth, geom_rect,
-                          geom_vline, labs, theme_bw, theme,
-                          scale_color_manual, facet_wrap)
+    from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
+                          labs, theme_bw, theme, facet_wrap, facet_grid, ylim)
     import matplotlib.cm as cm
     import matplotlib.colors as mcolors
 
@@ -573,17 +643,12 @@ def plot_attention_profile(df_start, df_stop, out_path="attention_profile.pdf",
     cmap = cm.get_cmap('viridis', n_layers)
     layer_colors = {i: mcolors.to_hex(cmap(i)) for i in range(n_layers)}
 
-    # --- Left panel: CDS start ---
-    df_s = df_start[
-        df_start['pos_from_cds_start'].between(*start_region)
-    ].copy()
+    # --- Prepare shared data ---
+    df_s = df_start[df_start['pos_from_cds_start'].between(*start_region)].copy()
     df_s['panel'] = 'CDS start'
     df_s['x_pos'] = df_s['pos_from_cds_start']
 
-    # --- Right panel: CDS stop (real coordinates from cds_end) ---
-    df_e = df_stop[
-        df_stop['pos_from_cds_stop'].between(*stop_region)
-    ].copy()
+    df_e = df_stop[df_stop['pos_from_cds_stop'].between(*stop_region)].copy()
     df_e['panel'] = 'CDS stop'
     df_e['x_pos'] = df_e['pos_from_cds_stop']
 
@@ -591,49 +656,99 @@ def plot_attention_profile(df_start, df_stop, out_path="attention_profile.pdf",
     df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
     df_plot['layer'] = df_plot['layer'].astype(int)
 
-    # CDS shading: for start panel CDS is to the right of zero,
-    # for stop panel CDS is to the left of zero
-    cds_shade = pd.DataFrame({
-        'xmin': [0, stop_region[0]],
-        'xmax': [start_region[1], 0],
-        'panel': ['CDS start', 'CDS stop'],
-    })
-    cds_shade['panel'] = pd.Categorical(cds_shade['panel'], categories=['CDS start', 'CDS stop'])
+    rect_cds = _cds_rect_data(start_region, stop_region)
 
-    p = (
-        ggplot(df_plot, aes(x='x_pos', y='mean_attn', color='factor(layer)', group='layer'))
-        + geom_rect(data=cds_shade,
-                    mapping=aes(xmin='xmin', xmax='xmax'),
-                    ymin=-float('inf'), ymax=float('inf'),
-                    fill='#E8E8E8', alpha=0.4, color=None, inherit_aes=False)
-        + geom_point(alpha=0.3, size=0.6, stroke=0)
-        + geom_smooth(method='loess', span=0.3, se=False, size=0.8)
+    base_out = out_path.replace('.pdf', '')
+
+    # Clip y: use 99th percentile to avoid outlier-driven scale
+    y_cap = df_plot['mean_attn'].quantile(0.99)
+
+    # ============================================================
+    # Combined: all layers pooled, grey-blue scatter, per-panel ylim
+    # ============================================================
+    # For combined, aggregate mean_attn across layers per position+panel
+    df_combined = (df_plot
+        .groupby(['x_pos', 'panel'], as_index=False)
+        .agg(mean_attn=('mean_attn', 'mean')))
+    y_cap_comb = df_combined['mean_attn'].quantile(0.99)
+
+    p_comb = (
+        ggplot(df_combined, aes(x='x_pos', y='mean_attn'))
+        + geom_rect(data=rect_cds,
+                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
+                    alpha=0.3, inherit_aes=False, show_legend=False)
+        + scale_fill_identity()
+        + geom_point(alpha=0.35, size=0.7, color='#6A7B8B', stroke=0)
         + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
-        + scale_color_manual(values=layer_colors, name='Layer')
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
+        + ylim(0, y_cap_comb)
         + labs(x='Position relative to CDS boundary (nt)', y='Mean attention received')
         + theme_bw()
-        + theme(figure_size=(18, 6), legend_position='right')
+        + theme(figure_size=(16, 4))
     )
-    p.save(out_path)
-    print(f"Attention profile saved to {out_path}")
+    p_comb.save(f"{base_out}.combined.pdf")
+    print(f"Combined attention profile saved to {base_out}.combined.pdf")
+
+    # ============================================================
+    # Per-layer faceted: 12 layers in one figure, 2 columns (start/stop)
+    # ============================================================
+    df_plot_clipped = df_plot.copy()
+    df_plot_clipped.loc[df_plot_clipped['mean_attn'] > y_cap, 'mean_attn'] = y_cap
+    df_plot_clipped['Layer'] = pd.Categorical(
+        [f'L{li}' for li in df_plot_clipped['layer']],
+        categories=[f'L{i}' for i in range(n_layers)],
+    )
+
+    # Need separate rect_cds per layer-row for facet_grid to shade correctly
+    n_panels = n_layers * 2  # layers x (start, stop)
+    rect_per_layer = pd.DataFrame({
+        'Layer': pd.Categorical(
+            [f'L{i}' for i in range(n_layers) for _ in range(4)],
+            categories=[f'L{i}' for i in range(n_layers)],
+        ),
+        'panel': pd.Categorical(
+            rect_cds['panel'].tolist() * n_layers,
+            categories=['CDS start', 'CDS stop'],
+        ),
+        'xmin': rect_cds['xmin'].tolist() * n_layers,
+        'xmax': rect_cds['xmax'].tolist() * n_layers,
+        'ymin': rect_cds['ymin'].tolist() * n_layers,
+        'ymax': rect_cds['ymax'].tolist() * n_layers,
+        'fill': rect_cds['fill'].tolist() * n_layers,
+    })
+
+    p_layers = (
+        ggplot(df_plot_clipped, aes(x='x_pos', y='mean_attn'))
+        + geom_rect(data=rect_per_layer,
+                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
+                    alpha=0.3, inherit_aes=False, show_legend=False)
+        + scale_fill_identity()
+        + geom_point(alpha=0.25, size=0.35, color='#6A7B8B', stroke=0)
+        + facet_grid('Layer ~ panel', scales='free_x')
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.4)
+        + ylim(0, y_cap)
+        + labs(x='Position relative to CDS boundary (nt)', y='Mean attention received')
+        + theme_bw()
+        + theme(figure_size=(16, 18), strip_text_y=element_text(size=7))
+    )
+    p_layers.save(f"{base_out}.per_layer.pdf")
+    print(f"Per-layer attention faceted plot saved to {base_out}.per_layer.pdf")
 
 
 def plot_saliency_profile(sal_df, avg_cds_len=800, out_path="saliency_profile.pdf",
                            start_region=(-100, 300), stop_region=(-300, 100)):
     """
     Two-panel saliency scatter with CDS shading.
-    Uses real CDS coordinates from sal_df: cds_start and cds_end per sample.
+    Y-axis in 10⁻³ scale.
 
     Args:
-        sal_df: from compute_saliency_profile, with columns:
-                pos_from_cds_start, pos_from_cds_stop, mean_saliency, ...
-        avg_cds_len: fallback CDS length if cds_end not available per row
+        sal_df: from compute_saliency_profile, columns pos_from_cds_start, pos_from_cds_stop, mean_saliency, ...
+        avg_cds_len: fallback CDS length
         out_path: output PDF
         start_region, stop_region: (left, right) relative to CDS boundary
     """
     from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
-                          labs, theme_bw, theme, facet_wrap)
+                          labs, theme_bw, theme, facet_wrap, ylim)
 
     df = sal_df.copy()
 
@@ -641,7 +756,7 @@ def plot_saliency_profile(sal_df, avg_cds_len=800, out_path="saliency_profile.pd
     df_start['panel'] = 'CDS start'
     df_start['x_pos'] = df_start['pos_from_cds_start']
 
-    if 'pos_from_cds_stop' in df.columns:
+    if 'pos_from_cds_stop' in df.columns and df['pos_from_cds_stop'].notna().any():
         df_stop = df[df['pos_from_cds_stop'].between(*stop_region)].copy()
         df_stop['panel'] = 'CDS stop'
         df_stop['x_pos'] = df_stop['pos_from_cds_stop']
@@ -655,25 +770,26 @@ def plot_saliency_profile(sal_df, avg_cds_len=800, out_path="saliency_profile.pd
     df_plot = pd.concat([df_start, df_stop], ignore_index=True)
     df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
 
-    cds_shade = pd.DataFrame({
-        'xmin': [0, stop_region[0]],
-        'xmax': [start_region[1], 0],
-        'panel': ['CDS start', 'CDS stop'],
-    })
-    cds_shade['panel'] = pd.Categorical(cds_shade['panel'], categories=['CDS start', 'CDS stop'])
+    # Convert to 10^-3 scale
+    df_plot['saliency_1e3'] = df_plot['mean_saliency'] * 1000
+
+    rect_cds = _cds_rect_data(start_region, stop_region)
+    y_cap = df_plot['saliency_1e3'].quantile(0.99)
 
     p = (
-        ggplot(df_plot, aes(x='x_pos', y='mean_saliency'))
-        + geom_rect(data=cds_shade,
-                    mapping=aes(xmin='xmin', xmax='xmax'),
-                    ymin=-float('inf'), ymax=float('inf'),
-                    fill='#E8E8E8', alpha=0.4, color=None, inherit_aes=False)
+        ggplot(df_plot, aes(x='x_pos', y='saliency_1e3'))
+        + geom_rect(data=rect_cds,
+                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
+                    alpha=0.3, inherit_aes=False, show_legend=False)
+        + scale_fill_identity()
         + geom_point(alpha=0.4, size=0.8, color='#238B45', stroke=0)
         + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
-        + labs(x='Position relative to CDS boundary (nt)', y='Mean |d(TE)/d(base)|')
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
+        + ylim(0, y_cap)
+        + labs(x='Position relative to CDS boundary (nt)',
+               y='Mean |d(TE)/d(base)| (×10⁻³)')
         + theme_bw()
-        + theme(figure_size=(18, 5))
+        + theme(figure_size=(16, 4))
     )
     p.save(out_path)
     print(f"Saliency profile saved to {out_path}")
@@ -691,7 +807,7 @@ def plot_mutagenesis_profile(pos_agg, avg_cds_len=800, out_path="mutagenesis_pro
         start_region, stop_region: (left, right) relative to CDS boundary
     """
     from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
-                          labs, theme_bw, theme, facet_wrap)
+                          labs, theme_bw, theme, facet_wrap, ylim)
 
     df = pos_agg.copy()
 
@@ -708,25 +824,22 @@ def plot_mutagenesis_profile(pos_agg, avg_cds_len=800, out_path="mutagenesis_pro
     df_plot = pd.concat([df_start, df_stop], ignore_index=True)
     df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
 
-    cds_shade = pd.DataFrame({
-        'xmin': [0, stop_region[0]],
-        'xmax': [start_region[1], 0],
-        'panel': ['CDS start', 'CDS stop'],
-    })
-    cds_shade['panel'] = pd.Categorical(cds_shade['panel'], categories=['CDS start', 'CDS stop'])
+    rect_cds = _cds_rect_data(start_region, stop_region)
+    y_cap = df_plot['mean_abs_delta'].quantile(0.99)
 
     p = (
         ggplot(df_plot, aes(x='x_pos', y='mean_abs_delta'))
-        + geom_rect(data=cds_shade,
-                    mapping=aes(xmin='xmin', xmax='xmax'),
-                    ymin=-float('inf'), ymax=float('inf'),
-                    fill='#E8E8E8', alpha=0.4, color=None, inherit_aes=False)
+        + geom_rect(data=rect_cds,
+                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
+                    alpha=0.3, inherit_aes=False, show_legend=False)
+        + scale_fill_identity()
         + geom_point(alpha=0.4, size=0.8, color='#8C2D04', stroke=0)
         + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.6)
+        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
+        + ylim(0, y_cap)
         + labs(x='Position relative to CDS boundary (nt)', y='Mean |Delta TE|')
         + theme_bw()
-        + theme(figure_size=(18, 5))
+        + theme(figure_size=(16, 4))
     )
     p.save(out_path)
     print(f"Mutagenesis profile saved to {out_path}")

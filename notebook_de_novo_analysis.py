@@ -59,11 +59,12 @@ attn_df_start, attn_df_stop, avg_cds_len = extract_attention_positional_importan
 attn_df_start.to_csv(os.path.join(out_dir, "attention_start_aligned.csv"), index=False)
 attn_df_stop.to_csv(os.path.join(out_dir, "attention_stop_aligned.csv"), index=False)
 
-# Two-panel: CDS start (left) + CDS stop (right), 12 layers colored
-# Uses real cds_end_pos from dataset metadata for stop alignment
+# Two-panel: CDS start (left) + CDS stop (right)
+# Generates: attention_profile.combined.pdf (all layers pooled, grey-blue)
+#            attention_profile.layer00.pdf ... (one per layer)
 plot_attention_profile(
     attn_df_start, attn_df_stop,
-    out_path=os.path.join(out_dir, "attention_profile_start_stop.pdf"),
+    out_path=os.path.join(out_dir, "attention_profile.pdf"),
     start_region=(-100, 300),
     stop_region=(-300, 100),
 )
@@ -97,7 +98,11 @@ print("Top saliency:", dict(zip(top_sal['pos_from_cds_start'], top_sal['mean_sal
 # ║ Cell 5: Phase 1C — AdaLN gene attribution                    ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
-adaLN_df = compute_adaLN_gene_attribution(model, gene_names=gene_names, top_k=30)
+adaLN_df = compute_adaLN_gene_attribution(
+    model,
+    gene_annot_path="/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v112.txt",
+    top_k=30,
+)
 adaLN_df.to_csv(os.path.join(out_dir, "adaLN_gene_attribution.csv"), index=False)
 
 from plotnine import *
