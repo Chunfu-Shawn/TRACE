@@ -15,58 +15,71 @@ from utils import unwrap_model, clean_up_memory
 def get_active_transcripts(
     tpm_csv_path: str, 
     mapping_csv_path: str, 
-    cell_type: str, 
+    # [MODIFIED] 允许输入单个字符串或字符串列表
+    cell_type: Union[str, List[str]], 
     min_tpm: float = 0.5
-) -> np.ndarray:
+) -> Union[np.ndarray, Dict[str, np.ndarray]]:
     """
     Reads the TPM CSV matrix and a Gene-to-Transcript mapping table.
-    Returns an array of Transcript IDs corresponding to genes that have 
-    a TPM value greater than the specified threshold in the target cell type.
+    - If cell_type is a string, returns an array of active Transcript IDs.
+    - If cell_type is a list, returns a dict of {cell_type: array_of_active_Transcript_IDs}.
     """
+    # =================================================================
+    # [NEW] 1. 输入类型标准化
+    # =================================================================
+    is_single_input = isinstance(cell_type, str)
+    target_cells = [cell_type] if is_single_input else cell_type
+
+    # =================================================================
+    # 2. 集中加载数据 (只需加载一次，极大提升多细胞系处理速度)
+    # =================================================================
     print(f"Loading TPM matrix from: {tpm_csv_path}")
-    
-    # Load TPM data (assuming the first column is the Gene ID, e.g., 'Geneid' or 'Anchor_ID')
     try:
         df = pd.read_csv(tpm_csv_path, index_col=0)
     except Exception as e:
         raise RuntimeError(f"Failed to load TPM CSV. Ensure the path is correct: {e}")
 
-    # Validate that the requested cell type exists in the columns
-    if cell_type not in df.columns:
-        available_cells = ", ".join(df.columns.tolist()[:5]) + "..."
-        raise ValueError(f"Cell type '{cell_type}' not found in the matrix. Available columns include: {available_cells}")
-
-    # 1. Filter genes based on the TPM threshold
-    active_mask = df[cell_type] > min_tpm
-    active_gene_ids = df[active_mask].index.values
-
-    print(f"Found {len(active_gene_ids)} active genes with TPM > {min_tpm} in {cell_type}.")
-
-    # 2. Load the Gene-to-Transcript mapping table
     print(f"Loading mapping table from: {mapping_csv_path}")
     try:
-        # The mapping table provided appears to be tab-separated
         mapping_df = pd.read_csv(mapping_csv_path, sep='\t')
     except Exception as e:
         raise RuntimeError(f"Failed to load Mapping CSV: {e}")
         
-    # Ensure required columns exist in the mapping table
     gene_col = 'Gene stable ID'
     tx_col = 'Transcript stable ID'
     if gene_col not in mapping_df.columns or tx_col not in mapping_df.columns:
         raise ValueError(f"Mapping table must contain '{gene_col}' and '{tx_col}' columns.")
-        
-    # 3. Map active Gene IDs to Transcript IDs
-    # Filter the mapping dataframe to only include rows where the Gene ID is in our active list
-    active_mapping = mapping_df[mapping_df[gene_col].isin(active_gene_ids)]
-    
-    # Extract unique Transcript IDs
-    active_transcript_ids = active_mapping[tx_col].unique()
-    
-    print(f"Mapped to {len(active_transcript_ids)} unique active transcripts.")
-    
-    return active_transcript_ids
 
+    # =================================================================
+    # [MODIFIED] 3. 循环处理各个细胞系
+    # =================================================================
+    results = {}
+    print(f"Extracting active transcripts (TPM > {min_tpm}) for {len(target_cells)} cell types...")
+    
+    for ct in target_cells:
+        if ct not in df.columns:
+            print(f"  [Warning] Cell type '{ct}' not found in TPM matrix. Skipping.")
+            results[ct] = np.array([])
+            continue
+
+        # 过滤活跃基因
+        active_mask = df[ct] > min_tpm
+        active_gene_ids = df[active_mask].index.values
+        
+        # 映射到转录本
+        active_mapping = mapping_df[mapping_df[gene_col].isin(active_gene_ids)]
+        active_transcript_ids = active_mapping[tx_col].unique()
+        
+        results[ct] = active_transcript_ids
+        print(f"  -> {ct}: {len(active_gene_ids)} active genes mapped to {len(active_transcript_ids)} unique transcripts.")
+    
+    # =================================================================
+    # [NEW] 4. 根据输入类型返回对应结构
+    # =================================================================
+    if is_single_input:
+        return results[cell_type]
+    
+    return results
 
 # =================================================================
 # 工具函数: Fasta 解析

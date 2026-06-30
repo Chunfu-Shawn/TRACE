@@ -10,14 +10,26 @@ from plotnine import *
 
 
 # =====================================================================
-# 辅助函数: 动态寻找评估分数列
+# Helper function: Dynamically resolve evaluation score column
 # =====================================================================
 def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
+    """Prioritize target_col if specified, otherwise search by fallback priority."""
     if target_col and target_col in df.columns:
         return target_col
-    for col in ['expr_score', 'translation_score', 'score']:
+    
+    # [MODIFIED] Added 'transcription_score' and 'seq_score' to the fallback pool
+    fallback_candidates = [
+        'expr_score', 
+        'translation_score', 
+        'transcription_score', 
+        'seq_score', 
+        'score'
+    ]
+    
+    for col in fallback_candidates:
         if col in df.columns:
             return col
+            
     raise ValueError(f"No valid score column found! Available columns: {df.columns.tolist()}")
 
 # =====================================================================
@@ -177,7 +189,7 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
     return eval_df
 
 # =====================================================================
-# [MODIFIED] Module 3: Global Evaluation Plotting (Comprehensive Integration)
+# Module 3: Global Evaluation Plotting (Comprehensive Integration)
 # =====================================================================
 def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], display_names: dict, out_dir: str):
     print("\nCalculating comprehensive metrics (ROC-AUC, PR-AUC, Best F1) globally and per cell type...")
@@ -191,7 +203,7 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
         return x_array[indices], y_array[indices]
 
     # ---------------------------------------------------------
-    # 1. 计算 Overall (所有细胞系汇总) 的性能指标
+    # 1. Calculate overall performance metrics across all cell types
     # ---------------------------------------------------------
     y_true_all = eval_df['y_true'].values
     baseline_all = np.sum(y_true_all) / len(y_true_all) if len(y_true_all) > 0 else 0
@@ -210,14 +222,14 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
         prec, rec, _ = precision_recall_curve(y_true_all, scores)
         pr_auc = average_precision_score(y_true_all, scores)
         
-        # 防止除零警告
+        # Prevent division by zero warning
         f1_scores = 2 * (prec * rec) / (prec + rec + 1e-9)
         best_f1 = np.max(f1_scores) if len(f1_scores) > 0 else 0.0
         
         rec_plot, prec_plot = subsample_curve(rec, prec)
         pr_dfs.append(pd.DataFrame({'Recall': rec_plot, 'Precision': prec_plot, 'Metric': d_name, 'AUC': pr_auc}))
         
-        # 记录到总表
+        # Append to comprehensive records
         comprehensive_records.append({
             'Cell_Type': 'Overall',
             'Feature': d_name,
@@ -227,11 +239,11 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
         })
 
     # ---------------------------------------------------------
-    # 2. 计算按 Cell_Type 拆分的性能指标
+    # 2. Calculate performance metrics split by Cell_Type
     # ---------------------------------------------------------
     for cell_type, group_df in eval_df.groupby('Cell_Type'):
         y_c = group_df['y_true'].values
-        # 必须同时存在正负样本才能计算 AUC
+        # Both positive and negative samples must exist to calculate AUC
         if sum(y_c) == 0 or sum(y_c) == len(y_c):
             continue
             
@@ -250,7 +262,7 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
             f1_scores_c = 2 * (prec_c * rec_c) / (prec_c + rec_c + 1e-9)
             best_f1_c = np.max(f1_scores_c) if len(f1_scores_c) > 0 else 0.0
             
-            # 记录到总表
+            # Append to comprehensive records
             comprehensive_records.append({
                 'Cell_Type': cell_type,
                 'Feature': d_name,
@@ -260,13 +272,13 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
             })
 
     # ---------------------------------------------------------
-    # 3. 保存大满贯 CSV 并绘制图形
+    # 3. Save comprehensive CSV and plot figures
     # ---------------------------------------------------------
     comprehensive_df = pd.DataFrame(comprehensive_records)
     comprehensive_df.to_csv(os.path.join(out_dir, "comprehensive_metrics_summary.csv"), index=False)
     print("  -> Saved unified metrics table to 'comprehensive_metrics_summary.csv'")
 
-    # --- 绘图：整体曲线 ---
+    # --- Plot: Overall curves ---
     all_roc_df = pd.concat(roc_dfs, ignore_index=True)
     all_pr_df = pd.concat(pr_dfs, ignore_index=True)
     all_roc_df['Legend'] = all_roc_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
@@ -292,7 +304,7 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     )
     p_pr.save(os.path.join(out_dir, "Overall_PR_Curves.pdf"), verbose=False)
 
-    # --- 绘图：三合一指标热图 (仅展示 Overall) ---
+    # --- Plot: 3-in-1 metric heatmap (Overall only) ---
     overall_df = comprehensive_df[comprehensive_df['Cell_Type'] == 'Overall']
     heatmap_data = overall_df.set_index('Feature')[['ROC-AUC', 'PR-AUC', 'Best_F1']].sort_values(by='ROC-AUC', ascending=False)
     
@@ -345,7 +357,7 @@ def evaluate_orf_level_predictions(
     eval_df = match_and_build_eval_df(pred_df, gt_df, eval_metrics, overlap_threshold)
     eval_df.to_csv(os.path.join(out_dir, "unified_evaluation_table.csv"), index=False)
     
-    # 3. Base Threshold Summary (基于主分数)
+    # 3. Base Threshold Summary (Based on primary score)
     print("\nCalculating Threshold Summary on Primary Score...")
     tp_count = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= 0)).sum()
     fp_count = (eval_df['y_true'] == 0).sum()
@@ -396,7 +408,7 @@ def calculate_top_k_precision(
     gt_df = pd.read_csv(gt_csv_path, sep='\t' if '\t' in open(gt_csv_path).readline() else ',')
     
     # =================================================================
-    # [MODIFIED] 安全清理 Ground Truth ID：仅对 ENST/ENSG 截断版本号
+    # 安全清理 Ground Truth ID：仅对 ENST/ENSG 截断版本号
     # =================================================================
     gt_df['Tid_clean'] = gt_df['Tid'].astype(str).apply(
         lambda x: x.split('.')[0] if (x.startswith('ENST') or x.startswith('ENSG')) and '.' in x else x
@@ -409,7 +421,7 @@ def calculate_top_k_precision(
     pred_df = pd.read_csv(pred_csv_path)
     
     # =================================================================
-    # [MODIFIED] 安全清理 Predictions ID：仅对 ENST/ENSG 截断版本号
+    # 安全清理 Predictions ID：仅对 ENST/ENSG 截断版本号
     # =================================================================
     pred_df['Tid_clean'] = pred_df['Tid'].astype(str).apply(
         lambda x: x.split('.')[0] if (x.startswith('ENST') or x.startswith('ENSG')) and '.' in x else x

@@ -20,7 +20,7 @@ torch.backends.cudnn.benchmark = True
 # load dataset
 dataset_dir = '/public-supool/home/annie/translation_model/dataset/'
 ## human
-human_t_dataset_name = "human_tissue_22c_6k_depth0.1_cov0.1_rpm1"
+human_t_dataset_name = "human_tissue_21c_6k_depth0.1_cov0.1_rpm1"
 human_t_train_dataset_path = os.path.join(dataset_dir, human_t_dataset_name + ".train.h5")
 human_t_val_dataset_path = os.path.join(dataset_dir, human_t_dataset_name + ".valid.h5")
 human_cl_dataset_name = "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1"
@@ -65,7 +65,7 @@ trainer = PretrainingTrainer(
     model = base_model,
     dataset_paths = [human_t_train_dataset_path, human_cl_train_dataset_path, macaque_train_dataset_path, mouse_train_dataset_path],
     val_dataset_paths = [human_t_val_dataset_path, human_cl_val_dataset_path, macaque_val_dataset_path, mouse_val_dataset_path],
-    dataset_name = "hs_22c_18c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1",
+    dataset_name = "hs_21c_18c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1",
     batch_size = 50,
     checkpoint_dir = '/public-supool/home/annie/translation_model/checkpoint/pretrain',
     log_dir = '/public-supool/home/annie/translation_model/log/pretrain',
@@ -80,7 +80,7 @@ trainer = PretrainingTrainer(
     expr_noise_std = 0.15,
     learning_rate = 0.001,
     lr_warmup_perc = 0.3,
-    accumulation_steps = 1,
+    accumulation_steps = 2,
     balance_classes = True,
     beta = (0.9, 0.98),
     epsilon = 1e-9,

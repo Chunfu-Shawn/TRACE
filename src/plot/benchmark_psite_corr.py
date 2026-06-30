@@ -674,6 +674,23 @@ def plot_depth_robustness_line_chart(
     return summary_df
 
 
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.ticker import FuncFormatter
+from scipy.ndimage import gaussian_filter1d  # [NEW] 用于打造极致圆滑的边缘
+
+# Global color configuration for consistent styling
+GLOBAL_MODEL_COLORS = {
+    "TRACE": "#2C6B9A", 
+    "Translatomer": "#555555",
+    "Riboformer (CDS)": "#777777",
+    "RiboMIMO (CDS)": "#BBBBBB",
+    "Cross-batch": "#AF804F",
+    "Cross-experiment": "#EBC67F",
+}
 
 # ==============================================================================
 # Step 2: Visualization Engine (Correlation Rank Plot)
@@ -689,10 +706,8 @@ def plot_sorted_correlation_rank(
 ):
     """
     Plot sorted correlation rank with trendlines.
-    - 6x6 square figure layout.
-    - Uses predefined GLOBAL_MODEL_COLORS.
-    - Formats X-axis ticks as integer thousands (e.g., 1k, 2k).
-    - Forces Y-axis minimum to 0.
+    - Added Downsampling + Gaussian filter for butter-smooth, crash-free PDFs.
+    - Added rasterized=True for scatter to minimize PDF file size.
     """
     if df_ranked.empty:
         print("No data to plot.")
@@ -702,7 +717,7 @@ def plot_sorted_correlation_rank(
     os.makedirs(out_dir, exist_ok=True)
     print("--- [Step 2] Generating Correlation Rank Plot with Fitted Curves ---")
     
-    # 1. Trim extreme ranks to avoid edge artifacts in rolling average
+    # 1. Trim extreme ranks
     max_rank = df_ranked['Rank'].max()
     lower_bound = int(max_rank * trim_ratio)
     upper_bound = int(max_rank * (1 - trim_ratio))
@@ -712,93 +727,102 @@ def plot_sorted_correlation_rank(
     print(f"  -> Trimmed extremes: Kept ranks {lower_bound} to {upper_bound} (Trim ratio: {trim_ratio:.1%})")
     print(f"  -> Total valid transcripts plotted: {total_valid_transcripts}")
 
-    # 2. Extract models present in the data
+    # 2. Extract models
     all_models = df_filtered['Model'].unique().tolist()
     other_models = [m for m in all_models if m != target_model]
-    
-    # Calculate rolling window size dynamically
     window_size = max(10, int((upper_bound - lower_bound) * window_fraction))
     
-    # Initialize 6x6 square figure
     fig, ax = plt.subplots(figsize=(6.5, 5), dpi=300)
     
     # 3. Plot each model iteratively
     for model in all_models:
         m_data = df_filtered[df_filtered['Model'] == model].sort_values('Rank')
-        
-        # Use global color mapping, fallback to light gray if model is not in dict
         m_color = GLOBAL_MODEL_COLORS.get(model, "#CCCCCC")
         
-        # Highlight target model with lower transparency and higher Z-order
         alpha_scatter = 0.15 if model == target_model else 0.05
         z_scatter = 2 if model == target_model else 1
         z_trend = 4 if model == target_model else 3
         
         # -----------------------------------------------------
-        # Scatter Plot (Downsampled for rendering efficiency)
+        # Scatter Plot (Rasterized!)
         # -----------------------------------------------------
         if len(m_data) > max_scatter_points:
             scatter_data = m_data.sample(n=max_scatter_points, random_state=42)
         else:
             scatter_data = m_data
             
+        # [MODIFIED] rasterized=True 是防止 AI 卡死的神器
         ax.scatter(
             scatter_data['Rank'], scatter_data['Correlation'], 
-            color=m_color, s=4, alpha=alpha_scatter, edgecolor="none", zorder=z_scatter
+            color=m_color, s=4, alpha=alpha_scatter, edgecolor="none", 
+            zorder=z_scatter, rasterized=True 
         )
         
         # -----------------------------------------------------
-        # Trendline & Variance Corridor (Calculated on 100% data)
+        # Trendline & Variance Corridor 
         # -----------------------------------------------------
+        # a. 基础计算：全量数据 Rolling
         roll_mean = m_data['Correlation'].rolling(window=window_size, center=True, min_periods=1).mean()
         roll_std = m_data['Correlation'].rolling(window=window_size, center=True, min_periods=1).std().fillna(0)
         
+        # 提取有效数据（剔除首尾可能的 NaN）
+        valid_idx = roll_mean.notna()
+        x_val = m_data['Rank'][valid_idx].values
+        y_mean = roll_mean[valid_idx].values
+        y_std = roll_std[valid_idx].values
+        
+        # [NEW] b. 节点降采样 (Downsampling)：将几万个锚点缩减到仅仅 ~300 个
+        step = max(1, len(x_val) // 300)
+        x_smooth = x_val[::step]
+        y_mean_sub = y_mean[::step]
+        y_std_sub = y_std[::step]
+        
+        # [NEW] c. 高斯平滑 (Gaussian Filter)：消除降采样后的微弱锯齿，打造极致圆滑曲线
+        sigma_val = 1.5  # 值越大越圆滑，1.5~2 是完美平衡点
+        y_mean_smooth = gaussian_filter1d(y_mean_sub, sigma=sigma_val)
+        y_std_smooth = gaussian_filter1d(y_std_sub, sigma=sigma_val)
+        
+        # 绘制趋势线 (使用顺滑后的点)
         ax.plot(
-            m_data['Rank'], roll_mean, 
+            x_smooth, y_mean_smooth, 
             color=m_color, linewidth=2.5, label=model, zorder=z_trend
         )
+        
+        # 绘制阴影区间 (使用顺滑后的点)
         ax.fill_between(
-            m_data['Rank'], roll_mean - roll_std, roll_mean + roll_std, 
-            color=m_color, alpha=0.15, zorder=z_trend - 1
+            x_smooth, 
+            y_mean_smooth - y_std_smooth, 
+            y_mean_smooth + y_std_smooth, 
+            color=m_color, alpha=0.15, zorder=z_trend - 1,
+            edgecolor="none", # [NEW] 移除边缘描边，进一步减少渲染压力
+            linewidth=0
         )
     
-    # Force Y-axis minimum to 0
+    # 4. Aesthetics and Formatting
     ax.set_ylim(bottom=0)  
-    
-    # Labels
     ax.set_xlabel(f"Transcripts ranked by true ribosome load density\n[Total Evaluated $N = {total_valid_transcripts}$]", 
                   fontsize=12, fontweight='bold', labelpad=10)
     ax.set_ylabel("Spearman Correlation ($R$)", fontsize=12, fontweight='bold')
     
-    # -----------------------------------------------------
-    # Custom X-axis tick formatter (Thousands: '1k', '2k')
-    # -----------------------------------------------------
     def thousand_formatter(x, pos):
-        # Calculate relative rank from the start of the plotted area
         val = int(x - lower_bound)
-        if val < 0:
-            return ""
-        if val == 0:
-            return "0"
+        if val < 0: return ""
+        if val == 0: return "0"
         return f"{val // 1000}k"
         
     ax.xaxis.set_major_formatter(FuncFormatter(thousand_formatter))
     
-    # Legend Reordering (Target model on top)
     handles, labels = ax.get_legend_handles_labels()
     ordered_labels = []
     if target_model in labels: ordered_labels.append(target_model)
     ordered_labels.extend([m for m in other_models if m in labels])
-    
     ordered_handles = [handles[labels.index(lbl)] for lbl in ordered_labels]
             
-    # Position legend outside the plot
     ax.legend(
         ordered_handles, ordered_labels, title="Predictive Models", 
         bbox_to_anchor=(1.05, 1), loc='upper left', frameon=False
     )
     
-    # Optimize spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     for spine in ax.spines.values():
@@ -807,10 +831,11 @@ def plot_sorted_correlation_rank(
         
     plt.tight_layout()
     
-    # Save the figure
     file_suffix = f"_{suffix}" if suffix else ""
     save_path = os.path.join(out_dir, f"correlation_density_rank_plot{file_suffix}.pdf")
-    plt.savefig(save_path, bbox_inches='tight', transparent=True)
+    
+    # [MODIFIED] 必须添加 dpi 参数，才能让 rasterized 散点图以高分辨率保存
+    plt.savefig(save_path, bbox_inches='tight', transparent=True, dpi=300)
     plt.close()
     
     print(f"✅ Correlation Plot successfully saved to: {save_path}")

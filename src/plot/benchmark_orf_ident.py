@@ -19,7 +19,7 @@ GLOBAL_MODEL_COLORS = {
     "RiboTIE": "#777777",
     "RibORF": "#BBBBBB",
     "RiboTISH": "#999999",
-    "ORF-structure": "#AF804F",
+    "ORF-length": "#AF804F",
     "Transcription-level": "#EBC67F"
 }
 
@@ -30,7 +30,7 @@ GLOBAL_MODEL_ORDER = [
     "RiboTIE", 
     "RiboTISH", 
     "RibORF",
-    "ORF-structure", 
+    "ORF-length", 
     "Transcription-level"
 ]
 
@@ -310,7 +310,7 @@ def plot_multi_model_top_k_precision(
         + geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
         + scale_color_manual(values=color_mapping)
         + scale_linetype_manual(values=linetype_mapping, guide=None)
-        + scale_y_continuous(limits=(0, 1.05))
+        + scale_y_continuous(limits=(0, 0.5))
         + scale_x_log10() 
         + theme_classic()
         + labs(
@@ -503,3 +503,188 @@ def plot_top_k_precision_bar(
     )
     p.save(os.path.join(out_dir, f"precision_at_{target_k}_bar{suffix}.pdf"), dpi=300, verbose=False)
     return summary_df, plot_df
+
+
+# ==============================================================================
+# 核心绘图函数
+# ==============================================================================
+def plot_multicell_performance(
+        agg_df: pd.DataFrame, 
+        metric_name: str, 
+        target_features: dict,               
+        default_feature: str = "Final Score", 
+        cell_types: list = None, 
+        out_dir: str = "./results/benchmark_plots",
+        w: float = 5.5, # [MODIFIED] Increased width slightly to accommodate the legend on the right
+        h: float = 5
+):
+    """
+    Plot Bar (Mean) + Errorbar (SEM) + Jitter Points for multi-model comparison.
+    - Custom target_features per model.
+    - Differentiates cell types using point shapes.
+    """
+    if agg_df.empty:
+        print(f"No data to plot for {metric_name}.")
+        return
+        
+    os.makedirs(out_dir, exist_ok=True)
+    raw_df = agg_df.copy()
+
+    # 1. Data Cleaning
+    if 'Cell_type' in raw_df.columns:
+        raw_df.rename(columns={'Cell_type': 'Cell_Type'}, inplace=True)
+        
+    raw_df['Cell_Type'] = raw_df['Cell_Type'].replace({'SW480': 'SW480 (Unseen)'})
+    
+    # =========================================================
+    # Custom Feature Extraction
+    # =========================================================
+    filtered_dfs = []
+    
+    for model in raw_df['Model'].unique():
+        model_df = raw_df[raw_df['Model'] == model].copy()
+        available_features = model_df['Feature'].unique().tolist()
+        
+        expected_feature = target_features.get(model, default_feature)
+            
+        # Independent Fallback mechanism
+        if expected_feature not in available_features:
+            if "Final Score" in available_features:
+                actual_feature = "Final Score"
+                print(f"  [Fallback] Model '{model}' missing '{expected_feature}', defaulting to 'Final Score'.")
+            elif len(available_features) > 0:
+                actual_feature = available_features[0]
+                print(f"  [Fallback] Model '{model}' missing '{expected_feature}', defaulting to '{actual_feature}'.")
+            else:
+                continue 
+        else:
+            actual_feature = expected_feature
+            
+        filtered_dfs.append(model_df[model_df['Feature'] == actual_feature])
+        
+    if not filtered_dfs:
+        print(f"  [Warning] No valid features found for any models. Skipping {metric_name} plot.")
+        return
+        
+    raw_df = pd.concat(filtered_dfs, ignore_index=True)
+    raw_df = raw_df[raw_df['Cell_Type'] != 'Overall']
+
+    # 3. Filter Cell Types
+    if cell_types:
+        cell_types = ['SW480 (Unseen)' if ct == 'SW480' else ct for ct in cell_types]
+        raw_df = raw_df[raw_df["Cell_Type"].isin(cell_types)]
+
+    # 4. Categorical Sorting
+    available_models = [m for m in GLOBAL_MODEL_ORDER if m in raw_df['Model'].unique()]
+    raw_df['Model'] = pd.Categorical(raw_df['Model'], categories=available_models, ordered=True)
+    
+    # 5. Calculate Mean and SEM
+    summary_df = raw_df.groupby('Model', observed=True)[metric_name].agg(['mean', 'sem']).reset_index()
+    summary_df['sem'] = summary_df['sem'].fillna(0)
+
+    # =========================================================
+    # 6. Plotnine Layer Assembly
+    # =========================================================
+    
+    # [NEW] Define an explicit shape palette to ensure distinct points for different cell types
+    shape_palette = ['o', '^', 's', 'D', 'v', 'p', '*', 'h']
+    
+    p = (
+        ggplot() 
+        + geom_col(
+            summary_df, 
+            aes(x='Model', y='mean', fill='Model'), 
+            width=0.8
+        )
+        + geom_errorbar(
+            summary_df, 
+            aes(x='Model', ymin='mean - sem', ymax='mean + sem'), 
+            width=0.25, size=0.8, color='black'
+        )
+        # [MODIFIED] Added shape='Cell_Type' to aesthetics
+        + geom_jitter(
+            raw_df, 
+            aes(x='Model', y=metric_name, shape='Cell_Type'), 
+            fill='#202020', color='#202020', 
+            size=3.5, width=0.2, alpha=0.8, stroke=0
+        )
+        + scale_fill_manual(values=GLOBAL_MODEL_COLORS)
+        # [NEW] Apply manual shapes for clarity
+        + scale_shape_manual(values=shape_palette)
+        # [NEW] Hide the fill legend (Model names) but keep the shape legend (Cell types)
+        + guides(fill=None, shape=guide_legend(title="Cell type"))
+        + theme_bw()
+        + labs(
+            x="", 
+            y=metric_name
+        )
+        + theme(
+            axis_text_x=element_text(angle=45, hjust=1, color="black"), 
+            axis_title_x=element_blank(),
+            panel_grid_major_x=element_blank(),
+            legend_position='right',
+            legend_title=element_text(fontweight='bold')
+        )
+    )
+    
+    # 7. Save the figure
+    main_feat = target_features.get("TRACE", "Custom")
+    safe_feature_name = main_feat.replace(" ", "_").replace("*", "_").replace("(", "").replace(")", "")
+    save_path = os.path.join(out_dir, f"Benchmark_{metric_name}_{safe_feature_name}.pdf")
+    
+    p.save(save_path, width=w, height=h, verbose=False)
+    print(f"✅ Saved plot: {save_path}")
+
+
+# ==============================================================================
+# 流水线引擎
+# ==============================================================================
+def run_benchmark_pipeline(
+    model_csv_dict: dict, 
+    target_features: dict = None,                # [MODIFIED] 变更为字典
+    default_feature: str = "Final Score",        # [NEW] 默认特征
+    out_dir: str = "./results/benchmark_plots"
+):
+    """
+    接收多个模型的 CSV 文件路径字典，合并后自动输出评估图。
+    通过 target_features 为特定模型指定特征，未指定的自动回退到 default_feature。
+    """
+    # 默认兜底：如果没有传入字典，自动初始化给 TRACE 设置 Expression Score
+    if target_features is None:
+        target_features = {"TRACE": "Expression Score (TPM*Signal)"}
+        
+    print("--- Assembling Multi-Model Benchmark Dataset ---")
+    df_list = []
+    
+    for model_name, csv_path in model_csv_dict.items():
+        if not os.path.exists(csv_path):
+            print(f"  [Warning] File not found for {model_name}: {csv_path}")
+            continue
+            
+        temp_df = pd.read_csv(csv_path)
+        temp_df['Model'] = model_name
+        df_list.append(temp_df)
+        print(f"  -> Loaded {model_name}: {len(temp_df)} records.")
+        
+    if not df_list:
+        print("No valid data loaded. Aborting.")
+        return
+        
+    agg_df = pd.concat(df_list, ignore_index=True)
+    
+    os.makedirs(out_dir, exist_ok=True)
+    agg_df.to_csv(os.path.join(out_dir, "master_benchmark_table.csv"), index=False)
+    
+    metrics_to_plot = ['ROC-AUC', 'PR-AUC', 'Best_F1']
+    print(f"\n--- Generating Benchmark Plots ---")
+    
+    for metric in metrics_to_plot:
+        plot_multicell_performance(
+            agg_df=agg_df,
+            metric_name=metric,
+            target_features=target_features, # 传入字典
+            default_feature=default_feature, # 传入默认值
+            out_dir=out_dir
+        )
+        
+    print("\n🎉 Pipeline Complete!")

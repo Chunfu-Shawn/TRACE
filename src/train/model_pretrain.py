@@ -565,7 +565,7 @@ class PretrainingTrainer:
 
         has_utr = (~cds_masks & count_emb_masks.bool().to(device)).any(dim=1) 
         
-        w0 = torch.where(has_utr, 1.5, 1.0).to(device) 
+        w0 = torch.where(has_utr, 1.2, 1.0).to(device) 
         w1 = 1.0
         w2 = 1.0
         

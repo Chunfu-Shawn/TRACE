@@ -1,16 +1,10 @@
 """
 De novo motif and positional feature discovery for translation regulation.
 
-All position metrics are CDS-start-aligned (pos 0 = first nt of start codon),
-making them comparable across variable-length sequences.
-
-Strategy:
-  Phase 1 — model-intrinsic (fast):
-    1A. Attention positional importance (single forward per sample)
-    1B. Input saliency (single forward+backward per sample)
-    1C. AdaLN gene attribution (weight inspection, zero cost)
-  Phase 2 — targeted mutagenesis (cost-aware):
-    Only mutate top-K hotspot positions from Phase 1.
+All position metrics are mapped to a Metagene Coordinate System:
+  - 5' UTR: True nucleotide distance from CDS start (< 0)
+  - CDS: Length-proportionally mapped to a fixed length (e.g., 900 nt), strictly preserving reading frame.
+  - 3' UTR: True nucleotide distance from CDS stop (>= fixed_cds_len)
 """
 
 import os, pickle
@@ -21,43 +15,95 @@ import torch.nn as nn
 from collections import defaultdict, Counter
 from tqdm import tqdm
 import warnings
+from eval.calculate_te import *
 warnings.filterwarnings("ignore")
 
+# ============================================================
+# Global Parameter
+# ============================================================
+FIXED_CDS_LEN = 900  # The normalized length for all CDS regions (must be a multiple of 3)
 
 # ============================================================
-# Helper: unwrap DDP model
+# Metagene Mapping Utilities
+# ============================================================
+def _map_to_metagene(pos, cds_start, cds_end, fixed_cds_len=FIXED_CDS_LEN):
+    """
+    Map absolute physical position to a unified metagene coordinate (x_pos),
+    preserving exact nucleotide distance in UTRs, and proportional length in CDS.
+    Strictly preserves the 0/1/2 reading frame periodicity.
+    """
+    rel_start = pos - cds_start
+    rel_stop = pos - cds_end
+
+    if rel_start < 0: # 5' UTR
+        x_pos = rel_start
+    elif rel_stop >= 0: # 3' UTR
+        x_pos = fixed_cds_len + rel_stop
+    else: # CDS Internal proportional sampling
+        cds_len = cds_end - cds_start
+        codon_idx = rel_start // 3
+        frame = rel_start % 3
+        total_codons = cds_len // 3
+        target_codons = fixed_cds_len // 3
+        
+        if total_codons > 0:
+            # Proportional mapping at codon level to preserve frame
+            mapped_codon = int(np.round((codon_idx / total_codons) * target_codons))
+            mapped_codon = min(mapped_codon, target_codons - 1)
+        else:
+            mapped_codon = 0
+            
+        x_pos = mapped_codon * 3 + frame
+
+    return x_pos, rel_start, rel_stop
+
+def _inverse_metagene(x_pos, cds_start, cds_end, fixed_cds_len=FIXED_CDS_LEN):
+    """
+    Inverse map a unified metagene coordinate back to the absolute physical position 
+    for a specific transcript (used for targeted mutagenesis).
+    """
+    cds_len = cds_end - cds_start
+    
+    if x_pos < 0:
+        rel_start = x_pos
+    elif x_pos >= fixed_cds_len:
+        rel_start = cds_len + (x_pos - fixed_cds_len)
+    else:
+        target_codon = x_pos // 3
+        frame = x_pos % 3
+        total_codons = cds_len // 3
+        target_codons = fixed_cds_len // 3
+        
+        if target_codons > 0:
+            codon_idx = int(np.round((target_codon / target_codons) * total_codons))
+            codon_idx = min(codon_idx, total_codons - 1)
+        else:
+            codon_idx = 0
+        rel_start = codon_idx * 3 + frame
+        
+    return cds_start + rel_start
+
+# ============================================================
+# Helper functions
 # ============================================================
 def _unwrap(model):
-    """Unwrap DistributedDataParallel to get the raw model."""
     return model.module if hasattr(model, 'module') else model
 
-
-# ============================================================
-# Helper: extract a CDS-aligned sample from dataset
-# ============================================================
 def _extract_sample(dataset, idx):
-    """
-    Extract sample and compute CDS-aligned metadata.
-    All CDS coordinates 0-based.
-    """
     uuid, species, ct, ev, mi, se, ce = dataset[idx]
 
     se_np = se.cpu().numpy() if torch.is_tensor(se) else np.array(se)
     ce_np = ce.cpu().numpy() if torch.is_tensor(ce) else np.array(ce)
 
-    # Expression vector: keep as-is
-    # dataset may return empty array if cell_type not in cell_expr_dict
     if torch.is_tensor(ev):
         ev_np = ev.cpu().numpy()
     else:
         ev_np = np.array(ev) if ev is not None else None
-    # Normalize: shape-0 array -> None (will use fallback later)
     if ev_np is not None and ev_np.ndim == 1 and ev_np.shape[0] == 0:
         ev_np = None
 
     cds_start = int(mi.get('cds_start_pos', -1)) - 1 if isinstance(mi, dict) else -1
-    cds_end = int(mi.get('cds_end_pos', -1)) - 1 if isinstance(mi, dict) else -1
-
+    cds_end = int(mi.get('cds_end_pos', -1)) if isinstance(mi, dict) else -1
     tid = str(uuid).rsplit('-', 2)[0] if '-' in str(uuid) else str(uuid).split('.')[0]
 
     return {
@@ -67,22 +113,10 @@ def _extract_sample(dataset, idx):
         'valid': cds_start >= 0 and cds_end > cds_start
     }
 
-
 # ============================================================
 # Phase 1A: Attention positional importance
 # ============================================================
-def extract_attention_positional_importance(model, dataset, n_samples=200,
-                                             max_len=1200, device=None):
-    """
-    Forward samples, extract per-layer attention received per position,
-    aggregate aligned to BOTH CDS start and CDS stop.
-
-    Returns:
-        attn_df: DataFrame with columns:
-            layer, pos_from_cds_start, pos_from_cds_stop,
-            mean_attn, std_attn, n_contrib
-        avg_cds_len: float, median CDS length across sampled transcripts
-    """
+def extract_attention_positional_importance(model, dataset, n_samples=200, max_len=1200, device=None):
     raw = _unwrap(model)
     if device is None:
         device = next(raw.parameters()).device
@@ -92,11 +126,10 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
     n_heads = raw.n_heads
     head_dim = raw.encoder.encoder_layers[0].multi_headed_attention.head_dim
 
-    accum_start = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0})
-    accum_stop  = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0})
+    # Now using a unified metagene accumulator
+    accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0, 'rel_start_sum': 0.0, 'rel_stop_sum': 0.0})
     indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
     valid_count = 0
-    cds_lengths = []  # collect real CDS lengths
 
     for idx in tqdm(indices, desc="Attention positional importance"):
         s = _extract_sample(dataset, idx)
@@ -105,28 +138,19 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
 
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
         ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        if s['ev'] is not None and len(s['ev']) > 0:
-            ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
-        else:
-            ev = None
-        L = s['L']
-        cds_start = s['cds_start_0']
-        cds_end = s['cds_end_0']
-        cds_len = cds_end - cds_start
-        cds_lengths.append(cds_len)
+        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
+        
+        cds_start, cds_end = s['cds_start_0'], s['cds_end_0']
 
         with torch.no_grad():
-            resolved_expr = raw._resolve_expr_vector(
-                cell_type=s['ct'], expr_vector=ev, batch_size=1
-            ).to(device)
+            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
             species_idx = raw._normalize_species(s['species'], 1).to(device)
             species_emb = raw.species_embedding(species_idx)
             combined_env = torch.cat([resolved_expr, species_emb], dim=-1)
             compact_style = raw.expr_projector(combined_env)
 
-            src_embs = raw.src_emb(se, ce)
+            src_reps = raw.src_emb(se, ce)
             src_mask = (se[:, :, 0] != 0).to(device)
-            src_reps = src_embs
 
             for layer_idx, enc_layer in enumerate(raw.encoder.encoder_layers):
                 sub = enc_layer.sublayers[0]
@@ -149,22 +173,19 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
                 mask = src_mask[:, :Lc].unsqueeze(1).unsqueeze(2)
                 scores.masked_fill_(~mask, float('-inf'))
                 attn_w = torch.softmax(scores, dim=-1)
-
                 received = attn_w.sum(dim=2).mean(dim=1)[0].cpu().numpy()
 
                 for pos in range(Lc):
-                    rel_start = pos - cds_start
-                    rel_stop = pos - cds_end
+                    # Proportional mapping for unification
+                    x_pos, rel_start, rel_stop = _map_to_metagene(pos, cds_start, cds_end, FIXED_CDS_LEN)
+                    
+                    key = (layer_idx, x_pos)
+                    accum[key]['sum'] += float(received[pos])
+                    accum[key]['sum_sq'] += float(received[pos]) ** 2
+                    accum[key]['n'] += 1
+                    accum[key]['rel_start_sum'] += rel_start
+                    accum[key]['rel_stop_sum'] += rel_stop
 
-                    accum_start[(layer_idx, rel_start)]['sum'] += float(received[pos])
-                    accum_start[(layer_idx, rel_start)]['sum_sq'] += float(received[pos]) ** 2
-                    accum_start[(layer_idx, rel_start)]['n'] += 1
-
-                    accum_stop[(layer_idx, rel_stop)]['sum'] += float(received[pos])
-                    accum_stop[(layer_idx, rel_stop)]['sum_sq'] += float(received[pos]) ** 2
-                    accum_stop[(layer_idx, rel_stop)]['n'] += 1
-
-                # Complete sublayer
                 attn_out = torch.matmul(attn_w, v)
                 attn_out = attn_out.transpose(1, 2).reshape(bs_, Lc, n_heads * head_dim)
                 attn_out = attn_mod.unifyheads(attn_out)
@@ -172,7 +193,6 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
                     attn_out = attn_mod.dropout(attn_out)
                 src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
 
-                # FFN
                 sub2 = enc_layer.sublayers[1]
                 style2 = sub2.adaLN_modulation(compact_style)
                 gamma2, beta2, alpha2 = style2.chunk(3, dim=-1)
@@ -182,82 +202,52 @@ def extract_attention_positional_importance(model, dataset, n_samples=200,
 
         valid_count += 1
 
-    avg_cds_len = float(np.median(cds_lengths)) if cds_lengths else 800.0
-
     records = []
-    for (layer, pos), v in accum_start.items():
+    for (layer, x_pos), v in accum.items():
         if v['n'] >= 5:
             mean = v['sum'] / v['n']
             std = np.sqrt(max(0, v['sum_sq'] / v['n'] - mean ** 2))
             records.append({
                 'layer': layer,
-                'pos_from_cds_start': pos,
+                'x_pos': x_pos,
                 'mean_attn': mean,
                 'std_attn': std,
+                'pos_from_cds_start': v['rel_start_sum'] / v['n'], # Averaged physical relative start
+                'pos_from_cds_stop': v['rel_stop_sum'] / v['n'],   # Averaged physical relative stop
                 'n_contrib': v['n'],
             })
 
-    df_start = pd.DataFrame(records)
+    df = pd.DataFrame(records).sort_values(['layer', 'x_pos'])
+    print(f"Attention aggregated: {len(df)} metagene positions from {valid_count} samples.")
+    return df
 
-    records_stop = []
-    for (layer, pos), v in accum_stop.items():
-        if v['n'] >= 5:
-            mean = v['sum'] / v['n']
-            std = np.sqrt(max(0, v['sum_sq'] / v['n'] - mean ** 2))
-            records_stop.append({
-                'layer': layer,
-                'pos_from_cds_stop': pos,
-                'mean_attn': mean,
-                'std_attn': std,
-                'n_contrib': v['n'],
-            })
-
-    df_stop = pd.DataFrame(records_stop)
-
-    # Merge into a single DataFrame with both alignments
-    # Each row has: layer, pos_from_cds_start, pos_from_cds_stop, mean_attn_start, mean_attn_stop, ...
-    # We use two separate DataFrames for simplicity; plotting functions handle them.
-    print(f"Attention aggregated: {len(df_start)} start-aligned + {len(df_stop)} stop-aligned entries "
-          f"from {valid_count} samples (median CDS={avg_cds_len:.0f} nt)")
-    return df_start, df_stop, avg_cds_len
 # ============================================================
-# Phase 1B: Input saliency
+# Phase 1B: Input saliency (Modified for Whole Profile Shape)
 # ============================================================
-def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200,
-                              device=None):
-    """
-    Compute d(TE)/d(one_hot), aggregated by CDS-start-aligned position.
-    """
+def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200, device=None):
     raw = _unwrap(model)
     if device is None:
         device = next(raw.parameters()).device
     raw.eval()
 
-    accum_start = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0})
-    accum_stop = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0})
+    accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0, 'rel_start_sum': 0.0, 'rel_stop_sum': 0.0})
     indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
     valid_count = 0
 
-    for idx in tqdm(indices, desc="Input saliency"):
+    for idx in tqdm(indices, desc="Input saliency (Whole Profile)"):
         s = _extract_sample(dataset, idx)
         if not s['valid'] or s['L'] > max_len:
             continue
+            
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
         ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        if s['ev'] is not None and len(s['ev']) > 0:
-            ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
-        else:
-            ev = None
+        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
+        
         L, cds_start, cds_end = s['L'], s['cds_start_0'], s['cds_end_0']
 
-        # Use raw.forward directly to preserve gradients
-        # (model.predict wraps with torch.no_grad, which kills gradients)
         raw.eval()
         with torch.enable_grad():
-            # Resolve expression and species
-            resolved_expr = raw._resolve_expr_vector(
-                cell_type=s['ct'], expr_vector=ev, batch_size=1
-            ).to(device)
+            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
             species_idx = raw._normalize_species(s['species'], 1).to(device)
 
             out = raw.forward(
@@ -268,99 +258,88 @@ def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200,
             pred = out['count']
             if isinstance(pred, dict):
                 pred = pred.get('profile', pred)
-            te = pred[0, cds_start:cds_end:3, 0].mean()
+            
+            # [Mod]: 捕捉整体 Profile 的形状和振幅变化，而不仅仅是均值
+            # 求平方和 (L2 Norm squared) 可以确保波峰的正向和负向扰动都不会被抵消
+            #profile_tensor = pred[0, :, 0]
+            #profile_loss = (profile_tensor ** 2).sum()
+            te = pred[0, cds_start:cds_end, 0].mean()
 
         te.backward()
         grad = se.grad[0].detach().cpu().numpy()
         sal = np.abs(grad).sum(axis=-1)
 
         for pos in range(L):
-            rel_start = pos - cds_start
-            rel_stop = pos - cds_end
-            accum_start[rel_start]['sum'] += float(sal[pos])
-            accum_start[rel_start]['sum_sq'] += float(sal[pos]) ** 2
-            accum_start[rel_start]['n'] += 1
-            accum_stop[rel_stop]['sum'] += float(sal[pos])
-            accum_stop[rel_stop]['sum_sq'] += float(sal[pos]) ** 2
-            accum_stop[rel_stop]['n'] += 1
+            x_pos, rel_start, rel_stop = _map_to_metagene(pos, cds_start, cds_end, FIXED_CDS_LEN)
+            accum[x_pos]['sum'] += float(sal[pos])
+            accum[x_pos]['sum_sq'] += float(sal[pos]) ** 2
+            accum[x_pos]['n'] += 1
+            accum[x_pos]['rel_start_sum'] += rel_start
+            accum[x_pos]['rel_stop_sum'] += rel_stop
 
         se.grad = None
         valid_count += 1
 
-    records_start = []
-    for pos, v in accum_start.items():
+    records = []
+    for x_pos, v in accum.items():
         if v['n'] >= 5:
             mean = v['sum'] / v['n']
             std = np.sqrt(max(0, v['sum_sq'] / v['n'] - mean ** 2))
-            records_start.append({
-                'pos_from_cds_start': pos,
-                'pos_from_cds_stop': float('nan'),
-                'mean_saliency': mean, 'std_saliency': std, 'n': v['n'],
+            records.append({
+                'x_pos': x_pos,
+                'mean_saliency': mean, 'std_saliency': std,
+                'pos_from_cds_start': v['rel_start_sum'] / v['n'],
+                'pos_from_cds_stop': v['rel_stop_sum'] / v['n'],
+                'n_contrib': v['n'],
             })
 
-    records_stop = []
-    for pos, v in accum_stop.items():
-        if v['n'] >= 5:
-            mean = v['sum'] / v['n']
-            std = np.sqrt(max(0, v['sum_sq'] / v['n'] - mean ** 2))
-            records_stop.append({
-                'pos_from_cds_start': float('nan'),
-                'pos_from_cds_stop': pos,
-                'mean_saliency': mean, 'std_saliency': std, 'n': v['n'],
-            })
+    df = pd.DataFrame(records).sort_values('x_pos')
+    print(f"Saliency aggregated: {len(df)} metagene positions from {valid_count} samples")
+    return df
 
-    # Merge: each row gets both alignments when available; start-aligned row
-    # carries the mean_saliency, and stop-aligned entries are separate rows
-    # so plot_saliency_profile can read pos_from_cds_stop column directly.
-    # We return a single df with both pos columns; rows with valid pos_from_cds_start
-    # are for start panel, rows with valid pos_from_cds_stop are for stop panel.
-    df_start = pd.DataFrame(records_start).sort_values('pos_from_cds_start')
-    # For stop rows, we also want a pos_from_cds_start column filled with nan
-    # so concat works; already handled above.
-    df_all = df_start.copy()
 
-    if records_stop:
-        df_stop = pd.DataFrame(records_stop).sort_values('pos_from_cds_stop')
-        # For the stop panel, we map pos_from_cds_stop back to pos_from_cds_start
-        # using avg_cds_len (approximation), so identify_hotspot_positions still works
-        # with pos_from_cds_start. But the plotting function prefers pos_from_cds_stop.
-        df_all = pd.concat([df_start, df_stop], ignore_index=True)
+def run_differential_saliency(model, dataset, cell_type_A, cell_type_B, max_len=1200, n_samples=500):
+    # 1. 从数据集中筛出特定细胞系的样本索引
+    indices_A = [i for i, d in enumerate(dataset) if d[2] == cell_type_A]
+    indices_B = [i for i, d in enumerate(dataset) if d[2] == cell_type_B]
+    
+    # 构建临时的小型 Dataset 子集 (方便传给 compute_saliency_profile)
+    from torch.utils.data import Subset
+    subset_A = Subset(dataset, indices_A)
+    subset_B = Subset(dataset, indices_B)
 
-    print(f"Saliency aggregated: {len(df_start)} start-aligned + "
-          f"{len(df_stop) if records_stop else 0} stop-aligned entries "
-          f"from {valid_count} samples")
-    return df_all
-
+    # 2. 分别计算
+    print(f"Running Saliency for {cell_type_A}...")
+    sal_A = compute_saliency_profile(model, subset_A, n_samples=min(n_samples, len(indices_A)), max_len=max_len, device=device)
+    
+    print(f"Running Saliency for {cell_type_B}...")
+    sal_B = compute_saliency_profile(model, subset_B, n_samples=min(n_samples, len(indices_B)), max_len=max_len, device=device)
+    
+    # 3. 计算差分 (Delta Saliency)
+    # 假设我们只关心在 A 中起作用而在 B 中不起作用的位点
+    merged = pd.merge(sal_A[['x_pos', 'mean_saliency']], sal_B[['x_pos', 'mean_saliency']], on='x_pos', suffixes=('_A', '_B'))
+    merged['delta_saliency'] = merged['mean_saliency_A'] - merged['mean_saliency_B']
+    
+    # 取 Delta 最大的前 50 个 Metagene 坐标
+    top_diff_hotspots = merged.nlargest(50, 'delta_saliency')['x_pos'].tolist()
+    print(f"Top Differential Hotspots (Active in {cell_type_A}, Silent in {cell_type_B}): {top_diff_hotspots}")
+    
+    return merged, top_diff_hotspots
 
 # ============================================================
-# Phase 1C: AdaLN gene attribution
+# Phase 1C: AdaLN gene attribution (Unchanged logic, just compacted)
 # ============================================================
-def _load_gene_names(gene_order_path=None, gene_annot_path=None):
-    """
-    Build gene name list aligned with expr_array column order.
-
-    Args:
-        gene_order_path: path to file listing ENSGs in expr_array column order
-                         (default: src/config/global_anchor_gene_order.txt relative to TRACE)
-        gene_annot_path: optional path to ENSG→gene_name mapping TSV
-                         (columns: Gene stable ID, Transcript stable ID, Gene name, ...)
-
-    Returns:
-        list of gene name strings, same length as gene_order file.
-    """
+def _load_gene_names(gene_order_path=None, gene_annot_path="/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v112.txt"):
     import os as _os
     if gene_order_path is None:
-        gene_order_path = _os.path.join(_os.path.dirname(__file__), '..', '..',
-                                        'src', 'config', 'global_anchor_gene_order.txt')
+        gene_order_path = "/home/user/data3/rbase/translation_model/models/src/config/global_anchor_gene_order.txt"
     with open(gene_order_path) as f:
         ensg_list = [line.strip() for line in f if line.strip()]
 
-    # Build ENSG → gene_name map if annotation file provided
     ensg2name = {}
     if gene_annot_path is not None:
         with open(gene_annot_path) as f:
             header = f.readline().strip().split('\t')
-            # Expected columns: Gene stable ID, Transcript stable ID, Gene name, ...
             gid_col = header.index('Gene stable ID') if 'Gene stable ID' in header else 0
             gname_col = header.index('Gene name') if 'Gene name' in header else 2
             for line in f:
@@ -368,39 +347,14 @@ def _load_gene_names(gene_order_path=None, gene_annot_path=None):
                 if len(cols) > max(gid_col, gname_col):
                     ensg2name[cols[gid_col]] = cols[gname_col]
 
-    # Map ENSG → gene_name; fallback to ENSG ID itself
     gene_names = [ensg2name.get(e, e) for e in ensg_list]
-    print(f"Loaded {len(gene_names)} gene names "
-          f"({sum(1 for g in gene_names if g not in ensg_list)} with gene symbols)")
     return gene_names
 
 
-def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50,
-                                    gene_annot_path=None):
-    """
-    Pure weight inspection — zero forward passes.
-
-    Traces gene expression influence through the cell-environment projector:
-      expr_array (16840) → Linear → LayerNorm → GELU → Linear → adaptive_dim
-    then into each AdaLN modulation layer, to rank genes by total contribution.
-
-    Args:
-        model: TranslationBaseModel (or DDP-wrapped).
-        gene_names: list of gene names, length = d_expr. If None, auto-loaded
-                    from src/config/global_anchor_gene_order.txt.
-        top_k: number of top genes per layer-module to record.
-        gene_annot_path: path to ENSG→gene_name TSV (e.g. ens_genes_v112.txt).
-                         If provided, gene_names will display gene symbols.
-
-    Returns:
-        DataFrame with columns: layer, layer_module, gene, gene_idx, score, score_norm
-    """
+def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50, gene_annot_path=None):
     raw = _unwrap(model)
-    n_layers = len(raw.encoder.encoder_layers)
-    d_expr = raw.d_expr
-
-    if gene_names is None:
-        gene_names = _load_gene_names(gene_annot_path=gene_annot_path)
+    n_layers, d_expr = len(raw.encoder.encoder_layers), raw.d_expr
+    gene_names = gene_names or _load_gene_names()
 
     W_proj1 = raw.expr_projector[1].weight.detach().cpu().numpy()
     W_proj1_expr = np.abs(W_proj1[:, :d_expr])
@@ -418,153 +372,96 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50,
             for gi in top_idx:
                 name = gene_names[gi] if gi < len(gene_names) else f"GENE_{gi}"
                 all_attr.append({
-                    'layer': layer_idx,
-                    'layer_module': f'L{layer_idx}-{sub_name}',
-                    'gene': name, 'gene_idx': gi,
-                    'score': float(gene_scores[gi]),
+                    'layer': layer_idx, 'layer_module': f'L{layer_idx}-{sub_name}',
+                    'gene': name, 'gene_idx': gi, 'score': float(gene_scores[gi]),
                 })
 
     df = pd.DataFrame(all_attr)
     df['score_norm'] = df.groupby('layer_module')['score'].transform(lambda x: x / x.max())
-    print(f"Gene attribution: {len(df)} entries, {df['gene'].nunique()} genes")
     return df
 
-
 # ============================================================
-# Hotspot identification from Phase 1
+# Hotspot identification
 # ============================================================
-def identify_hotspot_positions(attn_df, saliency_df, n_hotspots=30,
-                                layer_range=None):
-    """Combine attention + saliency Z-scores to select hotspots."""
+def identify_hotspot_positions(attn_df, saliency_df, n_hotspots=30, layer_range=None):
     if layer_range is None:
-        attn_agg = attn_df.groupby('pos_from_cds_start')['mean_attn'].mean().reset_index()
+        attn_agg = attn_df.groupby('x_pos')['mean_attn'].mean().reset_index()
     else:
         mask = attn_df['layer'].between(*layer_range)
-        attn_agg = attn_df[mask].groupby('pos_from_cds_start')['mean_attn'].mean().reset_index()
+        attn_agg = attn_df[mask].groupby('x_pos')['mean_attn'].mean().reset_index()
 
-    merged = attn_agg.merge(saliency_df, on='pos_from_cds_start', how='outer').fillna(0)
+    merged = attn_agg.merge(saliency_df, on='x_pos', how='outer').fillna(0)
     merged['attn_z'] = (merged['mean_attn'] - merged['mean_attn'].mean()) / (merged['mean_attn'].std() + 1e-8)
     merged['sal_z'] = (merged['mean_saliency'] - merged['mean_saliency'].mean()) / (merged['mean_saliency'].std() + 1e-8)
     merged['combined_score'] = (merged['attn_z'] + merged['sal_z']) / 2
 
     hotspots = merged.nlargest(n_hotspots, 'combined_score')
-    positions = sorted(hotspots['pos_from_cds_start'].astype(int).tolist())
-    print(f"Hotspot positions: {positions}")
+    positions = sorted(hotspots['x_pos'].astype(int).tolist())
+    print(f"Hotspot Metagene positions (x_pos): {positions}")
     return positions, hotspots
 
-
 # ============================================================
-# Phase 2: Targeted mutagenesis at hotspots
+# Phase 2: Targeted mutagenesis
 # ============================================================
-def targeted_mutagenesis(model, dataset, seq_dict, tx_cds,
-                          target_positions, n_transcripts=30,
-                          cell_type=None, device=None):
-    """
-    Only mutate K hotspot positions. Much faster than full sliding window.
-    """
+def targeted_mutagenesis(model, dataset, seq_dict, tx_cds, target_positions, n_transcripts=30, cell_type=None, device=None):
     raw = _unwrap(model)
     if device is None:
         device = next(raw.parameters()).device
     raw.eval()
-
     nt_map = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 
-    valid_tids = [t for t in seq_dict if t in tx_cds
-                  and tx_cds[t].get('cds_start_pos', -1) > 0]
-    if len(valid_tids) > n_transcripts:
-        selected = np.random.choice(valid_tids, n_transcripts, replace=False)
-    else:
-        selected = valid_tids
+    valid_tids = [t for t in seq_dict if t in tx_cds and tx_cds[t].get('cds_start_pos', -1) > 0]
+    selected = np.random.choice(valid_tids, min(len(valid_tids), n_transcripts), replace=False)
 
     results = []
     for tid in tqdm(selected, desc="Targeted mutagenesis"):
-        cds_info = tx_cds[tid]
-        cds_start = cds_info.get('cds_start_pos', -1) - 1
-        cds_end = cds_info.get('cds_end_pos', -1) - 1
-        if cds_start < 0 or cds_end <= cds_start:
-            continue
+        cds_start = tx_cds[tid].get('cds_start_pos', -1) - 1
+        cds_end = tx_cds[tid].get('cds_end_pos', -1)
+        if cds_start < 0 or cds_end <= cds_start: continue
 
         seq = seq_dict[tid].upper()
         L = len(seq)
-
-        # Find matching dataset sample
-        sample_idx = None
-        for i in range(len(dataset)):
-            tid_i = str(dataset[i][0]).rsplit('-', 2)[0]
-            if tid_i == tid:
-                if cell_type is None or dataset[i][2] == cell_type:
-                    sample_idx = i
-                    break
-        if sample_idx is None:
-            continue
+        sample_idx = next((i for i, d in enumerate(dataset) if str(d[0]).rsplit('-', 2)[0] == tid and (cell_type is None or d[2] == cell_type)), None)
+        if sample_idx is None: continue
 
         s = _extract_sample(dataset, sample_idx)
-        se_ref = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
-        ce_ref = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        if s['ev'] is not None and len(s['ev']) > 0:
-            ev_ref = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device)
-        else:
-            ev_ref = None
+        se_ref, ce_ref = torch.from_numpy(s['se']).float().unsqueeze(0).to(device), torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
+        ev_ref = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
 
-        # Baseline TE via model.predict
         with torch.no_grad():
-            out_ref = model.predict(
-                seq_batch=se_ref, count_batch=ce_ref, expr_vector=ev_ref,
-                species=s['species'], head_names=['count'], return_numpy=False,
-            )
-            pred_ref = out_ref['count']
-            if isinstance(pred_ref, dict):
-                pred_ref = pred_ref.get('profile', pred_ref)
-            te_ref = pred_ref[0, cds_start:cds_end:3, 0].mean().item()
+            out_ref = model.predict(seq_batch=se_ref, count_batch=ce_ref, expr_vector=ev_ref, species=s['species'], head_names=['count'], return_numpy=False)
+            te_ref = (out_ref['count'].get('profile', out_ref['count']))[0, cds_start:cds_end:3, 0].mean().item()
 
-        for rel_pos in target_positions:
-            abs_pos = cds_start + rel_pos
-            if abs_pos < 0 or abs_pos >= L:
-                continue
-            orig_base = seq[abs_pos]
-            if orig_base not in nt_map:
-                continue
-            orig_idx = nt_map[orig_base]
-
+        for x_pos in target_positions:
+            # Dynamic inverse mapping to find the exact transcript-specific position!
+            abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
+            if abs_pos < 0 or abs_pos >= L or seq[abs_pos] not in nt_map: continue
+            
+            orig_idx = nt_map[seq[abs_pos]]
             for tgt_base, tgt_idx in nt_map.items():
-                if tgt_idx == orig_idx:
-                    continue
+                if tgt_idx == orig_idx: continue
 
                 se_mut = se_ref.clone()
                 se_mut[0, abs_pos, :] = 0
                 se_mut[0, abs_pos, tgt_idx] = 1.0
 
                 with torch.no_grad():
-                    out_mut = model.predict(
-                        seq_batch=se_mut, count_batch=ce_ref, expr_vector=ev_ref,
-                        species=s['species'], head_names=['count'], return_numpy=False,
-                    )
-                    pred_mut = out_mut['count']
-                    if isinstance(pred_mut, dict):
-                        pred_mut = pred_mut.get('profile', pred_mut)
-                    te_mut = pred_mut[0, cds_start:cds_end:3, 0].mean().item()
+                    out_mut = model.predict(seq_batch=se_mut, count_batch=ce_ref, expr_vector=ev_ref, species=s['species'], head_names=['count'], return_numpy=False)
+                    te_mut = (out_mut['count'].get('profile', out_mut['count']))[0, cds_start:cds_end:3, 0].mean().item()
 
                 results.append({
-                    'tid': tid,
-                    'pos_from_cds_start': rel_pos,
-                    'ref_base': orig_base, 'mut_base': tgt_base,
+                    'tid': tid, 'x_pos': x_pos, 'abs_pos': abs_pos,
+                    'ref_base': seq[abs_pos], 'mut_base': tgt_base,
                     'te_ref': te_ref, 'te_mut': te_mut,
                     'delta_te': te_mut - te_ref,
-                    'log2_fc': np.log2((te_mut + 1e-8) / (te_ref + 1e-8)),
                 })
 
     df = pd.DataFrame(results)
-    n_mut = len(df)
-    print(f"Targeted mutagenesis: {n_mut} mutations "
-          f"({len(selected)} transcripts x {len(target_positions)} pos x 3 bases)")
+    print(f"Targeted mutagenesis complete: {len(df)} mutations mapped.")
     return df
 
-
-# ============================================================
-# Aggregate mutagenesis results
-# ============================================================
 def aggregate_mutagenesis(mut_df):
-    pos_agg = mut_df.groupby('pos_from_cds_start').agg(
+    pos_agg = mut_df.groupby('x_pos').agg(
         mean_abs_delta=('delta_te', lambda x: np.abs(x).mean()),
         std_abs_delta=('delta_te', lambda x: np.abs(x).std()),
         max_abs_delta=('delta_te', lambda x: np.abs(x).max()),
@@ -572,274 +469,469 @@ def aggregate_mutagenesis(mut_df):
     ).reset_index()
     pos_agg['sem'] = pos_agg['std_abs_delta'] / np.sqrt(pos_agg['n'])
 
-    base_agg = mut_df.groupby(['pos_from_cds_start', 'ref_base', 'mut_base']).agg(
-        mean_delta=('delta_te', 'mean'),
-        n=('delta_te', 'count'),
+    base_agg = mut_df.groupby(['x_pos', 'ref_base', 'mut_base']).agg(
+        mean_delta=('delta_te', 'mean'), n=('delta_te', 'count'),
     ).reset_index()
     return pos_agg, base_agg
 
-
-# ============================================================
-# Sequence context extraction for MEME
-# ============================================================
-def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions,
-                              context_radius=20, max_seqs=200):
+def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions, context_radius=20, max_seqs=200):
     contexts = defaultdict(list)
-    tids = [t for t in seq_dict if t in tx_cds
-            and tx_cds[t].get('cds_start_pos', -1) > 0]
+    tids = [t for t in seq_dict if t in tx_cds and tx_cds[t].get('cds_start_pos', -1) > 0][:max_seqs]
 
-    for tid in tids[:max_seqs]:
-        cds_start = tx_cds[tid].get('cds_start_pos', -1) - 1
+    for tid in tids:
+        cds_start, cds_end = tx_cds[tid].get('cds_start_pos', -1) - 1, tx_cds[tid].get('cds_end_pos', -1)
         seq = seq_dict[tid].upper()
-        for rel_pos in hotspot_positions:
-            abs_pos = cds_start + rel_pos
+        for x_pos in hotspot_positions:
+            abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
             if 0 <= abs_pos < len(seq):
-                ctx_s = max(0, abs_pos - context_radius)
-                ctx_e = min(len(seq), abs_pos + context_radius + 1)
+                ctx_s, ctx_e = max(0, abs_pos - context_radius), min(len(seq), abs_pos + context_radius + 1)
                 ctx = seq[ctx_s:ctx_e]
-                if 'N' not in ctx:
-                    contexts[rel_pos].append(ctx)
+                if 'N' not in ctx: contexts[x_pos].append(ctx)
     return dict(contexts)
-
-
 # ============================================================
-# Plotting utilities — CDS-start and CDS-stop aligned, per-layer color
+# Plotting utilities — Single continuous axis, per-layer color
 # ============================================================
 
-def _cds_rect_data(start_region, stop_region):
-    """Build geom_rect data for CDS shading and START/STOP codon annotation."""
-    rect_cds = pd.DataFrame({
-        'panel': ['CDS start', 'CDS start', 'CDS stop', 'CDS stop'],
-        'xmin': [0, start_region[0], stop_region[0], -6],
-        'xmax': [start_region[1], 0, 0, 0],
-        'ymin': [-float('inf'), -float('inf'), -float('inf'), -float('inf')],
-        'ymax': [float('inf'), float('inf'), float('inf'), float('inf')],
-        'fill': ['#E8E8E8', '#F8F8F8', '#E8E8E8', '#D4B9B9'],
+def _assign_frame_colors(df):
+    """
+    Since the metagene coordinate x_pos intrinsically preserves the frame,
+    we can safely calculate frame directly from x_pos.
+    Frame 0: Red (#E41A1C), Frame 1: Blue (#377EB8), Frame 2: Gray (gray)
+    """
+    df['frame'] = df['x_pos'].astype(int) % 3
+    # [Mod]: Frame 2 updated to 'gray' based on user preference
+    color_map = {0: '#E41A1C', 1: '#377EB8', 2: 'gray'}
+    df['frame_color'] = df['frame'].map(color_map)
+    df['Frame'] = df['frame'].map({0: 'Frame 0', 1: 'Frame 1', 2: 'Frame 2'})
+    df['Frame'] = pd.Categorical(df['Frame'], categories=['Frame 0', 'Frame 1', 'Frame 2'])
+    return df
+
+def _cds_rect_data():
+    """Build geom_rect data for a single continuous CDS shading."""
+    return pd.DataFrame({
+        'xmin': [0], 
+        'xmax': [FIXED_CDS_LEN], 
+        'ymin': [-float('inf')], 
+        'ymax': [float('inf')], 
+        'fill': ['lightgray']
     })
-    rect_cds['panel'] = pd.Categorical(rect_cds['panel'], categories=['CDS start', 'CDS stop'])
-    return rect_cds
 
-
-def plot_attention_profile(df_start, df_stop, out_path="attention_profile.pdf",
-                            start_region=(-100, 300), stop_region=(-300, 100)):
-    """
-    Per-layer + combined attention profiles.
-
-    - One figure per layer: facet_wrap CDS-start / CDS-stop.
-    - One combined figure: all positions across layers, grey-blue scatter, no smoothing.
-    CDS region shaded grey; START/STOP codon annotated.
-
-    Args:
-        df_start: from extract_attention_positional_importance, col 'pos_from_cds_start'
-        df_stop:  from extract_attention_positional_importance, col 'pos_from_cds_stop'
-        out_path: output PDF path (inserted before .pdf for layer / combined variants)
-    """
-    from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
-                          labs, theme_bw, theme, facet_wrap, facet_grid, ylim)
-    import matplotlib.cm as cm
-    import matplotlib.colors as mcolors
-
-    n_layers = df_start['layer'].nunique()
-    cmap = cm.get_cmap('viridis', n_layers)
-    layer_colors = {i: mcolors.to_hex(cmap(i)) for i in range(n_layers)}
-
-    # --- Prepare shared data ---
-    df_s = df_start[df_start['pos_from_cds_start'].between(*start_region)].copy()
-    df_s['panel'] = 'CDS start'
-    df_s['x_pos'] = df_s['pos_from_cds_start']
-
-    df_e = df_stop[df_stop['pos_from_cds_stop'].between(*stop_region)].copy()
-    df_e['panel'] = 'CDS stop'
-    df_e['x_pos'] = df_e['pos_from_cds_stop']
-
-    df_plot = pd.concat([df_s, df_e], ignore_index=True)
-    df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
+def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300, down_len=300):
+    from plotnine import (ggplot, aes, geom_point, geom_line, geom_rect,
+                          labs, theme, facet_grid, scale_color_manual, scale_fill_identity,
+                          element_text, theme_classic, element_blank)
+    
+    # Simple bounds filtering
+    df_plot = attn_df[(attn_df['x_pos'] >= -up_len) & (attn_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
+    df_plot = _assign_frame_colors(df_plot)
     df_plot['layer'] = df_plot['layer'].astype(int)
 
-    rect_cds = _cds_rect_data(start_region, stop_region)
+    group_cols = ['layer', 'x_pos', 'Frame']
+    df_plot = df_plot.groupby(group_cols, as_index=False, observed=True)[['mean_attn']].mean().dropna(subset=['mean_attn'])
+    df_plot['log2_mean_attn'] = np.log2(df_plot['mean_attn'] + 1)
 
     base_out = out_path.replace('.pdf', '')
+    frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
+    rect_cds = _cds_rect_data()
 
-    # Clip y: use 99th percentile to avoid outlier-driven scale
-    y_cap = df_plot['mean_attn'].quantile(0.99)
-
-    # ============================================================
-    # Combined: all layers pooled, grey-blue scatter, per-panel ylim
-    # ============================================================
-    # For combined, aggregate mean_attn across layers per position+panel
-    df_combined = (df_plot
-        .groupby(['x_pos', 'panel'], as_index=False)
-        .agg(mean_attn=('mean_attn', 'mean')))
-    y_cap_comb = df_combined['mean_attn'].quantile(0.99)
+    # Combined
+    df_combined = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_attn']].mean()
+    df_combined['log2_mean_attn'] = np.log2(df_combined['mean_attn'] + 1)
 
     p_comb = (
-        ggplot(df_combined, aes(x='x_pos', y='mean_attn'))
-        + geom_rect(data=rect_cds,
-                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
-                    alpha=0.3, inherit_aes=False, show_legend=False)
+        ggplot(df_combined, aes(x='x_pos', y='log2_mean_attn'))
+        # [Fix]: Added geom_rect for light gray CDS shading
+        + geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        + geom_point(alpha=0.35, size=0.7, color='#6A7B8B', stroke=0)
-        + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
-        + ylim(0, y_cap_comb)
-        + labs(x='Position relative to CDS boundary (nt)', y='Mean attention received')
-        + theme_bw()
-        + theme(figure_size=(16, 4))
+        # Ensure points/lines are plotted over the rectangle
+        + geom_line(aes(color='Frame', group='Frame'), size=0.5, alpha=0.9) 
+        + geom_point(aes(color='Frame', group='Frame'), size=1.8, alpha=0.4, stroke=0)
+        + scale_color_manual(values=frame_palette)
+        + labs(x='', y='log2(Mean attention + 1)') 
+        + theme_classic()
+        + theme(axis_text_x=element_blank(), 
+                axis_ticks_major_x=element_blank(),
+                axis_title_x=element_blank(), 
+                figure_size=(6, 4))
     )
     p_comb.save(f"{base_out}.combined.pdf")
     print(f"Combined attention profile saved to {base_out}.combined.pdf")
 
-    # ============================================================
-    # Per-layer faceted: 12 layers in one figure, 2 columns (start/stop)
-    # ============================================================
-    df_plot_clipped = df_plot.copy()
-    df_plot_clipped.loc[df_plot_clipped['mean_attn'] > y_cap, 'mean_attn'] = y_cap
-    df_plot_clipped['Layer'] = pd.Categorical(
-        [f'L{li}' for li in df_plot_clipped['layer']],
-        categories=[f'L{i}' for i in range(n_layers)],
-    )
+    # Per-layer
+    n_layers = df_plot['layer'].nunique()
+    df_plot['Layer'] = pd.Categorical([f'L{li}' for li in df_plot['layer']], categories=[f'L{i}' for i in range(n_layers)])
 
-    # Need separate rect_cds per layer-row for facet_grid to shade correctly
-    n_panels = n_layers * 2  # layers x (start, stop)
     rect_per_layer = pd.DataFrame({
-        'Layer': pd.Categorical(
-            [f'L{i}' for i in range(n_layers) for _ in range(4)],
-            categories=[f'L{i}' for i in range(n_layers)],
-        ),
-        'panel': pd.Categorical(
-            rect_cds['panel'].tolist() * n_layers,
-            categories=['CDS start', 'CDS stop'],
-        ),
-        'xmin': rect_cds['xmin'].tolist() * n_layers,
-        'xmax': rect_cds['xmax'].tolist() * n_layers,
-        'ymin': rect_cds['ymin'].tolist() * n_layers,
-        'ymax': rect_cds['ymax'].tolist() * n_layers,
-        'fill': rect_cds['fill'].tolist() * n_layers,
+        'Layer': pd.Categorical([f'L{i}' for i in range(n_layers)], categories=[f'L{i}' for i in range(n_layers)]),
+        'xmin': [0] * n_layers, 'xmax': [FIXED_CDS_LEN] * n_layers,
+        'ymin': [-float('inf')] * n_layers, 'ymax': [float('inf')] * n_layers,
+        'fill': ['lightgray'] * n_layers
     })
 
     p_layers = (
-        ggplot(df_plot_clipped, aes(x='x_pos', y='mean_attn'))
-        + geom_rect(data=rect_per_layer,
-                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
+        ggplot(df_plot, aes(x='x_pos', y='log2_mean_attn'))
+        # [Fix]: Replaced vline with per-layer geom_rect
+        + geom_rect(data=rect_per_layer, 
+                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), 
                     alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        + geom_point(alpha=0.25, size=0.35, color='#6A7B8B', stroke=0)
-        + facet_grid('Layer ~ panel', scales='free_x')
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.4)
-        + ylim(0, y_cap)
-        + labs(x='Position relative to CDS boundary (nt)', y='Mean attention received')
-        + theme_bw()
-        + theme(figure_size=(16, 18), strip_text_y=element_text(size=7))
+        + geom_line(aes(color='Frame', group='Frame'), size=0.5, alpha=0.9)
+        + geom_point(aes(color='Frame', group='Frame'), size=0.2, alpha=0.3)
+        + scale_color_manual(values=frame_palette)
+        + facet_grid('Layer ~ .', scales='free_y')
+        + labs(x='', y='log2(Mean attention + 1)')
+        + theme_classic()
+        + theme(axis_text_x=element_blank(), 
+                axis_ticks_major_x=element_blank(), 
+                axis_title_x=element_blank(), 
+                strip_background=element_blank(), 
+                strip_text=element_text(size=12), 
+                figure_size=(6, 18))
     )
     p_layers.save(f"{base_out}.per_layer.pdf")
-    print(f"Per-layer attention faceted plot saved to {base_out}.per_layer.pdf")
 
-
-def plot_saliency_profile(sal_df, avg_cds_len=800, out_path="saliency_profile.pdf",
-                           start_region=(-100, 300), stop_region=(-300, 100)):
+def plot_regional_attention_dynamics(attn_df, out_path="regional_attention_dynamics.pdf", up_len=300, down_len=300):
     """
-    Two-panel saliency scatter with CDS shading.
-    Y-axis in 10⁻³ scale.
-
-    Args:
-        sal_df: from compute_saliency_profile, columns pos_from_cds_start, pos_from_cds_stop, mean_saliency, ...
-        avg_cds_len: fallback CDS length
-        out_path: output PDF
-        start_region, stop_region: (left, right) relative to CDS boundary
+    Plots the layer-by-layer dynamic shifts in attention across 5 specific regions:
+    5' UTR, CDS (Frame 0), CDS (Frame 1), CDS (Frame 2), and 3' UTR.
+    Produces both an absolute mean attention line plot and a 100% relative proportion bar chart.
     """
-    from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
-                          labs, theme_bw, theme, facet_wrap, ylim)
+    from plotnine import (ggplot, aes, geom_line, geom_point, geom_col, position_stack,
+                          labs, theme_classic, scale_color_manual, scale_fill_manual, 
+                          scale_x_continuous, theme, element_text)
+    import pandas as pd
+    import numpy as np
 
-    df = sal_df.copy()
+    # 1. Filter sequences based on the upstream/downstream boundaries
+    df = attn_df[(attn_df['x_pos'] >= -up_len) & (attn_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
 
-    df_start = df[df['pos_from_cds_start'].between(*start_region)].copy()
-    df_start['panel'] = 'CDS start'
-    df_start['x_pos'] = df_start['pos_from_cds_start']
+    # 2. Annotate the 5 regions
+    conditions = [
+        df['x_pos'] < 0,
+        (df['x_pos'] >= 0) & (df['x_pos'] < FIXED_CDS_LEN) & (df['x_pos'] % 3 == 0),
+        (df['x_pos'] >= 0) & (df['x_pos'] < FIXED_CDS_LEN) & (df['x_pos'] % 3 == 1),
+        (df['x_pos'] >= 0) & (df['x_pos'] < FIXED_CDS_LEN) & (df['x_pos'] % 3 == 2),
+        df['x_pos'] >= FIXED_CDS_LEN
+    ]
+    choices = ["5' UTR", "CDS (Frame 0)", "CDS (Frame 1)", "CDS (Frame 2)", "3' UTR"]
+    
+    # [Fix]: Added explicit string default to satisfy Numpy's strict type promotion
+    df['Region'] = np.select(conditions, choices, default="Unknown")
 
-    if 'pos_from_cds_stop' in df.columns and df['pos_from_cds_stop'].notna().any():
-        df_stop = df[df['pos_from_cds_stop'].between(*stop_region)].copy()
-        df_stop['panel'] = 'CDS stop'
-        df_stop['x_pos'] = df_stop['pos_from_cds_stop']
-    else:
-        df_stop = df[df['pos_from_cds_start'].between(
-            stop_region[0] + avg_cds_len, stop_region[1] + avg_cds_len
-        )].copy()
-        df_stop['panel'] = 'CDS stop'
-        df_stop['x_pos'] = df_stop['pos_from_cds_start'] - avg_cds_len
+    # Convert to Categorical to maintain a strict legend order
+    region_order = ["5' UTR", "CDS (Frame 0)", "CDS (Frame 1)", "CDS (Frame 2)", "3' UTR"]
+    df['Region'] = pd.Categorical(df['Region'], categories=region_order)
 
-    df_plot = pd.concat([df_start, df_stop], ignore_index=True)
-    df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
+    # 3. Aggregate Mean Attention per Region per Layer
+    # Using 'mean' perfectly balances the varying lengths of UTRs and CDS subsets
+    agg_df = df.groupby(['layer', 'Region'], as_index=False, observed=True)[['mean_attn']].mean()
+    
+    # Scale up by 1000 for cleaner Y-axis numbers in the absolute plot
+    agg_df['mean_attn_scaled'] = agg_df['mean_attn']
 
-    # Convert to 10^-3 scale
-    df_plot['saliency_1e3'] = df_plot['mean_saliency'] * 1000
+    # Define color map to perfectly match your previous plots
+    color_map = {
+        "5' UTR": "#FF7F00",       # Orange for 5' UTR
+        "CDS (Frame 0)": "#E41A1C", # Red
+        "CDS (Frame 1)": "#377EB8", # Blue
+        "CDS (Frame 2)": "gray",    # Gray
+        "3' UTR": "#984EA3"         # Purple for 3' UTR
+    }
 
-    rect_cds = _cds_rect_data(start_region, stop_region)
-    y_cap = df_plot['saliency_1e3'].quantile(0.99)
+    base_out = out_path.replace('.pdf', '')
+    max_layer = int(agg_df['layer'].max())
+
+    # ============================================================
+    # Plot 1: Absolute Mean Attention per Nucleotide (Line Plot)
+    # ============================================================
+    p_line = (
+        ggplot(agg_df, aes(x='layer', y='mean_attn_scaled', color='Region', group='Region'))
+        + geom_line(size=1.2, alpha=0.9)
+        + geom_point(size=3)
+        + scale_color_manual(values=color_map)
+        + scale_x_continuous(breaks=range(0, max_layer + 1))
+        + labs(x='Transformer Layer', 
+               y='Mean Attention per nt', 
+               title='Layer-wise Absolute Attention Dynamics')
+        + theme_classic()
+        + theme(figure_size=(7, 5),
+                axis_text=element_text(size=10),
+                title=element_text(size=12, face="bold"))
+    )
+    p_line.save(f"{base_out}.line.pdf")
+    print(f"Regional dynamics (Line) saved to {base_out}.line.pdf")
+
+    # ============================================================
+    # Plot 2: Relative Contribution Proportion (100% Stacked Bar)
+    # ============================================================
+    # Calculate relative proportion for each layer
+    layer_sums = agg_df.groupby('layer')['mean_attn'].transform('sum')
+    agg_df['relative_prop'] = agg_df['mean_attn'] / layer_sums
+
+    p_bar = (
+        ggplot(agg_df, aes(x='layer', y='relative_prop', fill='Region'))
+        # Reverse the stack so 5'UTR is at the bottom, matching 5'->3' direction intuitively
+        + geom_col(position=position_stack(reverse=True), color='white', size=0.2)
+        + scale_fill_manual(values=color_map)
+        + scale_x_continuous(breaks=range(0, max_layer + 1))
+        + labs(x='Transformer Layer', 
+               y='Relative Regional Contribution (100%)', 
+               title='Layer-wise Relative Attention Shift')
+        + theme_classic()
+        + theme(figure_size=(7, 5),
+                axis_text=element_text(size=10),
+                title=element_text(size=12, face="bold"))
+    )
+    p_bar.save(f"{base_out}.proportion.pdf")
+    print(f"Regional dynamics (Proportion Bar) saved to {base_out}.proportion.pdf")
+
+def plot_saliency_profile(sal_df, out_path="saliency_profile.pdf", up_len=300, down_len=300):
+    from plotnine import (ggplot, aes, geom_point, geom_line, geom_rect,
+                          labs, theme_classic, theme, scale_color_manual, scale_fill_identity, element_blank)
+
+    df_plot = sal_df[(sal_df['x_pos'] >= -up_len) & (sal_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
+    df_plot = _assign_frame_colors(df_plot)
+    
+    df_plot = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_saliency']].mean().dropna(subset=['mean_saliency'])
+    df_plot['log2_saliency'] = np.log2(df_plot['mean_saliency'] + 1)
+    
+    frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
+    rect_cds = _cds_rect_data()
 
     p = (
-        ggplot(df_plot, aes(x='x_pos', y='saliency_1e3'))
-        + geom_rect(data=rect_cds,
-                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
-                    alpha=0.3, inherit_aes=False, show_legend=False)
+        ggplot(df_plot, aes(x='x_pos', y='log2_saliency'))
+        + geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        + geom_point(alpha=0.4, size=0.8, color='#238B45', stroke=0)
-        + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
-        + ylim(0, y_cap)
-        + labs(x='Position relative to CDS boundary (nt)',
-               y='Mean |d(TE)/d(base)| (×10⁻³)')
-        + theme_bw()
-        + theme(figure_size=(16, 4))
+        + geom_line(aes(color='Frame', group='Frame'), size=0.8, alpha=0.9)
+        + geom_point(aes(color='Frame', group='Frame'), size=0.3, alpha=0.3)
+        + scale_color_manual(values=frame_palette)
+        + labs(x='', y='log2(Mean |d(profile)/d(base)| + 1)')
+        + theme_classic()
+        + theme(axis_text_x=element_blank(), axis_ticks_major_x=element_blank(), axis_title_x=element_blank(), figure_size=(6, 4))
     )
     p.save(out_path)
     print(f"Saliency profile saved to {out_path}")
 
 
-def plot_mutagenesis_profile(pos_agg, avg_cds_len=800, out_path="mutagenesis_profile.pdf",
-                              start_region=(-100, 300), stop_region=(-300, 100)):
-    """
-    Two-panel mutagenesis impact scatter.
+def plot_mutagenesis_profile(pos_agg, out_path="mutagenesis_profile.pdf", up_len=300, down_len=300):
+    from plotnine import (ggplot, aes, geom_point, geom_line, geom_rect,
+                          labs, theme_classic, theme, scale_color_manual, scale_fill_identity, element_blank)
 
-    Args:
-        pos_agg: from aggregate_mutagenesis, column 'pos_from_cds_start'
-        avg_cds_len: estimated CDS length for stop alignment
-        out_path: output PDF
-        start_region, stop_region: (left, right) relative to CDS boundary
-    """
-    from plotnine import (ggplot, aes, geom_point, geom_rect, geom_vline,
-                          labs, theme_bw, theme, facet_wrap, ylim)
-
-    df = pos_agg.copy()
-
-    df_start = df[df['pos_from_cds_start'].between(*start_region)].copy()
-    df_start['panel'] = 'CDS start'
-    df_start['x_pos'] = df_start['pos_from_cds_start']
-
-    df_stop = df[df['pos_from_cds_start'].between(
-        stop_region[0] + avg_cds_len, stop_region[1] + avg_cds_len
-    )].copy()
-    df_stop['panel'] = 'CDS stop'
-    df_stop['x_pos'] = df_stop['pos_from_cds_start'] - avg_cds_len
-
-    df_plot = pd.concat([df_start, df_stop], ignore_index=True)
-    df_plot['panel'] = pd.Categorical(df_plot['panel'], categories=['CDS start', 'CDS stop'])
-
-    rect_cds = _cds_rect_data(start_region, stop_region)
-    y_cap = df_plot['mean_abs_delta'].quantile(0.99)
+    df_plot = pos_agg[(pos_agg['x_pos'] >= -up_len) & (pos_agg['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
+    df_plot = _assign_frame_colors(df_plot)
+    
+    df_plot = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_abs_delta']].mean().dropna(subset=['mean_abs_delta'])
+    df_plot['log2_abs_delta'] = np.log2(df_plot['mean_abs_delta'] + 1)
+    
+    frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
+    rect_cds = _cds_rect_data()
 
     p = (
-        ggplot(df_plot, aes(x='x_pos', y='mean_abs_delta'))
-        + geom_rect(data=rect_cds,
-                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'),
-                    alpha=0.3, inherit_aes=False, show_legend=False)
+        ggplot(df_plot, aes(x='x_pos', y='log2_abs_delta'))
+        + geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        + geom_point(alpha=0.4, size=0.8, color='#8C2D04', stroke=0)
-        + facet_wrap('~panel', scales='free_x', nrow=1)
-        + geom_vline(xintercept=0, linetype='dashed', color='#C44E52', size=0.5)
-        + ylim(0, y_cap)
-        + labs(x='Position relative to CDS boundary (nt)', y='Mean |Delta TE|')
-        + theme_bw()
-        + theme(figure_size=(16, 4))
+        + geom_line(aes(color='Frame', group='Frame'), size=0.8, alpha=0.9)
+        + geom_point(aes(color='Frame', group='Frame'), size=0.3, alpha=0.3)
+        + scale_color_manual(values=frame_palette)
+        + labs(x='', y='log2(Mean |Delta profile| + 1)')
+        + theme_classic()
+        + theme(axis_text_x=element_blank(), axis_ticks_major_x=element_blank(), axis_title_x=element_blank(), figure_size=(6, 4))
     )
     p.save(out_path)
     print(f"Mutagenesis profile saved to {out_path}")
+
+
+def plot_gene_attribution(attr_df, out_path="gene_attribution.pdf", top_n=30):
+    """
+    Plots a heatmap of the top contributing environmental genes across different model layers.
+    Args:
+        attr_df: DataFrame generated by compute_adaLN_gene_attribution.
+        top_n: Number of globally top contributing genes to display.
+    """
+    from plotnine import (ggplot, aes, geom_tile, scale_fill_cmap, labs, 
+                          theme_classic, theme, element_text, element_blank)
+    import pandas as pd
+
+    # 1. 寻找全局贡献最大的 Top N 基因
+    gene_totals = attr_df.groupby('gene')['score'].sum().reset_index()
+    top_genes = gene_totals.nlargest(top_n, 'score')['gene'].tolist()
+
+    # 2. 筛选数据
+    df_plot = attr_df[attr_df['gene'].isin(top_genes)].copy()
+
+    # 3. 设置分类排序逻辑以保证画图顺序美观
+    # Y轴：总分越高的基因排在越上面
+    df_plot['gene'] = pd.Categorical(df_plot['gene'], categories=top_genes[::-1])
+    
+    # X轴：按照网络深度的顺序 (L0-attn, L0-ffn, L1-attn, ...)
+    layer_order = []
+    for l in sorted(attr_df['layer'].unique()):
+        layer_order.extend([f"L{l}-attn", f"L{l}-ffn"])
+    # 只保留实际存在的列
+    layer_order = [l for l in layer_order if l in attr_df['layer_module'].unique()]
+    df_plot['layer_module'] = pd.Categorical(df_plot['layer_module'], categories=layer_order)
+
+    p = (
+        ggplot(df_plot, aes(x='layer_module', y='gene', fill='score_norm'))
+        + geom_tile(color='white', size=0.2)
+        # 使用炽热色系 (YlOrRd) 呈现基因调控的重要程度
+        + scale_fill_cmap(cmap_name='YlOrRd') 
+        + labs(
+            x='Model Layer & Module (AdaLN)', 
+            y='Environmental Gene (Cell Context)', 
+            fill='Normalized\nAttribution'
+        )
+        + theme_classic()
+        + theme(
+            axis_text_x=element_text(rotation=45, hjust=1),
+            axis_text_y=element_text(size=10),
+            # 动态调整图片高度以适配基因数量
+            figure_size=(max(8, len(layer_order)*0.4), max(5, top_n*0.25))
+        )
+    )
+    p.save(out_path)
+    print(f"Gene attribution heatmap saved to {out_path}")
+
+
+
+
+import numpy as np
+import pandas as pd
+from tqdm import tqdm
+from collections import defaultdict
+import torch
+import logomaker
+import matplotlib.pyplot as plt
+
+# 假设 compute_saliency_profile 和 _inverse_metagene 已在当前环境定义
+# from eval_module import compute_saliency_profile, _inverse_metagene, _extract_sample, FIXED_CDS_LEN
+
+def compute_ovr_differential_saliency(model, dataset, target_cell_type, all_cell_types, 
+                                      n_samples_per_group=300, max_len=2000, device=None):
+    """
+    计算特定细胞系 (Target) 相较于其他所有细胞系 (Rest) 的差分 Saliency。
+    """
+    from torch.utils.data import Subset
+    
+    # 1. 构建 Target 和 Rest 的子集
+    idx_target = [i for i, d in enumerate(dataset) if d[2] == target_cell_type]
+    idx_rest = [i for i, d in enumerate(dataset) if d[2] in all_cell_types and d[2] != target_cell_type]
+    
+    if len(idx_target) == 0 or len(idx_rest) == 0:
+        print(f"Skipping {target_cell_type} due to insufficient samples.")
+        return None, []
+        
+    subset_target = Subset(dataset, idx_target)
+    subset_rest = Subset(dataset, idx_rest)
+    
+    print(f"\n--- OvR Analysis for {target_cell_type} vs Rest ---")
+    
+    # 2. 分别计算 Saliency
+    sal_target = compute_saliency_profile(
+        model, subset_target, 
+        n_samples=min(n_samples_per_group, len(idx_target)), 
+        max_len=max_len, device=device
+    )
+    
+    sal_rest = compute_saliency_profile(
+        model, subset_rest, 
+        n_samples=min(n_samples_per_group, len(idx_rest)), 
+        max_len=max_len, device=device
+    )
+    
+    # 3. 合并计算差分
+    merged = pd.merge(sal_target[['x_pos', 'mean_saliency']], 
+                      sal_rest[['x_pos', 'mean_saliency']], 
+                      on='x_pos', suffixes=('_Target', '_Rest'))
+    
+    merged['delta_saliency'] = merged['mean_saliency_Target'] - merged['mean_saliency_Rest']
+    
+    # 提取差异最大的前 30 个宏观热点
+    top_diff_hotspots = merged.nlargest(30, 'delta_saliency')['x_pos'].tolist()
+    
+    return merged, top_diff_hotspots
+
+
+def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds, 
+                                         target_cell_type, x_pos_hotspots, 
+                                         context_radius=15, max_seqs=300, device=None):
+    """
+    微观切片：拿着宏观热点去真实转录本上切出短序列。
+    加入 Saliency 过滤器：只保留那些在该物理位点上确实有显著响应的转录本片段。
+    """
+    raw = _unwrap(model) if hasattr(model, 'module') else model
+    raw.eval()
+    
+    # 找到目标细胞系的所有样本
+    target_samples = [(i, d) for i, d in enumerate(dataset) if d[2] == target_cell_type]
+    selected_samples = np.random.choice(len(target_samples), min(max_seqs, len(target_samples)), replace=False)
+    
+    valid_contexts = []
+    
+    print(f"Extracting physical sequence contexts for {target_cell_type}...")
+    for idx in tqdm(selected_samples, desc="Micro-slicing"):
+        real_idx, d = target_samples[idx]
+        s = _extract_sample(dataset, real_idx)
+        tid = s['tid']
+        
+        if not s['valid'] or tid not in seq_dict:
+            continue
+            
+        cds_start, cds_end = s['cds_start_0'], s['cds_end_0']
+        seq = seq_dict[tid].upper()
+        L = len(seq)
+        
+        # 为了进行过滤，我们需要跑一次单条转录本的 Saliency
+        se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
+        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
+        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
+        
+        with torch.enable_grad():
+            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
+            species_idx = raw._normalize_species(s['species'], 1).to(device)
+            out = raw.forward(seq_batch=se, count_batch=ce, expr_vector=resolved_expr, species=species_idx, head_names=['count'])
+            pred = out['count'].get('profile', out['count']) if isinstance(out['count'], dict) else out['count']
+            profile_loss = (pred[0, :, 0] ** 2).sum()
+            
+        profile_loss.backward()
+        grad = se.grad[0].detach().cpu().numpy()
+        sal_track = np.abs(grad).sum(axis=-1)  # 单条转录本的碱基级 Saliency 曲线
+        
+        # 寻找上下文
+        for x_pos in x_pos_hotspots:
+            # [关键步骤]: 反向映射找真实物理位置
+            abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
+            
+            if 0 <= abs_pos < L:
+                # [关键过滤]: 只有当这个特定的物理位置在这个细胞系里确实“亮起”了 (比如得分排在前20%)，才切它！
+                # 这能极大地去除没包含 Motif 但不幸被 x_pos 扫中的背景噪音
+                if sal_track[abs_pos] > np.percentile(sal_track, 80): 
+                    ctx_s = max(0, abs_pos - context_radius)
+                    ctx_e = min(L, abs_pos + context_radius + 1)
+                    ctx_seq = seq[ctx_s:ctx_e]
+                    
+                    # 补齐边界序列长度，保证聚类对齐
+                    if len(ctx_seq) == (context_radius * 2 + 1) and 'N' not in ctx_seq:
+                        valid_contexts.append(ctx_seq)
+                        
+    print(f"Harvested {len(valid_contexts)} highly salient context sequences.")
+    return valid_contexts
+
+
+def plot_sequence_logo(sequences, title="Cell-Type Specific Motif"):
+    """使用 logomaker 绘制信息量 Logo 图"""
+    if not sequences:
+        print(f"No sequences found for {title}.")
+        return
+        
+    # 计算每个位置的信息熵矩阵 (PWM)
+    df = logomaker.alignment_to_matrix(sequences=sequences, to_type='information')
+    
+    fig, ax = plt.subplots(figsize=(8, 3))
+    logo = logomaker.Logo(df, ax=ax, font_name='Arial Rounded MT Bold')
+    logo.style_spines(visible=False)
+    logo.style_spines(spines=['left', 'bottom'], visible=True)
+    ax.set_ylabel('Information (bits)')
+    ax.set_xlabel('Relative Position')
+    plt.title(title)
+    plt.show()
