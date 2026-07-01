@@ -8,6 +8,15 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
 from plotnine import *
 
+import os
+import numpy as np
+import pandas as pd
+from typing import Dict, List, Optional, Union
+from tqdm import tqdm
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from plotnine import *
 
 # =====================================================================
 # Helper function: Dynamically resolve evaluation score column
@@ -17,7 +26,6 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
     if target_col and target_col in df.columns:
         return target_col
     
-    # [MODIFIED] Added 'transcription_score' and 'seq_score' to the fallback pool
     fallback_candidates = [
         'expr_score', 
         'translation_score', 
@@ -38,7 +46,7 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
 def load_and_filter_data(
         pred_csv_paths: List[str],               
         gt_csv_paths: Dict[str, str],            
-        target_transcript_ids: Optional[List[str]] = None,
+        target_transcript_ids: Optional[Union[List[str], Dict[str, List[str]]]] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         target_score_col: Optional[str] = None):
@@ -100,12 +108,35 @@ def load_and_filter_data(
     global_score_col = resolve_score_col(master_pred_df, target_score_col)
     print(f"  -> Decided primary score column: '{global_score_col}'")
 
-    # 4. Filter by Transcript IDs
+    # =================================================================
+    # [MODIFIED] 4. Filter by Transcript IDs (支持字典按细胞系过滤)
+    # =================================================================
     if target_transcript_ids is not None:
-        print(f"\nFiltering entire dataset to {len(target_transcript_ids)} target transcripts...")
-        target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids)
-        master_gt_df = master_gt_df[master_gt_df['Tid_clean'].isin(target_set)].copy()
-        master_pred_df = master_pred_df[master_pred_df['Tid_clean'].isin(target_set)].copy()
+        if isinstance(target_transcript_ids, dict):
+            print("\nFiltering datasets using cell-specific active transcripts...")
+            filtered_gt, filtered_pred = [], []
+            
+            for ct in valid_cell_types:
+                if ct in target_transcript_ids:
+                    # 提取该细胞系对应的活跃转录本
+                    target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids[ct])
+                    
+                    filtered_gt.append(master_gt_df[(master_gt_df['Cell_Type'] == ct) & (master_gt_df['Tid_clean'].isin(target_set))])
+                    filtered_pred.append(master_pred_df[(master_pred_df['Cell_Type'] == ct) & (master_pred_df['Tid_clean'].isin(target_set))])
+                    print(f"  -> {ct}: Kept {len(target_set)} target transcripts.")
+                else:
+                    print(f"  [Warning] No target transcripts provided for '{ct}'. This cell type will be dropped.")
+            
+            # 重新组装大表
+            master_gt_df = pd.concat(filtered_gt, ignore_index=True) if filtered_gt else pd.DataFrame(columns=master_gt_df.columns)
+            master_pred_df = pd.concat(filtered_pred, ignore_index=True) if filtered_pred else pd.DataFrame(columns=master_pred_df.columns)
+            
+        else:
+            # 兼容原有的单一列表全局过滤模式
+            print(f"\nFiltering entire dataset globally to {len(target_transcript_ids)} target transcripts...")
+            target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids)
+            master_gt_df = master_gt_df[master_gt_df['Tid_clean'].isin(target_set)].copy()
+            master_pred_df = master_pred_df[master_pred_df['Tid_clean'].isin(target_set)].copy()
         
     # 5. Filter by ORF Length
     if min_orf_len is not None or max_orf_len is not None:
@@ -323,7 +354,7 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
 def evaluate_orf_level_predictions(
         pred_csv_paths: List[str],               
         gt_csv_paths: Dict[str, str],            
-        target_transcript_ids: Optional[List[str]] = None,
+        target_transcript_ids: Optional[Union[List[str], Dict[str, List[str]]]] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         out_dir: str = "./results/eval",

@@ -488,6 +488,7 @@ def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions, context_radius
                 ctx = seq[ctx_s:ctx_e]
                 if 'N' not in ctx: contexts[x_pos].append(ctx)
     return dict(contexts)
+    
 # ============================================================
 # Plotting utilities — Single continuous axis, per-layer color
 # ============================================================
