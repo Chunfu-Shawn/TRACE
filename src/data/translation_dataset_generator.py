@@ -260,7 +260,7 @@ class DatasetGenerator():
         te_dict = {t: rpf_clr[i] - (slope * rna_clr[i] + intercept) for i, t in enumerate(tids)}
         return te_dict, rpf_depth, rpf_cov
 
-    def count_embedding(self, arr, te_residual, base=1.2):
+    def count_embedding(self, arr, te_residual):
         """
         arr 已经是被 parse_and_winsorize_to_array 组装且净化好的矩阵了。
         """
@@ -279,6 +279,7 @@ class DatasetGenerator():
             rpm: float = 1.0,
             expr_dict_path: str = None,
             keep_read_len: bool = False,
+            only_coding: bool = True,  # [CHANGE] 新增参数，默认为 True 只保留 coding
             out_path="dataset.h5"
             ):
         """
@@ -346,6 +347,18 @@ class DatasetGenerator():
 
             print(f"--- Vectorizing and Winsorizing arrays for {cell_type} ---")
             ribo_arr_dict = self.parse_and_winsorize_to_array(ribo_count_dict, keep_read_len)
+
+            # [CHANGE] 在计算 TE 之前，过滤出仅包含有效 CDS 的 protein-coding 转录本
+            if only_coding:
+                coding_ribo_arr_dict = {}
+                for tid, arr in ribo_arr_dict.items():
+                    cds_info = self.tx_cds.get(tid, {'cds_start_pos':-1, 'cds_end_pos':-1})
+                    cds_s, cds_e = cds_info.get('cds_start_pos', -1), cds_info.get('cds_end_pos', -1)
+                    # 使用与 TE 计算一致的有效 CDS 判断标准 (> 45nt)
+                    if cds_s != -1 and (cds_e - cds_s) > 45:
+                        coding_ribo_arr_dict[tid] = arr
+                ribo_arr_dict = coding_ribo_arr_dict
+                print(f"--- [Filtered] Retained {len(ribo_arr_dict)} protein-coding transcripts for TE calculation ---")
 
             print(f"--- Computing CLR and Regression TE for {cell_type} ---")
             sample_te_dict, rpf_depth_dict, rpf_cov_dict = self.compute_sample_te(

@@ -475,7 +475,7 @@ class PretrainingTrainer:
             count_raw_emb: torch.Tensor, 
             count_emb_masks: torch.Tensor,
             cds_masks: torch.Tensor,
-            cds_weight_factor: float = 1.2,
+            cds_weight_factor: float = 1.0,
             is_eval: bool = False
         ) -> torch.Tensor:  
         """
