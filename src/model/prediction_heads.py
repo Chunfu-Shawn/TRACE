@@ -280,3 +280,108 @@ class TranslationProfileHead(nn.Module):
 
         # now construct
         return cls(d_model=d_model, d_count=d_count, d_pred_h=d_pred_h, p_drop=p_drop, init_xavier=init_xavier)
+
+class TERegressionHead(nn.Module):
+    """
+    TERegressionHead — predicts a scalar TE value per transcript.
+
+    Architecture:
+      1. Full-length mean-pool of encoder representations (excluding padding)
+      2. MLP: Linear → GELU → Dropout → Linear → scalar TE
+
+    This head is designed for fine-tuning on top of a frozen or LoRA-adapted
+    pretrained TranslationBaseModel.  The TE target comes from dataset meta_info
+    (``te_scale``, range roughly [-2, 2]).
+
+    Parameters
+    ----------
+    d_model : int
+        Encoder embedding dimension.
+    d_pred_h : int, optional
+        Hidden dimension of the predictor MLP.  Default picks a conservative
+        value of max(64, d_model // 4) to avoid overfitting on small TE datasets.
+    p_drop : float
+        Dropout applied before the final projection.
+    """
+
+    def __init__(
+        self,
+        d_model: int,
+        d_pred_h: int | None = None,
+        p_drop: float = 0.1,
+    ):
+        super().__init__()
+        self.name = "TERegressionHead"
+        self.d_model = int(d_model)
+        self.d_pred_h = int(d_pred_h) if d_pred_h is not None else max(64, self.d_model // 4)
+        self.p_drop = float(p_drop)
+
+        self.mlp = nn.Sequential(
+            nn.LayerNorm(self.d_model),
+            nn.Linear(self.d_model, self.d_pred_h),
+            nn.GELU(),
+            nn.Dropout(self.p_drop),
+            nn.Linear(self.d_pred_h, 1),
+        )
+        self._init_parameters()
+
+    def _init_parameters(self):
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight)
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, nn.LayerNorm):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+
+    def forward(
+        self,
+        src_reps: torch.Tensor,
+        src_mask: torch.Tensor | None = None,
+        **kwargs,
+    ) -> torch.Tensor:
+        """
+        Parameters
+        ----------
+        src_reps : (B, L, d_model)
+            Encoder output representations.
+        src_mask : (B, L) bool, optional
+            True for valid (non-pad) positions.  If None, pools over all tokens.
+            Padded positions (zero) are excluded from the mean.
+
+        Returns
+        -------
+        te_pred : (B, 1)
+            Predicted TE (scalar per sample).
+        """
+        B, L, D = src_reps.shape
+
+        if src_mask is not None:
+            mask_3d = src_mask.unsqueeze(-1).to(dtype=src_reps.dtype, device=src_reps.device)
+            pooled = (src_reps * mask_3d).sum(dim=1) / mask_3d.sum(dim=1).clamp(min=1)
+        else:
+            pooled = src_reps.mean(dim=1)  # (B, D)
+
+        return self.mlp(pooled)  # (B, 1)
+
+
+    @classmethod
+    def create_from_model(
+        cls,
+        parent_model: object,
+        d_model: int | None = None,
+        d_pred_h: int | None = None,
+        p_drop: float = 0.1,
+    ) -> "TERegressionHead":
+        """
+        Factory that infers d_model from an existing TranslationBaseModel.
+        """
+        if d_model is None:
+            if hasattr(parent_model, "d_model"):
+                d_model = int(getattr(parent_model, "d_model"))
+            else:
+                raise ValueError(
+                    "d_model not provided and parent_model has no attribute 'd_model'"
+                )
+        return cls(d_model=d_model, d_pred_h=d_pred_h, p_drop=p_drop)

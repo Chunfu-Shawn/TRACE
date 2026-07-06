@@ -6,7 +6,7 @@ import torch.distributed as dist
 sys.path.append("/public-supool/home/annie/translation_model/TRACE/src")
 from data.rpf_counter import *
 from model.translation_base_model import TranslationBaseModel
-from model.mask_heads import TranslationProfileHead
+from model.prediction_heads import TranslationProfileHead
 from train.model_pretrain import PretrainingTrainer
 from utils import print_param_counts
 
