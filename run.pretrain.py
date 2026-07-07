@@ -26,7 +26,7 @@ human_t_val_dataset_path = os.path.join(dataset_dir, human_t_dataset_name + ".va
 human_cl_dataset_name = "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1"
 human_cl_train_dataset_path = os.path.join(dataset_dir, human_cl_dataset_name + ".train.h5")
 human_cl_val_dataset_path = os.path.join(dataset_dir, human_cl_dataset_name + ".valid.h5")
-human_cl_un_dataset_name = "human_cell_line_26c_6k_depth0.1_cov0.1_rpm1"
+human_cl_un_dataset_name = "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1"
 human_cl_un_train_dataset_path = os.path.join(dataset_dir, human_cl_un_dataset_name + ".train.h5")
 human_cl_un_val_dataset_path = os.path.join(dataset_dir, human_cl_un_dataset_name + ".valid.h5")
 ## macaque
@@ -83,7 +83,7 @@ trainer = PretrainingTrainer(
     expr_noise_std = 0.15,
     learning_rate = 0.001,
     lr_warmup_perc = 0.3,
-    accumulation_steps = 2,
+    accumulation_steps = 1,
     balance_classes = True,
     beta = (0.9, 0.98),
     epsilon = 1e-9,

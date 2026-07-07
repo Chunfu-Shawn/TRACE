@@ -92,6 +92,7 @@ class TEFinetuneTrainer:
         self.ft_mode = ft_mode
         self.lora_r = lora_r
         self.lora_alpha = lora_alpha
+        self.balance_classes = balance_classes
 
         self.device = torch.device(f"cuda:{rank}") if torch.cuda.is_available() else torch.device("cpu")
         self._print_progress_every = print_progress_every
