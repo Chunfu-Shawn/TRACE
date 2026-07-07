@@ -90,7 +90,7 @@ if rank == 0:
 # ---------------------------------------------------------------------------
 # Wrap with DDP
 # ---------------------------------------------------------------------------
-base_model = DDP(base_model, device_ids=[rank], output_device=rank)
+base_model = DDP(base_model, device_ids=[rank], output_device=rank, find_unused_parameters=True)
 
 # ---------------------------------------------------------------------------
 # Fine-tune
