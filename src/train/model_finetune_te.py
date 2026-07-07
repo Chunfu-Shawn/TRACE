@@ -100,15 +100,16 @@ class TEFinetuneTrainer:
 
         # ---- Apply LoRA if requested ----
         if ft_mode == "lora":
-            from lora_utils import replace_linear_with_lora
+            from lora_utils import replace_linear_with_lora, set_trainable_base_and_lora
             raw = unwrap_model(model)
             replace_linear_with_lora(raw, r=lora_r, lora_alpha=lora_alpha)
+            # New loralib.Linear modules are created on CPU — move everything back to device
+            raw.to(self.device)
             if rank == 0:
                 print(f"[TEFinetune] Applied LoRA: r={lora_r}, alpha={lora_alpha}")
-            # After LoRA replacement, freeze base weights, train only LoRA + head
-            from lora_utils import set_trainable_base_and_lora
+            # Freeze base weights, train only LoRA params + TE head
             set_trainable_base_and_lora(raw, train_base=False, train_lora=True)
-            # Unfreeze the TE head
+            # Unfreeze the TE head (always trained from scratch)
             for p in raw.heads["te"].parameters():
                 p.requires_grad = True
         elif ft_mode == "head":
