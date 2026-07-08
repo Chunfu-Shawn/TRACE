@@ -1108,6 +1108,194 @@ def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300
     return region_dfs
 
 
+def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300, window_radius=10, 
+                                 min_len=0, max_len=float('inf'), device=None):
+    """
+    Iterate through transcripts, compute absolute physical position Attention scores,
+    split by 5' UTR, CDS, 3' UTR, and extract the strongest peak context based on internal attention.
+    
+    [Optimized]: 
+    1. Switched from Saliency (gradients) to Internal Multi-Head Attention weights.
+    2. CDS region is expanded by `window_radius` upstream and downstream to naturally 
+       capture boundary motifs (e.g., Kozak and Stop codon contexts) within the CDS group.
+    3. Implements 1D Non-Maximum Suppression (NMS) to prevent overlapping extraction.
+    
+    Automatically saves individual raw dataframes to CSV files in the out_dir.
+    """
+    import os
+    import numpy as np
+    import pandas as pd
+    import torch
+    from tqdm import tqdm
+
+    os.makedirs(out_dir, exist_ok=True)
+
+    raw = _unwrap(model)
+    if device is None:
+        device = next(raw.parameters()).device
+    raw.eval()
+
+    region_sequences = {"5UTR": [], "CDS": [], "3UTR": []}
+    indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
+
+    for idx in tqdm(indices, desc="Extracting raw physical ATTN peaks"):
+        s = _extract_sample(dataset, idx)
+        tid = s['tid']
+        if not s['valid'] or tid not in seq_dict:
+            continue
+
+        seq = seq_dict[tid].upper()
+        L = len(seq)
+        
+        if L < min_len or L > max_len:
+            continue
+            
+        cds_start = s['cds_start_0']
+        cds_end = s['cds_end_0']
+
+        # No requires_grad needed for Attention extraction
+        se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
+        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
+        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
+
+        with torch.no_grad():
+            # 1. Resolve environmental context exactly as in standard forward pass
+            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
+            species_idx = raw._normalize_species(s['species'], 1).to(device)
+            species_emb = raw.species_embedding(species_idx)
+            combined_env = torch.cat([resolved_expr, species_emb], dim=-1)
+            compact_style = raw.expr_projector(combined_env)
+
+            # 2. Extract input embeddings and masking
+            src_reps = raw.src_emb(se, ce)
+            src_mask = (se[:, :, 0] != 0).to(device)
+            
+            Lc = se.shape[1] # Length with padding
+            n_heads = raw.n_heads
+            head_dim = raw.encoder.encoder_layers[0].multi_headed_attention.head_dim
+            
+            attn_track = np.zeros(Lc)
+
+            # 3. Manually step through encoder layers to intercept Attention Weights
+            for enc_layer in raw.encoder.encoder_layers:
+                sub = enc_layer.sublayers[0]
+                style = sub.adaLN_modulation(compact_style)
+                gamma, beta, alpha = style.chunk(3, dim=-1)
+                normed = (1 + gamma.unsqueeze(1)) * sub.LN(src_reps) + beta.unsqueeze(1)
+
+                attn_mod = enc_layer.multi_headed_attention
+                bs_, _, d = normed.shape
+
+                q = attn_mod.toqueries(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
+                k = attn_mod.tokeys(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
+                v = attn_mod.tovalues(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
+
+                if hasattr(attn_mod, 'RoPE'):
+                    q = attn_mod.RoPE(q)
+                    k = attn_mod.RoPE(k)
+
+                scores = torch.matmul(q, k.transpose(-2, -1)) / np.sqrt(head_dim)
+                mask = src_mask[:, :Lc].unsqueeze(1).unsqueeze(2)
+                scores.masked_fill_(~mask, float('-inf'))
+                attn_w = torch.softmax(scores, dim=-1)
+
+                # Calculate "Received Attention": sum over query origins, average across heads
+                received = attn_w.sum(dim=2).mean(dim=1)[0].cpu().numpy()
+                attn_track += received
+
+                # Continue the forward pass to feed the next layer
+                attn_out = torch.matmul(attn_w, v)
+                attn_out = attn_out.transpose(1, 2).reshape(bs_, Lc, n_heads * head_dim)
+                attn_out = attn_mod.unifyheads(attn_out)
+                if hasattr(attn_mod, 'dropout'):
+                    attn_out = attn_mod.dropout(attn_out)
+                src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
+
+                sub2 = enc_layer.sublayers[1]
+                style2 = sub2.adaLN_modulation(compact_style)
+                gamma2, beta2, alpha2 = style2.chunk(3, dim=-1)
+                normed2 = (1 + gamma2.unsqueeze(1)) * sub2.LN(src_reps) + beta2.unsqueeze(1)
+                ffn_out = sub2.dropout(enc_layer.ffn(normed2))
+                src_reps = src_reps + alpha2.unsqueeze(1) * ffn_out
+
+        # Truncate to actual transcript length and calculate mean attention per layer
+        attn_track = attn_track[:L] / len(raw.encoder.encoder_layers)
+
+        # Smooth the track to avoid peak jittering
+        window_size = 3
+        attn_track = np.convolve(attn_track, np.ones(window_size)/window_size, mode='same')
+
+        # ==========================================
+        # Step 1: Define Expanded Boundaries
+        # ==========================================
+        # [Fixed]: Re-added the -/+ window_radius to correctly capture boundary motifs into CDS
+        utr5_bound = max(0, cds_start - window_radius)
+        utr3_bound = min(L, cds_end + window_radius)
+
+        # ==========================================
+        # Step 2: Collect Candidate Peaks per Region
+        # ==========================================
+        candidate_peaks = []
+
+        if utr5_bound > 0:
+            utr5_attn = attn_track[:utr5_bound]
+            if len(utr5_attn) > 0:
+                peak_5 = np.argmax(utr5_attn)
+                if utr5_attn[peak_5] > np.percentile(attn_track, 75): 
+                    candidate_peaks.append((peak_5, utr5_attn[peak_5], "5UTR"))
+
+        if utr3_bound > utr5_bound:
+            cds_attn = attn_track[utr5_bound:utr3_bound]
+            if len(cds_attn) > 0:
+                peak_cds = np.argmax(cds_attn) + utr5_bound
+                if attn_track[peak_cds] > np.percentile(attn_track, 75):
+                    candidate_peaks.append((peak_cds, attn_track[peak_cds], "CDS"))
+
+        if utr3_bound < L:
+            utr3_attn = attn_track[utr3_bound:]
+            if len(utr3_attn) > 0:
+                peak_3 = np.argmax(utr3_attn) + utr3_bound
+                if attn_track[peak_3] > np.percentile(attn_track, 75):
+                    candidate_peaks.append((peak_3, attn_track[peak_3], "3UTR"))
+
+        # ==========================================
+        # Step 3: 1D Non-Maximum Suppression (NMS)
+        # ==========================================
+        candidate_peaks.sort(key=lambda x: x[1], reverse=True)
+        
+        selected_peaks = []
+        for pos, score, region in candidate_peaks:
+            conflict = False
+            for sel_pos, _, _ in selected_peaks:
+                if abs(pos - sel_pos) <= 2 * window_radius:
+                    conflict = True
+                    break
+            
+            if not conflict:
+                selected_peaks.append((pos, score, region))
+
+        # ==========================================
+        # Step 4: Slice and Append Validated Peaks
+        # ==========================================
+        for pos, _, region in selected_peaks:
+            _slice_and_append(seq, pos, window_radius, region_sequences[region], tid, cds_start, cds_end)
+
+    # Convert to DataFrames and automatically save to disk
+    region_dfs = {}
+    for region, data in region_sequences.items():
+        if data:
+            df = pd.DataFrame(data)
+            df['Region'] = region
+        else:
+            df = pd.DataFrame(columns=['tid', 'sequence', 'abs_pos', 'rel_to_cds_start', 'rel_to_cds_end', 'x_pos', 'Region'])
+        
+        csv_filename = os.path.join(out_dir, f"raw_ATTN_peaks_{region}.csv")
+        df.to_csv(csv_filename, index=False)
+        region_dfs[region] = df
+
+    print(f"\nSuccessfully sliced & saved raw ATTN CSVs: 5'UTR ({len(region_dfs['5UTR'])}), CDS ({len(region_dfs['CDS'])}), 3'UTR ({len(region_dfs['3UTR'])})")
+    return region_dfs
+
 def cluster_and_visualize_region_motifs(region_dfs, region_name, out_dir, min_clusters=4, max_clusters=10):
     """
     Perform unsupervised KMeans clustering on short physical sequences of a region.
@@ -1306,198 +1494,3 @@ def plot_motif_metagene_heatmap(
     p.save(out_path)
     print(f"Motif Metagene Heatmap saved to {out_path}")\
     
-# ============================================================
-# Phase 3B: PWM Parsing and TOMTOM-like Alignment Engine
-# ============================================================
-
-def parse_attract_pwms(pwm_path):
-    """
-    Parses the ATtRACT pwm.txt file into a dictionary of numpy arrays.
-    Each matrix row represents frequencies/probabilities for columns: [A, C, G, T].
-    """
-    import numpy as np
-    
-    pwms = {}
-    current_id = None
-    current_matrix = []
-    
-    print(f"Parsing ATtRACT PWM file: {pwm_path}")
-    with open(pwm_path, 'r') as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            if line.startswith('>'):
-                # Save previous matrix before switching to a new entry
-                if current_id is not None and current_matrix:
-                    pwms[current_id] = np.array(current_matrix, dtype=np.float32)
-                
-                # Header format: >matrix_id \t length
-                parts = line[1:].split()
-                current_id = parts[0]
-                current_matrix = []
-            else:
-                # Convert the sequence rows of frequencies into numeric arrays
-                freqs = [float(x) for x in line.split()]
-                if len(freqs) == 4:
-                    current_matrix.append(freqs)
-                    
-        # Don't forget to capture the last element in file
-        if current_id is not None and current_matrix:
-            pwms[current_id] = np.array(current_matrix, dtype=np.float32)
-            
-    print(f"Successfully loaded {len(pwms)} Position Weight Matrices from database.")
-    return pwms
-
-
-def compute_tomtom_similarity(matrix_q, matrix_t, min_overlap=4):
-    """
-    Calculates the maximum alignment similarity between a Query and Target matrix 
-    using a sliding window Pearson Correlation Coefficient (similar to MEME TOMTOM).
-    
-    Args:
-        matrix_q: Numpy array of shape [L_query, 4] (Cluster matrix)
-        matrix_t: Numpy array of shape [L_target, 4] (Database PWM matrix)
-        min_overlap: Minimum overlapping nucleotides required during alignment.
-    Returns:
-        max_pcc: Highest average column-to-column Pearson correlation observed.
-        best_shift: Relative displacement coordinate maximizing the score.
-    """
-    import numpy as np
-    
-    l_q = len(matrix_q)
-    l_t = len(matrix_t)
-    max_pcc = -1.0
-    best_shift = 0
-    
-    # Slide matrix_t relative to matrix_q
-    # Shift represents the starting index of matrix_t on the timeline of matrix_q
-    min_shift = -l_t + min_overlap
-    max_shift = l_q - min_overlap
-    
-    for shift in range(min_shift, max_shift + 1):
-        # Determine the boundaries of the overlapping segments
-        overlap_q_start = max(0, shift)
-        overlap_q_end = min(l_q, shift + l_t)
-        
-        overlap_t_start = max(0, -shift)
-        overlap_t_end = min(l_t, l_q - shift)
-        
-        sub_q = matrix_q[overlap_q_start:overlap_q_end]
-        sub_t = matrix_t[overlap_t_start:overlap_t_end]
-        
-        current_overlap_len = len(sub_q)
-        if current_overlap_len < min_overlap:
-            continue
-            
-        # Compute column-by-column Pearson Correlation over the 4-dimensional profiles
-        pccs = []
-        for col_q, col_t in zip(sub_q, sub_t):
-            # Variance check to prevent division by zero in homogeneous columns
-            if np.std(col_q) == 0 or np.std(col_t) == 0:
-                corr = 0.0
-            else:
-                corr = np.corrcoef(col_q, col_t)[0, 1]
-                if np.isnan(corr): corr = 0.0
-            pccs.append(corr)
-            
-        # Take the mean correlation over the entire length of the active overlap segment
-        mean_pcc = np.mean(pccs)
-        if mean_pcc > max_pcc:
-            max_pcc = mean_pcc
-            best_shift = shift
-            
-    return float(max_pcc), best_shift
-
-
-def annotate_motifs_with_tomtom(all_motifs_df, pwm_txt_path, attract_db_path, out_dir, min_pcc=0.75):
-    """
-    Translates discovered K-mer clusters into continuous probability matrices,
-    cross-references against the ATtRACT PWM database via alignment scanning,
-    and logs annotations to structured output files.
-    """
-    import os
-    import pandas as pd
-    import numpy as np
-    from tqdm import tqdm
-    
-    if all_motifs_df.empty or 'Motif_Name' not in all_motifs_df.columns:
-        print("Empty motif dataframes, skipping TOMTOM annotation pipeline.")
-        return None
-        
-    os.makedirs(out_dir, exist_ok=True)
-    
-    # 1. Load ATtRACT reference databases
-    pwm_library = parse_attract_pwms(pwm_txt_path)
-    try:
-        db_metadata = pd.read_csv(attract_db_path, sep='\t')
-        # Cast Matrix_id to string to maintain key formatting consistency
-        db_metadata['Matrix_id'] = db_metadata['Matrix_id'].astype(str)
-    except Exception as e:
-        print(f"Critical error loading metadata template sheet: {e}")
-        return None
-        
-    unique_clusters = all_motifs_df['Motif_Name'].unique()
-    char_idx = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
-    tomtom_records = []
-    
-    print("\nExecuting Matrix-level Alignment Scanner (TOMTOM Mode)...")
-    for cluster_name in unique_clusters:
-        cluster_seqs = all_motifs_df[all_motifs_df['Motif_Name'] == cluster_name]['sequence'].tolist()
-        if not cluster_seqs: continue
-            
-        # 2. Reconstruct the Query Probability Matrix from raw cluster text items
-        seq_len = len(cluster_seqs[0])
-        query_matrix = np.zeros((seq_len, 4), dtype=np.float32)
-        for seq in cluster_seqs:
-            for idx, char in enumerate(seq):
-                if char in char_idx:
-                    query_matrix[idx, char_idx[char]] += 1
-                    
-        # Apply normalization to derive standard pseudo-probability states
-        query_matrix = query_matrix / (len(cluster_seqs) + 1e-9)
-        
-        # 3. Cross-reference Query Matrix with every Target Matrix inside the PWM library
-        for matrix_id, target_matrix in pwm_library.items():
-            pcc_score, alignment_shift = compute_tomtom_similarity(query_matrix, target_matrix)
-            
-            if pcc_score >= min_pcc:
-                # Query metadata mapping rows to gather biological definitions
-                meta_matches = db_metadata[db_metadata['Matrix_id'] == matrix_id]
-                if meta_matches.empty:
-                    continue
-                    
-                # Deduplicate records to extract clear descriptors
-                first_match = meta_matches.iloc[0]
-                tomtom_records.append({
-                    'Discovered_Motif_Cluster': cluster_name,
-                    'Predicted_RBP': first_match['Gene_name'],
-                    'RBP_Ensembl_ID': first_match['Gene_id'],
-                    'ATtRACT_Matrix_ID': matrix_id,
-                    'TOMTOM_PCC_Score': round(pcc_score, 4),
-                    'Alignment_Shift': alignment_shift,
-                    'Database_Source': first_match['Database'],
-                    'RBP_Family': first_match['Family'],
-                    'Reference_Motif_String': first_match['Motif']
-                })
-                
-    # 4. Generate master dataframes reports
-    if tomtom_records:
-        report_df = pd.DataFrame(tomtom_records)
-        report_df = report_df.sort_values(['Discovered_Motif_Cluster', 'TOMTOM_PCC_Score'], ascending=[True, False])
-        
-        # Deduplicate to keep the best alignment matrix hit per RBP per cluster
-        report_df = report_df.drop_duplicates(subset=['Discovered_Motif_Cluster', 'Predicted_RBP'], keep='first')
-        
-        csv_out_path = os.path.join(out_dir, "TOMTOM_RBP_Motif_Annotations.csv")
-        report_df.to_csv(csv_out_path, index=False)
-        
-        print("\n✅ TOMTOM Alignment Pipeline successfully closed and generated reports!")
-        print(f"Master file saved to: {csv_out_path}")
-        
-        print("\n--- Top TOMTOM Alignment Matrix Hits per Cluster ---")
-        print(report_df.groupby('Discovered_Motif_Cluster').head(2)[['Discovered_Motif_Cluster', 'Predicted_RBP', 'TOMTOM_PCC_Score', 'ATtRACT_Matrix_ID']].to_string(index=False))
-        return report_df
-    else:
-        print(f"\nNo target matrix matched the minimum threshold criteria (PCC >= {min_pcc}).")
-        return pd.DataFrame()
