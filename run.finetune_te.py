@@ -39,11 +39,11 @@ torch.backends.cudnn.benchmark = True
 dataset_dir = "/public-supool/home/annie/translation_model/dataset/"
 
 # Use the same datasets as pretraining (or a TE-specific subset)
-human_t_dataset_name = "human_tissue_21c_6k_depth0.1_cov0.1_rpm1"
-human_cl_dataset_name = "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1"
-human_cl_un_dataset_name = "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1"
-macaque_dataset_name = "macaque_4c_6k_depth0.1_cov0.1_rpm1"
-mouse_dataset_name = "mouse_3c_6k_depth0.1_cov0.1_rpm1"
+human_t_dataset_name = "human_tissue_22c_6k_depth0.1_cov0.1_rpm1"
+# human_cl_dataset_name = "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1"
+# human_cl_un_dataset_name = "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1"
+# macaque_dataset_name = "macaque_4c_6k_depth0.1_cov0.1_rpm1"
+# mouse_dataset_name = "mouse_3c_6k_depth0.1_cov0.1_rpm1"
 
 train_paths = [
     os.path.join(dataset_dir, f"{n}.train.h5")
@@ -79,7 +79,7 @@ if os.path.isfile(ckpt_path):
 # ---------------------------------------------------------------------------
 base_model.add_head(
     "te",
-    TERegressionHead.create_from_model(base_model, d_pred_h=356, p_drop=0.3),
+    TERegressionHead.create_from_model(base_model, d_pred_h=384, p_drop=0.3),
     overwrite=True,
 )
 print(base_model.model_name)
@@ -99,7 +99,7 @@ trainer = TEFinetuneTrainer(
     model=base_model,
     dataset_paths=train_paths,
     val_dataset_paths=val_paths,
-    dataset_name="hs_21c_18c_26c_rm_4c_mm_3c_depth0.1_cov0.1_rpm1_te",
+    dataset_name="hs_22c_depth0.1_cov0.1_rpm1_te",
     batch_size=50,
     checkpoint_dir="/public-supool/home/annie/translation_model/checkpoint/finetune",
     log_dir="/public-supool/home/annie/translation_model/log/finetune",

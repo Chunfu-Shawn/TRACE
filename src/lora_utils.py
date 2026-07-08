@@ -37,6 +37,9 @@ def replace_linear_with_lora(
 
         # If child is one of the target types (e.g. nn.Linear), replace it
         if isinstance(child, target_types):
+            # Detect device from the original module to keep everything on the same device
+            device = child.weight.device
+
             # construct a loralib.Linear with same shape and bias presence
             new_linear = lora.Linear(
                 in_features=child.in_features,
@@ -46,9 +49,12 @@ def replace_linear_with_lora(
                 bias=(child.bias is not None),
             )
 
-            # copy base weight and bias into the new module's base parameters
+            # Move to original device before copying weights — avoids
+            # cross-device .copy_() that leaves parameters on CPU.
+            new_linear.to(device)
+
+            # copy base weight and bias
             with torch.no_grad():
-                # many lora implementations use `.weight` and `.bias` for base params
                 new_linear.weight.data.copy_(child.weight.data)
                 if child.bias is not None:
                     new_linear.bias.data.copy_(child.bias.data)
