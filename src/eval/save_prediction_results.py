@@ -167,3 +167,95 @@ def save_count_predictions(
     clean_up_memory()
 
     return save_path
+
+
+def save_te_predictions(
+    model, 
+    dataset, 
+    num_samples: int = 200, 
+    batch_size: int = 16,
+    out_dir: str = "./results", 
+    suffix: str = "te",
+    rank: Optional[int] = None,
+    world_size: Optional[int] = None
+):
+    """
+    Predict scalar TE values using the 'te' head and save as a pickle file
+    with the same nested-dict structure as save_count_predictions:
+        {cell_type: {tid: scalar_te_value}}
+
+    The count_batch is fully masked (all -1) so the model predicts TE
+    from RNA sequence and cell environment alone — matching the fine-tuning
+    objective.
+    """
+    os.makedirs(out_dir, exist_ok=True)
+    model.eval()
+    base_model = unwrap_model(model)
+
+    # --- Collate Function ---
+    def collate_fn_te(batch):
+        uuids, species, cell_types, expr_vectors, meta_infos, seq_embs, count_embs = zip(*batch)
+
+        seq_padded = pad_sequence(seq_embs, batch_first=True, padding_value=-1)
+        count_padded = pad_sequence(count_embs, batch_first=True, padding_value=-1)
+        # Fully mask count: model predicts TE from sequence + cell env only
+        count_padded[:] = -1
+
+        species_list = list(species)
+        cell_types = list(cell_types)
+        expr_vectors = torch.stack(expr_vectors)
+
+        return uuids, species_list, cell_types, expr_vectors, meta_infos, seq_padded, count_padded
+
+    # Get DataLoader
+    dataloader, run_rank, run_world_size = _prepare_prediction_dataloader(
+        dataset, collate_fn_te, num_samples, batch_size, rank, world_size
+    )
+
+    # File name
+    model_name = getattr(base_model, "model_name", "model")
+    file_name = f"predictions_te.{model_name}.{suffix}"
+    file_name += f".rank{run_rank}.pkl" if run_world_size > 1 else ".pkl"
+    save_path = os.path.join(out_dir, file_name)
+
+    saved_data = {}
+    iterator = tqdm(dataloader, desc=f"[Rank {run_rank}] Infer TE")         if (run_rank == 0 or run_world_size == 1) else dataloader
+
+    for batch_data in iterator:
+        b_uuids, b_species, b_cell_types, b_expr_vectors, b_meta, b_seq, b_count = batch_data
+
+        b_seq = b_seq.to(base_model.device)
+        b_count = b_count.to(base_model.device)
+        src_mask = (b_seq[:, :, 0] != -1)
+
+        with torch.no_grad():
+            with torch.amp.autocast(device_type='cuda', dtype=torch.bfloat16):
+                out = base_model.predict(
+                    seq_batch=b_seq,
+                    count_batch=b_count,
+                    species=b_species,
+                    expr_vector=b_expr_vectors,
+                    src_mask=src_mask,
+                    head_names=["te"],
+                )
+            te_values = out["te"]  # (B, 1)
+
+        for i, uuid in enumerate(b_uuids):
+            parts = str(uuid).split('-')
+            tid = parts[0]
+            cell_type = str(b_cell_types[i])
+            te_scalar = float(te_values[i, 0].cpu().numpy())
+
+            if cell_type not in saved_data:
+                saved_data[cell_type] = {}
+            saved_data[cell_type][tid] = te_scalar
+
+    total_preds = sum(len(tids) for tids in saved_data.values())
+    print(f"[Rank {run_rank}] Saving {total_preds} TE predictions across "
+          f"{len(saved_data)} cell types to {save_path}")
+
+    with open(save_path, 'wb') as f:
+        pickle.dump(saved_data, f)
+
+    clean_up_memory()
+    return save_path

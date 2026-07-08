@@ -79,7 +79,7 @@ if os.path.isfile(ckpt_path):
 # ---------------------------------------------------------------------------
 base_model.add_head(
     "te",
-    TERegressionHead.create_from_model(base_model, d_pred_h=128, p_drop=0.3),
+    TERegressionHead.create_from_model(base_model, d_pred_h=356, p_drop=0.3),
     overwrite=True,
 )
 print(base_model.model_name)
@@ -110,9 +110,9 @@ trainer = TEFinetuneTrainer(
     lora_r=8,
     lora_alpha=16.0,
     # ---- Training ----
-    epoch_num=30,
+    epoch_num=20,
     patience=5,
-    learning_rate=5e-4,        # higher LR for head + LoRA
+    learning_rate=1e-4,        # higher LR for head + LoRA
     lr_warmup_perc=0.1,
     accumulation_steps=1,
     balance_classes=True,

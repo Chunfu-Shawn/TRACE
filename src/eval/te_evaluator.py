@@ -165,3 +165,91 @@ class TranslationEfficiencyAnalyzer:
             'Global_Mean_Density': te_total_mean,
             'Transcript_Length': len(density_profile)
         })
+
+
+class TERegressionResultConverter:
+    """
+    Convert TE regression prediction pkl (scalar TE per transcript)
+    into the same CSV format as TranslationEfficiencyAnalyzer.
+
+    Input pkl structure:
+        {cell_type: {tid: scalar_te_value}}
+
+    Output CSV columns (matching TranslationEfficiencyAnalyzer):
+        UUID, Tid, Cell_Type, mORF_Sum_Ratio, mORF_Mean_Ratio,
+        mORF_Mean_Density, mORF_Ribo_Load, Global_Mean_Density, Transcript_Length
+
+    Since scalar TE predictions don't have per-codon profiles, we set:
+      - mORF_Sum_Ratio  = predicted TE (proxy for TE ratio)
+      - mORF_Mean_Density = predicted TE
+      - mORF_Mean_Ratio = NaN  (not computable from scalar)
+      - mORF_Ribo_Load  = NaN
+      - Global_Mean_Density = NaN
+      - Transcript_Length = from tx_cds metadata
+
+    Call .convert_and_save() to produce the CSV.
+    """
+
+    def __init__(self, te_preds_pkl, transcript_cds_pkl):
+        """
+        Args:
+            te_preds_pkl: path to pickle from save_te_predictions.
+            transcript_cds_pkl: path to transcript metadata pkl (cds_start_pos, cds_end_pos).
+        """
+        self.te_preds_pkl = te_preds_pkl
+        self.transcript_cds_pkl = transcript_cds_pkl
+        self.preds_dict = None
+        self.tx_cds = None
+
+    def _load(self):
+        print(f"Loading TE predictions from {self.te_preds_pkl}...")
+        with open(self.te_preds_pkl, 'rb') as f:
+            self.preds_dict = pickle.load(f)
+
+        print(f"Loading transcript metadata from {self.transcript_cds_pkl}...")
+        with open(self.transcript_cds_pkl, 'rb') as f:
+            self.tx_cds = pickle.load(f)
+        self.tx_cds = {tid.split(".")[0]: v for tid, v in self.tx_cds.items()}
+
+    def convert_and_save(self, out_dir="./results", suffix=""):
+        self._load()
+        results = []
+
+        for cell_type, preds in self.preds_dict.items():
+            for tid, te_val in tqdm(preds.items(), desc=f"Converting {cell_type}"):
+                # Resolve metadata
+                lookup = tid.split(".")[0]
+                meta = self.tx_cds.get(lookup)
+                if meta is None:
+                    continue
+
+                cds_start = int(meta.get('cds_start_pos', -1))
+                cds_end = int(meta.get('cds_end_pos', -1))
+                tx_len = int(meta.get('transcript_length', cds_end))
+
+                uuid = f"{tid}-{cell_type}-te_pred"
+
+                results.append({
+                    'UUID': uuid,
+                    'Tid': tid,
+                    'Cell_Type': cell_type,
+                    'TE': float(te_val),
+                    'mORF_Sum_Ratio': float(te_val),
+                    'mORF_Mean_Ratio': np.nan,
+                    'mORF_Mean_Density': float(te_val),
+                    'mORF_Ribo_Load': np.nan,
+                    'Global_Mean_Density': np.nan,
+                    'Transcript_Length': tx_len,
+                })
+
+        df = pd.DataFrame(results)
+        if df.empty:
+            print("Warning: No records produced.")
+            return df
+
+        file_suffix = f".{suffix}" if suffix else ""
+        save_path = os.path.join(out_dir, f"te_regression_metrics{file_suffix}.csv")
+        os.makedirs(out_dir, exist_ok=True)
+        df.to_csv(save_path, index=False)
+        print(f"Saved {len(df)} records to {save_path}")
+        return df
