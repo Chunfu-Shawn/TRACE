@@ -16,6 +16,8 @@ from collections import defaultdict, Counter
 from tqdm import tqdm
 import warnings
 from eval.calculate_te import *
+import logomaker
+import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore")
 
 # ============================================================
@@ -795,18 +797,6 @@ def plot_gene_attribution(attr_df, out_path="gene_attribution.pdf", top_n=30):
 
 
 
-
-import numpy as np
-import pandas as pd
-from tqdm import tqdm
-from collections import defaultdict
-import torch
-import logomaker
-import matplotlib.pyplot as plt
-
-# 假设 compute_saliency_profile 和 _inverse_metagene 已在当前环境定义
-# from eval_module import compute_saliency_profile, _inverse_metagene, _extract_sample, FIXED_CDS_LEN
-
 def compute_ovr_differential_saliency(model, dataset, target_cell_type, all_cell_types, 
                                       n_samples_per_group=300, max_len=2000, device=None):
     """
@@ -861,6 +851,11 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
     加入 Saliency 过滤器：只保留那些在该物理位点上确实有显著响应的转录本片段。
     """
     raw = _unwrap(model) if hasattr(model, 'module') else model
+    
+    # [关键修复 1]: 如果调用时未传入 device，自动从模型权重上继承 device
+    if device is None:
+        device = next(raw.parameters()).device
+        
     raw.eval()
     
     # 找到目标细胞系的所有样本
@@ -882,15 +877,25 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
         seq = seq_dict[tid].upper()
         L = len(seq)
         
-        # 为了进行过滤，我们需要跑一次单条转录本的 Saliency
+        # 将张量送入正确的 device
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
         ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
         ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
         
         with torch.enable_grad():
             resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            species_idx = raw._normalize_species(s['species'], 1).to(device)
-            out = raw.forward(seq_batch=se, count_batch=ce, expr_vector=resolved_expr, species=species_idx, head_names=['count'])
+            
+            # [关键修复 2]: 显式传入 cell_type，并且直接传入原始 s['species']
+            # 这样符合你的 TranslationBaseModel.forward() 签名要求
+            out = raw.forward(
+                seq_batch=se, 
+                count_batch=ce, 
+                cell_type=s['ct'], 
+                expr_vector=resolved_expr, 
+                species=s['species'], 
+                head_names=['count']
+            )
+            
             pred = out['count'].get('profile', out['count']) if isinstance(out['count'], dict) else out['count']
             profile_loss = (pred[0, :, 0] ** 2).sum()
             
@@ -900,12 +905,11 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
         
         # 寻找上下文
         for x_pos in x_pos_hotspots:
-            # [关键步骤]: 反向映射找真实物理位置
+            # 反向映射找真实物理位置
             abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
             
             if 0 <= abs_pos < L:
-                # [关键过滤]: 只有当这个特定的物理位置在这个细胞系里确实“亮起”了 (比如得分排在前20%)，才切它！
-                # 这能极大地去除没包含 Motif 但不幸被 x_pos 扫中的背景噪音
+                # 关键过滤：只有当这个特定的物理位置在这个细胞系里确实“亮起”了，才切它！
                 if sal_track[abs_pos] > np.percentile(sal_track, 80): 
                     ctx_s = max(0, abs_pos - context_radius)
                     ctx_e = min(L, abs_pos + context_radius + 1)
@@ -936,3 +940,564 @@ def plot_sequence_logo(sequences, title="Cell-Type Specific Motif"):
     ax.set_xlabel('Relative Position')
     plt.title(title)
     plt.show()
+# ============================================================
+# Notebook Cell 1: Transcript-Level Physical Sequence Slicing
+# ============================================================
+import logging
+# [Fix]: 静音 matplotlib 缺失字体的警告
+logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
+
+def _slice_and_append(seq, pos, r, target_list, tid, cds_start, cds_end):
+    """辅助切片函数，确保边界完整且不含异常碱基，同时记录所有的位置元数据"""
+    if pos - r >= 0 and pos + r + 1 <= len(seq):
+        fragment = seq[pos - r : pos + r + 1]
+        if 'N' not in fragment:
+            rel_start = pos - cds_start
+            rel_stop = pos - cds_end
+            x_pos, _, _ = _map_to_metagene(pos, cds_start, cds_end, FIXED_CDS_LEN)
+            
+            # 将原来简单的字符串，改为字典记录结构，方便后续转成表
+            target_list.append({
+                'tid': tid,
+                'sequence': fragment,
+                'abs_pos': pos,
+                'rel_to_cds_start': rel_start,
+                'rel_to_cds_end': rel_stop,
+                'x_pos': x_pos
+            })
+
+
+def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300, window_radius=10, 
+                                min_len=0, max_len=float('inf'), device=None):
+    """
+    Iterate through transcripts, compute absolute physical position saliency scores,
+    split by 5' UTR, CDS, 3' UTR, and extract the strongest peak context.
+    
+    [Optimized]: 
+    1. CDS region is expanded by `window_radius` upstream and downstream to naturally 
+       capture boundary motifs (e.g., Kozak and Stop codon contexts) within the CDS group.
+    2. Implements 1D Non-Maximum Suppression (NMS) to prevent overlapping extraction.
+    
+    Automatically saves individual raw dataframes to CSV files in the out_dir.
+    """
+    import os
+    import numpy as np
+    import pandas as pd
+    import torch
+    from tqdm import tqdm
+
+    os.makedirs(out_dir, exist_ok=True)
+
+    raw = _unwrap(model)
+    if device is None:
+        device = next(raw.parameters()).device
+    raw.eval()
+
+    region_sequences = {"5UTR": [], "CDS": [], "3UTR": []}
+    indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
+
+    for idx in tqdm(indices, desc="Extracting raw physical peaks"):
+        s = _extract_sample(dataset, idx)
+        tid = s['tid']
+        if not s['valid'] or tid not in seq_dict:
+            continue
+
+        seq = seq_dict[tid].upper()
+        L = len(seq)
+        
+        if L < min_len or L > max_len:
+            continue
+            
+        cds_start = s['cds_start_0']
+        cds_end = s['cds_end_0']
+
+        se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
+        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
+        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
+
+        with torch.enable_grad():
+            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
+            out = raw.forward(seq_batch=se, count_batch=ce, cell_type=s['ct'], expr_vector=resolved_expr, species=s['species'], head_names=['count'])
+            pred = out['count'].get('profile', out['count']) if isinstance(out['count'], dict) else out['count']
+            profile_loss = (pred[0, :, 0] ** 2).sum()
+
+        profile_loss.backward()
+        grad = se.grad[0].detach().cpu().numpy()
+        sal_track = np.abs(grad).sum(axis=-1)
+
+        # 使用 np.convolve 计算 3bp 窗口的滑动平均，减少单碱基梯度的抖动
+        window_size = 3
+        sal_track = np.convolve(sal_track, np.ones(window_size)/window_size, mode='same')
+
+        # ==========================================
+        # Step 1: Define Expanded Boundaries
+        # ==========================================
+        # 将 CDS 区域向外围扩展 window_radius 的长度
+        # 从而把 Kozak 和 Stop context 划归到 CDS 搜索空间
+        utr5_bound = max(0, cds_start)
+        utr3_bound = min(L, cds_end)
+
+        # ==========================================
+        # Step 2: Collect Candidate Peaks per Region
+        # ==========================================
+        candidate_peaks = []
+
+        # 5' UTR Region candidate (Strictly distal to expanded CDS)
+        if utr5_bound > 0:
+            utr5_sal = sal_track[:utr5_bound]
+            if len(utr5_sal) > 0:
+                peak_5 = np.argmax(utr5_sal)
+                if utr5_sal[peak_5] > np.percentile(sal_track, 75): 
+                    candidate_peaks.append((peak_5, utr5_sal[peak_5], "5UTR"))
+
+        # CDS Region candidate (Includes the extended boundary contexts)
+        if utr3_bound > utr5_bound:
+            cds_sal = sal_track[utr5_bound:utr3_bound]
+            if len(cds_sal) > 0:
+                peak_cds = np.argmax(cds_sal) + utr5_bound
+                if sal_track[peak_cds] > np.percentile(sal_track, 75):
+                    candidate_peaks.append((peak_cds, sal_track[peak_cds], "CDS"))
+
+        # 3' UTR Region candidate (Strictly distal to expanded CDS)
+        if utr3_bound < L:
+            utr3_sal = sal_track[utr3_bound:]
+            if len(utr3_sal) > 0:
+                peak_3 = np.argmax(utr3_sal) + utr3_bound
+                if sal_track[peak_3] > np.percentile(sal_track, 75):
+                    candidate_peaks.append((peak_3, sal_track[peak_3], "3UTR"))
+
+        # ==========================================
+        # Step 3: 1D Non-Maximum Suppression (NMS)
+        # ==========================================
+        # Sort candidates by absolute saliency score (Highest first)
+        candidate_peaks.sort(key=lambda x: x[1], reverse=True)
+        
+        selected_peaks = []
+        for pos, score, region in candidate_peaks:
+            conflict = False
+            for sel_pos, _, _ in selected_peaks:
+                # If distance is <= 2 * window_radius, extraction windows overlap
+                if abs(pos - sel_pos) <= 2 * window_radius:
+                    conflict = True
+                    break
+            
+            # Keeps the peak if it doesn't overlap with stronger peaks
+            if not conflict:
+                selected_peaks.append((pos, score, region))
+
+        # ==========================================
+        # Step 4: Slice and Append Validated Peaks
+        # ==========================================
+        for pos, _, region in selected_peaks:
+            _slice_and_append(seq, pos, window_radius, region_sequences[region], tid, cds_start, cds_end)
+
+    # Convert to DataFrames and automatically save to disk
+    region_dfs = {}
+    for region, data in region_sequences.items():
+        if data:
+            df = pd.DataFrame(data)
+            df['Region'] = region
+        else:
+            df = pd.DataFrame(columns=['tid', 'sequence', 'abs_pos', 'rel_to_cds_start', 'rel_to_cds_end', 'x_pos', 'Region'])
+        
+        csv_filename = os.path.join(out_dir, f"raw_peaks_{region}.csv")
+        df.to_csv(csv_filename, index=False)
+        region_dfs[region] = df
+
+    print(f"\nSuccessfully sliced & saved raw CSVs: 5'UTR ({len(region_dfs['5UTR'])}), CDS ({len(region_dfs['CDS'])}), 3'UTR ({len(region_dfs['3UTR'])})")
+    return region_dfs
+
+
+def cluster_and_visualize_region_motifs(region_dfs, region_name, out_dir, min_clusters=4, max_clusters=10):
+    """
+    Perform unsupervised KMeans clustering on short physical sequences of a region.
+    [Auto-K with Bounds]: Dynamically determines the optimal number of clusters 
+    using Silhouette Score within a user-defined range [min_clusters, max_clusters].
+    Appends cluster identifiers, saves to CSV, and exports PDF sequence logos.
+    """
+    import os
+    from sklearn.cluster import KMeans
+    from sklearn.metrics import silhouette_score
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import logomaker
+    import pandas as pd
+    
+    os.makedirs(out_dir, exist_ok=True)
+
+    df = region_dfs.get(region_name, pd.DataFrame())
+    
+    # Check if the dataframe contains enough sequences to support the minimum clustering request
+    if len(df) < min_clusters * 3:
+        print(f"Skipping cluster for {region_name}: Insufficient sequences ({len(df)}) to form {min_clusters} clusters.")
+        return df.copy()
+
+    sequences = df['sequence'].tolist()
+
+    # Digitization of bases via One-Hot encoding
+    char_map = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+    encoded_list = []
+    for seq in sequences:
+        int_meta = [char_map[c] for c in seq]
+        one_hot = np.eye(4)[int_meta].flatten() 
+        encoded_list.append(one_hot)
+    
+    X = np.array(encoded_list)
+    
+    # =========================================================
+    # Auto-K Determination with Strict Bounds Check
+    # =========================================================
+    # Determine the maximum safe upper limit based on available sample size
+    safe_max_limit = min(max_clusters + 1, len(X) // 3 + 1)
+    
+    best_k = min_clusters
+    best_score = -1.0
+    best_labels = None
+    
+    # If the database size allows searching within the bound
+    if safe_max_limit > min_clusters + 1:
+        for k in range(min_clusters, safe_max_limit):
+            kmeans = KMeans(n_clusters=k, random_state=42, n_init=10).fit(X)
+            score = silhouette_score(X, kmeans.labels_)
+            
+            # Keep track of the highest Silhouette Score
+            if score > best_score:
+                best_score = score
+                best_k = k
+                best_labels = kmeans.labels_
+    else:
+        # Fallback to min_clusters if the data size strictly restricts search space
+        print(f"[{region_name}] Sample size is too tightly constrained. Forcing min_clusters={min_clusters}.")
+        kmeans = KMeans(n_clusters=min_clusters, random_state=42, n_init=10).fit(X)
+        best_k = min_clusters
+        best_labels = kmeans.labels_
+
+    print(f"\n========================================================")
+    print(f"  [Auto-K Bound] {region_name} Optimal Clusters: {best_k} (Range: {min_clusters}-{max_clusters}, Score: {best_score:.3f})")
+    print(f"========================================================")
+
+    # Append results back to the dataframe copy
+    df = df.copy()
+    df['Cluster_ID'] = best_labels
+    df['Motif_Name'] = region_name + "_Cluster" + df['Cluster_ID'].astype(str)
+
+    # Save labeled dataset
+    csv_save_path = os.path.join(out_dir, f"clustered_data_{region_name}.csv")
+    df.to_csv(csv_save_path, index=False)
+
+    # Visual rendering of sequence logos
+    for cluster_id in range(best_k):
+        sub_seqs = df[df['Cluster_ID'] == cluster_id]['sequence'].tolist()
+        if len(sub_seqs) < 5: 
+            continue
+            
+        counts_df = logomaker.alignment_to_matrix(sequences=sub_seqs, to_type='information')
+        
+        fig, ax = plt.subplots(figsize=(7, 2.2))
+        logo = logomaker.Logo(counts_df, ax=ax)
+        logo.style_spines(visible=False)
+        logo.style_spines(spines=['left', 'bottom'], visible=True)
+        
+        ax.set_ylabel('Information (bits)')
+        ax.set_xlabel('Relative Offset from Peak')
+        ax.set_title(f"{region_name} - Cluster {cluster_id} (Support: n={len(sub_seqs)})")
+        
+        pdf_filename = os.path.join(out_dir, f"motif_logo_{region_name}_cluster_{cluster_id}.pdf")
+        plt.savefig(pdf_filename, bbox_inches='tight', dpi=300)
+        
+        plt.show()
+        plt.close(fig)
+        
+    return df
+
+
+# ============================================================
+# Notebook Cell 3: Motif Spatial Probability Heatmap
+# ============================================================
+def plot_motif_metagene_heatmap(
+        all_motifs_df, out_path="motif_metagene_heatmap.pdf", 
+        bin_size=20, up_len=300, down_len=300, max_prob=None,
+        weight=8, height=10
+        ):
+    """
+    Plots a heatmap of motif spatial distribution along the metagene.
+    Y-axis motifs are dynamically sorted from 5' to 3' based on their peak enrichment positions.
+    """
+    import pandas as pd
+    import numpy as np
+    from plotnine import (ggplot, aes, geom_tile, geom_vline, scale_fill_gradient, 
+                          labs, theme_classic, theme, element_text, element_blank, element_line)
+    
+    if 'Motif_Name' not in all_motifs_df.columns or all_motifs_df.empty:
+        print("No motif clustering data available to plot.")
+        return
+
+    # 1. Filter coordinate boundaries
+    df_plot = all_motifs_df[(all_motifs_df['x_pos'] >= -up_len) & (all_motifs_df['x_pos'] <= FIXED_CDS_LEN + down_len)].copy()
+    
+    # 2. Perform positional binning
+    df_plot['x_bin'] = (df_plot['x_pos'] // bin_size) * bin_size + (bin_size / 2)
+    
+    # 3. Calculate raw frequencies
+    heatmap_data = df_plot.groupby(['Motif_Name', 'x_bin']).size().reset_index(name='count')
+    
+    # 4. Impute empty grid tiles to guarantee a continuous matrix background
+    unique_motifs = heatmap_data['Motif_Name'].unique()
+    min_bin = (-up_len // bin_size) * bin_size + (bin_size / 2)
+    max_bin = ((FIXED_CDS_LEN + down_len) // bin_size) * bin_size + (bin_size / 2)
+    all_bins = np.arange(min_bin, max_bin + bin_size, bin_size)
+    
+    full_index = pd.MultiIndex.from_product([unique_motifs, all_bins], names=['Motif_Name', 'x_bin'])
+    full_df = pd.DataFrame(index=full_index).reset_index()
+    
+    heatmap_data = pd.merge(full_df, heatmap_data, on=['Motif_Name', 'x_bin'], how='left').fillna({'count': 0})
+    
+    # 5. Standardize via row-wise probability
+    motif_totals = heatmap_data.groupby('Motif_Name')['count'].transform('sum')
+    heatmap_data['Probability'] = heatmap_data['count'] / (motif_totals + 1e-9)
+
+    # 6. [核心重构]: 按照 5' -> 3' 空间富集峰值 (Peak) 对 Motif 进行动态排序
+    # 找出每个 Motif 概率最大的 x_bin
+    peak_bins = heatmap_data.loc[heatmap_data.groupby('Motif_Name')['Probability'].idxmax()]
+    
+    # 按 x_bin 降序排列 (因为 plotnine 的 Y 轴是从下往上画的，降序能让 5' 端最小的值排在图表最上面)
+    # 如果有多个 Motif 在同一个位置 Peak，使用 Motif_Name 作为次级排序条件保持稳定
+    ordered_motifs = peak_bins.sort_values(
+        ['x_bin', 'Motif_Name'], 
+        ascending=[False, False]
+    )['Motif_Name'].tolist()
+
+    # 应用严格排序
+    heatmap_data['Motif_Name'] = pd.Categorical(
+        heatmap_data['Motif_Name'], 
+        categories=ordered_motifs
+    )
+    
+    # 7. Automatically upscale the color scale if the global probability is too low
+    if max_prob is None:
+        max_prob = heatmap_data['Probability'].max()
+        if max_prob == 0:
+            max_prob = 1.0
+    
+    # 8. Render plot configurations
+    p = (
+        ggplot(heatmap_data, aes(x='x_bin', y='Motif_Name', fill='Probability'))
+        + geom_tile(color='white', size=0.1) 
+        + scale_fill_gradient(low='#EFF3FF', high='#08306B', limits=(0, max_prob)) 
+        + geom_vline(xintercept=[0, FIXED_CDS_LEN], linetype='dashed', color='red', size=0.6)
+        + labs(
+            x=f'Metagene Position (Bin Size = {bin_size} nt)', 
+            y='Discovered Motifs (Sorted 5\' \u2192 3\')', 
+            fill='Spatial\nProbability', 
+            title='Motif Spatial Distribution along Metagene'
+        )
+        + theme_classic()
+        + theme(
+            figure_size=(weight, height),
+            axis_text_y=element_text(size=10),
+            axis_text_x=element_text(size=10),
+            axis_ticks_major_x=element_line(color='#333333', size=0.5),
+            axis_ticks_major_y=element_line(color='#333333', size=0.5),
+            axis_line_x=element_blank(),
+            axis_line_y=element_blank()
+        )
+    )
+    
+    p.save(out_path)
+    print(f"Motif Metagene Heatmap saved to {out_path}")\
+    
+# ============================================================
+# Phase 3B: PWM Parsing and TOMTOM-like Alignment Engine
+# ============================================================
+
+def parse_attract_pwms(pwm_path):
+    """
+    Parses the ATtRACT pwm.txt file into a dictionary of numpy arrays.
+    Each matrix row represents frequencies/probabilities for columns: [A, C, G, T].
+    """
+    import numpy as np
+    
+    pwms = {}
+    current_id = None
+    current_matrix = []
+    
+    print(f"Parsing ATtRACT PWM file: {pwm_path}")
+    with open(pwm_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            if line.startswith('>'):
+                # Save previous matrix before switching to a new entry
+                if current_id is not None and current_matrix:
+                    pwms[current_id] = np.array(current_matrix, dtype=np.float32)
+                
+                # Header format: >matrix_id \t length
+                parts = line[1:].split()
+                current_id = parts[0]
+                current_matrix = []
+            else:
+                # Convert the sequence rows of frequencies into numeric arrays
+                freqs = [float(x) for x in line.split()]
+                if len(freqs) == 4:
+                    current_matrix.append(freqs)
+                    
+        # Don't forget to capture the last element in file
+        if current_id is not None and current_matrix:
+            pwms[current_id] = np.array(current_matrix, dtype=np.float32)
+            
+    print(f"Successfully loaded {len(pwms)} Position Weight Matrices from database.")
+    return pwms
+
+
+def compute_tomtom_similarity(matrix_q, matrix_t, min_overlap=4):
+    """
+    Calculates the maximum alignment similarity between a Query and Target matrix 
+    using a sliding window Pearson Correlation Coefficient (similar to MEME TOMTOM).
+    
+    Args:
+        matrix_q: Numpy array of shape [L_query, 4] (Cluster matrix)
+        matrix_t: Numpy array of shape [L_target, 4] (Database PWM matrix)
+        min_overlap: Minimum overlapping nucleotides required during alignment.
+    Returns:
+        max_pcc: Highest average column-to-column Pearson correlation observed.
+        best_shift: Relative displacement coordinate maximizing the score.
+    """
+    import numpy as np
+    
+    l_q = len(matrix_q)
+    l_t = len(matrix_t)
+    max_pcc = -1.0
+    best_shift = 0
+    
+    # Slide matrix_t relative to matrix_q
+    # Shift represents the starting index of matrix_t on the timeline of matrix_q
+    min_shift = -l_t + min_overlap
+    max_shift = l_q - min_overlap
+    
+    for shift in range(min_shift, max_shift + 1):
+        # Determine the boundaries of the overlapping segments
+        overlap_q_start = max(0, shift)
+        overlap_q_end = min(l_q, shift + l_t)
+        
+        overlap_t_start = max(0, -shift)
+        overlap_t_end = min(l_t, l_q - shift)
+        
+        sub_q = matrix_q[overlap_q_start:overlap_q_end]
+        sub_t = matrix_t[overlap_t_start:overlap_t_end]
+        
+        current_overlap_len = len(sub_q)
+        if current_overlap_len < min_overlap:
+            continue
+            
+        # Compute column-by-column Pearson Correlation over the 4-dimensional profiles
+        pccs = []
+        for col_q, col_t in zip(sub_q, sub_t):
+            # Variance check to prevent division by zero in homogeneous columns
+            if np.std(col_q) == 0 or np.std(col_t) == 0:
+                corr = 0.0
+            else:
+                corr = np.corrcoef(col_q, col_t)[0, 1]
+                if np.isnan(corr): corr = 0.0
+            pccs.append(corr)
+            
+        # Take the mean correlation over the entire length of the active overlap segment
+        mean_pcc = np.mean(pccs)
+        if mean_pcc > max_pcc:
+            max_pcc = mean_pcc
+            best_shift = shift
+            
+    return float(max_pcc), best_shift
+
+
+def annotate_motifs_with_tomtom(all_motifs_df, pwm_txt_path, attract_db_path, out_dir, min_pcc=0.75):
+    """
+    Translates discovered K-mer clusters into continuous probability matrices,
+    cross-references against the ATtRACT PWM database via alignment scanning,
+    and logs annotations to structured output files.
+    """
+    import os
+    import pandas as pd
+    import numpy as np
+    from tqdm import tqdm
+    
+    if all_motifs_df.empty or 'Motif_Name' not in all_motifs_df.columns:
+        print("Empty motif dataframes, skipping TOMTOM annotation pipeline.")
+        return None
+        
+    os.makedirs(out_dir, exist_ok=True)
+    
+    # 1. Load ATtRACT reference databases
+    pwm_library = parse_attract_pwms(pwm_txt_path)
+    try:
+        db_metadata = pd.read_csv(attract_db_path, sep='\t')
+        # Cast Matrix_id to string to maintain key formatting consistency
+        db_metadata['Matrix_id'] = db_metadata['Matrix_id'].astype(str)
+    except Exception as e:
+        print(f"Critical error loading metadata template sheet: {e}")
+        return None
+        
+    unique_clusters = all_motifs_df['Motif_Name'].unique()
+    char_idx = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+    tomtom_records = []
+    
+    print("\nExecuting Matrix-level Alignment Scanner (TOMTOM Mode)...")
+    for cluster_name in unique_clusters:
+        cluster_seqs = all_motifs_df[all_motifs_df['Motif_Name'] == cluster_name]['sequence'].tolist()
+        if not cluster_seqs: continue
+            
+        # 2. Reconstruct the Query Probability Matrix from raw cluster text items
+        seq_len = len(cluster_seqs[0])
+        query_matrix = np.zeros((seq_len, 4), dtype=np.float32)
+        for seq in cluster_seqs:
+            for idx, char in enumerate(seq):
+                if char in char_idx:
+                    query_matrix[idx, char_idx[char]] += 1
+                    
+        # Apply normalization to derive standard pseudo-probability states
+        query_matrix = query_matrix / (len(cluster_seqs) + 1e-9)
+        
+        # 3. Cross-reference Query Matrix with every Target Matrix inside the PWM library
+        for matrix_id, target_matrix in pwm_library.items():
+            pcc_score, alignment_shift = compute_tomtom_similarity(query_matrix, target_matrix)
+            
+            if pcc_score >= min_pcc:
+                # Query metadata mapping rows to gather biological definitions
+                meta_matches = db_metadata[db_metadata['Matrix_id'] == matrix_id]
+                if meta_matches.empty:
+                    continue
+                    
+                # Deduplicate records to extract clear descriptors
+                first_match = meta_matches.iloc[0]
+                tomtom_records.append({
+                    'Discovered_Motif_Cluster': cluster_name,
+                    'Predicted_RBP': first_match['Gene_name'],
+                    'RBP_Ensembl_ID': first_match['Gene_id'],
+                    'ATtRACT_Matrix_ID': matrix_id,
+                    'TOMTOM_PCC_Score': round(pcc_score, 4),
+                    'Alignment_Shift': alignment_shift,
+                    'Database_Source': first_match['Database'],
+                    'RBP_Family': first_match['Family'],
+                    'Reference_Motif_String': first_match['Motif']
+                })
+                
+    # 4. Generate master dataframes reports
+    if tomtom_records:
+        report_df = pd.DataFrame(tomtom_records)
+        report_df = report_df.sort_values(['Discovered_Motif_Cluster', 'TOMTOM_PCC_Score'], ascending=[True, False])
+        
+        # Deduplicate to keep the best alignment matrix hit per RBP per cluster
+        report_df = report_df.drop_duplicates(subset=['Discovered_Motif_Cluster', 'Predicted_RBP'], keep='first')
+        
+        csv_out_path = os.path.join(out_dir, "TOMTOM_RBP_Motif_Annotations.csv")
+        report_df.to_csv(csv_out_path, index=False)
+        
+        print("\n✅ TOMTOM Alignment Pipeline successfully closed and generated reports!")
+        print(f"Master file saved to: {csv_out_path}")
+        
+        print("\n--- Top TOMTOM Alignment Matrix Hits per Cluster ---")
+        print(report_df.groupby('Discovered_Motif_Cluster').head(2)[['Discovered_Motif_Cluster', 'Predicted_RBP', 'TOMTOM_PCC_Score', 'ATtRACT_Matrix_ID']].to_string(index=False))
+        return report_df
+    else:
+        print(f"\nNo target matrix matched the minimum threshold criteria (PCC >= {min_pcc}).")
+        return pd.DataFrame()
