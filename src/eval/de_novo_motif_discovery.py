@@ -23,7 +23,7 @@ warnings.filterwarnings("ignore")
 # ============================================================
 # Global Parameter
 # ============================================================
-FIXED_CDS_LEN = 900  # The normalized length for all CDS regions (must be a multiple of 3)
+FIXED_CDS_LEN = 600  # The normalized length for all CDS regions (must be a multiple of 3)
 
 # ============================================================
 # Metagene Mapping Utilities
@@ -118,7 +118,7 @@ def _extract_sample(dataset, idx):
 # ============================================================
 # Phase 1A: Attention positional importance
 # ============================================================
-def extract_attention_positional_importance(model, dataset, n_samples=200, max_len=1200, device=None):
+def extract_attention_positional_importance(model, dataset, n_samples=200, min_len=500, max_len=1200, device=None):
     raw = _unwrap(model)
     if device is None:
         device = next(raw.parameters()).device
@@ -135,7 +135,7 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, max_l
 
     for idx in tqdm(indices, desc="Attention positional importance"):
         s = _extract_sample(dataset, idx)
-        if not s['valid'] or s['L'] > max_len:
+        if not s['valid'] or s['L'] > max_len or s['L'] < min_len:
             continue
 
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
@@ -382,114 +382,6 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50, gene_annot_
     df['score_norm'] = df.groupby('layer_module')['score'].transform(lambda x: x / x.max())
     return df
 
-# ============================================================
-# Hotspot identification
-# ============================================================
-def identify_hotspot_positions(attn_df, saliency_df, n_hotspots=30, layer_range=None):
-    if layer_range is None:
-        attn_agg = attn_df.groupby('x_pos')['mean_attn'].mean().reset_index()
-    else:
-        mask = attn_df['layer'].between(*layer_range)
-        attn_agg = attn_df[mask].groupby('x_pos')['mean_attn'].mean().reset_index()
-
-    merged = attn_agg.merge(saliency_df, on='x_pos', how='outer').fillna(0)
-    merged['attn_z'] = (merged['mean_attn'] - merged['mean_attn'].mean()) / (merged['mean_attn'].std() + 1e-8)
-    merged['sal_z'] = (merged['mean_saliency'] - merged['mean_saliency'].mean()) / (merged['mean_saliency'].std() + 1e-8)
-    merged['combined_score'] = (merged['attn_z'] + merged['sal_z']) / 2
-
-    hotspots = merged.nlargest(n_hotspots, 'combined_score')
-    positions = sorted(hotspots['x_pos'].astype(int).tolist())
-    print(f"Hotspot Metagene positions (x_pos): {positions}")
-    return positions, hotspots
-
-# ============================================================
-# Phase 2: Targeted mutagenesis
-# ============================================================
-def targeted_mutagenesis(model, dataset, seq_dict, tx_cds, target_positions, n_transcripts=30, cell_type=None, device=None):
-    raw = _unwrap(model)
-    if device is None:
-        device = next(raw.parameters()).device
-    raw.eval()
-    nt_map = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
-
-    valid_tids = [t for t in seq_dict if t in tx_cds and tx_cds[t].get('cds_start_pos', -1) > 0]
-    selected = np.random.choice(valid_tids, min(len(valid_tids), n_transcripts), replace=False)
-
-    results = []
-    for tid in tqdm(selected, desc="Targeted mutagenesis"):
-        cds_start = tx_cds[tid].get('cds_start_pos', -1) - 1
-        cds_end = tx_cds[tid].get('cds_end_pos', -1)
-        if cds_start < 0 or cds_end <= cds_start: continue
-
-        seq = seq_dict[tid].upper()
-        L = len(seq)
-        sample_idx = next((i for i, d in enumerate(dataset) if str(d[0]).rsplit('-', 2)[0] == tid and (cell_type is None or d[2] == cell_type)), None)
-        if sample_idx is None: continue
-
-        s = _extract_sample(dataset, sample_idx)
-        se_ref, ce_ref = torch.from_numpy(s['se']).float().unsqueeze(0).to(device), torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev_ref = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
-
-        with torch.no_grad():
-            out_ref = model.predict(seq_batch=se_ref, count_batch=ce_ref, expr_vector=ev_ref, species=s['species'], head_names=['count'], return_numpy=False)
-            te_ref = (out_ref['count'].get('profile', out_ref['count']))[0, cds_start:cds_end:3, 0].mean().item()
-
-        for x_pos in target_positions:
-            # Dynamic inverse mapping to find the exact transcript-specific position!
-            abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
-            if abs_pos < 0 or abs_pos >= L or seq[abs_pos] not in nt_map: continue
-            
-            orig_idx = nt_map[seq[abs_pos]]
-            for tgt_base, tgt_idx in nt_map.items():
-                if tgt_idx == orig_idx: continue
-
-                se_mut = se_ref.clone()
-                se_mut[0, abs_pos, :] = 0
-                se_mut[0, abs_pos, tgt_idx] = 1.0
-
-                with torch.no_grad():
-                    out_mut = model.predict(seq_batch=se_mut, count_batch=ce_ref, expr_vector=ev_ref, species=s['species'], head_names=['count'], return_numpy=False)
-                    te_mut = (out_mut['count'].get('profile', out_mut['count']))[0, cds_start:cds_end:3, 0].mean().item()
-
-                results.append({
-                    'tid': tid, 'x_pos': x_pos, 'abs_pos': abs_pos,
-                    'ref_base': seq[abs_pos], 'mut_base': tgt_base,
-                    'te_ref': te_ref, 'te_mut': te_mut,
-                    'delta_te': te_mut - te_ref,
-                })
-
-    df = pd.DataFrame(results)
-    print(f"Targeted mutagenesis complete: {len(df)} mutations mapped.")
-    return df
-
-def aggregate_mutagenesis(mut_df):
-    pos_agg = mut_df.groupby('x_pos').agg(
-        mean_abs_delta=('delta_te', lambda x: np.abs(x).mean()),
-        std_abs_delta=('delta_te', lambda x: np.abs(x).std()),
-        max_abs_delta=('delta_te', lambda x: np.abs(x).max()),
-        n=('delta_te', 'count'),
-    ).reset_index()
-    pos_agg['sem'] = pos_agg['std_abs_delta'] / np.sqrt(pos_agg['n'])
-
-    base_agg = mut_df.groupby(['x_pos', 'ref_base', 'mut_base']).agg(
-        mean_delta=('delta_te', 'mean'), n=('delta_te', 'count'),
-    ).reset_index()
-    return pos_agg, base_agg
-
-def extract_hotspot_contexts(seq_dict, tx_cds, hotspot_positions, context_radius=20, max_seqs=200):
-    contexts = defaultdict(list)
-    tids = [t for t in seq_dict if t in tx_cds and tx_cds[t].get('cds_start_pos', -1) > 0][:max_seqs]
-
-    for tid in tids:
-        cds_start, cds_end = tx_cds[tid].get('cds_start_pos', -1) - 1, tx_cds[tid].get('cds_end_pos', -1)
-        seq = seq_dict[tid].upper()
-        for x_pos in hotspot_positions:
-            abs_pos = _inverse_metagene(x_pos, cds_start, cds_end, FIXED_CDS_LEN)
-            if 0 <= abs_pos < len(seq):
-                ctx_s, ctx_e = max(0, abs_pos - context_radius), min(len(seq), abs_pos + context_radius + 1)
-                ctx = seq[ctx_s:ctx_e]
-                if 'N' not in ctx: contexts[x_pos].append(ctx)
-    return dict(contexts)
     
 # ============================================================
 # Plotting utilities — Single continuous axis, per-layer color
@@ -519,48 +411,81 @@ def _cds_rect_data():
         'fill': ['lightgray']
     })
 
-def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300, down_len=300):
-    from plotnine import (ggplot, aes, geom_point, geom_line, geom_rect,
-                          labs, theme, facet_grid, scale_color_manual, scale_fill_identity,
-                          element_text, theme_classic, element_blank)
+
+def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300, down_len=300, 
+                           color_by_frame=True, xlim=None, show_xaxis=False, show_cds=True, 
+                           weight=6, height=5):
     
-    # Simple bounds filtering
-    df_plot = attn_df[(attn_df['x_pos'] >= -up_len) & (attn_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
-    df_plot = _assign_frame_colors(df_plot)
+    from plotnine import (ggplot, aes, geom_line, geom_rect,
+                          labs, theme, facet_grid, scale_color_manual, scale_fill_identity,
+                          element_text, theme_classic, element_blank, element_line)
+    import pandas as pd
+    import numpy as np
+    
+    # 1. Bounds filtering (support explicit xlim for zooming in)
+    if xlim is not None:
+        df_plot = attn_df[(attn_df['x_pos'] >= xlim[0]) & (attn_df['x_pos'] <= xlim[1])].copy()
+    else:
+        df_plot = attn_df[(attn_df['x_pos'] >= -up_len) & (attn_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
+        
     df_plot['layer'] = df_plot['layer'].astype(int)
 
-    group_cols = ['layer', 'x_pos', 'Frame']
+    # 2. Aggregation logic based on whether we group by Frame
+    if color_by_frame:
+        df_plot = _assign_frame_colors(df_plot)
+        group_cols = ['layer', 'x_pos', 'Frame']
+    else:
+        group_cols = ['layer', 'x_pos']
+
     df_plot = df_plot.groupby(group_cols, as_index=False, observed=True)[['mean_attn']].mean().dropna(subset=['mean_attn'])
     df_plot['log2_mean_attn'] = np.log2(df_plot['mean_attn'] + 1)
 
     base_out = out_path.replace('.pdf', '')
-    frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
     rect_cds = _cds_rect_data()
+    
+    # Dynamic axis styling based on show_xaxis
+    x_axis_text = element_text() if show_xaxis else element_blank()
+    x_axis_ticks = element_line() if show_xaxis else element_blank()
+    x_axis_title = element_text() if show_xaxis else element_blank()
+    x_label_str = 'Metagene Position (x_pos)' if show_xaxis else ''
 
-    # Combined
-    df_combined = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_attn']].mean()
+    # ==================================
+    # Combined Plot
+    # ==================================
+    if color_by_frame:
+        df_combined = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_attn']].mean()
+    else:
+        df_combined = df_plot.groupby(['x_pos'], as_index=False, observed=True)[['mean_attn']].mean()
+        
     df_combined['log2_mean_attn'] = np.log2(df_combined['mean_attn'] + 1)
 
     p_comb = (
         ggplot(df_combined, aes(x='x_pos', y='log2_mean_attn'))
-        # [Fix]: Added geom_rect for light gray CDS shading
-        + geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        # Ensure points/lines are plotted over the rectangle
-        + geom_line(aes(color='Frame', group='Frame'), size=0.5, alpha=0.9) 
-        + geom_point(aes(color='Frame', group='Frame'), size=1.8, alpha=0.4, stroke=0)
-        + scale_color_manual(values=frame_palette)
-        + labs(x='', y='log2(Mean attention + 1)') 
-        + theme_classic()
-        + theme(axis_text_x=element_blank(), 
-                axis_ticks_major_x=element_blank(),
-                axis_title_x=element_blank(), 
-                figure_size=(6, 4))
     )
+
+    if show_cds:
+        p_comb += geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
+
+    if color_by_frame:
+        frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
+        # [修改]: 替换为 geom_smooth 进行平滑拟合，se=False 代表不画置信区间阴影
+        p_comb += geom_line(aes(color='Frame', group='Frame'), size=0.8, alpha=0.6) 
+        p_comb += scale_color_manual(values=frame_palette)
+    else:
+        # [修改]: Monocolor 聚合视图的平滑拟合
+        p_comb += geom_line(size=0.8, alpha=0.6, color='#333333') 
+
+    p_comb += labs(x=x_label_str, y='log2(Mean attention + 1)') 
+    p_comb += theme_classic()
+    p_comb += theme(axis_text_x=x_axis_text, axis_ticks_major_x=x_axis_ticks, axis_title_x=x_axis_title, figure_size=(weight, height))
+    
     p_comb.save(f"{base_out}.combined.pdf")
     print(f"Combined attention profile saved to {base_out}.combined.pdf")
 
-    # Per-layer
+    # ==================================
+    # Per-layer Plot
+    # ==================================
     n_layers = df_plot['layer'].nunique()
     df_plot['Layer'] = pd.Categorical([f'L{li}' for li in df_plot['layer']], categories=[f'L{i}' for i in range(n_layers)])
 
@@ -573,25 +498,28 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
 
     p_layers = (
         ggplot(df_plot, aes(x='x_pos', y='log2_mean_attn'))
-        # [Fix]: Replaced vline with per-layer geom_rect
-        + geom_rect(data=rect_per_layer, 
-                    mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), 
-                    alpha=0.3, inherit_aes=False, show_legend=False)
         + scale_fill_identity()
-        + geom_line(aes(color='Frame', group='Frame'), size=0.5, alpha=0.9)
-        + geom_point(aes(color='Frame', group='Frame'), size=0.2, alpha=0.3)
-        + scale_color_manual(values=frame_palette)
-        + facet_grid('Layer ~ .', scales='free_y')
-        + labs(x='', y='log2(Mean attention + 1)')
-        + theme_classic()
-        + theme(axis_text_x=element_blank(), 
-                axis_ticks_major_x=element_blank(), 
-                axis_title_x=element_blank(), 
-                strip_background=element_blank(), 
-                strip_text=element_text(size=12), 
-                figure_size=(6, 18))
     )
+
+    if show_cds:
+        p_layers += geom_rect(data=rect_per_layer, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
+    
+    if color_by_frame:
+        # [修改]: 分层图平滑拟合
+        p_layers += geom_line(aes(color='Frame', group='Frame'), size=0.6, alpha=0.6)
+        p_layers += scale_color_manual(values=frame_palette)
+    else:
+        # [修改]: 分层图平滑拟合
+        p_layers += geom_line(size=0.6, alpha=0.6, color='#333333')
+
+    p_layers += facet_grid('Layer ~ .', scales='free_y')
+    p_layers += labs(x=x_label_str, y='log2(Mean attention + 1)')
+    p_layers += theme_classic()
+    p_layers += theme(axis_text_x=x_axis_text, axis_ticks_major_x=x_axis_ticks, axis_title_x=x_axis_title, 
+                      strip_background=element_blank(), strip_text=element_text(size=12), figure_size=(weight, height*3))
+    
     p_layers.save(f"{base_out}.per_layer.pdf")
+
 
 def plot_regional_attention_dynamics(attn_df, out_path="regional_attention_dynamics.pdf", up_len=300, down_len=300):
     """
@@ -1222,8 +1150,8 @@ def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=30
         attn_track = attn_track[:L] / len(raw.encoder.encoder_layers)
 
         # Smooth the track to avoid peak jittering
-        window_size = 3
-        attn_track = np.convolve(attn_track, np.ones(window_size)/window_size, mode='same')
+        # window_size = 3
+        # attn_track = np.convolve(attn_track, np.ones(window_size)/window_size, mode='same')
 
         # ==========================================
         # Step 1: Define Expanded Boundaries

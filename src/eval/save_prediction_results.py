@@ -244,7 +244,7 @@ def save_te_predictions(
             parts = str(uuid).split('-')
             tid = parts[0]
             cell_type = str(b_cell_types[i])
-            te_scalar = float(te_values[i, 0].cpu().numpy())
+            te_scalar = float(te_values[i, 0].float().cpu().numpy())
 
             if cell_type not in saved_data:
                 saved_data[cell_type] = {}

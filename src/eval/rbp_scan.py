@@ -104,64 +104,93 @@ def parse_attract_pwms(pwm_path):
     return pwms
 
 
-import os
-import requests
-import time
-import pickle
-import pandas as pd
-from tqdm import tqdm
-
 def pre_annotate_and_save_database(combined_pwms, combined_meta, out_dir):
     """
-    通过 MyGene.info API 预先注释合并后的元数据，并将完整的超集数据库本地固化。
+    Pre-annotate merged metadata using the MyGene.info API and solidify the database locally.
+    [Updated]: Dynamically extracts GO Biological Process (BP) terms alongside standard summaries
+               to facilitate downstream functional clustering of RNA-binding proteins.
     """
+    import os
+    import requests
+    import time
+    import pickle
+    import pandas as pd
+    from tqdm import tqdm
+
     os.makedirs(out_dir, exist_ok=True)
     print("\n--- Phase 1: Pre-annotating Metadata with MyGene.info ---")
     
-    # 提取所有去重的 Ensembl IDs (过滤掉空值)
     unique_ensgs = combined_meta['Gene_id'].dropna().unique()
     print(f"Found {len(unique_ensgs)} unique Ensembl IDs to annotate.")
     
-    annotation_cache = {}
+    # 初始化缓存字典，分别存储Summary和GO_BP描述
+    summary_cache = {}
+    go_bp_cache = {}
     
-    # 遍历抓取 API
     for ensg in tqdm(unique_ensgs, desc="Fetching API"):
-        # 确保是合法的 ENSG 格式
         ensg_clean = str(ensg).strip()
         if not ensg_clean.startswith("ENSG"):
-            annotation_cache[ensg] = "Unannotated (Invalid ID)"
+            summary_cache[ensg] = "Unannotated (Invalid ID)"
+            go_bp_cache[ensg] = "None"
             continue
             
-        url = f"https://mygene.info/v3/gene/{ensg_clean}?fields=summary,name"
+        # [修改]: 增加 go.BP 到请求字段中
+        url = f"https://mygene.info/v3/gene/{ensg_clean}?fields=summary,name,go.BP"
         
         try:
-            time.sleep(0.1)  # 遵守 API 速率限制
+            time.sleep(0.1)  # Rate limiting safety buffer
             response = requests.get(url, timeout=5)
             
             if response.status_code == 200:
                 data = response.json()
-                # 优先取 summary，如果没有则取 name，都没有则给提示
+                
+                # 1. 提取基础功能摘要
                 func_desc = data.get('summary', data.get('name', 'Summary unavailable in NCBI.'))
-                annotation_cache[ensg] = func_desc
+                summary_cache[ensg] = func_desc
+                
+                # 2. [新增]: 提取 GO 生物学过程 (Biological Process)
+                go_data = data.get('go', {})
+                bp_entries = go_data.get('BP', [])
+                
+                # MyGene API 的返回习惯：当只有1条GO时为字典，多条时为列表
+                bp_terms = []
+                if isinstance(bp_entries, list):
+                    for entry in bp_entries:
+                        term = entry.get('term')
+                        if term: bp_terms.append(term)
+                elif isinstance(bp_entries, dict):
+                    term = bp_entries.get('term')
+                    if term: bp_terms.append(term)
+                
+                # 将该基因捕获到的所有 BP 词条用分号连接
+                if bp_terms:
+                    go_bp_cache[ensg] = "; ".join(sorted(list(set(bp_terms))))
+                else:
+                    go_bp_cache[ensg] = "No BP terms annotated"
+                    
             elif response.status_code == 404:
-                annotation_cache[ensg] = "Gene not found in MyGene database."
+                summary_cache[ensg] = "Gene not found in MyGene."
+                go_bp_cache[ensg] = "None"
             else:
-                annotation_cache[ensg] = f"HTTP {response.status_code}"
+                summary_cache[ensg] = f"HTTP {response.status_code}"
+                go_bp_cache[ensg] = "None"
                 
         except Exception as e:
-            annotation_cache[ensg] = "API Fetch Error"
+            summary_cache[ensg] = "API Fetch Error"
+            go_bp_cache[ensg] = "None"
 
-    # 将抓取到的注释映射回 combined_meta 表中，新建 RBP_Function 列
-    combined_meta['RBP_Function'] = combined_meta['Gene_id'].map(annotation_cache)
+    # 3. 将两组新特征无缝映射回联合元数据表中
+    combined_meta['RBP_Function'] = combined_meta['Gene_id'].map(summary_cache)
+    combined_meta['RBP_GO_BP'] = combined_meta['Gene_id'].map(go_bp_cache)
     
     print("\n--- Phase 2: Saving Unified Database to Disk ---")
     
-    # 1. 保存注释好的 Metadata 为 TSV
+    # 保存包含功能和GO标签的完整的元数据表为 TSV
     meta_save_path = os.path.join(out_dir, "Unified_RBP_Metadata_Annotated.tsv")
     combined_meta.to_csv(meta_save_path, sep='\t', index=False)
     print(f"✅ Annotated Metadata saved: {meta_save_path}")
     
-    # 2. 保存 PWM 字典为 Pickle (无损二进制格式，加载极快)
+    # 无损保存 NumPy 概率矩阵字典为 Pickle
     pwm_save_path = os.path.join(out_dir, "Unified_RBP_PWMs.pkl")
     with open(pwm_save_path, 'wb') as f:
         pickle.dump(combined_pwms, f)
@@ -283,7 +312,8 @@ def annotate_motifs_with_unified_tomtom(all_motifs_df, combined_pwm_library, com
                 gene_name = str(first_match['Gene_name']).strip()
                 
                 # Fetch biological function
-                rbp_func = first_match.get('RBP_Function', 'Unannotated') 
+                rbp_func = first_match.get('RBP_Function', 'Unannotated')
+                rbp_go_bp = first_match.get('RBP_GO_BP', 'Unannotated') 
                 
                 tomtom_records.append({
                     'Discovered_Motif_Cluster': cluster_name,
@@ -292,7 +322,8 @@ def annotate_motifs_with_unified_tomtom(all_motifs_df, combined_pwm_library, com
                     'Database_Matrix_ID': matrix_id,
                     'TOMTOM_PCC_Score': round(pcc_score, 4),
                     'Alignment_Shift': alignment_shift,
-                    'RBP_Function': rbp_func,         # <--- Newly appended functional context
+                    'RBP_GO_BP': rbp_go_bp,
+                    'RBP_Function': rbp_func,
                     'Database_Source': first_match['Database'],
                     'RBP_Family': first_match['Family'],
                     'Reference_Motif_String': first_match['Motif']
@@ -312,7 +343,7 @@ def annotate_motifs_with_unified_tomtom(all_motifs_df, combined_pwm_library, com
         print(f"Master file saved to: {csv_out_path}")
         
         print("\n--- Top RBP Matrix Hits per Cluster ---")
-        display_cols = ['Discovered_Motif_Cluster', 'Predicted_RBP', 'TOMTOM_PCC_Score', 'RBP_Function']
+        display_cols = ['Discovered_Motif_Cluster', 'Predicted_RBP', 'TOMTOM_PCC_Score', 'RBP_GO_BP', 'RBP_Function']
         print(report_df.groupby('Discovered_Motif_Cluster').head(2)[display_cols].to_string(index=False))
         return report_df
     else:
