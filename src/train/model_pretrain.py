@@ -477,7 +477,7 @@ class PretrainingTrainer:
             cds_masks: torch.Tensor,
             cds_weight_factor: float = 1.0,
             is_eval: bool = False
-        ) -> torch.Tensor:  
+        ) -> torch.Tensor:
         """
         Calculates the joint loss combining Token-level Micro Loss and Frame-aware Macro Loss.
         Operating purely in linear scale (No Log/ReLU transformation).
@@ -486,11 +486,11 @@ class PretrainingTrainer:
         count_raw_emb = count_raw_emb.float()
         
         # ---------------------------------------------------------
-        # 动态生成 CDS 权重矩阵
+        # Dynamically generate CDS weight matrix
         # ---------------------------------------------------------
         token_weights = torch.where(cds_masks, cds_weight_factor, 1.0).to(pred.device)
         
-        # 计算加权后的有效长度 (CDS 算作多个 token) 以便后续做均值
+        # Calculate weighted valid lengths
         weighted_masks = count_emb_masks.float() * token_weights
         norm_lengths = weighted_masks.sum(dim=1)
         
@@ -536,11 +536,23 @@ class PretrainingTrainer:
             p_val = pred.sum(dim=-1)
             t_val = count_raw_emb.sum(dim=-1)
             
-        frame_mse_losses = []
+        # ---------------------------------------------------------
+        # Calculate overall CDS Mean for Ranking Loss
+        # ---------------------------------------------------------
+        cds_eval_mask = count_emb_masks.to(device) & cds_masks
         
-        # 提前声明变量，用于保存 Frame 0 的均值
-        f0_p_mean = None
-        f0_t_mean = None
+        cds_p_sum = (p_val * cds_eval_mask.float()).sum(dim=1)
+        cds_t_sum = (t_val * cds_eval_mask.float()).sum(dim=1)
+        
+        safe_cds_lengths = torch.clamp(cds_eval_mask.sum(dim=1).float(), min=1.0)
+        
+        cds_p_mean = cds_p_sum / safe_cds_lengths
+        cds_t_mean = cds_t_sum / safe_cds_lengths
+            
+        # ---------------------------------------------------------
+        # Frame-wise MSE calculation
+        # ---------------------------------------------------------
+        frame_mse_losses = []
         
         for i, f_mask in enumerate(frame_masks):
             target_eval_mask = count_emb_masks.to(device) & f_mask
@@ -554,35 +566,23 @@ class PretrainingTrainer:
             p_mean = p_sum / safe_t_lengths
             t_mean = t_sum / safe_t_lengths
             
-            # 在第一轮循环（Frame 0）时，捕获真实的均值供 Ranking 使用
-            if i == 0:
-                f0_p_mean = p_mean
-                f0_t_mean = t_mean
-            
             # Compute MSE loss
             f_loss = self.te_criterion(p_mean, t_mean) 
             frame_mse_losses.append(f_loss)
 
-        has_utr = (~cds_masks & count_emb_masks.bool().to(device)).any(dim=1) 
-        
-        w0 = torch.where(has_utr, 1.2, 1.0).to(device) 
-        w1 = 1.0
-        w2 = 1.0
-        
-        w_sum = w0 + w1 + w2 
-        per_sample_macro_loss = (w0 * frame_mse_losses[0] + w1 * frame_mse_losses[1] + w2 * frame_mse_losses[2]) / w_sum
+        per_sample_macro_loss = (frame_mse_losses[0] + frame_mse_losses[1] + frame_mse_losses[2]) / 3
 
         # ==========================================
-        # 3. Pairwise Ranking Loss (仅针对 Frame 0 的 TE)
+        # 3. Pairwise Ranking Loss (Targeting the entire CDS)
         # ==========================================
         ranking_loss = torch.tensor(0.0, device=device)
 
-        # 确保 f0_p_mean 和 f0_t_mean 已成功提取
-        if B > 1 and f0_p_mean is not None and f0_t_mean is not None:
+        if B > 1:
             margin = 0.001
             
-            p_diff = f0_p_mean.unsqueeze(1) - f0_p_mean.unsqueeze(0)
-            t_diff = f0_t_mean.unsqueeze(1) - f0_t_mean.unsqueeze(0)
+            # Use the overall CDS means calculated above
+            p_diff = cds_p_mean.unsqueeze(1) - cds_p_mean.unsqueeze(0)
+            t_diff = cds_t_mean.unsqueeze(1) - cds_t_mean.unsqueeze(0)
             
             valid_mask = t_diff > margin
             
