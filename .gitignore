@@ -17,3 +17,5 @@ Translatomer/
 *.log
 */*.log
 */*/*.log
+
+manuscript*

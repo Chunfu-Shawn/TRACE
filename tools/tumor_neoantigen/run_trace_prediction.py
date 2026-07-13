@@ -9,7 +9,7 @@ import torch
 # Custom model imports
 from model.translation_base_model import TranslationBaseModel
 from model.translation_predictor import TranslationProfilePredictor
-from model.mask_heads import TranslationProfileHead
+from model.prediction_heads import TranslationProfileHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
 from model.orf_caller import TranslationSignalORFCaller
 

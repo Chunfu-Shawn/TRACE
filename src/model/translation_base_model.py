@@ -4,7 +4,6 @@ import yaml
 import torch
 import torch.nn as nn
 import numpy as np
-import inspect
 from typing import Optional, List, Union, Tuple, Dict, Any
 from config.model_config_expr import ModelConfig
 from model.model_modules import LinearEmbedding, AdaEncoder, AdaZeroEncoderLayer
@@ -13,33 +12,6 @@ __author__ = "Chunfu Xiao"
 __version__="1.6.0"
 __email__ = "chunfushawn@gmail.com"
 
-
-class HeadAdapter(nn.Module):
-    """
-    Wrap an existing head-like module and present canonical signature:
-      forward(src_reps, src_mask=None, trg_inputs=None, **kwargs)
-    `call_style` controls how to call wrapped module:
-      - "src_only": call module(src_reps, src_mask, **kwargs)
-      - "decoder_like": call module(src_reps, trg_inputs, src_mask, **kwargs)
-      - "custom": use user-supplied callable adapter_fn(src_reps, src_mask, trg_inputs, **kwargs)
-    """
-    def __init__(self, module: nn.Module, requires_trg_inputs: bool = False, name: Optional[str] = None, adapter_fn=None):
-        super().__init__()
-        self.module = module
-        self.requires_trg_inputs = bool(requires_trg_inputs)
-        self.adapter_fn = adapter_fn
-        self.name = name or getattr(module, "name", "BaseHead")
-
-    def forward(self, src_reps, src_mask=None, trg_inputs=None, **kwargs):
-        if self.adapter_fn is not None:
-            return self.adapter_fn(src_reps, src_mask, trg_inputs, **kwargs)
-
-        if self.requires_trg_inputs:
-            # assume wrapped module expects (src_reps, src_mask, trg_inputs, ...)
-            return self.module(src_reps, src_mask, trg_inputs, **kwargs)
-        else:
-            # assume wrapped module expects (src_reps, src_mask, ...)
-            return self.module(src_reps, src_mask, **kwargs)
 
 class TranslationBaseModel(nn.Module):
     """
@@ -121,7 +93,7 @@ class TranslationBaseModel(nn.Module):
         # Now accepts d_expr + d_species as input to the bottleneck
         # ==========================================
         self.expr_projector = nn.Sequential(
-            nn.Dropout(min(p_drop * 2, 0.7)),
+            nn.Dropout(min(p_drop * 1.5, 0.7)),
             nn.Linear(self.d_expr + self.d_species, self.d_cell_env, bias=False),
             nn.LayerNorm(self.d_cell_env),
             nn.GELU(),
@@ -138,6 +110,8 @@ class TranslationBaseModel(nn.Module):
         # initialize parameters (Xavier for weight tensors by default)
         self._init_parameters()
 
+        # mean_expr_vector starts as zeros; it is populated by load_expression_dict().
+        # If never loaded, the model falls back to a zero expression vector for all cell types.
         self.register_buffer("mean_expr_vector", torch.zeros(self.d_expr)) 
         self.cell_expr_dict = {} 
 
@@ -185,6 +159,8 @@ class TranslationBaseModel(nn.Module):
                     nn.init.xavier_uniform_(m.weight)
                     if m.bias is not None:
                         nn.init.zeros_(m.bias)
+                elif isinstance(m, nn.Embedding):
+                    nn.init.xavier_uniform_(m.weight)
                 elif isinstance(m, nn.LayerNorm):
                     if m.elementwise_affine: # Only init if learnable
                         if m.weight is not None:
@@ -194,11 +170,16 @@ class TranslationBaseModel(nn.Module):
 
     @property
     def device(self):
-        try:
-            return next(self.parameters()).device
-        except StopIteration:
-            return torch.device('cpu')
+        return self.mean_expr_vector.device
 
+
+    # -------------------------
+    # map_location helper
+    # -------------------------
+    @staticmethod
+    def _default_map_location():
+        return "cuda" if torch.cuda.is_available() else "cpu"
+        
     # -------------------------
     # Config helpers
     # -------------------------
@@ -360,7 +341,7 @@ class TranslationBaseModel(nn.Module):
             tensor = tensor.type(dtype)
         return tensor
     
-    def _ensure_batch_dim_input(
+    def _normalize_model_inputs(
         self,
         seq_batch: Any,
         count_batch: Any,
@@ -553,7 +534,6 @@ class TranslationBaseModel(nn.Module):
         src_mask: Optional[torch.Tensor] = None,
         head_names: Optional[List[str]] = None, 
         head_inputs: Optional[Dict[str, Dict[str, Any]]] = None,
-        **kwargs
     ):
         """
         Strict forward.
@@ -616,28 +596,14 @@ class TranslationBaseModel(nn.Module):
 
         # run requested heads
         outputs = {}
-        head_inputs = head_inputs or {}  # map: head_name -> dict of kwargs for that head
+        head_inputs = head_inputs or {}
 
         for name in head_names:
             if name not in self.heads:
                 raise KeyError(f"Head {name} not found. Available: {list(self.heads.keys())}")
             head = self.heads[name]
-            # per-head explicit inputs (highest priority)
             per_head_kwargs = dict(head_inputs.get(name, {}))
-
-            # if head needs trg_inputs, look in per_head_kwargs or fallback to top-level kwargs e.g., kwargs.get('trg_inputs')
-            if getattr(head, "requires_trg_inputs", False):
-                if "trg_inputs" not in per_head_kwargs:
-                    # fallback to common key
-                    if "trg_inputs" in kwargs:
-                        per_head_kwargs["trg_inputs"] = kwargs["trg_inputs"]
-                    elif "coding_embeddings" in kwargs:
-                        per_head_kwargs["trg_inputs"] = kwargs["coding_embeddings"]
-                    else:
-                        raise ValueError(f"Head '{name}' requires trg_inputs but none provided. Pass in head_inputs['{name}']['trg_inputs']=... or kwargs['trg_inputs']")
-
-            # finally call the head with canonical signature
-            outputs[name] = head(src_reps, src_mask=src_mask, **per_head_kwargs)
+            outputs[name] = head(src_reps, src_mask, **per_head_kwargs)
 
         return outputs
     
@@ -669,33 +635,28 @@ class TranslationBaseModel(nn.Module):
         model_device = self.device
 
         # 2). normalize inputs and preserve whether user passed a single sample
-        seq_batch, count_batch, src_mask, was_squeezed = self._ensure_batch_dim_input(seq_batch, count_batch, src_mask)
+        seq_batch, count_batch, src_mask, was_squeezed = self._normalize_model_inputs(seq_batch, count_batch, src_mask)
         bs = seq_batch.shape[0]
-
-        # resolve species
-        species_idx = self._normalize_species(species, bs)
 
         # process expr_vector and cell_type
         final_expr = self._resolve_expr_vector(cell_type, expr_vector, bs)
 
         # 3) move tensor inputs to model device 
         if move_inputs_to_device:
-            # move only if input is a torch.Tensor (avoid converting np/list here)
             if isinstance(seq_batch, torch.Tensor):
                 seq_batch = seq_batch.to(model_device)
             if isinstance(count_batch, torch.Tensor):
                 count_batch = count_batch.to(model_device)
             if isinstance(src_mask, torch.Tensor):
                 src_mask = src_mask.to(model_device)
-            species_idx = species_idx.to(model_device)
 
-        # 4) run forward under no_grad
+        # 4) run forward under no_grad (species normalization happens inside forward)
         with torch.no_grad():
             outputs = self.forward(
                 seq_batch=seq_batch, 
                 count_batch=count_batch, 
                 expr_vector=final_expr, 
-                species=species_idx,
+                species=species,
                 src_mask=src_mask, 
                 head_names=head_names, 
                 head_inputs=head_inputs
@@ -724,8 +685,7 @@ class TranslationBaseModel(nn.Module):
     def add_head(self, name: str, 
                  head_module: nn.Module, 
                  overwrite: bool = False, 
-                 move_to_model_device: bool = True, 
-                 requires_trg_inputs: Optional[bool] = None) -> None:
+                 move_to_model_device: bool = True) -> None:
         """
         Register a new head module into self.heads and optionally move it to the same device as the base model.
 
@@ -734,58 +694,35 @@ class TranslationBaseModel(nn.Module):
         name : str
             Name used to register the head in self.heads (key of ModuleDict).
         head_module : nn.Module
-            The head module to add.
+            The head module to add. Must have a ``name`` attribute for model_name tracking.
         overwrite : bool
             If True replace an existing head with the same name.
         move_to_model_device : bool
-            If True, move 'head_module' to the same device as this model's parameters (first param's device).
-            This makes simple usage like `base_model.add_head(...); base_model.cuda(rank)` unnecessary.
+            If True, move 'head_module' to the same device as this model.
         """
-        # check duplicate
         if (name in self.heads) and (not overwrite):
             raise KeyError(f"Head {name} exists. use overwrite=True to replace.")
 
-        # Optionally move head to the same device as the model
         if move_to_model_device:
-            # try to determine device of the model by inspecting its parameters
-            try:
-                model_device = self.device
-            except StopIteration:
-                # model has no parameters? fallback to CPU
-                model_device = torch.device("cpu")
-            # move the head module (this moves parameters and buffers)
-            head_module.to(model_device)
+            head_module.to(self.device)
 
-        # autodetect requires_trg_inputs if not provided
-        if requires_trg_inputs is None:
-            # check attribute on module
-            if hasattr(head_module, "requires_trg_inputs"):
-                requires_trg_inputs = bool(getattr(head_module, "requires_trg_inputs"))
-            else:
-                # inspect signature as fallback
-                try:
-                    sig = inspect.signature(head_module.forward)
-                    requires_trg_inputs = "trg_inputs" in sig.parameters
-                except (ValueError, TypeError):
-                    requires_trg_inputs = False
-
-        # if head_module not following HeadAdapter interface, wrap it
-        if not isinstance(head_module, HeadAdapter):
-            head_module = HeadAdapter(head_module, requires_trg_inputs=requires_trg_inputs, name=getattr(head_module, "name", name))
-
-
-        # register the head into ModuleDict (this makes it a tracked submodule)
+        head_name = getattr(head_module, "name", name)
         self.heads[name] = head_module
-        self.model_name = f'{self.model_name}-{head_module.name}'
+        self.model_name = f'{self.model_name}-{head_name}'
 
 
     def remove_head(self, name: str) -> None:
-        """remove head from ModuleDict (replease parameters) """
-        if name in self.heads:
-            self.model_name = self.model_name.replace("-" + self.heads[name].name, '')
-            del self.heads[name]
-        else:
+        """Remove a head from ModuleDict and update model_name safely."""
+        if name not in self.heads:
             raise KeyError(f"Head {name} does not exist.")
+        head = self.heads[name]
+        head_name = getattr(head, "name", name)
+        # Rebuild model_name from remaining heads to avoid substring-replace bugs
+        parts = self.model_name.split("-")
+        # Remove the matching head name segment
+        filtered = [p for p in parts if p != head_name]
+        self.model_name = "-".join(filtered)
+        del self.heads[name]
 
     def list_heads(self)-> List[str]:
         return list(self.heads.keys())
@@ -800,7 +737,7 @@ class TranslationBaseModel(nn.Module):
         The head must already be registered via add_head() before calling this."""
         if name not in self.heads:
             raise KeyError(f"Head '{name}' does not exist. Register it via add_head() before load_head().")
-        map_loc = map_location or ("cuda" if torch.cuda.is_available() else "cpu")
+        map_loc = map_location or self._default_map_location()
         state = torch.load(path, map_location=map_loc)
         self.heads[name].load_state_dict(state)
 
@@ -821,7 +758,7 @@ class TranslationBaseModel(nn.Module):
         """
         if ckpt_path is None:
             return None
-        map_loc = map_location or ("cuda" if torch.cuda.is_available() else "cpu")
+        map_loc = map_location or self._default_map_location()
         ckpt = torch.load(ckpt_path, map_location=map_loc)
         # accept different checkpoint layouts:
         if isinstance(ckpt, dict) and "model" in ckpt:
@@ -857,7 +794,7 @@ class TranslationBaseModel(nn.Module):
         """
         if ckpt_path is None:
             return None
-        map_loc = map_location or ("cuda" if torch.cuda.is_available() else "cpu")
+        map_loc = map_location or self._default_map_location()
         ckpt = torch.load(ckpt_path, map_location=map_loc)
 
         # accept different checkpoint layouts:

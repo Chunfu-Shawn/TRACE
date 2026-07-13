@@ -46,14 +46,14 @@ class PsiteDensityHead(nn.Module):
         self.d_pred_h = int(d_pred_h) if d_pred_h is not None else max(64, self.d_model // 2)
         self.p_drop = float(p_drop)
 
-        # Build MLP: LayerNorm -> Linear(d_model -> d_pred_h) -> GELU -> Dropout -> Linear(d_pred_h -> d_model) -> GELU -> Dropout -> Linear(d_model -> d_count) -> ReLU
+        # Build MLP: LayerNorm -> Linear(d_model -> d_pred_h) -> GELU -> Dropout -> Linear(d_pred_h -> d_count) -> ReLU
         self.net = nn.Sequential(
             nn.LayerNorm(self.d_model),
             nn.Linear(self.d_model, self.d_pred_h),
             nn.GELU(),
             nn.Dropout(self.p_drop),
             nn.Linear(self.d_pred_h, self.d_count),
-            nn.ReLU() # nn.Softplus(beta=10)
+            nn.ReLU()
         )
 
         if init_xavier:
@@ -83,14 +83,14 @@ class PsiteDensityHead(nn.Module):
         ----------
         src_reps : torch.Tensor
             Encoder representations with shape (bs, seq_len, d_model).
-            This method will slice away the prompt prefix and predict counts for the remaining tokens.
+            Padded positions are zeroed out via pad_mask.
 
         Returns
         -------
         torch.Tensor
             Predicted counts with shape (bs, seq_len, d_count).
         """
-        # slice away prompt tokens at the beginning
+        # predict counts for all positions; padded outputs zeroed via mask below
         out = self.net(src_reps)  # -> (bs, seq_len, d_count)
 
         if pad_mask is not None:
@@ -153,7 +153,7 @@ class TranslationProfileHead(nn.Module):
     - If some dims are not provided, you can create this head from a `parent_model` using
       `TranslationProfileHead.create_from_model(parent_model, **overrides)`.
     - Default hidden size d_pred_h is set to max(64, d_model // 2) if not provided.
-    - Applies LayerNorm -> Linear -> GELU -> Dropout blocks and ends with ReLU to produce non-negative counts.
+    - Applies LayerNorm -> Linear -> GELU -> Dropout blocks and ends with Softplus to produce non-negative counts.
     """
 
     def __init__(
@@ -185,7 +185,7 @@ class TranslationProfileHead(nn.Module):
         self.d_pred_h = int(d_pred_h) if d_pred_h is not None else max(64, self.d_model // 2)
         self.p_drop = float(p_drop)
 
-        # Build MLP: LayerNorm -> Linear(d_model -> d_pred_h) -> GELU -> Dropout -> Linear(d_pred_h -> d_model) -> GELU -> Dropout -> Linear(d_model -> d_count) -> ReLU
+        # Build MLP: LayerNorm -> Linear(d_model -> d_pred_h) -> GELU -> Dropout -> Linear(d_pred_h -> d_count) -> Softplus
         self.net = nn.Sequential(
             nn.LayerNorm(self.d_model),
             nn.Linear(self.d_model, self.d_pred_h),
@@ -219,14 +219,14 @@ class TranslationProfileHead(nn.Module):
         ----------
         src_reps : torch.Tensor
             Encoder representations with shape (bs, seq_len, d_model).
-            This method will slice away the prompt prefix and predict counts for the remaining tokens.
+            Padded positions are zeroed out via pad_mask.
 
         Returns
         -------
         torch.Tensor
             Predicted counts with shape (bs, seq_len, d_count).
         """
-        # slice away prompt tokens at the beginning
+        # predict counts for all positions; padded outputs zeroed via mask below
         out = self.net(src_reps)  # -> (bs, seq_len, d_count)
 
         if pad_mask is not None:
