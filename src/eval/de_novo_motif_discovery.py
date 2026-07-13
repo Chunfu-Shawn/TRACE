@@ -416,7 +416,8 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
                            color_by_frame=True, xlim=None, show_xaxis=False, show_cds=True, 
                            weight=6, height=5):
     
-    from plotnine import (ggplot, aes, geom_line, geom_rect,
+    # [Mod]: Imported geom_point for scatter overlay
+    from plotnine import (ggplot, aes, geom_line, geom_point, geom_rect,
                           labs, theme, facet_grid, scale_color_manual, scale_fill_identity,
                           element_text, theme_classic, element_blank, element_line)
     import pandas as pd
@@ -468,13 +469,15 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         p_comb += geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
 
     if color_by_frame:
-        frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
-        # [修改]: 替换为 geom_smooth 进行平滑拟合，se=False 代表不画置信区间阴影
-        p_comb += geom_line(aes(color='Frame', group='Frame'), size=0.8, alpha=0.6) 
+        frame_palette = {'Frame 0': '#D73027', 'Frame 1': '#4575B4', 'Frame 2': 'darkgray'}
+        # [Mod]: Continuous single base-line underlying the points
+        p_comb += geom_line(size=0.6, alpha=0.4, color='#333333') 
+        # [Mod]: Overlay colored points to indicate reading frames
+        p_comb += geom_point(aes(color='Frame'), size=3, alpha=1, stroke=0)
         p_comb += scale_color_manual(values=frame_palette)
     else:
-        # [修改]: Monocolor 聚合视图的平滑拟合
-        p_comb += geom_line(size=0.8, alpha=0.6, color='#333333') 
+        # Monocolor style
+        p_comb += geom_line(size=0.6, alpha=0.4, color='#333333')
 
     p_comb += labs(x=x_label_str, y='log2(Mean attention + 1)') 
     p_comb += theme_classic()
@@ -505,12 +508,13 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         p_layers += geom_rect(data=rect_per_layer, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
     
     if color_by_frame:
-        # [修改]: 分层图平滑拟合
-        p_layers += geom_line(aes(color='Frame', group='Frame'), size=0.6, alpha=0.6)
+        # [Mod]: Continuous base-line for faceted layers
+        p_layers += geom_line(size=0.4, alpha=0.4, color='#333333')
+        # [Mod]: Colored points overlay
+        p_layers += geom_point(aes(color='Frame'), size=2, alpha=1, stroke=0)
         p_layers += scale_color_manual(values=frame_palette)
     else:
-        # [修改]: 分层图平滑拟合
-        p_layers += geom_line(size=0.6, alpha=0.6, color='#333333')
+        p_layers += geom_line(size=0.4, alpha=0.4, color='#333333')
 
     p_layers += facet_grid('Layer ~ .', scales='free_y')
     p_layers += labs(x=x_label_str, y='log2(Mean attention + 1)')
@@ -724,7 +728,6 @@ def plot_gene_attribution(attr_df, out_path="gene_attribution.pdf", top_n=30):
     print(f"Gene attribution heatmap saved to {out_path}")
 
 
-
 def compute_ovr_differential_saliency(model, dataset, target_cell_type, all_cell_types, 
                                       n_samples_per_group=300, max_len=2000, device=None):
     """
@@ -868,6 +871,7 @@ def plot_sequence_logo(sequences, title="Cell-Type Specific Motif"):
     ax.set_xlabel('Relative Position')
     plt.title(title)
     plt.show()
+
 # ============================================================
 # Notebook Cell 1: Transcript-Level Physical Sequence Slicing
 # ============================================================
@@ -1036,6 +1040,103 @@ def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300
     return region_dfs
 
 
+from torch.utils.data import Subset
+import os
+
+
+def split_and_extract_contrastive_peaks(
+        model, dataset, seq_dict, out_dir,
+        min_len=500, max_len=4000, 
+        top_ratio=0.20, window_radius=10, device=None):
+    """
+    [Updated]: Automatically parses `te_scale` from dataset's meta_info to split transcripts 
+    into High TE and Low TE groups. 
+    Added strict sequence length filtering (min_len, max_len) to prevent GPU OOM caused by O(L^2) attention matrices.
+    Generates `transcript_te_dict` for downstream RBP scanning.
+    """
+    print(f"--- Step 1: Parsing TE scales and filtering by length ({min_len} - {max_len} nt) ---")
+    
+    te_records = []
+    transcript_te_dict = {}
+    
+    # Iterate through the dataset and extract the true TE scale
+    for i in range(len(dataset)):
+        try:
+            # Extract single sample dictionary
+            uuid, species, cell_type, cell_env, meta_info, seq_emb, count_emb = dataset[i]
+            tid = str(uuid).split("-")[0]
+            
+            # [CRITICAL UPDATE]: Pre-filter by sequence length to prevent OOM
+            if tid not in seq_dict:
+                continue
+            
+            seq_length = len(seq_dict[tid])
+            if seq_length < min_len or seq_length > max_len:
+                continue # Skip transcripts that are too long or too short
+                
+            te_val = meta_info.get("te_scale", None)
+            
+            if te_val is not None:
+                transcript_te_dict[tid] = float(te_val)
+                te_records.append((i, float(te_val)))
+        except Exception as e:
+            # Fault tolerance: Skip if occasional missing data occurs
+            continue
+            
+    # Sort in descending order based on te_scale (from ~2.0 down to ~-2.0)
+    te_records.sort(key=lambda x: x[1], reverse=True)
+    n_total = len(te_records)
+    
+    if n_total == 0:
+        print("Error: No valid transcripts found after length filtering!")
+        return {}, {}, {}
+        
+    n_extreme = int(n_total * top_ratio)
+    
+    # Get original indices for the extreme groups
+    high_te_indices = [x[0] for x in te_records[:n_extreme]]
+    low_te_indices = [x[0] for x in te_records[-n_extreme:]]
+    
+    high_te_dataset = Subset(dataset, high_te_indices)
+    low_te_dataset = Subset(dataset, low_te_indices)
+    
+    print(f"Data split successful: {n_total} total valid transcripts parsed within length limits.")
+    print(f"  -> Top {top_ratio*100}% High TE: {len(high_te_dataset)} transcripts.")
+    print(f"  -> Bottom {top_ratio*100}% Low TE: {len(low_te_dataset)} transcripts.")
+    
+    # Empty CUDA cache to clear memory fragmentation before heavy extraction
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    
+    # Extract peaks for contrastive groups
+    print("\n--- Step 2: Extracting Attention Peaks for [High TE] Group ---")
+    high_te_dfs = extract_attn_peaks_by_region(
+        model, high_te_dataset, seq_dict, 
+        out_dir=os.path.join(out_dir, "High_TE"), 
+        n_samples=len(high_te_dataset), 
+        window_radius=window_radius, 
+        min_len=min_len,      # Pass length filters down
+        max_len=max_len, 
+        device=device
+    )
+    
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        
+    print("\n--- Step 3: Extracting Attention Peaks for [Low TE] Group ---")
+    low_te_dfs = extract_attn_peaks_by_region(
+        model, low_te_dataset, seq_dict, 
+        out_dir=os.path.join(out_dir, "Low_TE"), 
+        n_samples=len(low_te_dataset), 
+        window_radius=window_radius, 
+        min_len=min_len,      # Pass length filters down
+        max_len=max_len, 
+        device=device
+    )
+    
+    return high_te_dfs, low_te_dfs, transcript_te_dict
+
+
 def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300, window_radius=10, 
                                  min_len=0, max_len=float('inf'), device=None):
     """
@@ -1148,10 +1249,6 @@ def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=30
 
         # Truncate to actual transcript length and calculate mean attention per layer
         attn_track = attn_track[:L] / len(raw.encoder.encoder_layers)
-
-        # Smooth the track to avoid peak jittering
-        # window_size = 3
-        # attn_track = np.convolve(attn_track, np.ones(window_size)/window_size, mode='same')
 
         # ==========================================
         # Step 1: Define Expanded Boundaries

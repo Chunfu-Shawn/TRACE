@@ -157,7 +157,7 @@ class PredictionVisualizer:
                     # 把超出 y_max 的柱子像割草机一样削平
                     df.loc[mask, 'Density'] = df.loc[mask, 'Density'].clip(lower=y_min, upper=y_max)
 
-        soft_colors = {"0": "#D73027", "1": "darkgray", "2": "#4575B4"}
+        soft_colors = {"0": "#D73027", "1": "#4575B4", "2": "darkgray"}
 
         p = ggplot(df, aes(x='Pos', y='Density', fill='Frame'))
 
