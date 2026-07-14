@@ -179,7 +179,22 @@ class TranslationBaseModel(nn.Module):
     @staticmethod
     def _default_map_location():
         return "cuda" if torch.cuda.is_available() else "cpu"
-        
+
+    # -------------------------
+    # checkpoint backward compatibility
+    # -------------------------
+    @staticmethod
+    def _strip_head_module_prefix(state_dict):
+        """
+        Strip module. prefix inserted by the old HeadAdapter wrapper.
+        Before HeadAdapter was removed, head keys were:
+            heads.<name>.module.<param>
+        Now they are:
+            heads.<name>.<param>
+        This rewrites old-format keys so existing checkpoints load correctly.
+        """
+        return {k.replace(".module.", "."): v for k, v in state_dict.items()}
+
     # -------------------------
     # Config helpers
     # -------------------------
@@ -739,6 +754,7 @@ class TranslationBaseModel(nn.Module):
             raise KeyError(f"Head '{name}' does not exist. Register it via add_head() before load_head().")
         map_loc = map_location or self._default_map_location()
         state = torch.load(path, map_location=map_loc)
+        state = self._strip_head_module_prefix(state)
         self.heads[name].load_state_dict(state)
 
     def load_pretrained_weights(self, ckpt_path: Optional[str], map_location: Optional[str] = None, strict: bool = False):
@@ -776,6 +792,7 @@ class TranslationBaseModel(nn.Module):
         except Exception:
             target = self
 
+        sd = cls._strip_head_module_prefix(sd)
         load_res = target.load_state_dict(sd, strict=strict)
         # report helpful info
         missing = load_res.missing_keys if hasattr(load_res, "missing_keys") else None
@@ -813,6 +830,7 @@ class TranslationBaseModel(nn.Module):
         except Exception:
             target = self
 
+        sd = cls._strip_head_module_prefix(sd)
         res = target.load_state_dict(sd, strict=strict)
         missing = res.missing_keys if hasattr(res, "missing_keys") else None
         unexpected = res.unexpected_keys if hasattr(res, "unexpected_keys") else None
