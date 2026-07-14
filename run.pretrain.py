@@ -6,7 +6,7 @@ import torch.distributed as dist
 sys.path.append("/public-supool/home/annie/translation_model/TRACE/src")
 from data.rpf_counter import *
 from model.translation_base_model import TranslationBaseModel
-from model.prediction_heads import TranslationProfileHead
+from model.prediction_heads import PsiteDensityHead
 from train.model_pretrain import PretrainingTrainer
 from utils import print_param_counts
 
@@ -45,7 +45,7 @@ base_model = TranslationBaseModel.from_config(
 # create heads
 base_model.add_head(
     "count",
-    TranslationProfileHead.create_from_model(
+    PsiteDensityHead.create_from_model(
         base_model,
         d_pred_h = 384
         ),
@@ -69,7 +69,7 @@ trainer = PretrainingTrainer(
     dataset_paths = [human_t_train_dataset_path, human_cl_train_dataset_path, human_cl_un_train_dataset_path, macaque_train_dataset_path, mouse_train_dataset_path],
     val_dataset_paths = [human_t_val_dataset_path, human_cl_val_dataset_path, human_cl_un_val_dataset_path, macaque_val_dataset_path, mouse_val_dataset_path],
     dataset_name = "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1",
-    batch_size = 40,
+    batch_size = 50,
     checkpoint_dir = '/public-supool/home/annie/translation_model/checkpoint/pretrain',
     log_dir = '/public-supool/home/annie/translation_model/log/pretrain',
     world_size = world_size,

@@ -93,7 +93,7 @@ class TranslationBaseModel(nn.Module):
         # Now accepts d_expr + d_species as input to the bottleneck
         # ==========================================
         self.expr_projector = nn.Sequential(
-            nn.Dropout(min(p_drop * 1.5, 0.7)),
+            nn.Dropout(min(p_drop * 2.0, 0.7)),
             nn.Linear(self.d_expr + self.d_species, self.d_cell_env, bias=False),
             nn.LayerNorm(self.d_cell_env),
             nn.GELU(),
@@ -741,81 +741,4 @@ class TranslationBaseModel(nn.Module):
         state = torch.load(path, map_location=map_loc)
         self.heads[name].load_state_dict(state)
 
-    def load_pretrained_weights(self, ckpt_path: Optional[str], map_location: Optional[str] = None, strict: bool = False):
-        """
-        Load a pretrained checkpoint into this model instance.
-
-        Recommendation:
-        - Call with strict=False to allow missing keys (LoRA params will be missing).
-        - Prefer to call this BEFORE wrapping model with DistributedDataParallel.
-
-        Args:
-        ckpt_path: path to checkpoint file (can be full checkpoint dict {'model': sd, ...} or raw state dict)
-        map_location: torch.load map_location (default 'cuda' if available)
-        strict: pass-through to load_state_dict
-        Returns:
-        load_result (NamedTuple returned by load_state_dict) or None if no ckpt_path.
-        """
-        if ckpt_path is None:
-            return None
-        map_loc = map_location or self._default_map_location()
-        ckpt = torch.load(ckpt_path, map_location=map_loc)
-        # accept different checkpoint layouts:
-        if isinstance(ckpt, dict) and "model" in ckpt:
-            sd = ckpt["model"]
-        elif isinstance(ckpt, dict) and all(isinstance(v, torch.Tensor) for v in ckpt.values()):
-            # maybe it's directly a state_dict
-            sd = ckpt
-        else:
-            raise ValueError(f"Unsupported checkpoint format for {ckpt_path}")
-
-        # If this model is possibly wrapped in DDP externally, try to load into unwrapped module
-        try:
-            # if self is wrapper-like (has module attribute), prefer the real module
-            target = self.module if hasattr(self, "module") else self
-        except Exception:
-            target = self
-
-        load_res = target.load_state_dict(sd, strict=strict)
-        # report helpful info
-        missing = load_res.missing_keys if hasattr(load_res, "missing_keys") else None
-        unexpected = load_res.unexpected_keys if hasattr(load_res, "unexpected_keys") else None
-        print(f"[model] load_pretrained_weights: path={ckpt_path}, strict={strict}, missing={missing}, unexpected={unexpected}")
-        return load_res
-
-    def load_lora_and_heads(self, ckpt_path: Optional[str], map_location: Optional[str] = None, strict: bool = False):
-        """
-        Load a LoRA+heads checkpoint (a partial checkpoint containing only adapter/head tensors).
-        Recommendation:
-        - Inject LoRA adapters into the model BEFORE calling this if you are going to use LoRA.
-        - Call with strict=False to allow missing keys (base params will be missing).
-
-        This will update matching keys and leave other params untouched.
-        """
-        if ckpt_path is None:
-            return None
-        map_loc = map_location or self._default_map_location()
-        ckpt = torch.load(ckpt_path, map_location=map_loc)
-
-        # accept different checkpoint layouts:
-        if isinstance(ckpt, dict) and "model" in ckpt:
-            sd = ckpt["model"]
-        elif isinstance(ckpt, dict) and all(isinstance(v, torch.Tensor) for v in ckpt.values()):
-            # maybe it's directly a state_dict
-            sd = ckpt
-        else:
-            raise ValueError(f"Unsupported checkpoint format for {ckpt_path}")
-
-        # If this model is possibly wrapped in DDP externally, try to load into unwrapped module
-        try:
-            # if self is wrapper-like (has module attribute), prefer the real module
-            target = self.module if hasattr(self, "module") else self
-        except Exception:
-            target = self
-
-        res = target.load_state_dict(sd, strict=strict)
-        missing = res.missing_keys if hasattr(res, "missing_keys") else None
-        unexpected = res.unexpected_keys if hasattr(res, "unexpected_keys") else None
-        print(f"[model] load_lora_and_heads: path={ckpt_path}, strict={strict}, missing={missing}, unexpected={unexpected}")
-        return res
-        
+    def load_pretrained_weights(self, ckpt_path: Optional[str], map_location: Optional[str] = None, strict: bo

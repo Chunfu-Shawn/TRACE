@@ -494,7 +494,7 @@ import logomaker
 from plotnine import (ggplot, aes, geom_tile, geom_vline, scale_fill_gradient, 
                       labs, theme_classic, theme, element_text, element_blank, element_line)
 
-def _score_and_map_peaks(master_peaks, unified_pwms, unified_meta, min_match_score=0.85):
+def score_and_map_peaks(master_peaks, unified_pwms, unified_meta, min_match_score=0.85):
     """
     内部辅助函数：用 PWM 扫描所有的 Peaks，返回带有 RBP 注释的详细坐标表，供热图使用。
     """
@@ -520,7 +520,7 @@ def _score_and_map_peaks(master_peaks, unified_pwms, unified_meta, min_match_sco
     return pd.DataFrame(mapped_records)
 
 
-def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=900, bin_size=20, up_len=300, down_len=300):
+def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=600, bin_size=20, up_len=300, down_len=300):
     """
     绘制基于 RBP 真实结合位点的 Metagene 概率热图。
     """
@@ -551,11 +551,16 @@ def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=900, bin_
     p = (
         ggplot(heatmap_data, aes(x='x_bin', y='RBP_Name', fill='Probability'))
         + geom_tile(color='white', size=0.1) 
-        + scale_fill_gradient(low='#E0F3F8', high='#08306B', limits=(0, heatmap_data['Probability'].max() or 1.0)) 
+        + scale_fill_gradient(low='#EFF3FF', high='#08306B', limits=(0, heatmap_data['Probability'].max() or 1.0)) 
         + geom_vline(xintercept=[0, FIXED_CDS_LEN], linetype='dashed', color='red', size=0.8)
         + labs(x=f'Metagene Position', y='RNA Binding Proteins', fill='Spatial\nProbability', title='RBP Spatial Distribution')
         + theme_classic()
-        + theme(figure_size=(10, max(4, 0.4 * len(unique_rbps))), axis_text_y=element_text(size=9, weight='bold'), axis_line_x=element_blank(), axis_line_y=element_blank())
+        + theme(
+            figure_size=(10, max(4, 0.15 * len(unique_rbps))),
+            axis_text_y=element_text(size=9), 
+            axis_line_x=element_blank(), 
+            axis_line_y=element_blank()
+            )
     )
     p.save(out_path)
     print(f"RBP Heatmap saved to {out_path}")
@@ -574,7 +579,7 @@ def plot_rbp_bubble_with_logos(rbp_landscape_df, mapped_peaks_df, highlight_rbps
     # 计算 X: 5UTR 偏好指数 (防止除以0，加上伪计数)
     x_data = rbp_landscape_df['5UTR_Ratio'] 
     y_data = rbp_landscape_df['Bound_Transcripts_Avg_TE']
-    sizes  = rbp_landscape_df['Total_Hits'] * 3 # 调整气泡显示倍率
+    sizes  = np.log2(rbp_landscape_df['Total_Hits']) # 调整气泡显示倍率
     
     # 绘制基础气泡
     scatter = ax.scatter(x_data, y_data, s=sizes, alpha=0.6, c='#D62728', edgecolors='white', linewidth=1.5)

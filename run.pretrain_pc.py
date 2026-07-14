@@ -6,7 +6,7 @@ import torch.distributed as dist
 sys.path.append("/public-supool/home/annie/translation_model/TRACE/src")
 from data.rpf_counter import *
 from model.translation_base_model import TranslationBaseModel
-from model.prediction_heads import TranslationProfileHead
+from model.prediction_heads import PsiteDensityHead
 from train.model_pretrain import PretrainingTrainer
 from utils import print_param_counts
 
@@ -39,7 +39,7 @@ base_model = TranslationBaseModel.from_config(
 # create heads
 base_model.add_head(
     "count",
-    TranslationProfileHead.create_from_model(
+    PsiteDensityHead.create_from_model(
         base_model,
         d_pred_h = 384
         ),

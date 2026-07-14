@@ -2,8 +2,8 @@ d_seq: 4
 d_count: 1
 d_model: 384
 d_expr: 16840
-d_cell_env: 64
 d_species: 16
+d_cell_env: 64
 all_species: ["human", "macaque", "mouse"]
 expr_dict_path: None
 n_heads: 8

@@ -899,8 +899,10 @@ def _slice_and_append(seq, pos, r, target_list, tid, cds_start, cds_end):
             })
 
 
-def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300, window_radius=10, 
-                                min_len=0, max_len=float('inf'), device=None):
+def extract_raw_peaks_by_region(
+        model, dataset, seq_dict, out_dir, 
+        n_samples=300, window_radius=10, perc=75,
+        min_len=0, max_len=float('inf'), device=None):
     """
     Iterate through transcripts, compute absolute physical position saliency scores,
     split by 5' UTR, CDS, 3' UTR, and extract the strongest peak context.
@@ -979,7 +981,7 @@ def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300
             utr5_sal = sal_track[:utr5_bound]
             if len(utr5_sal) > 0:
                 peak_5 = np.argmax(utr5_sal)
-                if utr5_sal[peak_5] > np.percentile(sal_track, 75): 
+                if utr5_sal[peak_5] > np.percentile(sal_track, perc): 
                     candidate_peaks.append((peak_5, utr5_sal[peak_5], "5UTR"))
 
         # CDS Region candidate (Includes the extended boundary contexts)
@@ -987,7 +989,7 @@ def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300
             cds_sal = sal_track[utr5_bound:utr3_bound]
             if len(cds_sal) > 0:
                 peak_cds = np.argmax(cds_sal) + utr5_bound
-                if sal_track[peak_cds] > np.percentile(sal_track, 75):
+                if sal_track[peak_cds] > np.percentile(sal_track, perc):
                     candidate_peaks.append((peak_cds, sal_track[peak_cds], "CDS"))
 
         # 3' UTR Region candidate (Strictly distal to expanded CDS)
@@ -995,7 +997,7 @@ def extract_raw_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300
             utr3_sal = sal_track[utr3_bound:]
             if len(utr3_sal) > 0:
                 peak_3 = np.argmax(utr3_sal) + utr3_bound
-                if sal_track[peak_3] > np.percentile(sal_track, 75):
+                if sal_track[peak_3] > np.percentile(sal_track, perc):
                     candidate_peaks.append((peak_3, sal_track[peak_3], "3UTR"))
 
         # ==========================================
@@ -1046,7 +1048,7 @@ import os
 
 def split_and_extract_contrastive_peaks(
         model, dataset, seq_dict, out_dir,
-        min_len=500, max_len=4000, 
+        min_len=500, max_len=4000, attn_perc=75,
         top_ratio=0.20, window_radius=10, device=None):
     """
     [Updated]: Automatically parses `te_scale` from dataset's meta_info to split transcripts 
@@ -1116,7 +1118,8 @@ def split_and_extract_contrastive_peaks(
         n_samples=len(high_te_dataset), 
         window_radius=window_radius, 
         min_len=min_len,      # Pass length filters down
-        max_len=max_len, 
+        max_len=max_len,
+        perc=attn_perc,
         device=device
     )
     
@@ -1130,15 +1133,18 @@ def split_and_extract_contrastive_peaks(
         n_samples=len(low_te_dataset), 
         window_radius=window_radius, 
         min_len=min_len,      # Pass length filters down
-        max_len=max_len, 
+        max_len=max_len,
+        perc=attn_perc,
         device=device
     )
     
     return high_te_dfs, low_te_dfs, transcript_te_dict
 
 
-def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=300, window_radius=10, 
-                                 min_len=0, max_len=float('inf'), device=None):
+def extract_attn_peaks_by_region(
+        model, dataset, seq_dict, out_dir, 
+        n_samples=300, window_radius=10, perc=75,
+        min_len=0, max_len=float('inf'), device=None):
     """
     Iterate through transcripts, compute absolute physical position Attention scores,
     split by 5' UTR, CDS, 3' UTR, and extract the strongest peak context based on internal attention.
@@ -1266,21 +1272,21 @@ def extract_attn_peaks_by_region(model, dataset, seq_dict, out_dir, n_samples=30
             utr5_attn = attn_track[:utr5_bound]
             if len(utr5_attn) > 0:
                 peak_5 = np.argmax(utr5_attn)
-                if utr5_attn[peak_5] > np.percentile(attn_track, 75): 
+                if utr5_attn[peak_5] > np.percentile(attn_track, perc): 
                     candidate_peaks.append((peak_5, utr5_attn[peak_5], "5UTR"))
 
         if utr3_bound > utr5_bound:
             cds_attn = attn_track[utr5_bound:utr3_bound]
             if len(cds_attn) > 0:
                 peak_cds = np.argmax(cds_attn) + utr5_bound
-                if attn_track[peak_cds] > np.percentile(attn_track, 75):
+                if attn_track[peak_cds] > np.percentile(attn_track, perc):
                     candidate_peaks.append((peak_cds, attn_track[peak_cds], "CDS"))
 
         if utr3_bound < L:
             utr3_attn = attn_track[utr3_bound:]
             if len(utr3_attn) > 0:
                 peak_3 = np.argmax(utr3_attn) + utr3_bound
-                if attn_track[peak_3] > np.percentile(attn_track, 75):
+                if attn_track[peak_3] > np.percentile(attn_track, perc):
                     candidate_peaks.append((peak_3, attn_track[peak_3], "3UTR"))
 
         # ==========================================

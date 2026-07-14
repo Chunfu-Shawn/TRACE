@@ -9,12 +9,12 @@ import torch
 # Custom model imports
 from model.translation_base_model import TranslationBaseModel
 from model.translation_predictor import TranslationProfilePredictor
-from model.prediction_heads import TranslationProfileHead
+from model.prediction_heads import TranslationProfileHead, PsiteDensityHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
 from model.orf_caller import TranslationSignalORFCaller
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['CUDA_LAUNCH_BLOCKING'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
 
@@ -99,7 +99,7 @@ def main():
     base_model = TranslationBaseModel.from_config(args.config_path).to(args.device)
     base_model.add_head(
         "count",
-        TranslationProfileHead.create_from_model(base_model, d_pred_h=384),
+        PsiteDensityHead.create_from_model(base_model, d_pred_h=384),
         overwrite=True
     )
     base_model.load_pretrained_weights(args.weights_path, strict=False)
