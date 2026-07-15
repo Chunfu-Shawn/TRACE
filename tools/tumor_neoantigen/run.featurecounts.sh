@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
         --intactNovelGTF) intactNovelGTF=$2;shift;; # Track B: Structurally intact transcripts
         --outputDir)      outputDir=$2;shift;;     
         --threads)        threads=$2;shift;;       
-        --auto_strand_bed) autoStrandBed=$2;shift;;        --)               shift; break;;
+        --auto_strand_bed) auto_strand_bed=$2;shift;;        --)               shift; break;;
         *)                echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
     shift
