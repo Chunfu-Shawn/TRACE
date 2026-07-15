@@ -348,6 +348,124 @@ The prediction is saved as a pickle (`.pkl`) file containing a dictionary:
 Each entry maps a transcript ID → a 1D per-nucleotide ribosome density profile (float16) of the same length as the transcript sequence.
 
 
+## Noncanonical Neoantigen Identification Pipeline
+
+The pipeline under `tools/tumor_neoantigen/` identifies tumor-specific
+noncanonical peptides (derived from novel transcripts, unannotated ORFs,
+or splice junctions) and prioritizes them as candidate neoantigens for
+personalized immunotherapy.
+
+### Pipeline overview
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│                    DATA PREPARATION (run.data_prepare.sh)            │
+│                                                                      │
+│  FastQC → fastp → STAR (2-pass) → StringTie assembly                │
+│      → gffcompare (novel tx) → bedtools subtract (unique regions)   │
+│      → Integrate de novo genes + PacBio isoforms                    │
+│      → Dual-Track featureCounts (TPM + Junction)                    │
+└──────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│             NEOANTIGEN DISCOVERY (run.noncanonical_epitope.sh)       │
+│                                                                      │
+│  1. Extract tumor-specific splice junctions (GTF topology)           │
+│  2. Dual-Track tumor-specific transcript screening                   │
+│     • Track A: tumor vs normal TPM + log2FC                          │
+│     • Track B: junction CPM + log2FC                                 │
+│  3. GTEx baseline filtering (Step 1: median TPM/JCPM;                │
+│     Step 2: absolute TPM re-quantification for novel tx)             │
+│  4. TRACE translation prediction → high-confidence ORFs              │
+│  5. netMHCpan HLA binding affinity prediction                        │
+│  6. Peptide prioritization (Dual-Track protein expression × EL)      │
+│  7. Patient-specific normal proteome filter                          │
+│  8. Canonical proteome off-target filter                             │
+└──────────────────────────────────────────────────────────────────────┘
+```
+
+### Key scripts
+
+| Script | Role |
+|--------|------|
+| `run.data_prepare.sh` | End-to-end data preparation: QC, alignment, assembly, quantification |
+| `run.noncanonical_epitope.sh` | Neoantigen discovery: screening, prediction, filtering |
+| `find_tumor_specific_transcripts.py` | Dual-Track (TPM + Junction CPM) tumor-specific transcript identification |
+| `extract_specific_junctions.py` | GTF topology-based tumor-specific junction extraction |
+| `filter_gtex_step1.py` | GTEx median TPM/JCPM baseline filter |
+| `filter_gtex_step2.py` | Absolute TPM re-quantification of novel transcripts against GTEx BAMs |
+| `run_trace_prediction.py` | TRACE model inference for translation prediction |
+| `neoantigen_prioritization_report.py` | Integrate expression + HLA affinity for ranking |
+| `build_patient_normal_proteome.py` | Build per-patient normal proteome (TPM > 0.5 in normal tissue) |
+| `filter_normal_proteome_offtargets.py` | Filter peptides present in patient's own normal proteome |
+| `filter_canonical_offtargets.py` | Filter self-peptides against canonical reference proteome |
+| `run.strandness.sh` | RSeQC-based strand specificity detection |
+| `run.featurecounts.sh` | Dual-Track featureCounts with auto strand detection |
+
+### Dual-Track tumor specificity logic
+
+Transcripts are identified as tumor-specific if they pass either or both
+of two independent tracks:
+
+- **Track A (TPM)**: Transcript-level TPM with strict paired tumor/normal
+  fold-change. Requires `Tumor_TPM ≥ min_tumor_tpm (1.0)` AND
+  `log2FC ≥ min_log2fc (2.0)`.
+
+- **Track B (Junction CPM)**: Junction-level CPM derived from structurally
+  intact transcripts. Requires `Tumor_JCPM ≥ min_tumor_cpm (2.0)` AND
+  `log2FC ≥ min_log2fc (2.0)`.
+
+Both tracks are independently validated against GTEx baseline
+expression, and transcripts survive if they pass at least one track
+after global background screening.
+
+### Three-layer peptide filtering
+
+To ensure candidate peptides are truly tumor-specific and unlikely to
+trigger autoimmunity, three sequential filters are applied:
+
+1. **Patient normal proteome filter** (`build_patient_normal_proteome.py`
+   + `filter_normal_proteome_offtargets.py`)
+
+   For each patient, all transcripts with normal-sample TPM > 0.5 are
+   collected. Their protein sequences are extracted (canonical reference
+   for ENSTs; 6-frame translation for novel transcripts). Candidate
+   peptides that appear as substrings in this patient-specific normal
+   proteome are removed. This catches:
+   - Alternate isoforms of the same gene expressed in normal tissue
+   - Homologous genes sharing peptide sequences
+   - Novel transcripts expressed in normal tissue
+
+2. **Canonical proteome filter** (`filter_canonical_offtargets.py`)
+
+   Peptides are checked against the full GENCODE canonical protein
+   database. Any peptide that exists in a canonical protein NOT among
+   the patient's verified tumor-specific transcripts is removed.
+
+3. **HLA affinity filter** (within `neoantigen_prioritization_report.py`)
+
+   netMHCpan predictions are filtered by binding level (SB/WB),
+   affinity (≤ 500 nM default), and %Rank_EL (≤ 2.0).
+
+### Usage
+
+```bash
+# 1. Data preparation (QC, alignment, assembly, quantification)
+bash tools/tumor_neoantigen/run.data_prepare.sh
+
+# 2. Check strand specificity (optional)
+bash tools/tumor_neoantigen/run.strandness.sh
+
+# 3. Neoantigen identification
+bash tools/tumor_neoantigen/run.noncanonical_epitope.sh
+```
+
+Output per patient under `$WORK_DIR/patient_neoepitope_reports/`:
+- Prioritized neoepitope CSV with expression, affinity, and filtering status.
+
+
+
 ## Citation
 If you use this code, please cite:
 

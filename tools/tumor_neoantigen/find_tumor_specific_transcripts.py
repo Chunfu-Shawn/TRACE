@@ -8,11 +8,14 @@ import sys
 def clean_colname(col):
     """
     Clean column names robustly to extract pure Run IDs.
+    Strips known BAM filename suffixes precisely.
     """
-    if '.bam' in col:
-        basename = os.path.basename(col)
-        return basename.replace('.uniq.sorted.bam', '').replace('.bam', '')
-    return col
+    basename = os.path.basename(col) if '.bam' in col else col
+    # Strip known suffix patterns with endswith for precision
+    for suffix in ['.uniq.sorted.bam', '.bam']:
+        if basename.endswith(suffix):
+            return basename[:-len(suffix)]
+    return basename
 
 def calculate_tpm(counts, lengths, lib_sizes):
     """
@@ -224,8 +227,11 @@ def main():
             pass_a = tx_id in cands_a
             pass_b = tx_id in cands_b
             
-            t_tpm_val = t_tpm.get(tx_id, 0.0)
-            n_tpm_val = n_tpm.get(tx_id, 0.0)
+            # Always extract real TPM from the global TPM matrix, even if Track A
+            # did not pass. Pass_TrackA_TPM flags correctness; TPM values should
+            # reflect actual expression regardless.
+            t_tpm_val = float(tpm_df.at[tx_id, t_run]) if (t_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
+            n_tpm_val = float(tpm_df.at[tx_id, n_run]) if (n_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
             max_norm_tpm = tpm_df.loc[tx_id, normal_runs_tpm].max() if tx_id in tpm_df.index and normal_runs_tpm else 0.0
             
             valid_j_ids = "None"

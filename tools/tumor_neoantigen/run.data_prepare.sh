@@ -5,7 +5,7 @@ SCRIPT_DIR=/home/user/data3/rbase/translation_model/models/tools/tumor_neoantige
 GTF_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.gtf
 FA_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/Homo_sapiens.GRCh38.primary_assembly.genome.fa
 GENOME_INDEX=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/genome_index_v48_150nt
-
+BED_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.bed
 projects=(cohort_2)
 
 for project in ${projects[@]};
@@ -63,6 +63,6 @@ do
         --intactNovelGTF $WORK_DIR/$project/assembly/final_filtered_novel_transcripts_enhanced.gtf \
         --outputDir $WORK_DIR/$project/featureCounts_tumor \
         --threads 20 \
+        --auto_strand_bed $BED_FILE \
         1> $WORK_DIR/$project/run.featureCounts.log 2>&1
-
 done

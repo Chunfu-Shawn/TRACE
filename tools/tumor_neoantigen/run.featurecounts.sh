@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
         --intactNovelGTF) intactNovelGTF=$2;shift;; # Track B: Structurally intact transcripts
         --outputDir)      outputDir=$2;shift;;     
         --threads)        threads=$2;shift;;       
-        --)               shift; break;;
+        --auto_strand_bed) autoStrandBed=$2;shift;;        --)               shift; break;;
         *)                echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
     shift
@@ -64,6 +64,32 @@ if [ "$bam_count" -eq 0 ]; then
 fi
 echo "Found $bam_count BAM files to process."
 
+
+# ---------------------------------------------------------
+# Phase 2.5: Auto-detect strandness (if --auto_strand_bed provided)
+# ---------------------------------------------------------
+if [ -n "${auto_strand_bed:-}" ]; then
+    echo "=========================================================="
+    echo "### Phase 2.5: Auto-detecting strandness ###"
+    echo "=========================================================="
+    first_bam=$(echo "$bam_files" | head -n1)
+    echo "-> Running infer_experiment.py on: $first_bam"
+    strand_output=$(infer_experiment.py -r "$auto_strand_bed" -i "$first_bam" -s 1000000 2>/dev/null || true)
+    fwd_frac=$(echo "$strand_output" | grep '1++,1--,2+-,2-+' | sed 's/.*: //' || echo "0")
+    rev_frac=$(echo "$strand_output" | grep '1+-,1-+,2++,2--' | sed 's/.*: //' || echo "0")
+    STRAND_FLAG=$(awk -v fwd="$fwd_frac" -v rev="$rev_frac" 'BEGIN {
+        if (fwd + rev > 0) { ratio = fwd / (fwd + rev); }
+        else { ratio = 0.5; }
+        if (ratio > 0.7) print 1;
+        else if (ratio < 0.3) print 2;
+        else print 0;
+    }')
+    echo "-> Strand fractions: fwd=$fwd_frac rev=$rev_frac → featureCounts -s $STRAND_FLAG"
+else
+    STRAND_FLAG=${STRAND_FLAG:-2}
+    echo "-> Using default strandness: featureCounts -s $STRAND_FLAG"
+fi
+
 # ---------------------------------------------------------
 # Phase 3: Execute Dual-Track featureCounts
 # ---------------------------------------------------------
@@ -87,7 +113,7 @@ else
         -T $threads \
         -t exon \
         -g transcript_id \
-        -s 2 \
+        -s $STRAND_FLAG \
         -a $trackA_gtf \
         -o $counts_tx \
         $bam_files
@@ -102,7 +128,7 @@ else
         -T $threads \
         -t exon \
         -g gene_id \
-        -s 2 \
+        -s $STRAND_FLAG \
         -a $trackB_gtf \
         -o $gene_counts_tx \
         $bam_files
@@ -120,7 +146,7 @@ else
         -T $threads \
         -t exon \
         -g transcript_id \
-        -s 2 \
+        -s $STRAND_FLAG \
         -J \
         -a $trackB_gtf \
         -o $counts_junc \

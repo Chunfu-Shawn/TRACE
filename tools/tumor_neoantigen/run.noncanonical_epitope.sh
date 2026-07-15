@@ -186,14 +186,88 @@ do
         --bind_levels SB WB \
         --max_aff_nm 2000 \
         --max_rank_el 5.0
+
+    echo -e "\n"
+    echo "----------------------------------------------"
+    echo "=> Normal proteome by TRACE"
+    echo "----------------------------------------------"
+
+    # Get the normal Run ID for this patient
+    NORM_RUN_ID=$(grep "$patient" "$META_FILE" | grep -i "normal" | cut -d',' -f1 | head -n 1)
+
+    if [ -z "$NORM_RUN_ID" ]; then
+        echo "[Warning] No normal Run ID found for $patient, skipping normal proteome."
+    elif [ -s ${PATIENT_TRACE_DIR}/normal/high_confidence_proteins.${patient_safe}.${TRACE_MODE}_mode.fasta ]; then
+        echo "[Skip] Normal proteome already predicted for $patient"
+    else
+        # Generate input CSV: transcripts with normal TPM > 0.5
+        NORMAL_TX_CSV=${PATIENT_TRACE_DIR}/normal/normal_expressed_transcripts.csv
+        mkdir -p ${PATIENT_TRACE_DIR}/normal
+        python3 -c "
+import pandas as pd
+tpm = pd.read_csv('${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv', index_col=0)
+norm = tpm.get('$NORM_RUN_ID', pd.Series(dtype=float))
+if norm.empty:
+    print(f'Warning: $NORM_RUN_ID not in TPM matrix')
+    exit(0)
+expressed = norm[norm > 0.5]
+if len(expressed) == 0:
+    print(f'Warning: no transcripts with TPM > 0.5 for $NORM_RUN_ID')
+    exit(0)
+df = pd.DataFrame({'Transcript_ID': expressed.index, 'Tumor_Run': '$NORM_RUN_ID'})
+df.to_csv('$NORMAL_TX_CSV', index=False)
+print(f'Generated normal input CSV with {len(df)} transcripts')
+"
+
+        if [ -s "$NORMAL_TX_CSV" ]; then
+            conda activate ribo_model
+            python ${SCRIPT_DIR}/run_trace_prediction.py \
+                --input_csv ${NORMAL_TX_CSV} \
+                --out_dir ${PATIENT_TRACE_DIR}/normal \
+                --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
+                --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
+                --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
+                --patient_counts_file ${WORK_DIR}/featureCounts_tumor/gene_counts.txt \
+                --counts_level "gene" \
+                --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+                --tpm_level "transcript" \
+                --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
+                --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
+                --mapping_json ${CONFIG_DIR}/global_species_id_mapping.json \
+                --tumor_run_id "$NORM_RUN_ID" \
+                --patient_id "$patient_safe" \
+                --mode ${TRACE_MODE} \
+                --batch_size 5 \
+                --device cuda \
+                1> ${PATIENT_TRACE_DIR}/normal/trace_prediction.log 2>&1
+        fi
+    fi
 done
 
 echo -e "\n"
+
+echo -e "\n"
+
+echo -e "\n"
+echo "----------------------------------------------"
+echo "=> Filter against patient normal proteome (TRACE)"
+echo "----------------------------------------------"
+
+NORMAL_FILTERED_DIR=${WORK_DIR}/patient_normal_filtered_reports
+[ -d ${NORMAL_FILTERED_DIR} ] || python ${SCRIPT_DIR}/filter_normal_proteome_offtargets.py \
+    --input_dir ${WORK_DIR}/patient_epitope_reports \
+    --trace_base_dir ${WORK_DIR}/translation \
+    --trace_mode ${TRACE_MODE} \
+    --output_dir ${NORMAL_FILTERED_DIR}
+
+echo -e "\n"
 echo "---------------------------"
-echo "=> Neo-epitope filtering"
+echo "=> Canonical proteome filtering"
+echo "---------------------------"
+
 echo "---------------------------"
 
 [ -d ${WORK_DIR}/patient_neoepitope_reports ] || python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
-    --input_dir ${WORK_DIR}/patient_epitope_reports \
+    --input_dir ${NORMAL_FILTERED_DIR} \
     --fasta /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa \
     --output_dir ${WORK_DIR}/patient_neoepitope_reports
