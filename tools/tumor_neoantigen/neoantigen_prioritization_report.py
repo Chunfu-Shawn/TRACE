@@ -200,7 +200,7 @@ def main():
         
         # 计算双轨制蛋白质表达量
         prot_expr_t = tumor_tpm * mean_int
-        prot_expr_c = tumor_jcpm * mean_int / 150 # read length
+        prot_expr_c = tumor_jcpm * mean_int
         total_prot_expr = prot_expr_t + prot_expr_c
         
         trans_lookup[key] = {

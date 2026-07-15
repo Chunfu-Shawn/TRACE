@@ -792,7 +792,7 @@ class TranslationBaseModel(nn.Module):
         except Exception:
             target = self
 
-        sd = cls._strip_head_module_prefix(sd)
+        sd = self._strip_head_module_prefix(sd)
         load_res = target.load_state_dict(sd, strict=strict)
         # report helpful info
         missing = load_res.missing_keys if hasattr(load_res, "missing_keys") else None
@@ -830,7 +830,7 @@ class TranslationBaseModel(nn.Module):
         except Exception:
             target = self
 
-        sd = cls._strip_head_module_prefix(sd)
+        sd = self._strip_head_module_prefix(sd)
         res = target.load_state_dict(sd, strict=strict)
         missing = res.missing_keys if hasattr(res, "missing_keys") else None
         unexpected = res.unexpected_keys if hasattr(res, "unexpected_keys") else None
