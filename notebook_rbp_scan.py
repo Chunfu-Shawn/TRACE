@@ -139,23 +139,22 @@ print(f"Unified PWM library: {len(unified_pwms)} matrices, "
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
-# ║ Cell 6: RBP-centric scan over High-TE attention peaks        ║
+# ║ Cell 6: RBP-centric scan — High-TE vs Low-TE peaks           ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
-# Scan RBPs only against the High-TE group attention peaks.
-# This identifies RBPs whose binding motifs appear in regions
-# that the model pays attention to in high-TE transcripts.
+# Scan RBPs against BOTH High- and Low-TE attention peaks.
+# Enrichment_Ratio = (High_Hits + 1) / (Low_Hits + 1).
+# Only RBPs from High-TE peaks contribute to Mean_Attention.
 rbp_landscape_df = rbp_centric_peak_scanner(
-    high_te_dfs, unified_pwms, unified_meta,
-    transcript_te_dict=transcript_te_dict,
+    high_te_dfs, low_te_dfs,
+    unified_pwms, unified_meta,
     out_dir=out_dir,
-    top_ratio=top_ratio,
     min_match_score=0.85,
 )
 
-print(f"\nRBPs with >= 5 hits in High-TE peaks: {len(rbp_landscape_df)}")
-print(rbp_landscape_df[['RBP_Name', 'Total_Hits', 'Mean_Attention',
-                         'Top20_Enrichment_Ratio']].head(15))
+print(f"\nRBPs with >= 5 total hits: {len(rbp_landscape_df)}")
+print(rbp_landscape_df[['RBP_Name', 'High_Hits', 'Low_Hits',
+                         'Mean_Attention', 'Enrichment_Ratio']].head(15))
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -171,13 +170,13 @@ plot_rbp_regulatory_bubble(
 # Print top RBPs in upper-right quadrant
 upper_right = rbp_landscape_df[
     (rbp_landscape_df['Mean_Attention'] > rbp_landscape_df['Mean_Attention'].median()) &
-    (rbp_landscape_df['Top20_Enrichment_Ratio'] > 1.0)
+    (rbp_landscape_df['Enrichment_Ratio'] > 1.0)
 ].nlargest(20, 'Total_Hits')
 
 print("\nTop RBPs (upper-right quadrant):")
 for _, r in upper_right.iterrows():
     print(f"  {r['RBP_Name']:20s}  hits={r['Total_Hits']:5d}  "
-          f"attn={r['Mean_Attention']:.3f}  enrich={r['Top20_Enrichment_Ratio']:.2f}")
+          f"attn={r['Mean_Attention']:.3f}  enrich={r['Enrichment_Ratio']:.2f}")
 """
 
 # ╔══════════════════════════════════════════════════════════════╗

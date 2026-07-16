@@ -392,126 +392,122 @@ def _score_sequence_with_pwm(seq, pwm, min_match_score=0.85):
     return best_norm_score >= min_match_score
 
 
-def rbp_centric_peak_scanner(region_dfs, unified_pwms, unified_meta,
-                             transcript_te_dict, out_dir,
-                             top_ratio=0.20, min_match_score=0.85):
+def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta,
+                             out_dir, min_match_score=0.85):
     """
-    RBP-centric scanner over attention peaks.
+    RBP-centric scanner over attention peaks from BOTH High- and Low-TE groups.
 
     For each RBP:
-      - Scans all attention peak sequences.
-      - Computes mean attention score across matched peaks.
-      - Computes Top/Bottom TE enrichment: ratio of top-20% TE transcripts
-        vs bottom-20% TE transcripts among hit transcripts.
+      - Scans High-TE and Low-TE attention peak sequences.
+      - Computes mean attention score from High-TE matched peaks.
+      - Computes Top/Bottom enrichment: hits in High-TE peaks divided by
+        hits in Low-TE peaks (with +1 pseudocount per group).
       - Also tracks spatial distribution (5UTR/CDS/3UTR hits).
 
     Args:
-        region_dfs: dict {region_name: DataFrame} from extract_attn_peaks_by_region.
+        high_te_dfs: dict {region_name: DataFrame} from extract_attn_peaks_by_region (High-TE).
+        low_te_dfs:  dict {region_name: DataFrame} from extract_attn_peaks_by_region (Low-TE).
         unified_pwms: {Motif_ID: np.array(L,4)} merged PWM library.
         unified_meta: DataFrame with columns [Matrix_id, Gene_name, ...].
-        transcript_te_dict: {tid: te_value} for all transcripts.
         out_dir: output directory.
-        top_ratio: fraction for top/bottom TE split (default 0.20).
         min_match_score: minimum PWM match score (0-1).
 
     Returns:
         result_df: DataFrame with columns
-            RBP_Name, Total_Hits, 5UTR_Hits, CDS_Hits, 3UTR_Hits,
-            Mean_Attention, Top20_Enrichment_Ratio, n_top, n_bottom.
+            RBP_Name, Total_Hits, High_Hits, Low_Hits,
+            5UTR_Hits, CDS_Hits, 3UTR_Hits,
+            Mean_Attention, Enrichment_Ratio.
     """
     os.makedirs(out_dir, exist_ok=True)
 
-    # 1. Merge all region peak DataFrames
-    all_peaks = []
-    for region, df in region_dfs.items():
+    # Merge High-TE peaks
+    all_high = []
+    for region, df in high_te_dfs.items():
         if not df.empty:
-            all_peaks.append(df)
+            all_high.append(df)
+    master_high = pd.concat(all_high, ignore_index=True) if all_high else pd.DataFrame()
 
-    if not all_peaks:
-        print("No peaks provided.")
-        return None
+    # Merge Low-TE peaks
+    all_low = []
+    for region, df in low_te_dfs.items():
+        if not df.empty:
+            all_low.append(df)
+    master_low = pd.concat(all_low, ignore_index=True) if all_low else pd.DataFrame()
 
-    master_peaks = pd.concat(all_peaks, ignore_index=True)
-    print(f"Scanning {len(unified_pwms)} RBP PWMs against {len(master_peaks)} attention peaks...")
+    n_high_peaks = len(master_high)
+    n_low_peaks = len(master_low)
+    print(f"Scanning {len(unified_pwms)} RBP PWMs: "
+          f"High-TE peaks={n_high_peaks}, Low-TE peaks={n_low_peaks}")
 
-    # 2. Determine global TE thresholds for top/bottom split
-    all_tids = list(transcript_te_dict.keys())
-    all_te_vals = sorted(transcript_te_dict.values())
-    n_extreme = max(1, int(len(all_tids) * top_ratio))
-    te_top_cutoff = all_te_vals[-n_extreme]
-    te_bottom_cutoff = all_te_vals[n_extreme - 1]
-    print(f"TE thresholds: top {top_ratio*100:.0f}% >= {te_top_cutoff:.3f}, "
-          f"bottom {top_ratio*100:.0f}% <= {te_bottom_cutoff:.3f}")
+    if n_high_peaks == 0:
+        print("No High-TE peaks provided — aborting.")
+        return pd.DataFrame()
 
-    # 3. Build per-transcript top/bottom label
-    tid_is_top = {}
-    tid_is_bottom = {}
-    for tid, tv in transcript_te_dict.items():
-        tid_is_top[tid] = tv >= te_top_cutoff
-        tid_is_bottom[tid] = tv <= te_bottom_cutoff
+    has_attn = 'mean_attn' in master_high.columns
 
-    # 4. Pre-compute peak attention from attn_track column if available
-    has_attn = 'mean_attn' in master_peaks.columns
+    # Helper: scan one master_peaks DataFrame, return {rbp_name: {hits_5utr, hits_cds, hits_3utr, total, attns}}
+    def _scan_one(master, label):
+        results = {}
+        for rbp_name, matrix_ids in rbp_grouped.items():
+            mats = [unified_pwms[mid] for mid in matrix_ids if mid in unified_pwms]
+            if not mats:
+                continue
+            h5, hc, h3 = 0, 0, 0
+            attns = []
+            for _, row in master.iterrows():
+                seq = row['sequence']
+                region = row['Region']
+                if any(_score_sequence_with_pwm(seq, p, min_match_score) for p in mats):
+                    if region == '5UTR':
+                        h5 += 1
+                    elif region == 'CDS':
+                        hc += 1
+                    elif region == '3UTR':
+                        h3 += 1
+                    if has_attn:
+                        attns.append(float(row['mean_attn']))
+            total = h5 + hc + h3
+            if total > 0:
+                results[rbp_name] = {
+                    'hits_5utr': h5, 'hits_cds': hc, 'hits_3utr': h3,
+                    'total': total, 'attns': attns,
+                }
+        return results
 
-    # Group by RBP
+    # Group by RBP once
     rbp_grouped = unified_meta.groupby('Gene_name')['Matrix_id'].apply(list).to_dict()
 
+    # Scan both groups
+    high_results = _scan_one(master_high, 'High')
+    low_results = _scan_one(master_low, 'Low') if n_low_peaks > 0 else {}
+
+    # Merge and build final table
+    all_rbps = set(high_results.keys()) | set(low_results.keys())
     rbp_results = []
-    for rbp_name, matrix_ids in tqdm(rbp_grouped.items(), desc="RBP-Centric Scanning"):
-        rbp_matrices = [unified_pwms[mid] for mid in matrix_ids if mid in unified_pwms]
-        if not rbp_matrices:
-            continue
 
-        hits_5utr = 0
-        hits_cds = 0
-        hits_3utr = 0
-        hit_tids = set()
-        attn_scores = []
-
-        for _, row in master_peaks.iterrows():
-            seq = row['sequence']
-            region = row['Region']
-            tid = row['tid']
-
-            matched = any(_score_sequence_with_pwm(seq, pwm, min_match_score)
-                          for pwm in rbp_matrices)
-
-            if matched:
-                if region == '5UTR':
-                    hits_5utr += 1
-                elif region == 'CDS':
-                    hits_cds += 1
-                elif region == '3UTR':
-                    hits_3utr += 1
-                hit_tids.add(tid)
-                if has_attn:
-                    attn_scores.append(float(row['mean_attn']))
-
-        total_hits = hits_5utr + hits_cds + hits_3utr
+    for rbp_name in all_rbps:
+        h = high_results.get(rbp_name, {})
+        l = low_results.get(rbp_name, {})
+        h_total = h.get('total', 0)
+        l_total = l.get('total', 0)
+        total_hits = h_total + l_total
 
         if total_hits < 5:
             continue
 
-        # Attention score
-        mean_attn = np.mean(attn_scores) if attn_scores else np.nan
-
-        # Top/bottom enrichment
-        n_top = sum(1 for t in hit_tids if tid_is_top.get(t, False))
-        n_bottom = sum(1 for t in hit_tids if tid_is_bottom.get(t, False))
-
-        # Enrichment ratio: (top / bottom), with pseudocount
-        ratio = (n_top + 1) / (n_bottom + 1)
+        mean_attn = np.mean(h['attns']) if h.get('attns') else np.nan
+        ratio = (h_total + 1) / (l_total + 1)
 
         rbp_results.append({
             'RBP_Name': rbp_name,
             'Total_Hits': total_hits,
-            '5UTR_Hits': hits_5utr,
-            'CDS_Hits': hits_cds,
-            '3UTR_Hits': hits_3utr,
+            'High_Hits': h_total,
+            'Low_Hits': l_total,
+            '5UTR_Hits': h.get('hits_5utr', 0) + l.get('hits_5utr', 0),
+            'CDS_Hits': h.get('hits_cds', 0) + l.get('hits_cds', 0),
+            '3UTR_Hits': h.get('hits_3utr', 0) + l.get('hits_3utr', 0),
             'Mean_Attention': mean_attn,
-            'Top20_Enrichment_Ratio': ratio,
-            'n_top': n_top,
-            'n_bottom': n_bottom,
+            'Enrichment_Ratio': ratio,
         })
 
     if not rbp_results:
@@ -524,7 +520,6 @@ def rbp_centric_peak_scanner(region_dfs, unified_pwms, unified_meta,
     save_path = os.path.join(out_dir, "RBP_Centric_Landscape.csv")
     result_df.to_csv(save_path, index=False)
     print(f"\n[RBP Scan] Saved {len(result_df)} RBPs to {save_path}")
-
     return result_df
 
 
@@ -625,7 +620,7 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
     import numpy as np
     from matplotlib.lines import Line2D
 
-    df = rbp_landscape_df.dropna(subset=['Mean_Attention', 'Top20_Enrichment_Ratio']).copy()
+    df = rbp_landscape_df.dropna(subset=['Mean_Attention', 'Enrichment_Ratio']).copy()
     if df.empty:
         print("No RBPs with valid attention + enrichment data.")
         return
@@ -650,7 +645,7 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
     fig, ax = plt.subplots(figsize=figsize)
 
     scatter = ax.scatter(
-        df['attn_norm'], df['Top20_Enrichment_Ratio'],
+        df['attn_norm'], df['Enrichment_Ratio'],
         s=sizes, c=df['color'], alpha=0.7, edgecolors='#555555', linewidth=0.4,
     )
 
@@ -659,7 +654,7 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
     ax.axvline(x=0.5, linestyle='--', color='#888888', linewidth=0.8, alpha=0.6)
 
     # ---- Label top RBPs in upper-right ----
-    upper_right = df[(df['attn_norm'] > 0.5) & (df['Top20_Enrichment_Ratio'] > 1.0)]
+    upper_right = df[(df['attn_norm'] > 0.5) & (df['Enrichment_Ratio'] > 1.0)]
     upper_right = upper_right.nlargest(top_n_label, 'Total_Hits')
 
     for _, row in upper_right.iterrows():
@@ -667,7 +662,7 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
                   0.04 + np.random.uniform(-0.02, 0.02))
         ax.annotate(
             row['RBP_Name'],
-            (row['attn_norm'], row['Top20_Enrichment_Ratio']),
+            (row['attn_norm'], row['Enrichment_Ratio']),
             textcoords="offset points", xytext=(15, 5),
             fontsize=7.5, fontweight='bold', alpha=0.85,
             arrowprops=dict(arrowstyle='->', color='#555555', lw=0.6),
@@ -684,7 +679,7 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
 
     # ---- Labels ----
     ax.set_xlabel("Normalized Mean Attention Score", fontsize=12)
-    ax.set_ylabel("Top-20% TE Enrichment Ratio", fontsize=12)
+    ax.set_ylabel("High / Low TE Enrichment Ratio", fontsize=12)
     ax.set_title("RBP Regulatory Landscape", fontsize=13, fontweight='bold')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
