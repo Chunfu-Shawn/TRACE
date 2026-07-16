@@ -59,7 +59,6 @@ do
     bash $SCRIPT_DIR/run.featurecounts.sh \
         --bamDir $WORK_DIR/$project/bam \
         --refGTF /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro_denovo_removed.gtf \
-        --quantTargetGTF $WORK_DIR/$project/assembly/final_quantification_targets_enhanced.gtf \
         --intactNovelGTF $WORK_DIR/$project/assembly/final_filtered_novel_transcripts_enhanced.gtf \
         --outputDir $WORK_DIR/$project/featureCounts_tumor \
         --threads 20 \

@@ -18,9 +18,9 @@ done
 
 threads=${threads:-20}
 
-if [ -z "${bamDir:-}" ] || [ -z "${refGTF:-}" ] || [ -z "${quantTargetGTF:-}" ] || [ -z "${intactNovelGTF:-}" ] || [ -z "${outputDir:-}" ]; then
+if [ -z "${bamDir:-}" ] || [ -z "${refGTF:-}" ] || [ -z "${intactNovelGTF:-}" ] || [ -z "${outputDir:-}" ]; then
     echo "Error: Missing required parameters."
-    echo "Usage: bash run_featurecounts.sh --bamDir <dir> --refGTF <gtf> --quantTargetGTF <gtf> --intactNovelGTF <gtf> --outputDir <dir>"
+    echo "Usage: bash run_featurecounts.sh --bamDir <dir> --refGTF <gtf> --intactNovelGTF <gtf> --outputDir <dir> [--quantTargetGTF <gtf>]"
     exit 1
 fi
 
@@ -32,13 +32,15 @@ fi
 echo "=========================================================="
 echo "### Phase 1: Preparing Dual-Track GTFs ###"
 echo "=========================================================="
-# Track A GTF: Used for Expression Quantification (TPM) to avoid overlap penalties
-trackA_gtf="${outputDir}/TrackA_Quantification.gtf"
+# Track A GTF: Expression Quantification (TPM). Since -O handles multi-overlap,
+# the intact GTF is used by default; quantTargetGTF is no longer required.
+quantTargetGTF=${quantTargetGTF:-${intactNovelGTF}}
+trackA_gtf="${outputDir}/TrackA_Quantification.gtf"  # now uses intact GTF since -O handles overlaps
 # Track B GTF: Used for Junction Annotation to preserve exact biological exon boundaries
 trackB_gtf="${outputDir}/TrackB_IntactStructure.gtf"
 
 if [ ! -s "$trackA_gtf" ]; then
-    echo "Building Track A GTF (Ref + Subtracted Novel)..."
+    echo "Building Track A GTF..."
     cat $refGTF $quantTargetGTF > $trackA_gtf
 fi
 
