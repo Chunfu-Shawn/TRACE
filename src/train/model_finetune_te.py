@@ -414,7 +414,8 @@ class TEFinetuneTrainer:
         if self.rank == 0:
             print(f"[TEFinetune] Resuming from {ckpt_path}")
         ckpt = torch.load(ckpt_path, map_location=self.device, weights_only=False)
-        unwrap_model(self.model).load_state_dict(ckpt["model_state_dict"], strict=False)
+        sd = unwrap_model(self.model)._strip_head_module_prefix(ckpt["model_state_dict"])
+        unwrap_model(self.model).load_state_dict(sd, strict=False)
         self.optimizer.load_state_dict(ckpt["optimizer_state_dict"])
         self.scheduler.load_state_dict(ckpt["scheduler_state_dict"])
         self.scaler.load_state_dict(ckpt["scaler_state_dict"])

@@ -344,7 +344,8 @@ class PretrainingTrainer:
             ckpt = torch.load(latest, map_location=map_loc)
             # restore model weights into unwrapped model
             model_unwrapped = unwrap_model(self.model)
-            model_unwrapped.load_state_dict(ckpt["model"], strict=True)
+            sd = model_unwrapped._strip_head_module_prefix(ckpt["model"])
+            model_unwrapped.load_state_dict(sd, strict=False)
             self.start_epoch = int(ckpt.get("epoch", 0))
 
             bvl = ckpt.get("best_val_loss", float('inf'))

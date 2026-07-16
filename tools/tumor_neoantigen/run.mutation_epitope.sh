@@ -67,16 +67,16 @@ do
     else
         echo "-> [0/7] Filtering RNA editing sites"
         if [ -f "$RNA_EDITING_DB" ]; then
-            python ${SCRIPT_DIR}/filter_rna_editing.py 
-                --vcf ${VCF_IN} 
-                --output ${VCF_FILTERED} 
+            python ${SCRIPT_DIR}/filter_rna_editing.py \
+                --vcf ${VCF_IN} \
+                --output ${VCF_FILTERED} \
                 --editing_db ${RNA_EDITING_DB}
         else
             echo "[Warning] RNA editing DB not found: ${RNA_EDITING_DB}"
             echo "         Using heuristic A>G / T>C filter as fallback"
             python ${SCRIPT_DIR}/filter_rna_editing.py 
-                --vcf ${VCF_IN} 
-                --output ${VCF_FILTERED} 
+                --vcf ${VCF_IN} \
+                --output ${VCF_FILTERED} \
                 --filter_a_to_g
         fi
     fi
@@ -124,7 +124,7 @@ do
             --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
             --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
             --mapping_json ${CONFIG_DIR}/global_species_id_mapping.json \
-            --tumor_run_id "$TUMOR_RUN" \
+            --sample_run_id "$TUMOR_RUN" \
             --patient_id "$patient_safe" \
             --mode ${TRACE_MODE} \
             --batch_size 5 \
