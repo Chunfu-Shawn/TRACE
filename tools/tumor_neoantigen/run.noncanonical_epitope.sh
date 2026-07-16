@@ -203,21 +203,11 @@ do
         # Generate input CSV: transcripts with normal TPM > 0.5
         NORMAL_TX_CSV=${PATIENT_TRACE_DIR}/normal/normal_expressed_transcripts.csv
         mkdir -p ${PATIENT_TRACE_DIR}/normal
-        python3 -c "
-            import pandas as pd
-            tpm = pd.read_csv('${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv', index_col=0)
-            norm = tpm.get('$NORM_RUN_ID', pd.Series(dtype=float))
-            if norm.empty:
-                print(f'Warning: $NORM_RUN_ID not in TPM matrix')
-                exit(0)
-            expressed = norm[norm > 0.5]
-            if len(expressed) == 0:
-                print(f'Warning: no transcripts with TPM > 0.5 for $NORM_RUN_ID')
-                exit(0)
-            df = pd.DataFrame({'Transcript_ID': expressed.index, 'Tumor_Run': '$NORM_RUN_ID'})
-            df.to_csv('$NORMAL_TX_CSV', index=False)
-            print(f'Generated normal input CSV with {len(df)} transcripts')
-        "
+        python ${SCRIPT_DIR}/prepare_normal_transcript_input.py \
+            --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+            --normal_run ${NORM_RUN_ID} \
+            --output ${NORMAL_TX_CSV} \
+            --min_tpm 0.5
 
         if [ -s "$NORMAL_TX_CSV" ]; then
             conda activate ribo_model

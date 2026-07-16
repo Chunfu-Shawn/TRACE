@@ -1072,7 +1072,9 @@ def extract_attn_peaks_by_region(
             
             attn_track = np.zeros(Lc)
 
-            # 3. Manually step through encoder layers to intercept Attention Weights
+            # 3. Manually step through encoder layers to intercept Attention Weights.
+            # [Memory-safe]: process one head at a time to avoid (B, H, L, L)
+            # attention matrices that can consume >1 GB each for long sequences.
             for enc_layer in raw.encoder.encoder_layers:
                 sub = enc_layer.sublayers[0]
                 style = sub.adaLN_modulation(compact_style)
@@ -1082,31 +1084,56 @@ def extract_attn_peaks_by_region(
                 attn_mod = enc_layer.multi_headed_attention
                 bs_, _, d = normed.shape
 
-                q = attn_mod.toqueries(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
-                k = attn_mod.tokeys(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
-                v = attn_mod.tovalues(normed).view(bs_, Lc, n_heads, head_dim).transpose(1, 2)
+                q = attn_mod.toqueries(normed)  # (1, Lc, n_heads*head_dim)
+                k = attn_mod.tokeys(normed)
+                v = attn_mod.tovalues(normed)
+
+                # Reshape to per-head views without transposing into a big tensor
+                q_h = q.view(bs_, Lc, n_heads, head_dim)  # (1, Lc, H, D)
+                k_h = k.view(bs_, Lc, n_heads, head_dim)
+                v_h = v.view(bs_, Lc, n_heads, head_dim)
 
                 if hasattr(attn_mod, 'RoPE'):
-                    q = attn_mod.RoPE(q)
-                    k = attn_mod.RoPE(k)
+                    q_h = attn_mod.RoPE(q_h.transpose(1, 2)).transpose(1, 2)
+                    k_h = attn_mod.RoPE(k_h.transpose(1, 2)).transpose(1, 2)
 
-                scores = torch.matmul(q, k.transpose(-2, -1)) / np.sqrt(head_dim)
-                mask = src_mask[:, :Lc].unsqueeze(1).unsqueeze(2)
-                scores.masked_fill_(~mask, float('-inf'))
-                attn_w = torch.softmax(scores, dim=-1)
+                scale = np.sqrt(head_dim)
+                mask_2d = src_mask[:, :Lc].to(device)  # (1, Lc)
+                received_head = torch.zeros(Lc, device=device)
 
-                # Calculate "Received Attention": sum over query origins, average across heads
-                received = attn_w.sum(dim=2).mean(dim=1)[0].cpu().numpy()
-                attn_track += received
+                all_attn_outs = []
+                for h in range(n_heads):
+                    qh = q_h[0, :, h, :]  # (Lc, D)
+                    kh = k_h[0, :, h, :]  # (Lc, D)
+                    vh = v_h[0, :, h, :]  # (Lc, D)
 
-                # Continue the forward pass to feed the next layer
-                attn_out = torch.matmul(attn_w, v)
-                attn_out = attn_out.transpose(1, 2).reshape(bs_, Lc, n_heads * head_dim)
+                    scores_h = torch.matmul(qh, kh.T) / scale  # (Lc, Lc)
+                    scores_h.masked_fill_(~mask_2d, float('-inf'))
+                    attn_w_h = torch.softmax(scores_h, dim=-1)
+
+                    # Accumulate received attention for this head
+                    received_head += attn_w_h.sum(dim=0)  # sum over queries → (Lc,)
+
+                    # Compute attention output for this head
+                    out_h = torch.matmul(attn_w_h, vh)  # (Lc, D)
+                    all_attn_outs.append(out_h)
+
+                    del scores_h, attn_w_h
+
+                # Average received attention across heads
+                attn_track += (received_head / n_heads).cpu().numpy()
+
+                # Concatenate per-head outputs
+                attn_out = torch.stack(all_attn_outs, dim=0)  # (H, Lc, D)
+                attn_out = attn_out.transpose(0, 1).reshape(bs_, Lc, n_heads * head_dim)
                 attn_out = attn_mod.unifyheads(attn_out)
                 if hasattr(attn_mod, 'dropout'):
                     attn_out = attn_mod.dropout(attn_out)
                 src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
 
+                del q_h, k_h, v_h, all_attn_outs, received_head, attn_out
+
+                # FFN sublayer
                 sub2 = enc_layer.sublayers[1]
                 style2 = sub2.adaLN_modulation(compact_style)
                 gamma2, beta2, alpha2 = style2.chunk(3, dim=-1)
