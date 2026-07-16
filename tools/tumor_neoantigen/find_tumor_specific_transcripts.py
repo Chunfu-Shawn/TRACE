@@ -246,8 +246,14 @@ def main():
             # Always extract real TPM from the global TPM matrix, even if Track A
             # did not pass. Pass_TrackA_TPM flags correctness; TPM values should
             # reflect actual expression regardless.
-            t_tpm_val = float(tpm_df.at[tx_id, t_run]) if isinstance(tpm_df.at[tx_id, t_run], (float, int, np.float64)) else float(tpm_df.at[tx_id, t_run].iloc[0]) if (t_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
-            n_tpm_val = float(tpm_df.at[tx_id, n_run]) if isinstance(tpm_df.at[tx_id, n_run], (float, int, np.float64)) else float(tpm_df.at[tx_id, n_run].iloc[0]) if (n_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
+            t_tpm_val = 0.0
+            if t_run in tpm_df.columns and tx_id in tpm_df.index:
+                val = tpm_df.at[tx_id, t_run]
+                t_tpm_val = float(val.iloc[0]) if hasattr(val, 'iloc') else float(val)
+            n_tpm_val = 0.0
+            if n_run in tpm_df.columns and tx_id in tpm_df.index:
+                val = tpm_df.at[tx_id, n_run]
+                n_tpm_val = float(val.iloc[0]) if hasattr(val, 'iloc') else float(val)
             max_norm_tpm = tpm_df.loc[tx_id, normal_runs_tpm].max() if tx_id in tpm_df.index and normal_runs_tpm else 0.0
             
             valid_j_ids = "None"

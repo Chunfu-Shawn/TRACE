@@ -879,167 +879,28 @@ import logging
 # [Fix]: 静音 matplotlib 缺失字体的警告
 logging.getLogger('matplotlib.font_manager').setLevel(logging.ERROR)
 
-def _slice_and_append(seq, pos, r, target_list, tid, cds_start, cds_end):
-    """辅助切片函数，确保边界完整且不含异常碱基，同时记录所有的位置元数据"""
+def _slice_and_append(seq, pos, r, target_list, tid, cds_start, cds_end,
+                       attn_score=None):
+    """Extract a window around a peak position and record all positional metadata."""
     if pos - r >= 0 and pos + r + 1 <= len(seq):
         fragment = seq[pos - r : pos + r + 1]
         if 'N' not in fragment:
             rel_start = pos - cds_start
             rel_stop = pos - cds_end
             x_pos, _, _ = _map_to_metagene(pos, cds_start, cds_end, FIXED_CDS_LEN)
-            
-            # 将原来简单的字符串，改为字典记录结构，方便后续转成表
-            target_list.append({
+
+            record = {
                 'tid': tid,
                 'sequence': fragment,
                 'abs_pos': pos,
                 'rel_to_cds_start': rel_start,
                 'rel_to_cds_end': rel_stop,
-                'x_pos': x_pos
-            })
+                'x_pos': x_pos,
+            }
+            if attn_score is not None:
+                record['mean_attn'] = attn_score
+            target_list.append(record)
 
-
-def extract_raw_peaks_by_region(
-        model, dataset, seq_dict, out_dir, 
-        n_samples=300, window_radius=10, perc=75,
-        min_len=0, max_len=float('inf'), device=None):
-    """
-    Iterate through transcripts, compute absolute physical position saliency scores,
-    split by 5' UTR, CDS, 3' UTR, and extract the strongest peak context.
-    
-    [Optimized]: 
-    1. CDS region is expanded by `window_radius` upstream and downstream to naturally 
-       capture boundary motifs (e.g., Kozak and Stop codon contexts) within the CDS group.
-    2. Implements 1D Non-Maximum Suppression (NMS) to prevent overlapping extraction.
-    
-    Automatically saves individual raw dataframes to CSV files in the out_dir.
-    """
-    import os
-    import numpy as np
-    import pandas as pd
-    import torch
-    from tqdm import tqdm
-
-    os.makedirs(out_dir, exist_ok=True)
-
-    raw = _unwrap(model)
-    if device is None:
-        device = next(raw.parameters()).device
-    raw.eval()
-
-    region_sequences = {"5UTR": [], "CDS": [], "3UTR": []}
-    indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
-
-    for idx in tqdm(indices, desc="Extracting raw physical peaks"):
-        s = _extract_sample(dataset, idx)
-        tid = s['tid']
-        if not s['valid'] or tid not in seq_dict:
-            continue
-
-        seq = seq_dict[tid].upper()
-        L = len(seq)
-        
-        if L < min_len or L > max_len:
-            continue
-            
-        cds_start = s['cds_start_0']
-        cds_end = s['cds_end_0']
-
-        se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
-        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
-
-        with torch.enable_grad():
-            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            out = raw.forward(seq_batch=se, count_batch=ce, cell_type=s['ct'], expr_vector=resolved_expr, species=s['species'], head_names=['count'])
-            pred = out['count'].get('profile', out['count']) if isinstance(out['count'], dict) else out['count']
-            profile_loss = (pred[0, :, 0] ** 2).sum()
-
-        profile_loss.backward()
-        grad = se.grad[0].detach().cpu().numpy()
-        sal_track = np.abs(grad).sum(axis=-1)
-
-        # 使用 np.convolve 计算 3bp 窗口的滑动平均，减少单碱基梯度的抖动
-        window_size = 3
-        sal_track = np.convolve(sal_track, np.ones(window_size)/window_size, mode='same')
-
-        # ==========================================
-        # Step 1: Define Expanded Boundaries
-        # ==========================================
-        # 将 CDS 区域向外围扩展 window_radius 的长度
-        # 从而把 Kozak 和 Stop context 划归到 CDS 搜索空间
-        utr5_bound = max(0, cds_start)
-        utr3_bound = min(L, cds_end)
-
-        # ==========================================
-        # Step 2: Collect Candidate Peaks per Region
-        # ==========================================
-        candidate_peaks = []
-
-        # 5' UTR Region candidate (Strictly distal to expanded CDS)
-        if utr5_bound > 0:
-            utr5_sal = sal_track[:utr5_bound]
-            if len(utr5_sal) > 0:
-                peak_5 = np.argmax(utr5_sal)
-                if utr5_sal[peak_5] > np.percentile(sal_track, perc): 
-                    candidate_peaks.append((peak_5, utr5_sal[peak_5], "5UTR"))
-
-        # CDS Region candidate (Includes the extended boundary contexts)
-        if utr3_bound > utr5_bound:
-            cds_sal = sal_track[utr5_bound:utr3_bound]
-            if len(cds_sal) > 0:
-                peak_cds = np.argmax(cds_sal) + utr5_bound
-                if sal_track[peak_cds] > np.percentile(sal_track, perc):
-                    candidate_peaks.append((peak_cds, sal_track[peak_cds], "CDS"))
-
-        # 3' UTR Region candidate (Strictly distal to expanded CDS)
-        if utr3_bound < L:
-            utr3_sal = sal_track[utr3_bound:]
-            if len(utr3_sal) > 0:
-                peak_3 = np.argmax(utr3_sal) + utr3_bound
-                if sal_track[peak_3] > np.percentile(sal_track, perc):
-                    candidate_peaks.append((peak_3, sal_track[peak_3], "3UTR"))
-
-        # ==========================================
-        # Step 3: 1D Non-Maximum Suppression (NMS)
-        # ==========================================
-        # Sort candidates by absolute saliency score (Highest first)
-        candidate_peaks.sort(key=lambda x: x[1], reverse=True)
-        
-        selected_peaks = []
-        for pos, score, region in candidate_peaks:
-            conflict = False
-            for sel_pos, _, _ in selected_peaks:
-                # If distance is <= 2 * window_radius, extraction windows overlap
-                if abs(pos - sel_pos) <= 2 * window_radius:
-                    conflict = True
-                    break
-            
-            # Keeps the peak if it doesn't overlap with stronger peaks
-            if not conflict:
-                selected_peaks.append((pos, score, region))
-
-        # ==========================================
-        # Step 4: Slice and Append Validated Peaks
-        # ==========================================
-        for pos, _, region in selected_peaks:
-            _slice_and_append(seq, pos, window_radius, region_sequences[region], tid, cds_start, cds_end)
-
-    # Convert to DataFrames and automatically save to disk
-    region_dfs = {}
-    for region, data in region_sequences.items():
-        if data:
-            df = pd.DataFrame(data)
-            df['Region'] = region
-        else:
-            df = pd.DataFrame(columns=['tid', 'sequence', 'abs_pos', 'rel_to_cds_start', 'rel_to_cds_end', 'x_pos', 'Region'])
-        
-        csv_filename = os.path.join(out_dir, f"raw_peaks_{region}.csv")
-        df.to_csv(csv_filename, index=False)
-        region_dfs[region] = df
-
-    print(f"\nSuccessfully sliced & saved raw CSVs: 5'UTR ({len(region_dfs['5UTR'])}), CDS ({len(region_dfs['CDS'])}), 3'UTR ({len(region_dfs['3UTR'])})")
-    return region_dfs
 
 
 from torch.utils.data import Subset
@@ -1309,7 +1170,7 @@ def extract_attn_peaks_by_region(
         # Step 4: Slice and Append Validated Peaks
         # ==========================================
         for pos, _, region in selected_peaks:
-            _slice_and_append(seq, pos, window_radius, region_sequences[region], tid, cds_start, cds_end)
+            _slice_and_append(seq, pos, window_radius, region_sequences[region], tid, cds_start, cds_end, attn_score=score)
 
     # Convert to DataFrames and automatically save to disk
     region_dfs = {}
@@ -1318,7 +1179,7 @@ def extract_attn_peaks_by_region(
             df = pd.DataFrame(data)
             df['Region'] = region
         else:
-            df = pd.DataFrame(columns=['tid', 'sequence', 'abs_pos', 'rel_to_cds_start', 'rel_to_cds_end', 'x_pos', 'Region'])
+            df = pd.DataFrame(columns=['tid', 'sequence', 'abs_pos', 'rel_to_cds_start', 'rel_to_cds_end', 'x_pos', 'mean_attn', 'Region'])
         
         csv_filename = os.path.join(out_dir, f"raw_ATTN_peaks_{region}.csv")
         df.to_csv(csv_filename, index=False)

@@ -392,105 +392,145 @@ def _score_sequence_with_pwm(seq, pwm, min_match_score=0.85):
     return best_norm_score >= min_match_score
 
 
-def rbp_centric_peak_scanner(region_dfs, unified_pwms, unified_meta, transcript_te_dict, out_dir, min_match_score=0.85):
+def rbp_centric_peak_scanner(region_dfs, unified_pwms, unified_meta,
+                             transcript_te_dict, out_dir,
+                             top_ratio=0.20, min_match_score=0.85):
     """
-    以 RBP 为主角：使用 unified_pwms 扫描所有的 Attention Peaks。
-    统计每个 RBP 在不同区域的分布，并计算结合该 RBP 的转录本的平均 TE。
-    
-    transcript_te_dict: 字典，格式为 {tid: te_value}，用于评估调控方向。
+    RBP-centric scanner over attention peaks.
+
+    For each RBP:
+      - Scans all attention peak sequences.
+      - Computes mean attention score across matched peaks.
+      - Computes Top/Bottom TE enrichment: ratio of top-20% TE transcripts
+        vs bottom-20% TE transcripts among hit transcripts.
+      - Also tracks spatial distribution (5UTR/CDS/3UTR hits).
+
+    Args:
+        region_dfs: dict {region_name: DataFrame} from extract_attn_peaks_by_region.
+        unified_pwms: {Motif_ID: np.array(L,4)} merged PWM library.
+        unified_meta: DataFrame with columns [Matrix_id, Gene_name, ...].
+        transcript_te_dict: {tid: te_value} for all transcripts.
+        out_dir: output directory.
+        top_ratio: fraction for top/bottom TE split (default 0.20).
+        min_match_score: minimum PWM match score (0-1).
+
+    Returns:
+        result_df: DataFrame with columns
+            RBP_Name, Total_Hits, 5UTR_Hits, CDS_Hits, 3UTR_Hits,
+            Mean_Attention, Top20_Enrichment_Ratio, n_top, n_bottom.
     """
     os.makedirs(out_dir, exist_ok=True)
-    
-    # 1. 整合所有区域的 Peak 数据
+
+    # 1. Merge all region peak DataFrames
     all_peaks = []
     for region, df in region_dfs.items():
         if not df.empty:
             all_peaks.append(df)
-    
+
     if not all_peaks:
         print("No peaks provided.")
         return None
-        
+
     master_peaks = pd.concat(all_peaks, ignore_index=True)
-    print(f"Scanning {len(unified_pwms)} RBP PWMs against {len(master_peaks)} Attention Peaks...")
-    
-    # 用于按 RBP 合并同源矩阵
+    print(f"Scanning {len(unified_pwms)} RBP PWMs against {len(master_peaks)} attention peaks...")
+
+    # 2. Determine global TE thresholds for top/bottom split
+    all_tids = list(transcript_te_dict.keys())
+    all_te_vals = sorted(transcript_te_dict.values())
+    n_extreme = max(1, int(len(all_tids) * top_ratio))
+    te_top_cutoff = all_te_vals[-n_extreme]
+    te_bottom_cutoff = all_te_vals[n_extreme - 1]
+    print(f"TE thresholds: top {top_ratio*100:.0f}% >= {te_top_cutoff:.3f}, "
+          f"bottom {top_ratio*100:.0f}% <= {te_bottom_cutoff:.3f}")
+
+    # 3. Build per-transcript top/bottom label
+    tid_is_top = {}
+    tid_is_bottom = {}
+    for tid, tv in transcript_te_dict.items():
+        tid_is_top[tid] = tv >= te_top_cutoff
+        tid_is_bottom[tid] = tv <= te_bottom_cutoff
+
+    # 4. Pre-compute peak attention from attn_track column if available
+    has_attn = 'mean_attn' in master_peaks.columns
+
+    # Group by RBP
     rbp_grouped = unified_meta.groupby('Gene_name')['Matrix_id'].apply(list).to_dict()
-    
+
     rbp_results = []
-    
     for rbp_name, matrix_ids in tqdm(rbp_grouped.items(), desc="RBP-Centric Scanning"):
-        # 获取该 RBP 对应的所有变体矩阵
         rbp_matrices = [unified_pwms[mid] for mid in matrix_ids if mid in unified_pwms]
-        if not rbp_matrices: continue
-        
+        if not rbp_matrices:
+            continue
+
         hits_5utr = 0
         hits_cds = 0
         hits_3utr = 0
         hit_tids = set()
-        
-        # 扫描每一个 Peak
+        attn_scores = []
+
         for _, row in master_peaks.iterrows():
             seq = row['sequence']
             region = row['Region']
             tid = row['tid']
-            
-            # 只要有一个变体矩阵命中，就算该 RBP 结合
-            matched = any(_score_sequence_with_pwm(seq, pwm, min_match_score) for pwm in rbp_matrices)
-            
+
+            matched = any(_score_sequence_with_pwm(seq, pwm, min_match_score)
+                          for pwm in rbp_matrices)
+
             if matched:
-                if region == '5UTR': hits_5utr += 1
-                elif region == 'CDS': hits_cds += 1
-                elif region == '3UTR': hits_3utr += 1
+                if region == '5UTR':
+                    hits_5utr += 1
+                elif region == 'CDS':
+                    hits_cds += 1
+                elif region == '3UTR':
+                    hits_3utr += 1
                 hit_tids.add(tid)
-                
+                if has_attn:
+                    attn_scores.append(float(row['mean_attn']))
+
         total_hits = hits_5utr + hits_cds + hits_3utr
-        
-        # 如果命中次数超过阈值（如至少在 5 个峰里找到），则进行 TE 分析
-        if total_hits >= 5:
-            # 计算带有该 RBP 结合位点的转录本的平均 TE
-            te_values = [transcript_te_dict.get(tid, np.nan) for tid in hit_tids]
-            te_values = [te for te in te_values if not np.isnan(te)]
-            avg_te = np.mean(te_values) if te_values else np.nan
-            
-            # 计算分布偏好 (百分比)
-            rbp_results.append({
-                'RBP_Name': rbp_name,
-                'Total_Hits': total_hits,
-                '5UTR_Hits': hits_5utr,
-                'CDS_Hits': hits_cds,
-                '3UTR_Hits': hits_3utr,
-                '5UTR_Ratio': hits_5utr / total_hits,
-                'CDS_Ratio': hits_cds / total_hits,
-                '3UTR_Ratio': hits_3utr / total_hits,
-                'Bound_Transcripts_Avg_TE': avg_te
-            })
-            
+
+        if total_hits < 5:
+            continue
+
+        # Attention score
+        mean_attn = np.mean(attn_scores) if attn_scores else np.nan
+
+        # Top/bottom enrichment
+        n_top = sum(1 for t in hit_tids if tid_is_top.get(t, False))
+        n_bottom = sum(1 for t in hit_tids if tid_is_bottom.get(t, False))
+
+        # Enrichment ratio: (top / bottom), with pseudocount
+        ratio = (n_top + 1) / (n_bottom + 1)
+
+        rbp_results.append({
+            'RBP_Name': rbp_name,
+            'Total_Hits': total_hits,
+            '5UTR_Hits': hits_5utr,
+            'CDS_Hits': hits_cds,
+            '3UTR_Hits': hits_3utr,
+            'Mean_Attention': mean_attn,
+            'Top20_Enrichment_Ratio': ratio,
+            'n_top': n_top,
+            'n_bottom': n_bottom,
+        })
+
     if not rbp_results:
         print("No RBPs passed the matching thresholds.")
         return pd.DataFrame()
-        
-    # 汇总并保存
+
     result_df = pd.DataFrame(rbp_results)
-    # 按命中总数降序排列
     result_df = result_df.sort_values('Total_Hits', ascending=False)
-    
+
     save_path = os.path.join(out_dir, "RBP_Centric_Landscape.csv")
     result_df.to_csv(save_path, index=False)
-    print(f"\n✅ RBP-Centric Landscape saved to: {save_path}")
-    
+    print(f"\n[RBP Scan] Saved {len(result_df)} RBPs to {save_path}")
+
     return result_df
 
 
 # ============================================================
 # Notebook Cell: RBP Landscape Bubble Plot & Metagene Heatmap
 # ============================================================
-import os
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.patches import ConnectionPatch
-import logomaker
 from plotnine import (ggplot, aes, geom_tile, geom_vline, scale_fill_gradient, 
                       labs, theme_classic, theme, element_text, element_blank, element_line)
 
@@ -566,74 +606,90 @@ def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=600, bin_
     print(f"RBP Heatmap saved to {out_path}")
 
 
-def plot_rbp_bubble_with_logos(rbp_landscape_df, mapped_peaks_df, highlight_rbps, out_path):
+def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
+                                top_n_label=10, figsize=(9, 7)):
     """
-    复现顶刊气泡图：绘制 RBP 特征散点，并为指定的高亮 RBP 添加悬浮 Motif Logo。
-    X 轴: 5' UTR 富集比例 (反映空间偏好)
-    Y 轴: TE 影响 (Bound_Transcripts_Avg_TE)
-    气泡大小: 结合次数 (Total_Hits)
+    Bubble plot: RBP regulatory potential from attention and TE enrichment.
+
+    X-axis: Normalized mean attention score (RBP-binding peaks with
+            higher attention → model relies on that region more).
+    Y-axis: Top-20% TE enrichment ratio
+            (n_top_hit / n_bottom_hit, pseudocount +1).
+    Bubble size: Total_Hits (log2-scaled).
+    Color: 5'-to-3' preference (purple=5'UTR, green=CDS, orange=3'UTR).
+
+    Top `top_n_label` RBPs in the upper-right quadrant are labeled.
+    No motif logos are drawn — this is a clean quantitative overview.
     """
-    # 1. 创建主画布
-    fig, ax = plt.subplots(figsize=(10, 8))
-    
-    # 计算 X: 5UTR 偏好指数 (防止除以0，加上伪计数)
-    x_data = rbp_landscape_df['5UTR_Ratio'] 
-    y_data = rbp_landscape_df['Bound_Transcripts_Avg_TE']
-    sizes  = np.log2(rbp_landscape_df['Total_Hits']) # 调整气泡显示倍率
-    
-    # 绘制基础气泡
-    scatter = ax.scatter(x_data, y_data, s=sizes, alpha=0.6, c='#D62728', edgecolors='white', linewidth=1.5)
-    
-    # 坐标轴美化
-    ax.set_xlabel("5' UTR Enrichment Ratio (Spatial Preference)", fontsize=12, fontweight='bold')
-    ax.set_ylabel("Average Translation Efficiency (TE) Impact", fontsize=12, fontweight='bold')
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from matplotlib.lines import Line2D
+
+    df = rbp_landscape_df.dropna(subset=['Mean_Attention', 'Top20_Enrichment_Ratio']).copy()
+    if df.empty:
+        print("No RBPs with valid attention + enrichment data.")
+        return
+
+    # ---- Color by dominant spatial preference ----
+    def dominant_region(row):
+        regions = {'5UTR': row['5UTR_Hits'], 'CDS': row['CDS_Hits'], '3UTR': row['3UTR_Hits']}
+        return max(regions, key=regions.get)
+
+    region_colors = {'5UTR': '#7B3294', 'CDS': '#238B45', '3UTR': '#D95F02'}
+    df['dominant'] = df.apply(dominant_region, axis=1)
+    df['color'] = df['dominant'].map(region_colors)
+
+    # ---- Compute axes ----
+    # Normalize attention to [0, 1] for interpretability
+    attn_raw = df['Mean_Attention'].values
+    attn_norm = (attn_raw - attn_raw.min()) / (attn_raw.max() - attn_raw.min() + 1e-8)
+    df['attn_norm'] = attn_norm
+
+    sizes = np.log2(df['Total_Hits'].values + 1) * 18  # scale factor for visibility
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    scatter = ax.scatter(
+        df['attn_norm'], df['Top20_Enrichment_Ratio'],
+        s=sizes, c=df['color'], alpha=0.7, edgecolors='#555555', linewidth=0.4,
+    )
+
+    # ---- Threshold lines ----
+    ax.axhline(y=1.0, linestyle='--', color='#888888', linewidth=0.8, alpha=0.6)
+    ax.axvline(x=0.5, linestyle='--', color='#888888', linewidth=0.8, alpha=0.6)
+
+    # ---- Label top RBPs in upper-right ----
+    upper_right = df[(df['attn_norm'] > 0.5) & (df['Top20_Enrichment_Ratio'] > 1.0)]
+    upper_right = upper_right.nlargest(top_n_label, 'Total_Hits')
+
+    for _, row in upper_right.iterrows():
+        offset = (0.008 + np.random.uniform(-0.004, 0.004),
+                  0.04 + np.random.uniform(-0.02, 0.02))
+        ax.annotate(
+            row['RBP_Name'],
+            (row['attn_norm'], row['Top20_Enrichment_Ratio']),
+            textcoords="offset points", xytext=(15, 5),
+            fontsize=7.5, fontweight='bold', alpha=0.85,
+            arrowprops=dict(arrowstyle='->', color='#555555', lw=0.6),
+        )
+
+    # ---- Legend ----
+    legend_elements = [
+        Line2D([0], [0], marker='o', color='w', markerfacecolor=region_colors[r],
+               markersize=9, label=f"{r} ({'5′UTR' if r == '5UTR' else r})")
+        for r in ['5UTR', 'CDS', '3UTR']
+    ]
+    ax.legend(handles=legend_elements, loc='upper left', framealpha=0.85,
+              fontsize=9, title='Dominant Region')
+
+    # ---- Labels ----
+    ax.set_xlabel("Normalized Mean Attention Score", fontsize=12)
+    ax.set_ylabel("Top-20% TE Enrichment Ratio", fontsize=12)
+    ax.set_title("RBP Regulatory Landscape", fontsize=13, fontweight='bold')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    
-    # 2. 为指定的 RBP 绘制悬浮 Logo
-    # 设置插图的相对大小和偏置角度，防止重叠
-    offsets = [(-0.15, 0.15), (0.15, 0.15), (-0.15, -0.15), (0.15, -0.15), (0, 0.2)]
-    
-    for idx, rbp in enumerate(highlight_rbps):
-        rbp_data = rbp_landscape_df[rbp_landscape_df['RBP_Name'] == rbp]
-        if rbp_data.empty: continue
-            
-        x_c = rbp_data['5UTR_Ratio'].values[0]
-        y_c = rbp_data['Bound_Transcripts_Avg_TE'].values[0]
-        
-        # 提取该 RBP 在数据集中真实命中的序列来画 Logo
-        rbp_seqs = mapped_peaks_df[mapped_peaks_df['RBP_Name'] == rbp]['sequence'].tolist()
-        if not rbp_seqs: continue
-            
-        counts_df = logomaker.alignment_to_matrix(sequences=rbp_seqs, to_type='information')
-        
-        # 确定浮动轴的位置 (x, y, width, height)
-        offset_x, offset_y = offsets[idx % len(offsets)]
-        logo_x = x_c + offset_x
-        logo_y = y_c + offset_y
-        
-        # 创建内嵌坐标系 (width=0.2, height=0.1 of axes fraction)
-        ax_inset = ax.inset_axes([logo_x, logo_y, 0.25, 0.12], transform=ax.transData)
-        
-        # 使用 logomaker 绘制
-        logo = logomaker.Logo(counts_df, ax=ax_inset, font_name='Arial Rounded MT Bold')
-        logo.style_spines(visible=False)
-        ax_inset.set_xticks([])
-        ax_inset.set_yticks([])
-        ax_inset.set_title(rbp, fontsize=10, fontweight='bold', pad=2)
-        
-        # 绘制连接箭头 (Dashed arrow)
-        con = ConnectionPatch(xyA=(logo_x + 0.125, logo_y), xyB=(x_c, y_c),
-                              coordsA="data", coordsB="data",
-                              axesA=ax, axesB=ax,
-                              arrowstyle="->", color="#A0A0A0", linestyle="dashed", linewidth=1.5)
-        ax.add_artist(con)
-        
-        # 高亮对应的气泡
-        ax.scatter([x_c], [y_c], s=rbp_data['Total_Hits'].values[0]*3, color='#2CA02C', edgecolors='black', linewidth=2, zorder=5)
 
-    plt.title("RBP Regulatory Landscape: Motif Integration", fontsize=14, fontweight='bold', pad=15)
     plt.tight_layout()
     plt.savefig(out_path, dpi=300, bbox_inches='tight')
     plt.show()
-    print(f"Bubble plot with logos saved to {out_path}")
+    print(f"RBP regulatory bubble plot saved to {out_path}")
