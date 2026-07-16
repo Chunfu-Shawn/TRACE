@@ -89,19 +89,31 @@ def main():
     # Strip Ensembl version numbers from transcript IDs for consistency
     _idx = counts_df.index.astype(str)
     counts_df.index = _idx.map(lambda x: x.split('.')[0] if x.startswith('ENS') else x)
+    # Aggregate duplicate IDs (e.g., ENST00001.4 + ENST00001.5 -> ENST00001)
+    if counts_df.index.duplicated().any():
+        meta_cols = ['Chr', 'Start', 'End', 'Strand', 'Length']
+        exist_meta = [c for c in meta_cols if c in counts_df.columns]
+        count_cols = [c for c in counts_df.columns if c not in meta_cols]
+        agg = {c: 'sum' for c in count_cols}
+        for c in exist_meta:
+            agg[c] = 'first'
+        counts_df = counts_df.groupby(counts_df.index).agg(agg)
     length_series = counts_df['Length']
     
     cols_to_drop = ['Chr', 'Start', 'End', 'Strand', 'Length']
     cols_to_drop_existing = [c for c in cols_to_drop if c in counts_df.columns]
     raw_counts = counts_df.drop(columns=cols_to_drop_existing)
 
-    tpm_df = calculate_tpm(raw_counts, length_series, lib_sizes)
-    print(f" -> Global Absolute TPM matrix generated: {tpm_df.shape[0]} transcripts.")
-    
     tpm_out_dir = os.path.dirname(args.out_tpm_file)
     if tpm_out_dir and not os.path.exists(tpm_out_dir): os.makedirs(tpm_out_dir)
-    tpm_df.index.name = 'Transcript_ID'
-    tpm_df.to_csv(args.out_tpm_file)
+    if os.path.exists(args.out_tpm_file):
+        print(f" -> Loading pre-computed TPM matrix from {args.out_tpm_file}")
+        tpm_df = pd.read_csv(args.out_tpm_file, index_col=0)
+    else:
+        tpm_df = calculate_tpm(raw_counts, length_series, lib_sizes)
+        print(f" -> Global Absolute TPM matrix generated: {tpm_df.shape[0]} transcripts.")
+        tpm_df.index.name = 'Transcript_ID'
+        tpm_df.to_csv(args.out_tpm_file)
     
     max_counts = raw_counts.max(axis=1)
     valid_transcripts = raw_counts.index[max_counts > args.min_max_tcount]
@@ -234,8 +246,8 @@ def main():
             # Always extract real TPM from the global TPM matrix, even if Track A
             # did not pass. Pass_TrackA_TPM flags correctness; TPM values should
             # reflect actual expression regardless.
-            t_tpm_val = float(tpm_df.at[tx_id, t_run]) if (t_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
-            n_tpm_val = float(tpm_df.at[tx_id, n_run]) if (n_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
+            t_tpm_val = float(tpm_df.at[tx_id, t_run]) if isinstance(tpm_df.at[tx_id, t_run], (float, int, np.float64)) else float(tpm_df.at[tx_id, t_run].iloc[0]) if (t_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
+            n_tpm_val = float(tpm_df.at[tx_id, n_run]) if isinstance(tpm_df.at[tx_id, n_run], (float, int, np.float64)) else float(tpm_df.at[tx_id, n_run].iloc[0]) if (n_run in tpm_df.columns and tx_id in tpm_df.index) else 0.0
             max_norm_tpm = tpm_df.loc[tx_id, normal_runs_tpm].max() if tx_id in tpm_df.index and normal_runs_tpm else 0.0
             
             valid_j_ids = "None"
