@@ -17,6 +17,7 @@ def clean_colname(col):
             return basename[:-len(suffix)]
     return basename
 
+
 def calculate_tpm(counts, lengths, lib_sizes):
     """
     Calculate Absolute TPM (Transcripts Per Million) anchored to the TRUE library depth.
@@ -85,6 +86,9 @@ def main():
     print("\n--- Step 2: Loading and Normalizing Transcript Counts (Track A) ---")
     counts_df = pd.read_csv(args.counts_file, sep='\t', index_col=0, comment='#')
     counts_df.rename(columns=clean_colname, inplace=True)
+    # Strip Ensembl version numbers from transcript IDs for consistency
+    _idx = counts_df.index.astype(str)
+    counts_df.index = _idx.map(lambda x: x.split('.')[0] if x.startswith('ENS') else x)
     length_series = counts_df['Length']
     
     cols_to_drop = ['Chr', 'Start', 'End', 'Strand', 'Length']

@@ -63,7 +63,7 @@ def main():
             chrom_positions = positions[chrom]
             for pos in chrom_positions:
                 if start <= pos <= end:
-                    found_tx.add(tx_id)
+                    raw = tx_id; tx_id = raw.split('.')[0] if raw.startswith('ENS') else raw; found_tx.add(tx_id)
                     break  # transcript found, no need to check more positions
 
     print(f" -> {len(found_tx)} unique transcripts overlap variants")

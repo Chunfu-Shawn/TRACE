@@ -25,8 +25,8 @@ def parse_gtf_junctions(gtf_file):
             tx_match = tx_re.search(info)
             if not tx_match: continue
                 
-            # Preserve full transcript_id from GTF (versioned) for consistency with featureCounts output.
-            tx_id = tx_match.group(1).strip()
+            # Strip Ensembl version suffixes for consistent ID matching across pipeline.
+            raw = tx_match.group(1).strip(); tx_id = raw.split('.')[0] if raw.startswith('ENS') else raw
             chrom = parts[0]
             start = int(parts[3])
             end = int(parts[4])
