@@ -148,7 +148,7 @@ do
             --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
             --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
             --mapping_json ${CONFIG_DIR}/global_species_id_mapping.json \
-            --tumor_run_id "$RUN_ID" \
+            --sample_run_id "$RUN_ID" \
             --patient_id "$patient_safe" \
             --mode ${TRACE_MODE} \
             --batch_size 5 \
@@ -207,7 +207,7 @@ do
             --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
             --normal_run ${NORM_RUN_ID} \
             --output ${NORMAL_TX_CSV} \
-            --min_tpm 0.5
+            --min_tpm 1
 
         if [ -s "$NORMAL_TX_CSV" ]; then
             conda activate ribo_model
@@ -224,7 +224,7 @@ do
                 --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
                 --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
                 --mapping_json ${CONFIG_DIR}/global_species_id_mapping.json \
-                --tumor_run_id "$NORM_RUN_ID" \
+                --sample_run_id "$NORM_RUN_ID" \
                 --patient_id "$patient_safe" \
                 --mode ${TRACE_MODE} \
                 --batch_size 5 \

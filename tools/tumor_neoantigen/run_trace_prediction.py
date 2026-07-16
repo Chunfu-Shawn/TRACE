@@ -37,7 +37,7 @@ def main():
     parser.add_argument("--mapping_json", type=str, help="Path to global_species_id_mapping.json")
     
     # === [MODIFIED 1: 更改了更具临床意义的变量名] ===
-    parser.add_argument("--tumor_run_id", type=str, required=True, help="RUN ID to query matrices (e.g. 'SRR17593541').")
+    parser.add_argument("--sample_run_id", type=str, required=True, help="RUN ID to query matrices (e.g. 'SRR17593541').")
     parser.add_argument("--patient_id", type=str, required=True, help="Patient ID for output files (e.g. 'patient_10584').")
     # ==============================================================================
 
@@ -59,17 +59,17 @@ def main():
             print("[Error] Input CSV does not contain a 'Tumor_Run' column.")
             sys.exit(1)
             
-        # === [MODIFIED 2: 使用 tumor_run_id 过滤] ===
-        pt_df = targets_df[targets_df['Tumor_Run'] == args.tumor_run_id]
+        # === [MODIFIED 2: 使用 sample_run_id 过滤] ===
+        pt_df = targets_df[targets_df['Tumor_Run'] == args.sample_run_id]
             
         if pt_df.empty:
-            print(f"No specific transcripts found for Run ID '{args.tumor_run_id}'. Exiting smoothly.")
+            print(f"No specific transcripts found for Run ID '{args.sample_run_id}'. Exiting smoothly.")
             sys.exit(0)
 
         tumor_specific_tx = pt_df['Transcript_ID'].dropna().unique().tolist()
-        print(f"Loaded {len(tumor_specific_tx)} unique tumor-specific transcripts for Run {args.tumor_run_id}.")
+        print(f"Loaded {len(tumor_specific_tx)} unique tumor-specific transcripts for Run {args.sample_run_id}.")
         
-        expr_key = args.tumor_run_id 
+        expr_key = args.sample_run_id 
         
     except Exception as e:
         print(f"Failed to load input CSV: {e}")
@@ -125,15 +125,15 @@ def main():
     
     temp_tpm_path = None
     if args.tpm_csv and os.path.exists(args.tpm_csv):
-        print(f"Adapting TPM Matrix column '{args.tumor_run_id}' to match Output patient_id '{args.patient_id}'...")
+        print(f"Adapting TPM Matrix column '{args.sample_run_id}' to match Output patient_id '{args.patient_id}'...")
         temp_df = pd.read_csv(args.tpm_csv, index_col=0)
         # === [MODIFIED 4: TPM 矩阵重命名逻辑更新] ===
-        if args.tumor_run_id in temp_df.columns:
-            pt_tpm_df = temp_df[[args.tumor_run_id]].rename(columns={args.tumor_run_id: args.patient_id})
+        if args.sample_run_id in temp_df.columns:
+            pt_tpm_df = temp_df[[args.sample_run_id]].rename(columns={args.sample_run_id: args.patient_id})
             temp_tpm_path = os.path.join(args.out_dir, f"temp_tpm_{args.patient_id}.csv")
             pt_tpm_df.to_csv(temp_tpm_path)
         else:
-            print(f"[Warning] '{args.tumor_run_id}' not found in TPM matrix. TPM integration will be skipped.")
+            print(f"[Warning] '{args.sample_run_id}' not found in TPM matrix. TPM integration will be skipped.")
 
     # === [MODIFIED 5: ORF Caller 内部接口保持 cell_type 不变] ===
     orf_caller = TranslationSignalORFCaller(
