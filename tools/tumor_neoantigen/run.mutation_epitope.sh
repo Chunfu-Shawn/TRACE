@@ -74,7 +74,7 @@ do
         else
             echo "[Warning] RNA editing DB not found: ${RNA_EDITING_DB}"
             echo "         Using heuristic A>G / T>C filter as fallback"
-            python ${SCRIPT_DIR}/filter_rna_editing.py 
+            python ${SCRIPT_DIR}/filter_rna_editing.py \
                 --vcf ${VCF_IN} \
                 --output ${VCF_FILTERED} \
                 --filter_a_to_g
@@ -144,7 +144,7 @@ do
         echo "-> [3/7] Adding TRACE ORFs to GTF"
         python ${SCRIPT_DIR}/add_trace_orfs_to_gtf.py \
             --trace_orf_csv ${TRACE_ORF_CSV} \
-            --ref_gtf ${GTF_FILE} \
+            --extra_gtf ${WORK_DIR}/assembly/final_filtered_novel_transcripts_enhanced.gtf \            --ref_gtf ${GTF_FILE} \
             --output_gtf ${ENHANCED_GTF}
     else
         echo "[Skip] No TRACE ORFs; using reference GTF"
