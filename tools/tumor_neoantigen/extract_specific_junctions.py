@@ -4,13 +4,6 @@ import re
 import sys
 import argparse
 
-def clean_id(tid):
-    tid_str = str(tid).strip()
-    if tid_str.startswith('ENS'):
-        return tid_str.split('.')[0]
-    return tid_str
-
-
 def parse_gtf_junctions(gtf_file):
     """
     Parse a GTF file to extract all exon-exon junctions for each transcript.
@@ -32,8 +25,8 @@ def parse_gtf_junctions(gtf_file):
             tx_match = tx_re.search(info)
             if not tx_match: continue
                 
-            # Strip Ensembl version suffixes for robust mapping
-            tx_id = clean_id(tx_match.group(1))
+            # Preserve full transcript_id from GTF (versioned) for consistency with featureCounts output.
+            tx_id = tx_match.group(1).strip()
             chrom = parts[0]
             start = int(parts[3])
             end = int(parts[4])
