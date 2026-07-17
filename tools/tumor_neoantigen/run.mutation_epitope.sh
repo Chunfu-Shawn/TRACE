@@ -61,7 +61,7 @@ do
     # Step 0: Filter RNA editing sites
     # ---------------------------------------------------------------
     VCF_FILTERED=${VCF_DIR}/${patient_safe}/${patient_safe}_no_editing.vcf
-    RNA_EDITING_DB=/home/user/data3/rbase/database/RNA_editing/REDIportal_known_editing_sites.bed
+    RNA_EDITING_DB=/home/user/data3/rbase/database/RNA_editing/REDIportal_ATLAS_2024.tsv
     if [ -f "$VCF_FILTERED" ]; then
         echo "[Skip] RNA editing filter already applied"
     else

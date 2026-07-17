@@ -16,7 +16,7 @@ from collections import defaultdict
 def safe_clean_id(tid):
     tid_str = str(tid).strip()
     if tid_str.startswith('ENS'): return tid_str.split('.')[0]
-    return tid_str
+    return tid_str.split(':')[0]  # strip PacBio coordinate suffix
 
 def parse_gtf_exons(gtf_path):
     """
@@ -63,6 +63,15 @@ def parse_gtf_exons(gtf_path):
         tx_exons[tid].sort(key=lambda x: x[0])
         tx_info[tid]['exons'] = tx_exons[tid]
         tx_info[tid]['tx_len'] = sum(e[1] - e[0] + 1 for e in tx_exons[tid])
+
+    # Add cleaned-key aliases so version-less lookups from TRACE work
+    aliases = {}
+    for tid in list(tx_info.keys()):
+        clean = safe_clean_id(tid)
+        if clean != tid and clean not in tx_info:
+            aliases[clean] = tid
+    for clean, orig in aliases.items():
+        tx_info[clean] = tx_info[orig]
 
     return tx_info
 
