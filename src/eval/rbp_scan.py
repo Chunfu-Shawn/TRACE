@@ -400,8 +400,9 @@ def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta
     For each RBP:
       - Scans High-TE and Low-TE attention peak sequences.
       - Computes mean attention score from High-TE matched peaks.
-      - Computes Top/Bottom enrichment: hits in High-TE peaks divided by
-        hits in Low-TE peaks (with +1 pseudocount per group).
+      - Computes Enrichment_Ratio: (High hit-rate) / (Low hit-rate),
+        normalised by the total number of peaks in each group so that
+        unequal group sizes do not bias the ratio.
       - Also tracks spatial distribution (5UTR/CDS/3UTR hits).
 
     Args:
@@ -496,7 +497,12 @@ def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta
             continue
 
         mean_attn = np.mean(h['attns']) if h.get('attns') else np.nan
-        ratio = (h_total + 1) / (l_total + 1)
+        # Normalize by group size before computing ratio (peak counts differ
+        # between High-TE and Low-TE groups — see logs).  +1e-5 pseudocount
+        # avoids division by zero without meaningfully inflating the ratio.
+        h_rate = h_total / n_high_peaks
+        l_rate = l_total / n_low_peaks if n_low_peaks > 0 else 0.0
+        ratio = (h_rate + 1e-5) / (l_rate + 1e-5)
 
         rbp_results.append({
             'RBP_Name': rbp_name,
