@@ -46,7 +46,7 @@ class TranslationDataset(Dataset):
         try:
             with open(path, "rb") as f:
                 data = pickle.load(f)
-            # 如果存的是 numpy arrays，就可以直接给构造函数使用
+            # if stored as numpy arrays, pass directly to the constructor
             return cls(data)
         except FileNotFoundError as e:
             raise FileNotFoundError(f"Dataset file not found: {path}") from e
@@ -56,7 +56,7 @@ class TranslationDataset(Dataset):
         if not HAS_H5:
             raise ImportError("h5py not available. Install it or use pickle format.")
         if not lazy:
-            # 读取所有样本到内存（safe but memory heavy）
+            # read all samples into memory (safe but memory-heavy)
             data = {
                 "uuids": [],
                 "species": [],
@@ -99,13 +99,13 @@ class TranslationDataset(Dataset):
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"Dataset file not found: {path}") from e
         else:
-            # Lazy model：将 h5 文件路径记录下来，按需读取（注意：DataLoader 多 worker 时需特殊处理）
+            # Lazy mode: record h5 path, read on demand (special handling needed for multi-worker DataLoader)
             obj = object.__new__(cls)
             obj._h5_path = path
             obj._h5_handle = None
             obj._lazy = True
 
-            # 读取索引 (idxs + lengths）到内存
+            # read index (ids + lengths) into memory
             uuids = []
             lengths = []
             species = []
@@ -145,7 +145,7 @@ class TranslationDataset(Dataset):
             return obj
 
     def _open_h5(self):
-        # 打开文件句柄（为 DataLoader worker-safe，可以在每个 worker 初始化时调用）
+        # open file handle (DataLoader worker-safe; call in each worker's init)
         if getattr(self, "_lazy", False):
             if self._h5_handle is None:
                 self._h5_handle = h5py.File(self._h5_path, "r")
@@ -156,7 +156,7 @@ class TranslationDataset(Dataset):
     def __getitem__(self, idx):
         # return tensor
         if getattr(self, "_lazy", False):
-            # lazy h5 读取
+            # lazy h5 read
             self._open_h5()
             uuid = self.uuids[idx]
             species = self.species[idx]

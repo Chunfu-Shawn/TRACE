@@ -203,12 +203,12 @@ class PretrainingTrainer:
             all_lengths.extend(ds.lengths)
             
             if hasattr(ds, 'cell_types') and hasattr(ds, 'species'):
-                # 1. 为 Sampler 构建跨物种的类别标签
+                # 1. Build cross-species class labels for the sampler
                 if self.balance_classes:
                     combined_types = [f"{sp}_{ct}" for sp, ct in zip(ds.species, ds.cell_types)]
                     all_cell_types.extend(combined_types)
                 
-                # 2. 极速提取独一无二的 (species, cell_type) 组合
+                # 2. Extract unique (species, cell_type) pairs
                 if hasattr(ds, 'cell_expr_dict') and ds.cell_expr_dict:
                     unique_pairs = set(zip(ds.species, ds.cell_types))
                     
@@ -216,7 +216,7 @@ class PretrainingTrainer:
                         if ct in ds.cell_expr_dict:
                             if sp not in combined_dataset.global_expr_dict:
                                 combined_dataset.global_expr_dict[sp] = {}
-                            # 填入表达向量（不同 h5 文件中相同的组织表达谱通常一致，直接覆盖即可）
+                            # Store expression vector (same tissue profile across h5 files; overwrite is safe)
                             combined_dataset.global_expr_dict[sp][ct] = ds.cell_expr_dict[ct]
                 
         sampler = DistributedBucketSampler(
@@ -238,26 +238,24 @@ class PretrainingTrainer:
     # =========================================================
     def _cache_expression_means(self):
         """
-        基于预构建的 global_expr_dict，极速计算并缓存跨物种的细胞特异性平均表达向量。
-        彻底移除了无生物学意义的“物种均值”和“全局均值”。
-        """
-        # 直接获取挂载在 ConcatDataset 上的全局字典
+Compute and cache cross-species cell-type-specific mean expression vectors from the pre-built global_expr_dict."""
+        # Fetch the global dictionary attached to the ConcatDataset
         global_expr_dict = getattr(self.dataset, 'global_expr_dict', {})
         
-        # 1. 遍历精简后的字典 (层级为 species -> cell_type -> vector)
+        # 1. Iterate over the dictionary (hierarchy: species -> cell_type -> vector)
         for sp, ct_dict in global_expr_dict.items():
             for ct, vec in ct_dict.items():
-                # 按细胞类型收集 (跨物种合并)
+                # Collect by cell type (cross-species merge)
                 if ct not in self.cell_mean_expr:
                     self.cell_mean_expr[ct] = []
                 self.cell_mean_expr[ct].append(vec)
                         
-        # 2. 将收集到的列表聚合为均值 Tensor
+        # 2. Aggregate collected lists into mean tensors
         for ct in self.cell_mean_expr:
             ct_mean = np.mean(self.cell_mean_expr[ct], axis=0)
             self.cell_mean_expr[ct] = torch.from_numpy(ct_mean).float()
             
-        # 3. 打印精简后的日志
+        # 3. Log summary
         if self.cell_mean_expr:
             if self.rank == 0:
                 print(f"[Trainer] Cached {len(self.cell_mean_expr)} cross-species cell means.")
@@ -671,9 +669,9 @@ class PretrainingTrainer:
 
             if do_sync:
                 # gradient clipping
-                self.scaler.unscale_(self.optimizer) # 解开 scale 以计算真实梯度 norm
-                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=2.0) # 裁剪梯度
-                self.scaler.step(self.optimizer) # 步进优化器并更新scalar
+                self.scaler.unscale_(self.optimizer)  # unscale to compute real gradient norm
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=2.0)  # clip gradients
+                self.scaler.step(self.optimizer)  # step optimizer and update scaler
                 self.scaler.update() 
                 self.scheduler.step()
                 self.optimizer.zero_grad() 

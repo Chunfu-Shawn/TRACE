@@ -26,7 +26,8 @@ Key architectural features:
 
 ```
 TRACE/
-├── environment.yml                        # Conda environment
+├── environment.yml                        # Full conda environment
+├── requirements.txt                        # Minimal pip dependencies
 ├── src/
 │   ├── model/
 │   │   ├── base_model.py                  # BaseModel — sequence-only encoder
@@ -35,20 +36,16 @@ TRACE/
 │   │   ├── prediction_heads.py           # PsiteDensityHead, TranslationProfileHead, TERegressionHead
 │   │   ├── position_embedding.py         # RoPE (LlamaRotaryEmbeddingExt)
 │   │   ├── flash_multi_headed_attention.py # FlashAttention-2 wrapper
-│   │   ├── transformer.py                # Core transformer components
 │   │   ├── translation_predictor.py      # Inference utilities
 │   │   ├── orf_caller.py                 # ORF identification
-│   │   ├── eval_RPF_density_TIS_TTS.py   # TIS/TTS density evaluation
 │   │   └── generate_cell_env_expr_array.py # Expression vector generation
 │   ├── data/
 │   │   ├── translation_dataset.py        # TranslationDataset — lazy H5 loader
 │   │   ├── translation_dataset_generator.py # H5 dataset generation pipeline
 │   │   ├── rpf_counter.py                # Ribo-seq read counting
-│   │   ├── psite_counter.py              # P-site footprint extraction
 │   │   ├── cell_env_expr_array_generate.py # Cell-type expression matrix
 │   │   ├── transcript_sequence_generate.py # Transcript sequence encoding
-│   │   ├── transcript_CDS_embedding.py   # CDS-aware embedding generation
-│   │   ├── transcript_exon_index.py      # Exon boundary indexing
+│   │   ├── transcript_exon_index.py      # Exon boundary and CDS indexing
 │   ├── train/
 │   │   ├── seq_pretrain.py               # SeqPretrainTrainer (BaseModel pretraining)
 │   │   ├── model_pretrain.py             # PretrainingTrainer (TranslationBaseModel)
@@ -56,9 +53,14 @@ TRACE/
 │   │   ├── distributed_balanced_bucket_sampler.py # Length-bucketed DDP sampler
 │   │   └── masking_adapter.py            # BERT-style masking + curriculum
 │   ├── config/
+│   │   ├── human_expression_dict.pt      # pre-built expression dictionary for human (binary)
+│   │   ├── macaque_expression_dict.pt    # pre-built expression dictionary for macaque (binary)
+│   │   ├── mouse_expression_dict.pt      # pre-built expression dictionary for mouse (binary)
+│   │   ├── global_anchor_gene_order.txt   # Canonical gene order (GENCODE) for expression arrays (text)
+│   │   ├── global_species_id_mapping.json # Orthologous gene mapping (GENCODE) for cross-species expression alignment (text)
 │   │   ├── model_config.py               # ModelConfig dataclass (BaseModel)
 │   │   ├── model_config_expr.py          # ModelConfig (TranslationBaseModel)
-│   │   ├── *.yaml                        # Hyperparameter configs
+│   │   ├── *.yaml                        # Model hyperparameter YAML configs
 │   │   └── model_config_*.py             # Ablation config dataclasses
 │   ├── lora_utils.py                     # LoRA adapter injection helpers
 │   └── utils.py                          # Shared utilities (unwrap_model, etc.)

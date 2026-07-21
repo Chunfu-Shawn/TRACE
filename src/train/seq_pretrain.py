@@ -331,7 +331,7 @@ class PretrainingTrainer:
         if os.path.isfile(latest):
             if self.rank == 0:
                 print(f"[Trainer] Loading checkpoint {latest}")
-            map_loc = "cuda" if torch.cuda.is_available() else "cpu"
+            map_loc = BaseModel._default_map_location()
             ckpt = torch.load(latest, map_location=map_loc)
             # restore model weights into unwrapped model
             model_unwrapped = unwrap_model(self.model)

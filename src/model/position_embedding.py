@@ -47,7 +47,7 @@ class LlamaRotaryEmbeddingExt(nn.Module):
         self.register_buffer("sin_cached", emb.sin()[None, None, :, :], persistent=False)
     
     def rotate_half(self, x):
-        # 将最后一维均分成两半，然后做复数乘i的旋转
+        # split the last dimension in half, then rotate via complex multiplication by i
         x1, x2 = x[..., :x.shape[-1]//2], x[..., x.shape[-1]//2:]
         return torch.cat((-x2, x1), dim=-1)
     

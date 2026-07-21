@@ -130,16 +130,16 @@ class TranslationBaseModel(nn.Module):
             if tensor_vec.shape[-1] != self.d_expr:
                 raise ValueError(f"Vector for {cell_name} has wrong dimension. Expected {self.d_expr}, got {tensor_vec.shape[-1]}")
             
-            # 挤压多余的维度，确保是一维向量
+            # squeeze extra dims to ensure 1-D vector
             tensor_vec = tensor_vec.view(-1)
             self.cell_expr_dict[cell_name] = tensor_vec
             all_vectors.append(tensor_vec)
         
-        # 计算并更新 fallback 使用的平均表达向量
+        # compute and update the mean expression vector used as fallback
         if all_vectors:
             stacked_vecs = torch.stack(all_vectors)
             mean_vec = stacked_vecs.mean(dim=0)
-            # 使用 copy_ 保证 Buffer 正常更新，且与模型在同一设备
+            # use copy_ to update the buffer in-place on the correct device
             self.mean_expr_vector.copy_(mean_vec)
             print(f"[Model] Successfully loaded {len(self.cell_expr_dict)} cell type expression profiles. Mean vector updated.")
         else:
@@ -274,7 +274,7 @@ class TranslationBaseModel(nn.Module):
 
         print(f"==> Create model using config from {config}: {cfg}")
 
-        # 1. 实例化模型
+        # 1. instantiate the model
         model = cls(
             d_seq=cfg.d_seq,
             d_count=cfg.d_count,
@@ -297,7 +297,7 @@ class TranslationBaseModel(nn.Module):
             else:
                 print(f"[Model] Auto-loading expression dict from {cfg.expr_dict_path}...")
                 
-                # 兼容多种格式的字典文件 (JSON / Pickle / PyTorch .pt)
+                # support multiple dictionary file formats (JSON / Pickle / .pt)
                 if cfg.expr_dict_path.endswith('.json'):
                     import json
                     with open(cfg.expr_dict_path, 'r') as f:
@@ -311,7 +311,7 @@ class TranslationBaseModel(nn.Module):
                 else:
                     raise ValueError("Unsupported file format for expr_dict_path. Use .json, .pkl, or .pt")
                 
-                # 调用模型内置的方法挂载数据
+                # use the model's built-in method to load the data
                 model.load_expression_dict(expr_dict)
 
         return model

@@ -27,8 +27,8 @@ def generate_cell_env_expr_dict(
     counts_file, 
     ref_order_path, 
     mapping_json_path, 
-    quant_level='transcript', # [新增]: 指示输入 count 矩阵的级别
-    tx2gene_file=None,        # 当 quant_level='transcript' 时使用
+    quant_level='transcript',  # quant_level: level of the input count matrix ('gene' or 'transcript')
+    tx2gene_file=None,        # transcript-to-gene mapping file; used when quant_level='transcript'
     min_tpm_threshold=0.0, 
     output_pt_path=None
 ):
@@ -66,7 +66,7 @@ def generate_cell_env_expr_dict(
     df = df.rename(columns=rename_dict)
     sample_cols = list(rename_dict.values())
     
-    # [遵守修正记录] 严格剔除 ID 的版本号后缀
+    # Strip version suffixes from Ensembl IDs
     df['Clean_ID'] = df['Geneid'].astype(str).str.split('.').str[0]
     
     # 4. Determine Gene-Level Grouping Target
@@ -81,7 +81,7 @@ def generate_cell_env_expr_dict(
             col_tx = tx2gene_df.columns[0]
             col_gene = tx2gene_df.columns[1]
             
-            # 剔除映射表里的版本号后缀
+            # Strip version suffixes from the mapping table
             tx_keys = tx2gene_df[col_tx].astype(str).str.split('.').str[0]
             gene_vals = tx2gene_df[col_gene].astype(str).str.split('.').str[0]
             tx2gene_map = dict(zip(tx_keys, gene_vals))
@@ -97,7 +97,7 @@ def generate_cell_env_expr_dict(
             sys.exit(1)
             
     elif quant_level == 'gene':
-        # 输入已经是基因水平，Clean_ID 直接作为目标靶点
+        # Input is already at the gene level; clean ID is used directly as the target
         df['Target_Gene_ID'] = df['Clean_ID']
         if tx2gene_file:
             print("[ExprBuilder] Warning: tx2gene_file provided but ignored since quant_level is 'gene'.")
@@ -112,8 +112,8 @@ def generate_cell_env_expr_dict(
     for col in sample_cols:
         rpk_df[col] = df[col] / (df['Length'] / 1000.0)
 
-    # 无论是 transcript 输入还是 gene 输入，在这里进行 groupby 都是安全的。
-    # 对于 gene 输入，大部分情况是一对一映射（无须求和的单行分组），天然兼容。
+    # groupby is safe for both transcript- and gene-level input.
+    # For gene input most rows are 1-to-1 (no-op groupby), so this is naturally compatible.
     gene_rpk_df = rpk_df.groupby('Target_Gene_ID')[sample_cols].sum()
 
     # 6. Calculate TPM and Robust Z-score from Gene RPKs
@@ -145,7 +145,7 @@ def generate_cell_env_expr_dict(
     gene_tpm_df['Anchor_ID'] = gene_tpm_df['Target_Gene_ID'].map(id_mapping)
     aligned_df = gene_tpm_df.dropna(subset=['Anchor_ID']).copy()
     
-    # 8. 核心阵列覆盖率雷达 (Coverage Radar)
+    # 8. Core array coverage radar
     covered_anchors = set(aligned_df['Anchor_ID'].unique())
     ref_anchors_set = set(reference_anchor_ids)
     
@@ -172,7 +172,7 @@ def generate_cell_env_expr_dict(
         print("          TRACE translation models perform poorly with sparse expression inputs.")
         print("          Please ensure your featureCounts file contains global genomic expression, not just filtered subsets.")
 
-    # 如果有多个 Ensembl ID 映射到了同一个 Anchor ID，取平均值
+    # If multiple Ensembl IDs map to the same Anchor ID, take the mean
     grouped_zscore = aligned_df.groupby('Anchor_ID')[zscore_cols].mean()
 
     # 9. Align to Reference Coordinate System
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--ref_order", required=True, help="Path to reference anchor order list")
     parser.add_argument("-m", "--mapping_json", required=True, help="Path to species mapping JSON")
     
-    # [新增] 引入 quant_level 命令行参数
+    # Expose quant_level as a CLI argument
     parser.add_argument("-q", "--quant_level", required=True, choices=['transcript', 'gene'], help="Level of quantification in the counts_file ('transcript' or 'gene')")
     parser.add_argument("-t", "--tx2gene", default=None, help="Path to Transcript-to-Gene mapping TSV (Required if quant_level is 'transcript')")
     

@@ -54,7 +54,7 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
                         seq_dict[curr_id] = "".join(curr_seq).replace('U', 'T')
                         file_seq_count += 1
                     
-                    # [MODIFIED] 使用安全清理函数
+                    # use safe cleaning function
                     raw_id = line[1:].split()[0]
                     curr_id = safe_clean_id(raw_id)
                     curr_seq = []
@@ -329,7 +329,7 @@ class TranslationSignalORFCaller:
         
         print(f"\n[Phase 1] Extracting candidates & integrating LogTPM...")
         for tid, pred_raw in tqdm(cell_preds.items()):
-            # [MODIFIED] 使用安全清理函数
+            # use safe cleaning function
             clean_tid = safe_clean_id(tid)
             
             if clean_tid not in self.seq_dict: continue

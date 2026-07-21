@@ -21,28 +21,28 @@ def nested_defaultdict():
 @njit
 def build_exon_index_np(exon_starts, exon_ends, strand):
     """
-    把 GTF 读出的 exon_starts/exon_ends (1-based inclusive, 转录本顺序)
-    直接转换成 0-based half-open, 并按照基因组坐标升序返回:
+    Convert GTF exon_starts/exon_ends (1-based inclusive, transcript order)
+    to 0-based half-open, sorted by genomic coordinate ascending:
       starts0: np.array([...])
       ends0:   np.array([...])
-    如果 strand == '+': 假定 exon_starts 已经按 genomic 升序，
-      直接做 O(E) 的转换；如果 strand == '-': 假定它是 genomic 降序，
-      只需一次反转即可。
+    If strand == '+': exon_starts are assumed to be in genomic ascending order,
+      do an O(E) conversion directly. If strand == '-': assumed genomic descending,
+      just reverse once.
     """
-    # 1) 生成 (start0, end0, exon_idx) 三元组列表
+    # 1) Build (start0, end0, exon_idx) triples
     exons = [
         (s - 1, e, idx)
         for idx, (s, e) in enumerate(zip(exon_starts, exon_ends))
     ]
     
     if strand == '+':
-        # 已经是 genomic 升序：直接拆包
+        # already genomic ascending: unpack directly
         seq = exons
     else:
-        # 对于负链，GTF 转录本顺序通常是 genomic 降序 → 反转一次
+        # for negative strand, GTF transcript order is typically genomic descending → reverse once
         seq = exons[::-1]
     
-    # 2) 拆成三个 ndarray
+    # 2) Split into three ndarrays
     starts0 = np.array([s for s, _, _ in seq], dtype=np.int32)
     ends0   = np.array([e for _, e, _ in seq], dtype=np.int32)
     
@@ -90,9 +90,9 @@ def create_optimized_index(gtf_file, db_file):
     transcript_cds_dict = {}
 
     for transcript in db.features_of_type('transcript'):
-        # --- 统一处理带有版本的 transcript_id 开始 ---
+        # --- handle versioned transcript_id ---
         tid = transcript.id
-        # 如果 tid 中没有小数点，且 attributes 中存在 'transcript_version'，则进行拼接
+        # if tid has no dot and attributes has 'transcript_version', concatenate
         if "." not in tid and 'transcript_version' in transcript.attributes:
             version = transcript.attributes['transcript_version'][0]
             tid = f"{tid}.{version}"
@@ -220,7 +220,7 @@ def load_index(filename):
     with open(filename, 'rb') as f:
         serializable = pickle.load(f)
     
-    # 转换回numpy数组格式
+    # convert back to numpy array format
     index = defaultdict(nested_defaultdict)
     for chrom in serializable:
         for strand in serializable[chrom]:

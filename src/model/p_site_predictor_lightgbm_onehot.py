@@ -473,7 +473,7 @@ class PSitePredictor():
                         flanking_seq = five_end_flanking_seq
                     else:
                         flanking_seq = three_end_flanking_seq
-                    flanking_list.append(flanking_seq)  # 直接扁平化，便于 vstack
+                    flanking_list.append(flanking_seq)  # flatten directly for vstack
                     tid_list.append(tid)
                     pos_list.append(pos)
                     read_len_list.append(read_l)

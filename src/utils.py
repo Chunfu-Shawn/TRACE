@@ -51,102 +51,39 @@ def clean_up_memory():
     print("Memory clean up finished.")
 
 
-def inspect_adaln_weights(model):
-    print("=== 🕵️ 细胞类型 Embedding 权重诊断报告 ===")
-    
-    # 获取细胞类型到 Index 的映射，并反转为 Index -> Cell Type
-    mapping = model.cell_type_mapping
-    idx_to_cell = {v: k for k, v in mapping.items()}
-    idx_to_cell[0] = "Unknown/Padding" # 0 通常是预留的 Padding 或未知细胞类型
-    
-    # ---------------------------------------------------------
-    # 检查目标 1: 检查第一层 Transformer Block 内部的 AdaLN 嵌入
-    # ---------------------------------------------------------
-    print("\n[1] 检查 Layer 0 -> MHA Sublayer -> cell_embed ...")
-    try:
-        # 定位到: model.encoder.encoder_layers[0].sublayers[0].cell_embed
-        block0_emb = model.encoder.encoder_layers[0].sublayers[0].cell_embed.weight.detach().cpu().numpy()
-        
-        for idx in range(block0_emb.shape[0]):
-            cell_name = idx_to_cell.get(idx, f"Unused-{idx}")
-            w = block0_emb[idx]
-            l2_norm = np.linalg.norm(w)
-            has_nan = np.isnan(w).any()
-            has_inf = np.isinf(w).any()
-            is_zero = np.all(w == 0)
-            
-            # 高亮显示可能存在问题的状态
-            status = "✅ 正常"
-            if has_nan or has_inf: status = "🚨 崩溃 (NaN/Inf)"
-            elif is_zero: status = "💀 死亡 (All Zero)"
-            elif l2_norm > 100: status = "⚠️ 范数过大 (可能梯度爆炸)"
-            elif l2_norm < 1e-4: status = "⚠️ 范数过小 (可能梯度消失)"
-                
-            print(f"  [{idx}] {cell_name:<18}: L2 Norm = {l2_norm:8.4f} | {status}")
-    except Exception as e:
-        print(f"  ❌ 无法读取第一层 AdaLN 权重: {e}")
-
-    # ---------------------------------------------------------
-    # 检查目标 2: 检查 Encoder 最后的 final_embed
-    # ---------------------------------------------------------
-    print("\n[2] 检查 Encoder -> final_embed ...")
-    try:
-        final_emb = model.encoder.final_embed.weight.detach().cpu().numpy()
-        
-        for idx in range(final_emb.shape[0]):
-            cell_name = idx_to_cell.get(idx, f"Unused-{idx}")
-            w = final_emb[idx]
-            l2_norm = np.linalg.norm(w)
-            has_nan = np.isnan(w).any()
-            has_inf = np.isinf(w).any()
-            is_zero = np.all(w == 0)
-            
-            status = "✅ 正常"
-            if has_nan or has_inf: status = "🚨 崩溃 (NaN/Inf)"
-            elif is_zero: status = "💀 死亡 (All Zero)"
-            elif l2_norm > 100: status = "⚠️ 范数过大"
-            elif l2_norm < 1e-4: status = "⚠️ 范数过小"
-                
-            print(f"  [{idx}] {cell_name:<18}: L2 Norm = {l2_norm:8.4f} | {status}")
-    except Exception as e:
-        print(f"  ❌ 无法读取 final_embed 权重: {e}")
-        
-    print("\n==============================================")
-
-
 def freeze_encoder_for_finetuning(model: nn.Module, trainable_keywords: list = None):
     """
-    冻结模型的大部分参数，仅开放匹配关键字的层。
+    Freeze most model parameters, only unfreeze layers matching keywords.
     
     Args:
-        model: 你的 PyTorch 模型
-        trainable_keywords: 需要保持可训练的层名称关键字列表。
+        model: the PyTorch model to freeze
+        trainable_keywords: list of layer name substrings to keep trainable.
     """
-    # 如果没有指定关键字，提供一组默认的常见命名
+    # if no keywords specified, provide a sensible default set
     if trainable_keywords is None:
         trainable_keywords = [
-            "adaln",           # AdaLN 相关的映射网络
-            "modulator",       # 有时 AdaLN 的网络被命名为 modulator
-            "cell_embed",      # 细胞类型的 Embedding 层
-            "cell_type",       # 细胞类型的另一种常见命名
-            "head",            # 输出预测头 (例如 seq_head, count_head)
-            "out_proj",        # 最后的线性映射层
-            "classifier"       # 分类器头
+            "adaln",           # AdaLN mapping network
+            "modulator",       # alternative name for AdaLN network
+            "cell_embed",      # cell-type embedding layer
+            "cell_type",       # another common cell-type naming
+            "head",            # output prediction heads (e.g., seq_head, count_head)
+            "out_proj",        # final linear projection layer
+            "classifier"       # classifier head
         ]
     
-    print("=== Stage 2: Freezing Model Parameters ===")
+    print("=== Freezing Model Parameters ===")
     
-    # 第一步：暴力冻结模型的所有参数
+    # Step 1: freeze all parameters
     for param in model.parameters():
         param.requires_grad = False
         
-    # 第二步：遍历所有参数的名称，如果包含关键字，则重新解冻
+    # Step 2: iterate over named parameters and unfreeze those matching keywords
     unfrozen_count = 0
     frozen_count = 0
     unfrozen_names = []
     
     for name, param in model.named_parameters():
-        # 转换为小写进行不区分大小写的匹配
+        # case-insensitive matching
         name_lower = name.lower()
         if any(keyword in name_lower for keyword in trainable_keywords):
             param.requires_grad = True
@@ -155,10 +92,10 @@ def freeze_encoder_for_finetuning(model: nn.Module, trainable_keywords: list = N
         else:
             frozen_count += param.numel()
 
-    # 打印冻结和解冻的统计信息，确保没有冻错
-    print(f"-> Frozen Parameters: {frozen_count:,} (Backbone)")
-    print(f"-> Trainable Parameters: {unfrozen_count:,} (AdaLN, Embeddings, Heads)")
-    print("-> Unfrozen Layers List:")
+    # print freeze/unfreeze statistics
+    print(f"-> Frozen parameters: {frozen_count:,} (backbone)")
+    print(f"-> Trainable parameters: {unfrozen_count:,} (AdaLN, embeddings, heads)")
+    print("-> Unfrozen layers:")
     for name in unfrozen_names:
         print(f"   - {name}")
         

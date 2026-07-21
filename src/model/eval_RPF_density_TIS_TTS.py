@@ -8,7 +8,7 @@ def build_length_position_matrix(counts_dict, tx_cds, result_dir,
                                  min_len=21, max_len=40,
                                  prefix="read_count"):
     """
-    返回：
+    Returns:
       lengths_sorted: list of lengths present (sorted)
       mat: np.array shape (n_lengths, W) where W = left+right+1,
            each entry is total counts summed across transcripts for that length and relative position.
@@ -70,7 +70,7 @@ def build_length_frame_matrix(
         min_len=21, max_len=40, prefix="read",
         offset_dict: dict = {}):
     """
-    返回：
+    Returns:
       lengths_sorted: list of lengths present (sorted)
       mat: np.array shape (n_lengths, W) where W = left+right+1,
            each entry is total counts summed across transcripts for that length and relative position.

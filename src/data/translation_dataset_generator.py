@@ -10,7 +10,7 @@ from typing import Literal
 from data.rpf_counter import *
 from scipy.stats import linregress
 
-# 可选：如果想用 h5 存储
+# optional: for H5 storage
 try:
     import h5py
     HAS_H5 = True
@@ -41,7 +41,7 @@ def build_automaton(motifs):
     
     automaton = ahocorasick.Automaton()
     for motif in motifs:
-        # 跳过空字符串
+        # skip empty strings
         if motif:
             automaton.add_word(motif, motif)
     automaton.make_automaton()
@@ -51,7 +51,7 @@ def build_automaton(motifs):
 
 class RenameUnpickler(pickle.Unpickler):
     def find_class(self, module, name):
-        # 拦截旧模块名，替换为新模块名
+        # intercept old module name, replace with new
         if module == 'data.RPF_counter_v3':
             module = 'data.rpf_counter'
         return super().find_class(module, name)
@@ -104,7 +104,7 @@ class DatasetGenerator():
         (_, filename) = os.path.split(file_path)
         name = filename.split('.')[0]
         with open(file_path, 'rb') as f:
-            dict = RenameUnpickler(f).load() # 使用自定义的 Unpickler
+            dict = RenameUnpickler(f).load()  # use custom Unpickler
         
         return dict, name
 
@@ -116,9 +116,8 @@ class DatasetGenerator():
     
     def parse_and_winsorize_to_array(self, count_dict, keep_read_len, percentile=99.5):
         """
-        将原始字典转换为 Dense NumPy 矩阵并原位截断。
-        从此往后，整个数据流彻底告别 dict.items() 的 for 循环！
-        """
+    Convert the raw dict into a dense numpy matrix with in-place truncation.
+    From this point on, the entire data pipeline uses vectorized matrix ops."""
         arr_dict = {}
         for tid, counts in count_dict.items():
             if tid not in self.seq_dict or not counts:
@@ -126,7 +125,7 @@ class DatasetGenerator():
             
             seq_l = len(self.seq_dict[tid])
             
-            # 1. 解析字典构建矩阵
+            # 1. Parse dict and build matrix
             if keep_read_len:
                 arr = np.zeros((seq_l, 10), dtype=np.float32)
                 for pos, read_dict in counts.items():
@@ -145,11 +144,11 @@ class DatasetGenerator():
                         if val > 0:
                             arr[pos-1, 0] = val
                             
-            # 2. 矩阵级 Winsorization
+            # 2. Matrix-level Winsorization
             nz_mask = arr > 0
             if np.any(nz_mask):
                 cap_val = np.percentile(arr[nz_mask], percentile)
-                np.clip(arr, a_min=None, a_max=cap_val, out=arr) # 原位修改内存，极速
+                np.clip(arr, a_min=None, a_max=cap_val, out=arr)  # in-place clip for speed
                 
             arr_dict[tid] = arr
             
@@ -157,7 +156,7 @@ class DatasetGenerator():
     
     def data_quality_eval(self, seq_l, arr, cds_s, cds_e, has_valid_cds):
         """
-        全向量化质控，计算CDS区域或者全长的depth和coverage
+        Fully vectorized QC: compute depth and coverage over CDS or full-length
         """
         if has_valid_cds:
             start_idx = cds_s - 1  # 0-based index
@@ -170,20 +169,20 @@ class DatasetGenerator():
         if region_l <= 0:
             return np.array([]), 0.0, 0.0, 0.0, 0.0
 
-        # 将 (L, 10) 压缩为 (L,) 的 1D 数组
+        # collapse (L, 10) to (L,) 1D array
         pos_counts_1d = arr.sum(axis=1) if arr.ndim == 2 else arr.flatten()
-        region_arr = pos_counts_1d[start_idx:end_idx] # 瞬间提取目标区间
+        region_arr = pos_counts_1d[start_idx:end_idx]  # extract target region instantly
 
         depth_full = pos_counts_1d.sum() / seq_l
         depth = region_arr.sum() / region_l
 
-        # 利用 Numpy 步长切片快速计算 Frame 0 reads 占比
+        # use numpy strided slicing to quickly compute Frame 0 read ratio
         if has_valid_cds and region_arr.sum() > 0:
             frame0_ratio = region_arr[0::3].sum() / region_arr.sum()
         else:
             frame0_ratio = 0.0
 
-        # 向量化 Coverage 计算 (每 3 个核苷酸一组求和，看有几个组大于0)
+        # vectorized coverage: sum every 3-nt group, count groups > 0
         n_put_codon = math.ceil(region_l / 3)
         pad_len = (3 - region_l % 3) % 3
         region_arr_padded = np.pad(region_arr, (0, pad_len)) if pad_len > 0 else region_arr
@@ -195,20 +194,20 @@ class DatasetGenerator():
     
     def compute_sample_te(self, ribo_arr_dict, rna_count_dict, depth_threshold, coverage_threshold, rpm_threshold=1, periodicity=0.33):
         """
-        接收已经 Winsorized 过的 numpy dict, 计算 TE。
+        Compute TE from the Winsorized numpy dict.
         """
         rpf_totals, rna_totals, rpf_depth, rpf_cov = {}, {}, {}, {}
 
         sample_total_rna_reads = sum(count for count in rna_count_dict.values())
         if sample_total_rna_reads == 0:
-            sample_total_rna_reads = 1.0 # 防止极端情况下的除零错误
+            sample_total_rna_reads = 1.0  # prevent division by zero in edge cases
 
         for tid, ribo_arr in ribo_arr_dict.items():
             if tid not in rna_count_dict: 
                 continue
 
             total_reads_rna = rna_count_dict[tid]
-            # 计算当前转录本的 RPM，如果不满足阈值直接跳过
+            # compute RPM for the current transcript; skip if below threshold
             rpm = (total_reads_rna / sample_total_rna_reads) * 1e6
             if rpm < rpm_threshold:
                 continue
@@ -223,9 +222,9 @@ class DatasetGenerator():
             
             pos_1d_ribo, d_ribo, d_ribo_full, c_ribo, f0_ratio = self.data_quality_eval(seq_l, ribo_arr, cds_s, cds_e, has_valid_cds)
 
-            # 阈值过滤
+            # threshold filtering
             if has_valid_cds:
-                # 在过滤条件中增加 f0_ratio <= 0.33 判断
+                # add f0_ratio <= 0.33 check to filtering criteria
                 if d_ribo < min(2, depth_threshold * 3.0) or c_ribo < min(1, coverage_threshold * 3.0) or f0_ratio <= periodicity: 
                     continue
             else:
@@ -234,9 +233,9 @@ class DatasetGenerator():
                 
             rpf_depth[tid], rpf_cov[tid] = d_ribo_full, c_ribo
 
-            # 切片求和
+            # slice and sum
             if has_valid_cds:
-                # Python slice 是左闭右开，[cds_s+6 : cds_e-9] 完美对应你之前的 valid_s 和 valid_e
+                # Python slice is left-inclusive right-exclusive; [cds_s+6 : cds_e-9] maps to valid_s / valid_e
                 valid_s_idx = cds_s + 6
                 valid_e_idx = cds_e - 9 
                 
@@ -250,7 +249,7 @@ class DatasetGenerator():
             
         if not rpf_totals or not rna_totals: return {}, {}, {}
 
-        # CLR 与 线性回归
+        # CLR and linear regression
         tids = list(rpf_totals.keys())
         rpf_clr = np.log(list(rpf_totals.values())) - np.mean(np.log(list(rpf_totals.values())))
         rna_clr = np.log(list(rna_totals.values())) - np.mean(np.log(list(rna_totals.values())))
@@ -262,7 +261,7 @@ class DatasetGenerator():
 
     def count_embedding(self, arr, te_residual):
         """
-        arr 已经是被 parse_and_winsorize_to_array 组装且净化好的矩阵了。
+        arr is already the cleaned matrix from parse_and_winsorize_to_array.
         """
         nz_mask = arr > 0
         nz_mean = np.mean(arr[nz_mask]) if np.any(nz_mask) else 1.0
@@ -279,7 +278,7 @@ class DatasetGenerator():
             rpm: float = 1.0,
             expr_dict_path: str = None,
             keep_read_len: bool = False,
-            only_coding: bool = True,  # [CHANGE] 新增参数，默认为 True 只保留 coding
+            only_coding: bool = True,  # only keep protein-coding transcripts
             out_path="dataset.h5"
             ):
         """
@@ -348,13 +347,13 @@ class DatasetGenerator():
             print(f"--- Vectorizing and Winsorizing arrays for {cell_type} ---")
             ribo_arr_dict = self.parse_and_winsorize_to_array(ribo_count_dict, keep_read_len)
 
-            # [CHANGE] 在计算 TE 之前，过滤出仅包含有效 CDS 的 protein-coding 转录本
+            # filter to protein-coding transcripts with valid CDS before computing TE
             if only_coding:
                 coding_ribo_arr_dict = {}
                 for tid, arr in ribo_arr_dict.items():
                     cds_info = self.tx_cds.get(tid, {'cds_start_pos':-1, 'cds_end_pos':-1})
                     cds_s, cds_e = cds_info.get('cds_start_pos', -1), cds_info.get('cds_end_pos', -1)
-                    # 使用与 TE 计算一致的有效 CDS 判断标准 (> 45nt)
+                    # use the same valid-CDS criterion as TE calculation (> 45 nt)
                     if cds_s != -1 and (cds_e - cds_s) > 45:
                         coding_ribo_arr_dict[tid] = arr
                 ribo_arr_dict = coding_ribo_arr_dict

@@ -130,10 +130,7 @@ class TranslationBaseModel(nn.Module):
 
     @property
     def device(self):
-        try:
-            return next(self.parameters()).device
-        except StopIteration:
-            return torch.device('cpu')
+        return self.mean_expr_vector.device
 
     # -------------------------
     # Config helpers

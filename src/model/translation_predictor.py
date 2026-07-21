@@ -15,7 +15,7 @@ from utils import unwrap_model, clean_up_memory
 def get_active_transcripts(
     tpm_csv_path: str, 
     mapping_csv_path: str, 
-    # [MODIFIED] 允许输入单个字符串或字符串列表
+    # accept a single string or a list of strings
     cell_type: Union[str, List[str]], 
     min_tpm: float = 0.5
 ) -> Union[np.ndarray, Dict[str, np.ndarray]]:
@@ -25,13 +25,13 @@ def get_active_transcripts(
     - If cell_type is a list, returns a dict of {cell_type: array_of_active_Transcript_IDs}.
     """
     # =================================================================
-    # [NEW] 1. 输入类型标准化
+    # 1. Normalize input types
     # =================================================================
     is_single_input = isinstance(cell_type, str)
     target_cells = [cell_type] if is_single_input else cell_type
 
     # =================================================================
-    # 2. 集中加载数据 (只需加载一次，极大提升多细胞系处理速度)
+    # 2. Load data once (shared across all cell types for speed)
     # =================================================================
     print(f"Loading TPM matrix from: {tpm_csv_path}")
     try:
@@ -51,7 +51,7 @@ def get_active_transcripts(
         raise ValueError(f"Mapping table must contain '{gene_col}' and '{tx_col}' columns.")
 
     # =================================================================
-    # [MODIFIED] 3. 循环处理各个细胞系
+    # 3. Iterate over cell types
     # =================================================================
     results = {}
     print(f"Extracting active transcripts (TPM > {min_tpm}) for {len(target_cells)} cell types...")
@@ -62,11 +62,11 @@ def get_active_transcripts(
             results[ct] = np.array([])
             continue
 
-        # 过滤活跃基因
+        # filter active genes
         active_mask = df[ct] > min_tpm
         active_gene_ids = df[active_mask].index.values
         
-        # 映射到转录本
+        # map to transcripts
         active_mapping = mapping_df[mapping_df[gene_col].isin(active_gene_ids)]
         active_transcript_ids = active_mapping[tx_col].unique()
         
@@ -74,7 +74,7 @@ def get_active_transcripts(
         print(f"  -> {ct}: {len(active_gene_ids)} active genes mapped to {len(active_transcript_ids)} unique transcripts.")
     
     # =================================================================
-    # [NEW] 4. 根据输入类型返回对应结构
+    # 4. Return the appropriate structure based on input type
     # =================================================================
     if is_single_input:
         return results[cell_type]
@@ -82,10 +82,10 @@ def get_active_transcripts(
     return results
 
 # =================================================================
-# 工具函数: Fasta 解析
+# Utility: FASTA parser
 # =================================================================
 def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
-    """读取单个或多个 Fasta 文件并返回合并后的 {tid: sequence} 字典"""
+    """Read one or more FASTA files, return merged {tid: sequence} dict."""
     if isinstance(file_paths, str):
         file_paths = [file_paths]
         
@@ -111,7 +111,7 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
                     if curr_tid:
                         seq_dict[curr_tid] = "".join(curr_seq)
                         file_seq_count += 1
-                    # 提取 > 后面的 ID，通常以空格分隔取第一部分
+                    # extract the ID after '>', typically the first space-delimited token
                     curr_tid = line[1:].split()[0]
                     curr_seq = []
                 else:
@@ -127,11 +127,11 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
     return seq_dict
 
 # =================================================================
-# 零样本推理 Dataset (保持不变)
+# Zero-shot inference Dataset
 # =================================================================
 class DeNovoSequenceDataset(Dataset):
     """
-    轻量级内存 Dataset，专为仅含有 RNA 序列的翻译图谱预测设计。
+    Lightweight in-memory Dataset for translation profile prediction from RNA sequence only.
     """
     def __init__(self, 
                  seq_dict: Dict[str, str], 
@@ -148,23 +148,23 @@ class DeNovoSequenceDataset(Dataset):
         
         self.nt_mapping = dict(zip("ACGTN", range(5)))
         self.min_len = min_len
-        self.max_len = max_len  # 设置最大支持长度限制
+        self.max_len = max_len  # maximum supported transcript length
         
         self.uuids = []
         self.seq_embs = []
         self.lengths = []
         
-        # 预先进行 One-hot 编码并记录长度
+        # pre-compute one-hot encoding and record lengths
         for tid in tqdm(self.tids, desc="Encoding Sequences"):
             seq = self.seq_dict[tid].upper()
             
-            # 如果序列长度超过模型限制，进行丢弃
+            # discard transcripts exceeding the maximum length
             if len(seq) > self.max_len or len(seq) < self.min_len:
                 continue
                 
             self.lengths.append(len(seq))
             
-            # 清理 ID，防止带版本号或复合格式影响后续映射
+            # clean IDs to avoid version-number or compound-format issues in downstream mapping
             tid_clean = str(tid).split('|')[0]
             if tid_clean.startswith('ENST') and '.' in tid_clean:
                 tid_clean = tid_clean.split('.')[0]
@@ -187,16 +187,16 @@ class DeNovoSequenceDataset(Dataset):
         cell_expr_tensor = torch.from_numpy(self.cell_expr_vector)
         seq_emb = torch.from_numpy(self.seq_embs[idx]).float()
         
-        # 动态生成占位的 Count 矩阵 (纯 0)，长度将匹配截断后的长度
+        # generate a placeholder count matrix (all zeros) matching the truncated length
         count_emb = torch.zeros((self.lengths[idx], 1), dtype=torch.float32)
         
-        # 返回空字典 meta_info 作为占位
+        # return an empty meta_info dict as placeholder
         meta_info = {}
         
         return uuid, species, cell_expr_tensor, meta_info, seq_emb, count_emb
 
 def collate_fn_denovo(batch):
-    """专门配套的组装函数"""
+    """Dedicated collation function."""
     uuids, species, cell_exprs, meta_infos, seq_embs, count_embs = zip(*batch)
     lengths = [s.shape[0] for s in seq_embs]
     
@@ -216,7 +216,7 @@ class TranslationProfilePredictor:
         self.fasta_files = fasta_files
 
         print(f"\nInitializing Fasta parsing pipeline...")
-        # 传入单一字符串或列表都可以被正确解析和合并
+        # supports both a single string and a list of strings
         self.seq_dict = read_fasta(self.fasta_files)
 
     def run(
@@ -233,18 +233,18 @@ class TranslationProfilePredictor:
             rank: Optional[int] = None, 
             world_size: Optional[int] = None):
         """
-        执行 Fasta 读取与预测。
-        如果传入了 target_tids (list)，则仅预测存在于该列表中的转录本序列。
+        Run FASTA reading and prediction.
+        If target_tids is provided, only predict transcripts present in that list.
         """
 
         os.makedirs(out_dir, exist_ok=True)
         pred_pkl_path = os.path.join(out_dir, f"predictions_count.{self.model.model_name}.{suffix}.pkl")
 
         # ========================================================
-        # [MODIFIED] 目标转录本过滤逻辑 (ENST 去除版本号)
+        # Filter logic for target transcripts (strip ENST version numbers)
         # ========================================================
         if target_tids is not None:
-            # 1. 预处理 target_tids：如果是 ENST 开头，去除版本号
+            # 1. Preprocess target_tids: strip version suffix if ENST-prefixed
             cleaned_target_tids = []
             for t in target_tids:
                 t_str = str(t).split('|')[0]
@@ -256,17 +256,17 @@ class TranslationProfilePredictor:
             target_set = set(cleaned_target_tids)
             filtered_seq_dict = {}
             
-            # 2. 预处理 Fasta 字典里的 keys
+            # 2. Preprocess FASTA dictionary keys
             for tid, seq in self.seq_dict.items():
-                # 清理管道符
+                # remove pipe separators
                 clean_tid = str(tid).split('|')[0]
                 
-                # [NEW] 如果 FASTA 中的 ID 是 ENST 开头，同样去除版本号进行比对
+                # If the FASTA ID is ENST-prefixed, also strip the version suffix for matching
                 if clean_tid.startswith("ENST") and "." in clean_tid:
                     clean_tid = clean_tid.split(".")[0]
                     
                 if clean_tid in target_set:
-                    # 注意：放入字典的 key 仍然使用原始的 tid，避免破坏后续写入预测结果和 pkl 的映射一致性
+                    # Note: keep the original tid in the dictionary key to preserve consistency with downstream results and pickle output
                     filtered_seq_dict[tid] = seq
             
             print(f"Filtered Fasta: Keeping {len(filtered_seq_dict)} sequences matching target Tids "
@@ -284,7 +284,7 @@ class TranslationProfilePredictor:
         base_model = unwrap_model(self.model)
         device = base_model.device
         
-        # 构建 Dataset 和 DataLoader
+        # build Dataset and DataLoader
         dataset = DeNovoSequenceDataset(seq_dict, species, cell_type, cell_expr_vector, min_len, max_len)
         dataloader, run_rank, run_world_size = _prepare_prediction_dataloader(
             dataset, collate_fn_denovo, num_samples=None, batch_size=batch_size,
@@ -315,11 +315,11 @@ class TranslationProfilePredictor:
                 
                 probs_batch = out["count"]
                 
-                # 解析并存入目标字典
+                # parse and store in the target dictionary
                 for i, uuid in enumerate(b_uuids):
                     valid_len = b_lengths[i]
                     pred_sample = probs_batch[i, :valid_len].cpu().numpy().astype(np.float16)
-                    # 恢复 tid
+                    # restore original transcript ID
                     tid = str(uuid).split('-')[0]
                     saved_data[cell_type][tid] = pred_sample
                     

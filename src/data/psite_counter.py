@@ -5,11 +5,11 @@ import numpy as np
 from collections import defaultdict, namedtuple
 from pathlib import Path
 
-# 定义片段结构 (tx_offset: 距离转录本 5' 端的距离)
+# Fragment structure (tx_offset: distance from transcript 5' end)
 Segment = namedtuple("Segment", "chrom start end strand tx_offset tid")
 
 def _parse_gtf_as_exon(annot_path, key_attr="transcript_id"):
-    """解析 GTF 提取全长 exon"""
+    """Parse GTF to extract full-length exons."""
     exons = defaultdict(list)
     with open(annot_path, 'r') as f:
         for ln in f:
@@ -35,7 +35,7 @@ def _parse_gtf_as_exon(annot_path, key_attr="transcript_id"):
     return exons
 
 def _build_transcript_segments(exons_by_tid):
-    """构建相对坐标映射片段"""
+    """Build relative-coordinate fragment mapping."""
     tx2len = {} 
     chrom2segs = defaultdict(list)
     chrom_min = {}
@@ -70,15 +70,15 @@ def _build_transcript_segments(exons_by_tid):
 def get_target_psite_distribution(
     bam_path: str,
     annot_path: str,
-    out_dir: str,                 # [NEW] 输出文件夹路径
-    out_prefix: str = "target",   # [NEW] 输出文件前缀
+    out_dir: str,                 # output directory path
+    out_prefix: str = "target",   # output file prefix
     target_tids: list = None,
     key_attr: str = "transcript_id",
     threads: int = 4
 ):
     """
-    在 Notebook 中提取指定转录本的 P-site 读段分布 (Dense Numpy Array)。
-    结果会作为字典返回，并同时落盘保存为 .pkl 文件。
+    Extract P-site read density (dense numpy array) for specified transcripts.
+    Results are returned as a dict and simultaneously saved to a .pkl file.
     """
     print(f"1. Parsing GTF Annotation from {annot_path} ...")
     exons_by_tid = _parse_gtf_as_exon(annot_path, key_attr)
@@ -96,7 +96,7 @@ def get_target_psite_distribution(
     print("2. Mapping Genomic Coordinates to Transcript Vectors...")
     chrom2segs, tx2len, chrom_min, chrom_max = _build_transcript_segments(exons_by_tid)
     
-    # 提前分配连续 Numpy 内存
+    # pre-allocate contiguous numpy memory
     rc_dist = {tid: np.zeros(L, dtype=np.float32) for tid, L in tx2len.items()}
     
     print(f"3. Fetching P-site reads from BAM (Threads: {threads})...")
@@ -141,7 +141,7 @@ def get_target_psite_distribution(
 
                 if count_pos == 0 and count_neg == 0: continue
 
-                # 分发 Count 到各个转录本的 Numpy 数组
+                # distribute counts into per-transcript numpy arrays
                 for seg in active_segs:
                     nreads = count_pos if seg.strand == "+" else count_neg
                     if nreads == 0: continue
@@ -157,7 +157,7 @@ def get_target_psite_distribution(
     print(f"✅ Finished Processing BAM in {elapsed:.2f} seconds.")
     
     # ==========================================
-    # [NEW] 存入 pkl 文件的逻辑
+    # save to pkl file
     # ==========================================
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)

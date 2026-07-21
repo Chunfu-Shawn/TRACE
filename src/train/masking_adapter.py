@@ -38,7 +38,7 @@ class BatchMaskingAdapter:
                            batch_idx: int, 
                            positions: torch.Tensor, 
                            generator: torch.Generator):
-        # ... (保持不变) ...
+        # ... (unchanged) ...
         if positions.numel() == 0:
             return
 

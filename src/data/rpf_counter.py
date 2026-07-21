@@ -33,18 +33,18 @@ def double_nested_zero_defaultdict():
 @njit(cache=True)
 def is_compatible(starts, ends, exon_starts0, exon_ends0, tol=2):
     """
-    Junction_reads evaluation 边界兼容性检查：
-    - blocks[0].start 只要在 exon 内部 (>= exon_start - tol) 即可
-    - blocks[-1].end   只要在 exon 内部 (<= exon_end   + tol) 即可
-    - 中间 blocks 必须严格对齐到边界 (±tol)
-    - exon-order 连续不跳跃
+    Junction-reads boundary tolerance check:
+    - blocks[0].start must be inside the exon (>= exon_start - tol)
+    - blocks[-1].end must be inside the exon (<= exon_end + tol)
+    - middle blocks must strictly align to boundaries (±tol)
+    - exon order must be contiguous (no gaps)
     """
 
     # 1) calculate gaps to find real breaks of alignment, excluding the case of CIGAR: M1DM
     if len(starts) > 1:
         gaps = starts[1:] - ends[:-1]
         breaks_idx = np.nonzero(gaps > tol)[0]
-        # 每段的第一个/最后一个 block 索引
+        # first and last block indices of each segment
         seg_starts = np.concatenate((
             np.array([0], dtype=breaks_idx.dtype),
             breaks_idx + 1
@@ -62,24 +62,24 @@ def is_compatible(starts, ends, exon_starts0, exon_ends0, tol=2):
     m_ends = ends[seg_ends]
     B = len(m_starts)
 
-    # 2) 整体二分查找：先找到每个 block 属于哪个 exon (with tol)
+    # 2) binary search: find which exon each block belongs to (with tol)
     idxs = np.searchsorted(exon_starts0 - tol, m_starts , side='right') - 1
     if np.any(idxs < 0):
         return False
 
-    # 3) 所有 block 中间的 start 和 end（如果 B>2）必须满足边界对齐
+    # 3) middle block starts/ends (if B>2) must satisfy boundary alignment
     if B > 2:
         starts_without_first = m_starts[1:]
         ends_without_last = m_ends[:-1]
         
-        # start 对齐或 end 对齐（±tol）
+        # start or end alignment (±tol)
         start_ok = np.abs(starts_without_first - exon_starts0[idxs[1:]]) <= tol
         end_ok = np.abs(ends_without_last - exon_ends0[idxs[:-1]]) <= tol
         if not np.all(start_ok & end_ok):
             # print("Junction Error", idxs, m_starts, exon_starts0, m_ends, exon_ends0)
             return False
 
-    # 4) exon-order 连续性检查
+    # 4) exon-order contiguity check
     diffs = np.diff(idxs)
     if np.any(diffs < 0) or np.any(diffs > 1):
         # print("Exon-order Error", idxs, diffs, m_starts, exon_starts0, m_ends, exon_ends0)
@@ -209,7 +209,7 @@ class RPF_Counter:
         end_time = time.time()
         print(f'exec time: {end_time - start_time} seconds')
 
-        # 2) 并行处理
+        # 2) parallel processing
         final_counts = {}
         with ProcessPoolExecutor(max_workers=max_workers, mp_context=mp_ctx) as exe:
             futures = {exe.submit(self.process_window, task): task for task in tasks} # tasks[::-1] reverse chromosomes for saving time
