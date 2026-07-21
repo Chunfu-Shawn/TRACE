@@ -1,11 +1,11 @@
 # TRACE: Translation Resolution Across Cell Environments
 
-A Transformer-based model that decodes full-length transcriptomes into translatomes — predicting per-position ribosome density profiles purely from mRNA sequence and cellular context. TRACE integrates multi-omics data — transcript sequence, gene expression, and species identity — through adaptive layer normalization (AdaLN-Zero) to resolve translation regulation across cell types and species.
+A Transformer-based model that decodes full-length transcriptomes into translatomes — predicting per-position ribosome density profiles purely from full-length RNA sequence and cellular context. TRACE integrates multi-omics data — transcript sequence, gene expression, and species identity — through adaptive layer normalization (AdaLN-Zero) to resolve translation regulation across cell types and species.
 
 ## Overview
 
 TRACE takes as input:
-- **mRNA sequence** (one-hot encoded nucleotides)
+- **RNA sequence** (one-hot encoded nucleotides)
 - **Cellular transcriptome profile** (continuous expression vector, 16840 genes)
 - **Species label** (discrete identifier for evolutionary context)
 
@@ -73,16 +73,37 @@ TRACE/
 
 ### Environment
 
+Two options are provided — a full `environment.yml` (reproducible conda env)
+and a minimal `requirements.txt` for pip-only installs.
+
 ```bash
-conda env create -f src/environment.yml
-conda activate ribo_model
+# Option A: conda (full environment, includes Jupyter + dev tools)
+conda env create -f environment.yml
+conda activate TRACE
+
+# Option B: pip (core dependencies only)
+pip install -r requirements.txt
 ```
 
-Key dependencies:
-- Python 3.11
-- PyTorch 2.6.0 (CUDA 12.4)
-- flash-attn 2.8.0
-- h5py, pyahocorasick, pysam, scipy, scikit-learn
+**Core dependencies** (required to train / run inference):
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| Python | 3.11 | — |
+| PyTorch | 2.6.0 (CUDA 12.4) | model definition + training |
+| flash-attn | 2.8.0 | efficient attention (optional — falls back to PyTorch) |
+| h5py | 3.14 | H5 dataset I/O |
+| numpy | 2.3 | array operations |
+| PyYAML | 6.0 | config file parsing |
+| tqdm | 4.67 | progress bars |
+| einops | 0.8 | tensor reshaping |
+| loralib | 0.1 | LoRA adapter injection (fine-tuning) |
+| ninja | 1.13 | JIT build helper (flash-attn) |
+
+**Optional packages** (can be removed if you only need minimal inference):
+
+`pyahocorasick` (motif matching)  `jupyter*` / `notebook*` / `ipython*` (dev environment)
+`statsmodels` `scikit-misc` `networkx` `viennarna` `gffutils` `pyfaidx` `conda-pack`
 
 ### Hardware
 
@@ -266,7 +287,7 @@ saving, and JSON logging of per-epoch losses.
 
 ## Inference
 
-TRACE predicts the translatome purely from transcriptome — only mRNA sequence and cellular context are needed.
+TRACE predicts the translatome purely from transcriptome — only RNA sequence and cellular context are needed.
 
 ```python
 from model.translation_base_model import TranslationBaseModel
