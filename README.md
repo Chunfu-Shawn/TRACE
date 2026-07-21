@@ -6,47 +6,15 @@ A Transformer-based model that decodes full-length transcriptomes into translato
 
 TRACE takes as input:
 - **mRNA sequence** (one-hot encoded nucleotides)
-- **Cellular transcriptome profile** (continuous expression vector, ~40k genes)
+- **Cellular transcriptome profile** (continuous expression vector, 16840 genes)
 - **Species label** (discrete identifier for evolutionary context)
 
 And decodes the full-length transcript into a translatome — the per-position ribosome density profile — enabling:
 - Translation efficiency (TE) estimation
-- Ribosome pausing site identification
+- Ribosome dynamics and pausing site identification
 - Cross-species and cross-cell-type coding ORF prediction
 
 ## Model Architecture
-
-```
-                    ┌──────────────────────────────┐
-                    │  Species Embedding (d=16)     │
-                    └──────────────┬───────────────┘
-                                   │
-┌─────────────┐    ┌───────────────▼───────────────┐
-│ mRNA Seq    │    │  Expression Projector          │
-│ (one-hot)   │    │  (d_expr + d_species → d_cell) │
-└──────┬──────┘    └───────────────┬───────────────┘
-       │                           │
-       │                           │   compact_style
-       │                           │   (adaptive_dim)
-       │                           │
-┌──────▼──────────────────────────▼┐
-│  Linear Embedding                │
-│  (seq → d_model)                │
-└──────────────┬───────────────────┘
-               │
-       ┌───────▼───────┐
-       │  AdaLN-Zero   │
-       │  Transformer   │  ← compact_style modulates
-       │  Encoder       │     each sublayer via adaLN
-       │  (N layers)    │
-       └───────┬───────┘
-               │
-       ┌───────▼───────┐
-       │  Pluggable    │
-       │  Prediction   │  ← TranslationProfileHead,
-       │  Heads         │    PsiteDensityHead, etc.
-       └───────────────┘
-```
 
 Key architectural features:
 - **AdaLN-Zero**: Each transformer sublayer is modulated by a compact style vector derived from the concatenated expression + species features, with a learned gating parameter initialized to zero for stable training.
@@ -57,41 +25,48 @@ Key architectural features:
 ## Project Structure
 
 ```
-translation_model/
+TRACE/
+├── environment.yml                        # Conda environment
 ├── src/
 │   ├── model/
-│   │   ├── translation_base_model.py   # Core model: TranslationBaseModel
-│   │   ├── model_modules.py            # AdaLN-Zero encoder, attention, embedding
-│   │   ├── mask_heads.py               # Prediction heads (PsiteDensityHead, etc.)
-│   │   ├── position_embedding.py       # RoPE (LlamaRotaryEmbeddingExt)
-│   │   ├── flash_multi_headed_attention.py  # FlashAttention-2 wrapper
-│   │   ├── translation_predictor.py    # Inference utilities
-│   │   ├── coding_decoder.py           # ORF coding potential decoder
-│   │   └── orf_caller.py              # ORF identification
+│   │   ├── base_model.py                  # BaseModel — sequence-only encoder
+│   │   ├── translation_base_model.py      # TranslationBaseModel — encoder + RPF
+│   │   ├── model_modules.py              # AdaLN-Zero encoder, LinearEmbedding, RoPE attention
+│   │   ├── prediction_heads.py           # PsiteDensityHead, TranslationProfileHead, TERegressionHead
+│   │   ├── position_embedding.py         # RoPE (LlamaRotaryEmbeddingExt)
+│   │   ├── flash_multi_headed_attention.py # FlashAttention-2 wrapper
+│   │   ├── transformer.py                # Core transformer components
+│   │   ├── translation_predictor.py      # Inference utilities
+│   │   ├── orf_caller.py                 # ORF identification
+│   │   ├── eval_RPF_density_TIS_TTS.py   # TIS/TTS density evaluation
+│   │   └── generate_cell_env_expr_array.py # Expression vector generation
 │   ├── data/
-│   │   ├── translation_dataset_generator.py  # H5 dataset generation pipeline
-│   │   ├── translation_dataset.py            # PyTorch Dataset with lazy loading
-│   │   ├── RPF_counter_v3.py                 # Ribo-seq read counting
-│   │   └── cell_env_expr_array_generate.py   # Expression vector generation
+│   │   ├── translation_dataset.py        # TranslationDataset — lazy H5 loader
+│   │   ├── translation_dataset_generator.py # H5 dataset generation pipeline
+│   │   ├── rpf_counter.py                # Ribo-seq read counting
+│   │   ├── psite_counter.py              # P-site footprint extraction
+│   │   ├── cell_env_expr_array_generate.py # Cell-type expression matrix
+│   │   ├── transcript_sequence_generate.py # Transcript sequence encoding
+│   │   ├── transcript_CDS_embedding.py   # CDS-aware embedding generation
+│   │   ├── transcript_exon_index.py      # Exon boundary indexing
 │   ├── train/
-│   │   ├── model_pretrain.py                # Pretraining trainer
-│   │   ├── model_finetune.py                # Fine-tuning trainer
-│   │   ├── masking_adapter.py               # BERT-style masking (curriculum)
-│   │   ├── distributed_balanced_bucket_sampler.py  # Length-bucketed DDP sampler
-│   │   └── distributed_bucket_sampler.py
+│   │   ├── seq_pretrain.py               # SeqPretrainTrainer (BaseModel pretraining)
+│   │   ├── model_pretrain.py             # PretrainingTrainer (TranslationBaseModel)
+│   │   ├── model_finetune_te.py          # TEFinetuneTrainer (TE regression)
+│   │   ├── distributed_balanced_bucket_sampler.py # Length-bucketed DDP sampler
+│   │   └── masking_adapter.py            # BERT-style masking + curriculum
 │   ├── config/
-│   │   ├── model_config_expr.py        # ModelConfig dataclass
-│   │   └── *.yaml                      # Hyperparameter configs
-│   ├── eval/                            # Evaluation & visualization scripts
-│   ├── plot/                            # Plotting utilities
-│   ├── process/                         # Data processing scripts
-│   ├── run.pretrain.py                  # Pretraining entry point
-│   ├── run.fine_tune.py                 # Fine-tuning entry point
-│   ├── utils.py                         # Shared utilities
-├── data/                                # Data directory (not tracked)
-├── figures/                             # Paper figures
-├── results/                             # Experiment results
-└── environment.yml                      # Conda environment
+│   │   ├── model_config.py               # ModelConfig dataclass (BaseModel)
+│   │   ├── model_config_expr.py          # ModelConfig (TranslationBaseModel)
+│   │   ├── *.yaml                        # Hyperparameter configs
+│   │   └── model_config_*.py             # Ablation config dataclasses
+│   ├── lora_utils.py                     # LoRA adapter injection helpers
+│   └── utils.py                          # Shared utilities (unwrap_model, etc.)
+├── test/
+│   ├── run_test.py                       # Basic model forward test
+│   └── test_transcripts.py               # Transcript loading test
+└── tools/
+    └── tumor_neoantigen/                 # Tumor neoantigen identification pipeline
 ```
 
 ## Setup
@@ -114,90 +89,180 @@ Key dependencies:
 - Training: Multi-GPU (tested on 4–8× A100/H100)
 - Inference: Single GPU (>=16GB VRAM recommended for 384d model)
 
-## Data Pipeline
+## Dataset
 
-### 1. Generate Expression Vectors
+Pre-processed training/validation/test H5 datasets and expression dictionaries
+are publicly available on Zenodo:
 
-```python
-from data.cell_env_expr_array_generate import *
-# Produces a {cell_type: np.ndarray} dictionary saved as .pt or .pkl
+> **Zenodo**: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21469176.svg)](https://doi.org/10.5281/zenodo.21469176)
+>
+> The archive contains `.train.h5` / `.valid.h5` / `.test.h5` files for each
+> species (human, macaque, mouse) as well as per-species expression dictionaries
+> (`{species}_expression_dict.pt`).
+
+### H5 File Layout
+
+```
+<dataset>.h5
+├── .attrs["n_samples"]          int           total number of transcripts
+├── .attrs["cell_type_counts"]   JSON str      cell-type distribution
+├── /cell_exprs/
+│   └── <cell_type>              (d_expr,)     Z-scored expression vector per cell type
+├── /sequences/
+│   └── <tid>                    (L, d_seq)    continuous sequence features (e.g., one-hot codon)
+└── /samples/<uuid>/
+    ├── .attrs["species"]        str           human | macaque | mouse
+    ├── .attrs["cell_type"]      str           e.g., "heart", "liver", "HepG2"
+    ├── .attrs["cds_start_pos"]  int16         CDS start (1-based), -1 if unknown
+    ├── .attrs["cds_end_pos"]    int16         CDS end (1-based), -1 if unknown
+    ├── .attrs["te_scale"]       float32       translation efficiency (Z-scored), None if missing
+    ├── .attrs["rpf_depth"]      float32       ribosome profiling depth
+    ├── .attrs["rpf_coverage"]   float32       ribosome profiling coverage
+    ├── .attrs["motif_occ"]      list[int]     upstream motif occurrences
+    └── count_emb                (L, d_count)  per-position RPF density (target)
 ```
 
-### 2. Generate H5 Datasets
+### Loading Data
 
-```python
-from data.translation_dataset_generator import DatasetGenerator
-
-generator = DatasetGenerator(
-    transcript_seq_file="path/to/seq_dict.pkl",
-    transcript_meta_file="path/to/tx_meta.pkl",
-    transcript_cds_file="path/to/tx_cds.pkl",
-    chrom_groups={"train": ["chr1-8"], "valid": ["chr9"], "test": ["chr10-X"]},
-    species="human",
-    motif_file_path="path/to/motifs.txt"
-)
-
-generator.generate_save_dataset(
-    dataset_config=[
-        {"cell_type": "heart", "read_count": "heart_ribo.pkl", "rna_count": "heart_rna.pkl"},
-        {"cell_type": "liver", "read_count": "liver_ribo.pkl", "rna_count": "liver_rna.pkl"},
-    ],
-    depth=0.1, coverage=0.1, rpm=1.0,
-    expr_dict_path="cell_expr_dict.pt",
-    out_path="dataset"
-)
-# Produces: dataset.train.h5, dataset.valid.h5, dataset.test.h5
-```
-
-### 3. Load Dataset
+The `TranslationDataset` class provides lazy (recommended) or eager loading
+from `.h5` files:
 
 ```python
 from data.translation_dataset import TranslationDataset
 
-dataset = TranslationDataset.from_h5("dataset.train.h5", lazy=True)
-# lazy=True: on-demand disk I/O (recommended for large datasets)
-# lazy=False: load everything into RAM
+# Lazy loading — minimal RAM, reads on-demand per __getitem__
+ds = TranslationDataset.from_h5("human.train.h5", lazy=True)
+
+print(f"Samples: {ds.n_samples}")
+print(f"Cell types: {ds.cell_type_counts}")
+print(f"Cell expr dict keys: {list(ds.cell_expr_dict.keys())}")
+
+# Access a single sample (returns one transcript)
+tid, species, cell_type, expr_vector, meta, seq_emb, count_emb = ds[0]
+
+print(f"species: {species}")           # e.g., "human"
+print(f"cell_type: {cell_type}")       # e.g., "heart"
+print(f"seq_emb shape: {seq_emb.shape}")     # (L, d_seq)
+print(f"count_emb shape: {count_emb.shape}") # (L, d_count)
+print(f"cds: {meta['cds_start_pos']}–{meta['cds_end_pos']}")
+print(f"te_scale: {meta.get('te_scale')}")
+
+# Expression vector for a specific cell type
+expr_vec = ds.cell_expr_dict["heart"]  # shape (d_expr,)
 ```
 
 ## Training
 
 ### Pretraining
 
-```bash
-torchrun --nproc_per_node=4 src/run.pretrain.py
+Pretraining uses `torchrun` for distributed multi-GPU training.  The entry
+point script below creates a `BaseModel`, attaches a `PsiteDensityHead`,
+wraps it with DDP, and launches the `SeqPretrainTrainer`.
+
+```python
+import sys
+import os
+import torch
+from torch.nn.parallel import DistributedDataParallel as DDP
+import torch.distributed as dist
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+from model.base_model import BaseModel
+from model.prediction_heads import PsiteDensityHead
+from train.seq_pretrain import SeqPretrainTrainer
+from utils import print_param_counts
+
+rank = int(os.environ["LOCAL_RANK"])
+world_size = int(os.environ["WORLD_SIZE"])
+torch.cuda.set_device(rank)
+dist.init_process_group("nccl", rank=rank, world_size=world_size)
+torch.backends.cudnn.enabled = True
+torch.backends.cudnn.benchmark = True
+
+# ============================================================
+# dataset paths — edit these to point at your .h5 files
+# ============================================================
+dataset_dir = "/path/to/your/dataset/"
+
+human_train_dataset_path = os.path.join(dataset_dir, "human.train.h5")
+human_val_dataset_path   = os.path.join(dataset_dir, "human.valid.h5")
+
+# To add more species (macaque, mouse, ...), append extra .h5 paths
+# to the lists below:
+train_paths = [human_train_dataset_path]
+val_paths   = [human_val_dataset_path]
+
+# ============================================================
+# config & checkpoint paths — edit these
+# ============================================================
+config_path = os.path.join(os.path.dirname(__file__),
+                           "src/config/base_model_384d_16h_12l_64env_16ad.yaml")
+checkpoint_dir = "./checkpoints/seq_pretrain"
+log_dir        = "./logs/seq_pretrain"
+
+# ============================================================
+# model
+# ============================================================
+base_model = BaseModel.from_config(config_path).cuda(rank)
+
+base_model.add_head(
+    "count",
+    PsiteDensityHead.create_from_model(base_model, d_pred_h=384),
+    overwrite=True,
+)
+print(base_model.model_name)
+print(base_model.list_heads())
+print_param_counts(base_model)
+
+# DDP
+base_model = DDP(base_model, device_ids=[rank], output_device=rank)
+
+# ============================================================
+# trainer
+# ============================================================
+trainer = SeqPretrainTrainer(
+    model=base_model,
+    dataset_paths=train_paths,
+    val_dataset_paths=val_paths,
+    dataset_name="seq_pretrain",
+    batch_size=50,
+    checkpoint_dir=checkpoint_dir,
+    log_dir=log_dir,
+    world_size=world_size,
+    rank=rank,
+    resume=True,
+    save_every=1,
+    epoch_num=60,
+    mask_perc={"species": 0.1, "cell": 0.1},
+    expr_noise_std=0.1,
+    learning_rate=0.001,
+    lr_warmup_perc=0.3,
+    accumulation_steps=1,
+    balance_classes=True,
+    beta=(0.9, 0.98),
+    epsilon=1e-9,
+    weight_decay=0.01,
+)
+trainer.pretrain()
+
+dist.destroy_process_group()
 ```
 
-During pretraining, an auxiliary RPF count signal is fed alongside the sequence and progressively masked (BERT-style curriculum from 10% to 100%), teaching the model to reconstruct density from sequence alone. At deployment, the count input is set to zeros and the model predicts purely from transcriptome.
+**Key hyperparameters:**
 
-The pretraining trainer supports:
-- **Curriculum masking**: Linearly increasing mask ratio over the auxiliary count signal, so the model gradually learns to predict density without it
-- **Multi-strategy masking**: Single-base, trinucleotide, and motif-aware masking
-- **Species/cell-type masking**: Randomly dropping species or expression context (15% each)
-- **Expression noise injection**: Gaussian noise (std=0.1) added to expression vectors during training
-- **Joint micro + macro loss**: Token-level SmoothL1 + Frame-aware MSE + Pairwise ranking loss
-- **Mixed precision (BF16)**: Automatic with `torch.amp`
-- **Gradient accumulation**: Configurable steps
-- **Early stopping**: Patience-based with checkpoint saving
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `epoch_num` | 60 | Total training epochs |
+| `batch_size` | 50 | Per-GPU batch size |
+| `learning_rate` | 1e-3 | Peak LR (cosine decay with warmup) |
+| `lr_warmup_perc` | 0.3 | Fraction of steps for linear warmup |
+| `accumulation_steps` | 1 | Gradient accumulation steps |
+| `mask_perc` | `{"species": 0.1, "cell": 0.1}` | Randomly mask species/cell-type context |
+| `expr_noise_std` | 0.1 | Gaussian noise injected into expression vectors |
+| `weight_decay` | 0.01 | AdamW weight decay |
+| `balance_classes` | True | Bucket-sampler balances cell types |
 
-### Configuration
-
-Model hyperparameters are defined in YAML files under `src/config/`:
-
-```yaml
-# Example: base_model_expr_384d_16h_12l_128env_32ad.yaml
-d_seq: 4
-d_count: 1
-d_model: 384
-d_expr: 40000
-d_cell_env: 128
-n_heads: 16
-number_of_layers: 12
-d_ff: 2048
-adaptive_dim: 32
-p_drop: 0.1
-all_species: ["human", "macaque", "mouse"]
-d_species: 16
-```
+The trainer callbacks include early stopping (patience=8), periodic checkpoint
+saving, and JSON logging of per-epoch losses.
 
 ## Inference
 
@@ -221,22 +286,6 @@ result = model.predict(
     head_names=["count"]
 )
 ```
-
-## Evaluation
-
-Evaluation scripts are in `src/eval/`:
-
-| Script | Description |
-|--------|-------------|
-| `psite_pos_wise_corr_depth.py` | Position-wise correlation vs. sequencing depth |
-| `periodicity_corr.py` | 3-nt periodicity correlation |
-| `metagene_profile.py` | Metagene analysis around TIS/TTS |
-| `te_evaluator.py` | Translation efficiency prediction evaluation |
-| `rna_length_effect.py` | Length-dependent prediction analysis |
-| `rna_mfe_effect.py` | MFE (folding energy) effect analysis |
-| `start_codon_Kozak_motif.py` | Kozak motif effect |
-| `uaug_effect.py` / `uorf_effect_batch.py` | uAUG/uORF effect |
-| `orf_coding_performance.py` | ORF coding potential benchmark |
 
 ## Quick Start / Test Case
 
@@ -346,124 +395,6 @@ The prediction is saved as a pickle (`.pkl`) file containing a dictionary:
 ```
 
 Each entry maps a transcript ID → a 1D per-nucleotide ribosome density profile (float16) of the same length as the transcript sequence.
-
-
-## Noncanonical Neoantigen Identification Pipeline
-
-The pipeline under `tools/tumor_neoantigen/` identifies tumor-specific
-noncanonical peptides (derived from novel transcripts, unannotated ORFs,
-or splice junctions) and prioritizes them as candidate neoantigens for
-personalized immunotherapy.
-
-### Pipeline overview
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                    DATA PREPARATION (run.data_prepare.sh)            │
-│                                                                      │
-│  FastQC → fastp → STAR (2-pass) → StringTie assembly                │
-│      → gffcompare (novel tx) → bedtools subtract (unique regions)   │
-│      → Integrate de novo genes + PacBio isoforms                    │
-│      → Dual-Track featureCounts (TPM + Junction)                    │
-└──────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│             NEOANTIGEN DISCOVERY (run.noncanonical_epitope.sh)       │
-│                                                                      │
-│  1. Extract tumor-specific splice junctions (GTF topology)           │
-│  2. Dual-Track tumor-specific transcript screening                   │
-│     • Track A: tumor vs normal TPM + log2FC                          │
-│     • Track B: junction CPM + log2FC                                 │
-│  3. GTEx baseline filtering (Step 1: median TPM/JCPM;                │
-│     Step 2: absolute TPM re-quantification for novel tx)             │
-│  4. TRACE translation prediction → high-confidence ORFs              │
-│  5. netMHCpan HLA binding affinity prediction                        │
-│  6. Peptide prioritization (Dual-Track protein expression × EL)      │
-│  7. Patient-specific normal proteome filter                          │
-│  8. Canonical proteome off-target filter                             │
-└──────────────────────────────────────────────────────────────────────┘
-```
-
-### Key scripts
-
-| Script | Role |
-|--------|------|
-| `run.data_prepare.sh` | End-to-end data preparation: QC, alignment, assembly, quantification |
-| `run.noncanonical_epitope.sh` | Neoantigen discovery: screening, prediction, filtering |
-| `find_tumor_specific_transcripts.py` | Dual-Track (TPM + Junction CPM) tumor-specific transcript identification |
-| `extract_specific_junctions.py` | GTF topology-based tumor-specific junction extraction |
-| `filter_gtex_step1.py` | GTEx median TPM/JCPM baseline filter |
-| `filter_gtex_step2.py` | Absolute TPM re-quantification of novel transcripts against GTEx BAMs |
-| `run_trace_prediction.py` | TRACE model inference for translation prediction |
-| `neoantigen_prioritization_report.py` | Integrate expression + HLA affinity for ranking |
-| `build_patient_normal_proteome.py` | Build per-patient normal proteome (TPM > 0.5 in normal tissue) |
-| `filter_normal_proteome_offtargets.py` | Filter peptides present in patient's own normal proteome |
-| `filter_canonical_offtargets.py` | Filter self-peptides against canonical reference proteome |
-| `run.strandness.sh` | RSeQC-based strand specificity detection |
-| `run.featurecounts.sh` | Dual-Track featureCounts with auto strand detection |
-
-### Dual-Track tumor specificity logic
-
-Transcripts are identified as tumor-specific if they pass either or both
-of two independent tracks:
-
-- **Track A (TPM)**: Transcript-level TPM with strict paired tumor/normal
-  fold-change. Requires `Tumor_TPM ≥ min_tumor_tpm (1.0)` AND
-  `log2FC ≥ min_log2fc (2.0)`.
-
-- **Track B (Junction CPM)**: Junction-level CPM derived from structurally
-  intact transcripts. Requires `Tumor_JCPM ≥ min_tumor_cpm (2.0)` AND
-  `log2FC ≥ min_log2fc (2.0)`.
-
-Both tracks are independently validated against GTEx baseline
-expression, and transcripts survive if they pass at least one track
-after global background screening.
-
-### Three-layer peptide filtering
-
-To ensure candidate peptides are truly tumor-specific and unlikely to
-trigger autoimmunity, three sequential filters are applied:
-
-1. **Patient normal proteome filter** (`build_patient_normal_proteome.py`
-   + `filter_normal_proteome_offtargets.py`)
-
-   For each patient, all transcripts with normal-sample TPM > 0.5 are
-   collected. Their protein sequences are extracted (canonical reference
-   for ENSTs; 6-frame translation for novel transcripts). Candidate
-   peptides that appear as substrings in this patient-specific normal
-   proteome are removed. This catches:
-   - Alternate isoforms of the same gene expressed in normal tissue
-   - Homologous genes sharing peptide sequences
-   - Novel transcripts expressed in normal tissue
-
-2. **Canonical proteome filter** (`filter_canonical_offtargets.py`)
-
-   Peptides are checked against the full GENCODE canonical protein
-   database. Any peptide that exists in a canonical protein NOT among
-   the patient's verified tumor-specific transcripts is removed.
-
-3. **HLA affinity filter** (within `neoantigen_prioritization_report.py`)
-
-   netMHCpan predictions are filtered by binding level (SB/WB),
-   affinity (≤ 500 nM default), and %Rank_EL (≤ 2.0).
-
-### Usage
-
-```bash
-# 1. Data preparation (QC, alignment, assembly, quantification)
-bash tools/tumor_neoantigen/run.data_prepare.sh
-
-# 2. Check strand specificity (optional)
-bash tools/tumor_neoantigen/run.strandness.sh
-
-# 3. Neoantigen identification
-bash tools/tumor_neoantigen/run.noncanonical_epitope.sh
-```
-
-Output per patient under `$WORK_DIR/patient_neoepitope_reports/`:
-- Prioritized neoepitope CSV with expression, affinity, and filtering status.
-
 
 
 ## Citation

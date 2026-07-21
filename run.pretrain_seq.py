@@ -3,7 +3,7 @@ import os
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+sys.path.append("/public-supool/home/annie/translation_model/TRACE/src")
 from model.base_model import BaseModel
 from model.prediction_heads import PsiteDensityHead
 from train.seq_pretrain import SeqPretrainTrainer
@@ -88,7 +88,7 @@ trainer = SeqPretrainTrainer(
     save_every=1,
     epoch_num=60,
     mask_perc={"species": 0.1, "cell": 0.1},
-    expr_noise_std = 0.1,
+    expr_noise_std=0.1,
     learning_rate=0.001,
     lr_warmup_perc=0.3,
     accumulation_steps=1,
