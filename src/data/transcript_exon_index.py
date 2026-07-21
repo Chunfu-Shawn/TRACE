@@ -229,90 +229,30 @@ def load_index(filename):
             index[chrom][strand] = arr
     return index
 
-if __name__=="__main__":
-    # gtf_file = '/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.gtf'
-    # tree_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.pkl'
-    # tree_strand_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.strand.pkl'
-    # tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.pkl'
-    # tx_cds_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_cds.pkl'
-    
-    # # build index
-    # tree_index, tree_strand_index, tx_meta, tx_cds = create_optimized_index(gtf_file, 'temp.db')
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Build optimized genome index from GTF")
+    parser.add_argument("--gtf", required=True, help="Path to GTF file")
+    parser.add_argument("--tmp_db", required=True, help="Temporary SQLite DB path")
+    parser.add_argument("--out_prefix", required=True,
+                        help="Output prefix (produces {prefix}.genome_index_tree.pkl, "
+                             "{prefix}.genome_index_tree.strand.pkl, "
+                             "{prefix}.transcript_meta.pkl, "
+                             "{prefix}.transcript_cds.pkl)")
+    args = parser.parse_args()
 
-    # # save
-    # with open(tree_index_file, 'wb') as f:
-    #     pickle.dump(tree_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tree_strand_index_file, 'wb') as f:
-    #     pickle.dump(tree_strand_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_meta_file, 'wb') as f:
-    #     pickle.dump(tx_meta, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_cds_file, 'wb') as f:
-    #     pickle.dump(tx_cds, f, protocol=pickle.HIGHEST_PROTOCOL)
+    import pickle
+    tree_index, tree_strand_index, tx_meta, tx_cds = create_optimized_index(
+        args.gtf, args.tmp_db)
 
-    # # load
-    # with open(tx_cds_file, 'rb') as f:
-    #     loaded_tx_cds = pickle.load(f)
-
-    # for tid in loaded_tx_cds:
-    #     print(tid)
-    #     print(loaded_tx_cds[tid])
-
-    # # In-house PacBio
-    # gtf_file = '/home/user/data3/lit/project/sORFs/08-Iso-seq-20250717/results/custom.gtf.with_orf.gtf'
-    # tree_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.inhouse.pkl'
-    # tree_strand_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.strand.inhouse.pkl'
-    # tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.inhouse.pkl'
-    # tx_cds_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_cds.inhouse.pkl'
-    
-    # # build index
-    # tree_index, tree_strand_index, tx_meta, tx_cds = create_optimized_index(gtf_file, 'temp.inhouse.db')
-
-    # # save
-    # with open(tree_index_file, 'wb') as f:
-    #     pickle.dump(tree_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tree_strand_index_file, 'wb') as f:
-    #     pickle.dump(tree_strand_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_meta_file, 'wb') as f:
-    #     pickle.dump(tx_meta, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_cds_file, 'wb') as f:
-    #     pickle.dump(tx_cds, f, protocol=pickle.HIGHEST_PROTOCOL)
-
-    ####### Macaque #######
-    gtf_file = '/home/user/data3/rbase/genome_ref/Rhesus_macaque/rheMac10/rheMac10.ensGene.gtf'
-    tree_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.macaque.pkl'
-    tree_strand_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.strand.macaque.pkl'
-    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.macaque.pkl'
-    tx_cds_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_cds.macaque.pkl'
-    
-    # build index
-    tree_index, tree_strand_index, tx_meta, tx_cds = create_optimized_index(gtf_file, 'temp.macaque.db')
-
-    # save
-    with open(tree_index_file, 'wb') as f:
+    with open(f"{args.out_prefix}.genome_index_tree.pkl", "wb") as f:
         pickle.dump(tree_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    with open(tree_strand_index_file, 'wb') as f:
+    with open(f"{args.out_prefix}.genome_index_tree.strand.pkl", "wb") as f:
         pickle.dump(tree_strand_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    with open(tx_meta_file, 'wb') as f:
+    with open(f"{args.out_prefix}.transcript_meta.pkl", "wb") as f:
         pickle.dump(tx_meta, f, protocol=pickle.HIGHEST_PROTOCOL)
-    with open(tx_cds_file, 'wb') as f:
+    with open(f"{args.out_prefix}.transcript_cds.pkl", "wb") as f:
         pickle.dump(tx_cds, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-    ####### Mouse #######
-    # gtf_file = '/home/user/data3/rbase/genome_ref/Mus_musculus/gencode.vM32.annotation.gtf'
-    # tree_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.mouse.pkl'
-    # tree_strand_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.strand.mouse.pkl'
-    # tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.mouse.pkl'
-    # tx_cds_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_cds.mouse.pkl'
-    
-    # # build index
-    # tree_index, tree_strand_index, tx_meta, tx_cds = create_optimized_index(gtf_file, 'temp.mouse.db')
-
-    # # save
-    # with open(tree_index_file, 'wb') as f:
-    #     pickle.dump(tree_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tree_strand_index_file, 'wb') as f:
-    #     pickle.dump(tree_strand_index, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_meta_file, 'wb') as f:
-    #     pickle.dump(tx_meta, f, protocol=pickle.HIGHEST_PROTOCOL)
-    # with open(tx_cds_file, 'wb') as f:
-    #     pickle.dump(tx_cds, f, protocol=pickle.HIGHEST_PROTOCOL)
+    print(f"Saved genome index to {args.out_prefix}.*")

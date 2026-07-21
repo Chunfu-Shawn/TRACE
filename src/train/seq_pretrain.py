@@ -53,7 +53,7 @@ def default_no_weight_decay(name: str) -> bool:
     return False
 
 
-class PretrainingTrainer:
+class SeqPretrainTrainer:
     """
     Pretraining trainer class with Continuous Expression Vector Support and Noise Injection.
     """

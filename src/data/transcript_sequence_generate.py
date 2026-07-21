@@ -25,66 +25,29 @@ def fasta_iter(fasta_file):
             seq = "".join(s.strip() for s in faiter.__next__()) # join all sequences
             yield header, seq
 
-if __name__=="__main__":
-    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.pkl'
-    fasta_tx_file = '/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/transcripts/gencode.v48.transcripts.fa'
-    tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.v48.pkl'
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(
+        description="Build transcript sequence pickle from FASTA + metadata")
+    parser.add_argument("--tx_meta", required=True, help="Path to transcript_meta.pkl")
+    parser.add_argument("--fasta", required=True, help="Path to transcript FASTA file")
+    parser.add_argument("--output", required=True, help="Output pickle path")
+    parser.add_argument("--id_sep", default="|", help="FASTA header ID separator (default: '|')")
+    parser.add_argument("--id_field", type=int, default=0,
+                        help="Which field after split to use as transcript ID (default: 0)")
+    args = parser.parse_args()
 
-    # load tx index
-    with open(tx_meta_file, 'rb') as f:
+    import pickle
+    with open(args.tx_meta, "rb") as f:
         tx_meta = pickle.load(f)
 
-    # process fasta data
-    fasta_tx = fasta_iter(fasta_tx_file)
-    # save pickle data
     tx_seq = {}
-    for h, s in fasta_tx:
-        tx_id = h.split("|")[0]
+    for h, s in fasta_iter(args.fasta):
+        tx_id = h.split(args.id_sep)[args.id_field]
         if tx_id in tx_meta:
             tx_seq[tx_id] = s
 
-    with open(tx_seq_file, 'wb') as f_seq:
-        pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(args.output, "wb") as f:
+        pickle.dump(tx_seq, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-    ####### Macaque #######
-    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.macaque.pkl'
-    fasta_tx_file = '/home/user/data3/rbase/genome_ref/Rhesus_macaque/rheMac10/fasta/Macaca_mulatta.Mmul_10.transcripts.fa'
-    tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.Mmul_10.v101.pkl'
-
-    # load tx index
-    with open(tx_meta_file, 'rb') as f:
-        tx_meta = pickle.load(f)
-
-    # process fasta data
-    fasta_tx = fasta_iter(fasta_tx_file)
-    # save pickle data
-    tx_seq = {}
-    for h, s in fasta_tx:
-        tx_id = h.split(" ")[0]
-        if tx_id in tx_meta:
-            tx_seq[tx_id] = s
-    print(tx_seq['ENSMMUT00000051915.3'])
-
-    with open(tx_seq_file, 'wb') as f_seq:
-        pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
-
-    ####### Mouse #######
-    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.mouse.pkl'
-    fasta_tx_file = '/home/user/data3/rbase/genome_ref/Mus_musculus/gencode.vM32.transcripts.fa'
-    tx_seq_file = '/home/user/data3/rbase/translation_model/models/lib/tx_seq.mouse.vM32.pkl'
-
-    # load tx index
-    with open(tx_meta_file, 'rb') as f:
-        tx_meta = pickle.load(f)
-
-    # process fasta data
-    fasta_tx = fasta_iter(fasta_tx_file)
-    # save pickle data
-    tx_seq = {}
-    for h, s in fasta_tx:
-        tx_id = h.split("|")[0]
-        if tx_id in tx_meta:
-            tx_seq[tx_id] = s
-
-    with open(tx_seq_file, 'wb') as f_seq:
-        pickle.dump(tx_seq, f_seq, protocol=pickle.HIGHEST_PROTOCOL)
+    print(f"Saved {len(tx_seq)} transcripts to {args.output}")

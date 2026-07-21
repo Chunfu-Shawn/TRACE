@@ -189,74 +189,55 @@ def build_cross_species_expression_dict(
     return expr_dict, final_gene_ids
 
 # ==========================================
-# Usage Example: Cross-species Pipeline
+# CLI entry point
 # ==========================================
 if __name__ == "__main__":
-    # Config file paths
-    ortholog_csv = "/home/user/data3/rbase/genome_ref/Homolog/human_macaque_mouse_orthologs.tsv" 
-    
-    human_counts = "/home/user/data3/yaoc/translation_model/rna-seq/matched_counts/matched_samples_RNA-seq.txt"
-    macque_counts = "/home/user/data3/yaoc/translation_model/rna-seq/counts_gene/macaque_featureCounts.txt"
-    mouse_counts = "/home/user/data3/yaoc/translation_model/rna-seq/counts_gene/mouse_featureCounts.txt"
-    
-    lib_dir = "/home/user/data3/rbase/translation_model/models/lib"
-    out_dir = "/home/user/data3/rbase/translation_model/models/src/config"
+    import argparse
+    p = argparse.ArgumentParser(
+        description="Build cross-species expression dictionary from featureCounts output")
+    p.add_argument("--counts", required=True, help="Path to featureCounts file (tab-separated)")
+    p.add_argument("--ortholog", required=True, help="Path to ortholog CSV/TSV")
+    p.add_argument("--output_tpm", required=True, help="Output TPM CSV path")
+    p.add_argument("--output_pt", required=True, help="Output expression dict .pt path")
+    p.add_argument("--reference_order", default=None,
+                   help="Path to global_anchor_gene_order.txt (skip for human to establish reference)")
+    p.add_argument("--output_order_txt", default=None,
+                   help="If given, save anchor gene order to this file (human phase only)")
+    p.add_argument("--output_mapping_json", default=None,
+                   help="If given, save species ID mapping to this file (human phase only)")
+    p.add_argument("--min_tpm", type=float, default=0.0,
+                   help="TPM threshold for active-gene filtering (default: 0)")
+    args = p.parse_args()
 
-    # 1. Preprocess the ortholog table
-    id_mapping, anchor_to_native = prepare_ortholog_mapping(ortholog_csv)
+    # 1. Build ortholog mapping
+    id_mapping, anchor_to_native = prepare_ortholog_mapping(args.ortholog)
 
-    # ---------------------------------------------------------
-    # Phase 1: Process Human data to establish the "Global Reference Coordinates"
-    # ---------------------------------------------------------
-    print("\n========== Phase 1: Establishing Human Reference Coordinates ==========")
-    human_tpm = os.path.join(lib_dir, "human_expression_tpm.csv")
-    human_pt = os.path.join(out_dir, "human_expression_dict.pt")
-    _, global_anchor_ids = build_cross_species_expression_dict(
-        file_path=human_counts, 
-        output_tpm_path=human_tpm,
-        output_pt_path=human_pt, 
+    # 2. Load reference order if provided
+    reference_anchor_ids = None
+    if args.reference_order:
+        with open(args.reference_order) as f:
+            reference_anchor_ids = [line.strip() for line in f if line.strip()]
+
+    # 3. Build expression dictionary
+    expr_dict, anchor_ids = build_cross_species_expression_dict(
+        file_path=args.counts,
+        output_tpm_path=args.output_tpm,
+        output_pt_path=args.output_pt,
         id_mapping=id_mapping,
-        reference_anchor_ids=None, # Set to None to let the script define the universe via Human data
-        min_tpm_threshold=0      # Adjusted via the new parameter
+        reference_anchor_ids=reference_anchor_ids,
+        min_tpm_threshold=args.min_tpm,
     )
 
-    # Save this reference coordinate system for future lookups
-    order_file = os.path.join(out_dir, "global_anchor_gene_order.txt")
-    with open(order_file, 'w') as f:
-        f.write("\n".join(global_anchor_ids))
-    print(f"✅ Global reference coordinate system saved to: {order_file}")
+    # 4. Save reference coordinate system (human phase only)
+    if args.output_order_txt and reference_anchor_ids is None:
+        os.makedirs(os.path.dirname(args.output_order_txt) or ".", exist_ok=True)
+        with open(args.output_order_txt, "w") as f:
+            f.write("\n".join(anchor_ids))
+        print(f"Global reference coordinate system saved to: {args.output_order_txt}")
 
-    # Save species traceability dictionary
-    mapping_file = os.path.join(out_dir, "global_species_id_mapping.json")
-    final_mapping_dict = {gid: anchor_to_native[gid] for gid in global_anchor_ids if gid in anchor_to_native}
-    with open(mapping_file, 'w') as f:
-        json.dump(final_mapping_dict, f, indent=4)
-
-    # ---------------------------------------------------------
-    # Phase 2: Process other species, forcibly aligning to the reference coordinates
-    # ---------------------------------------------------------
-    print("\n========== Phase 2: Aligning Macaque Data ==========")
-    macaque_tpm = os.path.join(lib_dir, "macaque_expression_tpm.csv")
-    macaque_pt = os.path.join(out_dir, "macaque_expression_dict.pt")
-    build_cross_species_expression_dict(
-        file_path=macque_counts, 
-        output_tpm_path=macaque_tpm,
-        output_pt_path=macaque_pt, 
-        id_mapping=id_mapping,
-        reference_anchor_ids=global_anchor_ids, # Forcible alignment
-        min_tpm_threshold=0
-    )
-
-    print("\n========== Phase 3: Aligning Mouse Data ==========")
-    mouse_tpm = os.path.join(lib_dir, "mouse_expression_tpm.csv")
-    mouse_pt = os.path.join(out_dir, "mouse_expression_dict.pt")
-    build_cross_species_expression_dict(
-        file_path=mouse_counts, 
-        output_tpm_path=mouse_tpm,
-        output_pt_path=mouse_pt,
-        id_mapping=id_mapping,
-        reference_anchor_ids=global_anchor_ids, # Forcible alignment
-        min_tpm_threshold=0
-    )
-
-    print("\n🎉 All cross-species alignment tasks are complete! You can now merge human_pt and mouse_pt to feed the model.")
+    if args.output_mapping_json and anchor_to_native:
+        os.makedirs(os.path.dirname(args.output_mapping_json) or ".", exist_ok=True)
+        final_map = {gid: anchor_to_native[gid] for gid in anchor_ids if gid in anchor_to_native}
+        with open(args.output_mapping_json, "w") as f:
+            json.dump(final_map, f, indent=4)
+        print(f"Species ID mapping saved to: {args.output_mapping_json}")

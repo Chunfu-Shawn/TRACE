@@ -220,19 +220,3 @@ class RPF_Counter:
                 for tid, count_data in result.items():
                     final_counts[tid] = count_data
         return final_counts
-
-
-if __name__=="__main__":
-    tree_strand_index_file = '/home/user/data3/rbase/translation_model/models/lib/genome_index_tree.strand.pkl'
-    tx_meta_file = '/home/user/data3/rbase/translation_model/models/lib/transcript_meta.pkl'
-    bam_file = '/home/user/data3/rbase/translation_model/models/test/SRR15513158.uniq.sorted.pc.bam'
-    RPF_count_file = '/home/user/data3/rbase/translation_model/models/test/SRR15513158.read_count.pkl'
-    chroms = ["chr17", "chr19", "chr11"] + \
-        [f'chr{i}' for i in range(1, 11)] + \
-        [f'chr{i}' for i in range(12, 17)] + \
-        ['chr18', 'chr20', 'chr21', 'chr22', 'chrX', 'chrY']
-
-    # count parallelly
-    counter = RPF_Counter(chroms, tree_strand_index_file, tx_meta_file, 21, 40, 3)
-    final_counts = counter.parallel_count_by_windows(bam_file, [], window_size=83000000, max_workers=20)
-    counter.save_count(final_counts, RPF_count_file)

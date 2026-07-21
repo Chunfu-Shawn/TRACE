@@ -424,10 +424,10 @@ Each entry maps a transcript ID → a 1D per-nucleotide ribosome density profile
 If you use this code, please cite:
 
 ```bibtex
-@article{trace2025,
+@article{trace2026,
   title={TRACE: Translation Resolution Across Cell Environments},
   author={Xiao, Chunfu},
-  year={2025}
+  year={2026}
 }
 ```
 
