@@ -1,5 +1,4 @@
 d_seq: 4
-d_count: 1
 d_model: 384
 d_expr: 16840
 d_species: 16
@@ -11,4 +10,4 @@ number_of_layers: 12
 d_ff: 768
 adaptive_dim: 16
 p_drop: 0.15
-model_name: "base_model_expr_384d_16h_12l_64env_16ad"
+model_name: "base_model_384d_16h_12l_64env_16ad"

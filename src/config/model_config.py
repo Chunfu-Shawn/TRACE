@@ -1,8 +1,8 @@
 from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 
 __author__ = "Chunfu Xiao"
-__version__="1.0.0"
+__version__="2.0.0"
 __email__ = "chunfushawn@gmail.com"
 
 
@@ -17,14 +17,20 @@ class ModelConfig:
     Fields are intentionally aligned with TranslationBaseModel.__init__ arguments.
     """
     d_seq: int
-    d_count: int
     d_model: int
-    pmt_len: int
-    all_cell_types: List[str]
+    d_expr: int
+    d_cell_env: int = 32
+    d_species: int = 16
+
+    all_species: List[str] = field(default_factory=lambda: ["human", "macaque", "mouse"])
+    
+    expr_dict_path: Optional[str] = None
     n_heads: int = 8
     number_of_layers: int = 6
-    d_ff: int = 2048
+    d_ff: int = 1024
+    adaptive_dim: int = 32
     p_drop: float = 0.1
+
     # optional metadata
     model_name: Optional[str] = None
     seed: Optional[int] = None
