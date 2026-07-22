@@ -86,13 +86,57 @@ pip install -r requirements.txt
 export PYTHONPATH="$PWD/src:${PYTHONPATH}"
 ```
 
-For a compatible NVIDIA GPU, FlashAttention can be installed separately:
+### Reference GPU training environment
+
+The model-training environment used by the launchers is pinned to the following
+reference combination. `flash-attn` is compiled against the installed PyTorch and
+CUDA toolkit, so changing PyTorch or CUDA may require reinstalling it.
+
+| Component | Reference version | Purpose |
+|---|---:|---|
+| Python | 3.11.13 | Runtime |
+| PyTorch | 2.6.0 with CUDA 12.4 | Model training and CUDA kernels |
+| CUDA toolkit | 12.4, including `nvcc` | Compiles FlashAttention CUDA extensions |
+| `flash-attn` | 2.8.0.post2 | Memory-efficient attention used during GPU training |
+| `ninja` | 1.13.0 | Parallel extension build system |
+| `packaging` | 25.0 | Build-time version parsing |
+| `psutil` | 5.9.0 | Build-time CPU and memory detection |
+
+On Linux with a CUDA 12.4-compatible NVIDIA driver, install the CUDA-enabled
+PyTorch wheel and the pinned FlashAttention build dependencies as follows:
 
 ```bash
-pip install flash-attn --no-build-isolation
+python -m pip install torch==2.6.0 \
+  --index-url https://download.pytorch.org/whl/cu124
+python -m pip install \
+  ninja==1.13.0 packaging==25.0 psutil==5.9.0
+MAX_JOBS=4 python -m pip install \
+  flash-attn==2.8.0.post2 --no-build-isolation
 ```
 
-This optional installation is not needed for CPU or standard-attention inference.
+`MAX_JOBS=4` limits compilation parallelism and can be adjusted for the available
+host RAM and CPU cores. Verify the installed runtime before training:
+
+```bash
+python - <<'PY'
+from importlib.metadata import version
+
+import torch
+
+print("torch:", torch.__version__)
+print("torch CUDA:", torch.version.cuda)
+print("CUDA available:", torch.cuda.is_available())
+print("flash-attn:", version("flash-attn"))
+print("ninja:", version("ninja"))
+print("packaging:", version("packaging"))
+print("psutil:", version("psutil"))
+PY
+```
+
+The pinned versions above define the reproducible reference environment, rather
+than the only compatible versions. FlashAttention remains optional: if it is not
+installed or cannot be used for the current device and dtype, TRACE falls back to
+standard PyTorch self-attention. It is not needed for CPU inference.
 
 ## Hardware
 
