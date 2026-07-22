@@ -1,70 +1,46 @@
+"""CPU smoke test for the current sequence-only TRACE model."""
+
+import sys
+from pathlib import Path
+
 import torch
-from model.translation_base_model import TranslationBaseModel
-from model.mask_heads import TranslationProfileHead
-from model.translation_predictor import TranslationProfilePredictor
 
-# ==========================================
-# Step 1: Load Model
-# ==========================================
-# Load base model from a YAML config (adjust path as needed)
-base_model = TranslationBaseModel.from_config(
-    "config/base_model_expr_384d_16h_12l_128env_32ad.yaml"
-)
-base_model.add_head(
-    "count",
-    TranslationProfileHead.create_from_model(base_model, d_pred_h=384),
-    overwrite=True,
-)
-base_model.load_pretrained_weights("/path/to/pretrained_checkpoint.pt")
 
-# ==========================================
-# Step 2: Load Cell Environment Expression Vectors
-# ==========================================
-species = "human"  # or "macaque", "mouse"
-expr_dict_path = f"config/{species}_expression_dict.pt"
-expr_dict = torch.load(expr_dict_path, map_location="cpu")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+SRC_DIR = PROJECT_ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
-# Register expression profiles into the model
-base_model.load_expression_dict(expr_dict)
+from model.base_model import BaseModel
+from model.prediction_heads import PsiteDensityHead, TERegressionHead
 
-print(f"Loaded {len(base_model.cell_expr_dict)} cell types for {species}.")
-# Example: base_model.cell_expr_dict keys might include
-# "heart", "liver", "brain", "HepG2", "K562", etc.
 
-# ==========================================
-# Step 3: Prepare FASTA Input
-# ==========================================
-# Provide one or more FASTA files containing transcript sequences
-fasta_files = ["./gencode.v43.pc_transcripts.test_2000.fa"]
+def main():
+    model = BaseModel.from_config(
+        str(SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml")
+    )
+    model.add_head("count", PsiteDensityHead.create_from_model(model, d_pred_h=384))
+    model.add_head("te", TERegressionHead.create_from_model(model))
 
-# Optional: filter to specific transcript IDs (e.g., from RNA-seq TPM analysis)
-target_tids = None # or load from get_active_transcripts()
+    expression_dict = torch.load(
+        SRC_DIR / "config/human_expression_dict.pt", map_location="cpu"
+    )
+    model.load_expression_dict(expression_dict)
+    cell_type = next(iter(expression_dict))
+    outputs = model.predict(
+        seq_batch=["AUGCCGAUGCAG", "AUGCCG"],
+        species=["human", "human"],
+        cell_type=[cell_type, cell_type],
+        head_names=["count", "te"],
+    )
 
-# ==========================================
-# Step 4: Initialize Predictor and Run
-# ==========================================
-predictor = TranslationProfilePredictor(
-    model=base_model,
-    fasta_files=fasta_files,
-)
+    assert outputs["count"].shape == (2, 12, 1)
+    assert outputs["te"].shape == (2, 1)
+    assert torch.count_nonzero(outputs["count"][1, 6:]) == 0
+    assert torch.isfinite(outputs["count"]).all()
+    assert torch.isfinite(outputs["te"]).all()
+    print("TRACE CPU smoke test passed")
 
-# Select a cell type to predict in
-cell_type = "heart"  # must be a key in expr_dict
 
-# Get the expression vector for this cell type
-cell_expr_vector = base_model.cell_expr_dict[cell_type].numpy()
-
-# Run prediction
-output_path = predictor.run(
-    species=species,
-    cell_type=cell_type,
-    cell_expr_vector=cell_expr_vector,
-    target_tids=target_tids,      # optional: predict only specific transcripts
-    out_dir="./",
-    suffix="heart_test",
-    min_len=200,
-    max_len=20000,
-    batch_size=32,
-)
-
-print(f"Predictions saved to: {output_path}")
+if __name__ == "__main__":
+    main()

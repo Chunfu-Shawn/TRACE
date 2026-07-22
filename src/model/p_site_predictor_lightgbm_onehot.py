@@ -1,4 +1,4 @@
-import sys, os
+import os
 import numpy as np
 import pickle
 import pandas as pd
@@ -13,7 +13,6 @@ import lightgbm as lgb
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 import joblib
 from collections import defaultdict
-sys.path.append("/home/user/data3/rbase/translation_model/models/src")
 from data.rpf_counter import double_nested_zero_defaultdict
 from model.eval_RPF_density_TIS_TTS import build_length_position_matrix, build_length_frame_matrix, find_peaks_in_range_all_lengths
 from plot.plot_reads_density_TIS_TTS import plot_start_stop_read_length

@@ -254,3 +254,103 @@ class AdaEncoder(nn.Module):
             src_reps = encoder_layer(src_reps, src_mask, compact_style)
             
         return self.LN(src_reps)
+
+
+class AddLayerNorm(nn.Module):
+    """Pre-normalization residual wrapper used by the LN ablation."""
+
+    def __init__(self, d_model, p_drop):
+        super().__init__()
+        self.norm = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(p_drop)
+
+    def forward(self, reps_batch, sublayer_module):
+        return reps_batch + self.dropout(sublayer_module(self.norm(reps_batch)))
+
+
+class EncoderLayer(nn.Module):
+    """Standard Transformer encoder layer without adaptive conditioning."""
+
+    def __init__(self, d_model, d_ff, heads, p_drop):
+        super().__init__()
+        self.d_model = d_model
+        self.sublayers = replicate_module(AddLayerNorm(d_model, p_drop), 2)
+        if HAS_FLASH_ATTN:
+            try:
+                self.multi_headed_attention = FlashMultiHeadedAttention(d_model, heads, p_drop)
+            except Exception as exc:
+                warnings.warn(f"Flash attention initialization failed: {exc}. Falling back.")
+                self.multi_headed_attention = MultiHeadedAttention(d_model, heads, p_drop)
+        else:
+            self.multi_headed_attention = MultiHeadedAttention(d_model, heads, p_drop)
+        self.ffn = PositionwiseFeedForward(d_model, d_ff)
+
+    def forward(self, src_reps, src_mask):
+        def self_attention(reps):
+            return self.multi_headed_attention(
+                queries=reps, kv=reps, attention_mask=src_mask
+            )
+
+        src_reps = self.sublayers[0](src_reps, self_attention)
+        return self.sublayers[1](src_reps, self.ffn)
+
+
+class Encoder(nn.Module):
+    """Stack of standard Transformer encoder layers."""
+
+    def __init__(self, encoder_layer, number_of_layers):
+        super().__init__()
+        self.encoder_layers = replicate_module(encoder_layer, number_of_layers)
+        self.norm = nn.LayerNorm(encoder_layer.d_model)
+
+    def forward(self, src_embs, src_mask=None):
+        src_reps = src_embs
+        for encoder_layer in self.encoder_layers:
+            src_reps = encoder_layer(src_reps, src_mask)
+        return self.norm(src_reps)
+
+
+class ConvEncoderLayer(nn.Module):
+    """Residual one-dimensional convolution block for sequence ablations."""
+
+    def __init__(self, d_model, d_ff, kernel_size, p_drop):
+        super().__init__()
+        if kernel_size < 1 or kernel_size % 2 == 0:
+            raise ValueError("kernel_size must be a positive odd integer")
+        self.d_model = d_model
+        self.norm = nn.LayerNorm(d_model)
+        self.conv_in = nn.Conv1d(
+            d_model, d_ff, kernel_size=kernel_size, padding=kernel_size // 2
+        )
+        self.conv_out = nn.Conv1d(d_ff, d_model, kernel_size=1)
+        self.dropout = nn.Dropout(p_drop)
+        self.activation = nn.GELU()
+
+    def forward(self, src_reps, src_mask=None):
+        residual = src_reps
+        hidden = self.norm(src_reps).transpose(1, 2)
+        hidden = self.conv_out(self.dropout(self.activation(self.conv_in(hidden))))
+        output = residual + self.dropout(hidden.transpose(1, 2))
+        if src_mask is not None:
+            output = output * src_mask.unsqueeze(-1).to(dtype=output.dtype)
+        return output
+
+
+class ConvEncoder(nn.Module):
+    """Stack of residual convolution blocks with padding-mask propagation."""
+
+    def __init__(self, encoder_layer, number_of_layers):
+        super().__init__()
+        self.encoder_layers = replicate_module(encoder_layer, number_of_layers)
+        self.norm = nn.LayerNorm(encoder_layer.d_model)
+
+    def forward(self, src_embs, src_mask=None):
+        src_reps = src_embs
+        if src_mask is not None:
+            src_reps = src_reps * src_mask.unsqueeze(-1).to(dtype=src_reps.dtype)
+        for encoder_layer in self.encoder_layers:
+            src_reps = encoder_layer(src_reps, src_mask)
+        output = self.norm(src_reps)
+        if src_mask is not None:
+            output = output * src_mask.unsqueeze(-1).to(dtype=output.dtype)
+        return output

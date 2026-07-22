@@ -1,5 +1,3 @@
-import sys
-sys.path.append("/home/user/data3/rbase/translation_model/models/src")
 import numpy as np
 import torch
 import pickle
@@ -21,6 +19,31 @@ __license__ = ""
 __version__="1.2.0"
 __maintainer__ = "Chunfu Xiao"
 __email__ = "xiaochunfu@126.com"
+
+
+def _decode_attr(value, default=""):
+    if value is None:
+        return default
+    if isinstance(value, bytes):
+        return value.decode("utf-8")
+    return str(value)
+
+
+def _float_attr(attrs, name, default=np.nan):
+    value = attrs.get(name, default)
+    try:
+        return np.float32(value)
+    except (TypeError, ValueError):
+        return np.float32(default)
+
+
+def _list_attr(attrs, name):
+    value = attrs.get(name, [])
+    if value is None:
+        return []
+    if np.isscalar(value):
+        return [value.item() if hasattr(value, "item") else value]
+    return list(value)
 
 
 class TranslationDataset(Dataset):
@@ -82,16 +105,16 @@ class TranslationDataset(Dataset):
                         tid = grp.attrs.get("tid", -1)
                         # [:] is requested, data eager
                         data["uuids"].append(str(uuid))
-                        data["species"].append(str(grp.attrs.get("species", None)))
-                        data["cell_types"].append(str(grp.attrs.get("cell_type", None)))
+                        data["species"].append(_decode_attr(grp.attrs.get("species"), "unknown"))
+                        data["cell_types"].append(_decode_attr(grp.attrs.get("cell_type"), "unknown"))
                         data["meta_info"].append(
                             {
                                 "cds_start_pos": np.int16(grp.attrs.get("cds_start_pos", -1)),
                                 "cds_end_pos": np.int16(grp.attrs.get("cds_end_pos", -1)),
-                                "motif_occ": list(grp.attrs.get("motif_occ", None)),
-                                "rpf_depth": np.float32(grp.attrs.get("rpf_depth", -1)),
-                                "rpf_coverage": np.float32(grp.attrs.get("rpf_coverage", -1)),
-                                "te_scale": np.float32(grp.attrs.get("te_scale", None))
+                                "motif_occ": _list_attr(grp.attrs, "motif_occ"),
+                                "rpf_depth": _float_attr(grp.attrs, "rpf_depth", -1),
+                                "rpf_coverage": _float_attr(grp.attrs, "rpf_coverage", -1),
+                                "te_scale": _float_attr(grp.attrs, "te_scale")
                             })
                         data["seq_embs"].append(f["sequences"][tid][:]) # (L, 4)
                         data["count_embs"].append(grp["count_emb"][:]) # (L, 1)
@@ -127,8 +150,8 @@ class TranslationDataset(Dataset):
                         grp = f["samples"][uuid]
                         uuids.append(str(uuid))
                         lengths.append(int(grp["count_emb"].shape[0]))
-                        species.append(str(grp.attrs.get("species", None)))
-                        cell_types.append(str(grp.attrs.get("cell_type", None)))
+                        species.append(_decode_attr(grp.attrs.get("species"), "unknown"))
+                        cell_types.append(_decode_attr(grp.attrs.get("cell_type"), "unknown"))
             except FileNotFoundError as e:
                 raise FileNotFoundError(f"Dataset file not found: {path}") from e
 
@@ -162,17 +185,17 @@ class TranslationDataset(Dataset):
             species = self.species[idx]
             grp = self._h5_handle["samples"][uuid]
             tid = grp.attrs.get("tid", -1)
-            cell_type = str(grp.attrs.get('cell_type', None))
+            cell_type = _decode_attr(grp.attrs.get('cell_type'), "unknown")
             expr_arr = self.cell_expr_dict.get(cell_type, np.array([]))
             expr_vector = torch.from_numpy(expr_arr).float()
 
             meta_info = {
                 "cds_start_pos": np.int16(grp.attrs.get("cds_start_pos", -1)),
                 "cds_end_pos": np.int16(grp.attrs.get("cds_end_pos", -1)),
-                "motif_occ": list(grp.attrs.get("motif_occ", None)),
-                "rpf_depth": np.float32(grp.attrs.get("rpf_depth", -1)),
-                "rpf_coverage": np.float32(grp.attrs.get("rpf_coverage", -1)),
-                "te_scale": np.float32(grp.attrs.get("te_scale", None))
+                "motif_occ": _list_attr(grp.attrs, "motif_occ"),
+                "rpf_depth": _float_attr(grp.attrs, "rpf_depth", -1),
+                "rpf_coverage": _float_attr(grp.attrs, "rpf_coverage", -1),
+                "te_scale": _float_attr(grp.attrs, "te_scale")
                 }
             seq_emb = torch.from_numpy(self._h5_handle["sequences"][tid][:]).float() # (L, 4)
             count_emb = torch.from_numpy(grp["count_emb"][:]).float() # (L, 1)

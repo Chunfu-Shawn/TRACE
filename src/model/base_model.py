@@ -117,13 +117,9 @@ class BaseModel(nn.Module):
     def device(self):
         return self.mean_expr_vector.device
 
-    @staticmethod
-    def _default_map_location():
-        if torch.cuda.is_available():
-            return "cuda"
-        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-            return "mps"
-        return "cpu"
+    def _default_map_location(self):
+        """Return the device that currently owns this model's parameters."""
+        return self.device
 
     # ------------------------------------------------------------------
     # Expression dictionary
@@ -288,6 +284,34 @@ class BaseModel(nn.Module):
     # ------------------------------------------------------------------
     # Flexible inference
     # ------------------------------------------------------------------
+    @staticmethod
+    def encode_sequence(seq):
+        """Convert RNA string(s) to one-hot numpy array(s).
+
+        str -> (L, 4)
+        list/tuple of str -> (B, L_max, 4)  zero-padded to max length
+        """
+        nt = {"A":0,"C":1,"G":2,"T":3,"U":3}
+
+        if isinstance(seq, str):
+            if not seq:
+                raise ValueError("RNA sequence must not be empty")
+            idx = [nt.get(c.upper(),4) for c in seq]
+            return np.eye(5,dtype=np.float32)[idx,:4]
+
+        if isinstance(seq, (list,tuple)):
+            if not seq:
+                raise ValueError("Expected a non-empty list or tuple of sequences")
+            encoded = [BaseModel.encode_sequence(s) for s in seq]
+            max_len = max(e.shape[0] for e in encoded)
+            padded = np.zeros((len(encoded),max_len,4),dtype=np.float32)
+            for i,e in enumerate(encoded):
+                padded[i,:e.shape[0],:] = e
+            return padded
+
+        raise TypeError(f"Expected str or list/tuple of str, got {type(seq)}")
+
+
     @torch.no_grad()
     def predict(
         self,
@@ -309,8 +333,18 @@ class BaseModel(nn.Module):
         self.eval()
         dev = self.device
 
-        if isinstance(seq_batch, (list, np.ndarray)):
+        raw_sequence_lengths = None
+        if isinstance(seq_batch, (list, tuple)) and seq_batch and all(
+            isinstance(sequence, str) for sequence in seq_batch
+        ):
+            raw_sequence_lengths = [len(sequence) for sequence in seq_batch]
+
+        if isinstance(seq_batch, str) or raw_sequence_lengths is not None:
+            seq_batch = self.encode_sequence(seq_batch)
+        if isinstance(seq_batch, (list, tuple, np.ndarray)):
             seq_batch = torch.as_tensor(seq_batch, dtype=torch.float32)
+        elif isinstance(seq_batch, torch.Tensor):
+            seq_batch = seq_batch.to(dtype=torch.float32)
         if seq_batch.dim() == 2:
             seq_batch = seq_batch.unsqueeze(0)
             was_squeezed = True
@@ -322,6 +356,10 @@ class BaseModel(nn.Module):
                 src_mask = torch.as_tensor(src_mask, dtype=torch.bool)
             if src_mask.dim() == 1:
                 src_mask = src_mask.unsqueeze(0)
+        elif raw_sequence_lengths is not None:
+            positions = torch.arange(seq_batch.shape[1]).unsqueeze(0)
+            lengths = torch.tensor(raw_sequence_lengths).unsqueeze(1)
+            src_mask = positions < lengths
 
         if move_inputs_to_device:
             seq_batch = seq_batch.to(dev)
@@ -489,6 +527,8 @@ class BaseModel(nn.Module):
         ckpt = torch.load(ckpt_path, map_location=map_loc)
         if isinstance(ckpt, dict) and "model" in ckpt:
             sd = ckpt["model"]
+        elif isinstance(ckpt, dict) and "model_state_dict" in ckpt:
+            sd = ckpt["model_state_dict"]
         elif isinstance(ckpt, dict) and all(isinstance(v, torch.Tensor) for v in ckpt.values()):
             sd = ckpt
         else:
@@ -509,6 +549,8 @@ class BaseModel(nn.Module):
         ckpt = torch.load(ckpt_path, map_location=map_loc)
         if isinstance(ckpt, dict) and "model" in ckpt:
             sd = ckpt["model"]
+        elif isinstance(ckpt, dict) and "model_state_dict" in ckpt:
+            sd = ckpt["model_state_dict"]
         elif isinstance(ckpt, dict) and all(isinstance(v, torch.Tensor) for v in ckpt.values()):
             sd = ckpt
         else:

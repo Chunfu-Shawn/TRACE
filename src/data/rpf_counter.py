@@ -1,10 +1,10 @@
-import sys, time
-sys.path.append("/home/user/data3/rbase/translation_model/models/src")
+import time
 import multiprocessing
 import numpy as np
 import pickle
 from numba import njit
-mp_ctx = multiprocessing.get_context('fork')
+mp_method = 'fork' if 'fork' in multiprocessing.get_all_start_methods() else 'spawn'
+mp_ctx = multiprocessing.get_context(mp_method)
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from collections import defaultdict
 from intervaltree import IntervalTree
@@ -120,6 +120,7 @@ class RPF_Counter:
     
     def process_window(self, args):
         chrom, start, end, tid_list, bam_path = args # , tree_index, tx_meta
+        worker_start_time = time.time()
         print("### " + chrom + " ###")
 
         counts = defaultdict(double_nested_zero_defaultdict)
@@ -140,63 +141,62 @@ class RPF_Counter:
         with open(self.tx_meta_file, 'rb') as f:
             tx_meta = pickle.load(f)
 
-        bam_cache = pysam.AlignmentFile(bam_path, 'rb', threads=5)
-
-        print(f'Executor {chrom}:{start}-{end} start time: {time.time() - start_time} seconds')
+        print(f'Executor {chrom}:{start}-{end} started')
 
         # window-specific reads
-        for read in bam_cache.fetch(chrom, start-1, end):
-            blk = np.array(read.get_blocks(), dtype=int)
-            if blk.size == 0:
-                return False
-            
-            # reasonable RPF length
-            read_len = read.query_length
-            read_strand = "-" if read.is_reverse else "+"
-            if read_len < self.min_readlen or read_len > self.max_readlen:
-                continue
-            
-            # 5'end and 3'end genomic position, 0-base to 1-base
-            starts = blk[:,0]
-            ends   = blk[:,1]
-            left_prime = starts[0] + 1
-            right_prime = ends[-1]
-            five_prime = right_prime if read.is_reverse else left_prime
-
-            # find all transcripts overlapping reads
-            cand = set(iv.data for iv in filterd_tree_index[read_strand][five_prime]) 
-            # & set(iv.data for iv in filterd_tree_index[right_prime])
-    
-            # transfer genomic position to tx position
-            for tid in cand:
-                meta = tx_meta[tid]
-                # compatible with transcript exon structure ?
-                if not is_compatible(starts, ends, 
-                                     meta['exon_starts0_sorted'],
-                                     meta['exon_ends0_sorted'], 
-                                     self.tol):
+        with pysam.AlignmentFile(bam_path, 'rb', threads=5) as bam_cache:
+            for read in bam_cache.fetch(chrom, start-1, end):
+                blk = np.array(read.get_blocks(), dtype=int)
+                if blk.size == 0:
                     continue
-                # transfer to transcript position (input 1-based)
-                pos = convert_position(
-                    five_prime,
-                    meta['exon_starts'], meta['exon_ends'],
-                    meta['tx_starts'], meta['tx_ends'],
-                    meta['strand']
-                )
-                # count the read
-                if pos >= 1:
-                    counts[tid][pos][read_len] += 1
+            
+                # reasonable RPF length
+                read_len = read.query_length
+                read_strand = "-" if read.is_reverse else "+"
+                if read_len is None or read_len < self.min_readlen or read_len > self.max_readlen:
+                    continue
+            
+                # 5'end and 3'end genomic position, 0-base to 1-base
+                starts = blk[:,0]
+                ends   = blk[:,1]
+                left_prime = starts[0] + 1
+                right_prime = ends[-1]
+                five_prime = right_prime if read.is_reverse else left_prime
+
+                # find all transcripts overlapping reads
+                cand = set(iv.data for iv in filterd_tree_index[read_strand][five_prime])
+                # & set(iv.data for iv in filterd_tree_index[right_prime])
+    
+                # transfer genomic position to tx position
+                for tid in cand:
+                    meta = tx_meta[tid]
+                    # compatible with transcript exon structure ?
+                    if not is_compatible(starts, ends,
+                                         meta['exon_starts0_sorted'],
+                                         meta['exon_ends0_sorted'],
+                                         self.tol):
+                        continue
+                    # transfer to transcript position (input 1-based)
+                    pos = convert_position(
+                        five_prime,
+                        meta['exon_starts'], meta['exon_ends'],
+                        meta['tx_starts'], meta['tx_ends'],
+                        meta['strand']
+                    )
+                    # count the read
+                    if pos >= 1:
+                        counts[tid][pos][read_len] += 1
                         
-        print(f'Executor {chrom}:{start}-{end} end time: {time.time() - start_time} seconds')
+        print(f'Executor {chrom}:{start}-{end} elapsed time: {time.time() - worker_start_time} seconds')
         return counts
 
     def parallel_count_by_windows(self, 
                                   bam_path, 
-                                  tid_list: list = [], 
+                                  tid_list: list = None,
                                   window_size: int = 20000000, 
                                   max_workers: int = 20):
-        global start_time
         start_time = time.time()
+        tid_list = [] if tid_list is None else tid_list
         
         """ process all windows parallelly """
         # create tasks
@@ -210,13 +210,15 @@ class RPF_Counter:
         print(f'exec time: {end_time - start_time} seconds')
 
         # 2) parallel processing
-        final_counts = {}
+        final_counts = defaultdict(double_nested_zero_defaultdict)
         with ProcessPoolExecutor(max_workers=max_workers, mp_context=mp_ctx) as exe:
             futures = {exe.submit(self.process_window, task): task for task in tasks} # tasks[::-1] reverse chromosomes for saving time
             
             for future in as_completed(futures):
                 result = future.result()
                 # combine results
-                for tid, count_data in result.items():
-                    final_counts[tid] = count_data
-        return final_counts
+                for tid, position_data in result.items():
+                    for position, length_data in position_data.items():
+                        for read_length, count in length_data.items():
+                            final_counts[tid][position][read_length] += count
+        return dict(final_counts)

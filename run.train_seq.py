@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Editable Python launcher for scalar TE fine-tuning."""
+"""Editable Python launcher for TRACE sequence-only training."""
 
 import os
 import sys
@@ -16,46 +16,60 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from model.base_model import BaseModel
-from model.prediction_heads import TERegressionHead
-from train.model_finetune_te import TEFinetuneTrainer, configure_te_finetuning
+from model.prediction_heads import PsiteDensityHead
+from train.model_trainer_seq import Trainer
 from utils import print_param_counts
 
 
 # -----------------------------------------------------------------------------
 # Experiment configuration: edit this section before running the script.
 # -----------------------------------------------------------------------------
-DATASET_DIR = Path("/path/to/dataset")
-TRAIN_DATASET_FILES = ["human.train.h5"]
-VALID_DATASET_FILES = ["human.valid.h5"]
-DATASET_NAME = "human_te"
+DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
+TRAIN_DATASET_FILES = [
+    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+]
+VALID_DATASET_FILES = [
+    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+]
+DATASET_NAME = "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
 
 MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
-PRETRAINED_CHECKPOINT = None
-CHECKPOINT_DIR = PROJECT_ROOT / "checkpoint/finetune"
-LOG_DIR = PROJECT_ROOT / "log/finetune"
+CHECKPOINT_DIR = PROJECT_ROOT / "checkpoint/pretrain"
+LOG_DIR = PROJECT_ROOT / "log/pretrain"
 
-FT_MODE = "head"
-LORA_R = 8
-LORA_ALPHA = 16.0
 HEAD_HIDDEN_DIM = 384
-HEAD_DROPOUT = 0.1
-
-BATCH_SIZE = 16
-EPOCH_NUM = 30
-PATIENCE = 5
-LEARNING_RATE = 5e-4
-LR_WARMUP_PERC = 0.1
+BATCH_SIZE = 50
+EPOCH_NUM = 60
+PATIENCE = 8
+LEARNING_RATE = 1e-3
+LR_WARMUP_PERC = 0.3
 ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
-BALANCE_CLASSES = False
-NUM_WORKERS = 0
+BETAS = (0.9, 0.98)
+EPSILON = 1e-9
+EXPR_NOISE_STD = 0.1
+MASK_PERC = {"species": 0.1, "cell": 0.1}
+BALANCE_CLASSES = True
 RESUME = True
+SAVE_EVERY = 1
+PRINT_EVERY = 50
 
 
 def setup_runtime():
-    """Initialize a single-process or torchrun-distributed runtime."""
+    """Initialize single-GPU or single-node multi-GPU training."""
     world_size = int(os.environ.get("WORLD_SIZE", "1"))
     local_rank = int(os.environ.get("LOCAL_RANK", "0"))
+    local_world_size = int(os.environ.get("LOCAL_WORLD_SIZE", str(world_size)))
+    if world_size != local_world_size:
+        raise RuntimeError("Multi-node training is not supported by this launcher.")
     distributed = world_size > 1
 
     if torch.cuda.is_available():
@@ -88,20 +102,11 @@ def main():
     valid_paths = resolve_dataset_paths(VALID_DATASET_FILES)
 
     model = BaseModel.from_config(str(MODEL_CONFIG_PATH))
-    if PRETRAINED_CHECKPOINT is not None:
-        model.load_pretrained_weights(
-            str(PRETRAINED_CHECKPOINT), strict=False, map_location="cpu"
-        )
     model.add_head(
-        "te",
-        TERegressionHead.create_from_model(
-            model, d_pred_h=HEAD_HIDDEN_DIM, p_drop=HEAD_DROPOUT
-        ),
+        "count",
+        PsiteDensityHead.create_from_model(model, d_pred_h=HEAD_HIDDEN_DIM),
         overwrite=True,
         move_to_model_device=False,
-    )
-    configure_te_finetuning(
-        model, ft_mode=FT_MODE, lora_r=LORA_R, lora_alpha=LORA_ALPHA
     )
     model.to(device)
 
@@ -116,7 +121,7 @@ def main():
             ddp_kwargs.update(device_ids=[rank], output_device=rank)
         model = DDP(model, **ddp_kwargs)
 
-    trainer = TEFinetuneTrainer(
+    trainer = Trainer(
         model=model,
         dataset_paths=train_paths,
         val_dataset_paths=valid_paths,
@@ -126,20 +131,22 @@ def main():
         log_dir=str(LOG_DIR),
         world_size=world_size,
         rank=rank,
-        ft_mode=FT_MODE,
-        lora_r=LORA_R,
-        lora_alpha=LORA_ALPHA,
+        resume=RESUME,
+        print_progress_every=PRINT_EVERY,
+        save_every=SAVE_EVERY,
         epoch_num=EPOCH_NUM,
         patience=PATIENCE,
+        mask_perc=MASK_PERC,
+        expr_noise_std=EXPR_NOISE_STD,
         learning_rate=LEARNING_RATE,
         lr_warmup_perc=LR_WARMUP_PERC,
         accumulation_steps=ACCUMULATION_STEPS,
         balance_classes=BALANCE_CLASSES,
+        beta=BETAS,
+        epsilon=EPSILON,
         weight_decay=WEIGHT_DECAY,
-        resume=RESUME,
-        num_workers=NUM_WORKERS,
     )
-    trainer.finetune()
+    trainer.fit()
 
     if distributed:
         dist.destroy_process_group()

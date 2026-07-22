@@ -2,6 +2,7 @@ import math
 from typing import Optional
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from flash_attn.flash_attn_interface import flash_attn_varlen_qkvpacked_func
 from flash_attn.bert_padding import unpad_input, pad_input
 from model.position_embedding import LlamaRotaryEmbeddingExt
@@ -40,7 +41,21 @@ class FlashMultiHeadedAttention(nn.Module):
         # default softmax scale value（buffer, stored along with module.to(device))
         default_scale = 1.0 / math.sqrt(self.head_dim)
         self.register_buffer('softmax_scale', torch.tensor(default_scale, dtype=torch.float32))
-        
+
+    def _standard_attention(self, query, key, value, attention_mask, output_dtype):
+        """Run PyTorch attention with the same projection weights as FlashAttention."""
+        mask = None
+        if attention_mask is not None:
+            mask = attention_mask.to(device=query.device, dtype=torch.bool)[:, None, None, :]
+        output = F.scaled_dot_product_attention(
+            query,
+            key,
+            value,
+            attn_mask=mask,
+            dropout_p=self.p_drop if self.training else 0.0,
+            is_causal=self.causal,
+        )
+        return output.transpose(1, 2).to(dtype=output_dtype)
 
     def forward(self, 
                 queries: torch.Tensor,  # (bs, seq_len, d_model) — here seq_len same as kv
@@ -65,6 +80,15 @@ class FlashMultiHeadedAttention(nn.Module):
         query = self.RoPE(query)
         key   = self.RoPE(key)
 
+        output_dtype = queries.dtype
+        can_use_flash = queries.is_cuda and query.dtype in (torch.float16, torch.bfloat16)
+        if not can_use_flash:
+            attention_qkv = self._standard_attention(
+                query, key, value, attention_mask, output_dtype
+            )
+            attention_qkv = attention_qkv.reshape(bs, seq_len, self.d_model)
+            return self.unifyheads(attention_qkv)
+
         # 3) pack q,k,v into the layout expected by varlen kernel (matches your training forward)
         #    In your earlier code you used: qkv = torch.stack([query, key, value], dim=2).transpose(1, 3)
         qkv = torch.stack([query, key, value], dim=2).transpose(1, 3)  # -> (bs, seq_len, 3, n_heads, head_dim) or kernel-specific layout
@@ -82,14 +106,21 @@ class FlashMultiHeadedAttention(nn.Module):
         #       1) qkv_unpad -> bfloat16
         #       2) kernel return bfloat16/float16 -> cast to float32
         #    out_unpad: (sum_bs(seq_lens), heads, head_dim)
-        attention_qkv_unpad = flash_attn_varlen_qkvpacked_func(
-            qkv_unpad.to(torch.bfloat16),
-            cu_seqlens,
-            max_seqlen,
-            dropout_p = self.p_drop if self.training else 0.0,  # flash_attn ignores model.eval()
-            causal = self.causal,
-            softmax_scale = (float(softmax_scale) if softmax_scale is not None else None)
-        ).to(torch.float32)
+        try:
+            attention_qkv_unpad = flash_attn_varlen_qkvpacked_func(
+                qkv_unpad,
+                cu_seqlens,
+                max_seqlen,
+                dropout_p=self.p_drop if self.training else 0.0,
+                causal=self.causal,
+                softmax_scale=(float(softmax_scale) if softmax_scale is not None else None),
+            ).to(dtype=output_dtype)
+        except (RuntimeError, NotImplementedError, ValueError, AssertionError):
+            attention_qkv = self._standard_attention(
+                query, key, value, attention_mask, output_dtype
+            )
+            attention_qkv = attention_qkv.reshape(bs, seq_len, self.d_model)
+            return self.unifyheads(attention_qkv)
 
         # 6) recover padded layout: (bs, seq_len, n_heads, head_dim)
         attention_qkv = pad_input(attention_qkv_unpad, indices, bs, seq_len)
@@ -99,4 +130,3 @@ class FlashMultiHeadedAttention(nn.Module):
         representations_batch = self.unifyheads(attention_qkv)
 
         return representations_batch
-    

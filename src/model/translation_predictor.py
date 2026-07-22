@@ -1,5 +1,6 @@
 import os
 import pickle
+import contextlib
 import pandas as pd
 import numpy as np
 import torch
@@ -238,7 +239,8 @@ class TranslationProfilePredictor:
         """
 
         os.makedirs(out_dir, exist_ok=True)
-        pred_pkl_path = os.path.join(out_dir, f"predictions_count.{self.model.model_name}.{suffix}.pkl")
+        model_name = unwrap_model(self.model).model_name
+        pred_pkl_path = os.path.join(out_dir, f"predictions_count.{model_name}.{suffix}.pkl")
 
         # ========================================================
         # Filter logic for target transcripts (strip ENST version numbers)
@@ -300,18 +302,21 @@ class TranslationProfilePredictor:
                 
                 b_cell_exprs = b_cell_exprs.to(device)
                 b_seq = b_seq.to(device)
-                b_count = b_count.to(device)
-                
-                src_mask = (b_seq[:, :, 0] != -1)
-                
-                with torch.amp.autocast(device_type='cuda', dtype=torch.float16):
+                src_mask = (b_seq != -1).any(dim=-1)
+                amp_context = (
+                    torch.amp.autocast(device_type="cuda", dtype=torch.float16)
+                    if device.type == "cuda"
+                    else contextlib.nullcontext()
+                )
+
+                with amp_context:
                     out = base_model.predict(
-                        seq_batch=b_seq, 
-                        count_batch=b_count, 
+                        seq_batch=b_seq,
                         species=species_list,
                         expr_vector=b_cell_exprs,
-                        src_mask=src_mask, 
-                        head_names=["count"])
+                        src_mask=src_mask,
+                        head_names=["count"],
+                    )
                 
                 probs_batch = out["count"]
                 

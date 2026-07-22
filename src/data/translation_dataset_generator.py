@@ -1,5 +1,4 @@
-import sys, os
-sys.path.append("/home/user/data3/rbase/translation_model/models/src")
+import os
 import numpy as np
 import math
 import json

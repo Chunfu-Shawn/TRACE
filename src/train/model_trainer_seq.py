@@ -53,9 +53,9 @@ def default_no_weight_decay(name: str) -> bool:
     return False
 
 
-class SeqPretrainTrainer:
+class Trainer:
     """
-    Pretraining trainer class with Continuous Expression Vector Support and Noise Injection.
+    Sequence-only model trainer with continuous expression vector support.
     """
     def __init__(
         self,
@@ -102,8 +102,12 @@ class SeqPretrainTrainer:
         self._print_progress_every = print_progress_every
         self._save_every = save_every
 
-        # device for this process
-        self.device = torch.device(f"cuda:{rank}") if torch.cuda.is_available() else torch.device("cpu")
+        # Derive the process device from the model instead of assuming rank == GPU index.
+        model_unwrapped = unwrap_model(model)
+        try:
+            self.device = next(model_unwrapped.parameters()).device
+        except StopIteration:
+            self.device = torch.device("cpu")
 
         # masking and sampler (reuse user's adapters)
         self.mask_perc = mask_perc
@@ -331,10 +335,10 @@ class SeqPretrainTrainer:
         if os.path.isfile(latest):
             if self.rank == 0:
                 print(f"[Trainer] Loading checkpoint {latest}")
-            map_loc = BaseModel._default_map_location()
+            model_unwrapped = unwrap_model(self.model)
+            map_loc = model_unwrapped._default_map_location()
             ckpt = torch.load(latest, map_location=map_loc)
             # restore model weights into unwrapped model
-            model_unwrapped = unwrap_model(self.model)
             sd = model_unwrapped._strip_head_module_prefix(ckpt["model"])
             model_unwrapped.load_state_dict(sd, strict=False)
             self.start_epoch = int(ckpt.get("epoch", 0))
@@ -451,8 +455,9 @@ class SeqPretrainTrainer:
             pad_masks: torch.Tensor,
             cds_masks: torch.Tensor,
             cds_weight_factor: float = 1.0,
-            is_eval: bool = False
-        ) -> torch.Tensor:
+            is_eval: bool = False,
+            return_components: bool = False,
+        ) -> Union[torch.Tensor, Tuple[torch.Tensor, Dict[str, torch.Tensor]]]:
         """
         Calculates the joint loss combining Token-level Micro Loss and Frame-aware Macro Loss.
         Operating purely in linear scale (No Log/ReLU transformation).
@@ -574,6 +579,19 @@ class SeqPretrainTrainer:
         total_sample_loss = per_sample_micro_loss + alpha * per_sample_macro_loss
         loss = total_sample_loss.mean() + beta * ranking_loss
 
+        if return_components:
+            micro_loss = per_sample_micro_loss.mean()
+            macro_loss = per_sample_macro_loss.mean()
+            components = {
+                "total": loss.detach(),
+                "micro": micro_loss.detach(),
+                "macro": macro_loss.detach(),
+                "macro_weighted": (alpha * macro_loss).detach(),
+                "ranking": ranking_loss.detach(),
+                "ranking_weighted": (beta * ranking_loss).detach(),
+            }
+            return loss, components
+
         return loss
 
     
@@ -596,6 +614,7 @@ class SeqPretrainTrainer:
         batch_num = len(dataloader)
         start_time = time.time()
         self.sampler.set_epoch(epoch) 
+        self.optimizer.zero_grad(set_to_none=True)
 
         if self.rank == 0:
             pbar = tqdm(total = batch_num, desc=f"Epoch {epoch+1} train")
@@ -620,23 +639,28 @@ class SeqPretrainTrainer:
                 noise = torch.randn_like(expr_batch, dtype=torch.float32) * self.expr_noise_std
                 expr_batch = expr_batch + noise.to(expr_batch.dtype)
 
-            with self._amp_context():
-                # Pass the dynamically generated expr_vector to the model
-                outputs = self.model(
-                    seq_batch=seq_embs_padded,
-                    species=species_list,
-                    expr_vector=expr_batch,      # Feed continuous tensor directly
-                    src_mask=pad_masks, 
-                    head_names=["count"]
-                )
-                
-                loss = self.count_task_criterion(outputs, count_embs_padded, pad_masks, cds_masks, is_eval=False)
-                acc_loss = loss / self.ac_steps
-
             do_sync = ((batch_idx + 1) % self.ac_steps == 0) or ((batch_idx + 1) == batch_num)
-
             context = (self.model.no_sync() if not do_sync and hasattr(self.model, "no_sync") else contextlib.nullcontext())
             with context:
+                with self._amp_context():
+                    # Pass the dynamically generated expr_vector to the model
+                    outputs = self.model(
+                        seq_batch=seq_embs_padded,
+                        species=species_list,
+                        expr_vector=expr_batch,
+                        src_mask=pad_masks,
+                        head_names=["count"]
+                    )
+
+                    loss, loss_components = self.count_task_criterion(
+                        outputs,
+                        count_embs_padded,
+                        pad_masks,
+                        cds_masks,
+                        is_eval=False,
+                        return_components=True,
+                    )
+                    acc_loss = loss / self.ac_steps
                 self.scaler.scale(acc_loss).backward()
 
             if do_sync:
@@ -646,25 +670,37 @@ class SeqPretrainTrainer:
                 self.scaler.step(self.optimizer)  # step optimizer and update scaler
                 self.scaler.update() 
                 self.scheduler.step()
-                self.optimizer.zero_grad() 
+                self.optimizer.zero_grad(set_to_none=True)
 
             total_loss += loss.detach()
-            local_loss.append([float(loss)])
+            local_loss.append({name: float(value) for name, value in loss_components.items()})
 
             if self.rank == 0 and (batch_idx + 1) % self._print_progress_every == 0:
                 pbar.update(self._print_progress_every)
-                print(f"\tloss: {loss}")
+                print(
+                    "\tloss: "
+                    f"total={loss_components['total'].item():.6f}, "
+                    f"micro={loss_components['micro'].item():.6f}, "
+                    f"macro={loss_components['macro'].item():.6f} "
+                    f"(x4={loss_components['macro_weighted'].item():.6f}), "
+                    f"ranking={loss_components['ranking'].item():.6f} "
+                    f"(x0.2={loss_components['ranking_weighted'].item():.6f})"
+                )
 
         if self.rank == 0:
             pbar.close()
 
-        dist.all_reduce(total_loss, op=dist.ReduceOp.SUM) 
-        gathered_losses = [None for _ in range(self.world_size)]
-        dist.all_gather_object(gathered_losses, local_loss)
+        if dist.is_available() and dist.is_initialized():
+            dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
+            gathered_losses = [None for _ in range(self.world_size)]
+            dist.all_gather_object(gathered_losses, local_loss)
+        else:
+            gathered_losses = [local_loss]
         mean_epoch_losses = total_loss/float(batch_num * self.world_size)
         
         end_time = time.time()
-        print(f'Epoch {epoch+1} training time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
+        if self.rank == 0:
+            print(f'Epoch {epoch+1} training time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
 
         return mean_epoch_losses, gathered_losses
     
@@ -710,35 +746,54 @@ class SeqPretrainTrainer:
                         src_mask=pad_masks, 
                         head_names=["count"],
                     )
-                    loss = self.count_task_criterion(outputs, count_embs_padded, pad_masks, cds_masks, is_eval=True)
+                    loss, loss_components = self.count_task_criterion(
+                        outputs,
+                        count_embs_padded,
+                        pad_masks,
+                        cds_masks,
+                        is_eval=True,
+                        return_components=True,
+                    )
 
                 total_loss += loss.detach()
-                local_loss.append([float(loss)])
+                local_loss.append({name: float(value) for name, value in loss_components.items()})
 
                 if self.rank == 0 and (batch_idx + 1) % self._print_progress_every == 0:
                     pbar.update(self._print_progress_every) 
-                    print(f"\tloss: {loss}")
+                    print(
+                        "\tvalidation loss: "
+                        f"total={loss_components['total'].item():.6f}, "
+                        f"micro={loss_components['micro'].item():.6f}, "
+                        f"macro={loss_components['macro'].item():.6f} "
+                        f"(x4={loss_components['macro_weighted'].item():.6f}), "
+                        f"ranking={loss_components['ranking'].item():.6f} "
+                        f"(x0.2={loss_components['ranking_weighted'].item():.6f})"
+                    )
 
         if self.rank == 0:
             pbar.close()
 
-        dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
-        gathered_losses = [None for _ in range(self.world_size)]
-        dist.all_gather_object(gathered_losses, local_loss)
+        if dist.is_available() and dist.is_initialized():
+            dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
+            gathered_losses = [None for _ in range(self.world_size)]
+            dist.all_gather_object(gathered_losses, local_loss)
+        else:
+            gathered_losses = [local_loss]
         mean_epoch_losses = total_loss/float(batch_num * self.world_size)
 
         end_time = time.time()
-        print(f'Epoch {epoch+1} evaluating time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
+        if self.rank == 0:
+            print(f'Epoch {epoch+1} evaluating time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
 
         return mean_epoch_losses, gathered_losses
     
 
     # -------------------------
-    # orchestrate pretraining
+    # orchestrate training
     # -------------------------
-    def pretrain(self):
+    def fit(self):
         """
-        Main training loop orchestrator. Iterates epochs, runs train/eval,
+        Main training loop. Iterates epochs, runs train/eval,
         saves checkpoints and logs losses.
         """
         start_epoch = int(self.start_epoch)

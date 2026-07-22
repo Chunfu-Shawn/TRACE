@@ -1,139 +1,154 @@
 # TRACE: Translation Resolution Across Cell Environments
 
-A Transformer-based model that decodes full-length transcriptomes into translatomes — predicting per-position ribosome density profiles purely from full-length RNA sequence and cellular context. TRACE integrates multi-omics data — transcript sequence, gene expression, and species identity — through adaptive layer normalization (AdaLN-Zero) to resolve translation regulation across cell types and species.
-
 ## Overview
 
-TRACE takes as input:
-- **RNA sequence** (one-hot encoded nucleotides)
-- **Cellular transcriptome profile** (continuous expression vector, 16840 genes)
-- **Species label** (discrete identifier for evolutionary context)
+TRACE uses the sequence-only `BaseModel` in `src/model/base_model.py` to predict a
+full-length, per-nucleotide ribosome-density profile. The model inputs are:
 
-And decodes the full-length transcript into a translatome — the per-position ribosome density profile — enabling:
-- Translation efficiency (TE) estimation
-- Ribosome dynamics and pausing site identification
-- Cross-species and cross-cell-type coding ORF prediction
+- RNA sequence features `(B, L, 4)`;
+- a 16,840-gene expression vector aligned to the human anchor-gene order;
+- a species embedding;
 
-## Model Architecture
+The encoder combines RoPE self-attention with AdaLN-Zero cellular conditioning. A
+registered translation-profile head converts the encoder output into a non-negative
+ribosome-density prediction `(B, L, 1)`. RPF density is used only as the training
+target and is not an input to `BaseModel`.
 
-Key architectural features:
-- **AdaLN-Zero**: Each transformer sublayer is modulated by a compact style vector derived from the concatenated expression + species features, with a learned gating parameter initialized to zero for stable training.
-- **Rotary Position Embedding (RoPE)**: Applied to query/key in self-attention, with NTK-aware scaling for long sequences.
-- **Flash Attention**: Automatic dispatch to FlashAttention-2 when available, with graceful fallback to standard PyTorch attention.
-- **Pluggable Heads**: Modular prediction heads (density, coding, decoupled shape/scale) that can be added/removed at runtime.
+FlashAttention is optional. If the package, compatible CUDA device, or supported
+dtype is unavailable, TRACE automatically uses PyTorch self-attention. CPU inference
+does not require `flash-attn`.
 
-## Project Structure
+## Project structure
 
-```
+The project tree is useful for locating the public entry points, but new users only
+need the files listed below. Historical and experimental implementations are omitted
+from this overview.
+
+```text
 TRACE/
-├── environment.yml                        # Full conda environment
-├── requirements.txt                        # Minimal pip dependencies
-├── src/
-│   ├── model/
-│   │   ├── base_model.py                  # BaseModel — sequence-only encoder
-│   │   ├── translation_base_model.py      # TranslationBaseModel — encoder + RPF
-│   │   ├── model_modules.py              # AdaLN-Zero encoder, LinearEmbedding, RoPE attention
-│   │   ├── prediction_heads.py           # PsiteDensityHead, TranslationProfileHead, TERegressionHead
-│   │   ├── position_embedding.py         # RoPE (LlamaRotaryEmbeddingExt)
-│   │   ├── flash_multi_headed_attention.py # FlashAttention-2 wrapper
-│   │   ├── translation_predictor.py      # Inference utilities
-│   │   ├── orf_caller.py                 # ORF identification
-│   │   └── generate_cell_env_expr_array.py # Expression vector generation
-│   ├── data/
-│   │   ├── translation_dataset.py        # TranslationDataset — lazy H5 loader
-│   │   ├── translation_dataset_generator.py # H5 dataset generation pipeline
-│   │   ├── rpf_counter.py                # Ribo-seq read counting
-│   │   ├── cell_env_expr_array_generate.py # Cell-type expression matrix
-│   │   ├── transcript_sequence_generate.py # Transcript sequence encoding
-│   │   ├── transcript_exon_index.py      # Exon boundary and CDS indexing
-│   ├── train/
-│   │   ├── seq_pretrain.py               # SeqPretrainTrainer (BaseModel pretraining)
-│   │   ├── model_pretrain.py             # PretrainingTrainer (TranslationBaseModel)
-│   │   ├── model_finetune_te.py          # TEFinetuneTrainer (TE regression)
-│   │   ├── distributed_balanced_bucket_sampler.py # Length-bucketed DDP sampler
-│   │   └── masking_adapter.py            # BERT-style masking + curriculum
-│   ├── config/
-│   │   ├── human_expression_dict.pt      # pre-built expression dictionary for human (binary)
-│   │   ├── macaque_expression_dict.pt    # pre-built expression dictionary for macaque (binary)
-│   │   ├── mouse_expression_dict.pt      # pre-built expression dictionary for mouse (binary)
-│   │   ├── global_anchor_gene_order.txt   # Canonical gene order (GENCODE) for expression arrays (text)
-│   │   ├── global_species_id_mapping.json # Orthologous gene mapping (GENCODE) for cross-species expression alignment (text)
-│   │   ├── model_config.py               # ModelConfig dataclass (BaseModel)
-│   │   ├── model_config_expr.py          # ModelConfig (TranslationBaseModel)
-│   │   ├── *.yaml                        # Model hyperparameter YAML configs
-│   │   └── model_config_*.py             # Ablation config dataclasses
-│   ├── lora_utils.py                     # LoRA adapter injection helpers
-│   └── utils.py                          # Shared utilities (unwrap_model, etc.)
-├── test/
-│   ├── run_test.py                       # Basic model forward test
-│   └── test_transcripts.py               # Transcript loading test
-└── tools/
-    └── tumor_neoantigen/                 # Tumor neoantigen identification pipeline
+├── run.train_seq.py
+│   Editable Python launcher for sequence-only model training.
+├── environment.yml / requirements.txt
+│   Conda and pip dependency definitions.
+├── src/model/
+│   ├── base_model.py
+│   │   Sequence-only BaseModel and its inference/checkpoint API.
+│   ├── prediction_heads.py
+│   │   Pluggable per-position translation-profile prediction heads.
+│   ├── model_modules.py
+│   │   Embeddings, AdaLN-Zero encoder layers, and standard self-attention.
+│   ├── flash_multi_headed_attention.py
+│   │   Optional FlashAttention implementation with runtime fallback.
+│   ├── translation_predictor.py
+│   │   Batched FASTA-to-ribosome-profile inference utilities.
+│   ├── position_embedding.py
+│   │   Rotary positional embedding implementation.
+│   └── generate_cell_env_expr_array.py
+│       Converts featureCounts output into aligned expression vectors.
+├── src/train/
+│   ├── model_trainer_seq.py
+│   │   Sequence-only training loop, losses, logging, and checkpoint resume.
+│   └── distributed_balanced_bucket_sampler.py
+│       Length-aware and optionally class-balanced distributed sampler.
+├── src/data/
+│   ├── translation_dataset.py
+│   │   Lazy/eager HDF5 dataset reader used by training.
+│   ├── translation_dataset_generator.py
+│   │   Builds training HDF5 files from processed sequence and RPF data.
+│   ├── rpf_counter.py
+│   │   Counts compatible Ribo-seq reads on transcript coordinates.
+│   └── transcript_exon_index.py
+│       Transcript/exon coordinate conversion and indexing utilities.
+├── src/config/
+│   Model YAML, expression dictionaries, human anchor order, and species ID map.
+└── test/run_test.py
+    CPU smoke test for BaseModel profile prediction.
 ```
 
-## Setup
+## Installation
 
-### Environment
-
-Two options are provided — a full `environment.yml` (reproducible conda env)
-and a minimal `requirements.txt` for pip-only installs.
+Python 3.11 and PyTorch 2.6 are the reference versions.
 
 ```bash
-# Option A: conda (full environment, includes Jupyter + dev tools)
+git clone <repository-url>
+cd TRACE
+
+# Conda
 conda env create -f environment.yml
 conda activate TRACE
 
-# Option B: pip (core dependencies only)
+# Or pip
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+
+# The repository is not packaged as a wheel yet.
+export PYTHONPATH="$PWD/src:${PYTHONPATH}"
 ```
 
-**Core dependencies** (required to train / run inference):
+For a compatible NVIDIA GPU, FlashAttention can be installed separately:
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| Python | 3.11 | — |
-| PyTorch | 2.6.0 (CUDA 12.4) | model definition + training |
-| flash-attn | 2.8.0 | efficient attention (optional — falls back to PyTorch) |
-| h5py | 3.14 | H5 dataset I/O |
-| numpy | 2.3 | array operations |
-| PyYAML | 6.0 | config file parsing |
-| tqdm | 4.67 | progress bars |
-| einops | 0.8 | tensor reshaping |
-| loralib | 0.1 | LoRA adapter injection (fine-tuning) |
-| ninja | 1.13 | JIT build helper (flash-attn) |
-
-**Optional packages** (can be removed if you only need minimal inference):
-
-`pyahocorasick` (motif matching)  `jupyter*` / `notebook*` / `ipython*` (dev environment)
-`statsmodels` `scikit-misc` `networkx` `viennarna` `gffutils` `pyfaidx` `conda-pack`
-
-### Hardware
-
-- Training: Multi-GPU (tested on 4–8× A100/H100)
-- Inference: Single GPU (>=16GB VRAM recommended for 384d model)
-
-## Dataset
-
-Pre-processed training/validation/test H5 datasets and expression dictionaries
-are publicly available on Zenodo:
-
-> **Zenodo**: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21469176.svg)](https://doi.org/10.5281/zenodo.21469176)
->
-> The archive contains `.train.h5` / `.valid.h5` / `.test.h5` files for each
-> species (human, macaque, mouse) as well as per-species expression dictionaries
-> (`{species}_expression_dict.pt`).
-
-### H5 File Layout
-
+```bash
+pip install flash-attn --no-build-isolation
 ```
+
+This optional installation is not needed for CPU or standard-attention inference.
+
+## Hardware
+
+The following estimates apply to inference with the default 384-dimensional,
+16-head, 12-layer model, `batch_size=1`, and FP16 autocast:
+
+| RNA length | Standard attention | FlashAttention |
+|---:|---:|---:|
+| 2,000 nt | approximately 1–2 GB | approximately 1–1.5 GB |
+| 6,000 nt | approximately 3–4 GB | approximately 1.2–2 GB |
+| 10,000 nt | approximately 7–9 GB | approximately 1.5–2.5 GB |
+
+A GPU with at least 16 GB is therefore recommended for standard attention and
+generally provides sufficient margin for transcripts up to approximately 10,000 nt.
+A 4 GB GPU is generally sufficient for FlashAttention inference with `batch_size=1`.
+Actual usage varies with transcript length, CUDA context, allocator fragmentation,
+and other processes using the GPU.
+
+FlashAttention is activated only on CUDA with FP16 or BF16 inputs. Standard-attention
+FP32 inference can require almost twice the attention memory shown above. CPU
+inference is supported but is substantially slower.
+
+## Download data and checkpoints
+
+Preprocessed HDF5 datasets and expression dictionaries are available from
+[Zenodo (10.5281/zenodo.21469176)](https://doi.org/10.5281/zenodo.21469176).
+
+Place the supplied expression dictionaries under `src/config/`, or pass their actual
+paths explicitly. All repository paths in the examples below are relative to the
+repository root.
+
+Important configuration files are:
+
+```text
+src/config/base_model_384d_16h_12l_64env_16ad.yaml
+src/config/global_anchor_gene_order.txt
+src/config/global_species_id_mapping.json
+src/config/human_expression_dict.pt
+src/config/macaque_expression_dict.pt
+src/config/mouse_expression_dict.pt
+```
+
+## HDF5 dataset contract
+
+`TranslationDataset.from_h5(path, lazy=True)` expects the following structure:
+
+```text
 <dataset>.h5
 ├── .attrs["n_samples"]          int           total number of transcripts
 ├── .attrs["cell_type_counts"]   JSON str      cell-type distribution
 ├── /cell_exprs/
 │   └── <cell_type>              (d_expr,)     Z-scored expression vector per cell type
 ├── /sequences/
-│   └── <tid>                    (L, d_seq)    continuous sequence features (e.g., one-hot codon)
+│   └── <tid>                    (L, d_seq)    sequence features (e.g., one-hot nucleotides)
 └── /samples/<uuid>/
+    ├── .attrs["tid"]            str           key into the sequences group
     ├── .attrs["species"]        str           human | macaque | mouse
     ├── .attrs["cell_type"]      str           e.g., "heart", "liver", "HepG2"
     ├── .attrs["cds_start_pos"]  int16         CDS start (1-based), -1 if unknown
@@ -145,119 +160,229 @@ are publicly available on Zenodo:
     └── count_emb                (L, d_count)  per-position RPF density (target)
 ```
 
-### Loading Data
-
-The `TranslationDataset` class provides lazy (recommended) or eager loading
-from `.h5` files:
+`count_emb` is the prediction target during training. It is loaded by the trainer
+but is never passed into the sequence-only BaseModel.
 
 ```python
 from data.translation_dataset import TranslationDataset
 
-# Lazy loading — minimal RAM, reads on-demand per __getitem__
-ds = TranslationDataset.from_h5("human.train.h5", lazy=True)
+dataset = TranslationDataset.from_h5("/data/human.train.h5", lazy=True)
+uuid, species, cell_type, expression, metadata, sequence, count = dataset[0]
 
-print(f"Samples: {ds.n_samples}")
-print(f"Cell types: {ds.cell_type_counts}")
-print(f"Cell expr dict keys: {list(ds.cell_expr_dict.keys())}")
-
-# Access a single sample (returns one transcript)
-tid, species, cell_type, expr_vector, meta, seq_emb, count_emb = ds[0]
-
-print(f"species: {species}")           # e.g., "human"
-print(f"cell_type: {cell_type}")       # e.g., "heart"
-print(f"seq_emb shape: {seq_emb.shape}")     # (L, d_seq)
-print(f"count_emb shape: {count_emb.shape}") # (L, d_count)
-print(f"cds: {meta['cds_start_pos']}–{meta['cds_end_pos']}")
-print(f"te_scale: {meta.get('te_scale')}")
-
-# Expression vector for a specific cell type
-expr_vec = ds.cell_expr_dict["heart"]  # shape (d_expr,)
+print(uuid, species, cell_type)
+print(sequence.shape)    # (L, 4), model input
+print(expression.shape)  # (16840,), model input
+print(count.shape)       # (L, 1), training target
 ```
 
-## Training
+## Quick inference
 
-### Pretraining
-
-Pretraining uses `torchrun` for distributed multi-GPU training.  The entry
-point script below creates a `BaseModel`, attaches a `PsiteDensityHead`,
-wraps it with DDP, and launches the `SeqPretrainTrainer`.
+The following example runs on CPU, Apple MPS, or CUDA. Register the same count head
+used by the checkpoint before loading its weights.
 
 ```python
-import sys
-import os
+import contextlib
 import torch
-from torch.nn.parallel import DistributedDataParallel as DDP
-import torch.distributed as dist
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
 from model.base_model import BaseModel
 from model.prediction_heads import PsiteDensityHead
-from train.seq_pretrain import SeqPretrainTrainer
-from utils import print_param_counts
 
-rank = int(os.environ["LOCAL_RANK"])
-world_size = int(os.environ["WORLD_SIZE"])
-torch.cuda.set_device(rank)
-dist.init_process_group("nccl", rank=rank, world_size=world_size)
-torch.backends.cudnn.enabled = True
-torch.backends.cudnn.benchmark = True
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
 
-# ============================================================
-# dataset paths — edit these to point at your .h5 files
-# ============================================================
-dataset_dir = "/path/to/your/dataset/"
-
-human_train_dataset_path = os.path.join(dataset_dir, "human.train.h5")
-human_val_dataset_path   = os.path.join(dataset_dir, "human.valid.h5")
-
-# To add more species (macaque, mouse, ...), append extra .h5 paths
-# to the lists below:
-train_paths = [human_train_dataset_path]
-val_paths   = [human_val_dataset_path]
-
-# ============================================================
-# config & checkpoint paths — edit these
-# ============================================================
-config_path = os.path.join(os.path.dirname(__file__),
-                           "src/config/base_model_384d_16h_12l_64env_16ad.yaml")
-checkpoint_dir = "./checkpoints/seq_pretrain"
-log_dir        = "./logs/seq_pretrain"
-
-# ============================================================
-# model
-# ============================================================
-base_model = BaseModel.from_config(config_path).cuda(rank)
-
-base_model.add_head(
+model = BaseModel.from_config(
+    "src/config/base_model_384d_16h_12l_64env_16ad.yaml"
+)
+model.add_head(
     "count",
-    PsiteDensityHead.create_from_model(base_model, d_pred_h=384),
+    PsiteDensityHead.create_from_model(model, d_pred_h=384),
+)
+model.load_pretrained_weights(
+    "/path/to/pretrained.latest.pt",
+    strict=False,
+    map_location="cpu",
+)
+model.load_expression_dict(
+    torch.load("src/config/human_expression_dict.pt", map_location="cpu")
+)
+model.to(device)
+
+def inference_context():
+    if device.type == "cuda":
+        return torch.amp.autocast("cuda", dtype=torch.float16)
+    return contextlib.nullcontext()
+
+with inference_context():
+    prediction = model.predict(
+        seq_batch="AUGCCGAUGCAG",
+        species="human",
+        cell_type="HepG2",
+        head_names=["count"],
+    )
+
+profile = prediction["count"]
+print(profile.shape)
+```
+
+`predict()` accepts one RNA string, a list of strings, an `(L, 4)` array, or a
+batched `(B, L, 4)` tensor. A direct expression vector can replace `cell_type`:
+
+```python
+expression = model.cell_expr_dict["HepG2"]
+with inference_context():
+    prediction = model.predict(
+        seq_batch="AUGCCGAUGCAG",
+        species="human",
+        expr_vector=expression,
+        head_names=["count"],
+    )
+```
+
+For transcriptome FASTA files, use
+`model.translation_predictor.TranslationProfilePredictor`. It uses the same model
+interface and automatically disables CUDA autocast on CPU.
+
+### Test Case: Predict Translation Profiles from FASTA
+
+After loading `model` as shown above, provide one or more transcript FASTA files and
+select a cell type from the registered expression dictionary:
+
+```python
+from model.translation_predictor import TranslationProfilePredictor
+
+species = "human"
+cell_type = "liver"
+fasta_files = ["/path/to/transcriptome.fasta"]
+
+predictor = TranslationProfilePredictor(
+    model=model,
+    fasta_files=fasta_files,
+)
+
+cell_expression = model.cell_expr_dict[cell_type].cpu().numpy()
+output_path = predictor.run(
+    species=species,
+    cell_type=cell_type,
+    cell_expr_vector=cell_expression,
+    target_tids=None,
+    out_dir="results",
+    suffix="liver",
+    min_len=200,
+    max_len=10000,
+    batch_size=1,
+)
+
+print(f"Predictions saved to: {output_path}")
+```
+
+The output pickle has the following structure:
+
+```python
+{
+    "liver": {
+        "ENST00000335137": profile_array,  # shape: (sequence_length, 1)
+        "ENST00000448941": profile_array,
+    }
+}
+```
+
+## Build an expression dictionary from featureCounts
+
+`generate_cell_env_expr_array.py` recognizes gene IDs in the supplied cross-species
+mapping automatically. The user does not specify a species. Human, macaque, and
+mouse Ensembl gene IDs, with or without version suffixes, are mapped to the human
+anchor order in `src/config/global_anchor_gene_order.txt`.
+
+For gene-level featureCounts output:
+
+```bash
+python src/model/generate_cell_env_expr_array.py \
+  --counts_file /path/to/featureCounts.txt \
+  --ref_order src/config/global_anchor_gene_order.txt \
+  --mapping_json src/config/global_species_id_mapping.json \
+  --quant_level gene \
+  --output_pt expression_dict.pt
+```
+
+`--quant_level gene` is the default and may be omitted. For transcript-level input,
+provide a two-column transcript-to-gene table:
+
+```bash
+python src/model/generate_cell_env_expr_array.py \
+  --counts_file /path/to/transcript_featureCounts.txt \
+  --ref_order src/config/global_anchor_gene_order.txt \
+  --mapping_json src/config/global_species_id_mapping.json \
+  --quant_level transcript \
+  --tx2gene /path/to/tx2gene.tsv \
+  --output_pt expression_dict.pt
+```
+
+The output is `{sample_name: tensor}`. Every tensor has the same length and order as
+the human anchor-gene list. The command prints the detected ID namespaces and mapping
+coverage; very low coverage usually means the wrong ID type or a heavily filtered
+count matrix was supplied.
+
+## Model training
+
+Edit the experiment configuration at the top of `run.train_seq.py`, including
+dataset paths, output directories, batch size, learning rate, and epoch count. The
+essential Python workflow is:
+
+```python
+import torch
+
+from model.base_model import BaseModel
+from model.prediction_heads import PsiteDensityHead
+from train.model_trainer_seq import Trainer
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+train_paths = [
+    "/path/to/dataset/human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "/path/to/dataset/human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "/path/to/dataset/human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "/path/to/dataset/macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "/path/to/dataset/mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+]
+valid_paths = [
+    "/path/to/dataset/human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "/path/to/dataset/human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "/path/to/dataset/human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "/path/to/dataset/macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "/path/to/dataset/mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+]
+
+model = BaseModel.from_config(
+    "src/config/base_model_384d_16h_12l_64env_16ad.yaml"
+)
+model.add_head(
+    "count",
+    PsiteDensityHead.create_from_model(model, d_pred_h=384),
     overwrite=True,
 )
-print(base_model.model_name)
-print(base_model.list_heads())
-print_param_counts(base_model)
+model.to(device)
 
-# DDP
-base_model = DDP(base_model, device_ids=[rank], output_device=rank)
-
-# ============================================================
-# trainer
-# ============================================================
-trainer = SeqPretrainTrainer(
-    model=base_model,
+trainer = Trainer(
+    model=model,
     dataset_paths=train_paths,
-    val_dataset_paths=val_paths,
-    dataset_name="seq_pretrain",
+    val_dataset_paths=valid_paths,
+    dataset_name="hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1",
     batch_size=50,
-    checkpoint_dir=checkpoint_dir,
-    log_dir=log_dir,
-    world_size=world_size,
-    rank=rank,
+    checkpoint_dir="checkpoint/train_seq",
+    log_dir="log/train_seq",
+    world_size=1,
+    rank=0,
     resume=True,
     save_every=1,
     epoch_num=60,
+    patience=8,
     mask_perc={"species": 0.1, "cell": 0.1},
     expr_noise_std=0.1,
-    learning_rate=0.001,
+    learning_rate=1e-3,
     lr_warmup_perc=0.3,
     accumulation_steps=1,
     balance_classes=True,
@@ -265,163 +390,46 @@ trainer = SeqPretrainTrainer(
     epsilon=1e-9,
     weight_decay=0.01,
 )
-trainer.pretrain()
-
-dist.destroy_process_group()
+trainer.fit()
 ```
 
-**Key hyperparameters:**
+The provided launcher supports one GPU or multiple GPUs on one machine. Multi-node
+training is intentionally not supported. After editing its configuration section,
+run it directly on one GPU:
 
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `epoch_num` | 60 | Total training epochs |
-| `batch_size` | 50 | Per-GPU batch size |
-| `learning_rate` | 1e-3 | Peak LR (cosine decay with warmup) |
-| `lr_warmup_perc` | 0.3 | Fraction of steps for linear warmup |
-| `accumulation_steps` | 1 | Gradient accumulation steps |
-| `mask_perc` | `{"species": 0.1, "cell": 0.1}` | Randomly mask species/cell-type context |
-| `expr_noise_std` | 0.1 | Gaussian noise injected into expression vectors |
-| `weight_decay` | 0.01 | AdamW weight decay |
-| `balance_classes` | True | Bucket-sampler balances cell types |
-
-The trainer callbacks include early stopping (patience=8), periodic checkpoint
-saving, and JSON logging of per-epoch losses.
-
-## Inference
-
-TRACE predicts the translatome purely from transcriptome — only RNA sequence and cellular context are needed.
-
-```python
-from model.translation_base_model import TranslationBaseModel
-from model.mask_heads import TranslationProfileHead
-
-# Load model
-model = TranslationBaseModel.from_config("config.yaml")
-model.add_head("count", TranslationProfileHead.create_from_model(model))
-model.load_pretrained_weights("checkpoint.pt")
-
-# Predict — decode transcriptome into translatome
-result = model.predict(
-    seq_batch=seq_array,        # (seq_len, 4) or (bs, seq_len, 4)
-    count_batch=None,           # Not needed at deployment (auto-filled with zeros)
-    species="human",
-    cell_type="heart",          # or expr_vector=torch.Tensor
-    head_names=["count"]
-)
+```bash
+python run.train_seq.py
 ```
 
-## Quick Start / Test Case
+For multiple GPUs on one machine, use `torchrun` without additional command-line
+arguments:
 
-The following example demonstrates how to run a full inference pipeline: load a pretrained model and expression dictionary, provide a transcriptome FASTA file, and predict per-position ribosome density profiles.
-
-### Data Structure
-
-The pre-built expression dictionaries in `config/{species}_expression_dict.pt` have the following structure:
-
-```
-{
-    "cell_type_name_1": torch.Tensor(shape=(d_expr=16839,), dtype=float16),   # Z-scored expression values
-    "cell_type_name_2": torch.Tensor(shape=(d_expr=16839,), dtype=float16),   # aligned to global_anchor_gene_order.txt
-    ...
-}
+```bash
+torchrun --standalone --nproc_per_node=4 run.train_seq.py
 ```
 
-Each tensor is a dense Z-score vector following the global anchor gene order (`config/global_anchor_gene_order.txt`), where the position in the tensor corresponds to a specific ortholog anchor gene. The model loads these via `model.load_expression_dict()`.
+The trainer prints and records the decomposed count loss:
 
-### Test Case: Predict Translation Profiles from FASTA
+- `micro`: token-level profile loss;
+- `macro`: frame-aware CDS mean loss;
+- `ranking`: pairwise CDS-level ranking loss;
+- `total = micro + 4 * macro + 0.2 * ranking`.
 
-```python
-import torch
-from model.translation_base_model import TranslationBaseModel
-from model.mask_heads import TranslationProfileHead
-from model.translation_predictor import TranslationProfilePredictor
+Checkpoints use the keys `model`, `optimizer`, `scheduler`, and `scaler`. Resume loads
+the model using the current unwrapped model's map location.
 
-# ==========================================
-# Step 1: Load Model
-# ==========================================
-# Load base model from a YAML config (adjust path as needed)
-base_model = TranslationBaseModel.from_config(
-    "config/base_model_expr_384d_16h_12l_128env_32ad.yaml"
-)
-base_model.add_head(
-    "count",
-    TranslationProfileHead.create_from_model(base_model, d_pred_h=384),
-    overwrite=True,
-)
-base_model.load_pretrained_weights("/path/to/pretrained_checkpoint.pt")
+## Troubleshooting
 
-# ==========================================
-# Step 2: Load Cell Environment Expression Vectors
-# ==========================================
-species = "human"  # or "macaque", "mouse"
-expr_dict_path = f"config/{species}_expression_dict.pt"
-expr_dict = torch.load(expr_dict_path, map_location="cpu")
-
-# Register expression profiles into the model
-base_model.load_expression_dict(expr_dict)
-
-print(f"Loaded {len(base_model.cell_expr_dict)} cell types for {species}.")
-# Example: base_model.cell_expr_dict keys might include
-# "heart", "liver", "brain", "HepG2", "K562", etc.
-
-# ==========================================
-# Step 3: Prepare FASTA Input
-# ==========================================
-# Provide one or more FASTA files containing transcript sequences
-fasta_files = ["/path/to/transcriptome.fasta"]
-
-# Optional: filter to specific transcript IDs (e.g., from RNA-seq TPM analysis)
-target_tids = ["ENST00000335137", "ENST00000448941"]  # or load from get_active_transcripts()
-
-# ==========================================
-# Step 4: Initialize Predictor and Run
-# ==========================================
-predictor = TranslationProfilePredictor(
-    model=base_model,
-    fasta_files=fasta_files,
-)
-
-# Select a cell type to predict in
-cell_type = "heart"  # must be a key in expr_dict
-
-# Get the expression vector for this cell type
-cell_expr_vector = base_model.cell_expr_dict[cell_type].numpy()
-
-# Run prediction
-output_path = predictor.run(
-    species=species,
-    cell_type=cell_type,
-    cell_expr_vector=cell_expr_vector,
-    target_tids=target_tids,      # optional: predict only specific transcripts
-    out_dir="./results",
-    suffix="heart_test",
-    min_len=200,
-    max_len=20000,
-    batch_size=32,
-)
-
-print(f"Predictions saved to: {output_path}")
-```
-
-### Output
-
-The prediction is saved as a pickle (`.pkl`) file containing a dictionary:
-
-```python
-{
-    "cell_type_name": {
-        "ENST00000335137": np.ndarray(shape=(seq_len, 1), dtype=float16),  # per-position RPF density
-        "ENST00000448941": np.ndarray(shape=(seq_len, 1), dtype=float16),  # per-position RPF density
-        ...
-    }
-}
-```
-
-Each entry maps a transcript ID → a 1D per-nucleotide ribosome density profile (float16) of the same length as the transcript sequence.
-
+- `ModuleNotFoundError: model`: run from the repository root and export
+  `PYTHONPATH="$PWD/src:${PYTHONPATH}"`.
+- CPU inference tries to import FlashAttention: make sure `flash-attn` is not required
+  by a custom environment; it is optional in the supplied dependency files.
+- Expression vector dimension error: the model config and expression dictionary must
+  use the same `d_expr`, normally 16,840.
+- Near-zero expression mapping coverage: inspect the cleaned input IDs and use gene
+  IDs, not transcript IDs, unless `--quant_level transcript --tx2gene ...` is set.
 
 ## Citation
-If you use this code, please cite:
 
 ```bibtex
 @article{trace2026,
@@ -433,4 +441,5 @@ If you use this code, please cite:
 
 ## License
 
-This project is licensed for academic research use. Contact the author for commercial licensing.
+This project is licensed for academic research use. Contact the author for commercial
+licensing.

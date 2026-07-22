@@ -54,9 +54,9 @@ def default_no_weight_decay(name: str) -> bool:
     return False
 
 
-class PretrainingTrainer:
+class Trainer:
     """
-    Pretraining trainer class with Continuous Expression Vector Support and Noise Injection.
+    Model trainer with continuous expression vector support and noise injection.
     """
     def __init__(
         self,
@@ -105,8 +105,12 @@ class PretrainingTrainer:
         self._print_progress_every = print_progress_every
         self._save_every = save_every
 
-        # device for this process
-        self.device = torch.device(f"cuda:{rank}") if torch.cuda.is_available() else torch.device("cpu")
+        # Derive the process device from the model instead of assuming rank == GPU index.
+        model_unwrapped = unwrap_model(model)
+        try:
+            self.device = next(model_unwrapped.parameters()).device
+        except StopIteration:
+            self.device = torch.device("cpu")
 
         # masking and sampler (reuse user's adapters)
         self.masking_adapter = BatchMaskingAdapter(mask_value)
@@ -338,10 +342,13 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
         if os.path.isfile(latest):
             if self.rank == 0:
                 print(f"[Trainer] Loading checkpoint {latest}")
-            map_loc = "cuda" if torch.cuda.is_available() else "cpu"
-            ckpt = torch.load(latest, map_location=map_loc)
-            # restore model weights into unwrapped model
             model_unwrapped = unwrap_model(self.model)
+            try:
+                map_loc = next(model_unwrapped.parameters()).device
+            except StopIteration:
+                map_loc = self.device
+            ckpt = torch.load(latest, map_location=map_loc)
+            # Restore model weights into the current unwrapped model.
             sd = model_unwrapped._strip_head_module_prefix(ckpt["model"])
             model_unwrapped.load_state_dict(sd, strict=False)
             self.start_epoch = int(ckpt.get("epoch", 0))
@@ -620,6 +627,7 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
         batch_num = len(dataloader)
         start_time = time.time()
         self.sampler.set_epoch(epoch) 
+        self.optimizer.zero_grad(set_to_none=True)
 
         if self.rank == 0:
             pbar = tqdm(total = batch_num, desc=f"Epoch {epoch+1} train")
@@ -647,24 +655,27 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
                 noise = torch.randn_like(expr_batch, dtype=torch.float32) * self.expr_noise_std
                 expr_batch = expr_batch + noise.to(expr_batch.dtype)
 
-            with self._amp_context():
-                # Pass the dynamically generated expr_vector to the model
-                outputs = self.model(
-                    seq_batch=seq_embs_padded, 
-                    count_batch=count_embs_masked, 
-                    species=species_list,
-                    expr_vector=expr_batch,      # Feed continuous tensor directly
-                    src_mask=pad_masks, 
-                    head_names=["count"]
-                )
-                
-                loss = self.count_task_criterion(outputs, count_embs_padded, count_emb_masks, cds_masks, is_eval=False)
-                acc_loss = loss / self.ac_steps
-
             do_sync = ((batch_idx + 1) % self.ac_steps == 0) or ((batch_idx + 1) == batch_num)
-
             context = (self.model.no_sync() if not do_sync and hasattr(self.model, "no_sync") else contextlib.nullcontext())
             with context:
+                with self._amp_context():
+                    # Pass the dynamically generated expr_vector to the model.
+                    outputs = self.model(
+                        seq_batch=seq_embs_padded,
+                        count_batch=count_embs_masked,
+                        species=species_list,
+                        expr_vector=expr_batch,
+                        src_mask=pad_masks,
+                        head_names=["count"],
+                    )
+                    loss = self.count_task_criterion(
+                        outputs,
+                        count_embs_padded,
+                        count_emb_masks,
+                        cds_masks,
+                        is_eval=False,
+                    )
+                    acc_loss = loss / self.ac_steps
                 self.scaler.scale(acc_loss).backward()
 
             if do_sync:
@@ -674,7 +685,7 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
                 self.scaler.step(self.optimizer)  # step optimizer and update scaler
                 self.scaler.update() 
                 self.scheduler.step()
-                self.optimizer.zero_grad() 
+                self.optimizer.zero_grad(set_to_none=True)
 
             total_loss += loss.detach()
             local_loss.append([float(loss)])
@@ -686,13 +697,17 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
         if self.rank == 0:
             pbar.close()
 
-        dist.all_reduce(total_loss, op=dist.ReduceOp.SUM) 
-        gathered_losses = [None for _ in range(self.world_size)]
-        dist.all_gather_object(gathered_losses, local_loss)
+        if dist.is_available() and dist.is_initialized():
+            dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
+            gathered_losses = [None for _ in range(self.world_size)]
+            dist.all_gather_object(gathered_losses, local_loss)
+        else:
+            gathered_losses = [local_loss]
         mean_epoch_losses = total_loss/float(batch_num * self.world_size)
         
         end_time = time.time()
-        print(f'Epoch {epoch+1} training time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
+        if self.rank == 0:
+            print(f'Epoch {epoch+1} training time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
 
         return mean_epoch_losses, gathered_losses
     
@@ -754,23 +769,27 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
         if self.rank == 0:
             pbar.close()
 
-        dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
-        gathered_losses = [None for _ in range(self.world_size)]
-        dist.all_gather_object(gathered_losses, local_loss)
+        if dist.is_available() and dist.is_initialized():
+            dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
+            gathered_losses = [None for _ in range(self.world_size)]
+            dist.all_gather_object(gathered_losses, local_loss)
+        else:
+            gathered_losses = [local_loss]
         mean_epoch_losses = total_loss/float(batch_num * self.world_size)
 
         end_time = time.time()
-        print(f'Epoch {epoch+1} evaluating time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
+        if self.rank == 0:
+            print(f'Epoch {epoch+1} evaluating time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
 
         return mean_epoch_losses, gathered_losses
     
 
     # -------------------------
-    # orchestrate pretraining
+    # orchestrate training
     # -------------------------
-    def pretrain(self):
+    def fit(self):
         """
-        Main training loop orchestrator. Iterates epochs, runs train/eval,
+        Main training loop. Iterates epochs, runs train/eval,
         saves checkpoints and logs losses.
         """
         start_epoch = int(self.start_epoch)

@@ -290,7 +290,7 @@ class TERegressionHead(nn.Module):
       2. MLP: Linear → GELU → Dropout → Linear → scalar TE
 
     This head is designed for fine-tuning on top of a frozen or LoRA-adapted
-    pretrained TranslationBaseModel.  The TE target comes from dataset meta_info
+    pretrained BaseModel. The TE target comes from dataset meta_info
     (``te_scale``, range roughly [-2, 2]).
 
     Parameters
@@ -307,7 +307,7 @@ class TERegressionHead(nn.Module):
     def __init__(
         self,
         d_model: int,
-        d_pred_h: int | None = None,
+        d_pred_h: Optional[int] = None,
         p_drop: float = 0.1,
     ):
         super().__init__()
@@ -338,7 +338,7 @@ class TERegressionHead(nn.Module):
     def forward(
         self,
         src_reps: torch.Tensor,
-        src_mask: torch.Tensor | None = None,
+        src_mask: Optional[torch.Tensor] = None,
         **kwargs,
     ) -> torch.Tensor:
         """
@@ -370,12 +370,12 @@ class TERegressionHead(nn.Module):
     def create_from_model(
         cls,
         parent_model: object,
-        d_model: int | None = None,
-        d_pred_h: int | None = None,
+        d_model: Optional[int] = None,
+        d_pred_h: Optional[int] = None,
         p_drop: float = 0.1,
     ) -> "TERegressionHead":
         """
-        Factory that infers d_model from an existing TranslationBaseModel.
+        Factory that infers d_model from an existing BaseModel.
         """
         if d_model is None:
             if hasattr(parent_model, "d_model"):

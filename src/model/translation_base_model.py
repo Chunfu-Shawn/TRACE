@@ -176,9 +176,9 @@ class TranslationBaseModel(nn.Module):
     # -------------------------
     # map_location helper
     # -------------------------
-    @staticmethod
-    def _default_map_location():
-        return "cuda" if torch.cuda.is_available() else "cpu"
+    def _default_map_location(self):
+        """Return the device that currently owns this model's parameters."""
+        return self.device
 
     # -------------------------
     # checkpoint backward compatibility
@@ -625,6 +625,31 @@ class TranslationBaseModel(nn.Module):
     # -------------------------
     # predict: flexible, preprocess & call forward
     # -------------------------
+    @staticmethod
+    def encode_sequence(seq):
+        """Convert RNA string(s) to one-hot numpy array(s).
+
+        str -> (L, 4)
+        list/tuple of str -> (B, L_max, 4)  zero-padded to max length
+        """
+        nt = {"A":0,"C":1,"G":2,"T":3,"U":3}
+        if isinstance(seq, str):
+            if not seq:
+                raise ValueError("RNA sequence must not be empty")
+            idx = [nt.get(c.upper(),4) for c in seq]
+            return np.eye(5,dtype=np.float32)[idx,:4]
+        if isinstance(seq, (list,tuple)):
+            if not seq:
+                raise ValueError("Expected a non-empty list or tuple of sequences")
+            encoded = [TranslationBaseModel.encode_sequence(s) for s in seq]
+            max_len = max(e.shape[0] for e in encoded)
+            padded = np.zeros((len(encoded),max_len,4),dtype=np.float32)
+            for i,e in enumerate(encoded):
+                padded[i,:e.shape[0],:] = e
+            return padded
+        raise TypeError(f"Expected str or list/tuple of str, got {type(seq)}")
+
+    # -------------------------
     def predict(
         self,
         seq_batch: Union[torch.Tensor, np.ndarray, list, tuple],
@@ -649,8 +674,22 @@ class TranslationBaseModel(nn.Module):
         self.eval()
         model_device = self.device
 
+        raw_sequence_lengths = None
+        if isinstance(seq_batch, (list, tuple)) and seq_batch and all(
+            isinstance(sequence, str) for sequence in seq_batch
+        ):
+            raw_sequence_lengths = [len(sequence) for sequence in seq_batch]
+        if isinstance(seq_batch, str) or raw_sequence_lengths is not None:
+            seq_batch = self.encode_sequence(seq_batch)
+        if src_mask is None and raw_sequence_lengths is not None:
+            positions = torch.arange(seq_batch.shape[1]).unsqueeze(0)
+            lengths = torch.tensor(raw_sequence_lengths).unsqueeze(1)
+            src_mask = positions < lengths
+
         # 2). normalize inputs and preserve whether user passed a single sample
         seq_batch, count_batch, src_mask, was_squeezed = self._normalize_model_inputs(seq_batch, count_batch, src_mask)
+        seq_batch = seq_batch.float()
+        count_batch = count_batch.float()
         bs = seq_batch.shape[0]
 
         # process expr_vector and cell_type
