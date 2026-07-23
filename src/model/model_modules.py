@@ -95,7 +95,11 @@ class AddAdaZeroLayerNorm(nn.Module):
             nn.SiLU(), 
             nn.Linear(adaptive_dim, d_model * 3)
         )
-        
+
+        self.reset_ada_zero_parameters()
+
+    def reset_ada_zero_parameters(self):
+        """Restore the zero-initialized modulation required by AdaLN-Zero."""
         nn.init.zeros_(self.adaLN_modulation[1].weight)
         nn.init.zeros_(self.adaLN_modulation[1].bias)
 
@@ -213,6 +217,11 @@ class AdaZeroEncoderLayer(nn.Module):
             self.multi_headed_attention = MultiHeadedAttention(d_model, heads, p_drop)
             
         self.ffn = PositionwiseFeedForward(d_model, d_ff)
+
+    def reset_ada_zero_parameters(self):
+        """Restore AdaLN-Zero gates after a model-wide initialization pass."""
+        for sublayer in self.sublayers:
+            sublayer.reset_ada_zero_parameters()
 
     def forward(self, src_reps, src_mask, compact_style):
         """

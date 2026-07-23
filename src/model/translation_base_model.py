@@ -168,6 +168,12 @@ class TranslationBaseModel(nn.Module):
                         if m.bias is not None:
                             nn.init.zeros_(m.bias)
 
+        # Model-wide Xavier initialization also visits AdaLN modulation layers.
+        # Restore their zero gates only after every generic initializer has run.
+        for m in self.modules():
+            if isinstance(m, AdaZeroEncoderLayer):
+                m.reset_ada_zero_parameters()
+
     @property
     def device(self):
         return self.mean_expr_vector.device

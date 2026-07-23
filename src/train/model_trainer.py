@@ -482,8 +482,9 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
             count_emb_masks: torch.Tensor,
             cds_masks: torch.Tensor,
             cds_weight_factor: float = 1.0,
-            is_eval: bool = False
-        ) -> torch.Tensor:
+            is_eval: bool = False,
+            return_components: bool = False,
+        ) -> Union[torch.Tensor, Tuple[torch.Tensor, Dict[str, torch.Tensor]]]:
         """
         Calculates the joint loss combining Token-level Micro Loss and Frame-aware Macro Loss.
         Operating purely in linear scale (No Log/ReLU transformation).
@@ -604,6 +605,19 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
         
         total_sample_loss = per_sample_micro_loss + alpha * per_sample_macro_loss
         loss = total_sample_loss.mean() + beta * ranking_loss
+
+        if return_components:
+            micro_loss = per_sample_micro_loss.mean()
+            macro_loss = per_sample_macro_loss.mean()
+            components = {
+                "total": loss.detach(),
+                "micro": micro_loss.detach(),
+                "macro": macro_loss.detach(),
+                "macro_weighted": (alpha * macro_loss).detach(),
+                "ranking": ranking_loss.detach(),
+                "ranking_weighted": (beta * ranking_loss).detach(),
+            }
+            return loss, components
 
         return loss
 
