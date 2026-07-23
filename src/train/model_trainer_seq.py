@@ -13,6 +13,7 @@ import torch.nn.functional as F
 from torch.utils.data import ConcatDataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
 from tqdm import tqdm
+from scipy.stats import spearmanr
 
 from utils import unwrap_model
 from data.translation_dataset import TranslationDataset
@@ -73,6 +74,9 @@ class Trainer:
         save_every: int = 5,
         epoch_num: int = 100,
         patience: int = 8,
+        early_stopping_start_epoch: Union[int, None] = None,
+        alpha_limit: Tuple[float, float] = (0.2, 4.0),
+        ranking_loss_weight: float = 0.2,
         mask_perc: dict = {"species": 0.15, "cell": 0.15},
         expr_noise_std: float = 0.1,
         learning_rate: float = 1e-5,
@@ -93,6 +97,9 @@ class Trainer:
         self.epoch_num = epoch_num
         self.patience = patience
         self.patience_counter = 0
+        self.alpha_limit = (float(min(alpha_limit)), float(max(alpha_limit)))
+        self.current_alpha = self.alpha_limit[0]
+        self.ranking_loss_weight = float(ranking_loss_weight)
         self.ac_steps = accumulation_steps
         self.lr = learning_rate
         self.lr_warmup_perc = lr_warmup_perc
@@ -125,6 +132,11 @@ class Trainer:
         # counts and scheduling
         self.steps_per_epoch = len(self.sampler)  # per-process mini-batches per epoch
         self._total_steps = max(1, int(self.epoch_num * self.steps_per_epoch // max(1, self.ac_steps)))
+        self.warmup_epochs = max(0, math.floor(self.epoch_num * self.lr_warmup_perc))
+        if early_stopping_start_epoch is None:
+            self.early_stopping_start_epoch = max(1, self.warmup_epochs + 1)
+        else:
+            self.early_stopping_start_epoch = max(1, int(early_stopping_start_epoch))
         
         # loss criterions
         self.dynamics_criterion = nn.SmoothL1Loss(reduction="none", beta=1)  #nn.MSELoss(reduction="none")
@@ -152,6 +164,8 @@ class Trainer:
         # bookkeeping for resume
         self.start_epoch = 0
         self.best_val_loss = float('inf')
+        self.best_profile_spearman = float('-inf')
+        self.best_scale_spearman = float('-inf')
         if self.resume:
             self._maybe_load_checkpoint()
 
@@ -159,6 +173,11 @@ class Trainer:
             print(f"[Trainer] model_trainer_name={self.model_full_name}")
             print(f"[Trainer] device={self.device}, steps_per_epoch={self.steps_per_epoch}, total_steps={self._total_steps}")
             print(f"[Trainer] mask_perc={self.mask_perc}")
+            print(
+                f"[Trainer] alpha curriculum={self.alpha_limit[0]:.3f}->{self.alpha_limit[1]:.3f} "
+                f"over {self.warmup_epochs} warmup epochs; validation alpha={self.alpha_limit[1]:.3f}"
+            )
+            print(f"[Trainer] early stopping starts at epoch {self.early_stopping_start_epoch}")
             print(f"[Trainer] Train Datasets: {len(self.dataset)} samples. Eval Datasets: {len(self.val_dataset)} samples.")
 
     def _to_device(self, tensor: torch.Tensor) -> torch.Tensor:
@@ -300,17 +319,25 @@ class Trainer:
     # -------------------------
     # checkpoint helpers
     # -------------------------
-    def _checkpoint_paths(self) -> Tuple[str, str]:
-        latest = os.path.join(self.checkpoint_dir, self.model_full_name + ".latest.pt")
-        best = os.path.join(self.checkpoint_dir, self.model_full_name + ".best.pt")
-        return latest, best
+    def _checkpoint_paths(self) -> Dict[str, str]:
+        prefix = os.path.join(self.checkpoint_dir, self.model_full_name)
+        return {
+            "latest": prefix + ".latest.pt",
+            "total": prefix + ".best_total.pt",
+            "profile": prefix + ".best_profile.pt",
+            "scale": prefix + ".best_scale.pt",
+        }
 
-    def save_checkpoint(self, epoch: int, is_best: bool):
+    def save_checkpoint(self, epoch: int, best_kinds: Tuple[str, ...] = ()):
         """
-        Save the unwrapped model state_dict, optimizer, scheduler, scaler and bookkeeping.
+        Save the latest state and independently update requested best checkpoints.
         Only rank 0 should call this or it will save multiple times.
         """
-        latest, best = self._checkpoint_paths()
+        paths = self._checkpoint_paths()
+        invalid_kinds = set(best_kinds) - {"total", "profile", "scale"}
+        if invalid_kinds:
+            raise ValueError(f"Unknown best checkpoint kinds: {sorted(invalid_kinds)}")
+
         state = {
             "epoch": epoch,
             "model": unwrap_model(self.model).state_dict(),
@@ -318,20 +345,25 @@ class Trainer:
             "scheduler": self.scheduler.state_dict() if self.scheduler is not None else None,
             "scaler": self.scaler.state_dict(),
             "best_val_loss": self.best_val_loss,
+            "best_profile_spearman": self.best_profile_spearman,
+            "best_scale_spearman": self.best_scale_spearman,
+            "patience_counter": self.patience_counter,
+            "current_alpha": self.current_alpha,
             "training_epoch_data": self.training_epoch_data,
             "training_batch_data": self.training_batch_data,
         }
-        torch.save(state, latest)
-        if is_best:
-            torch.save(state, best)
+        torch.save(state, paths["latest"])
+        for kind in best_kinds:
+            torch.save(state, paths[kind])
         if self.rank == 0:
-            print(f"[Trainer] Saved checkpoint to {latest} (best={is_best})")
+            best_text = ", ".join(best_kinds) if best_kinds else "none"
+            print(f"[Trainer] Saved checkpoint to {paths['latest']} (updated best: {best_text})")
 
     def _maybe_load_checkpoint(self):
         """
         Try to load the latest checkpoint if it exists.
         """
-        latest, _ = self._checkpoint_paths()
+        latest = self._checkpoint_paths()["latest"]
         if os.path.isfile(latest):
             if self.rank == 0:
                 print(f"[Trainer] Loading checkpoint {latest}")
@@ -348,6 +380,15 @@ class Trainer:
                 self.best_val_loss = float(bvl.sum().item())
             else:
                 self.best_val_loss = bvl
+
+            self.best_profile_spearman = float(
+                ckpt.get("best_profile_spearman", float('-inf'))
+            )
+            self.best_scale_spearman = float(
+                ckpt.get("best_scale_spearman", float('-inf'))
+            )
+            self.patience_counter = int(ckpt.get("patience_counter", 0))
+            self.current_alpha = float(ckpt.get("current_alpha", self.current_alpha))
 
             # attempt to restore optimizer/scheduler/scaler if present
             try:
@@ -376,8 +417,9 @@ class Trainer:
         Receives expr_vectors directly from the dataset.
         """
         # Unpack matching TranslationDataset.__getitem__ outputs
-        _, species, cell_types, expr_vectors, meta_info, seq_embs, count_embs = zip(*batch)
+        sample_ids, species, cell_types, expr_vectors, meta_info, seq_embs, count_embs = zip(*batch)
 
+        sample_ids = list(sample_ids)
         species_list = list(species)
         cell_types = list(cell_types)
         expr_batch = torch.stack(expr_vectors) # [B, d_expr]
@@ -438,6 +480,7 @@ class Trainer:
                 cds_masks[i, :] = True
 
         return (
+            sample_ids,
             species_list,
             cell_types,
             cell_mask,
@@ -573,8 +616,8 @@ class Trainer:
         # ==========================================
         # 4. Fusion
         # ==========================================
-        alpha = 4.0
-        beta = 0.2
+        alpha = self.alpha_limit[1] if is_eval else self.current_alpha
+        beta = self.ranking_loss_weight
         
         total_sample_loss = per_sample_micro_loss + alpha * per_sample_macro_loss
         loss = total_sample_loss.mean() + beta * ranking_loss
@@ -589,6 +632,8 @@ class Trainer:
                 "macro_weighted": (alpha * macro_loss).detach(),
                 "ranking": ranking_loss.detach(),
                 "ranking_weighted": (beta * ranking_loss).detach(),
+                "alpha": torch.tensor(alpha, device=device),
+                "ranking_weight": torch.tensor(beta, device=device),
             }
             return loss, components
 
@@ -621,7 +666,7 @@ class Trainer:
 
         for batch_idx, batch_data in enumerate(dataloader):
             # Unpack the batch
-            species_list, _, _, expr_batch, \
+            _, species_list, _, _, expr_batch, \
             seq_embs_padded, count_embs_padded, cds_masks, pad_masks = batch_data
 
             expr_batch = self._to_device(expr_batch)
@@ -682,9 +727,9 @@ class Trainer:
                     f"total={loss_components['total'].item():.6f}, "
                     f"micro={loss_components['micro'].item():.6f}, "
                     f"macro={loss_components['macro'].item():.6f} "
-                    f"(x4={loss_components['macro_weighted'].item():.6f}), "
+                    f"(x{self.current_alpha:.3f}={loss_components['macro_weighted'].item():.6f}), "
                     f"ranking={loss_components['ranking'].item():.6f} "
-                    f"(x0.2={loss_components['ranking_weighted'].item():.6f})"
+                    f"(x{self.ranking_loss_weight:g}={loss_components['ranking_weighted'].item():.6f})"
                 )
 
         if self.rank == 0:
@@ -703,9 +748,123 @@ class Trainer:
             print(f'Epoch {epoch+1} training time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
 
         return mean_epoch_losses, gathered_losses
-    
 
-    def eval_epoch(self, epoch: int) -> Tuple[torch.Tensor, List]:
+    @staticmethod
+    def _safe_spearman(x: np.ndarray, y: np.ndarray) -> float:
+        """Return a finite tie-aware Spearman correlation or NaN if undefined."""
+        x = np.asarray(x, dtype=np.float64).reshape(-1)
+        y = np.asarray(y, dtype=np.float64).reshape(-1)
+        finite = np.isfinite(x) & np.isfinite(y)
+        x = x[finite]
+        y = y[finite]
+        if x.size < 2 or np.all(x == x[0]) or np.all(y == y[0]):
+            return float("nan")
+        correlation = float(spearmanr(x, y)[0])
+        return correlation if math.isfinite(correlation) else float("nan")
+
+    @classmethod
+    def _profile_spearman(cls, prediction: np.ndarray, target: np.ndarray) -> float:
+        """Score constant predictions as zero while excluding constant targets."""
+        prediction = np.asarray(prediction, dtype=np.float64).reshape(-1)
+        target = np.asarray(target, dtype=np.float64).reshape(-1)
+        finite = np.isfinite(prediction) & np.isfinite(target)
+        prediction = prediction[finite]
+        target = target[finite]
+        if target.size < 2 or np.all(target == target[0]):
+            return float("nan")
+        if np.all(prediction == prediction[0]):
+            return 0.0
+        return cls._safe_spearman(prediction, target)
+
+    def _validation_metric_records(
+        self,
+        sample_ids: List[str],
+        species_list: List[str],
+        cell_types: List[str],
+        outputs: Dict[str, torch.Tensor],
+        targets: torch.Tensor,
+        pad_masks: torch.Tensor,
+        cds_masks: torch.Tensor,
+    ) -> List[Dict[str, Any]]:
+        """Calculate per-RNA profile correlation and CDS mean values for aggregation."""
+        pred = outputs["count"].detach().float()
+        targets = targets.detach().float()
+        if pred.shape[-1] == 1:
+            pred_values = pred.squeeze(-1)
+            target_values = targets.squeeze(-1)
+        else:
+            pred_values = pred.sum(dim=-1)
+            target_values = targets.sum(dim=-1)
+
+        pred_values = pred_values.cpu().numpy()
+        target_values = target_values.cpu().numpy()
+        pad_values = pad_masks.detach().cpu().numpy().astype(bool)
+        cds_values = cds_masks.detach().cpu().numpy().astype(bool)
+
+        records = []
+        for idx, sample_id in enumerate(sample_ids):
+            profile_mask = pad_values[idx]
+            profile_spearman = self._profile_spearman(
+                pred_values[idx, profile_mask],
+                target_values[idx, profile_mask],
+            )
+
+            cds_eval_mask = profile_mask & cds_values[idx]
+            if cds_eval_mask.any():
+                pred_cds_mean = float(pred_values[idx, cds_eval_mask].mean())
+                target_cds_mean = float(target_values[idx, cds_eval_mask].mean())
+            else:
+                pred_cds_mean = float("nan")
+                target_cds_mean = float("nan")
+
+            records.append(
+                {
+                    "sample_key": f"{species_list[idx]}\x1f{cell_types[idx]}\x1f{sample_id}",
+                    "profile_spearman": profile_spearman,
+                    "pred_cds_mean": pred_cds_mean,
+                    "target_cds_mean": target_cds_mean,
+                }
+            )
+        return records
+
+    def _aggregate_validation_metrics(
+        self,
+        gathered_records: List[List[Dict[str, Any]]],
+    ) -> Dict[str, Union[float, int]]:
+        """Deduplicate distributed padding samples and aggregate validation metrics."""
+        unique_records = {}
+        for rank_records in gathered_records:
+            for record in rank_records:
+                unique_records.setdefault(record["sample_key"], record)
+
+        records = list(unique_records.values())
+        profile_values = np.asarray(
+            [record["profile_spearman"] for record in records], dtype=np.float64
+        )
+        valid_profile = np.isfinite(profile_values)
+        profile_spearman = (
+            float(profile_values[valid_profile].mean())
+            if valid_profile.any()
+            else float("nan")
+        )
+
+        pred_cds_means = np.asarray(
+            [record["pred_cds_mean"] for record in records], dtype=np.float64
+        )
+        target_cds_means = np.asarray(
+            [record["target_cds_mean"] for record in records], dtype=np.float64
+        )
+        scale_spearman = self._safe_spearman(pred_cds_means, target_cds_means)
+
+        return {
+            "profile_spearman": profile_spearman,
+            "profile_spearman_n": int(valid_profile.sum()),
+            "validation_rna_n": len(records),
+            "scale_spearman": scale_spearman,
+        }
+
+
+    def eval_epoch(self, epoch: int) -> Tuple[torch.Tensor, List, Dict[str, Union[float, int]]]:
         self.model.eval() 
         val_loader = DataLoader(
             self.val_dataset, 
@@ -718,6 +877,7 @@ class Trainer:
         )
         total_loss = torch.zeros(1).to(self.device)
         local_loss = []
+        local_metric_records = []
         batch_num = len(val_loader)
         start_time = time.time()
         self.val_sampler.set_epoch(epoch) 
@@ -728,7 +888,7 @@ class Trainer:
         with torch.no_grad():
             for batch_idx, batch_data in enumerate(val_loader):
                 
-                species_list, _, _, expr_batch, \
+                sample_ids, species_list, cell_types, _, expr_batch, \
                 seq_embs_padded, count_embs_padded, cds_masks, pad_masks = batch_data
 
                 expr_batch = self._to_device(expr_batch)
@@ -757,6 +917,17 @@ class Trainer:
 
                 total_loss += loss.detach()
                 local_loss.append({name: float(value) for name, value in loss_components.items()})
+                local_metric_records.extend(
+                    self._validation_metric_records(
+                        sample_ids,
+                        species_list,
+                        cell_types,
+                        outputs,
+                        count_embs_padded,
+                        pad_masks,
+                        cds_masks,
+                    )
+                )
 
                 if self.rank == 0 and (batch_idx + 1) % self._print_progress_every == 0:
                     pbar.update(self._print_progress_every) 
@@ -765,9 +936,9 @@ class Trainer:
                         f"total={loss_components['total'].item():.6f}, "
                         f"micro={loss_components['micro'].item():.6f}, "
                         f"macro={loss_components['macro'].item():.6f} "
-                        f"(x4={loss_components['macro_weighted'].item():.6f}), "
+                        f"(x{self.alpha_limit[1]:g}={loss_components['macro_weighted'].item():.6f}), "
                         f"ranking={loss_components['ranking'].item():.6f} "
-                        f"(x0.2={loss_components['ranking_weighted'].item():.6f})"
+                        f"(x{self.ranking_loss_weight:g}={loss_components['ranking_weighted'].item():.6f})"
                     )
 
         if self.rank == 0:
@@ -777,15 +948,25 @@ class Trainer:
             dist.all_reduce(total_loss, op=dist.ReduceOp.SUM)
             gathered_losses = [None for _ in range(self.world_size)]
             dist.all_gather_object(gathered_losses, local_loss)
+            gathered_metric_records = [None for _ in range(self.world_size)]
+            dist.all_gather_object(gathered_metric_records, local_metric_records)
         else:
             gathered_losses = [local_loss]
+            gathered_metric_records = [local_metric_records]
         mean_epoch_losses = total_loss/float(batch_num * self.world_size)
+        validation_metrics = self._aggregate_validation_metrics(gathered_metric_records)
 
         end_time = time.time()
         if self.rank == 0:
             print(f'Epoch {epoch+1} evaluating time: {end_time - start_time} seconds, mean loss: {mean_epoch_losses}')
+            print(
+                f"Epoch {epoch+1} validation metrics: "
+                f"profile Spearman={validation_metrics['profile_spearman']:.6f} "
+                f"({validation_metrics['profile_spearman_n']}/{validation_metrics['validation_rna_n']} RNAs), "
+                f"CDS-mean scale Spearman={validation_metrics['scale_spearman']:.6f}"
+            )
 
-        return mean_epoch_losses, gathered_losses
+        return mean_epoch_losses, gathered_losses, validation_metrics
     
 
     # -------------------------
@@ -798,33 +979,95 @@ class Trainer:
         """
         start_epoch = int(self.start_epoch)
         for epoch in range(start_epoch, self.epoch_num):
+            if epoch < self.warmup_epochs:
+                progress = epoch / max(1, self.warmup_epochs)
+                self.current_alpha = (
+                    self.alpha_limit[0]
+                    + progress * (self.alpha_limit[1] - self.alpha_limit[0])
+                )
+            else:
+                self.current_alpha = self.alpha_limit[1]
+
             if self.rank == 0:
                 print(f"[Trainer] === Starting epoch {epoch+1}/{self.epoch_num} ===")
+                print(
+                    f"[Trainer] === Epoch {epoch+1} loss weights: "
+                    f"train alpha={self.current_alpha:.3f}, "
+                    f"validation alpha={self.alpha_limit[1]:.3f}, "
+                    f"ranking beta={self.ranking_loss_weight:g} ==="
+                )
 
             train_loss, train_batch_loss = self.train_epoch(epoch)
-            val_loss, val_batch_loss = self.eval_epoch(epoch)
+            val_loss, val_batch_loss, validation_metrics = self.eval_epoch(epoch)
 
-            # update best and bookkeeping (only for active heads/mask task)
             val_loss_float = float(val_loss.item())
-            is_best = val_loss_float < self.best_val_loss
-            
-            # --- Early Stopping Update Logic ---
-            if is_best:
+            profile_spearman = float(validation_metrics["profile_spearman"])
+            scale_spearman = float(validation_metrics["scale_spearman"])
+
+            is_best_total = val_loss_float < self.best_val_loss
+            is_best_profile = (
+                math.isfinite(profile_spearman)
+                and profile_spearman > self.best_profile_spearman
+            )
+            is_best_scale = (
+                math.isfinite(scale_spearman)
+                and scale_spearman > self.best_scale_spearman
+            )
+
+            if is_best_total:
                 self.best_val_loss = val_loss_float
-                self.patience_counter = 0 
+            if is_best_profile:
+                self.best_profile_spearman = profile_spearman
+            if is_best_scale:
+                self.best_scale_spearman = scale_spearman
+
+            early_stopping_active = (epoch + 1) >= self.early_stopping_start_epoch
+            if not early_stopping_active:
+                self.patience_counter = 0
+                if self.rank == 0:
+                    print(
+                        f"[Trainer] Early stopping is disabled until epoch "
+                        f"{self.early_stopping_start_epoch}."
+                    )
+            elif is_best_total:
+                self.patience_counter = 0
             else:
                 self.patience_counter += 1
                 if self.rank == 0:
                     print(f"[Trainer] Early Stopping Counter: {self.patience_counter} / {self.patience}")
 
-            self.training_epoch_data.append({"epoch": epoch+1, "train_loss": float(train_loss.item()), "valid_loss": val_loss})
-            self.training_batch_data.append({"epoch": epoch+1, 
-                                             "train_batch_loss": [x for x in train_batch_loss], 
-                                             "valid_loss": [x for x in val_batch_loss]})
+            self.training_epoch_data.append(
+                {
+                    "epoch": epoch + 1,
+                    "alpha": self.current_alpha,
+                    "train_loss": float(train_loss.item()),
+                    "valid_loss": val_loss_float,
+                    **validation_metrics,
+                }
+            )
+            self.training_batch_data.append(
+                {
+                    "epoch": epoch + 1,
+                    "train_batch_loss": [x for x in train_batch_loss],
+                    "valid_loss": [x for x in val_batch_loss],
+                }
+            )
 
-            # save on master periodically
-            if self.rank == 0 and (epoch + 1) % self._save_every == 0:
-                self.save_checkpoint(epoch + 1, is_best)
+            best_kinds = tuple(
+                kind
+                for kind, improved in (
+                    ("total", is_best_total),
+                    ("profile", is_best_profile),
+                    ("scale", is_best_scale),
+                )
+                if improved
+            )
+
+            checkpoint_saved = False
+            should_save = ((epoch + 1) % self._save_every == 0) or bool(best_kinds)
+            if self.rank == 0 and should_save:
+                self.save_checkpoint(epoch + 1, best_kinds=best_kinds)
+                checkpoint_saved = True
     
                 with open(os.path.join(self.log_dir, self.model_full_name + ".epoch_data.json"), "w") as f:
                     json.dump(self.training_epoch_data, f, cls=TensorEncoder)
@@ -832,13 +1075,12 @@ class Trainer:
                 with open(os.path.join(self.log_dir, self.model_full_name + ".batch_data.json"), "w") as f:
                     json.dump(self.training_batch_data, f, cls=TensorEncoder)
 
-            # --- [NEW] Early Stopping Trigger ---
-            if self.patience_counter >= self.patience:
+            if early_stopping_active and self.patience_counter >= self.patience:
                 if self.rank == 0:
                     print(f"\n[Trainer] 🛑 Early stopping triggered! Validation loss did not improve for {self.patience} consecutive epochs. Stopping at epoch {epoch+1}.")
-                    
-                    # Optional: Force a final save before exiting
-                    self.save_checkpoint(epoch + 1, is_best=False)
+
+                    if not checkpoint_saved:
+                        self.save_checkpoint(epoch + 1)
                     with open(os.path.join(self.log_dir, self.model_full_name + ".epoch_data.json"), "w") as f:
                         json.dump(self.training_epoch_data, f, cls=TensorEncoder)
                     with open(os.path.join(self.log_dir, self.model_full_name + ".batch_data.json"), "w") as f:

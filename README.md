@@ -457,7 +457,21 @@ The trainer prints and records the decomposed count loss:
 - `micro`: token-level profile loss;
 - `macro`: frame-aware CDS mean loss;
 - `ranking`: pairwise CDS-level ranking loss;
-- `total = micro + 4 * macro + 0.2 * ranking`.
+- training uses an alpha curriculum from `0.2` to `4.0` during learning-rate
+  warmup, while validation always uses
+  `total = micro + 4 * macro + 0.2 * ranking`.
+
+Early stopping monitoring starts only after learning-rate warmup. Each validation
+epoch also reports two tie-aware Spearman metrics:
+
+- `profile_spearman`: the mean position-wise density Spearman correlation across
+  all RNAs with non-constant targets; a constant prediction for an evaluable RNA
+  is scored as zero rather than omitted;
+- `scale_spearman`: the global Spearman correlation between predicted and target
+  CDS mean density across the validation set.
+
+In addition to `<run>.latest.pt`, the trainer independently maintains
+`<run>.best_total.pt`, `<run>.best_profile.pt`, and `<run>.best_scale.pt`.
 
 Checkpoints use the keys `model`, `optimizer`, `scheduler`, and `scaler`. Resume loads
 the model using the current unwrapped model's map location.
