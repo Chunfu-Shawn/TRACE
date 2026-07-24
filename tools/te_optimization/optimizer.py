@@ -264,28 +264,110 @@ class BatchedBeamOptimizer:
             specificity_fc
         )
 
-    def _mutate_sequence(
-        self, seq: str, cds_start: int, cds_end: int, mode: int,
-        mutation_rate: float, cds_mutation_rate: Optional[float] = None
-    ) -> str:
-        """Mutate UTR bases and CDS codons using independent per-unit rates."""
-        if mode not in {1, 2, 3, 4, 5}:
+    @staticmethod
+    def _bounded_mutation_rate(
+        unit_count: int, base_rate: float,
+        min_expected_mutations: float, max_expected_mutations: float
+    ) -> Tuple[float, float]:
+        """Return a length-adaptive per-unit rate and its bounded expected burden."""
+        if unit_count <= 0 or base_rate <= 0.0:
+            return 0.0, 0.0
+        if not 0.0 <= base_rate <= 1.0:
+            raise ValueError("Base mutation rates must be between 0 and 1.")
+        if min_expected_mutations < 0.0 or max_expected_mutations < min_expected_mutations:
+            raise ValueError("Mutation burden bounds must satisfy 0 <= minimum <= maximum.")
+
+        expected_mutations = float(np.clip(
+            base_rate * unit_count,
+            min_expected_mutations,
+            max_expected_mutations,
+        ))
+        effective_rate = min(1.0, expected_mutations / unit_count)
+        return effective_rate, effective_rate * unit_count
+
+    @staticmethod
+    def _normalized_operator_weights(
+        mode: int, cds_fraction: float, utr5_fraction: float,
+        utr3_fraction: float, joint_fraction: float,
+        utr_only_utr5_fraction: float = 0.60,
+        utr_only_utr3_fraction: float = 0.25,
+        utr_only_joint_fraction: float = 0.15
+    ) -> Dict[str, float]:
+        """Build normalized mutation-operator weights for the selected optimization mode."""
+        if mode == 1:
+            weights = {
+                "cds": cds_fraction,
+                "utr5": utr5_fraction,
+                "utr3": utr3_fraction,
+                "joint": joint_fraction,
+            }
+        elif mode == 2:
+            weights = {"cds": 1.0}
+        elif mode == 3:
+            weights = {"utr5": 1.0}
+        elif mode == 4:
+            weights = {"utr3": 1.0}
+        elif mode == 5:
+            weights = {
+                "utr5": utr_only_utr5_fraction,
+                "utr3": utr_only_utr3_fraction,
+                "utr_joint": utr_only_joint_fraction,
+            }
+        else:
             raise ValueError(f"Unsupported optimization mode: {mode}")
 
-        utr_rate = float(mutation_rate)
-        cds_rate = float(cds_mutation_rate if cds_mutation_rate is not None else mutation_rate)
-        if not 0.0 <= utr_rate <= 1.0 or not 0.0 <= cds_rate <= 1.0:
-            raise ValueError("Mutation rates must be between 0 and 1.")
+        if any(weight < 0.0 for weight in weights.values()):
+            raise ValueError("Mutation-operator fractions must be non-negative.")
+        positive_weights = {name: weight for name, weight in weights.items() if weight > 0.0}
+        total_weight = sum(positive_weights.values())
+        if total_weight <= 0.0:
+            raise ValueError("At least one mutation-operator fraction must be positive.")
+        return {name: weight / total_weight for name, weight in positive_weights.items()}
 
+    @staticmethod
+    def _allocate_operator_counts(total_count: int, weights: Dict[str, float]) -> Dict[str, int]:
+        """Allocate an exact integer candidate quota using the largest-remainder method."""
+        if total_count <= 0:
+            return {name: 0 for name in weights}
+        raw_counts = {name: total_count * weight for name, weight in weights.items()}
+        counts = {name: int(math.floor(value)) for name, value in raw_counts.items()}
+        remainder = total_count - sum(counts.values())
+        ranked = sorted(
+            weights,
+            key=lambda name: (raw_counts[name] - counts[name], weights[name], name),
+            reverse=True,
+        )
+        for name in ranked[:remainder]:
+            counts[name] += 1
+        return counts
+
+    def _mutate_sequence(
+        self, seq: str, cds_start: int, cds_end: int, operator: str,
+        utr5_mutation_rate: float, utr3_mutation_rate: float,
+        cds_mutation_rate: float
+    ) -> str:
+        """Apply one region-specific mutation operator with independent effective rates."""
+        operator_regions = {
+            "cds": (True, False, False),
+            "utr5": (False, True, False),
+            "utr3": (False, False, True),
+            "utr_joint": (False, True, True),
+            "joint": (True, True, True),
+        }
+        if operator not in operator_regions:
+            raise ValueError(f"Unsupported mutation operator: {operator}")
+        if any(not 0.0 <= rate <= 1.0 for rate in (
+            utr5_mutation_rate, utr3_mutation_rate, cds_mutation_rate,
+        )):
+            raise ValueError("Effective mutation rates must be between 0 and 1.")
+
+        mutate_cds, mutate_utr5, mutate_utr3 = operator_regions[operator]
         seq_list = list(seq.upper().replace('U', 'T'))
-        mutate_cds = mode in {1, 2}
-        mutate_utr5 = mode in {1, 3, 5}
-        mutate_utr3 = mode in {1, 4, 5}
 
         if mutate_cds:
             complete_cds_end = cds_start + ((cds_end - cds_start) // 3) * 3
             for codon_start in range(cds_start, complete_cds_end, 3):
-                if random.random() > cds_rate:
+                if random.random() > cds_mutation_rate:
                     continue
                 old_codon = "".join(seq_list[codon_start:codon_start + 3])
                 aa = self.STANDARD_GENETIC_CODE.get(old_codon)
@@ -295,32 +377,49 @@ class BatchedBeamOptimizer:
                 if synonymous_codons:
                     seq_list[codon_start:codon_start + 3] = list(random.choice(synonymous_codons))
 
-        utr_positions = []
         if mutate_utr5:
-            utr_positions.extend(range(0, max(0, min(cds_start, len(seq_list)))))
-        if mutate_utr3:
-            utr_positions.extend(range(max(0, cds_end), len(seq_list)))
-
-        for pos in utr_positions:
-            if random.random() > utr_rate:
-                continue
-            old_base = seq_list[pos]
-            new_base = random.choice([base for base in self.bases if base != old_base])
-            if pos < cds_start:
+            utr5_end = max(0, min(cds_start, len(seq_list)))
+            for pos in range(utr5_end):
+                if random.random() > utr5_mutation_rate:
+                    continue
+                old_base = seq_list[pos]
+                new_base = random.choice([base for base in self.bases if base != old_base])
                 temp_seq = seq_list.copy()
                 temp_seq[pos] = new_base
                 local_start = max(0, pos - 2)
                 local_end = min(cds_start, pos + 3)
-                if "ATG" in "".join(temp_seq[local_start:local_end]):
-                    new_base = old_base
-            seq_list[pos] = new_base
+                if "ATG" not in "".join(temp_seq[local_start:local_end]):
+                    seq_list[pos] = new_base
+
+        if mutate_utr3:
+            for pos in range(max(0, cds_end), len(seq_list)):
+                if random.random() > utr3_mutation_rate:
+                    continue
+                old_base = seq_list[pos]
+                seq_list[pos] = random.choice([base for base in self.bases if base != old_base])
 
         return "".join(seq_list)
 
     def optimize(
         self, full_seq: str, cds_start: int, cds_end: int, 
         mode: int = 1, iterations: int = 200, batch_size: int = 128, 
-        mutation_rate: float = 0.05, cds_mutation_rate: float = 0.01,
+        mutation_rate: Optional[float] = None,
+        cds_mutation_rate: Optional[float] = None,
+        utr5_base_rate: float = 0.008, utr3_base_rate: float = 0.002,
+        cds_base_rate: float = 0.01,
+        utr5_min_expected_mutations: float = 0.5,
+        utr5_max_expected_mutations: float = 2.0,
+        utr3_min_expected_mutations: float = 0.5,
+        utr3_max_expected_mutations: float = 2.0,
+        cds_min_expected_mutations: float = 1.0,
+        cds_max_expected_mutations: float = 3.0,
+        global_cds_fraction: float = 0.40,
+        global_utr5_fraction: float = 0.25,
+        global_utr3_fraction: float = 0.15,
+        global_joint_fraction: float = 0.20,
+        utr_only_utr5_fraction: float = 0.60,
+        utr_only_utr3_fraction: float = 0.25,
+        utr_only_joint_fraction: float = 0.15,
         beam_width: int = 8, 
         use_continuity_constraint: bool = True, drop_tolerance: float = 0.5,        
         penalty_weight: float = 0.2, consistency_weight: float = 0.25,    
@@ -349,10 +448,91 @@ class BatchedBeamOptimizer:
             raise ValueError("Fitness weights must be non-negative.")
         if batch_size < 1 or beam_width < 1 or top_k_size < 1:
             raise ValueError("batch_size, beam_width, and top_k_size must be positive.")
+
+        if mutation_rate is not None:
+            utr5_base_rate = mutation_rate
+            utr3_base_rate = mutation_rate
+        if cds_mutation_rate is not None:
+            cds_base_rate = cds_mutation_rate
+
+        utr5_length = cds_start
+        utr3_length = len(current_seq) - cds_end
+        cds_codon_count = (cds_end - cds_start) // 3
+        cds_mutable_codon_count = 0
+        for codon_start in range(cds_start, cds_end, 3):
+            codon = current_seq[codon_start:codon_start + 3]
+            aa = self.STANDARD_GENETIC_CODE.get(codon)
+            if aa is not None and len(self.aa_to_codons[aa]) > 1:
+                cds_mutable_codon_count += 1
+        utr5_effective_rate, utr5_expected_burden = self._bounded_mutation_rate(
+            utr5_length, utr5_base_rate,
+            utr5_min_expected_mutations, utr5_max_expected_mutations,
+        )
+        utr3_effective_rate, utr3_expected_burden = self._bounded_mutation_rate(
+            utr3_length, utr3_base_rate,
+            utr3_min_expected_mutations, utr3_max_expected_mutations,
+        )
+        cds_effective_rate, cds_expected_burden = self._bounded_mutation_rate(
+            cds_mutable_codon_count, cds_base_rate,
+            cds_min_expected_mutations, cds_max_expected_mutations,
+        )
+        operator_weights = self._normalized_operator_weights(
+            mode,
+            cds_fraction=global_cds_fraction,
+            utr5_fraction=global_utr5_fraction,
+            utr3_fraction=global_utr3_fraction,
+            joint_fraction=global_joint_fraction,
+            utr_only_utr5_fraction=utr_only_utr5_fraction,
+            utr_only_utr3_fraction=utr_only_utr3_fraction,
+            utr_only_joint_fraction=utr_only_joint_fraction,
+        )
+        if mode == 2 and cds_mutable_codon_count == 0:
+            raise ValueError("CDS-only mode requires at least one synonymous-mutable codon.")
+        if mode == 3 and utr5_length == 0:
+            raise ValueError("5'UTR-only mode requires a non-empty 5'UTR.")
+        if mode == 4 and utr3_length == 0:
+            raise ValueError("3'UTR-only mode requires a non-empty 3'UTR.")
+        if mode == 5 and utr5_length + utr3_length == 0:
+            raise ValueError("UTR-only mode requires at least one non-empty UTR.")
+
+        available_region_count = sum((
+            cds_mutable_codon_count > 0,
+            utr5_length > 0,
+            utr3_length > 0,
+        ))
+        available_utr_count = sum((utr5_length > 0, utr3_length > 0))
+        operator_available = {
+            "cds": cds_mutable_codon_count > 0,
+            "utr5": utr5_length > 0,
+            "utr3": utr3_length > 0,
+            "joint": available_region_count >= 2,
+            "utr_joint": available_utr_count >= 2,
+        }
+        operator_weights = {
+            name: weight for name, weight in operator_weights.items()
+            if operator_available[name]
+        }
+        operator_weight_sum = sum(operator_weights.values())
+        if operator_weight_sum <= 0.0:
+            raise ValueError("No mutation operator is available for the supplied sequence regions.")
+        operator_weights = {
+            name: weight / operator_weight_sum
+            for name, weight in operator_weights.items()
+        }
         
         mode_str = {1: "Global", 2: "CDS", 3: "5'UTR", 4: "3'UTR", 5: "UTRs Only"}.get(mode, str(mode))
         print(f"Initializing Specificity Optimization | Mode: {mode_str} | Batch Size: {batch_size}")
-        print(f"UTR mutation rate={mutation_rate:.4f} | CDS codon mutation rate={cds_mutation_rate:.4f}")
+        print(
+            "Length-adaptive mutation settings | "
+            f"5'UTR: L={utr5_length}, rate={utr5_effective_rate:.6f}, E[attempts]={utr5_expected_burden:.3f} | "
+            f"3'UTR: L={utr3_length}, rate={utr3_effective_rate:.6f}, E[attempts]={utr3_expected_burden:.3f} | "
+            f"CDS: codons={cds_codon_count}, mutable={cds_mutable_codon_count}, "
+            f"rate={cds_effective_rate:.6f}, E[attempts]={cds_expected_burden:.3f}"
+        )
+        print(
+            "Mutation operator mixture: "
+            + ", ".join(f"{name}={weight:.1%}" for name, weight in operator_weights.items())
+        )
         if self.valid_negative_cell_types:
             print(f"Target: {self.target_cell_type} | Negative Targets: {', '.join(self.valid_negative_cell_types)} | Spec. Weight: {specificity_weight}")
 
@@ -419,6 +599,7 @@ class BatchedBeamOptimizer:
 
         top_k_heap = []
         seen_in_top_k = set()
+        sequence_origin = {current_seq: "wt"}
 
         pool = [(current_seq, wt_true_fit, wt_true_te)]
         
@@ -444,16 +625,72 @@ class BatchedBeamOptimizer:
             
             attempt_limit = max_candidate_attempts or max(batch_size * 50, 1000)
             attempts = 0
+            requested_new_candidates = max(0, batch_size - len(candidates_set))
+            operator_counts = self._allocate_operator_counts(
+                requested_new_candidates, operator_weights
+            )
+            successful_operator_counts = {name: 0 for name in operator_counts}
+            if i == 0:
+                print(
+                    "Planned new-candidate quota per batch: "
+                    + ", ".join(f"{name}={count}" for name, count in operator_counts.items())
+                )
+            operator_schedule = [
+                operator
+                for operator, count in operator_counts.items()
+                for _ in range(count)
+            ]
+            random.shuffle(operator_schedule)
+            per_slot_attempt_limit = max(
+                10,
+                min(100, attempt_limit // max(1, requested_new_candidates)),
+            )
+
+            for operator in operator_schedule:
+                for _ in range(per_slot_attempt_limit):
+                    if attempts >= attempt_limit:
+                        break
+                    attempts += 1
+                    parent_idx = np.random.choice(len(pool), p=parent_probs)
+                    parent_seq = pool[parent_idx][0]
+                    mutant = self._mutate_sequence(
+                        parent_seq, cds_start, cds_end, operator=operator,
+                        utr5_mutation_rate=utr5_effective_rate,
+                        utr3_mutation_rate=utr3_effective_rate,
+                        cds_mutation_rate=cds_effective_rate,
+                    )
+                    if mutant not in candidates_set:
+                        candidates_set.add(mutant)
+                        sequence_origin.setdefault(mutant, operator)
+                        successful_operator_counts[operator] += 1
+                        break
+
+            operator_names = list(operator_weights)
             while len(candidates_set) < batch_size and attempts < attempt_limit:
                 attempts += 1
+                operator_deficits = np.array([
+                    max(0, operator_counts[name] - successful_operator_counts[name])
+                    for name in operator_names
+                ], dtype=float)
+                if operator_deficits.sum() > 0:
+                    operator_probabilities = operator_deficits / operator_deficits.sum()
+                else:
+                    operator_probabilities = np.array([
+                        operator_weights[name] for name in operator_names
+                    ])
+                operator = str(np.random.choice(operator_names, p=operator_probabilities))
                 parent_idx = np.random.choice(len(pool), p=parent_probs)
                 parent_seq = pool[parent_idx][0]
                 mutant = self._mutate_sequence(
-                    parent_seq, cds_start, cds_end, mode,
-                    mutation_rate=mutation_rate,
-                    cds_mutation_rate=cds_mutation_rate,
+                    parent_seq, cds_start, cds_end, operator=operator,
+                    utr5_mutation_rate=utr5_effective_rate,
+                    utr3_mutation_rate=utr3_effective_rate,
+                    cds_mutation_rate=cds_effective_rate,
                 )
-                candidates_set.add(mutant)
+                if mutant not in candidates_set:
+                    candidates_set.add(mutant)
+                    sequence_origin.setdefault(mutant, operator)
+                    successful_operator_counts[operator] += 1
             if len(candidates_set) < batch_size:
                 print(
                     f"Warning: generated {len(candidates_set)}/{batch_size} unique candidates "
@@ -468,15 +705,19 @@ class BatchedBeamOptimizer:
             feasible_improved = False
             for seq, metric in zip(candidates_list, metrics):
                 fit, te, neg_te, spec_fc = metric
-                batch_records.append((seq, fit, te))
+                origin_operator = sequence_origin.get(seq, "elite")
+                batch_records.append((seq, fit, te, origin_operator))
 
                 is_feasible = te >= min_acceptable_te
                 if is_feasible and seq not in seen_in_top_k:
                     if len(top_k_heap) < top_k_size:
-                        heapq.heappush(top_k_heap, (fit, seq, te, neg_te, spec_fc))
+                        heapq.heappush(top_k_heap, (fit, seq, te, neg_te, spec_fc, origin_operator))
                         seen_in_top_k.add(seq)
                     elif fit > top_k_heap[0][0]:
-                        removed = heapq.heappushpop(top_k_heap, (fit, seq, te, neg_te, spec_fc))
+                        removed = heapq.heappushpop(
+                            top_k_heap,
+                            (fit, seq, te, neg_te, spec_fc, origin_operator),
+                        )
                         seen_in_top_k.remove(removed[1])
                         seen_in_top_k.add(seq)
 
@@ -512,22 +753,46 @@ class BatchedBeamOptimizer:
             # ==========================================
             # Soft Beam Search to avoid local optima
             # ==========================================
-            next_pool = [batch_records[0]] 
-            
-            if beam_width > 1 and len(batch_records) > 1:
-                pool_candidates = batch_records[1: min(len(batch_records), beam_width * 5)] 
+            next_pool = [batch_records[0]]
+            selected_pool_sequences = {batch_records[0][0]}
+
+            if beam_width > 1 and len(operator_weights) > 1:
+                operators_by_priority = sorted(
+                    operator_weights,
+                    key=lambda name: operator_weights[name],
+                    reverse=True,
+                )
+                for operator in operators_by_priority:
+                    if len(next_pool) >= beam_width:
+                        break
+                    operator_candidate = next((
+                        record for record in batch_records
+                        if record[3] == operator and record[0] not in selected_pool_sequences
+                    ), None)
+                    if operator_candidate is not None:
+                        next_pool.append(operator_candidate)
+                        selected_pool_sequences.add(operator_candidate[0])
+
+            remaining_slots = beam_width - len(next_pool)
+            if remaining_slots > 0 and len(batch_records) > len(next_pool):
+                pool_candidates = [
+                    record for record in batch_records[:beam_width * 5]
+                    if record[0] not in selected_pool_sequences
+                ]
                 fits = np.array([r[1] for r in pool_candidates])
-                
-                temperature = 0.2 
-                scaled_fits = fits / temperature
-                scaled_fits = scaled_fits - np.max(scaled_fits) 
-                probs = np.exp(scaled_fits) / np.sum(np.exp(scaled_fits))
-                
-                sample_size = min(beam_width - 1, len(pool_candidates))
-                sampled_indices = np.random.choice(len(pool_candidates), size=sample_size, p=probs, replace=False)
-                
-                for idx in sampled_indices:
-                    next_pool.append(pool_candidates[idx])
+                if len(pool_candidates) > 0:
+                    temperature = 0.2
+                    scaled_fits = fits / temperature
+                    scaled_fits = scaled_fits - np.max(scaled_fits)
+                    probs = np.exp(scaled_fits) / np.sum(np.exp(scaled_fits))
+
+                    sample_size = min(remaining_slots, len(pool_candidates))
+                    sampled_indices = np.random.choice(
+                        len(pool_candidates), size=sample_size, p=probs, replace=False
+                    )
+
+                    for idx in sampled_indices:
+                        next_pool.append(pool_candidates[idx])
             
             pool = next_pool
             best_te_hist.append(global_best_te if global_best_te is not None else wt_true_te)
@@ -556,6 +821,7 @@ class BatchedBeamOptimizer:
                 "target_te_fold_change": item[2] / (wt_true_te + eps),
                 "meets_min_gain": True,
                 "min_acceptable_te": min_acceptable_te,
+                "mutation_operator": item[5],
             }
             for item in sorted_top_k
         ]
@@ -619,8 +885,24 @@ def main():
     parser.add_argument("--iter", type=int, default=800, help="Number of maximum iterations")
     parser.add_argument("--batch", type=int, default=128, help="Batch size per iteration")
     parser.add_argument("--beam_width", type=int, default=8, help="Number of seed sequences retained per generation")
-    parser.add_argument("--mut_rate", type=float, default=0.05, help="Per-base UTR mutation probability")
-    parser.add_argument("--cds_mut_rate", type=float, default=0.01, help="Per-codon CDS mutation probability")
+    parser.add_argument("--utr5_base_rate", type=float, default=0.008, help="Base per-nucleotide 5'UTR mutation rate before burden bounding")
+    parser.add_argument("--utr3_base_rate", type=float, default=0.002, help="Base per-nucleotide 3'UTR mutation rate before burden bounding")
+    parser.add_argument("--cds_base_rate", type=float, default=0.01, help="Base per-codon CDS mutation rate before burden bounding")
+    parser.add_argument("--utr5_min_edits", type=float, default=0.5, help="Minimum expected 5'UTR mutation burden per operator call")
+    parser.add_argument("--utr5_max_edits", type=float, default=2.0, help="Maximum expected 5'UTR mutation burden per operator call")
+    parser.add_argument("--utr3_min_edits", type=float, default=0.5, help="Minimum expected 3'UTR mutation burden per operator call")
+    parser.add_argument("--utr3_max_edits", type=float, default=2.0, help="Maximum expected 3'UTR mutation burden per operator call")
+    parser.add_argument("--cds_min_edits", type=float, default=1.0, help="Minimum expected CDS codon mutation burden per operator call")
+    parser.add_argument("--cds_max_edits", type=float, default=3.0, help="Maximum expected CDS codon mutation burden per operator call")
+    parser.add_argument("--global_cds_fraction", type=float, default=0.40, help="Global-mode fraction assigned to the CDS-only operator")
+    parser.add_argument("--global_utr5_fraction", type=float, default=0.25, help="Global-mode fraction assigned to the 5'UTR-only operator")
+    parser.add_argument("--global_utr3_fraction", type=float, default=0.15, help="Global-mode fraction assigned to the 3'UTR-only operator")
+    parser.add_argument("--global_joint_fraction", type=float, default=0.20, help="Global-mode fraction assigned to the joint operator")
+    parser.add_argument("--utr_only_utr5_fraction", type=float, default=0.60, help="UTR-only-mode fraction assigned to the 5'UTR-only operator")
+    parser.add_argument("--utr_only_utr3_fraction", type=float, default=0.25, help="UTR-only-mode fraction assigned to the 3'UTR-only operator")
+    parser.add_argument("--utr_only_joint_fraction", type=float, default=0.15, help="UTR-only-mode fraction assigned to the UTR-joint operator")
+    parser.add_argument("--mut_rate", type=float, default=None, help="Deprecated compatibility option overriding both UTR base rates")
+    parser.add_argument("--cds_mut_rate", type=float, default=None, help="Deprecated compatibility option overriding the CDS base rate")
     parser.add_argument("--min_gain", type=float, default=0.01, help="Minimum required target TE gain over WT")
     parser.add_argument("--patience", type=int, default=50, help="Number of consecutive epochs without improvement to stop training")
     parser.add_argument("--continuity_weight", type=float, default=0.2, help="Weight for relative WT-profile drop penalty")
@@ -707,6 +989,22 @@ def main():
         iterations=args.iter,     
         mutation_rate=args.mut_rate,
         cds_mutation_rate=args.cds_mut_rate,
+        utr5_base_rate=args.utr5_base_rate,
+        utr3_base_rate=args.utr3_base_rate,
+        cds_base_rate=args.cds_base_rate,
+        utr5_min_expected_mutations=args.utr5_min_edits,
+        utr5_max_expected_mutations=args.utr5_max_edits,
+        utr3_min_expected_mutations=args.utr3_min_edits,
+        utr3_max_expected_mutations=args.utr3_max_edits,
+        cds_min_expected_mutations=args.cds_min_edits,
+        cds_max_expected_mutations=args.cds_max_edits,
+        global_cds_fraction=args.global_cds_fraction,
+        global_utr5_fraction=args.global_utr5_fraction,
+        global_utr3_fraction=args.global_utr3_fraction,
+        global_joint_fraction=args.global_joint_fraction,
+        utr_only_utr5_fraction=args.utr_only_utr5_fraction,
+        utr_only_utr3_fraction=args.utr_only_utr3_fraction,
+        utr_only_joint_fraction=args.utr_only_joint_fraction,
         batch_size=args.batch,
         beam_width=args.beam_width,
         drop_tolerance=args.drop_tolerance,
@@ -764,6 +1062,7 @@ def main():
             "specificity_fc": info["specificity_fc"],
             "target_te_fold_change": info["target_te_fold_change"],
             "min_acceptable_te": info["min_acceptable_te"],
+            "mutation_operator": info["mutation_operator"],
         }
             
     # Data Export
@@ -784,6 +1083,7 @@ def main():
                 f" | Fitness={data['fitness']:.4f}"
                 f" | Target_TE={data['target_te']:.4f}"
                 f" | Target_TE_FC={data['target_te_fold_change']:.4f}"
+                f" | Operator={data['mutation_operator']}"
                 f" | Max_Neg_TE={data['neg_te']:.4f}"
                 f" | SpecFC={data['specificity_fc']:.4f}\n"
             )
@@ -796,6 +1096,7 @@ def main():
                 "Target_TE": data["target_te"],
                 "Target_TE_Fold_Change": data["target_te_fold_change"],
                 "Minimum_Acceptable_TE": data["min_acceptable_te"],
+                "Mutation_Operator": data["mutation_operator"],
                 "Max_Neg_TE": data["neg_te"],
                 "Specificity_FC": data["specificity_fc"],
             }

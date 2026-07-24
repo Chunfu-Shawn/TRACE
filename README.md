@@ -461,14 +461,18 @@ The trainer prints and records the decomposed count loss:
   warmup, while validation always uses
   `total = micro + 4 * macro + 0.2 * ranking`.
 
-Early stopping monitoring starts only after learning-rate warmup. Each validation
-epoch also reports two tie-aware Spearman metrics:
+Early stopping monitoring starts only after learning-rate warmup unless the launcher
+sets a later epoch explicitly. Each validation epoch reports:
 
 - `profile_spearman`: the mean position-wise density Spearman correlation across
   all RNAs with non-constant targets; a constant prediction for an evaluable RNA
   is scored as zero rather than omitted;
 - `scale_spearman`: the global Spearman correlation between predicted and target
-  CDS mean density across the validation set.
+  CDS mean density across the validation set;
+- `cds_mean_mae`: the absolute CDS mean density calibration error;
+- `calibration_slope` and `calibration_intercept`: the least-squares calibration
+  relation `target = intercept + slope * prediction`, whose ideal values are `1`
+  and `0`, respectively.
 
 In addition to `<run>.latest.pt`, the trainer independently maintains
 `<run>.best_total.pt`, `<run>.best_profile.pt`, and `<run>.best_scale.pt`.

@@ -856,11 +856,37 @@ class Trainer:
         )
         scale_spearman = self._safe_spearman(pred_cds_means, target_cds_means)
 
+        valid_scale = np.isfinite(pred_cds_means) & np.isfinite(target_cds_means)
+        pred_scale = pred_cds_means[valid_scale]
+        target_scale = target_cds_means[valid_scale]
+        if pred_scale.size > 0:
+            cds_mean_mae = float(np.mean(np.abs(pred_scale - target_scale)))
+        else:
+            cds_mean_mae = float("nan")
+
+        if pred_scale.size >= 2 and not np.all(pred_scale == pred_scale[0]):
+            pred_centered = pred_scale - pred_scale.mean()
+            target_centered = target_scale - target_scale.mean()
+            denominator = float(np.dot(pred_centered, pred_centered))
+            calibration_slope = float(
+                np.dot(pred_centered, target_centered) / denominator
+            )
+            calibration_intercept = float(
+                target_scale.mean() - calibration_slope * pred_scale.mean()
+            )
+        else:
+            calibration_slope = float("nan")
+            calibration_intercept = float("nan")
+
         return {
             "profile_spearman": profile_spearman,
             "profile_spearman_n": int(valid_profile.sum()),
             "validation_rna_n": len(records),
             "scale_spearman": scale_spearman,
+            "scale_metric_n": int(valid_scale.sum()),
+            "cds_mean_mae": cds_mean_mae,
+            "calibration_slope": calibration_slope,
+            "calibration_intercept": calibration_intercept,
         }
 
 
@@ -963,7 +989,11 @@ class Trainer:
                 f"Epoch {epoch+1} validation metrics: "
                 f"profile Spearman={validation_metrics['profile_spearman']:.6f} "
                 f"({validation_metrics['profile_spearman_n']}/{validation_metrics['validation_rna_n']} RNAs), "
-                f"CDS-mean scale Spearman={validation_metrics['scale_spearman']:.6f}"
+                f"CDS-mean scale Spearman={validation_metrics['scale_spearman']:.6f}, "
+                f"CDS-mean MAE={validation_metrics['cds_mean_mae']:.6f}, "
+                f"calibration target={validation_metrics['calibration_intercept']:.6f} "
+                f"+ {validation_metrics['calibration_slope']:.6f}*prediction "
+                f"({validation_metrics['scale_metric_n']} RNAs)"
             )
 
         return mean_epoch_losses, gathered_losses, validation_metrics

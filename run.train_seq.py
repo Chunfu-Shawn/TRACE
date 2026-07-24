@@ -49,7 +49,8 @@ HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 50
 EPOCH_NUM = 60
 PATIENCE = 8
-EARLY_STOPPING_START_EPOCH = None  # None starts monitoring after LR warmup.
+# Disable early stopping for this resumed run so the cosine schedule reaches epoch 60.
+EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1
 ALPHA_LIMIT = (0.2, 4.0)
 RANKING_LOSS_WEIGHT = 0.2
 LEARNING_RATE = 1e-3
