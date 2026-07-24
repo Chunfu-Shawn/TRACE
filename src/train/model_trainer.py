@@ -17,7 +17,11 @@ from tqdm import tqdm
 from utils import unwrap_model
 from data.translation_dataset import TranslationDataset
 from train.distributed_balanced_bucket_sampler import DistributedBucketSampler
-from train.masking_adapter import BatchMaskingAdapter, get_dynamic_mask_ratio
+from train.masking_adapter import (
+    BatchMaskingAdapter,
+    get_dynamic_mask_ratio,
+    get_dynamic_replacement_probs,
+)
 
 torch.set_printoptions(profile="full")
 
@@ -116,6 +120,7 @@ class Trainer:
         self.masking_adapter = BatchMaskingAdapter(mask_value)
         self.mask_perc = mask_perc
         self.current_mask_range = self.mask_perc.get("count", (0, 0.2))
+        self.current_replacement_probs = get_dynamic_replacement_probs(0, 1)
         self.balance_classes = balance_classes
         self.alpha_limit = alpha_limit
         self.current_alpha = 4.0
@@ -404,14 +409,27 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
 
         # count masking
         count_emb_masks = torch.zeros((B, L), dtype=torch.bool)
-        if "count" in self.mask_perc:
+        is_full_mask_range = (
+            isinstance(self.current_mask_range, (tuple, list))
+            and len(self.current_mask_range) == 2
+            and float(self.current_mask_range[0]) == 1.0
+            and float(self.current_mask_range[1]) == 1.0
+        )
+        strict_zero_count = is_eval or (
+            is_full_mask_range and self.current_replacement_probs["mask"] == 1.0
+        )
+        if strict_zero_count:
+            count_embs_masked = torch.zeros_like(count_embs_padded)
+            count_emb_masks = pad_masks.clone()
+        elif "count" in self.mask_perc:
             count_embs_masked, count_emb_masks = self.masking_adapter.get_random_masked_batch(
                 embeddings=count_embs_padded, 
                 cds_starts=cds_starts, 
                 occs=motif_occs, 
                 pad_mask=pad_masks, 
                 mask_perc_range=self.current_mask_range, 
-                full_mask_perc=1 if is_eval else 0.0
+                full_mask_perc=0.0,
+                replacement_probs=self.current_replacement_probs,
             )
         else:
             count_embs_masked = count_embs_padded.clone()
@@ -815,12 +833,29 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
 
             warmup_epochs = math.floor(self.epoch_num * self.lr_warmup_perc)
             # update mask ratio
-            if isinstance(self.mask_perc["count"], (tuple, list)):
-                if len(self.mask_perc["count"]) == 2:
+            if epoch >= warmup_epochs:
+                self.current_mask_range = (1.0, 1.0)
+                self.current_replacement_probs = {
+                    "mask": 1.0,
+                    "random": 0.0,
+                    "unchanged": 0.0,
+                }
+            else:
+                self.current_replacement_probs = get_dynamic_replacement_probs(
+                    epoch,
+                    warmup_epochs,
+                )
+                if isinstance(self.mask_perc["count"], (tuple, list)):
+                    if len(self.mask_perc["count"]) != 2:
+                        raise ValueError("count mask range must contain exactly two values")
                     start = self.mask_perc["count"][0]
                     end = self.mask_perc["count"][1]
-                current_mask_range = get_dynamic_mask_ratio(epoch, warmup_epochs, start, end)
-                self.current_mask_range = current_mask_range
+                    self.current_mask_range = get_dynamic_mask_ratio(
+                        epoch,
+                        warmup_epochs,
+                        start,
+                        end,
+                    )
 
             # update alpha
             if epoch < warmup_epochs:
@@ -830,7 +865,15 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
                 self.current_alpha = max_alpha
 
             if self.rank == 0:
-                print(f"[Trainer] === Epoch {epoch+1} Curriculum: Mask Range {self.current_mask_range}, TE Alpha: {self.current_alpha:.3f}")
+                replacement = self.current_replacement_probs
+                print(
+                    f"[Trainer] === Epoch {epoch+1} Curriculum: "
+                    f"Mask Range {self.current_mask_range}, "
+                    f"Replacement mask/random/unchanged="
+                    f"{replacement['mask']:.3f}/{replacement['random']:.3f}/"
+                    f"{replacement['unchanged']:.3f}, "
+                    f"TE Alpha: {self.current_alpha:.3f}"
+                )
 
             train_loss, train_batch_loss = self.train_epoch(epoch)
             val_loss, val_batch_loss = self.eval_epoch(epoch)

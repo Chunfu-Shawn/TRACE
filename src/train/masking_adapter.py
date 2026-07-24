@@ -22,6 +22,36 @@ def get_dynamic_mask_ratio(current_step, total_steps,
     
     return (lower_bound, upper_bound)
 
+
+def get_dynamic_replacement_probs(current_step, total_steps):
+    """Schedule mask/random/unchanged replacement probabilities through warmup.
+
+    The schedule follows three anchor points:
+    - warmup start: 80% mask, 10% random, 10% unchanged;
+    - warmup midpoint: 90% mask, 10% random, 0% unchanged;
+    - warmup end: 100% mask, 0% random, 0% unchanged.
+    """
+    if total_steps <= 0:
+        return {"mask": 1.0, "random": 0.0, "unchanged": 0.0}
+
+    progress = min(1.0, max(0.0, float(current_step) / float(total_steps)))
+    if progress <= 0.5:
+        phase_progress = progress / 0.5
+        mask_prob = 0.8 + 0.1 * phase_progress
+        random_prob = 0.1
+        unchanged_prob = 0.1 * (1.0 - phase_progress)
+    else:
+        phase_progress = (progress - 0.5) / 0.5
+        mask_prob = 0.9 + 0.1 * phase_progress
+        random_prob = 0.1 * (1.0 - phase_progress)
+        unchanged_prob = 0.0
+
+    return {
+        "mask": mask_prob,
+        "random": random_prob,
+        "unchanged": unchanged_prob,
+    }
+
 class BatchMaskingAdapter:
     def __init__(self, 
                  mask_value: float = 0,
@@ -37,24 +67,35 @@ class BatchMaskingAdapter:
                            emb_mask: torch.Tensor, 
                            batch_idx: int, 
                            positions: torch.Tensor, 
-                           generator: torch.Generator):
-        # ... (unchanged) ...
+                           generator: torch.Generator,
+                           replacement_probs: Optional[Dict[str, float]] = None):
         if positions.numel() == 0:
             return
 
         device = masked_emb.device
         D = masked_emb.shape[-1]
+
+        if replacement_probs is None:
+            replacement_probs = {"mask": 0.8, "random": 0.1, "unchanged": 0.1}
+        mask_prob = float(replacement_probs.get("mask", 0.0))
+        random_prob = float(replacement_probs.get("random", 0.0))
+        unchanged_prob = float(replacement_probs.get("unchanged", 0.0))
+        probabilities = (mask_prob, random_prob, unchanged_prob)
+        if any(probability < 0.0 for probability in probabilities):
+            raise ValueError("Replacement probabilities must be non-negative.")
+        if abs(sum(probabilities) - 1.0) > 1e-6:
+            raise ValueError("Replacement probabilities must sum to 1.0.")
         
         r = torch.rand(positions.numel(), generator=generator, device=device)
         
-        mask_indices = positions[r < 0.8]
+        mask_indices = positions[r < mask_prob]
         if mask_indices.numel() > 0:
             if self.mask_token_vec is not None:
                 masked_emb[batch_idx, mask_indices, :] = self.mask_token_vec.to(device)
             else:
                 masked_emb[batch_idx, mask_indices, :] = self.mask_value
 
-        rand_indices = positions[(r >= 0.8) & (r < 0.9)]
+        rand_indices = positions[(r >= mask_prob) & (r < mask_prob + random_prob)]
         if rand_indices.numel() > 0:
             masked_emb[batch_idx, rand_indices, :] = torch.randn((rand_indices.numel(), D), device=device, generator=generator)
             
@@ -66,7 +107,8 @@ class BatchMaskingAdapter:
                                         batch_idx: int,
                                         valid_indices: torch.Tensor,
                                         target_count: int,
-                                        generator: torch.Generator):
+                                        generator: torch.Generator,
+                                        replacement_probs: Optional[Dict[str, float]] = None):
         current_masked_count = torch.sum(emb_mask[batch_idx]).item()
         needed = target_count - current_masked_count
 
@@ -86,13 +128,21 @@ class BatchMaskingAdapter:
         perm = torch.randperm(candidates.numel(), generator=generator, device=masked_emb.device)[:k]
         pos = candidates[perm]
 
-        self._apply_mask_values(masked_emb, emb_mask, batch_idx, pos, generator)
+        self._apply_mask_values(
+            masked_emb,
+            emb_mask,
+            batch_idx,
+            pos,
+            generator,
+            replacement_probs=replacement_probs,
+        )
 
     def mask_random_single_base_batch(self,
                                       embeddings: torch.Tensor,
                                       mask_perc: Union[float, torch.Tensor] = 0.15,
                                       pad_mask: Optional[torch.Tensor] = None,
-                                      generator: Optional[torch.Generator] = None):
+                                      generator: Optional[torch.Generator] = None,
+                                      replacement_probs: Optional[Dict[str, float]] = None):
         B, L, _ = embeddings.shape
         device = embeddings.device
         g = generator or torch.Generator(device=device)
@@ -114,7 +164,14 @@ class BatchMaskingAdapter:
             perm = torch.randperm(cand.numel(), generator=g, device=device)[:k]
             pos = cand[perm]
             
-            self._apply_mask_values(masked, emb_mask, i, pos, g)
+            self._apply_mask_values(
+                masked,
+                emb_mask,
+                i,
+                pos,
+                g,
+                replacement_probs=replacement_probs,
+            )
 
         return masked, emb_mask
 
@@ -123,7 +180,8 @@ class BatchMaskingAdapter:
                                         cds_starts: List[int],
                                         mask_perc: Union[float, torch.Tensor] = 0.15,
                                         pad_mask: Optional[torch.Tensor] = None,
-                                        generator: Optional[torch.Generator] = None):
+                                        generator: Optional[torch.Generator] = None,
+                                        replacement_probs: Optional[Dict[str, float]] = None):
         B, L, _ = embeddings.shape
         device = embeddings.device
         g = generator or torch.Generator(device=device)
@@ -157,7 +215,14 @@ class BatchMaskingAdapter:
                         base_indices = base_indices[base_indices < L]
                         base_indices = base_indices[pad_mask[i][base_indices]]
 
-                    self._apply_mask_values(masked, emb_mask, i, base_indices, g)
+                    self._apply_mask_values(
+                        masked,
+                        emb_mask,
+                        i,
+                        base_indices,
+                        g,
+                        replacement_probs=replacement_probs,
+                    )
 
             self._fill_remaining_budget_randomly(
                 masked_emb=masked,
@@ -165,7 +230,8 @@ class BatchMaskingAdapter:
                 batch_idx=i,
                 valid_indices=valid_indices,
                 target_count=target_mask_tokens,
-                generator=g
+                generator=g,
+                replacement_probs=replacement_probs,
             )
 
         return masked, emb_mask
@@ -175,7 +241,8 @@ class BatchMaskingAdapter:
                                 embeddings: torch.Tensor,
                                 mask_perc: Union[float, torch.Tensor] = 0.15,
                                 pad_mask: Optional[torch.Tensor] = None, 
-                                generator: Optional[torch.Generator] = None):
+                                generator: Optional[torch.Generator] = None,
+                                replacement_probs: Optional[Dict[str, float]] = None):
         B, L, _ = embeddings.shape
         device = embeddings.device
         g = generator or torch.Generator(device=device)
@@ -225,7 +292,14 @@ class BatchMaskingAdapter:
                     if pad_mask is not None:
                         pos = pos[pos < L]
                         pos = pos[pad_mask[i][pos]]
-                    self._apply_mask_values(masked, emb_mask, i, pos, g)
+                    self._apply_mask_values(
+                        masked,
+                        emb_mask,
+                        i,
+                        pos,
+                        g,
+                        replacement_probs=replacement_probs,
+                    )
 
             self._fill_remaining_budget_randomly(
                 masked_emb=masked,
@@ -233,7 +307,8 @@ class BatchMaskingAdapter:
                 batch_idx=i,
                 valid_indices=valid_indices,
                 target_count=target_mask_tokens,
-                generator=g
+                generator=g,
+                replacement_probs=replacement_probs,
             )
 
         return masked, emb_mask
@@ -247,7 +322,8 @@ class BatchMaskingAdapter:
                                 mask_perc_range: Union[float, Tuple[float, float]] = (0.1, 0.9),
                                 full_mask_perc: float = 0.0,
                                 generator: Optional[torch.Generator] = None,
-                                strategy_probs: Optional[Dict[str, float]] = None):
+                                strategy_probs: Optional[Dict[str, float]] = None,
+                                replacement_probs: Optional[Dict[str, float]] = None):
         """
         Core scheduling function:
         - Samples a random masking percentage from mask_perc_range PER SAMPLE.
@@ -329,17 +405,34 @@ class BatchMaskingAdapter:
             
             if strategy_name == 'single':
                 sub_out, sub_mask = self.mask_random_single_base_batch(
-                    sub_emb, mask_perc=sub_ratios, pad_mask=sub_pad, generator=g)
+                    sub_emb,
+                    mask_perc=sub_ratios,
+                    pad_mask=sub_pad,
+                    generator=g,
+                    replacement_probs=replacement_probs,
+                )
             
             elif strategy_name == 'tri':
                 sub_cds = [cds_starts_list[i] for i in indices]
                 sub_out, sub_mask = self.mask_random_trinucleotide_batch(
-                    sub_emb, cds_starts=sub_cds, mask_perc=sub_ratios, pad_mask=sub_pad, generator=g)
+                    sub_emb,
+                    cds_starts=sub_cds,
+                    mask_perc=sub_ratios,
+                    pad_mask=sub_pad,
+                    generator=g,
+                    replacement_probs=replacement_probs,
+                )
                 
             elif strategy_name == 'motif':
                 sub_occs = [occs[i] for i in indices] if occs else []
                 sub_out, sub_mask = self.mask_random_motif_batch(
-                    sub_occs, sub_emb, mask_perc=sub_ratios, pad_mask=sub_pad, generator=g)
+                    sub_occs,
+                    sub_emb,
+                    mask_perc=sub_ratios,
+                    pad_mask=sub_pad,
+                    generator=g,
+                    replacement_probs=replacement_probs,
+                )
             
             idx_tensor = torch.tensor(indices, device=device)
             masked_emb[idx_tensor] = sub_out
