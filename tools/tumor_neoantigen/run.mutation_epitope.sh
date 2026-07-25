@@ -17,7 +17,8 @@ CONFIG_DIR=/home/user/data3/rbase/translation_model/models/src/config
 WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/pretrain
 TRACE_MODE="short"
 HLA_CSV=${WORK_DIR}/patient_hla_typing.csv
-TPM_MATRIX=${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv
+TPM_MATRIX=${WORK_DIR}/featureCounts_tumor/transcript_true_tpm_matrix.csv
+GENE_COUNTS_MATRIX=${WORK_DIR}/featureCounts_tumor/gene_counts.complete_gtf.multioverlap.txt
 
 echo "=========================================="
 echo "==== Phase 1: Somatic Variants (GATK) ===="
@@ -117,7 +118,7 @@ do
             --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
             --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
             --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
-            --patient_counts_file ${WORK_DIR}/featureCounts_tumor/gene_counts.txt \
+            --patient_counts_file ${GENE_COUNTS_MATRIX} \
             --counts_level "gene" \
             --tpm_csv ${TPM_MATRIX} \
             --tpm_level "transcript" \

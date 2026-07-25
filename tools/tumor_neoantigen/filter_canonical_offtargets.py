@@ -56,8 +56,8 @@ def load_reference_proteome(fasta_path):
     return ref_proteome
 
 def main():
-    parser = argparse.ArgumentParser(description="Batch process multi-patient neoantigen logs and strictly filter off-target self-peptides against normal proteome.")
-    parser.add_argument("-i", "--input_dir", required=True, help="Input directory containing patient specific neoantigens CSV files.")
+    parser = argparse.ArgumentParser(description="Filter canonical off-targets and report tumor-associated antigen candidates.")
+    parser.add_argument("-i", "--input_dir", required=True, help="Input directory containing patient-specific antigen candidate CSV files.")
     parser.add_argument("-f", "--fasta", required=True, help="Canonical translations FASTA (e.g., gencode.v49.pc_translations.fa).")
     parser.add_argument("-o", "--output_dir", required=True, help="Output directory to save the filtered specific patient reports.")
     
@@ -132,8 +132,9 @@ def main():
     # ==============================================================================
     # 3. Apply Multi-Patient Off-Target AND-Gate Filter
     # ==============================================================================
-    print("\n--- Phase 3: Executing Global Self-Peptide Set-Difference Filtration ---")
+    print("\n--- Phase 3: Executing Existing Canonical Set-Difference Filtration ---")
     keep_mask = []
+    antigen_classes = []
     
     for idx, row in global_df.iterrows():
         patient = row['Patient']
@@ -150,10 +151,16 @@ def main():
         
         if len(off_targets) == 0:
             keep_mask.append(True)
+            if matched_canonical_tids:
+                antigen_classes.append('Tumor-associated self-antigen candidate')
+            else:
+                antigen_classes.append('Noncanonical neoantigen candidate')
         else:
             keep_mask.append(False)
+            antigen_classes.append('Excluded canonical off-target')
             
     global_df['Pass_Canonical_Safety'] = keep_mask
+    global_df['Antigen_Class'] = antigen_classes
     filtered_global_df = global_df[global_df['Pass_Canonical_Safety']].copy()
     
     print(f"\n==================================================================")
@@ -161,7 +168,7 @@ def main():
     print(f"==================================================================")
     print(f" -> Initial Combined Rows Analyzed : {len(global_df)}")
     print(f" -> Excluded (Off-Target Autoimmune Risk) : {len(global_df) - len(filtered_global_df)}")
-    print(f" -> Pristine Specific Epitopes Retained    : {len(filtered_global_df)}")
+    print(f" -> Tumor-associated candidates retained  : {len(filtered_global_df)}")
     print(f"==================================================================")
 
     # Clean processing tracking columns
@@ -180,7 +187,7 @@ def main():
             out_filename = file_meta['basename']
             out_sep = file_meta['sep']
         else:
-            out_filename = f"{patient_id}_strictly_safe_neoepitopes.csv"
+            out_filename = f"{patient_id}_tumor_associated_antigens.csv"
             out_sep = ','
             
         out_path = os.path.join(args.output_dir, out_filename)
@@ -189,7 +196,7 @@ def main():
         final_patient_export = patient_group.copy()
         
         final_patient_export.to_csv(out_path, sep=out_sep, index=False)
-        print(f" -> Successfully saved ultra-safe specific file for [{patient_id}]: {out_filename} ({len(final_patient_export)} rows)")
+        print(f" -> Saved tumor-associated antigen report for [{patient_id}]: {out_filename} ({len(final_patient_export)} rows)")
 
     print(f"\n✅ All batch workflows completed successfully. Outputs structured under: {args.output_dir}/\n")
 

@@ -385,12 +385,16 @@ class TranslationBaseModel(nn.Module):
         if not isinstance(seq_batch, torch.Tensor):
             seq_batch = self._ensure_tensor(seq_batch)
 
-        # if count_batch is None，generate Tensor full of 0
+        # Generate a zero RPF channel for sequence-only inference.
         if count_batch is None:
             shape = list(seq_batch.shape)
             d_count = getattr(self, 'd_count', 1)
             shape[-1] = d_count
-            count_batch = torch.zeros(shape, dtype=seq_batch.dtype)
+            count_batch = torch.zeros(
+                shape,
+                dtype=seq_batch.dtype,
+                device=seq_batch.device,
+            )
 
         # if count_batch is not None
         if not isinstance(count_batch, torch.Tensor):
@@ -548,7 +552,7 @@ class TranslationBaseModel(nn.Module):
     def forward(
         self,
         seq_batch: torch.Tensor,
-        count_batch: torch.Tensor,
+        count_batch: Optional[torch.Tensor] = None,
         cell_type: Optional[Any] = None, 
         expr_vector: torch.Tensor = None,
         species: Optional[Any] = None,
@@ -557,23 +561,38 @@ class TranslationBaseModel(nn.Module):
         head_inputs: Optional[Dict[str, Dict[str, Any]]] = None,
     ):
         """
-        Strict forward.
+        Strict forward with an optional legacy RPF input.
         Provide `expr_vector` (shape: bs, d_expr) for training, or `cell_type` for dictionary lookup.
         If both are missing or unknown, the model falls back to the mean expression vector.
         Optionally provide `species` to inject evolutionary baselines.
+        If `count_batch` is omitted, an all-zero RPF channel is created internally.
         """
 
         # --- basic type checks ---
         if not isinstance(seq_batch, torch.Tensor):
             raise TypeError("forward() expects seq_batch as torch.Tensor (dim==3). Use predict() for flexible inputs.")
-        if not isinstance(count_batch, torch.Tensor):
-            raise TypeError("forward() expects count_batch as torch.Tensor (dim==3). Use predict() for flexible inputs.")
         if expr_vector is not None and not isinstance(expr_vector, torch.Tensor):
             raise TypeError("forward() expects expr_vector as torch.Tensor when provided. Use predict() for flexible inputs.")
         if seq_batch.dim() != 3:
             raise ValueError(f"seq_batch must have dim==3 (bs, seq_len, d_seq). Got shape {tuple(seq_batch.shape)}")
+        if count_batch is None:
+            count_batch = seq_batch.new_zeros(
+                (seq_batch.shape[0], seq_batch.shape[1], self.d_count)
+            )
+        elif not isinstance(count_batch, torch.Tensor):
+            raise TypeError("forward() expects count_batch as torch.Tensor when provided. Use predict() for flexible inputs.")
         if count_batch.dim() != 3:
             raise ValueError(f"count_batch must have dim==3 (bs, seq_len, d_count). Got shape {tuple(count_batch.shape)}")
+        if count_batch.shape[:2] != seq_batch.shape[:2]:
+            raise ValueError(
+                "count_batch batch and sequence dimensions must match seq_batch. "
+                f"Got {tuple(count_batch.shape[:2])} and {tuple(seq_batch.shape[:2])}."
+            )
+        if count_batch.shape[-1] != self.d_count:
+            raise ValueError(
+                f"count_batch feature dimension must be {self.d_count}. "
+                f"Got {count_batch.shape[-1]}."
+            )
         
         bs = seq_batch.shape[0]
         seq_len = seq_batch.shape[1]

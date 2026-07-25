@@ -1,5 +1,5 @@
-#!/bin/sh 
-set -euo pipefail
+#!/bin/bash
+set -Eeuo pipefail
 
 ## Argument
 while [[ $# -gt 0 ]]; do
@@ -9,6 +9,7 @@ while [[ $# -gt 0 ]]; do
         --refGTF)         refGTF=$2;shift;;      
         --refFasta)       refFasta=$2;shift;;    
         --threads_per_job) threads_per_job=$2;shift;; 
+        --strand_mode)    strand_mode=$2;shift;;
         --)               shift; break;;
         *)                echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
@@ -16,7 +17,15 @@ while [[ $# -gt 0 ]]; do
 done
 
 threads_per_job=${threads_per_job:-10}
+strand_mode=${strand_mode:-0}
 job_num=3 # 并发处理的样本数量
+
+case "$strand_mode" in
+    0) stringtie_strand_args=() ;;
+    1) stringtie_strand_args=(--fr) ;;
+    2) stringtie_strand_args=(--rf) ;;
+    *) echo "Error: --strand_mode must be 0, 1, or 2."; exit 1 ;;
+esac
 
 if [ -z "${bamDir:-}" ] || [ -z "${outputDir:-}" ] || [ -z "${refGTF:-}" ] || [ -z "${refFasta:-}" ]; then
     echo "Error: Missing required parameters."
@@ -41,6 +50,7 @@ for ((i=1;i<=${job_num};i++)); do echo; done >&6
 
 samples=($(ls ${bamDir}/*/*.uniq.sorted.bam | awk -F'/' '{print $(NF-1)}'))
 
+pids=()
 for sample in ${samples[@]}; do
     sample_outdir="${outputDir}/${sample}"
     input_bam="${bamDir}/${sample}/${sample}.uniq.sorted.bam"
@@ -53,13 +63,23 @@ for sample in ${samples[@]}; do
     
     read -u6
     {
+        trap 'echo >&6' EXIT
         echo "-- assembling $sample --"
         [ -d $sample_outdir ] || mkdir -p $sample_outdir
-        stringtie ${input_bam} -G ${refGTF} --rf -p ${threads_per_job} -o ${output_gtf}
-        echo >&6
+        stringtie ${input_bam} -G ${refGTF} "${stringtie_strand_args[@]}" -p ${threads_per_job} -o ${output_gtf}
     }&
+    pids+=("$!")
 done
-wait
+failed=0
+for pid in "${pids[@]}"; do
+    if ! wait "$pid"; then
+        failed=1
+    fi
+done
+if (( failed != 0 )); then
+    echo "[ERROR] At least one StringTie assembly job failed." >&2
+    exit 1
+fi
 exec 6>&-
 
 mergelist="${outputDir}/mergelist.txt"
@@ -212,5 +232,5 @@ fi
 echo "=========================================================="
 echo "All done! Pipeline finished successfully."
 echo "Use [ ${final_novel_gtf} ] for Fasta extraction / TRACE modeling."
-echo "Use [ ${quant_target_gtf} ] for featureCounts expression quantification."
+echo "Legacy unique-region target saved to [ ${quant_target_gtf} ] but not used by the complete-GTF workflow."
 echo "Metadata saved to [ ${class_mapping} ]."

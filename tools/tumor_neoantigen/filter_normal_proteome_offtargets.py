@@ -79,6 +79,16 @@ def extract_patient_id(filename: str) -> str:
     return basename.rsplit(".", 1)[0]
 
 
+def get_normal_proteome_path(trace_base_dir: str, patient_id: str, trace_mode: str) -> str:
+    """Return the TRACE protein FASTA path produced for a patient's normal sample."""
+    return os.path.join(
+        trace_base_dir,
+        patient_id,
+        "normal",
+        f"high_confidence_proteins.{patient_id}.{trace_mode}_mode.fasta",
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Filter neoepitope candidates against patient-specific normal proteomes."
@@ -119,9 +129,8 @@ def main():
         out_path = os.path.join(args.output_dir, os.path.basename(csv_path))
 
         # Locate the patient's normal proteome FASTA from TRACE output.
-        fasta_path = os.path.join(
-            args.trace_base_dir, patient_id,
-            f"high_confidence_proteins.{patient_id}.{args.trace_mode}_mode.fasta"
+        fasta_path = get_normal_proteome_path(
+            args.trace_base_dir, patient_id, args.trace_mode
         )
 
         if not os.path.exists(fasta_path):

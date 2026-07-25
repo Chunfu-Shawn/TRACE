@@ -20,6 +20,63 @@ def safe_clean_id(tid):
         
     return tid_str
 
+
+def select_patient_candidate_rows(step2_df, tumor_run_id):
+    """Select candidate rows belonging to one tumor run and normalize transcript IDs."""
+    required = {'Transcript_ID', 'Tumor_Run', 'Tumor_Junction_CPM'}
+    missing = required.difference(step2_df.columns)
+    if missing:
+        raise ValueError(f"Step 2 CSV is missing required columns: {sorted(missing)}")
+
+    run_key = str(tumor_run_id).strip()
+    run_mask = step2_df['Tumor_Run'].astype(str).str.strip() == run_key
+    patient_step2 = step2_df.loc[run_mask].copy()
+    if patient_step2.empty:
+        raise ValueError(f"No Step 2 candidates found for tumor run '{run_key}'.")
+
+    patient_step2['Clean_Tid'] = patient_step2['Transcript_ID'].apply(safe_clean_id)
+    return patient_step2
+
+
+def build_patient_jcpm_dict(step2_df, tumor_run_id):
+    """Build a transcript-to-junction-CPM lookup for one tumor run only."""
+    patient_step2 = select_patient_candidate_rows(step2_df, tumor_run_id)
+    patient_step2['Tumor_Junction_CPM'] = pd.to_numeric(
+        patient_step2['Tumor_Junction_CPM'], errors='coerce'
+    ).fillna(0.0)
+    return (
+        patient_step2.groupby('Clean_Tid')['Tumor_Junction_CPM']
+        .max()
+        .to_dict()
+    )
+
+
+def build_patient_gtex_context(step2_df, tumor_run_id):
+    """Build per-transcript GTEx assessment metadata for the final antigen report."""
+    patient_step2 = select_patient_candidate_rows(step2_df, tumor_run_id)
+    context_columns = [
+        'GTEx_Transcript_TPM_Covered',
+        'GTEx_Transcript_Filter_Source',
+        'GTEx_Step2_Applied',
+        'GTEx_Step2_Status',
+        'GTEx_Background_Statistic',
+        'Global_Max_GTEx_TPM',
+        'Global_Max_GTEx_JCPM',
+        'GTEx_Junction_Background_Assessed',
+        'GTEx_Junction_Coverage',
+        'GTEx_Junction_Filter_Source',
+        'GTEx_Junction_IDs_Assessed',
+        'GTEx_Junction_IDs_Missing',
+    ]
+    available_columns = [column for column in context_columns if column in patient_step2.columns]
+    if not available_columns:
+        return {}
+    return (
+        patient_step2.drop_duplicates('Clean_Tid')
+        .set_index('Clean_Tid')[available_columns]
+        .to_dict('index')
+    )
+
 def extract_filtered_binders_from_log(log_path, bind_levels, max_aff, max_rank_el, max_rank_ba):
     print(f"[Parser] Parsing NetMHCpan log: {log_path}")
     data = []
@@ -145,6 +202,7 @@ def main():
 
     parser.add_argument("-s", "--step2_csv", required=True, help="Path to Step 2 valid targets CSV containing Tumor_Junction_CPM.")
     parser.add_argument("-p", "--patient_id", required=True, help="Patient identifier used for naming the output report.")
+    parser.add_argument("--tumor_run_id", required=True, help="Tumor Run ID used to isolate patient-specific expression context.")
     parser.add_argument("-o", "--output_dir", required=True, help="Directory to save the prioritized neoantigen report.")
     
     # Optional Filtering Parameters
@@ -175,15 +233,15 @@ def main():
     print("\n=== Phase 2: Constructing Expression Context Lookups (Dual-Track) ===")
     orf_dict = parse_trace_fasta(args.fasta_file)
     
-    # 1. 提取 Step 2 中的 Junction CPM
+    # 1. Extract patient-specific Junction CPM from Step 2.
     df_step2 = pd.read_csv(args.step2_csv)
-    if 'Tumor_Junction_CPM' not in df_step2.columns:
-        print("[Error] 'Tumor_Junction_CPM' not found in Step 2 CSV.")
+    try:
+        jcpm_dict = build_patient_jcpm_dict(df_step2, args.tumor_run_id)
+        gtex_context = build_patient_gtex_context(df_step2, args.tumor_run_id)
+    except ValueError as exc:
+        print(f"[Error] {exc}")
         sys.exit(1)
-        
-    df_step2['Clean_Tid'] = df_step2['Transcript_ID'].apply(safe_clean_id)
-    # 取该转录本中最高的 Junction CPM 以备用
-    jcpm_dict = df_step2.groupby('Clean_Tid')['Tumor_Junction_CPM'].max().fillna(0.0).to_dict()
+    print(f"[Lookup] Loaded Junction CPM values for tumor run {args.tumor_run_id}.")
 
     # 2. 整合 TRACE 输出与 JCPM
     df_trans = pd.read_csv(args.translation_csv)
@@ -197,11 +255,25 @@ def main():
         tumor_tpm = row.get('tpm', 0.0)
         mean_int = row.get('mean_intensity', 0.0)
         tumor_jcpm = jcpm_dict.get(tid_clean, 0.0)
+        transcript_gtex_context = {
+            'GTEx_Transcript_TPM_Covered': False,
+            'GTEx_Transcript_Filter_Source': 'Unavailable',
+            'GTEx_Step2_Applied': False,
+            'GTEx_Step2_Status': 'Unavailable',
+            'GTEx_Background_Statistic': 'Unavailable',
+            'Global_Max_GTEx_TPM': 0.0,
+            'Global_Max_GTEx_JCPM': 0.0,
+            'GTEx_Junction_Background_Assessed': False,
+            'GTEx_Junction_Coverage': 'Unavailable',
+            'GTEx_Junction_Filter_Source': 'Unavailable',
+            'GTEx_Junction_IDs_Assessed': '',
+            'GTEx_Junction_IDs_Missing': '',
+            **gtex_context.get(tid_clean, {}),
+        }
         
-        # 计算双轨制蛋白质表达量
+        # Keep transcript and junction evidence on separate scales.
         prot_expr_t = tumor_tpm * mean_int
         prot_expr_c = tumor_jcpm * mean_int
-        total_prot_expr = prot_expr_t + prot_expr_c
         
         trans_lookup[key] = {
             'Tumor_TPM': tumor_tpm,
@@ -209,7 +281,7 @@ def main():
             'mean_intensity': mean_int,
             'Protein_Expression_T': prot_expr_t,
             'Protein_Expression_C': prot_expr_c,
-            'Total_Protein_Expression': total_prot_expr
+            **transcript_gtex_context,
         }
     print(f"[Lookup] Built integrated Dual-Track expression index covering {len(trans_lookup)} specific relative positions.")
 
@@ -226,7 +298,19 @@ def main():
         best_expr = -1.0
         best_metrics = {
             'Tumor_TPM': 0.0, 'Junction_CPM': 0.0, 'mean_intensity': 0.0,
-            'Protein_Expression_T': 0.0, 'Protein_Expression_C': 0.0, 'Total_Protein_Expression': 0.0
+            'Protein_Expression_T': 0.0, 'Protein_Expression_C': 0.0,
+            'GTEx_Transcript_TPM_Covered': False,
+            'GTEx_Transcript_Filter_Source': 'Unavailable',
+            'GTEx_Step2_Applied': False,
+            'GTEx_Step2_Status': 'Unavailable',
+            'GTEx_Background_Statistic': 'Unavailable',
+            'Global_Max_GTEx_TPM': 0.0,
+            'Global_Max_GTEx_JCPM': 0.0,
+            'GTEx_Junction_Background_Assessed': False,
+            'GTEx_Junction_Coverage': 'Unavailable',
+            'GTEx_Junction_Filter_Source': 'Unavailable',
+            'GTEx_Junction_IDs_Assessed': '',
+            'GTEx_Junction_IDs_Missing': '',
         }
         
         mapped_orf_pos = "Unmapped"
@@ -242,8 +326,10 @@ def main():
                         pep_tx_stop = pep_tx_start + (len(peptide) * 3)
                         
                         key = (tid, orf['start'], orf['stop'])
-                        metrics = trans_lookup.get(key, {})
-                        expr = metrics.get('Total_Protein_Expression', 0.0)
+                        metrics = trans_lookup.get(key)
+                        if metrics is None:
+                            continue
+                        expr = metrics.get('mean_intensity', 0.0)
                         
                         if expr > best_expr:
                             best_expr = expr
@@ -259,32 +345,45 @@ def main():
         
     df_mapped = pd.DataFrame(mapped_peptides)
     
-    # 只要由任意一条轨（Transcript 或 Junction）支撑蛋白质表达量，就将其保留
-    df_mapped = df_mapped[df_mapped['Total_Protein_Expression'] > 0].copy()
+    # Retain candidates supported by either independent expression track.
+    df_mapped = df_mapped[
+        (df_mapped['Protein_Expression_T'] > 0) |
+        (df_mapped['Protein_Expression_C'] > 0)
+    ].copy()
     print(f"[Mapping] Sequence positional alignment complete. Retained {len(df_mapped)} highly traceable candidates.")
 
     print("\n=== Phase 4: Final Prioritization and Export ===")
     
-    # 更新打分逻辑
-    df_mapped['Combined_Score'] = df_mapped['Total_Protein_Expression'] * df_mapped['Score_EL']
+    df_mapped['TPM_HLA_Score'] = df_mapped['Protein_Expression_T'] * df_mapped['Score_EL']
+    df_mapped['Junction_HLA_Score'] = df_mapped['Protein_Expression_C'] * df_mapped['Score_EL']
     
     cols_order = [
         'Peptide', 'MHC', 'Identity', 
         'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 
-        'Total_Protein_Expression', 'Combined_Score',
+        'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Tumor_TPM', 
         'Protein_Expression_C', 'Junction_CPM', 
         'mean_intensity', 
+        'GTEx_Transcript_TPM_Covered', 'GTEx_Transcript_Filter_Source',
+        'GTEx_Step2_Applied', 'GTEx_Step2_Status', 'GTEx_Background_Statistic',
+        'Global_Max_GTEx_TPM', 'Global_Max_GTEx_JCPM',
+        'GTEx_Junction_Background_Assessed', 'GTEx_Junction_Coverage',
+        'GTEx_Junction_Filter_Source', 'GTEx_Junction_IDs_Assessed',
+        'GTEx_Junction_IDs_Missing',
         'Score_EL', 'Aff(nM)', 'BindLevel', '%Rank_EL'
     ]
     remaining_cols = [c for c in df_mapped.columns if c not in cols_order]
     df_mapped = df_mapped[cols_order + remaining_cols]
     
-    # 严格按照 Total_Protein_Expression (Protein_Expression_T + Protein_Expression_C) 进行降序排序
-    df_mapped.sort_values(by='Total_Protein_Expression', ascending=False, inplace=True)
+    # Rank without adding TPM-derived and junction-derived quantities.
+    df_mapped.sort_values(
+        by=['mean_intensity', 'Score_EL'],
+        ascending=[False, False],
+        inplace=True,
+    )
     
     round_cols = [
-        'Total_Protein_Expression', 'Combined_Score', 
+        'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Protein_Expression_C', 
         'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'Score_EL'
     ]

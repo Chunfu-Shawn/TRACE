@@ -2,6 +2,8 @@ import pandas as pd
 import sys
 import os
 
+from metadata_utils import classify_tissue
+
 run_table = sys.argv[1]
 bam_dir = sys.argv[2]
 b1_out = sys.argv[3]
@@ -12,11 +14,12 @@ print(f"Reading metadata from {run_table}...")
 df = pd.read_csv(run_table, sep=None, engine='python')
 df.columns = df.columns.str.strip() # 去除列名可能的多余空格
 
-# 关键：按照患者 (Individual) 排序，确保 Tumor 和 Normal 在列表中的顺序完全一一对应
+# Sort by patient so paired sample lists use a stable order.
 df_sorted = df.sort_values('Individual')
 
-tumor_df = df_sorted[df_sorted['tissue'].str.lower() == 'tumor']
-normal_df = df_sorted[df_sorted['tissue'].str.lower() == 'non-tumor']
+standardized_tissue = df_sorted['tissue'].apply(classify_tissue)
+tumor_df = df_sorted[standardized_tissue == 'tumor']
+normal_df = df_sorted[standardized_tissue == 'normal']
 
 if len(tumor_df) != len(normal_df):
     print(f"WARNING: Unequal pairs! Tumor: {len(tumor_df)}, Normal: {len(normal_df)}")

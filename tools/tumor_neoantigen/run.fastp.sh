@@ -1,11 +1,12 @@
+#!/bin/bash
+set -Eeuo pipefail
+
 ################################################
 #File Name: run.ribo-seq.analysis.sh
 #Author: rbase    
 #Mail: xiaochunfu@stu.pku.edu.cn
 #Modified: Added auto-detection for SE/PE compatibility
 ################################################
-
-#!/bin/sh 
 
 ##并发运行脚本，并控制并发数
 # 设置并发的进程数
@@ -32,7 +33,7 @@ while [[ $# -gt 0 ]]; do
         --fastqDir)          fastqDir=$2;shift;;
         --outputDir)         outputDir=$2;shift;;
         --)                  shift; break;;
-        *)                   usage; echo -e "\n[ERR] $(date) Unkonwn option: $1"; exit 1;;
+        *)                   echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
     shift
 done
@@ -42,10 +43,12 @@ done
 # sort -u 用于去除双端文件产生的重复前缀
 samples=(`cd $fastqDir && ls *.fastq.gz | sed -E 's/(_1|_2|_R1|_R2)?\.fastq\.gz//g' | sort -u`)
 
+pids=()
 for sample in ${samples[@]};
 do
     read -u6
     {
+        trap 'echo >&6' EXIT
         [ -d $outputDir ] || mkdir -p $outputDir
         cd $outputDir
         
@@ -58,10 +61,22 @@ do
         # 优先匹配常见的双端命名格式 (_1/_2 或 _R1/_R2)
         if [ -f "$fastqDir/${sample}_1.fastq.gz" ]; then
             fq1="$fastqDir/${sample}_1.fastq.gz"
-            [ -f "$fastqDir/${sample}_2.fastq.gz" ] && fq2="$fastqDir/${sample}_2.fastq.gz"
+            if [ ! -f "$fastqDir/${sample}_2.fastq.gz" ]; then
+                echo "[Error] Missing mate file for $fq1" >&2
+                exit 1
+            fi
+            fq2="$fastqDir/${sample}_2.fastq.gz"
         elif [ -f "$fastqDir/${sample}_R1.fastq.gz" ]; then
             fq1="$fastqDir/${sample}_R1.fastq.gz"
-            [ -f "$fastqDir/${sample}_R2.fastq.gz" ] && fq2="$fastqDir/${sample}_R2.fastq.gz"
+            if [ ! -f "$fastqDir/${sample}_R2.fastq.gz" ]; then
+                echo "[Error] Missing mate file for $fq1" >&2
+                exit 1
+            fi
+            fq2="$fastqDir/${sample}_R2.fastq.gz"
+        elif [ -f "$fastqDir/${sample}_2.fastq.gz" ] || \
+             [ -f "$fastqDir/${sample}_R2.fastq.gz" ]; then
+            echo "[Error] Read-2 file exists without its read-1 mate for $sample" >&2
+            exit 1
         elif [ -f "$fastqDir/${sample}.fastq.gz" ]; then
             # 匹配纯单端命名格式
             fq1="$fastqDir/${sample}.fastq.gz"
@@ -78,21 +93,23 @@ do
                 -h ${sample}_fastp.html -j ${sample}_fastp.json
                 
         elif [ -n "$fq1" ]; then
-            # ================== 单端 (SE) 模式 ==================
-            echo "[Info] Detected Single-End data for $sample"
-            [ -f ${sample}.clean.fastq.gz ] || fastp \
-                -i $fq1 \
-                -o ${sample}.clean.fastq.gz \
-                -w 16 --qualified_quality_phred 20 --length_required 50 \
-                -h ${sample}_fastp.html -j ${sample}_fastp.json
+            echo "[Skip] Single-end sample $sample is excluded by preprocessing policy."
                 
         else
             echo "[WARN] Could not find valid fastq files for $sample in $fastqDir"
         fi
 
-        # 当进程结束以后，再向FD6中加上一个回车符，即补上了read -u6减去的那个
-        echo >&6
     }&
+    pids+=("$!")
 done
-wait
+failed=0
+for pid in "${pids[@]}"; do
+    if ! wait "$pid"; then
+        failed=1
+    fi
+done
+if (( failed != 0 )); then
+    echo "[ERROR] At least one fastp job failed." >&2
+    exit 1
+fi
 echo "All tasks finished!"

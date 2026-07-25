@@ -7,34 +7,43 @@ project_name=cohort_2
 
 WORK_DIR=/home/user/data3/rbase/translation_model/neoantigen/samples/${project_name}
 SCRIPT_DIR=/home/user/data3/rbase/translation_model/models/tools/tumor_neoantigen
+source "${SCRIPT_DIR}/quantification_config.sh"
 GTF_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.gtf
 ADD_GTF_FILE=${WORK_DIR}/assembly/final_filtered_novel_transcripts_enhanced.gtf
-COUNTS_IN=${WORK_DIR}/featureCounts_tumor/transcript_counts.txt
+COMPLETE_GTF=${WORK_DIR}/featureCounts_tumor/complete_transcript_annotation.gtf
+COUNTS_IN=${WORK_DIR}/featureCounts_tumor/transcript_counts.complete_gtf.multioverlap.txt
+GENE_COUNTS_IN=${WORK_DIR}/featureCounts_tumor/gene_counts.complete_gtf.multioverlap.txt
+JUNCTION_COUNTS_IN=${WORK_DIR}/featureCounts_tumor/junction_counts.complete_gtf.multioverlap.txt.jcounts
+TPM_MATRIX=${WORK_DIR}/featureCounts_tumor/transcript_true_tpm_matrix.csv
 META_FILE=${WORK_DIR}/meta_info_patient_run.csv
+# Step 2 requires local GTEx BAMs and is disabled by default on servers without raw data.
+RUN_GTEX_STEP2=${RUN_GTEX_STEP2:-no}
+GTEX_BAM_DIR=${GTEX_BAM_DIR:-/home/user/data/share/GTExV8}
 
 echo "============================================="
 echo "==== Identify tumor-specific transcripts ===="
 echo "============================================="
-TUMOR_UP_CSV=${WORK_DIR}/tumor_specific_tx/patient_tumor_upregulated_transcripts_all.csv
+JUNCTION_MAPPING=${WORK_DIR}/assembly/specific_junction_mapping.stranded.tsv
+TUMOR_UP_CSV=${WORK_DIR}/tumor_specific_tx/patient_tumor_upregulated_transcripts.true_tpm_gene_lib.stranded.csv
 
 # 1. Specific junction of transcripts
-[ -f ${WORK_DIR}/assembly/specific_junction_mapping.tsv ] || \
+[ -f ${JUNCTION_MAPPING} ] || \
 python ${SCRIPT_DIR}/extract_specific_junctions.py \
     --ref_gtf $GTF_FILE \
     --tumor_gtfs $ADD_GTF_FILE \
-    --output_mapping ${WORK_DIR}/assembly/specific_junction_mapping.tsv \
+    --output_mapping ${JUNCTION_MAPPING} \
     --mode tumor_specific
 
 # 2. find tumor specific transcripts by TPM and junction CPM
 [ -f ${TUMOR_UP_CSV} ] || \
 python ${SCRIPT_DIR}/find_tumor_specific_transcripts.py \
     --counts_file ${COUNTS_IN} \
-    --summary_file ${COUNTS_IN}.summary \
+    --gene_counts_file ${GENE_COUNTS_IN} \
     --metadata_file ${META_FILE} \
-    --out_tpm_file ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+    --out_tpm_file ${TPM_MATRIX} \
     --output_file ${TUMOR_UP_CSV} \
-    --jcounts_file ${WORK_DIR}/featureCounts_tumor/junction_counts.txt.jcounts \
-    --junc_mapping ${WORK_DIR}/assembly/specific_junction_mapping.tsv \
+    --jcounts_file ${JUNCTION_COUNTS_IN} \
+    --junc_mapping ${JUNCTION_MAPPING} \
     --class_mapping ${WORK_DIR}/assembly/transcript_class_mapping.tsv \
     --min_max_tcount 20 \
     --min_max_jcount 5 \
@@ -49,8 +58,8 @@ echo -e "\n"
 echo "==================================================="
 echo "==== Filter tumor-specific transcripts by GTEx ===="
 echo "==================================================="
-STEP1_CSV=${WORK_DIR}/tumor_specific_tx/safe_tumor_specific_transcripts_GTEx-step1.csv
-STEP2_CSV=${WORK_DIR}/tumor_specific_tx/safe_tumor_specific_transcripts_GTEx-step2.csv
+STEP1_CSV=${WORK_DIR}/tumor_specific_tx/safe_tumor_specific_transcripts_GTEx-step1.true_tpm_gene_lib.stranded.csv
+STEP2_CSV=${WORK_DIR}/tumor_specific_tx/safe_tumor_specific_transcripts_GTEx-step2.true_tpm_gene_lib.stranded.csv
 
 # Run Step 1
 [ -f ${STEP1_CSV} ] || \
@@ -58,30 +67,40 @@ python ${SCRIPT_DIR}/filter_gtex_step1.py \
     --input ${TUMOR_UP_CSV} \
     --gtex_tpm /home/user/data3/rbase/database/GTEx/GTEx_v11_tissue_median_transcript_tpm.csv \
     --gtex_junc /home/user/data3/rbase/database/GTEx/GTEx_Tissue_Median_Junction_CPM.csv \
-    --junc_mapping ${WORK_DIR}/assembly/specific_junction_mapping.tsv \
+    --junc_mapping ${JUNCTION_MAPPING} \
     --max_tpm 0.5 \
     --max_jcpm 1.0 \
     --output ${STEP1_CSV}
 
-# Run featureCounts for Step 2
-[ -f ${WORK_DIR}/featureCounts_gtex/gtex_novel_transcript_counts.txt ] || bash ${SCRIPT_DIR}/run_gtex_novel_quant.sh \
-    --bam_dir /home/user/data/share/GTExV8 \
-    --work_dir ${WORK_DIR}/featureCounts_gtex \
-    --quant_target_gtf ${WORK_DIR}/assembly/final_quantification_targets_enhanced.gtf \
-    --threads 40
+FINAL_TARGET_CSV=${STEP1_CSV}
+if [ "${RUN_GTEX_STEP2}" = "yes" ] || [ "${RUN_GTEX_STEP2}" = "true" ]; then
+    if [ -d "${GTEX_BAM_DIR}" ]; then
+        GTEX_COUNTS=${WORK_DIR}/featureCounts_gtex/gtex_transcript_counts.complete_gtf.multioverlap.txt
+        [ -f ${GTEX_COUNTS} ] || bash ${SCRIPT_DIR}/run_gtex_novel_quant.sh \
+            --bam_dir ${GTEX_BAM_DIR} \
+            --work_dir ${WORK_DIR}/featureCounts_gtex \
+            --annotation_gtf ${COMPLETE_GTF} \
+            --strand ${STRAND_FLAG} \
+            --threads 40
 
-# Run Step 2
-[ -f ${STEP2_CSV} ] || python ${SCRIPT_DIR}/filter_gtex_step2.py \
-    --step1_file ${STEP1_CSV} \
-    --counts_file ${WORK_DIR}/featureCounts_gtex/gtex_novel_transcript_counts.txt \
-    --fc_log ${WORK_DIR}/featureCounts_gtex/featureCounts_gtex.log \
-    --anno_file /home/user/data3/rbase/database/GTEx/GTEx_Analysis_v11_Annotations_SampleAttributesDS.txt \
-    --max_tpm 0.5 \
-    --output ${STEP2_CSV}
+        [ -f ${STEP2_CSV} ] || python ${SCRIPT_DIR}/filter_gtex_step2.py \
+            --step1_file ${STEP1_CSV} \
+            --counts_file ${GTEX_COUNTS} \
+            --anno_file /home/user/data3/rbase/database/GTEx/GTEx_Analysis_v11_Annotations_SampleAttributesDS.txt \
+            --max_tpm 0.5 \
+            --output ${STEP2_CSV}
+        FINAL_TARGET_CSV=${STEP2_CSV}
+    else
+        echo "[Warning] GTEx Step 2 requested but BAM directory is unavailable: ${GTEX_BAM_DIR}"
+        echo "[Warning] Continuing without GTEx raw-BAM transcript filtering."
+    fi
+else
+    echo "[Info] GTEx Step 2 is disabled; using precomputed GTEx Step 1 only."
+fi
 
 echo -e "\n"
 echo "======================================================"
-echo "==== Neoantigen prediction by TRACE and netMHCpan ===="
+echo "==== Tumor-associated antigen prediction by TRACE and netMHCpan ===="
 echo "======================================================"
 
 HLA_CSV=${WORK_DIR}/patient_hla_typing.csv
@@ -96,8 +115,9 @@ tail -n +2 "$HLA_CSV" | while IFS=',' read -r dataset patient hla_a1 hla_a2 hla_
 do    
     # 格式化患者名：将 "patient 10615" 转为 "patient_10615" 用于建文件和目录
     patient_safe=$(echo "$patient" | tr ' ' '_')
-    # 从 Metadata 中动态获取该患者的肿瘤 Run ID
-    RUN_ID=$(grep "$patient" "$META_FILE" | grep -i "tumor" | cut -d',' -f1 | head -n 1)
+    # Resolve the tumor run using normalized metadata labels.
+    RUN_ID=$(python "${SCRIPT_DIR}/metadata_utils.py" \
+        --metadata "$META_FILE" --patient "$patient" --tissue tumor)
     if [ -z "$RUN_ID" ]; then
         echo "[Warning] 找不到患者 $patient 的肿瘤 Run ID，跳过此患者..."
         continue
@@ -136,14 +156,14 @@ do
         conda activate ribo_model
         # run
         python ${SCRIPT_DIR}/run_trace_prediction.py \
-            --input_csv ${STEP2_CSV} \
+            --input_csv ${FINAL_TARGET_CSV} \
             --out_dir ${PATIENT_TRACE_DIR} \
             --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
             --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
             --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
-            --patient_counts_file ${WORK_DIR}/featureCounts_tumor/gene_counts.txt \
+            --patient_counts_file ${GENE_COUNTS_IN} \
             --counts_level "gene" \
-            --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+            --tpm_csv ${TPM_MATRIX} \
             --tpm_level "transcript" \
             --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
             --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
@@ -177,11 +197,12 @@ do
     echo "--------------------------------------------"
 
     python ${SCRIPT_DIR}/neoantigen_prioritization_report.py \
-        --step2_csv ${STEP2_CSV} \
+        --step2_csv ${FINAL_TARGET_CSV} \
         --netmhcpan_log ${PATIENT_MHC_DIR}/netMHCpan.log \
         --fasta_file ${PATIENT_TRACE_DIR}/high_confidence_proteins.${patient_safe}.${TRACE_MODE}_mode.fasta \
         --translation_csv ${PATIENT_TRACE_DIR}/high_confidence_orfs.${patient_safe}.${TRACE_MODE}_mode.csv \
         --patient_id ${patient_safe} \
+        --tumor_run_id "$RUN_ID" \
         --output_dir ${WORK_DIR}/patient_epitope_reports \
         --bind_levels SB WB \
         --max_aff_nm 2000 \
@@ -192,8 +213,9 @@ do
     echo "=> Normal proteome by TRACE"
     echo "----------------------------------------------"
 
-    # Get the normal Run ID for this patient
-    NORM_RUN_ID=$(grep "$patient" "$META_FILE" | grep -i "normal" | cut -d',' -f1 | head -n 1)
+    # Resolve the matched normal run using normalized metadata labels.
+    NORM_RUN_ID=$(python "${SCRIPT_DIR}/metadata_utils.py" \
+        --metadata "$META_FILE" --patient "$patient" --tissue normal)
 
     if [ -z "$NORM_RUN_ID" ]; then
         echo "[Warning] No normal Run ID found for $patient, skipping normal proteome."
@@ -204,7 +226,7 @@ do
         NORMAL_TX_CSV=${PATIENT_TRACE_DIR}/normal/normal_expressed_transcripts.csv
         mkdir -p ${PATIENT_TRACE_DIR}/normal
         python ${SCRIPT_DIR}/prepare_normal_transcript_input.py \
-            --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+            --tpm_csv ${TPM_MATRIX} \
             --normal_run ${NORM_RUN_ID} \
             --output ${NORMAL_TX_CSV} \
             --min_tpm 1
@@ -217,9 +239,9 @@ do
                 --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
                 --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
                 --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
-                --patient_counts_file ${WORK_DIR}/featureCounts_tumor/gene_counts.txt \
+                --patient_counts_file ${GENE_COUNTS_IN} \
                 --counts_level "gene" \
-                --tpm_csv ${WORK_DIR}/featureCounts_tumor/transcript_tpm_matrix.csv \
+                --tpm_csv ${TPM_MATRIX} \
                 --tpm_level "transcript" \
                 --ref_order ${CONFIG_DIR}/global_anchor_gene_order.txt \
                 --tx2gene_mapping /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/ens_genes_v115.txt \
@@ -244,7 +266,7 @@ echo "=> Filter against patient normal proteome (TRACE)"
 echo "----------------------------------------------"
 
 NORMAL_FILTERED_DIR=${WORK_DIR}/patient_normal_filtered_reports
-[ -d ${NORMAL_FILTERED_DIR} ] || python ${SCRIPT_DIR}/filter_normal_proteome_offtargets.py \
+python ${SCRIPT_DIR}/filter_normal_proteome_offtargets.py \
     --input_dir ${WORK_DIR}/patient_epitope_reports \
     --trace_base_dir ${WORK_DIR}/translation \
     --trace_mode ${TRACE_MODE} \
@@ -252,12 +274,13 @@ NORMAL_FILTERED_DIR=${WORK_DIR}/patient_normal_filtered_reports
 
 echo -e "\n"
 echo "---------------------------"
-echo "=> Canonical proteome filtering"
+echo "=> Canonical proteome filtering and antigen classification"
 echo "---------------------------"
 
 echo "---------------------------"
 
-[ -d ${WORK_DIR}/patient_neoepitope_reports ] || python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
+TAA_REPORT_DIR=${WORK_DIR}/patient_tumor_associated_antigen_reports
+[ -d ${TAA_REPORT_DIR} ] || python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
     --input_dir ${NORMAL_FILTERED_DIR} \
     --fasta /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa \
-    --output_dir ${WORK_DIR}/patient_neoepitope_reports
+    --output_dir ${TAA_REPORT_DIR}

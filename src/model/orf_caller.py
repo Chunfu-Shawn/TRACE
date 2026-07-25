@@ -9,6 +9,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from Bio.Seq import Seq
 
+from model.translation_utils import normalize_initiator_codon
+
 
 # =================================================================
 # Helper Function for Safe ID Cleaning
@@ -452,6 +454,7 @@ class TranslationSignalORFCaller:
             with open(f_path, 'w') as f_out:
                 for r in final_df.itertuples(index=False):
                     seq_dna = self.seq_dict[r.Tid][r.start:r.stop+3]
+                    seq_dna = normalize_initiator_codon(seq_dna)
                     seq_dna = seq_dna[:len(seq_dna) - (len(seq_dna) % 3)]
                     
                     try:

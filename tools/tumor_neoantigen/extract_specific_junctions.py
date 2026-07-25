@@ -50,7 +50,7 @@ def parse_gtf_junctions(gtf_file):
             # End of upstream exon & Start of downstream exon
             junc_start = exons[i][2]
             junc_end = exons[i+1][1]
-            junc_id = f"{chrom}:{junc_start}-{junc_end}"
+            junc_id = f"{chrom}:{junc_start}-{junc_end}:{strand}"
             
             tx_junc_set.add(junc_id)
             junction_map.setdefault(junc_id, set()).add(tx_id)

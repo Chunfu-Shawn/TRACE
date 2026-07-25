@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
 import pandas as pd
-import os
+import numpy as np
 import argparse
 import sys
-import re
+
+from quantification_utils import calculate_true_tpm, clean_featurecounts_sample_name
 
 def clean_colname(col):
     """
     Clean column names: Revert full paths to GTEx SAMPID.
     """
-    if '.bam' in col:
-        basename = os.path.basename(col)
-        samp_id = basename.replace('_uniq.sorted.bam', '').replace('.bam', '')
-        return samp_id
-    return col
+    return clean_featurecounts_sample_name(col)
 
 def clean_id(tid):
     """
@@ -34,60 +31,15 @@ def clean_id(tid):
         
     return tid_str
 
-def parse_featurecounts_log(log_path):
-    """
-    Parse featureCounts log file to extract the true Total Alignments for each BAM file.
-    This prevents the "Shrunken Library Effect" when quantifying a subset of transcripts.
-    Robust against trailing characters (like '||', '...', and spaces) in the log formatting.
-    """
-    print(f"[Log Parser] Extracting absolute library sizes from: {log_path}")
-    alignments_dict = {}
-    current_sample = None
-    
-    if not os.path.exists(log_path):
-        print(f"[Error] featureCounts log file not found: {log_path}")
-        sys.exit(1)
-        
-    with open(log_path, 'r') as f:
-        for line in f:
-            line = line.strip()
-            # 1. Capture the BAM filename
-            if line.startswith("|| Process BAM file"):
-                # line 示例: "|| Process BAM file GTEX-TSE9-3026-SM-3DB76_uniq.sorted.bam...                ||"
-                # 剔除前缀、后缀 "||" 以及两端的空格
-                raw_name = line.replace("|| Process BAM file", "").replace("||", "").strip()
-                # 剔除尾部的 "..."
-                if raw_name.endswith("..."):
-                    raw_name = raw_name[:-3].strip()
-                    
-                # 交给统一的清洗函数处理
-                current_sample = clean_colname(raw_name)
-                
-            # 2. Capture the Total Alignments for the current BAM
-            elif line.startswith("||    Total alignments :"):
-                if current_sample:
-                    parts = line.split(":")
-                    if len(parts) == 2:
-                        # 使用正则剔除所有非数字字符
-                        raw_number_str = parts[1]
-                        clean_number_str = re.sub(r'\D', '', raw_number_str)
-                        
-                        if clean_number_str:
-                            total_alignments = int(clean_number_str)
-                            alignments_dict[current_sample] = total_alignments
-                        else:
-                            print(f"[Warning] Could not extract numeric total alignments for {current_sample}")
-                            
-                    current_sample = None # Reset for the next file
-                    
-    print(f"[Log Parser] Successfully extracted library sizes for {len(alignments_dict)} samples.")
-    return alignments_dict
+
+def permissive_background_pass(covered, values, threshold):
+    """Pass missing re-quantification rows; threshold only rows with measurements."""
+    return (~covered.astype(bool)) | (values < threshold)
 
 def main():
-    parser = argparse.ArgumentParser(description="Calculate Absolute TPM for novel transcripts using true library size, and re-validate Dual-Track status using GTEx.")
+    parser = argparse.ArgumentParser(description="Calculate true TPM from complete-GTF GTEx counts and re-validate Dual-Track status.")
     parser.add_argument("-i", "--step1_file", required=True, help="Input CSV from Step 1 (Dual-Track format)")
     parser.add_argument("-c", "--counts_file", required=True, help="Input TXT from featureCounts (novel transcripts)")
-    parser.add_argument("-l", "--fc_log", required=True, help="Input featureCounts Log file to extract Total alignments")
     parser.add_argument("-a", "--anno_file", required=True, help="GTEx Annotations DS TXT file")
     parser.add_argument("-o", "--output", required=True, help="Final output CSV: safe_tumor_specific_transcripts_GTEx-step2.csv")
     
@@ -112,16 +64,18 @@ def main():
     is_known = step1_df['Transcript_ID'].astype(str).str.startswith('ENST')
     known_df = step1_df[is_known].copy()
     novel_df = step1_df[~is_known].copy()
+    known_df['GTEx_Step2_Applied'] = False
+    known_df['GTEx_Step2_Status'] = 'Not_required_known_transcript'
 
     print(f" -> Known targets (ENST, bypassed Step 2 GTEx TPM filter): {len(known_df)}")
     print(f" -> Novel targets requiring Track A/B GTEx TPM verification: {len(novel_df)}")
 
     if novel_df.empty:
         print("No novel targets to process. Saving Step 1 results directly to Output.")
-        step1_df.to_csv(args.output, index=False)
+        known_df.to_csv(args.output, index=False)
         sys.exit(0)
 
-    print("\n### Phase 2: Process featureCounts Matrix to Absolute TPM ###")
+    print("\n### Phase 2: Process Complete-GTF featureCounts Matrix to True TPM ###")
     try:
         counts_df = pd.read_csv(args.counts_file, sep='\t', comment='#')
     except Exception as e:
@@ -131,32 +85,21 @@ def main():
     counts_df.rename(columns=clean_colname, inplace=True)
     counts_df['Geneid'] = counts_df['Geneid'].apply(clean_id)
 
-    # Extract true library sizes from the log
-    total_alignments_map = parse_featurecounts_log(args.fc_log)
+    metadata_cols = ['Chr', 'Start', 'End', 'Strand', 'Length']
+    count_cols = [column for column in counts_df.columns if column not in metadata_cols + ['Geneid']]
+    aggregation = {column: 'sum' for column in count_cols}
+    aggregation.update({column: 'first' for column in metadata_cols if column in counts_df.columns})
+    counts_df = counts_df.groupby('Geneid', as_index=False).agg(aggregation)
 
     lengths = counts_df.set_index('Geneid')['Length']
-    raw_counts = counts_df.drop(columns=['Chr', 'Start', 'End', 'Strand', 'Length']).set_index('Geneid')
-
-    # Validate mapping coverage
-    missing_samples = [col for col in raw_counts.columns if col not in total_alignments_map]
-    if missing_samples:
-        print(f"[Error] Log file is missing total alignments for {len(missing_samples)} samples.")
-        print(f"Example missing samples: {missing_samples[:3]}")
+    raw_counts = counts_df.set_index('Geneid')[count_cols].apply(pd.to_numeric, errors='coerce').fillna(0.0)
+    try:
+        tpm_df = calculate_true_tpm(raw_counts, lengths)
+    except ValueError as exc:
+        print(f"[Error] {exc}")
         sys.exit(1)
 
-    # =========================================================================
-    # [CRITICAL UPGRADE: Absolute TPM Calculation]
-    # scale_factors = True Total Alignments from BAM / 1,000,000
-    # =========================================================================
-    scale_factors = pd.Series({col: total_alignments_map[col] / 1e6 for col in raw_counts.columns})
-    
-    lengths_kb = lengths / 1000.0
-    rpk = raw_counts.div(lengths_kb, axis=0)
-    
-    # Calculate TPM using the global true denominator, ensuring values are not artificially inflated
-    tpm_df = rpk.div(scale_factors, axis=1).fillna(0)
-
-    print(f" -> Absolute TPM matrix generated: {tpm_df.shape[0]} novel transcripts across {tpm_df.shape[1]} samples.")
+    print(f" -> True TPM matrix generated: {tpm_df.shape[0]} transcripts across {tpm_df.shape[1]} samples.")
 
     # Slice matrix to evaluate required novel transcripts only (Optimization)
     novel_ids = novel_df['Transcript_ID'].unique()
@@ -187,17 +130,44 @@ def main():
         tissues_to_check = tissue_list
 
     # Retrieve max baseline expression for each novel transcript
-    medians_df['Max_GTEx_Baseline_Actual'] = medians_df[tissues_to_check].max(axis=1).fillna(0)
-    novel_baseline_map = medians_df['Max_GTEx_Baseline_Actual'].to_dict()
+    medians_df['Max_GTEx_Baseline_Actual'] = medians_df[tissues_to_check].max(axis=1)
+    novel_baseline_map = {
+        transcript_id: value
+        for transcript_id, value in medians_df['Max_GTEx_Baseline_Actual'].items()
+        if pd.notna(value)
+    }
 
     # Update background expression values in novel_df
-    novel_df['Global_Max_GTEx_TPM'] = novel_df['Transcript_ID'].map(novel_baseline_map).fillna(0.0)
+    novel_df['GTEx_Transcript_TPM_Covered'] = novel_df['Transcript_ID'].isin(novel_baseline_map)
+    novel_df['Global_Max_GTEx_TPM'] = novel_df['Transcript_ID'].map(novel_baseline_map)
+    novel_df['GTEx_Transcript_Filter_Source'] = np.where(
+        novel_df['GTEx_Transcript_TPM_Covered'],
+        'Complete_GTF_GTEx_Step2_tissue_median_TPM',
+        'Not_assessed_missing_from_step2_requantification_passed',
+    )
+    novel_df['GTEx_Step2_Applied'] = novel_df['GTEx_Transcript_TPM_Covered']
+    novel_df['GTEx_Step2_Status'] = np.where(
+        novel_df['GTEx_Transcript_TPM_Covered'],
+        'Assessed_with_tissue_medians',
+        'Missing_transcript_in_requantification_passed',
+    )
+    novel_df['GTEx_Background_Statistic'] = 'Maximum_across_tissue_medians'
 
     # Evaluate Track A: Must pass previously (local) AND GTEx TPM < max_tpm
-    valid_A = novel_df['Pass_TrackA_TPM'] & (novel_df['Global_Max_GTEx_TPM'] < args.max_tpm)
+    valid_A = novel_df['Pass_TrackA_TPM'] & \
+              permissive_background_pass(
+                  novel_df['GTEx_Transcript_TPM_Covered'],
+                  novel_df['Global_Max_GTEx_TPM'],
+                  args.max_tpm,
+              )
     
     # Evaluate Track B: Must pass previously (local & GTEx JCPM) AND GTEx TPM < veto_tpm
-    valid_B = novel_df['Pass_TrackB_Junction'] & (novel_df['Global_Max_GTEx_TPM'] < args.veto_tpm)
+    valid_B = novel_df['Pass_TrackB_Junction'] & \
+              permissive_background_pass(
+                  novel_df['GTEx_Transcript_TPM_Covered'],
+                  novel_df['Global_Max_GTEx_TPM'],
+                  args.veto_tpm,
+              )
     
     novel_df['Pass_TrackA_TPM'] = valid_A
     novel_df['Pass_TrackB_Junction'] = valid_B

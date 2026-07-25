@@ -1,6 +1,5 @@
 import os
 import pickle
-import contextlib
 import pandas as pd
 import numpy as np
 import torch
@@ -9,7 +8,12 @@ from torch.nn.utils.rnn import pad_sequence
 from typing import Dict, Optional, List, Union
 from tqdm import tqdm
 
-from eval.save_prediction_results import _prepare_prediction_dataloader
+from eval.save_prediction_results import (
+    _autocast_context,
+    _extract_head_tensor,
+    _model_device,
+    _prepare_prediction_dataloader,
+)
 from utils import unwrap_model, clean_up_memory
 
 
@@ -174,7 +178,7 @@ class DeNovoSequenceDataset(Dataset):
             self.uuids.append(uuid)
             
             seq_idx = [self.nt_mapping.get(nt, 4) for nt in seq]
-            seq_emb = np.eye(5)[seq_idx, :4]
+            seq_emb = np.eye(5, dtype=np.float32)[seq_idx, :4]
             self.seq_embs.append(seq_emb)
             
         self.n_samples = len(self.lengths)
@@ -188,25 +192,21 @@ class DeNovoSequenceDataset(Dataset):
         cell_expr_tensor = torch.from_numpy(self.cell_expr_vector)
         seq_emb = torch.from_numpy(self.seq_embs[idx]).float()
         
-        # generate a placeholder count matrix (all zeros) matching the truncated length
-        count_emb = torch.zeros((self.lengths[idx], 1), dtype=torch.float32)
-        
-        # return an empty meta_info dict as placeholder
+        # Return an empty metadata dictionary as a placeholder.
         meta_info = {}
         
-        return uuid, species, cell_expr_tensor, meta_info, seq_emb, count_emb
+        return uuid, species, cell_expr_tensor, meta_info, seq_emb
 
 def collate_fn_denovo(batch):
     """Dedicated collation function."""
-    uuids, species, cell_exprs, meta_infos, seq_embs, count_embs = zip(*batch)
+    uuids, species, cell_exprs, meta_infos, seq_embs = zip(*batch)
     lengths = [s.shape[0] for s in seq_embs]
     
     seq_padded = pad_sequence(seq_embs, batch_first=True, padding_value=-1)
-    count_padded = pad_sequence(count_embs, batch_first=True, padding_value=-1)
     species_list = list(species)
     cell_exprs = torch.stack(cell_exprs)
     
-    return uuids, species_list, cell_exprs, meta_infos, seq_padded, count_padded, lengths
+    return uuids, species_list, cell_exprs, meta_infos, seq_padded, lengths
 
 
 class TranslationProfilePredictor:
@@ -284,7 +284,7 @@ class TranslationProfilePredictor:
         print("\nRunning Deep Learning Translation Prediction...")
         self.model.eval()
         base_model = unwrap_model(self.model)
-        device = base_model.device
+        device = _model_device(base_model)
         
         # build Dataset and DataLoader
         dataset = DeNovoSequenceDataset(seq_dict, species, cell_type, cell_expr_vector, min_len, max_len)
@@ -296,20 +296,17 @@ class TranslationProfilePredictor:
         saved_data = {cell_type: {}}
         iterator = tqdm(dataloader, desc=f"Predicting") if (run_rank == 0 or run_world_size == 1) else dataloader
         
-        with torch.no_grad():
+        with torch.inference_mode():
             for batch in iterator:
-                b_uuids, species_list, b_cell_exprs, b_meta, b_seq, b_count, b_lengths = batch
+                b_uuids, species_list, b_cell_exprs, b_meta, b_seq, b_lengths = batch
                 
-                b_cell_exprs = b_cell_exprs.to(device)
-                b_seq = b_seq.to(device)
-                src_mask = (b_seq != -1).any(dim=-1)
-                amp_context = (
-                    torch.amp.autocast(device_type="cuda", dtype=torch.float16)
-                    if device.type == "cuda"
-                    else contextlib.nullcontext()
+                b_cell_exprs = b_cell_exprs.to(
+                    device, non_blocking=device.type == "cuda"
                 )
+                b_seq = b_seq.to(device, non_blocking=device.type == "cuda")
+                src_mask = (b_seq != -1).any(dim=-1)
 
-                with amp_context:
+                with _autocast_context(device):
                     out = base_model.predict(
                         seq_batch=b_seq,
                         species=species_list,
@@ -318,12 +315,19 @@ class TranslationProfilePredictor:
                         head_names=["count"],
                     )
                 
-                probs_batch = out["count"]
+                probs_batch = _extract_head_tensor(out, "count")
                 
                 # parse and store in the target dictionary
                 for i, uuid in enumerate(b_uuids):
                     valid_len = b_lengths[i]
-                    pred_sample = probs_batch[i, :valid_len].cpu().numpy().astype(np.float16)
+                    pred_sample = (
+                        probs_batch[i, :valid_len]
+                        .squeeze(-1)
+                        .float()
+                        .cpu()
+                        .numpy()
+                        .astype(np.float16)
+                    )
                     # restore original transcript ID
                     tid = str(uuid).split('-')[0]
                     saved_data[cell_type][tid] = pred_sample

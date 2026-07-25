@@ -5,44 +5,25 @@ import os
 import argparse
 import sys
 
+from metadata_utils import classify_tissue
+from quantification_utils import (
+    calculate_gene_read_library_sizes,
+    calculate_true_tpm,
+    clean_featurecounts_sample_name,
+)
+
 def clean_colname(col):
     """
     Clean column names robustly to extract pure Run IDs.
     Strips known BAM filename suffixes precisely.
     """
-    basename = os.path.basename(col) if '.bam' in col else col
-    # Strip known suffix patterns with endswith for precision
-    for suffix in ['.uniq.sorted.bam', '.bam']:
-        if basename.endswith(suffix):
-            return basename[:-len(suffix)]
-    return basename
-
-
-def calculate_tpm(counts, lengths, lib_sizes):
-    """
-    Calculate Absolute TPM (Transcripts Per Million) anchored to the TRUE library depth.
-    """
-    lengths_kb = lengths / 1000.0
-    rpk = counts.div(lengths_kb, axis=0)
-    matched_lib_sizes = lib_sizes[counts.columns]
-    scale_factors = matched_lib_sizes / 1e6
-    tpm = rpk.div(scale_factors, axis=1)
-    return tpm
-
-def classify_tissue(val):
-    val_lower = str(val).lower()
-    if any(kw in val_lower for kw in ['normal', 'adjacent', 'benign']):
-        return 'normal'
-    elif any(kw in val_lower for kw in ['tumor', 'malignant']):
-        return 'tumor'
-    else:
-        return 'unknown'
+    return clean_featurecounts_sample_name(col)
 
 def main():
-    parser = argparse.ArgumentParser(description="Identify tumor-specific upregulated transcripts using Dual-Track (Absolute TPM & Junction Mean CPM).")
+    parser = argparse.ArgumentParser(description="Identify tumor-specific transcripts using true TPM and gene-read-normalized junction CPM.")
     
     parser.add_argument("-c", "--counts_file", required=True, help="RAW transcript counts file from featureCounts.")
-    parser.add_argument("-s", "--summary_file", required=True, help="Path to transcript_counts.txt.summary from featureCounts.")
+    parser.add_argument("--gene_counts_file", required=True, help="Complete-GTF gene counts used as the junction CPM denominator.")
     parser.add_argument("-m", "--metadata_file", required=True, help="Metadata CSV file (e.g., SraRunTable.csv).")
     parser.add_argument("-o", "--output_file", required=True, help="Output CSV file for safe candidate transcripts.")
     parser.add_argument("--out_tpm_file", required=True, help="Path to save the calculated whole-transcriptome TPM matrix.")
@@ -68,19 +49,14 @@ def main():
     args = parser.parse_args()
 
     # ==============================================================================
-    # True Library Depth Extraction
+    # Gene-read library size extraction
     # ==============================================================================
-    print("\n--- Step 1: Extracting Absolute Library Sizes from Summary ---")
+    print("\n--- Step 1: Calculating Gene-Read Library Sizes ---")
     try:
-        summary_df = pd.read_csv(args.summary_file, sep='\t', index_col=0)
-        summary_df.rename(columns=clean_colname, inplace=True)
-        if 'Assigned' not in summary_df.index or 'Unassigned_Ambiguity' not in summary_df.index:
-            print("Error: 'Assigned' and/or 'Unassigned_Ambiguity' rows not found in the summary file.")
-            sys.exit(1)
-        lib_sizes = summary_df.loc['Assigned'] + summary_df.loc['Unassigned_Ambiguity']
-        print(f" -> Successfully computed Absolute Library Depths for {len(lib_sizes)} samples.")
+        gene_read_lib_sizes = calculate_gene_read_library_sizes(args.gene_counts_file)
+        print(f" -> Computed gene-read library sizes for {len(gene_read_lib_sizes)} samples.")
     except Exception as e:
-        print(f"Error reading summary file: {e}")
+        print(f"Error reading gene counts file: {e}")
         sys.exit(1)
 
     print("\n--- Step 2: Loading and Normalizing Transcript Counts (Track A) ---")
@@ -106,14 +82,14 @@ def main():
 
     tpm_out_dir = os.path.dirname(args.out_tpm_file)
     if tpm_out_dir and not os.path.exists(tpm_out_dir): os.makedirs(tpm_out_dir)
-    if os.path.exists(args.out_tpm_file):
-        print(f" -> Loading pre-computed TPM matrix from {args.out_tpm_file}")
-        tpm_df = pd.read_csv(args.out_tpm_file, index_col=0)
-    else:
-        tpm_df = calculate_tpm(raw_counts, length_series, lib_sizes)
-        print(f" -> Global Absolute TPM matrix generated: {tpm_df.shape[0]} transcripts.")
-        tpm_df.index.name = 'Transcript_ID'
-        tpm_df.to_csv(args.out_tpm_file)
+    try:
+        tpm_df = calculate_true_tpm(raw_counts, length_series)
+    except ValueError as exc:
+        print(f"Error calculating true TPM: {exc}")
+        sys.exit(1)
+    print(f" -> Global true TPM matrix generated: {tpm_df.shape[0]} transcripts.")
+    tpm_df.index.name = 'Transcript_ID'
+    tpm_df.to_csv(args.out_tpm_file)
     
     max_counts = raw_counts.max(axis=1)
     valid_transcripts = raw_counts.index[max_counts > args.min_max_tcount]
@@ -157,7 +133,13 @@ def main():
         jbam_cols = [c for c in renamed_cols if c in meta_df['Run'].values]
         normal_runs_junc = [r for r in normal_runs if r in jbam_cols]
 
-        dtype_dict = {'PrimaryGene': str, 'Site1_chr': str, 'Site2_chr': str}
+        dtype_dict = {
+            'PrimaryGene': str,
+            'Site1_chr': str,
+            'Site2_chr': str,
+            'Site1_strand': str,
+            'Site2_strand': str,
+        }
         chunk_size = 250000
         survivor_chunks = []
         total_raw_rows = 0
@@ -168,9 +150,22 @@ def main():
             total_raw_rows += len(chunk)
             chunk.columns = renamed_cols
             
-            j_keys = chunk['Site1_chr'].astype(str) + ':' + chunk['Site1_location'].astype(str) + '-' + chunk['Site2_location'].astype(str)
+            same_locus = (
+                chunk['Site1_chr'].astype(str) == chunk['Site2_chr'].astype(str)
+            ) & (
+                chunk['Site1_strand'].astype(str) == chunk['Site2_strand'].astype(str)
+            )
+            j_keys = (
+                chunk['Site1_chr'].astype(str)
+                + ':'
+                + chunk['Site1_location'].astype(str)
+                + '-'
+                + chunk['Site2_location'].astype(str)
+                + ':'
+                + chunk['Site1_strand'].astype(str)
+            )
             
-            mask = j_keys.isin(junc_dict.keys())
+            mask = same_locus & j_keys.isin(junc_dict.keys())
             filtered_chunk = chunk[mask].copy()
             
             if not filtered_chunk.empty:
@@ -187,7 +182,11 @@ def main():
             jcounts_raw = pd.concat(survivor_chunks, ignore_index=True)
             print(f" -> Scanned {total_raw_rows} raw events. Retained {len(jcounts_raw)} validated topological junctions.")
             
-            cpm_df = jcounts_raw[jbam_cols].div(lib_sizes[jbam_cols], axis=1) * 1e6
+            missing_gene_libs = [column for column in jbam_cols if column not in gene_read_lib_sizes.index]
+            if missing_gene_libs:
+                print(f"[Error] Gene counts are missing junction samples: {missing_gene_libs[:5]}")
+                sys.exit(1)
+            cpm_df = jcounts_raw[jbam_cols].div(gene_read_lib_sizes[jbam_cols], axis=1) * 1e6
             jcounts_raw[jbam_cols] = cpm_df
             
             jcounts_raw['Transcript_ID'] = jcounts_raw['Transcript_ID_Raw'].astype(str).str.split(',')

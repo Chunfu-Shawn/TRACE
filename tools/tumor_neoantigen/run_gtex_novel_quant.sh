@@ -3,23 +3,31 @@ set -euo pipefail
 
 # Default parameters
 threads=40
+strand=0
 
 # Argument parsing
 while [[ $# -gt 0 ]]; do
     case $1 in
         --bam_dir)        bamDir="$2"; shift ;;
         --work_dir)       workDir="$2"; shift ;;
-        --quant_target_gtf) quantTargetGTF="$2"; shift ;; 
+        --annotation_gtf) annotationGTF="$2"; shift ;;
+        --quant_target_gtf) annotationGTF="$2"; shift ;;
         --threads)        threads="$2"; shift ;;
+        --strand)         strand="$2"; shift ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
 
-if [ -z "${bamDir:-}" ] || [ -z "${workDir:-}" ] || [ -z "${quantTargetGTF:-}" ]; then
-    echo "Usage: $0 --bam_dir <dir> --work_dir <dir> --quant_target_gtf <file> [--threads <int>]"
+if [ -z "${bamDir:-}" ] || [ -z "${workDir:-}" ] || [ -z "${annotationGTF:-}" ]; then
+    echo "Usage: $0 --bam_dir <dir> --work_dir <dir> --annotation_gtf <file> [--threads <int>] [--strand 0|1|2]"
     exit 1
 fi
+
+case "$strand" in
+    0|1|2) ;;
+    *) echo "Error: --strand must be 0, 1, or 2."; exit 1;;
+esac
 
 [ -d "$workDir" ] || mkdir -p "$workDir"
 
@@ -48,24 +56,24 @@ echo "Total GTEx BAM files collected: $total_bams"
 
 
 echo "=========================================================="
-echo "### Step 2: Ultra-Fast featureCounts (Strictly Novel Features Only) ###"
+echo "### Step 2: Complete-GTF featureCounts with Multi-Overlap ###"
 echo "=========================================================="
-counts_out="$workDir/gtex_novel_transcript_counts.txt"
+counts_out="$workDir/gtex_transcript_counts.complete_gtf.multioverlap.txt"
 
 if [ -s "$counts_out" ]; then
     echo "[Skip] Transcript counts already generated: $counts_out"
 else
-    echo "Starting ultra-high-speed featureCounts against pure abnormal fragments..."
+    echo "Starting featureCounts against the complete transcript annotation with -O..."
     
     time featureCounts \
-        -p --countReadPairs \
+        -p -O -B --countReadPairs \
         -t exon \
         -g transcript_id \
-        -s 0 \
+        -s "$strand" \
         -T "$threads" \
-        -a "$quantTargetGTF" \
+        -a "$annotationGTF" \
         -o "$counts_out" \
-        $bams > "$workDir/featureCounts_gtex.log" 2>&1
+        $bams > "$workDir/featureCounts_gtex.complete_gtf.multioverlap.log" 2>&1
         
     echo "✅ GTEx featureCounts completed successfully!" 
 fi

@@ -17,17 +17,48 @@ def safe_clean_id(tid):
     return tid_str
 
 def clean_gtex_junction_id(jid):
-    """
-    Remove the strand info from GTEx STAR Junction IDs to match featureCounts format.
-    GTEx format: chr1:11212-12009:+  =>  featureCounts format: chr1:11212-12009
-    """
-    jid_str = str(jid).strip()
-    if jid_str.count(':') >= 2:
-        return jid_str.rsplit(':', 1)[0]
-    return jid_str
+    """Normalize a stranded junction ID without discarding its strand."""
+    return str(jid).strip()
+
+
+def assess_junction_background(junction_ids, junction_background):
+    """Assess available tissue-median junction backgrounds and retain missing IDs."""
+    unique_ids = sorted({str(jid).strip() for jid in junction_ids if str(jid).strip()})
+    assessed_ids = [
+        jid for jid in unique_ids
+        if jid in junction_background and pd.notna(junction_background[jid])
+    ]
+    missing_ids = [jid for jid in unique_ids if jid not in assessed_ids]
+
+    if assessed_ids:
+        max_background = max(float(junction_background[jid]) for jid in assessed_ids)
+    else:
+        max_background = np.nan
+
+    if not unique_ids:
+        coverage = 'No_junction_id'
+        source = 'Not_assessed_no_candidate_junction'
+    elif not assessed_ids:
+        coverage = 'Not_found'
+        source = 'Not_assessed_junction_missing_from_dictionary_passed'
+    elif missing_ids:
+        coverage = 'Partial'
+        source = 'Partial_precomputed_GTEx_junction_median_missing_ids_passed'
+    else:
+        coverage = 'Complete'
+        source = 'Precomputed_GTEx_junction_median'
+
+    return {
+        'Global_Max_GTEx_JCPM': max_background,
+        'GTEx_Junction_Background_Assessed': bool(assessed_ids),
+        'GTEx_Junction_Coverage': coverage,
+        'GTEx_Junction_Filter_Source': source,
+        'GTEx_Junction_IDs_Assessed': '|'.join(assessed_ids),
+        'GTEx_Junction_IDs_Missing': '|'.join(missing_ids),
+    }
 
 def main():
-    parser = argparse.ArgumentParser(description="Dual-Track GTEx Baseline Filtering (Absolute TPM & Junction Mean CPM).")
+    parser = argparse.ArgumentParser(description="Dual-Track GTEx baseline filtering using tissue-median TPM and junction CPM.")
     parser.add_argument("-i", "--input", required=True, help="Input CSV: from find_tumor_specific_transcripts.py")
     parser.add_argument("--gtex_tpm", required=True, help="GTEx baseline median TPM CSV")
     parser.add_argument("--gtex_junc", required=True, help="GTEx baseline median Junction CPM CSV")
@@ -80,16 +111,24 @@ def main():
         print(f"\n[Notice] Strict Mode ENABLED: Screening across ALL tissues, including Testis.")
 
     # Calculate Max values across all checked normal tissues
-    gtex_tpm['Max_GTEx_TPM'] = gtex_tpm[tpm_tissues_check].max(axis=1).fillna(0)
-    gtex_junc['Max_GTEx_JCPM'] = gtex_junc[junc_tissues_check].max(axis=1).fillna(0)
+    gtex_tpm['Max_GTEx_TPM'] = gtex_tpm[tpm_tissues_check].max(axis=1)
+    gtex_junc['Max_GTEx_JCPM'] = gtex_junc[junc_tissues_check].max(axis=1)
 
     # Clean IDs to ensure perfect matching across different pipeline components
     gtex_tpm['Join_ID_TPM'] = gtex_tpm['Transcript_ID'].apply(safe_clean_id)
     gtex_junc['Join_ID_Junc'] = gtex_junc['Junction_ID'].apply(clean_gtex_junction_id)
 
     # Convert GTEx lookups to dictionaries for blazing fast O(1) vectorized lookup
-    dict_tpm = dict(zip(gtex_tpm['Join_ID_TPM'], gtex_tpm['Max_GTEx_TPM']))
-    dict_junc = dict(zip(gtex_junc['Join_ID_Junc'], gtex_junc['Max_GTEx_JCPM']))
+    dict_tpm = {
+        transcript_id: value
+        for transcript_id, value in zip(gtex_tpm['Join_ID_TPM'], gtex_tpm['Max_GTEx_TPM'])
+        if pd.notna(value)
+    }
+    dict_junc = {
+        junction_id: value
+        for junction_id, value in zip(gtex_junc['Join_ID_Junc'], gtex_junc['Max_GTEx_JCPM'])
+        if pd.notna(value)
+    }
 
     # ==============================================================================
     # 3. Dual-Track Global Validation (Optimized with Specific Junction Mapping)
@@ -114,8 +153,7 @@ def main():
         except Exception as e:
             print(f"[Warning] Failed to load junction mapping: {e}")
 
-    # [CRITICAL FIXED]: Fail-safe Adaptive Multi-Junction Parsing Logic to prevent leakages
-    def get_max_specific_junc_noise(row):
+    def get_specific_junctions(row):
         t_id = row['Clean_TID']
         junc_str = row.get('Valid_Junction_IDs', '')
         
@@ -130,26 +168,46 @@ def main():
             if pd.notna(junc_str) and str(junc_str).strip() not in ['None', '', 'nan', 'NaN']:
                 junc_list = [j.strip() for j in str(junc_str).split('|') if j.strip()]
                 
-        # Return maximum GTEx background noise among the chosen junctions
-        return max([dict_junc.get(j, 0.0) for j in junc_list]) if junc_list else 0.0
+        return junc_list
 
     if 'Valid_Junction_IDs' not in candidates.columns:
         print("[Error] Required column 'Valid_Junction_IDs' not found in candidates table.")
         sys.exit(1)
 
     # Cross-reference candidate rows against normal database dictionaries
-    candidates['Global_Max_GTEx_TPM'] = candidates['Clean_TID'].map(dict_tpm).fillna(0.0)
-    candidates['Global_Max_GTEx_JCPM'] = candidates.apply(get_max_specific_junc_noise, axis=1)
+    candidates['GTEx_Transcript_TPM_Covered'] = candidates['Clean_TID'].isin(dict_tpm)
+    candidates['Global_Max_GTEx_TPM'] = candidates['Clean_TID'].map(dict_tpm)
+    candidates['GTEx_Transcript_Filter_Source'] = np.where(
+        candidates['GTEx_Transcript_TPM_Covered'],
+        'Precomputed_GTEx_tissue_median_TPM',
+        'Not_assessed_transcript_missing_from_dictionary_passed',
+    )
+    candidates['GTEx_Step2_Applied'] = False
+    candidates['GTEx_Step2_Status'] = 'Not_run'
+    candidates['GTEx_Background_Statistic'] = 'Maximum_across_tissue_medians'
+
+    junction_assessments = candidates.apply(
+        lambda row: assess_junction_background(get_specific_junctions(row), dict_junc),
+        axis=1,
+        result_type='expand',
+    )
+    for column in junction_assessments.columns:
+        candidates[column] = junction_assessments[column]
 
     # --- Track A Validation ---
     # Transcript must pass local differential tracking AND be silent globally in GTEx TPM
-    valid_A = candidates['Pass_TrackA_TPM'] & (candidates['Global_Max_GTEx_TPM'] < args.max_tpm)
+    valid_A = candidates['Pass_TrackA_TPM'] & (
+        ~candidates['GTEx_Transcript_TPM_Covered'] |
+        (candidates['Global_Max_GTEx_TPM'] < args.max_tpm)
+    )
 
     # --- Track B Validation ---
     # Junctions must be globally silent AND (Veto) the whole gene expression cannot exceed veto_tpm
     valid_B = candidates['Pass_TrackB_Junction'] & \
-              (candidates['Global_Max_GTEx_JCPM'] <= args.max_jcpm) & \
-              (candidates['Global_Max_GTEx_TPM'] < args.veto_tpm)
+              (~candidates['GTEx_Junction_Background_Assessed'] |
+               (candidates['Global_Max_GTEx_JCPM'] <= args.max_jcpm)) & \
+              (~candidates['GTEx_Transcript_TPM_Covered'] |
+               (candidates['Global_Max_GTEx_TPM'] < args.veto_tpm))
 
     # Apply global screening overwrites
     candidates['Pass_TrackA_TPM'] = valid_A

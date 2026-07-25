@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash
 set -euo pipefail
 
 ## Argument Parsing
@@ -6,11 +6,12 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         --bamDir)         bamDir=$2;shift;;        
         --refGTF)         refGTF=$2;shift;;
-        --quantTargetGTF) quantTargetGTF=$2;shift;; # Track A: Subtracted fragments
-        --intactNovelGTF) intactNovelGTF=$2;shift;; # Track B: Structurally intact transcripts
+        --intactNovelGTF) intactNovelGTF=$2;shift;; # Intact tumor transcript annotation
         --outputDir)      outputDir=$2;shift;;     
         --threads)        threads=$2;shift;;       
-        --auto_strand_bed) auto_strand_bed=$2;shift;;        --)               shift; break;;
+        --strand)         STRAND_FLAG=$2;shift;;
+        --auto_strand_bed) auto_strand_bed=$2;shift;;
+        --)               shift; break;;
         *)                echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
     shift
@@ -20,36 +21,26 @@ threads=${threads:-20}
 
 if [ -z "${bamDir:-}" ] || [ -z "${refGTF:-}" ] || [ -z "${intactNovelGTF:-}" ] || [ -z "${outputDir:-}" ]; then
     echo "Error: Missing required parameters."
-    echo "Usage: bash run_featurecounts.sh --bamDir <dir> --refGTF <gtf> --intactNovelGTF <gtf> --outputDir <dir> [--quantTargetGTF <gtf>]"
+    echo "Usage: bash run.featurecounts.sh --bamDir <dir> --refGTF <gtf> --intactNovelGTF <gtf> --outputDir <dir> [--strand 0|1|2]"
     exit 1
 fi
 
 [ -d $outputDir ] || mkdir -p $outputDir
 
 # ---------------------------------------------------------
-# Phase 1: Build Dual-Track Annotations
+# Phase 1: Build one complete annotation for every counting layer
 # ---------------------------------------------------------
 echo "=========================================================="
-echo "### Phase 1: Preparing Dual-Track GTFs ###"
+echo "### Phase 1: Preparing Complete Transcript Annotation ###"
 echo "=========================================================="
-# Track A GTF: Expression Quantification (TPM). Since -O handles multi-overlap,
-# the intact GTF is used by default; quantTargetGTF is no longer required.
-quantTargetGTF=${quantTargetGTF:-${intactNovelGTF}}
-trackA_gtf="${outputDir}/TrackA_Quantification.gtf"  # now uses intact GTF since -O handles overlaps
-# Track B GTF: Used for Junction Annotation to preserve exact biological exon boundaries
-trackB_gtf="${outputDir}/TrackB_IntactStructure.gtf"
+complete_gtf="${outputDir}/complete_transcript_annotation.gtf"
 
-if [ ! -s "$trackA_gtf" ]; then
-    echo "Building Track A GTF..."
-    cat $refGTF $quantTargetGTF > $trackA_gtf
+if [ ! -s "$complete_gtf" ]; then
+    echo "Building complete GTF (reference + intact tumor targets)..."
+    cat "$refGTF" "$intactNovelGTF" > "$complete_gtf"
 fi
 
-if [ ! -s "$trackB_gtf" ]; then
-    echo "Building Track B GTF (Ref + Intact Novel)..."
-    cat $refGTF $intactNovelGTF > $trackB_gtf
-fi
-
-echo "Dual-Track GTFs generated successfully."
+echo "Complete annotation generated successfully: $complete_gtf"
 
 # ---------------------------------------------------------
 # Phase 2: Gather all BAM files
@@ -57,24 +48,40 @@ echo "Dual-Track GTFs generated successfully."
 echo "=========================================================="
 echo "### Phase 2: Gathering BAM files ###"
 echo "=========================================================="
-bam_files=$(find ${bamDir} -type f -name "*.uniq.sorted.bam" | sort)
-bam_count=$(echo "$bam_files" | wc -w)
+mapfile -t discovered_bam_files < <(find "${bamDir}" -type f -name "*.uniq.sorted.bam" | sort)
+bam_files=()
+for bam_file in "${discovered_bam_files[@]}"; do
+    paired_alignment_count=$(samtools view -c -f 1 "$bam_file")
+    if (( paired_alignment_count > 0 )); then
+        bam_files+=("$bam_file")
+    else
+        echo "[Skip] Single-end BAM is excluded by preprocessing policy: $bam_file"
+    fi
+done
+bam_count=${#bam_files[@]}
 
 if [ "$bam_count" -eq 0 ]; then
-    echo "Error: No .uniq.sorted.bam files found in $bamDir"
+    echo "Error: No paired-end .uniq.sorted.bam files found in $bamDir"
     exit 1
 fi
-echo "Found $bam_count BAM files to process."
+echo "Found $bam_count paired-end BAM files to process."
+library_count_args=(-p -B --countReadPairs)
 
 
 # ---------------------------------------------------------
-# Phase 2.5: Auto-detect strandness (if --auto_strand_bed provided)
+# Phase 2.5: Resolve one strand mode for all counting layers
 # ---------------------------------------------------------
-if [ -n "${auto_strand_bed:-}" ]; then
+if [ -n "${STRAND_FLAG:-}" ]; then
+    case "$STRAND_FLAG" in
+        0|1|2) ;;
+        *) echo "Error: --strand must be 0, 1, or 2."; exit 1;;
+    esac
+    echo "-> Using explicit strandness: featureCounts -s $STRAND_FLAG"
+elif [ -n "${auto_strand_bed:-}" ]; then
     echo "=========================================================="
     echo "### Phase 2.5: Auto-detecting strandness ###"
     echo "=========================================================="
-    first_bam=$(echo "$bam_files" | head -n1)
+    first_bam="${bam_files[0]}"
     echo "-> Running infer_experiment.py on: $first_bam"
     strand_output=$(infer_experiment.py -r "$auto_strand_bed" -i "$first_bam" -s 1000000 2>/dev/null || true)
     fwd_frac=$(echo "$strand_output" | grep '1++,1--,2+-,2-+' | sed 's/.*: //' || echo "0")
@@ -88,7 +95,7 @@ if [ -n "${auto_strand_bed:-}" ]; then
     }')
     echo "-> Strand fractions: fwd=$fwd_frac rev=$rev_frac → featureCounts -s $STRAND_FLAG"
 else
-    STRAND_FLAG=${STRAND_FLAG:-2}
+    STRAND_FLAG=0
     echo "-> Using default strandness: featureCounts -s $STRAND_FLAG"
 fi
 
@@ -98,9 +105,9 @@ fi
 echo "=========================================================="
 echo "### Phase 3: Running Dual-Track featureCounts ###"
 echo "=========================================================="
-counts_tx="${outputDir}/transcript_counts.txt"
-gene_counts_tx="${outputDir}/gene_counts.txt"
-counts_junc="${outputDir}/junction_counts.txt"
+counts_tx="${outputDir}/transcript_counts.complete_gtf.multioverlap.txt"
+gene_counts_tx="${outputDir}/gene_counts.complete_gtf.multioverlap.txt"
+counts_junc="${outputDir}/junction_counts.complete_gtf.multioverlap.txt"
 
 # ---------------------------------------------------------
 # [Run 1] Track A: Expression Quantification (No Junctions)
@@ -111,14 +118,14 @@ else
     echo "-> Running Track A: Transcript-level quantification..."
     # allow multi-overlap
     time featureCounts \
-        -p -O -B --countReadPairs \
+        "${library_count_args[@]}" -O \
         -T $threads \
         -t exon \
         -g transcript_id \
         -s $STRAND_FLAG \
-        -a $trackA_gtf \
+        -a "$complete_gtf" \
         -o $counts_tx \
-        $bam_files
+        "${bam_files[@]}"
 fi
 
 if [ -s "$gene_counts_tx" ]; then
@@ -126,14 +133,14 @@ if [ -s "$gene_counts_tx" ]; then
 else
     echo "-> Gene-level quantification..."
     time featureCounts \
-        -p -B --countReadPairs \
+        "${library_count_args[@]}" -O \
         -T $threads \
         -t exon \
         -g gene_id \
         -s $STRAND_FLAG \
-        -a $trackB_gtf \
+        -a "$complete_gtf" \
         -o $gene_counts_tx \
-        $bam_files
+        "${bam_files[@]}"
 fi
 
 # ---------------------------------------------------------
@@ -144,18 +151,17 @@ if [ -s "${counts_junc}.jcounts" ]; then
 else
     echo "-> Running Track B: Junction Extraction (Using Intact GTF)..."
     time featureCounts \
-        -p -B \
+        "${library_count_args[@]}" -O \
         -T $threads \
         -t exon \
         -g transcript_id \
         -s $STRAND_FLAG \
         -J \
-        -a $trackB_gtf \
+        -a "$complete_gtf" \
         -o $counts_junc \
-        $bam_files
+        "${bam_files[@]}"
         
-    # We only care about the .jcounts file from this run. 
-    # The normal counts output from this intact GTF will suffer from overlap penalties, so we delete it.
+    # Only the .jcounts file is consumed downstream; remove the auxiliary feature table.
     rm -f $counts_junc
     rm -f "${counts_junc}.summary"
 fi

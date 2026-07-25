@@ -1,14 +1,17 @@
 #!/bin/bash
+set -Eeuo pipefail
+
+trap 'exit_code=$?; echo "[ERROR] Data preparation stopped at line ${LINENO}: ${BASH_COMMAND} (exit ${exit_code})" >&2; exit "${exit_code}"' ERR
 
 WORK_DIR=/home/user/data3/rbase/translation_model/neoantigen/samples
 SCRIPT_DIR=/home/user/data3/rbase/translation_model/models/tools/tumor_neoantigen
+source "${SCRIPT_DIR}/quantification_config.sh"
 GTF_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.gtf
 FA_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/Homo_sapiens.GRCh38.primary_assembly.genome.fa
 GENOME_INDEX=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/genome_index_v48_150nt
-BED_FILE=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/gencode.v48.comp_annotation_chro.bed
 projects=(cohort_2)
 
-for project in ${projects[@]};
+for project in "${projects[@]}";
 do
     echo "##### $project #####"
 
@@ -31,7 +34,7 @@ do
     
     echo "----- Align reads to genome -----"
     bash $SCRIPT_DIR/run.mapping_uniq.sh \
-        --fastqDir $WORK_DIR/$project/fastq_clean --file_suffix _1.clean.fastq.gz \
+        --fastqDir $WORK_DIR/$project/fastq_clean \
         --outputDir $WORK_DIR/$project/bam \
         --annoIndex  $GENOME_INDEX --removeRawBam yes \
         1>$WORK_DIR/$project/run.mapping_uniq.log 2>&1
@@ -43,6 +46,7 @@ do
         --refGTF $GTF_FILE \
         --refFasta $FA_FILE \
         --threads_per_job 10 \
+        --strand_mode $STRAND_FLAG \
         1>$WORK_DIR/$project/run.stringtie.log 2>&1
 
     echo "----- Add transcripts of de novo genes  -----"
@@ -62,6 +66,6 @@ do
         --intactNovelGTF $WORK_DIR/$project/assembly/final_filtered_novel_transcripts_enhanced.gtf \
         --outputDir $WORK_DIR/$project/featureCounts_tumor \
         --threads 20 \
-        --auto_strand_bed $BED_FILE \
+        --strand $STRAND_FLAG \
         1> $WORK_DIR/$project/run.featureCounts.log 2>&1
 done

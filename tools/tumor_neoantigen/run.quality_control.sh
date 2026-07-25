@@ -1,3 +1,6 @@
+#!/bin/bash
+set -Eeuo pipefail
+
 ################################################
 #File Name: run.fastqc.analysis.sh
 #Author: rbase    
@@ -5,7 +8,6 @@
 #Modified: Added auto-detection for SE/PE compatibility
 ################################################
 
-#!/bin/sh
 ##并发运行脚本，并控制并发数
 # 设置并发的进程数
 thread_num=3
@@ -33,7 +35,7 @@ while [[ $# -gt 0 ]]; do
         --file_suffix)           file_suffix=$2;shift;;
         --outputDir)             outputDir=$2;shift;;
         --)                      shift; break;;
-        *)                       usage; echo -e "\n[ERR] $(date) Unkonwn option: $1"; exit 1;;
+        *)                       echo -e "\n[ERR] $(date) Unknown option: $1"; exit 1;;
     esac
     shift
 done
@@ -42,10 +44,12 @@ done
 # 先去掉文件后缀 (比如 .clear.fastq.gz)，然后再去掉 _1, _2, _R1, _R2 结尾
 samples=(`cd $fastqDir && ls *${file_suffix} | sed 's/'"${file_suffix}"'$//g' | sed -E 's/(_1|_2|_R1|_R2)$//g' | sort -u`)
 
+pids=()
 for sample in ${samples[@]};
 do
     read -u6
     {
+        trap 'echo >&6' EXIT
         [ -d $outputDir ] || mkdir -p $outputDir
         
         echo "-- FastQC for $sample --"
@@ -56,17 +60,32 @@ do
         # 【修改点 2】：根据前缀检测文件，匹配双端或单端
         if [ -f "$fastqDir/${sample}_1${file_suffix}" ]; then
             fq1="$fastqDir/${sample}_1${file_suffix}"
-            [ -f "$fastqDir/${sample}_2${file_suffix}" ] && fq2="$fastqDir/${sample}_2${file_suffix}"
+            if [ ! -f "$fastqDir/${sample}_2${file_suffix}" ]; then
+                echo "[Error] Missing mate file for $fq1" >&2
+                exit 1
+            fi
+            fq2="$fastqDir/${sample}_2${file_suffix}"
         elif [ -f "$fastqDir/${sample}_R1${file_suffix}" ]; then
             fq1="$fastqDir/${sample}_R1${file_suffix}"
-            [ -f "$fastqDir/${sample}_R2${file_suffix}" ] && fq2="$fastqDir/${sample}_R2${file_suffix}"
+            if [ ! -f "$fastqDir/${sample}_R2${file_suffix}" ]; then
+                echo "[Error] Missing mate file for $fq1" >&2
+                exit 1
+            fi
+            fq2="$fastqDir/${sample}_R2${file_suffix}"
+        elif [ -f "$fastqDir/${sample}_2${file_suffix}" ] || \
+             [ -f "$fastqDir/${sample}_R2${file_suffix}" ]; then
+            echo "[Error] Read-2 file exists without its read-1 mate for $sample" >&2
+            exit 1
         elif [ -f "$fastqDir/${sample}${file_suffix}" ]; then
             fq1="$fastqDir/${sample}${file_suffix}"
         fi
 
         # 预测 FastQC 输出的 html 文件名（用于判断是否已经跑过）
         # FastQC 会自动去掉 .fastq.gz 或 .fq.gz 然后加上 _fastqc.html
-        report_check=$(basename $fq1 | sed -E 's/\.fastq\.gz|\.fq\.gz|\.fastq|\.fq//')_fastqc.html
+        report_check=""
+        if [ -n "$fq1" ]; then
+            report_check=$(basename "$fq1" | sed -E 's/\.fastq\.gz|\.fq\.gz|\.fastq|\.fq//')_fastqc.html
+        fi
 
         # 【修改点 3】：运行 FastQC
         # FastQC 支持同时输入多个文件，我们将找到的该样本的所有文件一起传给它
@@ -74,18 +93,25 @@ do
             echo "[Info] Detected PE files for $sample"
             [ -f "$outputDir/$report_check" ] || fastqc -o $outputDir -t 10 $fq1 $fq2
         elif [ -n "$fq1" ]; then
-            echo "[Info] Detected SE file for $sample"
-            [ -f "$outputDir/$report_check" ] || fastqc -o $outputDir -t 10 $fq1
+            echo "[Skip] Single-end sample $sample is excluded by preprocessing policy."
         else
             echo "[WARN] Could not find valid files for $sample with suffix ${file_suffix}"
         fi
         
-        # 当进程结束以后，再向FD6中加上一个回车符，即补上了read -u6减去的那个
-        echo >&6
     }&
+    pids+=("$!")
 done
 
-wait
+failed=0
+for pid in "${pids[@]}"; do
+    if ! wait "$pid"; then
+        failed=1
+    fi
+done
+if (( failed != 0 )); then
+    echo "[ERROR] At least one FastQC job failed." >&2
+    exit 1
+fi
 ## merge
 echo "-- Running MultiQC --"
 [ -f $outputDir/multiqc_report.html ] || multiqc $outputDir --outdir $outputDir
