@@ -27,34 +27,37 @@ from utils import print_param_counts
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
-DATASET_NAME = "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
+
+DATASET_NAME = (
+    "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
+    "_e50_a2_b02"
+)
 
 MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
-CHECKPOINT_DIR = PROJECT_ROOT / "checkpoint/train"
-LOG_DIR = PROJECT_ROOT / "log/train"
+CHECKPOINT_DIR = PROJECT_ROOT.parent / "checkpoint/train"
+LOG_DIR = PROJECT_ROOT.parent / "log/train"
 
 HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 50
-EPOCH_NUM = 60
+EPOCH_NUM = 50
 PATIENCE = 8
-# Disable early stopping for this resumed run so the cosine schedule reaches epoch 60.
-EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1
-ALPHA_LIMIT = (0.2, 4.0)
+ALPHA_LIMIT = (0.2, 2.0)
 RANKING_LOSS_WEIGHT = 0.2
 LEARNING_RATE = 1e-3
 LR_WARMUP_PERC = 0.3
+EARLY_STOPPING_START_EPOCH = EPOCH_NUM * LR_WARMUP_PERC
 ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)

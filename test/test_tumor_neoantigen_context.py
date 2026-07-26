@@ -2,6 +2,7 @@
 """Regression tests for tumor neoantigen patient-context utilities."""
 
 import os
+import pathlib
 import sys
 import tempfile
 import unittest
@@ -22,6 +23,13 @@ from filter_gtex_step2 import permissive_background_pass
 from metadata_utils import classify_tissue, find_patient_runs
 from neoantigen_prioritization_report import build_patient_gtex_context, build_patient_jcpm_dict
 from quantification_utils import calculate_gene_read_library_sizes, calculate_true_tpm
+from cohort_annotation_utils import (
+    antigen_origin_category,
+    load_gtf_annotations,
+    normalize_hla_a,
+    population_coverage,
+)
+from select_shared_vaccine_peptides import largest_remainder_quotas, parse_netmhcpan_log
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
@@ -185,6 +193,79 @@ class MetadataContextTests(unittest.TestCase):
         self.assertEqual(normalize_initiator_codon('TTGAAATAA'), 'ATGAAATAA')
         self.assertEqual(normalize_initiator_codon('ACGAAATAA'), 'ATGAAATAA')
         self.assertEqual(normalize_initiator_codon('ATGCTGTAA'), 'ATGCTGTAA')
+
+    def test_gtf_cds_coordinates_are_transcript_relative_on_both_strands(self):
+        gtf = (
+            'chr1\ttest\ttranscript\t100\t209\t.\t+\t.\tgene_id "G1"; transcript_id "TXP"; transcript_type "protein_coding";\n'
+            'chr1\ttest\texon\t100\t109\t.\t+\t.\tgene_id "G1"; transcript_id "TXP";\n'
+            'chr1\ttest\texon\t200\t209\t.\t+\t.\tgene_id "G1"; transcript_id "TXP";\n'
+            'chr1\ttest\tstart_codon\t100\t102\t.\t+\t0\tgene_id "G1"; transcript_id "TXP";\n'
+            'chr1\ttest\tstop_codon\t207\t209\t.\t+\t0\tgene_id "G1"; transcript_id "TXP";\n'
+            'chr1\ttest\ttranscript\t100\t209\t.\t-\t.\tgene_id "G2"; transcript_id "TXM"; transcript_type "protein_coding";\n'
+            'chr1\ttest\texon\t100\t109\t.\t-\t.\tgene_id "G2"; transcript_id "TXM";\n'
+            'chr1\ttest\texon\t200\t209\t.\t-\t.\tgene_id "G2"; transcript_id "TXM";\n'
+            'chr1\ttest\tstart_codon\t207\t209\t.\t-\t0\tgene_id "G2"; transcript_id "TXM";\n'
+            'chr1\ttest\tstop_codon\t100\t102\t.\t-\t0\tgene_id "G2"; transcript_id "TXM";\n'
+        )
+        with tempfile.NamedTemporaryFile("w", suffix=".gtf", delete=False) as handle:
+            handle.write(gtf)
+            path = handle.name
+        try:
+            annotation = load_gtf_annotations(path, {"TXP", "TXM"}).set_index("Transcript_ID")
+            self.assertEqual(annotation.at["TXP", "Canonical_ORF_Start"], 0)
+            self.assertEqual(annotation.at["TXP", "Canonical_ORF_Stop"], 17)
+            self.assertEqual(annotation.at["TXM", "Canonical_ORF_Start"], 0)
+            self.assertEqual(annotation.at["TXM", "Canonical_ORF_Stop"], 17)
+        finally:
+            os.unlink(path)
+
+    def test_antigen_origin_keeps_unresolved_protein_coding_explicit(self):
+        canonical = {
+            "Transcript_ID": "ENST1",
+            "Biotype": "protein_coding",
+            "Canonical_ORF_Start": 0,
+            "Canonical_ORF_Stop": 99,
+            "ORF_Pos": "3:96",
+        }
+        unresolved = {
+            "Transcript_ID": "ENST2",
+            "Biotype": "protein_coding",
+            "Canonical_ORF_Start": pd.NA,
+            "Canonical_ORF_Stop": pd.NA,
+            "ORF_Pos": "0:99",
+        }
+        self.assertEqual(antigen_origin_category(canonical, tolerance=6), "Canonical CDS")
+        self.assertEqual(
+            antigen_origin_category(unresolved),
+            "Unresolved protein-coding ORF",
+        )
+
+    def test_hla_frequency_math_and_panel_quotas(self):
+        self.assertEqual(normalize_hla_a("HLA-A02:01"), "HLA-A*02:01")
+        self.assertEqual(normalize_hla_a("A*11:01"), "HLA-A*11:01")
+        self.assertAlmostEqual(population_coverage(0.20), 0.36)
+        quotas = largest_remainder_quotas(
+            {"HLA-A*11:01": 0.20, "HLA-A*24:02": 0.15, "HLA-A*02:01": 0.10},
+            20,
+        )
+        self.assertEqual(sum(quotas.values()), 20)
+        self.assertGreater(quotas["HLA-A*11:01"], quotas["HLA-A*02:01"])
+
+    def test_pan_hla_raw_log_parser(self):
+        raw_line = (
+            "1 HLA-A02:01 PEPTIDEAA PEPTIDEA 0 0 0 0 0 0 TARGET "
+            "0.5 1.0 0.2 0.8 100.0 SB\n"
+        )
+        with tempfile.NamedTemporaryFile("w", suffix=".log", delete=False) as handle:
+            handle.write(raw_line)
+            path = handle.name
+        try:
+            parsed = parse_netmhcpan_log(pathlib.Path(path))
+            self.assertEqual(parsed.iloc[0]["HLA"], "HLA-A*02:01")
+            self.assertEqual(parsed.iloc[0]["Peptide"], "PEPTIDEAA")
+            self.assertEqual(parsed.iloc[0]["Rank_EL"], 1.0)
+        finally:
+            os.unlink(path)
 
 
 if __name__ == "__main__":

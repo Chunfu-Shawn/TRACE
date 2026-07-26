@@ -214,23 +214,31 @@ class FastSignalDrivenORFCaller:
 # =================================================================
 class TranslationSignalORFCaller:
     def __init__(self, fasta_files: Union[str, List[str]], pkl_file: str, cell_type: str,
-                 tpm_csv_path: Optional[str] = None, tpm_level: str = 'gene', mapping_csv_path: Optional[str] = None):
+                 tpm_csv_path: Optional[str] = None, tpm_level: str = 'gene',
+                 mapping_csv_path: Optional[str] = None,
+                 seq_dict: Optional[Dict[str, str]] = None,
+                 tx2gene_dict: Optional[Dict[str, str]] = None,
+                 tpm_dict: Optional[Dict[str, float]] = None):
         self.fasta_files = fasta_files
         self.pkl_file = pkl_file
         self.cell_type = cell_type
         self.tpm_level = tpm_level.lower()
-        self.has_tpm = tpm_csv_path is not None and os.path.exists(tpm_csv_path)
+        self.has_tpm = tpm_dict is not None or (
+            tpm_csv_path is not None and os.path.exists(tpm_csv_path)
+        )
         
         print("\n[1/4] Loading Fasta File(s)...")
-        self.seq_dict = read_fasta(self.fasta_files)
+        self.seq_dict = seq_dict if seq_dict is not None else read_fasta(self.fasta_files)
         with open(self.pkl_file, 'rb') as f:
             self.preds_data = pickle.load(f)
         if self.cell_type not in self.preds_data:
             raise ValueError(f"Cell type '{self.cell_type}' not found in PKL.")
             
         # Mapping: Transcript -> Gene
-        self.tx2gene = {}
-        if mapping_csv_path and os.path.exists(mapping_csv_path):
+        self.tx2gene = dict(tx2gene_dict or {})
+        if tx2gene_dict is not None:
+            print(f"[3/4] Reusing mapping for {len(self.tx2gene)} transcripts.")
+        elif mapping_csv_path and os.path.exists(mapping_csv_path):
             print(f"[3/4] Loading Mapping from {mapping_csv_path}...")
             m_df = pd.read_csv(mapping_csv_path, sep='\t')
             g_col, t_col = 'Gene stable ID', 'Transcript stable ID'
@@ -247,8 +255,10 @@ class TranslationSignalORFCaller:
         
         # TPM Matrix Loading
         print(f"[4/4] Loading TPM Matrix (Level: {self.tpm_level})...")
-        self.tpm_dict = {}
-        if self.has_tpm:
+        self.tpm_dict = dict(tpm_dict or {})
+        if tpm_dict is not None:
+            print(f"  -> Reusing TPM for {len(self.tpm_dict)} {self.tpm_level}s in '{self.cell_type}'.")
+        elif self.has_tpm:
             t_df = pd.read_csv(tpm_csv_path, index_col=0)
             
             # [MODIFIED] Use Pandas apply method with safe_clean_id to sanitize DataFrame Index

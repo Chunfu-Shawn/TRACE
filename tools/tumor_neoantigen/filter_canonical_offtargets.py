@@ -4,6 +4,7 @@ import re
 import sys
 import glob
 import argparse
+from collections import defaultdict
 import pandas as pd
 
 def clean_id(tid):
@@ -119,15 +120,30 @@ def main():
     ref_proteome = load_reference_proteome(args.fasta)
     
     global_df['Clean_ID'] = global_df['Transcript_ID'].apply(clean_id)
-    unique_peptides = list(global_df['Peptide'].unique())
+    unique_peptides = {
+        str(peptide).strip().upper()
+        for peptide in global_df['Peptide'].dropna().unique()
+        if str(peptide).strip()
+    }
+    global_df['Peptide'] = global_df['Peptide'].astype(str).str.strip().str.upper()
     print(f" -> Processing matrix-wide cross-referencing for {len(unique_peptides)} unique peptide variants...")
     
     # Pre-build structural map: Peptide -> Set of canonical Transcript IDs
     pep_to_canonical = {pep: set() for pep in unique_peptides}
+    peptides_by_length = defaultdict(set)
+    for peptide in unique_peptides:
+        peptides_by_length[len(peptide)].add(peptide)
     for tid, seq in ref_proteome.items():
-        for pep in unique_peptides:
-            if pep in seq:
-                pep_to_canonical[pep].add(tid)
+        sequence = seq.upper()
+        for peptide_length, candidate_set in peptides_by_length.items():
+            if peptide_length > len(sequence):
+                continue
+            observed = {
+                sequence[index:index + peptide_length]
+                for index in range(len(sequence) - peptide_length + 1)
+            }
+            for peptide in observed.intersection(candidate_set):
+                pep_to_canonical[peptide].add(tid)
 
     # ==============================================================================
     # 3. Apply Multi-Patient Off-Target AND-Gate Filter
@@ -135,13 +151,14 @@ def main():
     print("\n--- Phase 3: Executing Existing Canonical Set-Difference Filtration ---")
     keep_mask = []
     antigen_classes = []
+    patient_transcripts = global_df.groupby('Patient')['Clean_ID'].apply(set).to_dict()
     
     for idx, row in global_df.iterrows():
         patient = row['Patient']
         pep = row['Peptide']
         
         # 1. Get the patient-specific cleared whitelist of tumor transcripts
-        patient_tx_set = set(global_df[global_df['Patient'] == patient]['Clean_ID'])
+        patient_tx_set = patient_transcripts[patient]
         
         # 2. Get all normal canonical sources globally containing this specific peptide
         matched_canonical_tids = pep_to_canonical.get(pep, set())

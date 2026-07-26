@@ -44,11 +44,11 @@ DATASET_PATH = (
 )
 MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
 CHECKPOINT_PATH = (
-    PROJECT_ROOT
+    PROJECT_ROOT.parent
     / "checkpoint/train"
     / (
         "base_model_384d_16h_12l_64env_16ad-PsiteDensityHead."
-        "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1.150_0.001."
+        "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b05.100_0.001."
         "best_profile.pt"
     )
 )
