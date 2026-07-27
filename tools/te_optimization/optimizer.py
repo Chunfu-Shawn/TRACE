@@ -12,9 +12,13 @@ import matplotlib.pyplot as plt
 import heapq
 
 # Model Loading and Environment Configuration
-sys.path.append('/public-supool/home/annie/translation_model/TRACE/src')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "../.."))
+SRC_DIR = os.path.join(PROJECT_ROOT, "src")
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
 from model.prediction_heads import PsiteDensityHead
-from model.translation_base_model import TranslationBaseModel
+from model.base_model import BaseModel
 from model.prediction_heads import TranslationProfileHead
 
 def tokenize_seq_onehot(seq_str, d_seq=4):
@@ -850,6 +854,9 @@ def plot_convergence(best_hist: list, curr_hist: list, wt_te: float, out_path: s
 # Command Line Interface Execution
 def main():
     parser = argparse.ArgumentParser(description="mRNA Sequence TE Specificity Optimizer (Evolutionary Framework)")
+    default_model_config = os.path.join(
+        SRC_DIR, "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+    )
     
     default_5utr = "AGAATAAACTAGTATTCTTCTGGTCCCCACAGACTCAGAGAGAACCCggatccgccacc".upper()
     default_cds = "AUGGGAGUCAAAGUUCUGUUUGCCCUGAUCUGCAUCGCUGUGGCCGAGGCCAAGCCCACCGAGAACAACGAAGACUUCAACAUCGUGGCCGUGGCCAGCAACUUCGCGACCACGGAUCUCGAUGCUGACCGCGGGAAGUUGCCCGGCAAGAAGCUGCCGCUGGAGGUGCUCAAAGAGAUGGAAGCCAAUGCCCGGAAAGCUGGCUGCACCAGGGGCUGUCUGAUCUGCCUGUCCCACAUCAAGUGCACGCCCAAGAUGAAGAAGUUCAUCCCAGGACGCUGCCACACCUACGAAGGCGACAAAGAGUCCGCACAGGGCGGCAUAGGCGAGGCGAUCGUCGACAUUCCUGAGAUUCCUGGGUUCAAGGACUUGGAGCCCAUGGAGCAGUUCAUCGCACAGGUCGAUCUGUGUGUGGACUGCACAACUGGCUGCCUCAAAGGGCUUGCCAACGUGCAGUGUUCUGACCUGCUCAAGAAGUGGCUGCCGCAACGCUGUGCGACCUUUGCCAGCAAGAUCCAGGGCCAGGUGGACAAGAUCAAGGGGGCCGGUGGUGACUAA".upper()
@@ -857,9 +864,9 @@ def main():
     default_3utr = "taaCTCGAGCTGGTACTGCATGCACGCAATGCTAGCTGCCCCTTTCCCGTCCTGGGTACCCCGAGTCTCCCCCGACCTCGGGTCCCAGGTATGCTCCCACCTCCACCTGCCCCACTCACCACCTCTGCTAGTTCCAGACACCTCCCAAGCACGCAGCAATGCAGCTCAAAACGCTTAGCCTAGCCACACCCCCACGGGAAACAGCAGTGATTAACCTTTAGCAATAAACGAAAGTTTAACTAAGCTATACTAACCCCAGGGTTGGTCAATTTCGTGCCAGCCACACCCTGGAGCTAGC".upper()
 
     # --- New Arguments for Model, Species, and Environment Configs ---
-    parser.add_argument("--model_config", type=str, 
-                        default="/home/user/data3/rbase/translation_model/models/src/config/base_model_expr_384d_16h_12l_64env_16ad.yaml", 
-                        help="Path to the model configuration YAML file")
+    parser.add_argument("--model_config", type=str,
+                        default=default_model_config,
+                        help="Path to the sequence-only BaseModel configuration YAML file")
     parser.add_argument("--model_weights", type=str, required=True,
                         help="Path to the pretrained model weights (.pt file); no default checkpoint is used")
     parser.add_argument(
@@ -934,7 +941,7 @@ def main():
     # Initialize Model dynamically using parsed CLI arguments
     # ==========================================================
     print(f"Loading Base Model Configuration from: {args.model_config}")
-    base_model = TranslationBaseModel.from_config(args.model_config).to('cuda')
+    base_model = BaseModel.from_config(args.model_config).to('cuda')
     
     print(f"Initializing prediction head: {args.head_type}")
     if args.head_type == "translation_profile":
@@ -946,21 +953,10 @@ def main():
         prediction_head,
         overwrite=True
     )
-    
+
     print(f"Loading Pretrained Model Checkpoint from: {args.model_weights}")
-    load_result = base_model.load_pretrained_weights(args.model_weights, strict=False)
-    missing_keys = getattr(load_result, "missing_keys", [])
-    unexpected_keys = getattr(load_result, "unexpected_keys", [])
-    head_load_issues = [
-        key for key in [*missing_keys, *unexpected_keys]
-        if key.startswith("heads.count.")
-    ]
-    if head_load_issues:
-        raise RuntimeError(
-            "The supplied checkpoint is incompatible with the selected head_type. "
-            f"Count-head key issues: {head_load_issues}"
-        )
-    base_model.eval() # 显式设为评估模式，降低显存风险
+    base_model.load_pretrained_weights(args.model_weights, strict=True)
+    base_model.eval()  # Use deterministic inference behavior.
 
     # Initialize the optimizer with dynamically parsed arguments
     optimizer = BatchedBeamOptimizer(
