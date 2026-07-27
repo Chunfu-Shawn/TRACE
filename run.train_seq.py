@@ -41,7 +41,7 @@ VALID_DATASET_FILES = [
 ]
 
 DATASET_NAME = (
-    "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
+    "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
     "_e50_a2_b02"
 )
 
