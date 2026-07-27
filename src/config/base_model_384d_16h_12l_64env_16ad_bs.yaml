@@ -1,0 +1,17 @@
+d_seq: 4
+d_model: 384
+d_expr: 16840
+d_species: 128
+d_cell_env: 64
+all_species: ["human", "macaque", "mouse"]
+expr_dict_path: None
+n_heads: 16
+number_of_layers: 12
+d_ff: 768
+adaptive_dim: 16
+adaln_modulation_bounds:
+  gamma: 0.5
+  beta: 0.5
+  alpha: 1.0
+p_drop: 0.1
+model_name: "base_model_384d_16h_12l_64env_16ad_bs"

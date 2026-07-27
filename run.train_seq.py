@@ -62,7 +62,8 @@ ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
-EXPR_NOISE_STD = 0.1
+EXPR_NOISE_STD = 0.15
+EXPR_INTERPOLATION_PERC = 0.2
 MASK_PERC = {"species": 0.1, "cell": 0.1}
 BALANCE_CLASSES = True
 RESUME = True
@@ -148,6 +149,7 @@ def main():
         ranking_loss_weight=RANKING_LOSS_WEIGHT,
         mask_perc=MASK_PERC,
         expr_noise_std=EXPR_NOISE_STD,
+        expr_interpolation_perc=EXPR_INTERPOLATION_PERC,
         learning_rate=LEARNING_RATE,
         lr_warmup_perc=LR_WARMUP_PERC,
         accumulation_steps=ACCUMULATION_STEPS,

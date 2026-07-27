@@ -39,6 +39,7 @@ class TranslationBaseModel(nn.Module):
         adaptive_dim: int = 32,
         p_drop: float = 0.1,
         model_name: str = "base_model",
+        adaln_modulation_bounds: Optional[Dict[str, float]] = None,
     ):
         super().__init__()
         # store raw config portion on the instance (handy later)
@@ -55,6 +56,7 @@ class TranslationBaseModel(nn.Module):
             d_ff=d_ff,
             adaptive_dim=adaptive_dim,
             p_drop=p_drop,
+            adaln_modulation_bounds=adaln_modulation_bounds,
             model_name=model_name
         )
         
@@ -68,6 +70,7 @@ class TranslationBaseModel(nn.Module):
 
         self.n_heads = n_heads
         self.adaptive_dim = adaptive_dim
+        self.adaln_modulation_bounds = adaln_modulation_bounds
 
         # ==========================================
         # Dynamic Species Dictionary Mapping
@@ -101,7 +104,14 @@ class TranslationBaseModel(nn.Module):
         )
 
         # Pass num_classes to Encoder/Layer for AdaLayerNorm embedding initialization
-        encoder_layer = AdaZeroEncoderLayer(d_model, d_ff, n_heads, p_drop, self.adaptive_dim)
+        encoder_layer = AdaZeroEncoderLayer(
+            d_model,
+            d_ff,
+            n_heads,
+            p_drop,
+            self.adaptive_dim,
+            adaln_modulation_bounds=self.adaln_modulation_bounds,
+        )
         self.encoder = AdaEncoder(encoder_layer, number_of_layers)
 
         # pluggable heads
@@ -266,6 +276,7 @@ class TranslationBaseModel(nn.Module):
             d_ff=int(cfg_dict.get("d_ff", 2048)),
             adaptive_dim=int(cfg_dict.get("adaptive_dim", 32)),
             p_drop=float(cfg_dict.get("p_drop", 0.1)),
+            adaln_modulation_bounds=cfg_dict.get("adaln_modulation_bounds"),
             expr_dict_path=cfg_dict.get("expr_dict_path", None), 
             model_name=cfg_dict.get("model_name"),
             seed=cfg_dict.get("seed"),
@@ -294,6 +305,7 @@ class TranslationBaseModel(nn.Module):
             d_ff=cfg.d_ff,
             adaptive_dim=cfg.adaptive_dim,
             p_drop=cfg.p_drop,
+            adaln_modulation_bounds=cfg.adaln_modulation_bounds,
             model_name=cfg.model_name
         )
 

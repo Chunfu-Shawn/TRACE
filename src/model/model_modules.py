@@ -1,6 +1,8 @@
 import copy
 import warnings
 import math
+from typing import Dict, Optional, Tuple
+
 import torch
 import torch.nn as nn
 from model.position_embedding import LlamaRotaryEmbeddingExt
@@ -84,10 +86,19 @@ class AddAdaZeroLayerNorm(nn.Module):
     """
     Adaptive Layer Normalization with Gating (adaLN-Zero) with Information Bottleneck.
     """
-    def __init__(self, d_model, p_drop, adaptive_dim=16):
+    def __init__(
+        self,
+        d_model,
+        p_drop,
+        adaptive_dim=16,
+        adaln_modulation_bounds: Optional[Dict[str, float]] = None,
+    ):
         super().__init__()
         self.d_model = d_model
         self.dropout = nn.Dropout(p=p_drop)
+        self.adaln_modulation_bounds = self._validate_modulation_bounds(
+            adaln_modulation_bounds
+        )
         
         self.LN = nn.LayerNorm(d_model, elementwise_affine=False)
         
@@ -98,6 +109,36 @@ class AddAdaZeroLayerNorm(nn.Module):
 
         self.reset_ada_zero_parameters()
 
+    @staticmethod
+    def _validate_modulation_bounds(
+        bounds: Optional[Dict[str, float]],
+    ) -> Optional[Tuple[float, float, float]]:
+        """Validate optional gamma, beta, and alpha bounds from model config."""
+        if bounds is None:
+            return None
+        if not isinstance(bounds, dict):
+            raise TypeError(
+                "adaln_modulation_bounds must be None or a dictionary with "
+                "gamma, beta, and alpha values"
+            )
+        required = {"gamma", "beta", "alpha"}
+        missing = required.difference(bounds)
+        extra = set(bounds).difference(required)
+        if missing or extra:
+            raise ValueError(
+                "adaln_modulation_bounds must contain exactly gamma, beta, and alpha; "
+                f"missing={sorted(missing)}, extra={sorted(extra)}"
+            )
+        values = tuple(float(bounds[name]) for name in ("gamma", "beta", "alpha"))
+        if any(not math.isfinite(value) or value <= 0.0 for value in values):
+            raise ValueError("All AdaLN modulation bounds must be finite and positive")
+        return values
+
+    @staticmethod
+    def _smooth_bound(value: torch.Tensor, bound: float) -> torch.Tensor:
+        """Bound a tensor smoothly while preserving unit slope around zero."""
+        return bound * torch.tanh(value / bound)
+
     def reset_ada_zero_parameters(self):
         """Restore the zero-initialized modulation required by AdaLN-Zero."""
         nn.init.zeros_(self.adaLN_modulation[1].weight)
@@ -106,6 +147,12 @@ class AddAdaZeroLayerNorm(nn.Module):
     def forward(self, reps_batch, sublayer_module, compact_style):
         style = self.adaLN_modulation(compact_style)        
         gamma, beta, alpha = style.chunk(3, dim=-1)
+
+        if self.adaln_modulation_bounds is not None:
+            gamma_bound, beta_bound, alpha_bound = self.adaln_modulation_bounds
+            gamma = self._smooth_bound(gamma, gamma_bound)
+            beta = self._smooth_bound(beta, beta_bound)
+            alpha = self._smooth_bound(alpha, alpha_bound)
         
         gamma = gamma.unsqueeze(1)
         beta = beta.unsqueeze(1)
@@ -191,11 +238,25 @@ class AdaZeroEncoderLayer(nn.Module):
     Encoder Layer using Adaptive Layer Normalization.
     Automatically handles Flash Attention vs Standard Attention fallback.
     """
-    def __init__(self, d_model, d_ff, heads, p_drop, adaptive_dim):
+    def __init__(
+        self,
+        d_model,
+        d_ff,
+        heads,
+        p_drop,
+        adaptive_dim,
+        adaln_modulation_bounds: Optional[Dict[str, float]] = None,
+    ):
         super().__init__()
         
         self.sublayers = replicate_module(
-            AddAdaZeroLayerNorm(d_model, p_drop, adaptive_dim), 2
+            AddAdaZeroLayerNorm(
+                d_model,
+                p_drop,
+                adaptive_dim,
+                adaln_modulation_bounds=adaln_modulation_bounds,
+            ),
+            2,
         )
         
         self.d_model = d_model

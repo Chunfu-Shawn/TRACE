@@ -37,6 +37,7 @@ class BaseModel(nn.Module):
         adaptive_dim: int = 32,
         p_drop: float = 0.1,
         model_name: str = "base_model",
+        adaln_modulation_bounds: Optional[Dict[str, float]] = None,
     ):
         super().__init__()
         self._constructor_args = dict(
@@ -44,6 +45,7 @@ class BaseModel(nn.Module):
             all_species=all_species, d_species=d_species,
             n_heads=n_heads, number_of_layers=number_of_layers,
             d_ff=d_ff, adaptive_dim=adaptive_dim, p_drop=p_drop,
+            adaln_modulation_bounds=adaln_modulation_bounds,
             model_name=model_name,
         )
         self.model_name = model_name
@@ -55,6 +57,7 @@ class BaseModel(nn.Module):
         self.n_heads = n_heads
         self.adaptive_dim = adaptive_dim
         self.p_drop = float(p_drop)
+        self.adaln_modulation_bounds = adaln_modulation_bounds
 
         # ----- species dictionary -----
         self.all_species = all_species if all_species else []
@@ -82,7 +85,14 @@ class BaseModel(nn.Module):
         )
 
         # ----- encoder -----
-        encoder_layer = AdaZeroEncoderLayer(self.d_model, d_ff, n_heads, self.p_drop, self.adaptive_dim)
+        encoder_layer = AdaZeroEncoderLayer(
+            self.d_model,
+            d_ff,
+            n_heads,
+            self.p_drop,
+            self.adaptive_dim,
+            adaln_modulation_bounds=self.adaln_modulation_bounds,
+        )
         self.encoder = AdaEncoder(encoder_layer, number_of_layers)
 
         # ----- pluggable heads -----
@@ -449,6 +459,7 @@ class BaseModel(nn.Module):
             all_species=cfg.all_species, n_heads=cfg.n_heads,
             number_of_layers=cfg.number_of_layers, d_ff=cfg.d_ff,
             adaptive_dim=cfg.adaptive_dim, p_drop=cfg.p_drop,
+            adaln_modulation_bounds=cfg.adaln_modulation_bounds,
             model_name=cfg.model_name,
         )
         if cfg.expr_dict_path is not None and os.path.isfile(cfg.expr_dict_path):

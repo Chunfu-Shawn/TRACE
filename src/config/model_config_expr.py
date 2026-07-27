@@ -35,6 +35,7 @@ class ModelConfig:
     # optional metadata
     model_name: Optional[str] = None
     seed: Optional[int] = None
+    adaln_modulation_bounds: Optional[Dict[str, float]] = None
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

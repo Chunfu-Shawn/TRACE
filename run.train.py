@@ -56,6 +56,7 @@ WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
 EXPR_NOISE_STD = 0.1
+EXPR_INTERPOLATION_PERC = 0.3
 MASK_VALUE = 0.0
 MASK_PERC = {"count": (0.4, 1.5), "species": 0.1, "cell": 0.1}
 ALPHA_LIMIT = (4.0, 4.0)
@@ -142,6 +143,7 @@ def main():
         mask_perc=MASK_PERC,
         alpha_limit=ALPHA_LIMIT,
         expr_noise_std=EXPR_NOISE_STD,
+        expr_interpolation_perc=EXPR_INTERPOLATION_PERC,
         learning_rate=LEARNING_RATE,
         lr_warmup_perc=LR_WARMUP_PERC,
         accumulation_steps=ACCUMULATION_STEPS,

@@ -11,6 +11,41 @@ def _clean_id(value):
     return str(value).strip().split(".", 1)[0]
 
 
+def _clean_sample_name(value):
+    """Remove known alignment suffixes without truncating dots in sample names."""
+    name = os.path.basename(str(value)).strip()
+    for suffix in (".bam", ".sam"):
+        if name.endswith(suffix):
+            name = name[: -len(suffix)]
+            break
+    for suffix in ("_uniq.sorted", ".uniq.sorted", "_sorted", ".sorted"):
+        if name.endswith(suffix):
+            name = name[: -len(suffix)]
+            break
+    if not name:
+        raise ValueError(f"Could not derive a sample name from column {value!r}.")
+    return name
+
+
+def _sample_rename_map(columns):
+    """Build a collision-safe mapping from featureCounts columns to sample names."""
+    rename_dict = {column: _clean_sample_name(column) for column in columns}
+    names_to_columns = {}
+    for column, sample_name in rename_dict.items():
+        names_to_columns.setdefault(sample_name, []).append(str(column))
+    collisions = {
+        sample_name: original_columns
+        for sample_name, original_columns in names_to_columns.items()
+        if len(original_columns) > 1
+    }
+    if collisions:
+        raise ValueError(
+            "Sample names are not unique after removing known alignment suffixes: "
+            f"{collisions}"
+        )
+    return rename_dict
+
+
 def load_id_mapping(mapping_json_path):
     """Load every supported native gene ID and map it to the human anchor ID."""
     with open(mapping_json_path, "r", encoding="utf-8") as handle:
@@ -82,11 +117,7 @@ def generate_cell_env_expr_dict(
         sys.exit(1)
         
     bam_cols = df.columns[6:]
-    rename_dict = {col: os.path.basename(col).split('.')[0].replace('_uniq.sorted', '').replace('.bam', '') for col in bam_cols}
-    if len(set(rename_dict.values())) != len(rename_dict):
-        raise ValueError(
-            "Sample names are not unique after normalizing featureCounts column names."
-        )
+    rename_dict = _sample_rename_map(bam_cols)
     df = df.rename(columns=rename_dict)
     sample_cols = list(rename_dict.values())
     

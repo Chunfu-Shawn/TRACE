@@ -17,6 +17,7 @@ from tqdm import tqdm
 from utils import unwrap_model
 from data.translation_dataset import TranslationDataset
 from train.distributed_balanced_bucket_sampler import DistributedBucketSampler
+from train.expression_augmentation import augment_expression_batch
 from train.masking_adapter import (
     BatchMaskingAdapter,
     get_dynamic_mask_ratio,
@@ -82,6 +83,7 @@ class Trainer:
         mask_perc: dict = {"count": 0.3, "species": 0.15, "cell": 0.15},
         alpha_limit: Tuple[float, float] = (0.2, 4.0),
         expr_noise_std: float = 0.1, # Standard deviation of Gaussian noise to inject (10% of Z-score variance)
+        expr_interpolation_perc: float = 0.3,
         learning_rate: float = 1e-5,
         lr_warmup_perc: float = 0.2,
         accumulation_steps: int = 5,
@@ -131,6 +133,9 @@ class Trainer:
 
         # Expression logic: Calculate global mean vector across all datasets
         self.expr_noise_std = expr_noise_std
+        self.expr_interpolation_perc = float(expr_interpolation_perc)
+        if not 0.0 <= self.expr_interpolation_perc <= 1.0:
+            raise ValueError("expr_interpolation_perc must be between 0 and 1")
         self.cell_mean_expr = {}
         self._cache_expression_means()
 
@@ -171,6 +176,11 @@ class Trainer:
             print(f"[Trainer] model_trainer_name={self.model_full_name}")
             print(f"[Trainer] device={self.device}, steps_per_epoch={self.steps_per_epoch}, total_steps={self._total_steps}")
             print(f"[Trainer] mask_perc={self.mask_perc}")
+            print(
+                "[Trainer] expression augmentation: "
+                f"continuous_interpolation={self.expr_interpolation_perc:.3f} "
+                f"among non-zero samples, noise_std={self.expr_noise_std:.3f}"
+            )
             print(f"[Trainer] Train Datasets: {len(self.dataset)} samples. Eval Datasets: {len(self.val_dataset)} samples.")
 
     def _to_device(self, tensor: torch.Tensor) -> torch.Tensor:
@@ -666,11 +676,12 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
 
         for batch_idx, batch_data in enumerate(dataloader):
             # Unpack the batch
-            species_list, _, _, expr_batch, \
+            species_list, _, cell_mask, expr_batch, \
             seq_embs_padded, \
             count_embs_padded, count_embs_masked, count_emb_masks, cds_masks, pad_masks = batch_data
 
             expr_batch = self._to_device(expr_batch)
+            cell_mask = self._to_device(cell_mask)
             seq_embs_padded = self._to_device(seq_embs_padded)
             count_embs_masked = self._to_device(count_embs_masked)
             count_embs_padded = self._to_device(count_embs_padded)
@@ -678,14 +689,12 @@ Compute and cache cross-species cell-type-specific mean expression vectors from 
             cds_masks = self._to_device(cds_masks)
             pad_masks = self._to_device(pad_masks)
 
-            # ==========================================
-            # Inject Gaussian Noise into Expression Vectors
-            # Done on GPU for maximum speed, only during training
-            # ==========================================
-            if self.expr_noise_std > 0:
-                # Generate noise in float32 for numerical stability, then cast to match expr_batch (fp16)
-                noise = torch.randn_like(expr_batch, dtype=torch.float32) * self.expr_noise_std
-                expr_batch = expr_batch + noise.to(expr_batch.dtype)
+            expr_batch, _ = augment_expression_batch(
+                expression_batch=expr_batch,
+                strict_zero_mask=cell_mask,
+                interpolation_probability=self.expr_interpolation_perc,
+                noise_std=self.expr_noise_std,
+            )
 
             do_sync = ((batch_idx + 1) % self.ac_steps == 0) or ((batch_idx + 1) == batch_num)
             context = (self.model.no_sync() if not do_sync and hasattr(self.model, "no_sync") else contextlib.nullcontext())
