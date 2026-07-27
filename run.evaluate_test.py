@@ -42,18 +42,18 @@ DATASET_PATH = (
     / "dataset"
     / "human_7c_6k_depth0.1_cov0.1_rpm1.test.h5"
 )
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
+MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_32ad.yaml"
 CHECKPOINT_PATH = (
     PROJECT_ROOT.parent
     / "checkpoint/train"
     / (
-        "base_model_384d_16h_12l_64env_16ad-PsiteDensityHead."
-        "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b05.100_0.001."
+        "base_model_384d_16h_12l_64env_32ad-PsiteDensityHead."
+        "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b02.100_0.001."
         "best_profile.pt"
     )
 )
 
-OUTPUT_DIR = PROJECT_ROOT / "results/test_evaluation"
+OUTPUT_DIR = PROJECT_ROOT.parent / "results/test_evaluation"
 PREDICTION_SUFFIX = "best_profile"
 HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 1

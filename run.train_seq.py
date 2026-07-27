@@ -27,22 +27,22 @@ from utils import print_param_counts
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
     "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02"
+    "_e50_a2_b02_bs"
 )
 
 MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
@@ -52,7 +52,7 @@ LOG_DIR = PROJECT_ROOT.parent / "log/train"
 HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 50
 EPOCH_NUM = 50
-PATIENCE = 8
+PATIENCE = 10
 ALPHA_LIMIT = (0.2, 2.0)
 RANKING_LOSS_WEIGHT = 0.2
 LEARNING_RATE = 1e-3
