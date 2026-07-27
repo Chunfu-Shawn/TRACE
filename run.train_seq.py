@@ -41,11 +41,11 @@ VALID_DATASET_FILES = [
 ]
 
 DATASET_NAME = (
-    "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
+    "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
     "_e50_a2_b02_bs"
 )
 
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad.yaml"
+MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
 CHECKPOINT_DIR = PROJECT_ROOT.parent / "checkpoint/train"
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
 

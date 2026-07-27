@@ -42,13 +42,13 @@ DATASET_PATH = (
     / "dataset"
     / "human_7c_6k_depth0.1_cov0.1_rpm1.test.h5"
 )
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_32ad.yaml"
+MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
 CHECKPOINT_PATH = (
     PROJECT_ROOT.parent
     / "checkpoint/train"
     / (
-        "base_model_384d_16h_12l_64env_32ad-PsiteDensityHead."
-        "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b02.100_0.001."
+        "base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead."
+        "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b02_bs.100_0.001."
         "best_profile.pt"
     )
 )
