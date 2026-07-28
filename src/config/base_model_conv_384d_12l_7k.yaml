@@ -1,5 +1,4 @@
 d_seq: 4
-d_count: 1
 d_model: 384
 number_of_layers: 12
 d_ff: 384

@@ -15,7 +15,6 @@ class BaseModelConv(SequenceOnlyModel):
         self,
         d_seq: int,
         d_model: int,
-        d_count: int = 1,
         number_of_layers: int = 12,
         d_ff: int = 2048,
         kernel_size: int = 7,
@@ -25,7 +24,6 @@ class BaseModelConv(SequenceOnlyModel):
         super().__init__(d_seq, d_model, p_drop=p_drop, model_name=model_name)
         if number_of_layers < 1 or d_ff < 1:
             raise ValueError("number_of_layers and d_ff must be positive")
-        self.d_count = int(d_count)
         self.kernel_size = int(kernel_size)
         self.number_of_layers = int(number_of_layers)
         self.d_ff = int(d_ff)
@@ -34,7 +32,6 @@ class BaseModelConv(SequenceOnlyModel):
         )
         self._constructor_args = {
             "d_seq": d_seq,
-            "d_count": d_count,
             "d_model": d_model,
             "number_of_layers": number_of_layers,
             "d_ff": d_ff,
@@ -72,7 +69,6 @@ class BaseModelConv(SequenceOnlyModel):
             torch.manual_seed(int(cfg["seed"]))
         return cls(
             d_seq=int(cfg["d_seq"]),
-            d_count=int(cfg.get("d_count", 1)),
             d_model=int(cfg["d_model"]),
             number_of_layers=int(cfg.get("number_of_layers", 12)),
             d_ff=int(cfg.get("d_ff", 2048)),

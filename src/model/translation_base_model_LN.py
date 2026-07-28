@@ -15,7 +15,6 @@ class BaseModelLN(SequenceOnlyModel):
         self,
         d_seq: int,
         d_model: int,
-        d_count: int = 1,
         n_heads: int = 8,
         number_of_layers: int = 12,
         d_ff: int = 2048,
@@ -27,7 +26,6 @@ class BaseModelLN(SequenceOnlyModel):
             raise ValueError("n_heads must be positive and divide d_model")
         if number_of_layers < 1 or d_ff < 1:
             raise ValueError("number_of_layers and d_ff must be positive")
-        self.d_count = int(d_count)
         self.n_heads = int(n_heads)
         self.number_of_layers = int(number_of_layers)
         self.d_ff = int(d_ff)
@@ -36,7 +34,6 @@ class BaseModelLN(SequenceOnlyModel):
         )
         self._constructor_args = {
             "d_seq": d_seq,
-            "d_count": d_count,
             "d_model": d_model,
             "n_heads": n_heads,
             "number_of_layers": number_of_layers,
@@ -74,7 +71,6 @@ class BaseModelLN(SequenceOnlyModel):
             torch.manual_seed(int(cfg["seed"]))
         return cls(
             d_seq=int(cfg["d_seq"]),
-            d_count=int(cfg.get("d_count", 1)),
             d_model=int(cfg["d_model"]),
             n_heads=int(cfg.get("n_heads", 8)),
             number_of_layers=int(cfg.get("number_of_layers", 12)),

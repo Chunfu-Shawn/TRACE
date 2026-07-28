@@ -113,12 +113,22 @@ def save_count_predictions(
     suffix: str = "count",
     rank: Optional[int] = None,
     world_size: Optional[int] = None,
+    force_zero_expression: bool = False,
+    storage_dtype: Union[str, np.dtype] = np.float16,
 ):
-    """Predict positional density and save ``{cell_type: {tid: signal}}``."""
+    """Predict positional density and save ``{cell_type: {tid: signal}}``.
+
+    ``force_zero_expression`` supports sequence-only/zero-conditioning controls
+    without changing the dataset. ``storage_dtype`` defaults to the legacy
+    float16 format; use float32 when small signal differences affect evaluation.
+    """
     os.makedirs(out_dir, exist_ok=True)
     model.eval()
     base_model = unwrap_model(model)
     device = _model_device(base_model)
+    resolved_storage_dtype = np.dtype(storage_dtype)
+    if resolved_storage_dtype not in (np.dtype(np.float16), np.dtype(np.float32)):
+        raise ValueError("storage_dtype must be float16 or float32")
 
     def collate_fn_count(batch):
         uuids, species, cell_types, expr_vectors, meta_infos, seq_embs, _ = zip(*batch)
@@ -167,6 +177,8 @@ def save_count_predictions(
             b_expr_vectors = b_expr_vectors.to(
                 device, non_blocking=device.type == "cuda"
             )
+            if force_zero_expression:
+                b_expr_vectors.zero_()
             positions = torch.arange(b_seq.shape[1]).unsqueeze(0)
             src_mask = positions < torch.tensor(b_lengths).unsqueeze(1)
             src_mask = src_mask.to(device, non_blocking=device.type == "cuda")
@@ -189,7 +201,7 @@ def save_count_predictions(
                     .float()
                     .cpu()
                     .numpy()
-                    .astype(np.float16)
+                    .astype(resolved_storage_dtype, copy=False)
                 )
                 tid = str(uuid).split("-", 1)[0]
                 cell_type = str(b_cell_types[index])
