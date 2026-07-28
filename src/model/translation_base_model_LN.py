@@ -1,15 +1,15 @@
-"""Sequence-only Transformer with standard LayerNorm for ablation studies."""
+"""End-to-end sequence-only Transformer for LayerNorm ablation studies."""
 
 from typing import Any, Dict, List, Optional, Union
 
 import torch
 
-from model.base_model import BaseModel
 from model.model_modules import Encoder, EncoderLayer
+from model.sequence_only_model import SequenceOnlyModel
 
 
-class TranslationBaseModel(BaseModel):
-    """BaseModel-compatible sequence encoder without expression conditioning."""
+class BaseModelLN(SequenceOnlyModel):
+    """Standard pre-LayerNorm Transformer without environment conditioning."""
 
     def __init__(
         self,
@@ -22,26 +22,18 @@ class TranslationBaseModel(BaseModel):
         p_drop: float = 0.1,
         model_name: str = "base_model_LN",
     ):
-        super().__init__(
-            d_seq=d_seq,
-            d_model=d_model,
-            d_expr=1,
-            d_cell_env=1,
-            all_species=[],
-            d_species=1,
-            n_heads=n_heads,
-            number_of_layers=number_of_layers,
-            d_ff=d_ff,
-            adaptive_dim=1,
-            p_drop=p_drop,
-            model_name=model_name,
-        )
+        super().__init__(d_seq, d_model, p_drop=p_drop, model_name=model_name)
+        if n_heads < 1 or d_model % n_heads != 0:
+            raise ValueError("n_heads must be positive and divide d_model")
+        if number_of_layers < 1 or d_ff < 1:
+            raise ValueError("number_of_layers and d_ff must be positive")
         self.d_count = int(d_count)
+        self.n_heads = int(n_heads)
+        self.number_of_layers = int(number_of_layers)
+        self.d_ff = int(d_ff)
         self.encoder = Encoder(
             EncoderLayer(d_model, d_ff, n_heads, p_drop), number_of_layers
         )
-        del self.species_embedding
-        del self.expr_projector
         self._constructor_args = {
             "d_seq": d_seq,
             "d_count": d_count,
@@ -66,36 +58,13 @@ class TranslationBaseModel(BaseModel):
         count_batch: Optional[torch.Tensor] = None,
         **kwargs,
     ):
-        if not isinstance(seq_batch, torch.Tensor) or seq_batch.dim() != 3:
-            raise ValueError("seq_batch must be a tensor with shape (B, L, d_seq)")
-        batch_size, seq_len, feature_dim = seq_batch.shape
-        if feature_dim != self.d_seq:
-            raise ValueError(f"Expected d_seq={self.d_seq}, got {feature_dim}")
-        if src_mask is None:
-            src_mask = (seq_batch != -1).any(dim=-1)
-        else:
-            src_mask = src_mask.to(device=seq_batch.device, dtype=torch.bool)
-            if src_mask.shape != (batch_size, seq_len):
-                raise ValueError(
-                    f"src_mask shape {tuple(src_mask.shape)} != ({batch_size}, {seq_len})"
-                )
-
-        encoder_out = self.encoder(self.seq_embedding(seq_batch), src_mask)
-        if not head_names:
-            return encoder_out
-
-        outputs = {}
-        head_inputs = head_inputs or {}
-        for name in head_names:
-            if name not in self.heads:
-                raise KeyError(f"Head {name!r} not found. Available: {self.list_heads()}")
-            outputs[name] = self.heads[name](
-                encoder_out, src_mask, **dict(head_inputs.get(name, {}))
-            )
-        return outputs
+        del cell_type, expr_vector, species, count_batch, kwargs
+        sequence_embeddings, src_mask = self._embed_sequence(seq_batch, src_mask)
+        encoder_out = self.encoder(sequence_embeddings, src_mask)
+        return self._apply_heads(encoder_out, src_mask, head_names, head_inputs)
 
     @classmethod
-    def from_config(cls, config: Union[Dict[str, Any], str]) -> "TranslationBaseModel":
+    def from_config(cls, config: Union[Dict[str, Any], str]) -> "BaseModelLN":
         cfg = cls._load_config_from_file(config) if isinstance(config, str) else dict(config)
         required = {"d_seq", "d_model"}
         missing = required.difference(cfg)
@@ -115,4 +84,4 @@ class TranslationBaseModel(BaseModel):
         )
 
 
-BaseModelLN = TranslationBaseModel
+TranslationBaseModel = BaseModelLN

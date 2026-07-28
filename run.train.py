@@ -57,6 +57,7 @@ BETAS = (0.9, 0.98)
 EPSILON = 1e-9
 EXPR_NOISE_STD = 0.1
 EXPR_INTERPOLATION_PERC = 0.3
+FORCE_ZERO_EXPRESSION = False
 MASK_VALUE = 0.0
 MASK_PERC = {"count": (0.4, 1.5), "species": 0.1, "cell": 0.1}
 ALPHA_LIMIT = (4.0, 4.0)
@@ -151,6 +152,7 @@ def main():
         beta=BETAS,
         epsilon=EPSILON,
         weight_decay=WEIGHT_DECAY,
+        force_zero_expression=FORCE_ZERO_EXPRESSION,
     )
     trainer.fit()
 

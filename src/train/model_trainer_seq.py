@@ -87,7 +87,8 @@ class Trainer:
         balance_classes: bool = False,
         beta: Tuple[float, float] = (0.9, 0.98),
         epsilon: float = 1e-9,
-        weight_decay: float = 0.01
+        weight_decay: float = 0.01,
+        force_zero_expression: bool = False,
     ):
         # basic attributes
         self.model = model
@@ -120,6 +121,7 @@ class Trainer:
 
         # masking and sampler (reuse user's adapters)
         self.mask_perc = mask_perc
+        self.force_zero_expression = bool(force_zero_expression)
         self.balance_classes = balance_classes
 
         # Build dataset and sampler dynamically
@@ -178,6 +180,10 @@ class Trainer:
             print(f"[Trainer] model_trainer_name={self.model_full_name}")
             print(f"[Trainer] device={self.device}, steps_per_epoch={self.steps_per_epoch}, total_steps={self._total_steps}")
             print(f"[Trainer] mask_perc={self.mask_perc}")
+            print(
+                "[Trainer] force_zero_expression="
+                f"{self.force_zero_expression} (applies to train and validation)"
+            )
             print(
                 "[Trainer] expression augmentation: "
                 f"continuous_interpolation={self.expr_interpolation_perc:.3f} "
@@ -359,6 +365,7 @@ class Trainer:
             "best_scale_spearman": self.best_scale_spearman,
             "patience_counter": self.patience_counter,
             "current_alpha": self.current_alpha,
+            "force_zero_expression": self.force_zero_expression,
             "training_epoch_data": self.training_epoch_data,
             "training_batch_data": self.training_batch_data,
         }
@@ -460,6 +467,8 @@ class Trainer:
         cell_mask = torch.zeros(B, dtype=torch.bool)
         if "cell" in self.mask_perc and not is_eval:
             cell_mask = torch.rand(B) < self.mask_perc.get("cell", 0)
+        if self.force_zero_expression:
+            cell_mask.fill_(True)
 
         # ==========================================
         # Logical Matrix for Expression Vector Masking

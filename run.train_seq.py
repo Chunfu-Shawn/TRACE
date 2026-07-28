@@ -17,6 +17,8 @@ if str(SRC_DIR) not in sys.path:
 
 from model.base_model import BaseModel
 from model.prediction_heads import PsiteDensityHead
+from model.translation_base_model_LN import BaseModelLN
+from model.translation_base_model_conv import BaseModelConv
 from train.model_trainer_seq import Trainer
 from utils import print_param_counts
 
@@ -26,26 +28,40 @@ from utils import print_param_counts
 # -----------------------------------------------------------------------------
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
-    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
-    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
-    "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_bs"
+    "hs_5c_6k_depth0.1_cov0.1_rpm1"
+    "_e50_a2_b02_zero"
+    # "_e50_a2_b02_real"
+    # "_e50_a2_b02_exp_aug"
 )
 
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+MODEL_VARIANT = "adaln"  # Choose from: "adaln", "ln", or "conv".
+MODEL_CONFIG_PATHS = {
+    "adaln": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+    "ln": SRC_DIR / "config/base_model_LN_384d_16h_12l.yaml",
+    "conv": SRC_DIR / "config/base_model_conv_384d_12l_7k.yaml",
+}
+MODEL_CLASSES = {
+    "adaln": BaseModel,
+    "ln": BaseModelLN,
+    "conv": BaseModelConv,
+}
 CHECKPOINT_DIR = PROJECT_ROOT.parent / "checkpoint/train"
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
 
@@ -62,9 +78,14 @@ ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
-EXPR_NOISE_STD = 0.15
-EXPR_INTERPOLATION_PERC = 0.2
-MASK_PERC = {"species": 0.1, "cell": 0.1}
+MASK_PERC = {"species": 0.0, "cell": 0.0}
+# MASK_PERC = {"species": 0.1, "cell": 0.1}
+EXPR_NOISE_STD = 0.0
+# EXPR_NOISE_STD = 0.15
+EXPR_INTERPOLATION_PERC = 0.0
+# EXPR_INTERPOLATION_PERC = 0.2
+FORCE_ZERO_EXPRESSION = True
+# FORCE_ZERO_EXPRESSION = False
 BALANCE_CLASSES = True
 RESUME = True
 SAVE_EVERY = 1
@@ -104,12 +125,26 @@ def resolve_dataset_paths(file_names):
     return [str(path) for path in paths]
 
 
+def build_model():
+    """Construct the selected model variant from its dedicated config."""
+    variant = MODEL_VARIANT.lower()
+    if variant not in MODEL_CLASSES:
+        raise ValueError(
+            f"Unknown MODEL_VARIANT={MODEL_VARIANT!r}; "
+            f"choose from {sorted(MODEL_CLASSES)}"
+        )
+    config_path = MODEL_CONFIG_PATHS[variant]
+    if not config_path.is_file():
+        raise FileNotFoundError(f"Model config not found: {config_path}")
+    return MODEL_CLASSES[variant].from_config(str(config_path))
+
+
 def main():
     device, rank, world_size, distributed = setup_runtime()
     train_paths = resolve_dataset_paths(TRAIN_DATASET_FILES)
     valid_paths = resolve_dataset_paths(VALID_DATASET_FILES)
 
-    model = BaseModel.from_config(str(MODEL_CONFIG_PATH))
+    model = build_model()
     model.add_head(
         "count",
         PsiteDensityHead.create_from_model(model, d_pred_h=HEAD_HIDDEN_DIM),
@@ -119,6 +154,7 @@ def main():
     model.to(device)
 
     if rank == 0:
+        print(f"Model variant: {MODEL_VARIANT}")
         print(model.model_name)
         print(model.list_heads())
         print_param_counts(model)
@@ -157,6 +193,7 @@ def main():
         beta=BETAS,
         epsilon=EPSILON,
         weight_decay=WEIGHT_DECAY,
+        force_zero_expression=FORCE_ZERO_EXPRESSION,
     )
     trainer.fit()
 
