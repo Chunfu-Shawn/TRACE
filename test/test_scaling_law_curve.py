@@ -1,12 +1,12 @@
-"""Tests for multi-model Trainer loss-curve parsing and plotting."""
+"""Tests for configurable epoch-metric Trainer plots."""
 
+import csv
 import json
 import os
 import sys
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,132 +16,17 @@ SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
-import plot.scaling_law_curve as scaling_law_curve
-
 from plot.scaling_law_curve import (
-    ComputeEstimate,
-    estimate_flops_from_lengths,
-    get_dataset_stats,
     load_run_history,
     parse_epoch_json,
     parse_text_log,
-    plot_model_loss_curves,
-    precompute_dataset_flop_stats,
+    plot_model_metric_curves,
     validate_comparison,
+    write_source_data,
 )
 
 
 class ScalingLawCurveTests(unittest.TestCase):
-    def test_precompute_writes_dataset_flop_stats_json(self):
-        with tempfile.TemporaryDirectory() as directory:
-            dataset_path = (Path(directory) / "dataset.h5").resolve()
-            dataset_path.write_bytes(b"placeholder")
-            fingerprint = dataset_path.stat()
-            cache_path = Path(directory) / "dataset_flop_stats.json"
-            cache_path.write_text(
-                json.dumps(
-                    {
-                        "schema_version": 1,
-                        "files": {
-                            str(dataset_path): {
-                                "size_bytes": fingerprint.st_size,
-                                "mtime_ns": fingerprint.st_mtime_ns,
-                                "n_transcripts": 3,
-                                "total_length": 60.0,
-                                "total_length_squared": 1400.0,
-                            }
-                        },
-                    }
-                ),
-                encoding="utf-8",
-            )
-            original_path = scaling_law_curve.DATASET_FLOP_STATS_PATH
-            try:
-                scaling_law_curve.DATASET_FLOP_STATS_PATH = cache_path
-                scaling_law_curve._DISK_STATS_CACHE = None
-                scaling_law_curve._DATASET_STATS_CACHE.clear()
-                with patch.object(
-                    scaling_law_curve,
-                    "_load_model_config",
-                    return_value={
-                        "d_model": 8,
-                        "d_ff": 16,
-                        "number_of_layers": 2,
-                    },
-                ):
-                    precompute_dataset_flop_stats(
-                        [
-                            {
-                                "label": "test-model",
-                                "train_dataset_files": [str(dataset_path)],
-                                "model_config_path": "model.yaml",
-                            }
-                        ]
-                    )
-                output = json.loads(cache_path.read_text(encoding="utf-8"))
-            finally:
-                scaling_law_curve.DATASET_FLOP_STATS_PATH = original_path
-                scaling_law_curve._DISK_STATS_CACHE = None
-                scaling_law_curve._DATASET_STATS_CACHE.clear()
-
-        self.assertEqual(len(output["dataset_groups"]), 1)
-        self.assertEqual(output["run_estimates"][0]["label"], "test-model")
-        self.assertGreater(output["run_estimates"][0]["flops_per_epoch"], 0)
-
-    def test_reuses_serialized_dataset_stats_without_scanning_h5(self):
-        with tempfile.TemporaryDirectory() as directory:
-            dataset_path = Path(directory) / "dataset.h5"
-            dataset_path.write_bytes(b"placeholder")
-            dataset_path = dataset_path.resolve()
-            fingerprint = dataset_path.stat()
-            cache_path = Path(directory) / "dataset_flop_stats.json"
-            cache_path.write_text(
-                json.dumps(
-                    {
-                        "schema_version": 1,
-                        "files": {
-                            str(dataset_path): {
-                                "size_bytes": fingerprint.st_size,
-                                "mtime_ns": fingerprint.st_mtime_ns,
-                                "n_transcripts": 3,
-                                "total_length": 60.0,
-                                "total_length_squared": 1400.0,
-                            }
-                        },
-                    }
-                ),
-                encoding="utf-8",
-            )
-            original_path = scaling_law_curve.DATASET_FLOP_STATS_PATH
-            try:
-                scaling_law_curve.DATASET_FLOP_STATS_PATH = cache_path
-                scaling_law_curve._DISK_STATS_CACHE = None
-                scaling_law_curve._DATASET_STATS_CACHE.clear()
-                stats = get_dataset_stats([str(dataset_path)])
-            finally:
-                scaling_law_curve.DATASET_FLOP_STATS_PATH = original_path
-                scaling_law_curve._DISK_STATS_CACHE = None
-                scaling_law_curve._DATASET_STATS_CACHE.clear()
-
-        self.assertEqual(stats.n_transcripts, 3)
-        self.assertEqual(stats.total_length, 60.0)
-        self.assertEqual(stats.total_length_squared, 1400.0)
-
-    def test_transformer_flops_use_linear_and_quadratic_length_terms(self):
-        flops = estimate_flops_from_lengths(
-            [10, 20],
-            {
-                "d_seq": 4,
-                "d_model": 8,
-                "d_ff": 16,
-                "number_of_layers": 2,
-                "model_name": "base_model_ln",
-            },
-            head_hidden_dim=8,
-        )
-
-        self.assertEqual(flops, 299040)
-
     def test_current_json_structure_and_resume_duplicates(self):
         payload = [
             {
@@ -151,6 +36,7 @@ class ScalingLawCurveTests(unittest.TestCase):
                 "valid_loss": 0.28,
                 "profile_spearman": 0.20,
                 "scale_spearman": 0.50,
+                "cds_mean_mae": 0.14,
             },
             {"epoch": 2, "train_loss": 0.25, "valid_loss": 0.24},
             {"epoch": 2, "train_loss": 0.22, "valid_loss": 0.21},
@@ -163,12 +49,13 @@ class ScalingLawCurveTests(unittest.TestCase):
         self.assertEqual(duplicates, 1)
         self.assertEqual([record["epoch"] for record in records], [1, 2])
         self.assertEqual(records[-1]["valid_loss"], 0.21)
+        self.assertAlmostEqual(records[0]["cds_mean_mae"], 0.14)
 
     def test_current_console_log_structure(self):
         text = """
 Epoch 4 training time: 120.0 seconds, mean loss: tensor([0.1730], device='cuda:0')
 Epoch 4 evaluating time: 10.0 seconds, mean loss: tensor([0.2088], device='cuda:0')
-Epoch 4 validation metrics: profile Spearman=0.492527 (100/100 RNAs), CDS-mean scale Spearman=0.719662
+Epoch 4 validation metrics: profile Spearman=0.492527 (100/100 RNAs), CDS-mean scale Spearman=0.719662, CDS-mean MAE=0.096166, calibration target=0.024713 + 0.944779*prediction (100 RNAs)
 """
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "trainer.log"
@@ -181,77 +68,137 @@ Epoch 4 validation metrics: profile Spearman=0.492527 (100/100 RNAs), CDS-mean s
         self.assertAlmostEqual(records[0]["valid_loss"], 0.2088)
         self.assertAlmostEqual(records[0]["profile_spearman"], 0.492527)
         self.assertAlmostEqual(records[0]["scale_spearman"], 0.719662)
+        self.assertAlmostEqual(records[0]["cds_mean_mae"], 0.096166)
+        self.assertAlmostEqual(records[0]["calibration_intercept"], 0.024713)
+        self.assertAlmostEqual(records[0]["calibration_slope"], 0.944779)
 
-    def test_multiple_inline_histories_plot_together(self):
-        first = load_run_history(
-            {
-                "method": "TRACE-Zero",
-                "dataset": "same-validation-set",
-                "color": "#777777",
-                "loss_data": [
-                    {"epoch": 1, "train_loss": 0.30, "valid_loss": 0.28},
-                    {"epoch": 2, "train_loss": 0.25, "valid_loss": 0.24},
-                ],
-            }
-        )
-        second = load_run_history(
-            {
-                "label": "TRACE-Mask+Interpolation",
-                "dataset": "same-validation-set",
-                "color": "#166A9A",
-                "loss_data": [
-                    {"epoch": 1, "train_loss": [0.27], "valid_loss": [0.25]},
-                    {"epoch": 2, "train_loss": [0.21], "valid_loss": [0.19]},
-                ],
-            }
-        )
-        validate_comparison([first, second])
-        figures = plot_model_loss_curves([first, second], x_axis="epoch")
-
-        self.assertEqual(set(figures), {"train", "valid"})
-        self.assertEqual(len(figures["train"].axes), 1)
-        self.assertEqual(len(figures["valid"].axes), 1)
-        self.assertEqual(second.best_validation(), (2, 0.19))
-        self.assertTrue(np.isfinite(second.valid_loss).all())
-        for figure in figures.values():
-            plt.close(figure)
-
-    def test_flop_axis_uses_distinct_compute_per_run(self):
-        histories = []
-        for label, lengths in (("22c", [10, 20]), ("40c", [10, 20, 30])):
-            history = load_run_history(
+    def test_custom_metric_figures_and_axis_settings(self):
+        histories = [
+            load_run_history(
                 {
-                    "label": label,
+                    "label": "TRACE-Zero",
                     "dataset": "same-validation-set",
+                    "color": "#777777",
                     "loss_data": [
-                        {"epoch": 1, "valid_loss": 0.3},
-                        {"epoch": 2, "valid_loss": 0.2},
+                        {
+                            "epoch": 1,
+                            "train_loss": 0.30,
+                            "valid_loss": 0.28,
+                            "profile_spearman": 0.32,
+                            "scale_spearman": 0.50,
+                            "cds_mean_mae": 0.12,
+                        },
+                        {
+                            "epoch": 2,
+                            "train_loss": 0.25,
+                            "valid_loss": 0.24,
+                            "profile_spearman": 0.35,
+                            "scale_spearman": 0.54,
+                            "cds_mean_mae": 0.10,
+                        },
                     ],
                 }
-            )
-            flops = estimate_flops_from_lengths(
-                lengths,
-                {"d_model": 8, "d_ff": 16, "number_of_layers": 2},
-                head_hidden_dim=8,
-            )
-            history.compute = ComputeEstimate(
-                training_dataset=f"{label}.h5",
-                n_transcripts=len(lengths),
-                total_length=float(sum(lengths)),
-                total_length_squared=float(sum(length**2 for length in lengths)),
-                flops_per_epoch=flops,
-            )
-            histories.append(history)
+            ),
+            load_run_history(
+                {
+                    "label": "TRACE-Mask+Interpolation",
+                    "dataset": "same-validation-set",
+                    "color": "#166A9A",
+                    "loss_data": [
+                        {
+                            "epoch": 1,
+                            "train_loss": [0.27],
+                            "valid_loss": [0.25],
+                            "profile_spearman": 0.36,
+                            "scale_spearman": 0.56,
+                            "cds_mean_mae": 0.11,
+                        },
+                        {
+                            "epoch": 2,
+                            "train_loss": [0.21],
+                            "valid_loss": [0.19],
+                            "profile_spearman": 0.40,
+                            "scale_spearman": 0.61,
+                            "cds_mean_mae": 0.08,
+                        },
+                    ],
+                }
+            ),
+        ]
+        metric_configs = [
+            {
+                "key": "valid_loss",
+                "title": "Validation loss",
+                "y_label": "Loss",
+                "filename": "valid_loss",
+                "y_log": True,
+                "best": "min",
+            },
+            {
+                "key": "cds_mean_mae",
+                "title": "CDS-mean MAE",
+                "y_label": "Mean absolute error",
+                "filename": "cds_mean_mae",
+                "y_log": False,
+                "best": "min",
+            },
+            {
+                "key": "scale_spearman",
+                "title": "CDS-mean scale Spearman",
+                "y_label": "Spearman correlation",
+                "filename": "scale_spearman",
+                "y_log": False,
+                "best": "max",
+            },
+        ]
 
-        figures = plot_model_loss_curves(histories, x_axis="flops", x_log=True)
-        valid_axis = figures["valid"].axes[0]
-        first_x = valid_axis.lines[0].get_xdata()
-        second_x = valid_axis.lines[1].get_xdata()
-        self.assertGreater(second_x[-1], first_x[-1])
+        validate_comparison(histories)
+        figures = plot_model_metric_curves(histories, metric_configs, x_log=True)
+
+        self.assertEqual(
+            set(figures), {"valid_loss", "cds_mean_mae", "scale_spearman"}
+        )
+        valid_axis = figures["valid_loss"].axes[0]
         self.assertEqual(valid_axis.get_xscale(), "log")
-        self.assertIn("EFLOPs", valid_axis.get_xlabel())
+        self.assertEqual(valid_axis.get_yscale(), "log")
+        self.assertEqual(valid_axis.get_xlabel(), "Epoch")
+        self.assertEqual(valid_axis.get_ylabel(), "Loss")
+        self.assertEqual(histories[1].best_metric("valid_loss", "min"), (2, 0.19))
+        self.assertEqual(
+            histories[1].best_metric("scale_spearman", "max"), (2, 0.61)
+        )
+        self.assertTrue(np.isfinite(histories[1].cds_mean_mae).all())
         for figure in figures.values():
             plt.close(figure)
+
+    def test_source_data_contains_all_supported_metrics(self):
+        history = load_run_history(
+            {
+                "label": "TRACE",
+                "dataset": "same-validation-set",
+                "loss_data": [
+                    {
+                        "epoch": 1,
+                        "train_loss": 0.3,
+                        "valid_loss": 0.2,
+                        "profile_spearman": 0.4,
+                        "scale_spearman": 0.5,
+                        "cds_mean_mae": 0.1,
+                    }
+                ],
+            }
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            prefix = Path(directory) / "metric_comparison"
+            write_source_data([history], prefix)
+            with prefix.with_name(prefix.name + ".source_data.csv").open(
+                newline="", encoding="utf-8"
+            ) as handle:
+                row = next(csv.DictReader(handle))
+
+        self.assertEqual(row["model"], "TRACE")
+        self.assertAlmostEqual(float(row["cds_mean_mae"]), 0.1)
+        self.assertAlmostEqual(float(row["scale_spearman"]), 0.5)
 
     def test_mixed_validation_datasets_are_rejected(self):
         histories = []

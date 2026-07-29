@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Plot TRACE training and validation losses against epoch or estimated FLOPs.
+"""Plot configurable Trainer metrics against epoch for multiple TRACE runs.
 
-Edit the configuration section and run this file directly on the server. The
-script reads Trainer ``*.epoch_data.json`` files or plain-text training logs.
-Training and validation losses are exported as separate figures.
+Edit ``MODEL_RUNS`` and ``PLOT_METRICS`` before running this file on the
+server. Each enabled metric is exported as an independent figure.
 """
 
 from __future__ import annotations
@@ -27,118 +26,140 @@ from matplotlib.ticker import MaxNLocator
 # -----------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
-DATASET_DIR = PROJECT_ROOT.parent / "dataset"
 OUTPUT_PREFIX = (
-    PROJECT_ROOT.parent / "results/ablation/loss_curves/model_loss_comparison"
+    PROJECT_ROOT.parent / "results/ablation/loss_curves/model_metric_comparison"
 )
-# The cache is refreshed before curves are loaded and reused by later runs.
-DATASET_FLOP_STATS_PATH = OUTPUT_PREFIX.parent / "dataset_flop_stats.json"
 
+# Validation metrics are directly comparable only when all runs use the same
+# validation dataset and loss definition.
 COMPARISON_DATASET = "human_5c_6k_depth0.1_cov0.1_rpm1"
 LOSS_DEFINITION = "micro + 2.0*macro + 0.2*ranking"
 ALLOW_MIXED_DATASETS = False
 
-X_AXIS = "flops"  # Choose "flops" or "epoch".
-X_LOG = True
-TRAIN_Y_LOG = True
-VALID_Y_LOG = True
+X_LOG = False
 SHOW_FIGURE = False
 
-FLOP_UNIT = 1e18
-FLOP_UNIT_LABEL = "EFLOPs"
-TRAINING_FLOP_MULTIPLIER = 3.0
-HEAD_HIDDEN_DIM = 384
+SUPPORTED_METRICS = (
+    "train_loss",
+    "valid_loss",
+    "profile_spearman",
+    "scale_spearman",
+    "cds_mean_mae",
+    "calibration_slope",
+    "calibration_intercept",
+)
 
-TRAIN_DATASETS = {
-    "5c": ["human_5c_6k_depth0.1_cov0.1_rpm1.train.h5"],
-    "22c": ["human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5"],
-    "40c": [
-        "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-        "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    ],
-}
+# Add, remove, or disable entries here to choose the y-axis of each figure.
+# ``key`` must be one of the entries in ``SUPPORTED_METRICS``.
+PLOT_METRICS = [
+    {
+        "key": "train_loss",
+        "title": "Training loss",
+        "y_label": "Loss",
+        "filename": "train_loss",
+        "y_log": True,
+        "best": "min",
+        "enabled": True,
+    },
+    {
+        "key": "valid_loss",
+        "title": "Validation loss",
+        "y_label": "Loss",
+        "filename": "valid_loss",
+        "y_log": True,
+        "best": "min",
+        "enabled": True,
+    },
+    {
+        "key": "profile_spearman",
+        "title": "RNA profile Spearman",
+        "y_label": "Spearman correlation",
+        "filename": "profile_spearman",
+        "y_log": False,
+        "best": "max",
+        "enabled": True,
+    },
+    {
+        "key": "scale_spearman",
+        "title": "CDS-mean scale Spearman",
+        "y_label": "Spearman correlation",
+        "filename": "cds_mean_scale_spearman",
+        "y_log": False,
+        "best": "max",
+        "enabled": True,
+    },
+    {
+        "key": "cds_mean_mae",
+        "title": "CDS-mean MAE",
+        "y_label": "Mean absolute error",
+        "filename": "cds_mean_mae",
+        "y_log": True,
+        "best": "min",
+        "enabled": True,
+    },
+]
 
-MODEL_CONFIGS = {
-    "trace": "src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
-    "ln": "src/config/base_model_LN_384d_16h_12l.yaml",
-    "conv": "src/config/base_model_conv_384d_12l_7k.yaml",
-}
-
-# Every run uses the same configuration fields. A relative log glob is resolved
-# inside LOG_DIR; replace it with an exact ``path`` for final reproducibility.
+# ``glob`` is resolved inside LOG_DIR and selects the newest matching history.
+# Replace it with an exact ``path`` for final figure reproducibility.
 MODEL_RUNS = [
     {
-        "label": "TRACE-Zero (5 cell contexts)",
+        "label": "TRACE Zero (5c)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*zero*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["5c"],
-        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#7A7A7A",
         "linestyle": "--",
         "enabled": True,
     },
     {
-        "label": "TRACE-Real (5 cell contexts)",
+        "label": "TRACE Real (5c)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*real*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["5c"],
-        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#78A9CF",
         "linestyle": "-.",
         "enabled": True,
     },
     {
-        "label": "TRACE-Mask+Interpolation (5 cell contexts)",
+        "label": "TRACE Mask+Interp. (5c)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["5c"],
-        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#166A9A",
         "linestyle": "-",
         "enabled": True,
     },
     {
-        "label": "LayerNorm Transformer (5 cell contexts)",
+        "label": "LN Transformer (5c)",
         "glob": "base_model_LN*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["5c"],
-        "model_config_path": MODEL_CONFIGS["ln"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#C28548",
         "linestyle": "-",
         "enabled": True,
     },
     {
-        "label": "Convolutional model (5 cell contexts)",
+        "label": "Conv model (5c)",
         "glob": "base_model_conv*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["5c"],
-        "model_config_path": MODEL_CONFIGS["conv"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#5F9272",
         "linestyle": "-",
         "enabled": False,
     },
     {
-        "label": "TRACE-Mask+Interpolation (22 cell contexts)",
+        "label": "TRACE Mask+Interp. (22c)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_22c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["22c"],
-        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#9A6FB0",
         "linestyle": "-.",
         "enabled": True,
     },
     {
-        "label": "TRACE-Mask+Interpolation (22 cell contexts)",
+        "label": "TRACE Mask+Interp. (40c)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_40c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
-        "train_dataset_files": TRAIN_DATASETS["40c"],
-        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#6A3D78",
         "linestyle": "-",
@@ -176,35 +197,21 @@ EPOCH_LOSS_PATTERN = re.compile(
 VALIDATION_METRICS_PATTERN = re.compile(
     rf"Epoch\s+(\d+)\s+validation\s+metrics:\s*"
     rf"profile\s+Spearman=({FLOAT_PATTERN}).*?"
-    rf"CDS-mean\s+scale\s+Spearman=({FLOAT_PATTERN})",
+    rf"CDS-mean\s+scale\s+Spearman=({FLOAT_PATTERN})"
+    rf"(?:.*?CDS-mean\s+MAE=({FLOAT_PATTERN}))?",
+    flags=re.IGNORECASE,
+)
+CALIBRATION_PATTERN = re.compile(
+    rf"Epoch\s+(\d+)\s+validation\s+metrics:.*?"
+    rf"calibration\s+target=({FLOAT_PATTERN})\s*\+\s*"
+    rf"({FLOAT_PATTERN})\s*\*\s*prediction",
     flags=re.IGNORECASE,
 )
 
 
-@dataclass(frozen=True)
-class DatasetStats:
-    """Length statistics shared by every model trained on one dataset group."""
-
-    files: tuple[str, ...]
-    n_transcripts: int
-    total_length: float
-    total_length_squared: float
-
-
-@dataclass(frozen=True)
-class ComputeEstimate:
-    """Simple dataset and training-compute summary for one run."""
-
-    training_dataset: str
-    n_transcripts: int
-    total_length: float
-    total_length_squared: float
-    flops_per_epoch: float
-
-
 @dataclass
 class RunHistory:
-    """Clean epoch-level history for one model run."""
+    """Clean epoch-level metrics for one model run."""
 
     label: str
     dataset: str
@@ -214,31 +221,24 @@ class RunHistory:
     epochs: np.ndarray
     train_loss: np.ndarray
     valid_loss: np.ndarray
-    alpha: np.ndarray
     profile_spearman: np.ndarray
     scale_spearman: np.ndarray
+    cds_mean_mae: np.ndarray
+    calibration_slope: np.ndarray
+    calibration_intercept: np.ndarray
+    alpha: np.ndarray
     duplicate_epochs: int = 0
-    compute: Optional[ComputeEstimate] = None
 
-    def best_validation(self) -> tuple[int, float]:
-        """Return the epoch and minimum finite validation loss."""
-        finite = np.isfinite(self.valid_loss)
+    def best_metric(self, metric: str, direction: str) -> tuple[int, float]:
+        """Return the epoch and best finite value for a metric."""
+        values = np.asarray(getattr(self, metric), dtype=float)
+        finite = np.isfinite(values)
         if not finite.any():
-            raise ValueError(f"Run {self.label!r} has no finite validation losses")
+            raise ValueError(f"Run {self.label!r} has no finite {metric} values")
         indices = np.flatnonzero(finite)
-        best_index = indices[np.argmin(self.valid_loss[finite])]
-        return int(self.epochs[best_index]), float(self.valid_loss[best_index])
-
-    @property
-    def cumulative_flops(self) -> np.ndarray:
-        """Return cumulative FLOPs at each completed epoch."""
-        if self.compute is None:
-            return np.full(self.epochs.shape, np.nan, dtype=float)
-        return self.epochs.astype(float) * self.compute.flops_per_epoch
-
-
-_DATASET_STATS_CACHE: Dict[str, DatasetStats] = {}
-_DISK_STATS_CACHE: Optional[Dict[str, Any]] = None
+        selector = np.argmin if direction == "min" else np.argmax
+        best_index = indices[selector(values[finite])]
+        return int(self.epochs[best_index]), float(values[best_index])
 
 
 def _to_float(value: Any) -> float:
@@ -246,13 +246,9 @@ def _to_float(value: Any) -> float:
     if value is None:
         return float("nan")
     if isinstance(value, (list, tuple)):
-        if len(value) != 1:
-            return float("nan")
-        return _to_float(value[0])
+        return _to_float(value[0]) if len(value) == 1 else float("nan")
     if isinstance(value, np.ndarray):
-        if value.size != 1:
-            return float("nan")
-        return _to_float(value.reshape(-1)[0])
+        return _to_float(value.reshape(-1)[0]) if value.size == 1 else float("nan")
     if isinstance(value, str):
         match = re.search(FLOAT_PATTERN, value)
         if match is None:
@@ -273,22 +269,40 @@ def _first_value(record: Mapping[str, Any], names: Sequence[str]) -> float:
     return float("nan")
 
 
+def _empty_record(epoch: int) -> Dict[str, float]:
+    """Create one record with all supported metrics initialized to NaN."""
+    return {
+        "epoch": epoch,
+        "train_loss": float("nan"),
+        "valid_loss": float("nan"),
+        "profile_spearman": float("nan"),
+        "scale_spearman": float("nan"),
+        "cds_mean_mae": float("nan"),
+        "calibration_slope": float("nan"),
+        "calibration_intercept": float("nan"),
+        "alpha": float("nan"),
+    }
+
+
 def _extract_json_entries(payload: Any) -> List[Dict[str, Any]]:
     """Normalize supported JSON history containers to a list of records."""
     if isinstance(payload, list):
         entries = payload
     elif isinstance(payload, dict):
-        entries = None
-        for key in ("training_epoch_data", "epoch_data", "history", "data"):
-            if isinstance(payload.get(key), list):
-                entries = payload[key]
-                break
+        entries = next(
+            (
+                payload[key]
+                for key in ("training_epoch_data", "epoch_data", "history", "data")
+                if isinstance(payload.get(key), list)
+            ),
+            None,
+        )
         if entries is None and all(isinstance(value, dict) for value in payload.values()):
             entries = list(payload.values())
-        if entries is None:
-            raise ValueError("JSON does not contain an epoch-history list")
     else:
-        raise TypeError("Epoch history JSON must contain a list or dictionary")
+        entries = None
+    if not isinstance(entries, list):
+        raise ValueError("JSON does not contain an epoch-history list")
     if not all(isinstance(entry, dict) for entry in entries):
         raise TypeError("Every epoch entry must be a dictionary")
     return list(entries)
@@ -299,22 +313,35 @@ def _record_from_mapping(entry: Mapping[str, Any]) -> Dict[str, float]:
     epoch = _first_value(entry, ("epoch", "epoch_num", "epoch_index"))
     if not math.isfinite(epoch):
         raise ValueError(f"Epoch entry has no valid epoch field: {entry}")
-    return {
-        "epoch": int(epoch),
-        "train_loss": _first_value(
-            entry, ("train_loss", "training_loss", "mean_train_loss")
-        ),
-        "valid_loss": _first_value(
-            entry, ("valid_loss", "val_loss", "validation_loss", "mean_valid_loss")
-        ),
-        "alpha": _first_value(entry, ("alpha", "macro_loss_weight")),
-        "profile_spearman": _first_value(
-            entry, ("profile_spearman", "mean_profile_spearman")
-        ),
-        "scale_spearman": _first_value(
-            entry, ("scale_spearman", "cds_mean_scale_spearman")
-        ),
-    }
+    record = _empty_record(int(epoch))
+    record.update(
+        {
+            "train_loss": _first_value(
+                entry, ("train_loss", "training_loss", "mean_train_loss")
+            ),
+            "valid_loss": _first_value(
+                entry,
+                ("valid_loss", "val_loss", "validation_loss", "mean_valid_loss"),
+            ),
+            "profile_spearman": _first_value(
+                entry, ("profile_spearman", "mean_profile_spearman")
+            ),
+            "scale_spearman": _first_value(
+                entry, ("scale_spearman", "cds_mean_scale_spearman")
+            ),
+            "cds_mean_mae": _first_value(
+                entry, ("cds_mean_mae", "mean_cds_mae", "scale_mae")
+            ),
+            "calibration_slope": _first_value(
+                entry, ("calibration_slope", "scale_calibration_slope")
+            ),
+            "calibration_intercept": _first_value(
+                entry, ("calibration_intercept", "scale_calibration_intercept")
+            ),
+            "alpha": _first_value(entry, ("alpha", "macro_loss_weight")),
+        }
+    )
+    return record
 
 
 def parse_epoch_json(path: Path) -> tuple[List[Dict[str, float]], int]:
@@ -332,44 +359,42 @@ def parse_epoch_json(path: Path) -> tuple[List[Dict[str, float]], int]:
 
 
 def parse_text_log(path: Path) -> tuple[List[Dict[str, float]], int]:
-    """Parse current Trainer console logs."""
+    """Parse current Trainer console logs, including validation MAE."""
     text = path.read_text(encoding="utf-8", errors="replace")
     records: Dict[int, Dict[str, float]] = {}
     seen_fields = set()
     duplicates = 0
 
     def get_record(epoch: int) -> Dict[str, float]:
-        return records.setdefault(
-            epoch,
-            {
-                "epoch": epoch,
-                "train_loss": float("nan"),
-                "valid_loss": float("nan"),
-                "alpha": float("nan"),
-                "profile_spearman": float("nan"),
-                "scale_spearman": float("nan"),
-            },
-        )
+        return records.setdefault(epoch, _empty_record(epoch))
 
     for match in EPOCH_LOSS_PATTERN.finditer(text):
         epoch = int(match.group(1))
-        field = "train_loss" if match.group(2).lower() == "training" else "valid_loss"
-        duplicates += int((epoch, field) in seen_fields)
-        seen_fields.add((epoch, field))
-        get_record(epoch)[field] = float(match.group(3))
+        metric = "train_loss" if match.group(2).lower() == "training" else "valid_loss"
+        duplicates += int((epoch, metric) in seen_fields)
+        seen_fields.add((epoch, metric))
+        get_record(epoch)[metric] = float(match.group(3))
 
     for match in VALIDATION_METRICS_PATTERN.finditer(text):
         epoch = int(match.group(1))
-        get_record(epoch)["profile_spearman"] = float(match.group(2))
-        get_record(epoch)["scale_spearman"] = float(match.group(3))
+        record = get_record(epoch)
+        record["profile_spearman"] = float(match.group(2))
+        record["scale_spearman"] = float(match.group(3))
+        if match.group(4) is not None:
+            record["cds_mean_mae"] = float(match.group(4))
+
+    for match in CALIBRATION_PATTERN.finditer(text):
+        record = get_record(int(match.group(1)))
+        record["calibration_intercept"] = float(match.group(2))
+        record["calibration_slope"] = float(match.group(3))
 
     if not records:
-        raise ValueError(f"No epoch-level losses were recognized in {path}")
+        raise ValueError(f"No epoch-level metrics were recognized in {path}")
     return [records[epoch] for epoch in sorted(records)], duplicates
 
 
 def _resolve_run_paths(config: Mapping[str, Any], log_dir: Path) -> List[Path]:
-    """Resolve an exact path or the newest matching log file."""
+    """Resolve exact path(s) or the newest file matching one glob."""
     if "path" in config:
         raw_paths = [config["path"]]
     elif "paths" in config:
@@ -397,285 +422,6 @@ def _resolve_run_paths(config: Mapping[str, Any], log_dir: Path) -> List[Path]:
     return paths
 
 
-def _resolve_project_path(raw_path: Any, base_dir: Path) -> Path:
-    """Resolve a user-configured path relative to a stable project directory."""
-    path = Path(raw_path).expanduser()
-    return path if path.is_absolute() else base_dir / path
-
-
-def _load_disk_stats_cache() -> Dict[str, Any]:
-    """Load the reusable JSON cache once per Python process."""
-    global _DISK_STATS_CACHE
-    if _DISK_STATS_CACHE is not None:
-        return _DISK_STATS_CACHE
-
-    if not DATASET_FLOP_STATS_PATH.is_file():
-        _DISK_STATS_CACHE = {"schema_version": 1, "files": {}}
-        return _DISK_STATS_CACHE
-
-    try:
-        with DATASET_FLOP_STATS_PATH.open(encoding="utf-8") as handle:
-            cache = json.load(handle)
-    except (OSError, json.JSONDecodeError):
-        cache = {}
-    if not isinstance(cache, dict) or not isinstance(cache.get("files"), dict):
-        cache = {}
-    cache.setdefault("schema_version", 1)
-    cache.setdefault("files", {})
-    _DISK_STATS_CACHE = cache
-    return cache
-
-
-def _write_disk_stats_cache(cache: Mapping[str, Any]) -> None:
-    """Atomically write the reusable dataset statistics cache."""
-    DATASET_FLOP_STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    temporary_path = DATASET_FLOP_STATS_PATH.with_name(
-        DATASET_FLOP_STATS_PATH.name + ".tmp"
-    )
-    temporary_path.write_text(
-        json.dumps(cache, indent=2, sort_keys=True), encoding="utf-8"
-    )
-    temporary_path.replace(DATASET_FLOP_STATS_PATH)
-
-
-def _file_fingerprint(path: Path) -> Dict[str, int]:
-    """Return the metadata used to invalidate stale cached HDF5 statistics."""
-    status = path.stat()
-    return {"size_bytes": int(status.st_size), "mtime_ns": int(status.st_mtime_ns)}
-
-
-def _scan_h5_dataset(path: Path) -> DatasetStats:
-    """Scan one HDF5 file once and accumulate length statistics."""
-    try:
-        import h5py
-    except ImportError as exc:
-        raise ImportError("h5py is required for FLOP estimation") from exc
-
-    n_transcripts = 0
-    total_length = 0.0
-    total_length_squared = 0.0
-    with h5py.File(path, "r") as handle:
-        if "samples" not in handle:
-            raise KeyError(f"HDF5 file has no /samples group: {path}")
-        for sample in handle["samples"].values():
-            if "count_emb" not in sample:
-                raise KeyError(f"A sample has no count_emb dataset in {path}")
-            length = int(sample["count_emb"].shape[0])
-            if length < 1:
-                raise ValueError(f"A sample has invalid length {length} in {path}")
-            n_transcripts += 1
-            total_length += length
-            total_length_squared += length * length
-    return DatasetStats(
-        files=(str(path),),
-        n_transcripts=n_transcripts,
-        total_length=total_length,
-        total_length_squared=total_length_squared,
-    )
-
-
-def _get_file_stats(path: Path) -> DatasetStats:
-    """Use cached file statistics when the HDF5 fingerprint is unchanged."""
-    cache_key = str(path)
-    in_memory = _DATASET_STATS_CACHE.get(cache_key)
-    if in_memory is not None:
-        return in_memory
-
-    fingerprint = _file_fingerprint(path)
-    cache = _load_disk_stats_cache()
-    entry = cache["files"].get(cache_key)
-    if isinstance(entry, dict) and all(
-        entry.get(name) == value for name, value in fingerprint.items()
-    ):
-        try:
-            stats = DatasetStats(
-                files=(cache_key,),
-                n_transcripts=int(entry["n_transcripts"]),
-                total_length=float(entry["total_length"]),
-                total_length_squared=float(entry["total_length_squared"]),
-            )
-            print(f"[LossCurve] Dataset stats cache hit: {path.name}")
-            _DATASET_STATS_CACHE[cache_key] = stats
-            return stats
-        except (KeyError, TypeError, ValueError):
-            pass
-
-    print(f"[LossCurve] Scanning dataset lengths: {path.name}")
-    stats = _scan_h5_dataset(path)
-    cache["files"][cache_key] = {**fingerprint, **stats.__dict__}
-    _DATASET_STATS_CACHE[cache_key] = stats
-    return stats
-
-
-def get_dataset_stats(dataset_files: Sequence[str]) -> DatasetStats:
-    """Return combined statistics for one configured training dataset group."""
-    if isinstance(dataset_files, (str, Path)):
-        dataset_files = [dataset_files]
-    paths = [
-        _resolve_project_path(file_name, DATASET_DIR).resolve()
-        for file_name in dataset_files
-    ]
-    missing = [str(path) for path in paths if not path.is_file()]
-    if missing:
-        raise FileNotFoundError("Training dataset not found: " + ", ".join(missing))
-
-    file_stats = [_get_file_stats(path) for path in paths]
-    return DatasetStats(
-        files=tuple(str(path) for path in paths),
-        n_transcripts=sum(stats.n_transcripts for stats in file_stats),
-        total_length=sum(stats.total_length for stats in file_stats),
-        total_length_squared=sum(
-            stats.total_length_squared for stats in file_stats
-        ),
-    )
-
-
-def _load_model_config(config_path: str) -> Dict[str, Any]:
-    """Load the small YAML mapping used to construct the model."""
-    try:
-        import yaml
-    except ImportError as exc:
-        raise ImportError("PyYAML is required for FLOP estimation") from exc
-    path = _resolve_project_path(config_path, PROJECT_ROOT).resolve()
-    if not path.is_file():
-        raise FileNotFoundError(f"Model config not found: {path}")
-    with path.open(encoding="utf-8") as handle:
-        payload = yaml.safe_load(handle)
-    if not isinstance(payload, dict):
-        raise TypeError(f"Model config must contain a mapping: {path}")
-    return payload
-
-
-def estimate_flops_from_lengths(
-    lengths: Sequence[float],
-    model_config: Mapping[str, Any],
-    head_hidden_dim: int = HEAD_HIDDEN_DIM,
-) -> float:
-    """Estimate one training epoch from a vector of transcript lengths."""
-    lengths = np.asarray(lengths, dtype=np.float64)
-    if lengths.ndim != 1 or lengths.size == 0 or np.any(lengths <= 0):
-        raise ValueError("Transcript lengths must be a non-empty positive vector")
-    return estimate_flops_from_stats(
-        float(lengths.sum()),
-        float(np.square(lengths).sum()),
-        model_config,
-        head_hidden_dim=head_hidden_dim,
-    )
-
-
-def estimate_flops_from_stats(
-    total_length: float,
-    total_length_squared: float,
-    model_config: Mapping[str, Any],
-    head_hidden_dim: int = HEAD_HIDDEN_DIM,
-) -> float:
-    """Estimate one training epoch from cached sum(L) and sum(L squared).
-
-    One multiply-add counts as two FLOPs. The estimate includes sequence and
-    prediction-head projections plus Transformer attention/FFN or convolutional
-    blocks. Training is approximated as three forward passes. Small elementwise
-    operations and padding overhead are intentionally omitted.
-    """
-    if total_length <= 0 or total_length_squared <= 0:
-        raise ValueError("Cached length statistics must be positive")
-
-    d_seq = int(model_config.get("d_seq", 4))
-    d_model = int(model_config["d_model"])
-    d_ff = int(model_config["d_ff"])
-    n_layers = int(model_config["number_of_layers"])
-    model_name = str(model_config.get("model_name", "")).lower()
-
-    sequence_flops = 2 * d_seq * d_model * total_length
-    head_flops = (
-        2 * d_model * head_hidden_dim + 2 * head_hidden_dim
-    ) * total_length
-
-    if "conv" in model_name:
-        kernel_size = int(model_config.get("kernel_size", 7))
-        backbone_flops = (
-            2 * n_layers * d_model * d_ff * (kernel_size + 1) * total_length
-        )
-    else:
-        projection_ffn_flops = (
-            n_layers * (8 * d_model**2 + 4 * d_model * d_ff) * total_length
-        )
-        attention_flops = 4 * n_layers * d_model * total_length_squared
-        backbone_flops = projection_ffn_flops + attention_flops
-
-    forward_flops = sequence_flops + backbone_flops + head_flops
-    return float(forward_flops * TRAINING_FLOP_MULTIPLIER)
-
-
-def _estimate_run_compute(config: Mapping[str, Any]) -> Optional[ComputeEstimate]:
-    """Estimate FLOPs when dataset and model paths are configured."""
-    dataset_files = config.get("train_dataset_files")
-    model_config_path = config.get("model_config_path")
-    if not dataset_files or not model_config_path:
-        return None
-    stats = get_dataset_stats(dataset_files)
-    model_config = _load_model_config(str(model_config_path))
-    head_hidden_dim = int(config.get("head_hidden_dim", HEAD_HIDDEN_DIM))
-    return ComputeEstimate(
-        training_dataset=" + ".join(Path(path).name for path in stats.files),
-        n_transcripts=stats.n_transcripts,
-        total_length=stats.total_length,
-        total_length_squared=stats.total_length_squared,
-        flops_per_epoch=estimate_flops_from_stats(
-            stats.total_length,
-            stats.total_length_squared,
-            model_config,
-            head_hidden_dim=head_hidden_dim,
-        ),
-    )
-
-
-def precompute_dataset_flop_stats(
-    model_runs: Sequence[Mapping[str, Any]],
-) -> None:
-    """Refresh reusable dataset statistics before loading training histories."""
-    cache = _load_disk_stats_cache()
-    dataset_groups: Dict[str, Any] = {}
-    run_estimates: List[Dict[str, Any]] = []
-
-    for config in model_runs:
-        dataset_files = config.get("train_dataset_files")
-        model_config_path = config.get("model_config_path")
-        if not dataset_files:
-            continue
-
-        stats = get_dataset_stats(dataset_files)
-        group_name = " + ".join(Path(path).name for path in stats.files)
-        dataset_groups[group_name] = {
-            "files": list(stats.files),
-            "n_transcripts": stats.n_transcripts,
-            "total_length": stats.total_length,
-            "total_length_squared": stats.total_length_squared,
-        }
-
-        if model_config_path:
-            model_config = _load_model_config(str(model_config_path))
-            head_hidden_dim = int(config.get("head_hidden_dim", HEAD_HIDDEN_DIM))
-            run_estimates.append(
-                {
-                    "label": str(config.get("label", "Unknown")),
-                    "dataset_group": group_name,
-                    "model_config_path": str(model_config_path),
-                    "head_hidden_dim": head_hidden_dim,
-                    "flops_per_epoch": estimate_flops_from_stats(
-                        stats.total_length,
-                        stats.total_length_squared,
-                        model_config,
-                        head_hidden_dim=head_hidden_dim,
-                    ),
-                }
-            )
-
-    cache["dataset_groups"] = dataset_groups
-    cache["run_estimates"] = run_estimates
-    _write_disk_stats_cache(cache)
-    print(f"[LossCurve] Dataset FLOP cache: {DATASET_FLOP_STATS_PATH}")
-
-
 def load_run_history(
     config: Mapping[str, Any], log_dir: Path = LOG_DIR
 ) -> RunHistory:
@@ -684,8 +430,7 @@ def load_run_history(
     duplicate_epochs = 0
 
     if "loss_data" in config:
-        entries = _extract_json_entries(config["loss_data"])
-        groups = [([_record_from_mapping(entry) for entry in entries], 0)]
+        groups = [([_record_from_mapping(item) for item in config["loss_data"]], 0)]
     else:
         groups = []
         for path in _resolve_run_paths(config, log_dir):
@@ -705,9 +450,9 @@ def load_run_history(
     ordered = [merged[epoch] for epoch in sorted(merged)]
     if not ordered:
         raise ValueError(f"Run {config.get('label', '<unnamed>')!r} has no records")
-    valid_loss = np.asarray([record["valid_loss"] for record in ordered], dtype=float)
-    if not np.isfinite(valid_loss).any():
-        raise ValueError(f"Run {config.get('label')!r} has no validation losses")
+
+    def values(name: str) -> np.ndarray:
+        return np.asarray([record[name] for record in ordered], dtype=float)
 
     return RunHistory(
         label=str(config.get("label", config.get("method", "Unknown"))),
@@ -716,80 +461,77 @@ def load_run_history(
         color=str(config.get("color", "#333333")),
         linestyle=str(config.get("linestyle", "-")),
         epochs=np.asarray([record["epoch"] for record in ordered], dtype=int),
-        train_loss=np.asarray(
-            [record["train_loss"] for record in ordered], dtype=float
-        ),
-        valid_loss=valid_loss,
-        alpha=np.asarray([record["alpha"] for record in ordered], dtype=float),
-        profile_spearman=np.asarray(
-            [record["profile_spearman"] for record in ordered], dtype=float
-        ),
-        scale_spearman=np.asarray(
-            [record["scale_spearman"] for record in ordered], dtype=float
-        ),
+        train_loss=values("train_loss"),
+        valid_loss=values("valid_loss"),
+        profile_spearman=values("profile_spearman"),
+        scale_spearman=values("scale_spearman"),
+        cds_mean_mae=values("cds_mean_mae"),
+        calibration_slope=values("calibration_slope"),
+        calibration_intercept=values("calibration_intercept"),
+        alpha=values("alpha"),
         duplicate_epochs=duplicate_epochs,
-        compute=_estimate_run_compute(config),
     )
 
 
 def validate_comparison(
     histories: Sequence[RunHistory], allow_mixed_datasets: bool = False
 ) -> None:
-    """Check that overlaid validation losses use comparable definitions."""
+    """Check that validation metrics use comparable datasets and loss definitions."""
     if len(histories) < 2:
         raise ValueError("At least two model histories are required")
     datasets = {history.dataset for history in histories if history.dataset}
     if len(datasets) > 1 and not allow_mixed_datasets:
         raise ValueError(
-            "Validation losses use different datasets: " + ", ".join(sorted(datasets))
+            "Validation metrics use different datasets: " + ", ".join(sorted(datasets))
         )
     definitions = {
         history.loss_definition for history in histories if history.loss_definition
     }
     if len(definitions) > 1:
-        raise ValueError("Validation losses use different loss definitions")
+        raise ValueError("Runs use different validation-loss definitions")
 
 
-def _x_values(history: RunHistory, x_axis: str) -> np.ndarray:
-    """Return epoch or normalized cumulative-FLOP coordinates."""
-    if x_axis == "epoch":
-        return history.epochs.astype(float)
-    if x_axis != "flops":
-        raise ValueError("X_AXIS must be 'epoch' or 'flops'")
-    if history.compute is None:
-        raise ValueError(
-            f"{history.label} needs train_dataset_files and model_config_path"
-        )
-    return history.cumulative_flops / FLOP_UNIT
+def _metric_config(config: Mapping[str, Any]) -> Dict[str, Any]:
+    """Validate and normalize one configurable y-axis entry."""
+    key = str(config["key"])
+    if key not in SUPPORTED_METRICS:
+        raise ValueError(f"Unsupported metric key: {key}")
+    direction = str(config.get("best", "min")).lower()
+    if direction not in {"min", "max"}:
+        raise ValueError("Metric best must be 'min' or 'max'")
+    return {
+        "key": key,
+        "title": str(config.get("title", key)),
+        "y_label": str(config.get("y_label", key)),
+        "filename": str(config.get("filename", key)),
+        "y_log": bool(config.get("y_log", False)),
+        "best": direction,
+    }
 
 
-def plot_loss_curve(
-    histories: Sequence[RunHistory],
-    metric: str,
-    title: str,
-    *,
-    x_axis: str = X_AXIS,
-    x_log: bool = X_LOG,
-    y_log: bool = False,
+def plot_metric_curve(
+    histories: Sequence[RunHistory], metric_config: Mapping[str, Any], *, x_log: bool = X_LOG
 ):
-    """Plot one loss type in its own single-panel figure."""
+    """Plot one configured metric against epoch in an independent figure."""
+    metric = _metric_config(metric_config)
     figure, axis = plt.subplots(figsize=(3.5039, 2.8346))
     for history in histories:
-        values = np.asarray(getattr(history, metric), dtype=float)
-        x_values = _x_values(history, x_axis)
-        finite = np.isfinite(values) & np.isfinite(x_values)
+        y_values = np.asarray(getattr(history, metric["key"]), dtype=float)
+        finite = np.isfinite(y_values)
         if not finite.any():
             continue
-        x_plot = x_values[finite]
-        y_plot = values[finite]
-        if x_log and np.any(x_plot <= 0):
-            raise ValueError(f"{history.label} has non-positive x values for log scale")
-        if y_log and np.any(y_plot <= 0):
-            raise ValueError(f"{history.label} has non-positive losses for log scale")
-        mark_every = max(1, int(math.ceil(len(x_plot) / 10)))
+        x_values = history.epochs[finite].astype(float)
+        y_values = y_values[finite]
+        if x_log and np.any(x_values <= 0):
+            raise ValueError(f"{history.label} has non-positive epochs for log scale")
+        if metric["y_log"] and np.any(y_values <= 0):
+            raise ValueError(
+                f"{history.label} has non-positive {metric['key']} values for log scale"
+            )
+        mark_every = max(1, int(math.ceil(len(x_values) / 10)))
         axis.plot(
-            x_plot,
-            y_plot,
+            x_values,
+            y_values,
             label=history.label,
             color=history.color,
             linestyle=history.linestyle,
@@ -800,139 +542,127 @@ def plot_loss_curve(
             markerfacecolor="white",
             markeredgewidth=0.8,
         )
-        if metric == "valid_loss":
-            best_index = int(np.argmin(y_plot))
-            axis.scatter(
-                x_plot[best_index],
-                y_plot[best_index],
-                s=18,
-                color=history.color,
-                edgecolor="white",
-                linewidth=0.5,
-                zorder=4,
-            )
+        best_index = int(
+            np.argmin(y_values) if metric["best"] == "min" else np.argmax(y_values)
+        )
+        axis.scatter(
+            x_values[best_index],
+            y_values[best_index],
+            s=18,
+            color=history.color,
+            edgecolor="white",
+            linewidth=0.5,
+            zorder=4,
+        )
 
-    axis.set_title(title, loc="left", fontweight="bold")
-    axis.set_xlabel(
-        f"Cumulative estimated training compute ({FLOP_UNIT_LABEL})"
-        if x_axis == "flops"
-        else "Epoch"
-    )
-    axis.set_ylabel("Loss")
+    axis.set_title(metric["title"], loc="left", fontweight="bold")
+    axis.set_xlabel("Epoch")
+    axis.set_ylabel(metric["y_label"])
     axis.set_xscale("log" if x_log else "linear")
-    axis.set_yscale("log" if y_log else "linear")
-    if x_axis == "epoch" and not x_log:
+    axis.set_yscale("log" if metric["y_log"] else "linear")
+    if not x_log:
         axis.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
     axis.grid(axis="y", color="#D9D9D9", linewidth=0.6, alpha=0.65)
     handles, labels = axis.get_legend_handles_labels()
     if handles:
-        axis.legend(handles, labels, loc="best", handlelength=2.2)
+        columns = 2 if len(handles) > 1 else 1
+        axis.legend(
+            handles,
+            labels,
+            loc="upper center",
+            bbox_to_anchor=(0.5, -0.23),
+            ncol=columns,
+            columnspacing=0.9,
+            handlelength=1.8,
+        )
+        figure.subplots_adjust(bottom=0.30 if columns == 2 else 0.23)
     return figure
 
 
-def plot_model_loss_curves(
+def plot_model_metric_curves(
     histories: Sequence[RunHistory],
+    metric_configs: Sequence[Mapping[str, Any]] = PLOT_METRICS,
     *,
-    x_axis: str = X_AXIS,
     x_log: bool = X_LOG,
-    train_y_log: bool = TRAIN_Y_LOG,
-    valid_y_log: bool = VALID_Y_LOG,
 ) -> Dict[str, Any]:
-    """Create independent training- and validation-loss figures."""
-    return {
-        "train": plot_loss_curve(
-            histories,
-            "train_loss",
-            "Training loss",
-            x_axis=x_axis,
-            x_log=x_log,
-            y_log=train_y_log,
-        ),
-        "valid": plot_loss_curve(
-            histories,
-            "valid_loss",
-            "Validation loss",
-            x_axis=x_axis,
-            x_log=x_log,
-            y_log=valid_y_log,
-        ),
-    }
+    """Create one figure for every enabled y-axis metric."""
+    figures = {}
+    for raw_config in metric_configs:
+        if not raw_config.get("enabled", True):
+            continue
+        metric = _metric_config(raw_config)
+        figures[metric["filename"]] = plot_metric_curve(
+            histories, metric, x_log=x_log
+        )
+    if not figures:
+        raise ValueError("Enable at least one entry in PLOT_METRICS")
+    return figures
+
+
+def plot_model_loss_curves(
+    histories: Sequence[RunHistory], *, x_log: bool = X_LOG
+) -> Dict[str, Any]:
+    """Compatibility alias for notebook code using the historical function name."""
+    return plot_model_metric_curves(histories, x_log=x_log)
 
 
 def write_source_data(histories: Sequence[RunHistory], output_prefix: Path) -> None:
-    """Write the plotted values and a compact run summary."""
+    """Write all supported epoch metrics and a compact run summary."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
     source_path = output_prefix.with_name(output_prefix.name + ".source_data.csv")
     summary_path = output_prefix.with_name(output_prefix.name + ".summary.csv")
 
+    metric_keys = list(SUPPORTED_METRICS)
     with source_path.open("w", newline="", encoding="utf-8") as handle:
-        fields = [
-            "model",
-            "validation_dataset",
-            "training_dataset",
-            "epoch",
-            "cumulative_training_flops",
-            "cumulative_training_eflops",
-            "train_loss",
-            "valid_loss",
-            "alpha",
-            "profile_spearman",
-            "scale_spearman",
-        ]
+        fields = ["model", "validation_dataset", "loss_definition", "epoch", *metric_keys, "alpha"]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for history in histories:
             for index, epoch in enumerate(history.epochs):
-                cumulative = history.cumulative_flops[index]
                 writer.writerow(
                     {
                         "model": history.label,
                         "validation_dataset": history.dataset,
-                        "training_dataset": (
-                            history.compute.training_dataset if history.compute else ""
-                        ),
+                        "loss_definition": history.loss_definition,
                         "epoch": int(epoch),
-                        "cumulative_training_flops": cumulative,
-                        "cumulative_training_eflops": cumulative / FLOP_UNIT,
-                        "train_loss": history.train_loss[index],
-                        "valid_loss": history.valid_loss[index],
+                        **{key: getattr(history, key)[index] for key in metric_keys},
                         "alpha": history.alpha[index],
-                        "profile_spearman": history.profile_spearman[index],
-                        "scale_spearman": history.scale_spearman[index],
                     }
                 )
 
+    summary_fields = ["model", "validation_dataset", "epochs_recorded"]
+    for raw_config in PLOT_METRICS:
+        if not raw_config.get("enabled", True):
+            continue
+        metric = _metric_config(raw_config)
+        summary_fields.extend(
+            [f"best_{metric['filename']}_epoch", f"best_{metric['filename']}"]
+        )
     with summary_path.open("w", newline="", encoding="utf-8") as handle:
-        fields = [
-            "model",
-            "training_dataset",
-            "n_transcripts",
-            "total_length",
-            "flops_per_epoch",
-            "last_epoch",
-            "best_validation_epoch",
-            "best_validation_loss",
-        ]
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=summary_fields)
         writer.writeheader()
         for history in histories:
-            best_epoch, best_loss = history.best_validation()
-            compute = history.compute
-            writer.writerow(
-                {
-                    "model": history.label,
-                    "training_dataset": compute.training_dataset if compute else "",
-                    "n_transcripts": compute.n_transcripts if compute else "",
-                    "total_length": compute.total_length if compute else "",
-                    "flops_per_epoch": compute.flops_per_epoch if compute else "",
-                    "last_epoch": int(history.epochs[-1]),
-                    "best_validation_epoch": best_epoch,
-                    "best_validation_loss": best_loss,
-                }
-            )
+            row: Dict[str, Any] = {
+                "model": history.label,
+                "validation_dataset": history.dataset,
+                "epochs_recorded": len(history.epochs),
+            }
+            for raw_config in PLOT_METRICS:
+                if not raw_config.get("enabled", True):
+                    continue
+                metric = _metric_config(raw_config)
+                try:
+                    best_epoch, best_value = history.best_metric(
+                        metric["key"], metric["best"]
+                    )
+                except ValueError:
+                    best_epoch, best_value = "", float("nan")
+                row[f"best_{metric['filename']}_epoch"] = best_epoch
+                row[f"best_{metric['filename']}"] = best_value
+            writer.writerow(row)
 
-    print(f"[LossCurve] Source data: {source_path}")
-    print(f"[LossCurve] Summary: {summary_path}")
+    print(f"[MetricCurve] Source data: {source_path}")
+    print(f"[MetricCurve] Summary: {summary_path}")
 
 
 def save_figure(figure, output_prefix: Path) -> None:
@@ -942,20 +672,17 @@ def save_figure(figure, output_prefix: Path) -> None:
     figure.savefig(Path(f"{output_prefix}.pdf"), bbox_inches="tight")
     figure.savefig(Path(f"{output_prefix}.tiff"), dpi=600, bbox_inches="tight")
     figure.savefig(Path(f"{output_prefix}.png"), dpi=300, bbox_inches="tight")
-    print(f"[LossCurve] Figure prefix: {output_prefix}")
+    print(f"[MetricCurve] Figure prefix: {output_prefix}")
 
 
 def plot_scaling_law_curves(
-    models_config: Sequence[Dict[str, Any]],
-    global_seq_len: int = 1024,
+    models_config: Sequence[Mapping[str, Any]],
     save_path: Optional[str] = None,
 ):
-    """Compatibility entry point retained for existing notebooks."""
-    del global_seq_len
-    precompute_dataset_flop_stats(models_config)
+    """Load configured histories and return their epoch-metric figures."""
     histories = [load_run_history(config) for config in models_config]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)
-    figures = plot_model_loss_curves(histories)
+    figures = plot_model_metric_curves(histories)
     if save_path is not None:
         prefix = Path(save_path).with_suffix("")
         for name, figure in figures.items():
@@ -965,32 +692,16 @@ def plot_scaling_law_curves(
 
 
 def main() -> None:
-    """Load configured runs and export independent loss figures."""
+    """Load configured runs and export every enabled epoch-metric figure."""
     enabled_runs = [config for config in MODEL_RUNS if config.get("enabled", True)]
     if len(enabled_runs) < 2:
         raise ValueError("Enable at least two entries in MODEL_RUNS")
 
-    precompute_dataset_flop_stats(enabled_runs)
     histories = [load_run_history(config) for config in enabled_runs]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)
-
-    for history in histories:
-        best_epoch, best_loss = history.best_validation()
-        compute_text = ""
-        if history.compute is not None:
-            compute_text = (
-                f", {history.compute.flops_per_epoch / FLOP_UNIT:.4f} "
-                f"{FLOP_UNIT_LABEL}/epoch"
-            )
-        print(
-            f"[LossCurve] {history.label}: best validation={best_loss:.6f} "
-            f"at epoch {best_epoch}{compute_text}"
-        )
-
-    figures = plot_model_loss_curves(histories)
+    figures = plot_model_metric_curves(histories)
     for name, figure in figures.items():
-        prefix = OUTPUT_PREFIX.with_name(OUTPUT_PREFIX.name + f".{name}")
-        save_figure(figure, prefix)
+        save_figure(figure, OUTPUT_PREFIX.with_name(OUTPUT_PREFIX.name + f".{name}"))
     write_source_data(histories, OUTPUT_PREFIX)
 
     if SHOW_FIGURE:
