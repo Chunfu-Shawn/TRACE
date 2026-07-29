@@ -38,6 +38,27 @@ def _models():
 
 
 class SequenceOnlyAblationModelTests(unittest.TestCase):
+    def test_density_head_initializes_relu_output_in_positive_region(self):
+        torch.manual_seed(19)
+        head = PsiteDensityHead(
+            d_model=64,
+            d_count=1,
+            d_pred_h=256,
+            p_drop=0.0,
+        )
+        output_layer = head.net[-2]
+
+        self.assertAlmostEqual(float(output_layer.bias.item()), 0.1, places=6)
+        self.assertAlmostEqual(
+            float(output_layer.weight.std(unbiased=False)), 1e-3, delta=2e-4
+        )
+
+        head.eval()
+        representations = torch.randn(4, 128, 64)
+        predictions = head(representations)
+        self.assertTrue(torch.all(predictions > 0))
+        self.assertGreater(float(predictions.std()), 0.0)
+
     def test_state_dict_has_no_environment_parameters_or_buffers(self):
         forbidden_fragments = ("expr", "species", "adaln", "mean_expr")
         for model in _models():

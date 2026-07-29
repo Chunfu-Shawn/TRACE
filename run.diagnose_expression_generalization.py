@@ -57,7 +57,7 @@ TEST_DATASET_PATH = DATASET_DIR / "human_7c_6k_depth0.1_cov0.1_rpm1.test.h5"
 # These files must match the expression environments seen by the checkpoint.
 # For the tissue-only checkpoint, keep only the human tissue training file.
 REFERENCE_DATASET_PATHS = [
-    DATASET_DIR / "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    DATASET_DIR / "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 
 MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
@@ -65,7 +65,7 @@ CHECKPOINT_PATH = (
     PROJECT_ROOT.parent
     / "checkpoint/train"
     / (
-        "base_model_384d_16h_12l_64env_16ad-PsiteDensityHead."
+        "base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead."
         "hs_22c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a2_b02_exp_aug.150_0.001."
         "best_profile.pt"
     )

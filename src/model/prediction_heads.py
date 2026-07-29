@@ -1,3 +1,5 @@
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -24,6 +26,8 @@ class PsiteDensityHead(nn.Module):
         d_pred_h: Optional[int] = None,
         p_drop: float = 0.1,
         init_xavier: bool = True,
+        output_weight_std: float = 1e-3,
+        output_bias: float = 0.1,
     ):
         """
         Parameters
@@ -38,6 +42,11 @@ class PsiteDensityHead(nn.Module):
             Dropout probability.
         init_xavier : bool
             Whether to run Xavier initialization on linear weights.
+        output_weight_std : float
+            Standard deviation used for the final linear layer. A small value
+            keeps initial ReLU pre-activations close to the positive bias.
+        output_bias : float
+            Positive initial bias for the final linear layer.
         """
         super().__init__()
         self.name = "PsiteDensityHead"
@@ -45,6 +54,12 @@ class PsiteDensityHead(nn.Module):
         self.d_count = int(d_count)
         self.d_pred_h = int(d_pred_h) if d_pred_h is not None else max(64, self.d_model // 2)
         self.p_drop = float(p_drop)
+        self.output_weight_std = float(output_weight_std)
+        self.output_bias = float(output_bias)
+        if not math.isfinite(self.output_weight_std) or self.output_weight_std < 0.0:
+            raise ValueError("output_weight_std must be finite and non-negative")
+        if not math.isfinite(self.output_bias) or self.output_bias <= 0.0:
+            raise ValueError("output_bias must be finite and positive for the final ReLU")
 
         # Build MLP: LayerNorm -> Linear(d_model -> d_pred_h) -> GELU -> Dropout -> Linear(d_pred_h -> d_count) -> ReLU
         self.net = nn.Sequential(
@@ -60,20 +75,31 @@ class PsiteDensityHead(nn.Module):
             self._init_parameters()
 
     def _init_parameters(self):
-        """Initialize linear weights with Xavier and biases to zero; LayerNorm weight=1 bias=0."""
+        """Initialize hidden layers normally and keep the ReLU output alive."""
         for m in self.modules():
             if isinstance(m, nn.Linear):
                 nn.init.xavier_uniform_(m.weight)
                 if m.bias is not None:
-                    if m.out_features == self.d_count:  # final layer
-                        nn.init.constant_(m.bias, 0.1)  # prevent dead ReLU at initialization
-                    else:
-                        nn.init.zeros_(m.bias)
+                    nn.init.zeros_(m.bias)
             elif isinstance(m, nn.LayerNorm):
                 if m.weight is not None:
                     nn.init.ones_(m.weight)
                 if m.bias is not None:
                     nn.init.zeros_(m.bias)
+
+        # Xavier initialization is unnecessarily wide for a one-dimensional
+        # sparse-density output. It places many tokens below zero and allows the
+        # final ReLU to become fully inactive early in training. Initialize only
+        # the final projection near a positive constant while retaining small
+        # non-zero weights so position-specific gradients can develop at once.
+        output_layer = self.net[-2]
+        nn.init.normal_(
+            output_layer.weight,
+            mean=0.0,
+            std=self.output_weight_std,
+        )
+        if output_layer.bias is not None:
+            nn.init.constant_(output_layer.bias, self.output_bias)
 
     def forward(self, src_reps: torch.Tensor, pad_mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         """
@@ -114,6 +140,8 @@ class PsiteDensityHead(nn.Module):
         d_pred_h: Optional[int] = None,
         p_drop: float = 0.1,
         init_xavier: bool = True,
+        output_weight_std: float = 1e-3,
+        output_bias: float = 0.1,
     ) -> "PsiteDensityHead":
         """
         Create a PsiteDensityHead by inferring missing dimensions from `parent_model`.
@@ -143,7 +171,15 @@ class PsiteDensityHead(nn.Module):
                 raise ValueError("d_count not provided and cannot be inferred from parent_model")
 
         # now construct
-        return cls(d_model=d_model, d_count=d_count, d_pred_h=d_pred_h, p_drop=p_drop, init_xavier=init_xavier)
+        return cls(
+            d_model=d_model,
+            d_count=d_count,
+            d_pred_h=d_pred_h,
+            p_drop=p_drop,
+            init_xavier=init_xavier,
+            output_weight_std=output_weight_std,
+            output_bias=output_bias,
+        )
 
 
 class TranslationProfileHead(nn.Module):
