@@ -31,6 +31,8 @@ DATASET_DIR = PROJECT_ROOT.parent / "dataset"
 OUTPUT_PREFIX = (
     PROJECT_ROOT.parent / "results/ablation/loss_curves/model_loss_comparison"
 )
+# The cache is refreshed before curves are loaded and reused by later runs.
+DATASET_FLOP_STATS_PATH = OUTPUT_PREFIX.parent / "dataset_flop_stats.json"
 
 COMPARISON_DATASET = "human_5c_6k_depth0.1_cov0.1_rpm1"
 LOSS_DEFINITION = "micro + 2.0*macro + 0.2*ranking"
@@ -180,6 +182,16 @@ VALIDATION_METRICS_PATTERN = re.compile(
 
 
 @dataclass(frozen=True)
+class DatasetStats:
+    """Length statistics shared by every model trained on one dataset group."""
+
+    files: tuple[str, ...]
+    n_transcripts: int
+    total_length: float
+    total_length_squared: float
+
+
+@dataclass(frozen=True)
 class ComputeEstimate:
     """Simple dataset and training-compute summary for one run."""
 
@@ -225,7 +237,8 @@ class RunHistory:
         return self.epochs.astype(float) * self.compute.flops_per_epoch
 
 
-_DATASET_LENGTH_CACHE: Dict[str, np.ndarray] = {}
+_DATASET_STATS_CACHE: Dict[str, DatasetStats] = {}
+_DISK_STATS_CACHE: Optional[Dict[str, Any]] = None
 
 
 def _to_float(value: Any) -> float:
@@ -390,32 +403,131 @@ def _resolve_project_path(raw_path: Any, base_dir: Path) -> Path:
     return path if path.is_absolute() else base_dir / path
 
 
-def _read_dataset_lengths(dataset_files: Sequence[str]) -> tuple[np.ndarray, List[Path]]:
-    """Read per-transcript lengths from one or more HDF5 datasets."""
+def _load_disk_stats_cache() -> Dict[str, Any]:
+    """Load the reusable JSON cache once per Python process."""
+    global _DISK_STATS_CACHE
+    if _DISK_STATS_CACHE is not None:
+        return _DISK_STATS_CACHE
+
+    if not DATASET_FLOP_STATS_PATH.is_file():
+        _DISK_STATS_CACHE = {"schema_version": 1, "files": {}}
+        return _DISK_STATS_CACHE
+
+    try:
+        with DATASET_FLOP_STATS_PATH.open(encoding="utf-8") as handle:
+            cache = json.load(handle)
+    except (OSError, json.JSONDecodeError):
+        cache = {}
+    if not isinstance(cache, dict) or not isinstance(cache.get("files"), dict):
+        cache = {}
+    cache.setdefault("schema_version", 1)
+    cache.setdefault("files", {})
+    _DISK_STATS_CACHE = cache
+    return cache
+
+
+def _write_disk_stats_cache(cache: Mapping[str, Any]) -> None:
+    """Atomically write the reusable dataset statistics cache."""
+    DATASET_FLOP_STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = DATASET_FLOP_STATS_PATH.with_name(
+        DATASET_FLOP_STATS_PATH.name + ".tmp"
+    )
+    temporary_path.write_text(
+        json.dumps(cache, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    temporary_path.replace(DATASET_FLOP_STATS_PATH)
+
+
+def _file_fingerprint(path: Path) -> Dict[str, int]:
+    """Return the metadata used to invalidate stale cached HDF5 statistics."""
+    status = path.stat()
+    return {"size_bytes": int(status.st_size), "mtime_ns": int(status.st_mtime_ns)}
+
+
+def _scan_h5_dataset(path: Path) -> DatasetStats:
+    """Scan one HDF5 file once and accumulate length statistics."""
     try:
         import h5py
     except ImportError as exc:
         raise ImportError("h5py is required for FLOP estimation") from exc
 
-    arrays = []
-    paths = []
-    for file_name in dataset_files:
-        path = _resolve_project_path(file_name, DATASET_DIR).resolve()
-        if not path.is_file():
-            raise FileNotFoundError(f"Training dataset not found: {path}")
-        paths.append(path)
-        cache_key = str(path)
-        if cache_key not in _DATASET_LENGTH_CACHE:
-            with h5py.File(path, "r") as handle:
-                if "samples" not in handle:
-                    raise KeyError(f"HDF5 file has no /samples group: {path}")
-                lengths = [
-                    int(sample["count_emb"].shape[0])
-                    for sample in handle["samples"].values()
-                ]
-            _DATASET_LENGTH_CACHE[cache_key] = np.asarray(lengths, dtype=np.float64)
-        arrays.append(_DATASET_LENGTH_CACHE[cache_key])
-    return np.concatenate(arrays), paths
+    n_transcripts = 0
+    total_length = 0.0
+    total_length_squared = 0.0
+    with h5py.File(path, "r") as handle:
+        if "samples" not in handle:
+            raise KeyError(f"HDF5 file has no /samples group: {path}")
+        for sample in handle["samples"].values():
+            if "count_emb" not in sample:
+                raise KeyError(f"A sample has no count_emb dataset in {path}")
+            length = int(sample["count_emb"].shape[0])
+            if length < 1:
+                raise ValueError(f"A sample has invalid length {length} in {path}")
+            n_transcripts += 1
+            total_length += length
+            total_length_squared += length * length
+    return DatasetStats(
+        files=(str(path),),
+        n_transcripts=n_transcripts,
+        total_length=total_length,
+        total_length_squared=total_length_squared,
+    )
+
+
+def _get_file_stats(path: Path) -> DatasetStats:
+    """Use cached file statistics when the HDF5 fingerprint is unchanged."""
+    cache_key = str(path)
+    in_memory = _DATASET_STATS_CACHE.get(cache_key)
+    if in_memory is not None:
+        return in_memory
+
+    fingerprint = _file_fingerprint(path)
+    cache = _load_disk_stats_cache()
+    entry = cache["files"].get(cache_key)
+    if isinstance(entry, dict) and all(
+        entry.get(name) == value for name, value in fingerprint.items()
+    ):
+        try:
+            stats = DatasetStats(
+                files=(cache_key,),
+                n_transcripts=int(entry["n_transcripts"]),
+                total_length=float(entry["total_length"]),
+                total_length_squared=float(entry["total_length_squared"]),
+            )
+            print(f"[LossCurve] Dataset stats cache hit: {path.name}")
+            _DATASET_STATS_CACHE[cache_key] = stats
+            return stats
+        except (KeyError, TypeError, ValueError):
+            pass
+
+    print(f"[LossCurve] Scanning dataset lengths: {path.name}")
+    stats = _scan_h5_dataset(path)
+    cache["files"][cache_key] = {**fingerprint, **stats.__dict__}
+    _DATASET_STATS_CACHE[cache_key] = stats
+    return stats
+
+
+def get_dataset_stats(dataset_files: Sequence[str]) -> DatasetStats:
+    """Return combined statistics for one configured training dataset group."""
+    if isinstance(dataset_files, (str, Path)):
+        dataset_files = [dataset_files]
+    paths = [
+        _resolve_project_path(file_name, DATASET_DIR).resolve()
+        for file_name in dataset_files
+    ]
+    missing = [str(path) for path in paths if not path.is_file()]
+    if missing:
+        raise FileNotFoundError("Training dataset not found: " + ", ".join(missing))
+
+    file_stats = [_get_file_stats(path) for path in paths]
+    return DatasetStats(
+        files=tuple(str(path) for path in paths),
+        n_transcripts=sum(stats.n_transcripts for stats in file_stats),
+        total_length=sum(stats.total_length for stats in file_stats),
+        total_length_squared=sum(
+            stats.total_length_squared for stats in file_stats
+        ),
+    )
 
 
 def _load_model_config(config_path: str) -> Dict[str, Any]:
@@ -439,40 +551,55 @@ def estimate_flops_from_lengths(
     model_config: Mapping[str, Any],
     head_hidden_dim: int = HEAD_HIDDEN_DIM,
 ) -> float:
-    """Estimate one training epoch from sum(L) and sum(L squared).
+    """Estimate one training epoch from a vector of transcript lengths."""
+    lengths = np.asarray(lengths, dtype=np.float64)
+    if lengths.ndim != 1 or lengths.size == 0 or np.any(lengths <= 0):
+        raise ValueError("Transcript lengths must be a non-empty positive vector")
+    return estimate_flops_from_stats(
+        float(lengths.sum()),
+        float(np.square(lengths).sum()),
+        model_config,
+        head_hidden_dim=head_hidden_dim,
+    )
+
+
+def estimate_flops_from_stats(
+    total_length: float,
+    total_length_squared: float,
+    model_config: Mapping[str, Any],
+    head_hidden_dim: int = HEAD_HIDDEN_DIM,
+) -> float:
+    """Estimate one training epoch from cached sum(L) and sum(L squared).
 
     One multiply-add counts as two FLOPs. The estimate includes sequence and
     prediction-head projections plus Transformer attention/FFN or convolutional
     blocks. Training is approximated as three forward passes. Small elementwise
     operations and padding overhead are intentionally omitted.
     """
-    lengths = np.asarray(lengths, dtype=np.float64)
-    if lengths.ndim != 1 or lengths.size == 0 or np.any(lengths <= 0):
-        raise ValueError("Transcript lengths must be a non-empty positive vector")
+    if total_length <= 0 or total_length_squared <= 0:
+        raise ValueError("Cached length statistics must be positive")
 
     d_seq = int(model_config.get("d_seq", 4))
     d_model = int(model_config["d_model"])
     d_ff = int(model_config["d_ff"])
     n_layers = int(model_config["number_of_layers"])
     model_name = str(model_config.get("model_name", "")).lower()
-    sum_length = float(lengths.sum())
-    sum_length_squared = float(np.square(lengths).sum())
 
-    sequence_flops = 2 * d_seq * d_model * sum_length
+    sequence_flops = 2 * d_seq * d_model * total_length
     head_flops = (
         2 * d_model * head_hidden_dim + 2 * head_hidden_dim
-    ) * sum_length
+    ) * total_length
 
     if "conv" in model_name:
         kernel_size = int(model_config.get("kernel_size", 7))
         backbone_flops = (
-            2 * n_layers * d_model * d_ff * (kernel_size + 1) * sum_length
+            2 * n_layers * d_model * d_ff * (kernel_size + 1) * total_length
         )
     else:
         projection_ffn_flops = (
-            n_layers * (8 * d_model**2 + 4 * d_model * d_ff) * sum_length
+            n_layers * (8 * d_model**2 + 4 * d_model * d_ff) * total_length
         )
-        attention_flops = 4 * n_layers * d_model * sum_length_squared
+        attention_flops = 4 * n_layers * d_model * total_length_squared
         backbone_flops = projection_ffn_flops + attention_flops
 
     forward_flops = sequence_flops + backbone_flops + head_flops
@@ -485,15 +612,68 @@ def _estimate_run_compute(config: Mapping[str, Any]) -> Optional[ComputeEstimate
     model_config_path = config.get("model_config_path")
     if not dataset_files or not model_config_path:
         return None
-    lengths, paths = _read_dataset_lengths(dataset_files)
+    stats = get_dataset_stats(dataset_files)
     model_config = _load_model_config(str(model_config_path))
+    head_hidden_dim = int(config.get("head_hidden_dim", HEAD_HIDDEN_DIM))
     return ComputeEstimate(
-        training_dataset=" + ".join(path.name for path in paths),
-        n_transcripts=int(lengths.size),
-        total_length=float(lengths.sum()),
-        total_length_squared=float(np.square(lengths).sum()),
-        flops_per_epoch=estimate_flops_from_lengths(lengths, model_config),
+        training_dataset=" + ".join(Path(path).name for path in stats.files),
+        n_transcripts=stats.n_transcripts,
+        total_length=stats.total_length,
+        total_length_squared=stats.total_length_squared,
+        flops_per_epoch=estimate_flops_from_stats(
+            stats.total_length,
+            stats.total_length_squared,
+            model_config,
+            head_hidden_dim=head_hidden_dim,
+        ),
     )
+
+
+def precompute_dataset_flop_stats(
+    model_runs: Sequence[Mapping[str, Any]],
+) -> None:
+    """Refresh reusable dataset statistics before loading training histories."""
+    cache = _load_disk_stats_cache()
+    dataset_groups: Dict[str, Any] = {}
+    run_estimates: List[Dict[str, Any]] = []
+
+    for config in model_runs:
+        dataset_files = config.get("train_dataset_files")
+        model_config_path = config.get("model_config_path")
+        if not dataset_files:
+            continue
+
+        stats = get_dataset_stats(dataset_files)
+        group_name = " + ".join(Path(path).name for path in stats.files)
+        dataset_groups[group_name] = {
+            "files": list(stats.files),
+            "n_transcripts": stats.n_transcripts,
+            "total_length": stats.total_length,
+            "total_length_squared": stats.total_length_squared,
+        }
+
+        if model_config_path:
+            model_config = _load_model_config(str(model_config_path))
+            head_hidden_dim = int(config.get("head_hidden_dim", HEAD_HIDDEN_DIM))
+            run_estimates.append(
+                {
+                    "label": str(config.get("label", "Unknown")),
+                    "dataset_group": group_name,
+                    "model_config_path": str(model_config_path),
+                    "head_hidden_dim": head_hidden_dim,
+                    "flops_per_epoch": estimate_flops_from_stats(
+                        stats.total_length,
+                        stats.total_length_squared,
+                        model_config,
+                        head_hidden_dim=head_hidden_dim,
+                    ),
+                }
+            )
+
+    cache["dataset_groups"] = dataset_groups
+    cache["run_estimates"] = run_estimates
+    _write_disk_stats_cache(cache)
+    print(f"[LossCurve] Dataset FLOP cache: {DATASET_FLOP_STATS_PATH}")
 
 
 def load_run_history(
@@ -772,6 +952,7 @@ def plot_scaling_law_curves(
 ):
     """Compatibility entry point retained for existing notebooks."""
     del global_seq_len
+    precompute_dataset_flop_stats(models_config)
     histories = [load_run_history(config) for config in models_config]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)
     figures = plot_model_loss_curves(histories)
@@ -789,6 +970,7 @@ def main() -> None:
     if len(enabled_runs) < 2:
         raise ValueError("Enable at least two entries in MODEL_RUNS")
 
+    precompute_dataset_flop_stats(enabled_runs)
     histories = [load_run_history(config) for config in enabled_runs]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)
 

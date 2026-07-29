@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,18 +16,117 @@ SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
+import plot.scaling_law_curve as scaling_law_curve
+
 from plot.scaling_law_curve import (
     ComputeEstimate,
     estimate_flops_from_lengths,
+    get_dataset_stats,
     load_run_history,
     parse_epoch_json,
     parse_text_log,
     plot_model_loss_curves,
+    precompute_dataset_flop_stats,
     validate_comparison,
 )
 
 
 class ScalingLawCurveTests(unittest.TestCase):
+    def test_precompute_writes_dataset_flop_stats_json(self):
+        with tempfile.TemporaryDirectory() as directory:
+            dataset_path = (Path(directory) / "dataset.h5").resolve()
+            dataset_path.write_bytes(b"placeholder")
+            fingerprint = dataset_path.stat()
+            cache_path = Path(directory) / "dataset_flop_stats.json"
+            cache_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "files": {
+                            str(dataset_path): {
+                                "size_bytes": fingerprint.st_size,
+                                "mtime_ns": fingerprint.st_mtime_ns,
+                                "n_transcripts": 3,
+                                "total_length": 60.0,
+                                "total_length_squared": 1400.0,
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            original_path = scaling_law_curve.DATASET_FLOP_STATS_PATH
+            try:
+                scaling_law_curve.DATASET_FLOP_STATS_PATH = cache_path
+                scaling_law_curve._DISK_STATS_CACHE = None
+                scaling_law_curve._DATASET_STATS_CACHE.clear()
+                with patch.object(
+                    scaling_law_curve,
+                    "_load_model_config",
+                    return_value={
+                        "d_model": 8,
+                        "d_ff": 16,
+                        "number_of_layers": 2,
+                    },
+                ):
+                    precompute_dataset_flop_stats(
+                        [
+                            {
+                                "label": "test-model",
+                                "train_dataset_files": [str(dataset_path)],
+                                "model_config_path": "model.yaml",
+                            }
+                        ]
+                    )
+                output = json.loads(cache_path.read_text(encoding="utf-8"))
+            finally:
+                scaling_law_curve.DATASET_FLOP_STATS_PATH = original_path
+                scaling_law_curve._DISK_STATS_CACHE = None
+                scaling_law_curve._DATASET_STATS_CACHE.clear()
+
+        self.assertEqual(len(output["dataset_groups"]), 1)
+        self.assertEqual(output["run_estimates"][0]["label"], "test-model")
+        self.assertGreater(output["run_estimates"][0]["flops_per_epoch"], 0)
+
+    def test_reuses_serialized_dataset_stats_without_scanning_h5(self):
+        with tempfile.TemporaryDirectory() as directory:
+            dataset_path = Path(directory) / "dataset.h5"
+            dataset_path.write_bytes(b"placeholder")
+            dataset_path = dataset_path.resolve()
+            fingerprint = dataset_path.stat()
+            cache_path = Path(directory) / "dataset_flop_stats.json"
+            cache_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "files": {
+                            str(dataset_path): {
+                                "size_bytes": fingerprint.st_size,
+                                "mtime_ns": fingerprint.st_mtime_ns,
+                                "n_transcripts": 3,
+                                "total_length": 60.0,
+                                "total_length_squared": 1400.0,
+                            }
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            original_path = scaling_law_curve.DATASET_FLOP_STATS_PATH
+            try:
+                scaling_law_curve.DATASET_FLOP_STATS_PATH = cache_path
+                scaling_law_curve._DISK_STATS_CACHE = None
+                scaling_law_curve._DATASET_STATS_CACHE.clear()
+                stats = get_dataset_stats([str(dataset_path)])
+            finally:
+                scaling_law_curve.DATASET_FLOP_STATS_PATH = original_path
+                scaling_law_curve._DISK_STATS_CACHE = None
+                scaling_law_curve._DATASET_STATS_CACHE.clear()
+
+        self.assertEqual(stats.n_transcripts, 3)
+        self.assertEqual(stats.total_length, 60.0)
+        self.assertEqual(stats.total_length_squared, 1400.0)
+
     def test_transformer_flops_use_linear_and_quadratic_length_terms(self):
         flops = estimate_flops_from_lengths(
             [10, 20],
