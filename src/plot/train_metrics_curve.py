@@ -103,25 +103,25 @@ PLOT_METRICS = [
 # Replace it with an exact ``path`` for final figure reproducibility.
 MODEL_RUNS = [
     {
-        "label": "TRACE Zero (5c)",
+        "label": "TRACE (Zero)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*zero*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
         "color": "#7A7A7A",
-        "linestyle": "--",
+        "linestyle": ":",
         "enabled": True,
     },
     {
-        "label": "TRACE Real (5c)",
+        "label": "TRACE (Real)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*real*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
         "color": "#78A9CF",
-        "linestyle": "-.",
+        "linestyle": "--",
         "enabled": True,
     },
     {
-        "label": "TRACE Mask+Interp. (5c)",
+        "label": "TRACE (Mask+Interp.)",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -130,7 +130,7 @@ MODEL_RUNS = [
         "enabled": True,
     },
     {
-        "label": "LN Transformer (5c)",
+        "label": "LN Transformer",
         "glob": "base_model_LN*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -139,7 +139,7 @@ MODEL_RUNS = [
         "enabled": True,
     },
     {
-        "label": "Conv model (5c)",
+        "label": "Conv model",
         "glob": "base_model_conv*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -148,7 +148,7 @@ MODEL_RUNS = [
         "enabled": False,
     },
     {
-        "label": "TRACE Mask+Interp. (22c)",
+        "label": "TRACE Mask+Interp.",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_22c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -157,7 +157,7 @@ MODEL_RUNS = [
         "enabled": True,
     },
     {
-        "label": "TRACE Mask+Interp. (40c)",
+        "label": "TRACE Mask+Interp.",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_40c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -514,7 +514,7 @@ def plot_metric_curve(
 ):
     """Plot one configured metric against epoch in an independent figure."""
     metric = _metric_config(metric_config)
-    figure, axis = plt.subplots(figsize=(3.5039, 2.8346))
+    figure, axis = plt.subplots(figsize=(5, 4))
     for history in histories:
         y_values = np.asarray(getattr(history, metric["key"]), dtype=float)
         finite = np.isfinite(y_values)
@@ -535,11 +535,11 @@ def plot_metric_curve(
             label=history.label,
             color=history.color,
             linestyle=history.linestyle,
+            alpha=0.7,
             linewidth=1.6,
-            marker="o",
-            markersize=2.8,
+            marker=".",
+            markersize=5,
             markevery=mark_every,
-            markerfacecolor="white",
             markeredgewidth=0.8,
         )
         best_index = int(
@@ -548,9 +548,9 @@ def plot_metric_curve(
         axis.scatter(
             x_values[best_index],
             y_values[best_index],
-            s=18,
+            s=20,
             color=history.color,
-            edgecolor="white",
+            marker=".",
             linewidth=0.5,
             zorder=4,
         )
@@ -668,10 +668,7 @@ def write_source_data(histories: Sequence[RunHistory], output_prefix: Path) -> N
 def save_figure(figure, output_prefix: Path) -> None:
     """Export one editable vector figure and raster previews."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(Path(f"{output_prefix}.svg"), bbox_inches="tight")
     figure.savefig(Path(f"{output_prefix}.pdf"), bbox_inches="tight")
-    figure.savefig(Path(f"{output_prefix}.tiff"), dpi=600, bbox_inches="tight")
-    figure.savefig(Path(f"{output_prefix}.png"), dpi=300, bbox_inches="tight")
     print(f"[MetricCurve] Figure prefix: {output_prefix}")
 
 
