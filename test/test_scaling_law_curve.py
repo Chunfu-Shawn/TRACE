@@ -16,6 +16,8 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from plot.scaling_law_curve import (
+    ComputeEstimate,
+    estimate_flops_from_lengths,
     load_run_history,
     parse_epoch_json,
     parse_text_log,
@@ -25,6 +27,21 @@ from plot.scaling_law_curve import (
 
 
 class ScalingLawCurveTests(unittest.TestCase):
+    def test_transformer_flops_use_linear_and_quadratic_length_terms(self):
+        flops = estimate_flops_from_lengths(
+            [10, 20],
+            {
+                "d_seq": 4,
+                "d_model": 8,
+                "d_ff": 16,
+                "number_of_layers": 2,
+                "model_name": "base_model_ln",
+            },
+            head_hidden_dim=8,
+        )
+
+        self.assertEqual(flops, 299040)
+
     def test_current_json_structure_and_resume_duplicates(self):
         payload = [
             {
@@ -89,12 +106,52 @@ Epoch 4 validation metrics: profile Spearman=0.492527 (100/100 RNAs), CDS-mean s
             }
         )
         validate_comparison([first, second])
-        figure = plot_model_loss_curves([first, second], show_training_panel=True)
+        figures = plot_model_loss_curves([first, second], x_axis="epoch")
 
-        self.assertEqual(len(figure.axes), 2)
+        self.assertEqual(set(figures), {"train", "valid"})
+        self.assertEqual(len(figures["train"].axes), 1)
+        self.assertEqual(len(figures["valid"].axes), 1)
         self.assertEqual(second.best_validation(), (2, 0.19))
         self.assertTrue(np.isfinite(second.valid_loss).all())
-        plt.close(figure)
+        for figure in figures.values():
+            plt.close(figure)
+
+    def test_flop_axis_uses_distinct_compute_per_run(self):
+        histories = []
+        for label, lengths in (("22c", [10, 20]), ("40c", [10, 20, 30])):
+            history = load_run_history(
+                {
+                    "label": label,
+                    "dataset": "same-validation-set",
+                    "loss_data": [
+                        {"epoch": 1, "valid_loss": 0.3},
+                        {"epoch": 2, "valid_loss": 0.2},
+                    ],
+                }
+            )
+            flops = estimate_flops_from_lengths(
+                lengths,
+                {"d_model": 8, "d_ff": 16, "number_of_layers": 2},
+                head_hidden_dim=8,
+            )
+            history.compute = ComputeEstimate(
+                training_dataset=f"{label}.h5",
+                n_transcripts=len(lengths),
+                total_length=float(sum(lengths)),
+                total_length_squared=float(sum(length**2 for length in lengths)),
+                flops_per_epoch=flops,
+            )
+            histories.append(history)
+
+        figures = plot_model_loss_curves(histories, x_axis="flops", x_log=True)
+        valid_axis = figures["valid"].axes[0]
+        first_x = valid_axis.lines[0].get_xdata()
+        second_x = valid_axis.lines[1].get_xdata()
+        self.assertGreater(second_x[-1], first_x[-1])
+        self.assertEqual(valid_axis.get_xscale(), "log")
+        self.assertIn("EFLOPs", valid_axis.get_xlabel())
+        for figure in figures.values():
+            plt.close(figure)
 
     def test_mixed_validation_datasets_are_rejected(self):
         histories = []

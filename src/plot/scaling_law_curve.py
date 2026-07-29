@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Compare epoch-level training and validation losses across TRACE ablations.
+"""Plot TRACE training and validation losses against epoch or estimated FLOPs.
 
-The preferred inputs are Trainer ``*.epoch_data.json`` files. Plain-text logs
-containing the current ``Epoch ... mean loss: tensor(...)`` messages are also
-supported. Edit ``MODEL_RUNS`` and run this file directly on the server.
+Edit the configuration section and run this file directly on the server. The
+script reads Trainer ``*.epoch_data.json`` files or plain-text training logs.
+Training and validation losses are exported as separate figures.
 """
 
 from __future__ import annotations
@@ -12,10 +12,9 @@ import csv
 import json
 import math
 import re
-import warnings
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence
+from typing import Any, Dict, List, Mapping, Optional, Sequence
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -23,64 +22,125 @@ import numpy as np
 from matplotlib.ticker import MaxNLocator
 
 
+# -----------------------------------------------------------------------------
+# Configuration
+# -----------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
+DATASET_DIR = PROJECT_ROOT.parent / "dataset"
 OUTPUT_PREFIX = (
     PROJECT_ROOT.parent / "results/ablation/loss_curves/model_loss_comparison"
 )
 
-# All runs overlaid in one validation-loss panel should use this same dataset.
 COMPARISON_DATASET = "human_5c_6k_depth0.1_cov0.1_rpm1"
 LOSS_DEFINITION = "micro + 2.0*macro + 0.2*ranking"
 ALLOW_MIXED_DATASETS = False
-SHOW_TRAINING_PANEL = True
-Y_SCALE = "linear"  # Use "log" only when multiplicative differences are intended.
+
+X_AXIS = "flops"  # Choose "flops" or "epoch".
+X_LOG = True
+TRAIN_Y_LOG = True
+VALID_Y_LOG = True
 SHOW_FIGURE = False
 
-# ``glob`` is resolved inside LOG_DIR and selects the newest match. Replace it
-# with an exact ``path`` for final figure reproducibility.
+FLOP_UNIT = 1e18
+FLOP_UNIT_LABEL = "EFLOPs"
+TRAINING_FLOP_MULTIPLIER = 3.0
+HEAD_HIDDEN_DIM = 384
+
+TRAIN_DATASETS = {
+    "5c": ["human_5c_6k_depth0.1_cov0.1_rpm1.train.h5"],
+    "22c": ["human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5"],
+    "40c": [
+        "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+        "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    ],
+}
+
+MODEL_CONFIGS = {
+    "trace": "src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+    "ln": "src/config/base_model_LN_384d_16h_12l.yaml",
+    "conv": "src/config/base_model_conv_384d_12l_7k.yaml",
+}
+
+# Every run uses the same configuration fields. A relative log glob is resolved
+# inside LOG_DIR; replace it with an exact ``path`` for final reproducibility.
 MODEL_RUNS = [
     {
-        "label": "TRACE-Zero",
-        "glob": "*hs_5c*zero*.epoch_data.json",
+        "label": "TRACE-Zero (5 cell contexts)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*zero*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["5c"],
+        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#7A7A7A",
         "linestyle": "--",
+        "enabled": True,
     },
     {
-        "label": "TRACE-Real",
-        "glob": "*hs_5c*real*.epoch_data.json",
+        "label": "TRACE-Real (5 cell contexts)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*real*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["5c"],
+        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#78A9CF",
         "linestyle": "-.",
+        "enabled": True,
     },
     {
-        "label": "TRACE-Mask+Interpolation",
-        "glob": "*hs_5c*exp_aug*.epoch_data.json",
+        "label": "TRACE-Mask+Interpolation (5 cell contexts)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["5c"],
+        "model_config_path": MODEL_CONFIGS["trace"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#166A9A",
         "linestyle": "-",
+        "enabled": True,
     },
     {
-        "label": "LayerNorm Transformer",
-        "glob": "*base_model_LN*hs_5c*.epoch_data.json",
+        "label": "LayerNorm Transformer (5 cell contexts)",
+        "glob": "base_model_LN*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["5c"],
+        "model_config_path": MODEL_CONFIGS["ln"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#C28548",
         "linestyle": "-",
-        "enabled": False,
+        "enabled": True,
     },
     {
-        "label": "Convolutional model",
-        "glob": "*base_model_conv*hs_5c*.epoch_data.json",
+        "label": "Convolutional model (5 cell contexts)",
+        "glob": "base_model_conv*hs_5c*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["5c"],
+        "model_config_path": MODEL_CONFIGS["conv"],
         "loss_definition": LOSS_DEFINITION,
         "color": "#5F9272",
         "linestyle": "-",
         "enabled": False,
+    },
+    {
+        "label": "TRACE-Mask+Interpolation (22 cell contexts)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_22c*exp_aug*.epoch_data.json",
+        "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["22c"],
+        "model_config_path": MODEL_CONFIGS["trace"],
+        "loss_definition": LOSS_DEFINITION,
+        "color": "#9A6FB0",
+        "linestyle": "-.",
+        "enabled": True,
+    },
+    {
+        "label": "TRACE-Mask+Interpolation (22 cell contexts)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_40c*exp_aug*.epoch_data.json",
+        "dataset": COMPARISON_DATASET,
+        "train_dataset_files": TRAIN_DATASETS["40c"],
+        "model_config_path": MODEL_CONFIGS["trace"],
+        "loss_definition": LOSS_DEFINITION,
+        "color": "#6A3D78",
+        "linestyle": "-",
+        "enabled": True,
     },
 ]
 
@@ -119,6 +179,17 @@ VALIDATION_METRICS_PATTERN = re.compile(
 )
 
 
+@dataclass(frozen=True)
+class ComputeEstimate:
+    """Simple dataset and training-compute summary for one run."""
+
+    training_dataset: str
+    n_transcripts: int
+    total_length: float
+    total_length_squared: float
+    flops_per_epoch: float
+
+
 @dataclass
 class RunHistory:
     """Clean epoch-level history for one model run."""
@@ -135,19 +206,30 @@ class RunHistory:
     profile_spearman: np.ndarray
     scale_spearman: np.ndarray
     duplicate_epochs: int = 0
+    compute: Optional[ComputeEstimate] = None
 
     def best_validation(self) -> tuple[int, float]:
-        """Return the epoch and value of the minimum finite validation loss."""
+        """Return the epoch and minimum finite validation loss."""
         finite = np.isfinite(self.valid_loss)
         if not finite.any():
             raise ValueError(f"Run {self.label!r} has no finite validation losses")
-        finite_indices = np.flatnonzero(finite)
-        best_index = finite_indices[np.argmin(self.valid_loss[finite])]
+        indices = np.flatnonzero(finite)
+        best_index = indices[np.argmin(self.valid_loss[finite])]
         return int(self.epochs[best_index]), float(self.valid_loss[best_index])
+
+    @property
+    def cumulative_flops(self) -> np.ndarray:
+        """Return cumulative FLOPs at each completed epoch."""
+        if self.compute is None:
+            return np.full(self.epochs.shape, np.nan, dtype=float)
+        return self.epochs.astype(float) * self.compute.flops_per_epoch
+
+
+_DATASET_LENGTH_CACHE: Dict[str, np.ndarray] = {}
 
 
 def _to_float(value: Any) -> float:
-    """Convert scalar, singleton-list, NumPy, or tensor-like text to float."""
+    """Convert common scalar representations to a finite float or NaN."""
     if value is None:
         return float("nan")
     if isinstance(value, (list, tuple)):
@@ -170,8 +252,8 @@ def _to_float(value: Any) -> float:
     return converted if math.isfinite(converted) else float("nan")
 
 
-def _first_value(record: Dict[str, Any], names: Sequence[str]) -> float:
-    """Return the first present metric alias as a finite float or NaN."""
+def _first_value(record: Mapping[str, Any], names: Sequence[str]) -> float:
+    """Return the first available metric alias."""
     for name in names:
         if name in record:
             return _to_float(record[name])
@@ -194,14 +276,12 @@ def _extract_json_entries(payload: Any) -> List[Dict[str, Any]]:
             raise ValueError("JSON does not contain an epoch-history list")
     else:
         raise TypeError("Epoch history JSON must contain a list or dictionary")
-
-    invalid = [index for index, entry in enumerate(entries) if not isinstance(entry, dict)]
-    if invalid:
-        raise TypeError(f"Non-dictionary epoch entries at indices: {invalid[:10]}")
+    if not all(isinstance(entry, dict) for entry in entries):
+        raise TypeError("Every epoch entry must be a dictionary")
     return list(entries)
 
 
-def _record_from_mapping(entry: Dict[str, Any]) -> Dict[str, float]:
+def _record_from_mapping(entry: Mapping[str, Any]) -> Dict[str, float]:
     """Normalize one current or legacy Trainer epoch record."""
     epoch = _first_value(entry, ("epoch", "epoch_num", "epoch_index"))
     if not math.isfinite(epoch):
@@ -212,8 +292,7 @@ def _record_from_mapping(entry: Dict[str, Any]) -> Dict[str, float]:
             entry, ("train_loss", "training_loss", "mean_train_loss")
         ),
         "valid_loss": _first_value(
-            entry,
-            ("valid_loss", "val_loss", "validation_loss", "mean_valid_loss"),
+            entry, ("valid_loss", "val_loss", "validation_loss", "mean_valid_loss")
         ),
         "alpha": _first_value(entry, ("alpha", "macro_loss_weight")),
         "profile_spearman": _first_value(
@@ -226,23 +305,21 @@ def _record_from_mapping(entry: Dict[str, Any]) -> Dict[str, float]:
 
 
 def parse_epoch_json(path: Path) -> tuple[List[Dict[str, float]], int]:
-    """Parse a Trainer epoch-data JSON file and retain the last duplicate epoch."""
+    """Parse JSON history and retain the last occurrence of duplicate epochs."""
     with path.open(encoding="utf-8") as handle:
         entries = _extract_json_entries(json.load(handle))
-
     records: Dict[int, Dict[str, float]] = {}
     duplicates = 0
     for entry in entries:
         record = _record_from_mapping(entry)
         epoch = int(record["epoch"])
-        if epoch in records:
-            duplicates += 1
+        duplicates += int(epoch in records)
         records[epoch] = record
     return [records[epoch] for epoch in sorted(records)], duplicates
 
 
 def parse_text_log(path: Path) -> tuple[List[Dict[str, float]], int]:
-    """Parse current Trainer console logs and retain the last duplicate value."""
+    """Parse current Trainer console logs."""
     text = path.read_text(encoding="utf-8", errors="replace")
     records: Dict[int, Dict[str, float]] = {}
     seen_fields = set()
@@ -263,12 +340,9 @@ def parse_text_log(path: Path) -> tuple[List[Dict[str, float]], int]:
 
     for match in EPOCH_LOSS_PATTERN.finditer(text):
         epoch = int(match.group(1))
-        phase = match.group(2).lower()
-        field = "train_loss" if phase == "training" else "valid_loss"
-        field_key = (epoch, field)
-        if field_key in seen_fields:
-            duplicates += 1
-        seen_fields.add(field_key)
+        field = "train_loss" if match.group(2).lower() == "training" else "valid_loss"
+        duplicates += int((epoch, field) in seen_fields)
+        seen_fields.add((epoch, field))
         get_record(epoch)[field] = float(match.group(3))
 
     for match in VALIDATION_METRICS_PATTERN.finditer(text):
@@ -277,40 +351,27 @@ def parse_text_log(path: Path) -> tuple[List[Dict[str, float]], int]:
         get_record(epoch)["scale_spearman"] = float(match.group(3))
 
     if not records:
-        raise ValueError(
-            f"No epoch-level losses were recognized in text log: {path}"
-        )
+        raise ValueError(f"No epoch-level losses were recognized in {path}")
     return [records[epoch] for epoch in sorted(records)], duplicates
 
 
-def _resolve_run_paths(config: Dict[str, Any], log_dir: Path) -> List[Path]:
-    """Resolve exact path(s) or the newest file matching one glob pattern."""
-    if "paths" in config:
-        raw_paths = list(config["paths"])
-    elif "path" in config:
+def _resolve_run_paths(config: Mapping[str, Any], log_dir: Path) -> List[Path]:
+    """Resolve an exact path or the newest matching log file."""
+    if "path" in config:
         raw_paths = [config["path"]]
-    elif "loss_path" in config:
-        raw_paths = [config["loss_path"]]
+    elif "paths" in config:
+        raw_paths = list(config["paths"])
     elif "glob" in config:
         matches = sorted(
-            log_dir.glob(str(config["glob"])),
-            key=lambda path: path.stat().st_mtime,
+            log_dir.glob(str(config["glob"])), key=lambda path: path.stat().st_mtime
         )
         if not matches:
             raise FileNotFoundError(
                 f"No log matched {config['glob']!r} inside {log_dir}"
             )
-        if len(matches) > 1:
-            label = config.get("label", config.get("method", "Unknown"))
-            print(
-                f"[LossCurve] {label}: {len(matches)} files matched; "
-                f"using newest {matches[-1].name}"
-            )
         return [matches[-1]]
     else:
-        raise ValueError(
-            f"Run {config.get('label', '<unnamed>')!r} needs path, paths, or glob"
-        )
+        raise ValueError(f"Run {config.get('label', '<unnamed>')!r} needs path or glob")
 
     paths = []
     for raw_path in raw_paths:
@@ -323,40 +384,150 @@ def _resolve_run_paths(config: Dict[str, Any], log_dir: Path) -> List[Path]:
     return paths
 
 
-def load_run_history(config: Dict[str, Any], log_dir: Path = LOG_DIR) -> RunHistory:
-    """Load, merge, validate, and sort one configured model history."""
+def _resolve_project_path(raw_path: Any, base_dir: Path) -> Path:
+    """Resolve a user-configured path relative to a stable project directory."""
+    path = Path(raw_path).expanduser()
+    return path if path.is_absolute() else base_dir / path
+
+
+def _read_dataset_lengths(dataset_files: Sequence[str]) -> tuple[np.ndarray, List[Path]]:
+    """Read per-transcript lengths from one or more HDF5 datasets."""
+    try:
+        import h5py
+    except ImportError as exc:
+        raise ImportError("h5py is required for FLOP estimation") from exc
+
+    arrays = []
+    paths = []
+    for file_name in dataset_files:
+        path = _resolve_project_path(file_name, DATASET_DIR).resolve()
+        if not path.is_file():
+            raise FileNotFoundError(f"Training dataset not found: {path}")
+        paths.append(path)
+        cache_key = str(path)
+        if cache_key not in _DATASET_LENGTH_CACHE:
+            with h5py.File(path, "r") as handle:
+                if "samples" not in handle:
+                    raise KeyError(f"HDF5 file has no /samples group: {path}")
+                lengths = [
+                    int(sample["count_emb"].shape[0])
+                    for sample in handle["samples"].values()
+                ]
+            _DATASET_LENGTH_CACHE[cache_key] = np.asarray(lengths, dtype=np.float64)
+        arrays.append(_DATASET_LENGTH_CACHE[cache_key])
+    return np.concatenate(arrays), paths
+
+
+def _load_model_config(config_path: str) -> Dict[str, Any]:
+    """Load the small YAML mapping used to construct the model."""
+    try:
+        import yaml
+    except ImportError as exc:
+        raise ImportError("PyYAML is required for FLOP estimation") from exc
+    path = _resolve_project_path(config_path, PROJECT_ROOT).resolve()
+    if not path.is_file():
+        raise FileNotFoundError(f"Model config not found: {path}")
+    with path.open(encoding="utf-8") as handle:
+        payload = yaml.safe_load(handle)
+    if not isinstance(payload, dict):
+        raise TypeError(f"Model config must contain a mapping: {path}")
+    return payload
+
+
+def estimate_flops_from_lengths(
+    lengths: Sequence[float],
+    model_config: Mapping[str, Any],
+    head_hidden_dim: int = HEAD_HIDDEN_DIM,
+) -> float:
+    """Estimate one training epoch from sum(L) and sum(L squared).
+
+    One multiply-add counts as two FLOPs. The estimate includes sequence and
+    prediction-head projections plus Transformer attention/FFN or convolutional
+    blocks. Training is approximated as three forward passes. Small elementwise
+    operations and padding overhead are intentionally omitted.
+    """
+    lengths = np.asarray(lengths, dtype=np.float64)
+    if lengths.ndim != 1 or lengths.size == 0 or np.any(lengths <= 0):
+        raise ValueError("Transcript lengths must be a non-empty positive vector")
+
+    d_seq = int(model_config.get("d_seq", 4))
+    d_model = int(model_config["d_model"])
+    d_ff = int(model_config["d_ff"])
+    n_layers = int(model_config["number_of_layers"])
+    model_name = str(model_config.get("model_name", "")).lower()
+    sum_length = float(lengths.sum())
+    sum_length_squared = float(np.square(lengths).sum())
+
+    sequence_flops = 2 * d_seq * d_model * sum_length
+    head_flops = (
+        2 * d_model * head_hidden_dim + 2 * head_hidden_dim
+    ) * sum_length
+
+    if "conv" in model_name:
+        kernel_size = int(model_config.get("kernel_size", 7))
+        backbone_flops = (
+            2 * n_layers * d_model * d_ff * (kernel_size + 1) * sum_length
+        )
+    else:
+        projection_ffn_flops = (
+            n_layers * (8 * d_model**2 + 4 * d_model * d_ff) * sum_length
+        )
+        attention_flops = 4 * n_layers * d_model * sum_length_squared
+        backbone_flops = projection_ffn_flops + attention_flops
+
+    forward_flops = sequence_flops + backbone_flops + head_flops
+    return float(forward_flops * TRAINING_FLOP_MULTIPLIER)
+
+
+def _estimate_run_compute(config: Mapping[str, Any]) -> Optional[ComputeEstimate]:
+    """Estimate FLOPs when dataset and model paths are configured."""
+    dataset_files = config.get("train_dataset_files")
+    model_config_path = config.get("model_config_path")
+    if not dataset_files or not model_config_path:
+        return None
+    lengths, paths = _read_dataset_lengths(dataset_files)
+    model_config = _load_model_config(str(model_config_path))
+    return ComputeEstimate(
+        training_dataset=" + ".join(path.name for path in paths),
+        n_transcripts=int(lengths.size),
+        total_length=float(lengths.sum()),
+        total_length_squared=float(np.square(lengths).sum()),
+        flops_per_epoch=estimate_flops_from_lengths(lengths, model_config),
+    )
+
+
+def load_run_history(
+    config: Mapping[str, Any], log_dir: Path = LOG_DIR
+) -> RunHistory:
+    """Load, merge, and sort one configured training history."""
     merged: Dict[int, Dict[str, float]] = {}
     duplicate_epochs = 0
 
     if "loss_data" in config:
         entries = _extract_json_entries(config["loss_data"])
-        record_groups = [([_record_from_mapping(entry) for entry in entries], 0)]
+        groups = [([_record_from_mapping(entry) for entry in entries], 0)]
     else:
-        paths = _resolve_run_paths(config, log_dir)
-        record_groups = []
-        for path in paths:
-            if path.suffix.lower() == ".json":
-                record_groups.append(parse_epoch_json(path))
-            else:
-                record_groups.append(parse_text_log(path))
+        groups = []
+        for path in _resolve_run_paths(config, log_dir):
+            groups.append(
+                parse_epoch_json(path)
+                if path.suffix.lower() == ".json"
+                else parse_text_log(path)
+            )
 
-    for records, duplicates in record_groups:
+    for records, duplicates in groups:
         duplicate_epochs += duplicates
         for record in records:
             epoch = int(record["epoch"])
-            if epoch in merged:
-                duplicate_epochs += 1
+            duplicate_epochs += int(epoch in merged)
             merged[epoch] = record
 
     ordered = [merged[epoch] for epoch in sorted(merged)]
     if not ordered:
-        raise ValueError(f"Run {config['label']!r} has no epoch records")
-
-    epochs = np.asarray([record["epoch"] for record in ordered], dtype=int)
-    train_loss = np.asarray([record["train_loss"] for record in ordered], dtype=float)
+        raise ValueError(f"Run {config.get('label', '<unnamed>')!r} has no records")
     valid_loss = np.asarray([record["valid_loss"] for record in ordered], dtype=float)
     if not np.isfinite(valid_loss).any():
-        raise ValueError(f"Run {config['label']!r} has no finite validation losses")
+        raise ValueError(f"Run {config.get('label')!r} has no validation losses")
 
     return RunHistory(
         label=str(config.get("label", config.get("method", "Unknown"))),
@@ -364,8 +535,10 @@ def load_run_history(config: Dict[str, Any], log_dir: Path = LOG_DIR) -> RunHist
         loss_definition=str(config.get("loss_definition", "")),
         color=str(config.get("color", "#333333")),
         linestyle=str(config.get("linestyle", "-")),
-        epochs=epochs,
-        train_loss=train_loss,
+        epochs=np.asarray([record["epoch"] for record in ordered], dtype=int),
+        train_loss=np.asarray(
+            [record["train_loss"] for record in ordered], dtype=float
+        ),
         valid_loss=valid_loss,
         alpha=np.asarray([record["alpha"] for record in ordered], dtype=float),
         profile_spearman=np.asarray(
@@ -375,50 +548,68 @@ def load_run_history(config: Dict[str, Any], log_dir: Path = LOG_DIR) -> RunHist
             [record["scale_spearman"] for record in ordered], dtype=float
         ),
         duplicate_epochs=duplicate_epochs,
+        compute=_estimate_run_compute(config),
     )
 
 
 def validate_comparison(
     histories: Sequence[RunHistory], allow_mixed_datasets: bool = False
 ) -> None:
-    """Reject ambiguous overlays using differently labeled validation datasets."""
+    """Check that overlaid validation losses use comparable definitions."""
     if len(histories) < 2:
-        raise ValueError("At least two model histories are required for comparison")
+        raise ValueError("At least two model histories are required")
     datasets = {history.dataset for history in histories if history.dataset}
     if len(datasets) > 1 and not allow_mixed_datasets:
         raise ValueError(
-            "Validation losses from different datasets cannot be directly overlaid: "
-            + ", ".join(sorted(datasets))
+            "Validation losses use different datasets: " + ", ".join(sorted(datasets))
         )
-    loss_definitions = {
+    definitions = {
         history.loss_definition for history in histories if history.loss_definition
     }
-    if len(loss_definitions) > 1:
+    if len(definitions) > 1:
+        raise ValueError("Validation losses use different loss definitions")
+
+
+def _x_values(history: RunHistory, x_axis: str) -> np.ndarray:
+    """Return epoch or normalized cumulative-FLOP coordinates."""
+    if x_axis == "epoch":
+        return history.epochs.astype(float)
+    if x_axis != "flops":
+        raise ValueError("X_AXIS must be 'epoch' or 'flops'")
+    if history.compute is None:
         raise ValueError(
-            "Runs use different validation-loss definitions and cannot be overlaid: "
-            + "; ".join(sorted(loss_definitions))
+            f"{history.label} needs train_dataset_files and model_config_path"
         )
+    return history.cumulative_flops / FLOP_UNIT
 
 
-def _plot_one_metric(
-    axis,
+def plot_loss_curve(
     histories: Sequence[RunHistory],
-    metric_name: str,
+    metric: str,
     title: str,
-    mark_best: bool,
-) -> None:
-    """Draw one unsmoothed epoch-level loss panel."""
+    *,
+    x_axis: str = X_AXIS,
+    x_log: bool = X_LOG,
+    y_log: bool = False,
+):
+    """Plot one loss type in its own single-panel figure."""
+    figure, axis = plt.subplots(figsize=(3.5039, 2.8346))
     for history in histories:
-        values = getattr(history, metric_name)
-        finite = np.isfinite(values)
+        values = np.asarray(getattr(history, metric), dtype=float)
+        x_values = _x_values(history, x_axis)
+        finite = np.isfinite(values) & np.isfinite(x_values)
         if not finite.any():
             continue
-        epochs = history.epochs[finite]
-        values = values[finite]
-        mark_every = max(1, int(math.ceil(len(epochs) / 10)))
+        x_plot = x_values[finite]
+        y_plot = values[finite]
+        if x_log and np.any(x_plot <= 0):
+            raise ValueError(f"{history.label} has non-positive x values for log scale")
+        if y_log and np.any(y_plot <= 0):
+            raise ValueError(f"{history.label} has non-positive losses for log scale")
+        mark_every = max(1, int(math.ceil(len(x_plot) / 10)))
         axis.plot(
-            epochs,
-            values,
+            x_plot,
+            y_plot,
             label=history.label,
             color=history.color,
             linestyle=history.linestyle,
@@ -429,11 +620,11 @@ def _plot_one_metric(
             markerfacecolor="white",
             markeredgewidth=0.8,
         )
-        if mark_best:
-            best_position = int(np.argmin(values))
+        if metric == "valid_loss":
+            best_index = int(np.argmin(y_plot))
             axis.scatter(
-                epochs[best_position],
-                values[best_position],
+                x_plot[best_index],
+                y_plot[best_index],
                 s=18,
                 color=history.color,
                 edgecolor="white",
@@ -442,77 +633,87 @@ def _plot_one_metric(
             )
 
     axis.set_title(title, loc="left", fontweight="bold")
-    axis.set_xlabel("Epoch")
+    axis.set_xlabel(
+        f"Cumulative estimated training compute ({FLOP_UNIT_LABEL})"
+        if x_axis == "flops"
+        else "Epoch"
+    )
     axis.set_ylabel("Loss")
-    axis.set_yscale(Y_SCALE)
-    axis.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
+    axis.set_xscale("log" if x_log else "linear")
+    axis.set_yscale("log" if y_log else "linear")
+    if x_axis == "epoch" and not x_log:
+        axis.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
     axis.grid(axis="y", color="#D9D9D9", linewidth=0.6, alpha=0.65)
-    axis.grid(axis="x", visible=False)
+    handles, labels = axis.get_legend_handles_labels()
+    if handles:
+        axis.legend(handles, labels, loc="best", handlelength=2.2)
+    return figure
 
 
 def plot_model_loss_curves(
     histories: Sequence[RunHistory],
-    show_training_panel: bool = SHOW_TRAINING_PANEL,
-):
-    """Create a training/validation loss figure for multiple model runs."""
-    has_training = any(np.isfinite(history.train_loss).any() for history in histories)
-    show_training_panel = bool(show_training_panel and has_training)
-
-    if show_training_panel:
-        figure, axes = plt.subplots(
-            1,
-            2,
-            figsize=(7.2047, 3.0709),  # 183 x 78 mm at final size.
-            sharey=True,
-            gridspec_kw={"width_ratios": [1.0, 1.25], "wspace": 0.30},
-        )
-        _plot_one_metric(axes[0], histories, "train_loss", "a  Training", False)
-        _plot_one_metric(axes[1], histories, "valid_loss", "b  Validation", True)
-        legend_axis = axes[1]
-    else:
-        figure, axis = plt.subplots(figsize=(3.5039, 2.8346))  # 89 x 72 mm.
-        axes = np.asarray([axis])
-        _plot_one_metric(axis, histories, "valid_loss", "Validation", True)
-        legend_axis = axis
-
-    legend_axis.legend(
-        loc="best",
-        handlelength=2.2,
-        borderaxespad=0.4,
-        labelspacing=0.45,
-    )
-    figure.align_ylabels(axes)
-    return figure
+    *,
+    x_axis: str = X_AXIS,
+    x_log: bool = X_LOG,
+    train_y_log: bool = TRAIN_Y_LOG,
+    valid_y_log: bool = VALID_Y_LOG,
+) -> Dict[str, Any]:
+    """Create independent training- and validation-loss figures."""
+    return {
+        "train": plot_loss_curve(
+            histories,
+            "train_loss",
+            "Training loss",
+            x_axis=x_axis,
+            x_log=x_log,
+            y_log=train_y_log,
+        ),
+        "valid": plot_loss_curve(
+            histories,
+            "valid_loss",
+            "Validation loss",
+            x_axis=x_axis,
+            x_log=x_log,
+            y_log=valid_y_log,
+        ),
+    }
 
 
 def write_source_data(histories: Sequence[RunHistory], output_prefix: Path) -> None:
-    """Export plotted epoch data and best-loss summaries as CSV files."""
+    """Write the plotted values and a compact run summary."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
     source_path = output_prefix.with_name(output_prefix.name + ".source_data.csv")
     summary_path = output_prefix.with_name(output_prefix.name + ".summary.csv")
 
     with source_path.open("w", newline="", encoding="utf-8") as handle:
-        fieldnames = [
+        fields = [
             "model",
-            "dataset",
-            "loss_definition",
+            "validation_dataset",
+            "training_dataset",
             "epoch",
+            "cumulative_training_flops",
+            "cumulative_training_eflops",
             "train_loss",
             "valid_loss",
             "alpha",
             "profile_spearman",
             "scale_spearman",
         ]
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for history in histories:
             for index, epoch in enumerate(history.epochs):
+                cumulative = history.cumulative_flops[index]
                 writer.writerow(
                     {
                         "model": history.label,
-                        "dataset": history.dataset,
-                        "loss_definition": history.loss_definition,
+                        "validation_dataset": history.dataset,
+                        "training_dataset": (
+                            history.compute.training_dataset if history.compute else ""
+                        ),
                         "epoch": int(epoch),
+                        "cumulative_training_flops": cumulative,
+                        "cumulative_training_eflops": cumulative / FLOP_UNIT,
                         "train_loss": history.train_loss[index],
                         "valid_loss": history.valid_loss[index],
                         "alpha": history.alpha[index],
@@ -522,33 +723,31 @@ def write_source_data(histories: Sequence[RunHistory], output_prefix: Path) -> N
                 )
 
     with summary_path.open("w", newline="", encoding="utf-8") as handle:
-        fieldnames = [
+        fields = [
             "model",
-            "dataset",
-            "loss_definition",
-            "epochs_recorded",
+            "training_dataset",
+            "n_transcripts",
+            "total_length",
+            "flops_per_epoch",
             "last_epoch",
             "best_validation_epoch",
             "best_validation_loss",
-            "final_validation_loss",
-            "duplicate_epochs_replaced",
         ]
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for history in histories:
             best_epoch, best_loss = history.best_validation()
-            finite_validation = history.valid_loss[np.isfinite(history.valid_loss)]
+            compute = history.compute
             writer.writerow(
                 {
                     "model": history.label,
-                    "dataset": history.dataset,
-                    "loss_definition": history.loss_definition,
-                    "epochs_recorded": len(history.epochs),
+                    "training_dataset": compute.training_dataset if compute else "",
+                    "n_transcripts": compute.n_transcripts if compute else "",
+                    "total_length": compute.total_length if compute else "",
+                    "flops_per_epoch": compute.flops_per_epoch if compute else "",
                     "last_epoch": int(history.epochs[-1]),
                     "best_validation_epoch": best_epoch,
                     "best_validation_loss": best_loss,
-                    "final_validation_loss": float(finite_validation[-1]),
-                    "duplicate_epochs_replaced": history.duplicate_epochs,
                 }
             )
 
@@ -557,12 +756,12 @@ def write_source_data(histories: Sequence[RunHistory], output_prefix: Path) -> N
 
 
 def save_figure(figure, output_prefix: Path) -> None:
-    """Export editable vector figures and high-resolution raster previews."""
+    """Export one editable vector figure and raster previews."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".pdf"), bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".tiff"), dpi=600, bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
+    figure.savefig(Path(f"{output_prefix}.svg"), bbox_inches="tight")
+    figure.savefig(Path(f"{output_prefix}.pdf"), bbox_inches="tight")
+    figure.savefig(Path(f"{output_prefix}.tiff"), dpi=600, bbox_inches="tight")
+    figure.savefig(Path(f"{output_prefix}.png"), dpi=300, bbox_inches="tight")
     print(f"[LossCurve] Figure prefix: {output_prefix}")
 
 
@@ -571,30 +770,21 @@ def plot_scaling_law_curves(
     global_seq_len: int = 1024,
     save_path: Optional[str] = None,
 ):
-    """Compatibility wrapper for the historical notebook entry point.
-
-    The current function plots loss against epoch rather than estimated FLOPs.
-    ``global_seq_len`` is retained only to avoid breaking previous calls.
-    """
+    """Compatibility entry point retained for existing notebooks."""
     del global_seq_len
-    warnings.warn(
-        "plot_scaling_law_curves now compares epoch-level losses. "
-        "Use plot_model_loss_curves for new code.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
     histories = [load_run_history(config) for config in models_config]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)
-    figure = plot_model_loss_curves(histories)
+    figures = plot_model_loss_curves(histories)
     if save_path is not None:
-        output_prefix = Path(save_path).with_suffix("")
-        save_figure(figure, output_prefix)
-        write_source_data(histories, output_prefix)
-    return figure, histories
+        prefix = Path(save_path).with_suffix("")
+        for name, figure in figures.items():
+            save_figure(figure, prefix.with_name(prefix.name + f".{name}"))
+        write_source_data(histories, prefix)
+    return figures, histories
 
 
 def main() -> None:
-    """Load configured ablation runs and export the comparison figure."""
+    """Load configured runs and export independent loss figures."""
     enabled_runs = [config for config in MODEL_RUNS if config.get("enabled", True)]
     if len(enabled_runs) < 2:
         raise ValueError("Enable at least two entries in MODEL_RUNS")
@@ -604,19 +794,28 @@ def main() -> None:
 
     for history in histories:
         best_epoch, best_loss = history.best_validation()
+        compute_text = ""
+        if history.compute is not None:
+            compute_text = (
+                f", {history.compute.flops_per_epoch / FLOP_UNIT:.4f} "
+                f"{FLOP_UNIT_LABEL}/epoch"
+            )
         print(
-            f"[LossCurve] {history.label}: epochs={len(history.epochs)}, "
-            f"best validation={best_loss:.6f} at epoch {best_epoch}, "
-            f"duplicates replaced={history.duplicate_epochs}"
+            f"[LossCurve] {history.label}: best validation={best_loss:.6f} "
+            f"at epoch {best_epoch}{compute_text}"
         )
 
-    figure = plot_model_loss_curves(histories)
-    save_figure(figure, OUTPUT_PREFIX)
+    figures = plot_model_loss_curves(histories)
+    for name, figure in figures.items():
+        prefix = OUTPUT_PREFIX.with_name(OUTPUT_PREFIX.name + f".{name}")
+        save_figure(figure, prefix)
     write_source_data(histories, OUTPUT_PREFIX)
+
     if SHOW_FIGURE:
         plt.show()
     else:
-        plt.close(figure)
+        for figure in figures.values():
+            plt.close(figure)
 
 
 if __name__ == "__main__":
