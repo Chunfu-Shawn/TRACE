@@ -10,11 +10,14 @@ The script performs four steps for every configured checkpoint:
 
 Edit the configuration section and run this file directly on the server. The
 default comparison contains 5/22/40 training environments crossed with zero,
-real, and mask-plus-interpolation expression strategies.
+real, and mask-plus-interpolation expression strategies. Missing model-grid
+positions remain explicit blank rows, and verified prediction/metric caches are
+reused across runs.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import sys
@@ -104,12 +107,12 @@ CHECKPOINT_MATCH_RULES = {
         "required": ("hs_22c", "a2_b02_exp_aug"),
         "forbidden": ("18c",),
     },
-    # (40, "zero"): {"required": ("hs_22c_18c", "a2_b02_zero"), "forbidden": ()},
-    # (40, "real"): {"required": ("hs_22c_18c", "a2_b02_real"), "forbidden": ()},
-    # (40, "exp_aug"): {
-    #     "required": ("hs_22c_18c", "a2_b02_exp_aug"),
-    #     "forbidden": (),
-    # },
+    (40, "zero"): {"required": ("hs_22c_18c", "a2_b02_zero"), "forbidden": ()},
+    (40, "real"): {"required": ("hs_22c_18c", "a2_b02_real"), "forbidden": ()},
+    (40, "exp_aug"): {
+        "required": ("hs_22c_18c", "a2_b02_exp_aug"),
+        "forbidden": (),
+    },
 }
 
 STRATEGY_LABELS = {
@@ -126,7 +129,12 @@ STRATEGY_MARKERS = {"zero": "o", "real": "s", "exp_aug": "^"}
 ENVIRONMENT_MARKERS = {5: "o", 22: "s", 40: "D"}
 
 BATCH_SIZE = 1
+# Cache reuse requires matching dataset, model configuration, strategy, and
+# checkpoint provenance. New checkpoint versions receive new prediction files.
 REUSE_EXISTING_PREDICTIONS = True
+REUSE_EXISTING_METRICS = True
+# Keep False to finish all available model-grid positions and record failures.
+FAIL_FAST = False
 EXPECTED_TEST_CELL_TYPES = 26
 REQUIRE_DISJOINT_ENVIRONMENTS = True
 HIGH_PERIODICITY_THRESHOLD = 0.60
@@ -163,8 +171,10 @@ class ModelSpec:
 
     environment_count: int
     strategy: str
-    checkpoint: Path
+    checkpoint: Optional[Path]
     config_path: Path
+    resolution_status: str = "resolved"
+    resolution_message: str = ""
 
     @property
     def model_id(self) -> str:
@@ -174,6 +184,15 @@ class ModelSpec:
     def strategy_label(self) -> str:
         return STRATEGY_LABELS[self.strategy]
 
+    @property
+    def can_predict(self) -> bool:
+        """Return whether all files required for fresh inference are present."""
+        return (
+            self.checkpoint is not None
+            and self.checkpoint.is_file()
+            and self.config_path.is_file()
+        )
+
 
 def require_files(paths: Iterable[Path], label: str) -> None:
     """Raise one readable exception containing every missing path."""
@@ -182,17 +201,20 @@ def require_files(paths: Iterable[Path], label: str) -> None:
         raise FileNotFoundError(f"Missing {label}: " + ", ".join(missing))
 
 
-def resolve_checkpoint(environment_count: int, strategy: str) -> Path:
-    """Resolve one exact checkpoint without silently choosing among duplicates."""
+def resolve_checkpoint(
+    environment_count: int,
+    strategy: str,
+) -> Tuple[Optional[Path], str, str]:
+    """Resolve one checkpoint while retaining missing combinations as rows."""
     key = (environment_count, strategy)
     exact = EXACT_CHECKPOINTS.get(key)
     if exact is not None:
         if not exact.is_file():
-            raise FileNotFoundError(f"Configured checkpoint does not exist: {exact}")
-        return exact.resolve()
+            return None, "missing_checkpoint", f"Configured checkpoint is missing: {exact}"
+        return exact.resolve(), "resolved", "Resolved from EXACT_CHECKPOINTS"
 
     if key not in CHECKPOINT_MATCH_RULES:
-        raise KeyError(f"No checkpoint matching rule was configured for {key}")
+        return None, "missing_rule", f"No checkpoint matching rule is configured for {key}"
     rule = CHECKPOINT_MATCH_RULES[key]
     required = tuple(token.lower() for token in rule.get("required", ()))
     forbidden = tuple(token.lower() for token in rule.get("forbidden", ()))
@@ -205,14 +227,20 @@ def resolve_checkpoint(environment_count: int, strategy: str) -> Path:
             ):
                 matches.append(path.resolve())
 
-    if len(matches) != 1:
-        formatted = "\n  ".join(str(path) for path in sorted(matches)) or "none"
-        raise RuntimeError(
-            f"Expected exactly one checkpoint for {environment_count}c/{strategy}, "
-            f"found {len(matches)}:\n  {formatted}\n"
-            "Set an exact path in EXACT_CHECKPOINTS to make the comparison reproducible."
+    if not matches:
+        return (
+            None,
+            "missing_checkpoint",
+            f"No checkpoint matched {environment_count}c/{strategy}",
         )
-    return matches[0]
+    if len(matches) > 1:
+        formatted = "; ".join(str(path) for path in sorted(matches))
+        return (
+            None,
+            "ambiguous_checkpoint",
+            f"Multiple checkpoints matched; configure EXACT_CHECKPOINTS: {formatted}",
+        )
+    return matches[0], "resolved", "Resolved from checkpoint matching rule"
 
 
 def build_model_specs() -> List[ModelSpec]:
@@ -220,12 +248,17 @@ def build_model_specs() -> List[ModelSpec]:
     specs = []
     for environment_count in (5, 22, 40):
         for strategy in ("zero", "real", "exp_aug"):
+            checkpoint, status, message = resolve_checkpoint(
+                environment_count, strategy
+            )
             specs.append(
                 ModelSpec(
                     environment_count=environment_count,
                     strategy=strategy,
-                    checkpoint=resolve_checkpoint(environment_count, strategy),
+                    checkpoint=checkpoint,
                     config_path=MODEL_CONFIG_PATH,
+                    resolution_status=status,
+                    resolution_message=message,
                 )
             )
     return specs
@@ -246,6 +279,8 @@ def checkpoint_state_dict(checkpoint: object, path: Path) -> Tuple[dict, dict]:
 
 def load_model(spec: ModelSpec, device: torch.device) -> Tuple[BaseModel, dict]:
     """Construct BaseModel, attach the density head, and restore one checkpoint."""
+    if spec.checkpoint is None:
+        raise FileNotFoundError(f"No checkpoint is available for {spec.model_id}")
     require_files([spec.config_path, spec.checkpoint], "model inputs")
     model = BaseModel.from_config(str(spec.config_path))
     model.add_head(
@@ -281,20 +316,23 @@ def file_fingerprint(path: Path) -> dict:
 
 
 def prediction_manifest(spec: ModelSpec) -> dict:
-    """Describe every input that determines a saved prediction file."""
-    return {
+    """Describe available inputs that determine a saved prediction file."""
+    manifest = {
         "model_id": spec.model_id,
-        "checkpoint": file_fingerprint(spec.checkpoint),
-        "model_config": file_fingerprint(spec.config_path),
         "test_dataset": file_fingerprint(TEST_DATASET_PATH),
         "force_zero_expression": spec.strategy == "zero",
         "num_test_samples": NUM_TEST_SAMPLES,
         "storage_dtype": "float32",
     }
+    if spec.checkpoint is not None and spec.checkpoint.is_file():
+        manifest["checkpoint"] = file_fingerprint(spec.checkpoint)
+    if spec.config_path.is_file():
+        manifest["model_config"] = file_fingerprint(spec.config_path)
+    return manifest
 
 
 def manifest_matches(path: Path, expected: Mapping[str, object]) -> bool:
-    """Return True only when an existing prediction has matching provenance."""
+    """Return True when all expected provenance fields match a manifest."""
     if not path.is_file():
         return False
     try:
@@ -302,31 +340,111 @@ def manifest_matches(path: Path, expected: Mapping[str, object]) -> bool:
             observed = json.load(handle)
     except (OSError, ValueError, TypeError):
         return False
-    return observed == expected
+    return all(observed.get(key) == value for key, value in expected.items())
+
+
+def prediction_directory() -> Path:
+    """Return the persistent prediction cache directory."""
+    return OUTPUT_DIR / "predictions"
+
+
+def prediction_candidates(spec: ModelSpec) -> List[Path]:
+    """Return saved prediction files for one model-grid position."""
+    directory = prediction_directory()
+    if not directory.is_dir():
+        return []
+    return sorted(
+        directory.glob(f"predictions_count.*.{spec.model_id}*.pkl"),
+        key=lambda path: path.stat().st_mtime_ns,
+        reverse=True,
+    )
+
+
+def cached_checkpoint_matches_spec(spec: ModelSpec, manifest: Mapping[str, object]) -> bool:
+    """Validate the checkpoint identity stored in a cache-only prediction."""
+    checkpoint = manifest.get("checkpoint")
+    if not isinstance(checkpoint, Mapping) or not checkpoint.get("path"):
+        return False
+    cached_path = Path(str(checkpoint["path"]))
+    key = (spec.environment_count, spec.strategy)
+    exact = EXACT_CHECKPOINTS.get(key)
+    if exact is not None:
+        return cached_path.expanduser().resolve() == exact.expanduser().resolve()
+    rule = CHECKPOINT_MATCH_RULES.get(key)
+    if rule is None or not cached_path.name.endswith(CHECKPOINT_SUFFIX):
+        return False
+    name = cached_path.name.lower()
+    required = tuple(token.lower() for token in rule.get("required", ()))
+    forbidden = tuple(token.lower() for token in rule.get("forbidden", ()))
+    return all(token in name for token in required) and not any(
+        token in name for token in forbidden
+    )
+
+
+def find_cached_prediction(spec: ModelSpec) -> Optional[Path]:
+    """Find the newest prediction whose available provenance still matches."""
+    if not REUSE_EXISTING_PREDICTIONS or not TEST_DATASET_PATH.is_file():
+        return None
+    expected_manifest = prediction_manifest(spec)
+    for prediction_path in prediction_candidates(spec):
+        manifest_path = Path(str(prediction_path) + ".manifest.json")
+        if not manifest_matches(manifest_path, expected_manifest):
+            continue
+        observed_manifest = read_prediction_manifest(prediction_path)
+        if spec.checkpoint is None and not cached_checkpoint_matches_spec(
+            spec, observed_manifest
+        ):
+            continue
+        return prediction_path
+    return None
+
+
+def prediction_cache_tag(spec: ModelSpec) -> str:
+    """Create a stable short identifier for one checkpoint fingerprint."""
+    if spec.checkpoint is None or not spec.checkpoint.is_file():
+        raise FileNotFoundError(f"Cannot fingerprint missing checkpoint: {spec.model_id}")
+    payload = json.dumps(
+        file_fingerprint(spec.checkpoint), sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:12]
+
+
+def read_prediction_manifest(prediction_path: Path) -> dict:
+    """Read saved prediction provenance or return an empty dictionary."""
+    manifest_path = Path(str(prediction_path) + ".manifest.json")
+    try:
+        with manifest_path.open(encoding="utf-8") as handle:
+            manifest = json.load(handle)
+    except (OSError, ValueError, TypeError):
+        return {}
+    return manifest if isinstance(manifest, dict) else {}
+
+
+def json_scalar(value: object) -> object:
+    """Convert common scalar containers to JSON-compatible values."""
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    if isinstance(value, (np.generic, torch.Tensor)):
+        try:
+            return value.item()
+        except (ValueError, RuntimeError):
+            return str(value)
+    return str(value)
 
 
 def predict_one_model(
     spec: ModelSpec,
     model: BaseModel,
     dataset: TranslationDataset,
+    checkpoint_metadata: Optional[Mapping[str, object]] = None,
 ) -> Path:
     """Create or safely reuse one float32 prediction PKL file."""
-    prediction_dir = OUTPUT_DIR / "predictions"
+    prediction_dir = prediction_directory()
     prediction_dir.mkdir(parents=True, exist_ok=True)
-    prediction_path = (
-        prediction_dir
-        / f"predictions_count.{model.model_name}.{spec.model_id}.pkl"
-    )
-    manifest_path = Path(str(prediction_path) + ".manifest.json")
-    expected_manifest = prediction_manifest(spec)
-
-    if (
-        REUSE_EXISTING_PREDICTIONS
-        and prediction_path.is_file()
-        and manifest_matches(manifest_path, expected_manifest)
-    ):
-        print(f"Reusing verified predictions: {prediction_path}")
-        return prediction_path
+    cached_path = find_cached_prediction(spec)
+    if cached_path is not None:
+        print(f"Reusing verified predictions: {cached_path}")
+        return cached_path
 
     generated_path = Path(
         save_count_predictions(
@@ -335,14 +453,18 @@ def predict_one_model(
             num_samples=NUM_TEST_SAMPLES,
             batch_size=BATCH_SIZE,
             out_dir=str(prediction_dir),
-            suffix=spec.model_id,
+            suffix=f"{spec.model_id}.{prediction_cache_tag(spec)}",
             force_zero_expression=spec.strategy == "zero",
             storage_dtype=np.float32,
         )
     )
-    if generated_path.resolve() != prediction_path.resolve():
-        prediction_path = generated_path
-        manifest_path = Path(str(prediction_path) + ".manifest.json")
+    prediction_path = generated_path
+    manifest_path = Path(str(prediction_path) + ".manifest.json")
+    expected_manifest = prediction_manifest(spec)
+    if checkpoint_metadata is not None:
+        expected_manifest["checkpoint_epoch"] = json_scalar(
+            checkpoint_metadata.get("epoch")
+        )
     with manifest_path.open("w", encoding="utf-8") as handle:
         json.dump(expected_manifest, handle, indent=2)
     return prediction_path
@@ -438,11 +560,8 @@ def calculate_expression_distances(
 def validate_nested_training_environments(
     training_vectors_by_count: Mapping[int, Mapping[str, np.ndarray]],
 ) -> None:
-    """Verify that 5c is nested in 22c and 22c is nested in 40c."""
-    ordered_counts = (5, 22, 40)
-    missing = [count for count in ordered_counts if count not in training_vectors_by_count]
-    if missing:
-        raise KeyError(f"Missing training environment groups: {missing}")
+    """Verify nesting among the training environment groups that are available."""
+    ordered_counts = sorted(training_vectors_by_count)
     for smaller_count, larger_count in zip(ordered_counts[:-1], ordered_counts[1:]):
         smaller = training_vectors_by_count[smaller_count]
         larger = training_vectors_by_count[larger_count]
@@ -486,6 +605,29 @@ def safe_expm1(values: np.ndarray) -> np.ndarray:
     linear = np.expm1(np.asarray(values, dtype=np.float32))
     linear = np.nan_to_num(linear, nan=0.0, posinf=0.0, neginf=0.0)
     return np.clip(linear, 0.0, None)
+
+
+TRANSCRIPT_METRIC_COLUMNS = (
+    "Model_ID",
+    "Environment_Count",
+    "Strategy",
+    "Strategy_Label",
+    "UUID",
+    "Tid",
+    "Cell_Type",
+    "Transcript_Length",
+    "CDS_Length",
+    "RPF_Depth",
+    "RPF_Coverage",
+    "CDS_Profile_Spearman",
+    "Observed_Periodicity",
+    "Predicted_Periodicity",
+    "Periodicity_Bias",
+    "Periodicity_Absolute_Error",
+    "Observed_CDS_Mean_Log1p",
+    "Predicted_CDS_Mean_Log1p",
+    "CDS_Mean_Absolute_Error_Log1p",
+)
 
 
 def evaluate_prediction_file(
@@ -574,7 +716,48 @@ def evaluate_prediction_file(
                 ),
             }
         )
-    return pd.DataFrame.from_records(records)
+    return pd.DataFrame.from_records(records, columns=TRANSCRIPT_METRIC_COLUMNS)
+
+
+def metric_cache_paths(prediction_path: Path) -> Tuple[Path, Path]:
+    """Return persistent transcript-metric CSV and manifest paths."""
+    metric_dir = OUTPUT_DIR / "rna_metrics"
+    metric_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = metric_dir / f"{prediction_path.stem}.rna_metrics.csv"
+    return csv_path, Path(str(csv_path) + ".manifest.json")
+
+
+def metric_manifest(prediction_path: Path, spec: ModelSpec) -> dict:
+    """Describe inputs and settings that determine transcript-level metrics."""
+    return {
+        "model_id": spec.model_id,
+        "prediction": file_fingerprint(prediction_path),
+        "test_dataset": file_fingerprint(TEST_DATASET_PATH),
+        "metric_scale": "profile_and_cds_mean_log1p_periodicity_linear",
+    }
+
+
+def load_or_evaluate_metrics(
+    dataset: TranslationDataset,
+    prediction_path: Path,
+    spec: ModelSpec,
+) -> Tuple[pd.DataFrame, Path, bool]:
+    """Reuse verified transcript metrics or evaluate and persist them."""
+    csv_path, manifest_path = metric_cache_paths(prediction_path)
+    expected_manifest = metric_manifest(prediction_path, spec)
+    if (
+        REUSE_EXISTING_METRICS
+        and csv_path.is_file()
+        and manifest_matches(manifest_path, expected_manifest)
+    ):
+        print(f"Reusing verified RNA metrics: {csv_path}")
+        return pd.read_csv(csv_path), csv_path, True
+
+    transcript_metrics = evaluate_prediction_file(dataset, prediction_path, spec)
+    transcript_metrics.to_csv(csv_path, index=False)
+    with manifest_path.open("w", encoding="utf-8") as handle:
+        json.dump(expected_manifest, handle, indent=2)
+    return transcript_metrics, csv_path, False
 
 
 def finite_mean(values: Sequence[float]) -> float:
@@ -655,6 +838,15 @@ def summarize_by_cell_type(
     return pd.DataFrame.from_records(rows)
 
 
+def empty_cell_metrics(
+    spec: ModelSpec,
+    expected_cells: Sequence[str],
+) -> pd.DataFrame:
+    """Create explicit empty rows for an unavailable model-grid position."""
+    empty_transcripts = pd.DataFrame(columns=TRANSCRIPT_METRIC_COLUMNS)
+    return summarize_by_cell_type(empty_transcripts, spec, expected_cells)
+
+
 SUMMARY_METRICS = (
     "Mean_CDS_Profile_Spearman",
     "Periodicity_Bias",
@@ -697,7 +889,8 @@ def summarize_models(cell_metrics: pd.DataFrame) -> pd.DataFrame:
             "Environment_Count": int(first["Environment_Count"]),
             "Strategy": first["Strategy"],
             "Strategy_Label": first["Strategy_Label"],
-            "Cell_Type_N": int(group["Cell_Type"].nunique()),
+            "Expected_Cell_Type_N": int(group["Cell_Type"].nunique()),
+            "Cell_Type_N": int((group["RNA_N"] > 0).sum()),
             "RNA_N": int(group["RNA_N"].sum()),
         }
         for metric_index, metric in enumerate(SUMMARY_METRICS):
@@ -804,6 +997,7 @@ def plot_environment_diversity_curves(
     for panel_index, (axis, (metric, title, ylabel)) in enumerate(
         zip(axes, PANEL_METRICS)
     ):
+        panel_has_data = False
         for strategy in ("zero", "real", "exp_aug"):
             group = model_metrics[model_metrics["Strategy"] == strategy].sort_values(
                 "Environment_Count"
@@ -812,25 +1006,57 @@ def plot_environment_diversity_curves(
             y = group[metric].to_numpy(dtype=float)
             low = group[f"{metric}_CI95_Low"].to_numpy(dtype=float)
             high = group[f"{metric}_CI95_High"].to_numpy(dtype=float)
-            axis.errorbar(
+            finite = np.isfinite(x) & np.isfinite(y)
+            panel_has_data = panel_has_data or bool(finite.any())
+            finite_x = x[finite]
+            finite_y = y[finite]
+            finite_low = low[finite]
+            finite_high = high[finite]
+            lower_error = np.where(
+                np.isfinite(finite_low),
+                np.maximum(0.0, finite_y - finite_low),
+                0.0,
+            )
+            upper_error = np.where(
+                np.isfinite(finite_high),
+                np.maximum(0.0, finite_high - finite_y),
+                0.0,
+            )
+            axis.plot(
                 x,
                 y,
-                yerr=np.vstack(
-                    [np.maximum(0.0, y - low), np.maximum(0.0, high - y)]
-                ),
                 color=STRATEGY_COLORS[strategy],
                 marker=STRATEGY_MARKERS[strategy],
                 markersize=5,
                 linewidth=1.7,
-                capsize=2.5,
                 label=STRATEGY_LABELS[strategy],
                 zorder=3,
+            )
+            axis.errorbar(
+                finite_x,
+                finite_y,
+                yerr=np.vstack([lower_error, upper_error]),
+                color=STRATEGY_COLORS[strategy],
+                fmt="none",
+                linewidth=1.0,
+                capsize=2.5,
+                zorder=2,
             )
         axis.set_title(title)
         axis.set_xlabel("Training environments")
         axis.set_ylabel(ylabel)
         axis.set_xticks([5, 22, 40], ["5", "22", "40"])
         axis.grid(axis="y", color="#E7E7E7", linewidth=0.7, zorder=0)
+        if not panel_has_data:
+            axis.text(
+                0.5,
+                0.5,
+                "No evaluated model metrics",
+                transform=axis.transAxes,
+                ha="center",
+                va="center",
+                color="#666666",
+            )
         axis.text(
             0.01,
             0.98,
@@ -870,19 +1096,28 @@ def plot_zero_shot_distance_curves(
     """Plot expression distance against zero-shot shape and scale performance."""
     x_column = "Nearest_Cosine_Distance"
     finite_distance = cell_metrics[x_column].replace([np.inf, -np.inf], np.nan).dropna()
-    if finite_distance.empty or finite_distance.nunique() < 2:
-        raise ValueError("At least two finite expression distances are required")
-    x_grid = np.linspace(float(finite_distance.min()), float(finite_distance.max()), 200)
+    distance_available = not finite_distance.empty and finite_distance.nunique() >= 2
+    x_grid = (
+        np.linspace(float(finite_distance.min()), float(finite_distance.max()), 200)
+        if distance_available
+        else np.linspace(0.0, 1.0, 2)
+    )
 
     figure, axes = plt.subplots(1, 2, figsize=(7.2, 3.05), sharex=True)
     regression_rows = []
     for panel_index, (axis, (metric, title, ylabel)) in enumerate(
         zip(axes, PANEL_METRICS)
     ):
+        panel_has_data = False
         for strategy_index, strategy in enumerate(("zero", "real", "exp_aug")):
             group = cell_metrics[cell_metrics["Strategy"] == strategy]
             for environment_count in (5, 22, 40):
                 point_data = group[group["Environment_Count"] == environment_count]
+                point_data = point_data[
+                    np.isfinite(point_data[x_column])
+                    & np.isfinite(point_data[metric])
+                ]
+                panel_has_data = panel_has_data or not point_data.empty
                 axis.scatter(
                     point_data[x_column],
                     point_data[metric],
@@ -895,36 +1130,48 @@ def plot_zero_shot_distance_curves(
                     rasterized=True,
                     zorder=2,
                 )
-            result = cluster_bootstrap_regression(
-                group,
-                x_column,
-                metric,
-                x_grid,
-                BOOTSTRAP_ITERATIONS,
-                np.random.Generator(
-                    np.random.PCG64(
-                        RANDOM_SEED + panel_index * 100 + strategy_index
-                    )
-                ),
-            )
+            if distance_available:
+                result = cluster_bootstrap_regression(
+                    group,
+                    x_column,
+                    metric,
+                    x_grid,
+                    BOOTSTRAP_ITERATIONS,
+                    np.random.Generator(
+                        np.random.PCG64(
+                            RANDOM_SEED + panel_index * 100 + strategy_index
+                        )
+                    ),
+                )
+            else:
+                nan_grid = np.full_like(x_grid, np.nan, dtype=np.float64)
+                result = (
+                    nan_grid,
+                    nan_grid,
+                    nan_grid,
+                    np.nan,
+                    np.nan,
+                    np.nan,
+                    0,
+                )
             fitted, lower, upper, slope, intercept, rho, n = result
-            axis.fill_between(
-                x_grid,
-                lower,
-                upper,
-                color=STRATEGY_COLORS[strategy],
-                alpha=0.10,
-                linewidth=0,
-                zorder=1,
-            )
-            axis.plot(
-                x_grid,
-                fitted,
-                color=STRATEGY_COLORS[strategy],
-                linewidth=1.8,
-                label=STRATEGY_LABELS[strategy],
-                zorder=3,
-            )
+            if np.isfinite(fitted).any():
+                axis.fill_between(
+                    x_grid,
+                    lower,
+                    upper,
+                    color=STRATEGY_COLORS[strategy],
+                    alpha=0.10,
+                    linewidth=0,
+                    zorder=1,
+                )
+                axis.plot(
+                    x_grid,
+                    fitted,
+                    color=STRATEGY_COLORS[strategy],
+                    linewidth=1.8,
+                    zorder=3,
+                )
             regression_rows.append(
                 {
                     "Metric": metric,
@@ -942,6 +1189,18 @@ def plot_zero_shot_distance_curves(
         axis.set_xlabel("Distance to nearest training environment")
         axis.set_ylabel(ylabel)
         axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
+        if not panel_has_data:
+            axis.text(
+                0.5,
+                0.5,
+                "No evaluated model metrics"
+                if distance_available
+                else "Insufficient expression-distance data",
+                transform=axis.transAxes,
+                ha="center",
+                va="center",
+                color="#666666",
+            )
         axis.text(
             0.01,
             0.98,
@@ -1010,13 +1269,137 @@ def validate_test_dataset(dataset: TranslationDataset) -> List[str]:
     return cell_types
 
 
+DISTANCE_COLUMNS = (
+    "Environment_Count",
+    "Cell_Type",
+    "Nearest_Training_Cell",
+    "Nearest_Cosine_Distance",
+    "Expression_Coverage",
+)
+
+
+def prepare_expression_distances(
+    test_vectors: Mapping[str, np.ndarray],
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Calculate every available distance group and report skipped groups."""
+    training_vectors_by_count: Dict[int, Dict[str, np.ndarray]] = {}
+    status_rows = []
+    for environment_count, paths in TRAIN_ENVIRONMENT_DATASETS.items():
+        try:
+            vectors = read_cell_expression_vectors(paths)
+            if len(vectors) != environment_count:
+                raise ValueError(
+                    f"Expected {environment_count} environments, found {len(vectors)}"
+                )
+        except Exception as error:
+            if FAIL_FAST:
+                raise
+            print(
+                f"[EnvironmentDiversity] Skipping {environment_count}c expression "
+                f"distances: {error}"
+            )
+            status_rows.append(
+                {
+                    "Environment_Count": environment_count,
+                    "Status": "unavailable",
+                    "Environment_N": 0,
+                    "Message": str(error),
+                }
+            )
+            continue
+        training_vectors_by_count[environment_count] = vectors
+        status_rows.append(
+            {
+                "Environment_Count": environment_count,
+                "Status": "available",
+                "Environment_N": len(vectors),
+                "Message": "",
+            }
+        )
+
+    try:
+        validate_nested_training_environments(training_vectors_by_count)
+    except Exception as error:
+        if FAIL_FAST:
+            raise
+        print(f"[EnvironmentDiversity] Training-set nesting warning: {error}")
+
+    distance_parts = []
+    for environment_count, vectors in training_vectors_by_count.items():
+        try:
+            distance_parts.append(
+                calculate_expression_distances(
+                    test_vectors,
+                    {environment_count: vectors},
+                )
+            )
+        except Exception as error:
+            if FAIL_FAST:
+                raise
+            print(
+                f"[EnvironmentDiversity] Skipping {environment_count}c distance "
+                f"table: {error}"
+            )
+            for row in status_rows:
+                if row["Environment_Count"] == environment_count:
+                    row["Status"] = "invalid"
+                    row["Message"] = str(error)
+
+    distance_table = (
+        pd.concat(distance_parts, ignore_index=True)
+        if distance_parts
+        else pd.DataFrame(columns=DISTANCE_COLUMNS)
+    )
+    return distance_table, pd.DataFrame.from_records(status_rows)
+
+
+def initial_model_status(spec: ModelSpec) -> dict:
+    """Create one persistent status row for a model-grid position."""
+    return {
+        "Model_ID": spec.model_id,
+        "Environment_Count": spec.environment_count,
+        "Strategy": spec.strategy,
+        "Strategy_Label": spec.strategy_label,
+        "Resolution_Status": spec.resolution_status,
+        "Resolution_Message": spec.resolution_message,
+        "Checkpoint": str(spec.checkpoint) if spec.checkpoint is not None else "",
+        "Checkpoint_Epoch": "",
+        "Prediction_Status": "pending",
+        "Prediction_Reused": "",
+        "Prediction_PKL": "",
+        "Metrics_Status": "pending",
+        "Metrics_Reused": "",
+        "RNA_Metrics_CSV": "",
+        "Error": "",
+    }
+
+
+def write_model_status(status_by_model: Mapping[str, dict]) -> pd.DataFrame:
+    """Persist the latest model-grid status after each completed unit of work."""
+    table = pd.DataFrame.from_records(list(status_by_model.values()))
+    table.to_csv(OUTPUT_DIR / "checkpoint_manifest.csv", index=False)
+    return table
+
+
+def append_status_error(row: dict, error: object) -> None:
+    """Append an error message without discarding an earlier diagnostic."""
+    message = str(error)
+    row["Error"] = f"{row['Error']} | {message}".strip(" |")
+
+
 def main() -> None:
     """Run prediction, metric aggregation, source-data export, and plotting."""
-    require_files([TEST_DATASET_PATH, MODEL_CONFIG_PATH], "evaluation inputs")
+    require_files([TEST_DATASET_PATH], "evaluation inputs")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "rna_metrics").mkdir(parents=True, exist_ok=True)
+    prediction_directory().mkdir(parents=True, exist_ok=True)
 
     model_specs = build_model_specs()
+    status_by_model = {
+        spec.model_id: initial_model_status(spec) for spec in model_specs
+    }
+    write_model_status(status_by_model)
+
     test_dataset = TranslationDataset.from_h5(str(TEST_DATASET_PATH), lazy=True)
     test_cell_types = validate_test_dataset(test_dataset)
     print(
@@ -1024,83 +1407,159 @@ def main() -> None:
         f"{len(test_cell_types)} held-out cell types"
     )
 
-    training_vectors_by_count = {
-        count: read_cell_expression_vectors(paths)
-        for count, paths in TRAIN_ENVIRONMENT_DATASETS.items()
-    }
-    validate_nested_training_environments(training_vectors_by_count)
     test_vectors = {
         cell_type: np.asarray(
             test_dataset.cell_expr_dict[cell_type], dtype=np.float32
         ).reshape(-1)
         for cell_type in test_cell_types
     }
-    distance_table = calculate_expression_distances(
-        test_vectors, training_vectors_by_count
+    distance_table, environment_status = prepare_expression_distances(
+        test_vectors
     )
     distance_table.to_csv(
         OUTPUT_DIR / "nearest_training_environment.csv", index=False
+    )
+    environment_status.to_csv(
+        OUTPUT_DIR / "training_environment_status.csv", index=False
     )
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
     prediction_paths: Dict[str, Path] = {}
-    checkpoint_metadata: Dict[str, dict] = {}
 
     print("\n=== Phase 1/2: predicting all checkpoints ===")
     for spec in model_specs:
-        model, metadata = load_model(spec, device)
-        prediction_paths[spec.model_id] = predict_one_model(
-            spec, model, test_dataset
-        )
-        checkpoint_metadata[spec.model_id] = metadata
-        del model
-        if device.type == "cuda":
-            torch.cuda.empty_cache()
+        row = status_by_model[spec.model_id]
+        cached_path = find_cached_prediction(spec)
+        if cached_path is not None:
+            cached_manifest = read_prediction_manifest(cached_path)
+            cached_checkpoint = cached_manifest.get("checkpoint", {})
+            if not row["Checkpoint"] and isinstance(cached_checkpoint, dict):
+                row["Checkpoint"] = cached_checkpoint.get("path", "")
+            row["Checkpoint_Epoch"] = cached_manifest.get(
+                "checkpoint_epoch", ""
+            )
+            row["Prediction_Status"] = "cached"
+            row["Prediction_Reused"] = True
+            row["Prediction_PKL"] = str(cached_path)
+            prediction_paths[spec.model_id] = cached_path
+            print(f"Reusing verified predictions: {cached_path}")
+            write_model_status(status_by_model)
+            continue
+
+        if not spec.can_predict:
+            row["Prediction_Status"] = "unavailable"
+            row["Metrics_Status"] = "unavailable"
+            if not spec.config_path.is_file():
+                append_status_error(row, f"Missing model config: {spec.config_path}")
+            if spec.checkpoint is None:
+                append_status_error(row, spec.resolution_message)
+            write_model_status(status_by_model)
+            print(
+                f"[EnvironmentDiversity] Leaving {spec.model_id} blank: "
+                f"{row['Error'] or spec.resolution_message}"
+            )
+            continue
+
+        model = None
+        try:
+            model, metadata = load_model(spec, device)
+            prediction_path = predict_one_model(
+                spec,
+                model,
+                test_dataset,
+                checkpoint_metadata=metadata,
+            )
+            prediction_paths[spec.model_id] = prediction_path
+            row["Checkpoint_Epoch"] = metadata.get("epoch", "")
+            row["Prediction_Status"] = "generated"
+            row["Prediction_Reused"] = False
+            row["Prediction_PKL"] = str(prediction_path)
+        except Exception as error:
+            row["Prediction_Status"] = "failed"
+            row["Metrics_Status"] = "unavailable"
+            append_status_error(row, error)
+            print(f"[EnvironmentDiversity] Prediction failed for {spec.model_id}: {error}")
+            if FAIL_FAST:
+                raise
+        finally:
+            if model is not None:
+                del model
+            if device.type == "cuda":
+                torch.cuda.empty_cache()
+            write_model_status(status_by_model)
 
     print("\n=== Phase 2/2: evaluating all prediction files ===")
     all_cell_metrics = []
-    checkpoint_rows = []
     for spec in model_specs:
-        prediction_path = prediction_paths[spec.model_id]
-        metadata = checkpoint_metadata[spec.model_id]
-        transcript_metrics = evaluate_prediction_file(
-            test_dataset, prediction_path, spec
-        )
-        if transcript_metrics.empty:
-            raise RuntimeError(f"No valid CDS metrics were produced for {spec.model_id}")
-        transcript_metrics.to_csv(
-            OUTPUT_DIR / "rna_metrics" / f"{spec.model_id}.csv", index=False
-        )
-        cell_metrics = summarize_by_cell_type(
-            transcript_metrics, spec, test_cell_types
-        )
-        all_cell_metrics.append(cell_metrics)
-        checkpoint_rows.append(
-            {
-                "Model_ID": spec.model_id,
-                "Environment_Count": spec.environment_count,
-                "Strategy": spec.strategy,
-                "Strategy_Label": spec.strategy_label,
-                "Checkpoint": str(spec.checkpoint),
-                "Checkpoint_Epoch": metadata.get("epoch"),
-                "Prediction_PKL": str(prediction_path),
-            }
-        )
+        row = status_by_model[spec.model_id]
+        prediction_path = prediction_paths.get(spec.model_id)
+        if prediction_path is None:
+            all_cell_metrics.append(empty_cell_metrics(spec, test_cell_types))
+            row["Metrics_Status"] = "unavailable"
+            write_model_status(status_by_model)
+            continue
+
+        try:
+            transcript_metrics, metric_path, reused = load_or_evaluate_metrics(
+                test_dataset,
+                prediction_path,
+                spec,
+            )
+            row["RNA_Metrics_CSV"] = str(metric_path)
+            row["Metrics_Reused"] = reused
+            if transcript_metrics.empty:
+                row["Metrics_Status"] = "empty"
+                all_cell_metrics.append(empty_cell_metrics(spec, test_cell_types))
+            else:
+                row["Metrics_Status"] = "cached" if reused else "generated"
+                all_cell_metrics.append(
+                    summarize_by_cell_type(
+                        transcript_metrics,
+                        spec,
+                        test_cell_types,
+                    )
+                )
+        except Exception as error:
+            row["Metrics_Status"] = "failed"
+            append_status_error(row, error)
+            all_cell_metrics.append(empty_cell_metrics(spec, test_cell_types))
+            print(f"[EnvironmentDiversity] Evaluation failed for {spec.model_id}: {error}")
+            if FAIL_FAST:
+                raise
+        finally:
+            write_model_status(status_by_model)
 
     cell_metrics = pd.concat(all_cell_metrics, ignore_index=True)
-    cell_metrics = cell_metrics.merge(
-        distance_table,
-        on=["Environment_Count", "Cell_Type"],
-        how="left",
-        validate="many_to_one",
-    )
-    if cell_metrics["Nearest_Cosine_Distance"].isna().any():
-        raise RuntimeError("Some model/cell rows lack expression-distance metadata")
+    if distance_table.empty:
+        cell_metrics["Nearest_Training_Cell"] = ""
+        cell_metrics["Nearest_Cosine_Distance"] = np.nan
+        cell_metrics["Expression_Coverage"] = np.nan
+    else:
+        cell_metrics = cell_metrics.merge(
+            distance_table,
+            on=["Environment_Count", "Cell_Type"],
+            how="left",
+            validate="many_to_one",
+        )
 
     model_metrics = summarize_models(cell_metrics)
-    checkpoint_table = pd.DataFrame.from_records(checkpoint_rows)
-    checkpoint_table.to_csv(OUTPUT_DIR / "checkpoint_manifest.csv", index=False)
+    checkpoint_table = write_model_status(status_by_model)
+    status_columns = [
+        "Model_ID",
+        "Resolution_Status",
+        "Prediction_Status",
+        "Prediction_Reused",
+        "Metrics_Status",
+        "Metrics_Reused",
+        "Error",
+    ]
+    model_metrics = model_metrics.merge(
+        checkpoint_table[status_columns],
+        on="Model_ID",
+        how="left",
+        validate="one_to_one",
+    )
     cell_metrics.to_csv(OUTPUT_DIR / "cell_type_metrics.csv", index=False)
     model_metrics.to_csv(OUTPUT_DIR / "model_metrics.csv", index=False)
 
