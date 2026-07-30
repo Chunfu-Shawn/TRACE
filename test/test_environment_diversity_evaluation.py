@@ -201,8 +201,9 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
 
         self.assertEqual(len(model_metrics), 9)
         self.assertTrue((model_metrics["RNA_N"] == 0).all())
+        self.assertTrue(model_metrics["Mean_RNA_Profile_Spearman"].isna().all())
         self.assertTrue(model_metrics["Mean_CDS_Profile_Spearman"].isna().all())
-        self.assertEqual(len(regression), 6)
+        self.assertEqual(len(regression), 9)
         self.assertEqual(save_figure.call_count, 2)
 
     def test_transcript_metrics_are_reused_without_re_evaluation(self):
@@ -262,6 +263,124 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
         self.assertTrue(reused)
         self.assertEqual(observed_path, csv_path)
         self.assertEqual(len(metrics), 1)
+
+    def test_cells_below_minimum_rna_count_are_retained_but_excluded(self):
+        spec = environment_diversity.ModelSpec(
+            environment_count=22,
+            strategy="real",
+            checkpoint=None,
+            config_path=Path("missing.yaml"),
+        )
+        records = []
+        for cell_type, count in (("cell_low", 29), ("cell_eligible", 30)):
+            for index in range(count):
+                observed = float(index) / max(count - 1, 1)
+                predicted = observed + 0.01
+                records.append(
+                    {
+                        "Model_ID": spec.model_id,
+                        "Environment_Count": spec.environment_count,
+                        "Strategy": spec.strategy,
+                        "Strategy_Label": spec.strategy_label,
+                        "UUID": f"{cell_type}-{index}",
+                        "Tid": f"tid-{index}",
+                        "Cell_Type": cell_type,
+                        "Transcript_Length": 100,
+                        "CDS_Length": 60,
+                        "RPF_Depth": 1.0,
+                        "RPF_Coverage": 1.0,
+                        "RNA_Profile_Spearman": predicted,
+                        "CDS_Profile_Spearman": predicted,
+                        "Observed_Periodicity": observed,
+                        "Predicted_Periodicity": predicted,
+                        "Periodicity_Bias": predicted - observed,
+                        "Periodicity_Absolute_Error": abs(predicted - observed),
+                        "Observed_CDS_Mean_Log1p": observed,
+                        "Predicted_CDS_Mean_Log1p": predicted,
+                        "CDS_Mean_Absolute_Error_Log1p": abs(predicted - observed),
+                    }
+                )
+
+        cell_metrics = environment_diversity.summarize_by_cell_type(
+            pd.DataFrame.from_records(records),
+            spec,
+            ["cell_low", "cell_eligible"],
+        ).set_index("Cell_Type")
+
+        self.assertFalse(bool(cell_metrics.loc["cell_low", "Meets_Min_RNA_Per_Cell"]))
+        self.assertTrue(
+            np.isnan(cell_metrics.loc["cell_low", "Mean_CDS_Profile_Spearman"])
+        )
+        self.assertTrue(
+            np.isnan(cell_metrics.loc["cell_low", "CDS_Mean_Scale_Spearman"])
+        )
+        self.assertTrue(
+            bool(cell_metrics.loc["cell_eligible", "Meets_Min_RNA_Per_Cell"])
+        )
+        self.assertTrue(
+            np.isfinite(
+                cell_metrics.loc[
+                    "cell_eligible",
+                    "Mean_CDS_Profile_Spearman",
+                ]
+            )
+        )
+
+        model_metrics = environment_diversity.summarize_models(
+            cell_metrics.reset_index()
+        ).iloc[0]
+        self.assertEqual(model_metrics["Cell_Type_N"], 2)
+        self.assertEqual(model_metrics["Eligible_Cell_Type_N"], 1)
+        self.assertEqual(model_metrics["Mean_CDS_Profile_Spearman_Cell_N"], 1)
+        self.assertEqual(model_metrics["Min_RNA_Per_Cell"], 30)
+
+    def test_rpf_depth_filter_is_applied_before_cell_eligibility(self):
+        spec = environment_diversity.ModelSpec(
+            environment_count=22,
+            strategy="real",
+            checkpoint=None,
+            config_path=Path("missing.yaml"),
+        )
+        records = []
+        for index in range(31):
+            observed = float(index) / 30.0
+            predicted = observed + 0.01
+            records.append(
+                {
+                    "Model_ID": spec.model_id,
+                    "Environment_Count": spec.environment_count,
+                    "Strategy": spec.strategy,
+                    "Strategy_Label": spec.strategy_label,
+                    "UUID": f"cell_a-{index}",
+                    "Tid": f"tid-{index}",
+                    "Cell_Type": "cell_a",
+                    "Transcript_Length": 100,
+                    "CDS_Length": 60,
+                    "RPF_Depth": 0.05 if index == 0 else 0.1,
+                    "RPF_Coverage": 1.0,
+                    "RNA_Profile_Spearman": predicted,
+                    "CDS_Profile_Spearman": predicted,
+                    "Observed_Periodicity": observed,
+                    "Predicted_Periodicity": predicted,
+                    "Periodicity_Bias": predicted - observed,
+                    "Periodicity_Absolute_Error": abs(predicted - observed),
+                    "Observed_CDS_Mean_Log1p": observed,
+                    "Predicted_CDS_Mean_Log1p": predicted,
+                    "CDS_Mean_Absolute_Error_Log1p": abs(predicted - observed),
+                }
+            )
+
+        cell_metrics = environment_diversity.summarize_by_cell_type(
+            pd.DataFrame.from_records(records),
+            spec,
+            ["cell_a"],
+        ).iloc[0]
+
+        self.assertEqual(cell_metrics["RNA_N"], 31)
+        self.assertEqual(cell_metrics["RNA_Passing_Depth_N"], 30)
+        self.assertEqual(cell_metrics["RNA_Excluded_By_Depth_N"], 1)
+        self.assertTrue(bool(cell_metrics["Meets_Min_RNA_Per_Cell"]))
+        self.assertEqual(cell_metrics["RNA_Profile_N"], 30)
 
 
 if __name__ == "__main__":

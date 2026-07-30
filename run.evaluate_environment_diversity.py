@@ -2,7 +2,7 @@
 """Evaluate TRACE environment diversity on held-out uncommon cell types.
 
 The script performs four steps for every configured checkpoint:
-1. predict the same uncommon-cell test dataset and save a float32 PKL file;
+1. reuse a verified prediction PKL, or optionally generate one when enabled;
 2. calculate transcript-level CDS profile, periodicity, and CDS-mean metrics;
 3. aggregate metrics with equal weight per held-out cell type and save CSV tables;
 4. draw environment-diversity and expression-distance figures for profile shape
@@ -133,9 +133,18 @@ BATCH_SIZE = 1
 # checkpoint provenance. New checkpoint versions receive new prediction files.
 REUSE_EXISTING_PREDICTIONS = True
 REUSE_EXISTING_METRICS = True
+# Reanalyze verified prediction PKLs without loading checkpoints or running
+# inference. A missing or stale prediction remains an explicit blank grid row.
+ANALYSIS_ONLY = True
 # Keep False to finish all available model-grid positions and record failures.
 FAIL_FAST = False
 EXPECTED_TEST_CELL_TYPES = 26
+# Cell-level correlations and means based on fewer RNAs are retained as source
+# rows but excluded from model summaries, confidence intervals, and regressions.
+MIN_RNA_PER_CELL = 30
+# Apply the same transcript-quality gate to RNA-profile, CDS-profile, scale, and
+# periodicity metrics. Set to None to disable additional depth filtering.
+MIN_RPF_DEPTH: Optional[float] = 0.1
 REQUIRE_DISJOINT_ENVIRONMENTS = True
 HIGH_PERIODICITY_THRESHOLD = 0.60
 BOOTSTRAP_ITERATIONS = 2000
@@ -619,6 +628,7 @@ TRANSCRIPT_METRIC_COLUMNS = (
     "CDS_Length",
     "RPF_Depth",
     "RPF_Coverage",
+    "RNA_Profile_Spearman",
     "CDS_Profile_Spearman",
     "Observed_Periodicity",
     "Predicted_Periodicity",
@@ -670,7 +680,8 @@ def evaluate_prediction_file(
         target_cds_log = target_log[cds_start:cds_end]
         prediction_cds_log = prediction_log[cds_start:cds_end]
 
-        profile_spearman = safe_spearman(prediction_cds_log, target_cds_log)
+        rna_profile_spearman = safe_spearman(prediction_log, target_log)
+        cds_profile_spearman = safe_spearman(prediction_cds_log, target_cds_log)
         observed_cds_mean = float(np.mean(target_cds_log))
         predicted_cds_mean = float(np.mean(prediction_cds_log))
 
@@ -702,7 +713,8 @@ def evaluate_prediction_file(
                 "CDS_Length": cds_end - cds_start,
                 "RPF_Depth": float(meta_info.get("rpf_depth", np.nan)),
                 "RPF_Coverage": float(meta_info.get("rpf_coverage", np.nan)),
-                "CDS_Profile_Spearman": profile_spearman,
+                "RNA_Profile_Spearman": rna_profile_spearman,
+                "CDS_Profile_Spearman": cds_profile_spearman,
                 "Observed_Periodicity": observed_periodicity,
                 "Predicted_Periodicity": predicted_periodicity,
                 "Periodicity_Bias": periodicity_bias,
@@ -733,7 +745,9 @@ def metric_manifest(prediction_path: Path, spec: ModelSpec) -> dict:
         "model_id": spec.model_id,
         "prediction": file_fingerprint(prediction_path),
         "test_dataset": file_fingerprint(TEST_DATASET_PATH),
-        "metric_scale": "profile_and_cds_mean_log1p_periodicity_linear",
+        "metric_scale": (
+            "rna_and_cds_profile_and_cds_mean_log1p_periodicity_linear_v2"
+        ),
     }
 
 
@@ -772,10 +786,20 @@ def summarize_by_cell_type(
     spec: ModelSpec,
     expected_cells: Sequence[str],
 ) -> pd.DataFrame:
-    """Aggregate RNA metrics within each cell while retaining missing cells."""
+    """Aggregate RNA metrics while retaining cells below the RNA threshold."""
     rows = []
     for cell_type in expected_cells:
-        group = transcript_metrics[transcript_metrics["Cell_Type"] == cell_type]
+        raw_group = transcript_metrics[
+            transcript_metrics["Cell_Type"] == cell_type
+        ]
+        if MIN_RPF_DEPTH is None:
+            group = raw_group
+        else:
+            depth = pd.to_numeric(raw_group["RPF_Depth"], errors="coerce")
+            group = raw_group[
+                np.isfinite(depth) & (depth >= MIN_RPF_DEPTH)
+            ]
+        cell_is_eligible = len(group) >= MIN_RNA_PER_CELL
         periodicity = group[
             ["Observed_Periodicity", "Predicted_Periodicity", "Periodicity_Bias"]
         ].replace([np.inf, -np.inf], np.nan).dropna()
@@ -783,7 +807,8 @@ def summarize_by_cell_type(
         high_periodicity = periodicity[
             periodicity["Observed_Periodicity"] >= HIGH_PERIODICITY_THRESHOLD
         ]
-        profile_n = int(group["CDS_Profile_Spearman"].notna().sum())
+        rna_profile_n = int(group["RNA_Profile_Spearman"].notna().sum())
+        cds_profile_n = int(group["CDS_Profile_Spearman"].notna().sum())
         scale_n = int(
             group[
                 ["Observed_CDS_Mean_Log1p", "Predicted_CDS_Mean_Log1p"]
@@ -798,40 +823,79 @@ def summarize_by_cell_type(
                 "Strategy": spec.strategy,
                 "Strategy_Label": spec.strategy_label,
                 "Cell_Type": cell_type,
-                "RNA_N": int(len(group)),
-                "CDS_Profile_N": profile_n,
-                "CDS_Profile_Excluded_N": int(len(group) - profile_n),
-                "Mean_CDS_Profile_Spearman": finite_mean(
-                    group["CDS_Profile_Spearman"]
+                "RNA_N": int(len(raw_group)),
+                "RNA_Passing_Depth_N": int(len(group)),
+                "RNA_Excluded_By_Depth_N": int(len(raw_group) - len(group)),
+                "Meets_Min_RNA_Per_Cell": bool(cell_is_eligible),
+                "RNA_Profile_N": rna_profile_n,
+                "RNA_Profile_Excluded_N": int(len(group) - rna_profile_n),
+                "Mean_RNA_Profile_Spearman": (
+                    finite_mean(group["RNA_Profile_Spearman"])
+                    if cell_is_eligible
+                    else float("nan")
                 ),
-                "Median_CDS_Profile_Spearman": float(
-                    group["CDS_Profile_Spearman"].median()
+                "Median_RNA_Profile_Spearman": (
+                    float(group["RNA_Profile_Spearman"].median())
+                    if cell_is_eligible
+                    else float("nan")
+                ),
+                "CDS_Profile_N": cds_profile_n,
+                "CDS_Profile_Excluded_N": int(len(group) - cds_profile_n),
+                "Mean_CDS_Profile_Spearman": (
+                    finite_mean(group["CDS_Profile_Spearman"])
+                    if cell_is_eligible
+                    else float("nan")
+                ),
+                "Median_CDS_Profile_Spearman": (
+                    float(group["CDS_Profile_Spearman"].median())
+                    if cell_is_eligible
+                    else float("nan")
                 ),
                 "Periodicity_N": int(len(periodicity)),
                 "Periodicity_Excluded_N": periodicity_excluded_count,
-                "Periodicity_Spearman": safe_spearman(
-                    periodicity["Observed_Periodicity"],
-                    periodicity["Predicted_Periodicity"],
+                "Periodicity_Spearman": (
+                    safe_spearman(
+                        periodicity["Observed_Periodicity"],
+                        periodicity["Predicted_Periodicity"],
+                    )
+                    if cell_is_eligible
+                    else float("nan")
                 ),
-                "Periodicity_Bias": finite_mean(periodicity["Periodicity_Bias"]),
-                "Periodicity_MAE": finite_mean(
-                    np.abs(periodicity["Periodicity_Bias"])
+                "Periodicity_Bias": (
+                    finite_mean(periodicity["Periodicity_Bias"])
+                    if cell_is_eligible
+                    else float("nan")
+                ),
+                "Periodicity_MAE": (
+                    finite_mean(np.abs(periodicity["Periodicity_Bias"]))
+                    if cell_is_eligible
+                    else float("nan")
                 ),
                 "High_Periodicity_N": int(len(high_periodicity)),
-                "High_Periodicity_Bias": finite_mean(
-                    high_periodicity["Periodicity_Bias"]
+                "High_Periodicity_Bias": (
+                    finite_mean(high_periodicity["Periodicity_Bias"])
+                    if cell_is_eligible
+                    else float("nan")
                 ),
-                "High_Periodicity_MAE": finite_mean(
-                    np.abs(high_periodicity["Periodicity_Bias"])
+                "High_Periodicity_MAE": (
+                    finite_mean(np.abs(high_periodicity["Periodicity_Bias"]))
+                    if cell_is_eligible
+                    else float("nan")
                 ),
                 "CDS_Mean_Scale_N": scale_n,
                 "CDS_Mean_Scale_Excluded_N": int(len(group) - scale_n),
-                "CDS_Mean_Scale_Spearman": safe_spearman(
-                    group["Observed_CDS_Mean_Log1p"],
-                    group["Predicted_CDS_Mean_Log1p"],
+                "CDS_Mean_Scale_Spearman": (
+                    safe_spearman(
+                        group["Observed_CDS_Mean_Log1p"],
+                        group["Predicted_CDS_Mean_Log1p"],
+                    )
+                    if cell_is_eligible
+                    else float("nan")
                 ),
-                "CDS_Mean_MAE_Log1p": finite_mean(
-                    group["CDS_Mean_Absolute_Error_Log1p"]
+                "CDS_Mean_MAE_Log1p": (
+                    finite_mean(group["CDS_Mean_Absolute_Error_Log1p"])
+                    if cell_is_eligible
+                    else float("nan")
                 ),
             }
         )
@@ -848,6 +912,7 @@ def empty_cell_metrics(
 
 
 SUMMARY_METRICS = (
+    "Mean_RNA_Profile_Spearman",
     "Mean_CDS_Profile_Spearman",
     "Periodicity_Bias",
     "Periodicity_MAE",
@@ -891,7 +956,18 @@ def summarize_models(cell_metrics: pd.DataFrame) -> pd.DataFrame:
             "Strategy_Label": first["Strategy_Label"],
             "Expected_Cell_Type_N": int(group["Cell_Type"].nunique()),
             "Cell_Type_N": int((group["RNA_N"] > 0).sum()),
+            "Eligible_Cell_Type_N": int(
+                group["Meets_Min_RNA_Per_Cell"].fillna(False).sum()
+            ),
+            "Min_RNA_Per_Cell": MIN_RNA_PER_CELL,
+            "Min_RPF_Depth": (
+                MIN_RPF_DEPTH if MIN_RPF_DEPTH is not None else np.nan
+            ),
             "RNA_N": int(group["RNA_N"].sum()),
+            "RNA_Passing_Depth_N": int(group["RNA_Passing_Depth_N"].sum()),
+            "RNA_Excluded_By_Depth_N": int(
+                group["RNA_Excluded_By_Depth_N"].sum()
+            ),
         }
         for metric_index, metric in enumerate(SUMMARY_METRICS):
             rng = np.random.Generator(
@@ -964,17 +1040,17 @@ def cluster_bootstrap_regression(
 
 
 def save_publication_figure(figure: plt.Figure, output_prefix: Path) -> None:
-    """Export one figure with editable vector text and a high-resolution raster."""
+    """Export one figure as an editable-text PDF."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(output_prefix.with_suffix(".pdf"), bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
-    figure.savefig(
-        output_prefix.with_suffix(".tiff"), dpi=600, bbox_inches="tight"
-    )
 
 
 PANEL_METRICS = (
+    (
+        "Mean_RNA_Profile_Spearman",
+        "RNA profile shape",
+        "Mean per-cell RNA profile Spearman",
+    ),
     (
         "Mean_CDS_Profile_Spearman",
         "CDS profile shape",
@@ -988,12 +1064,25 @@ PANEL_METRICS = (
 )
 
 
+def quality_filter_description() -> str:
+    """Return a concise description of the cell and RNA quality gates."""
+    description = f"at least {MIN_RNA_PER_CELL} RNAs"
+    if MIN_RPF_DEPTH is not None:
+        description += f" passing RPF depth ≥ {MIN_RPF_DEPTH:g}"
+    return description
+
+
 def plot_environment_diversity_curves(
     model_metrics: pd.DataFrame,
     output_prefix: Path,
 ) -> None:
-    """Plot 5/22/40-cell curves for profile shape and signal scale."""
-    figure, axes = plt.subplots(1, 2, figsize=(7.2, 3.05), sharex=True)
+    """Plot 5/22/40-cell curves for RNA shape, CDS shape, and scale."""
+    figure, axes = plt.subplots(
+        1,
+        len(PANEL_METRICS),
+        figsize=(7.2, 3.05),
+        sharex=True,
+    )
     for panel_index, (axis, (metric, title, ylabel)) in enumerate(
         zip(axes, PANEL_METRICS)
     ):
@@ -1080,7 +1169,8 @@ def plot_environment_diversity_curves(
     figure.text(
         0.5,
         -0.01,
-        "Points are equal-weight means across held-out cell types; error bars are cell-bootstrap 95% CIs.",
+        "Points are equal-weight means across held-out cell types with "
+        f"{quality_filter_description()}; error bars are cell-bootstrap 95% CIs.",
         ha="center",
         fontsize=6.5,
     )
@@ -1093,7 +1183,7 @@ def plot_zero_shot_distance_curves(
     cell_metrics: pd.DataFrame,
     output_prefix: Path,
 ) -> pd.DataFrame:
-    """Plot expression distance against zero-shot shape and scale performance."""
+    """Plot expression distance against zero-shot RNA, CDS, and scale metrics."""
     x_column = "Nearest_Cosine_Distance"
     finite_distance = cell_metrics[x_column].replace([np.inf, -np.inf], np.nan).dropna()
     distance_available = not finite_distance.empty and finite_distance.nunique() >= 2
@@ -1103,7 +1193,12 @@ def plot_zero_shot_distance_curves(
         else np.linspace(0.0, 1.0, 2)
     )
 
-    figure, axes = plt.subplots(1, 2, figsize=(7.2, 3.05), sharex=True)
+    figure, axes = plt.subplots(
+        1,
+        len(PANEL_METRICS),
+        figsize=(7.2, 3.05),
+        sharex=True,
+    )
     regression_rows = []
     for panel_index, (axis, (metric, title, ylabel)) in enumerate(
         zip(axes, PANEL_METRICS)
@@ -1186,7 +1281,6 @@ def plot_zero_shot_distance_curves(
             )
 
         axis.set_title(title)
-        axis.set_xlabel("Distance to nearest training environment")
         axis.set_ylabel(ylabel)
         axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
         if not panel_has_data:
@@ -1242,14 +1336,21 @@ def plot_zero_shot_distance_curves(
         ncol=6,
         bbox_to_anchor=(0.5, 1.03),
     )
+    figure.supxlabel(
+        "Distance to nearest training environment",
+        x=0.5,
+        y=0.06,
+        fontsize=8,
+    )
     figure.text(
         0.5,
         -0.01,
-        "Points are held-out cell types; bands are cell-cluster bootstrap 95% CIs for the fitted lines.",
+        "Points are held-out cell types with "
+        f"{quality_filter_description()}; bands are cell-cluster bootstrap 95% CIs.",
         ha="center",
         fontsize=6.5,
     )
-    figure.tight_layout(rect=(0, 0.05, 1, 0.93), w_pad=2.0)
+    figure.tight_layout(rect=(0, 0.12, 1, 0.93), w_pad=1.5)
     save_publication_figure(figure, output_prefix)
     plt.close(figure)
     return pd.DataFrame.from_records(regression_rows)
@@ -1424,10 +1525,21 @@ def main() -> None:
     )
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
+    if ANALYSIS_ONLY:
+        print(
+            "Analysis-only mode: reusing verified prediction PKLs and skipping "
+            "all model inference."
+        )
+    else:
+        print(f"Using device: {device}")
     prediction_paths: Dict[str, Path] = {}
 
-    print("\n=== Phase 1/2: predicting all checkpoints ===")
+    phase_label = (
+        "locating cached predictions"
+        if ANALYSIS_ONLY
+        else "predicting all checkpoints"
+    )
+    print(f"\n=== Phase 1/2: {phase_label} ===")
     for spec in model_specs:
         row = status_by_model[spec.model_id]
         cached_path = find_cached_prediction(spec)
@@ -1445,6 +1557,20 @@ def main() -> None:
             prediction_paths[spec.model_id] = cached_path
             print(f"Reusing verified predictions: {cached_path}")
             write_model_status(status_by_model)
+            continue
+
+        if ANALYSIS_ONLY:
+            row["Prediction_Status"] = "unavailable"
+            row["Metrics_Status"] = "unavailable"
+            append_status_error(
+                row,
+                "No verified cached prediction was found while ANALYSIS_ONLY=True",
+            )
+            write_model_status(status_by_model)
+            print(
+                f"[EnvironmentDiversity] Leaving {spec.model_id} blank: "
+                "no verified cached prediction"
+            )
             continue
 
         if not spec.can_predict:
@@ -1531,6 +1657,24 @@ def main() -> None:
             write_model_status(status_by_model)
 
     cell_metrics = pd.concat(all_cell_metrics, ignore_index=True)
+    excluded_cells = (
+        cell_metrics[
+            (cell_metrics["RNA_N"] > 0)
+            & ~cell_metrics["Meets_Min_RNA_Per_Cell"]
+        ][["Cell_Type", "RNA_N", "RNA_Passing_Depth_N"]]
+        .drop_duplicates()
+        .sort_values(["RNA_Passing_Depth_N", "Cell_Type"])
+    )
+    if not excluded_cells.empty:
+        excluded_text = ", ".join(
+            f"{row.Cell_Type} (passing={int(row.RNA_Passing_Depth_N)}/"
+            f"{int(row.RNA_N)})"
+            for row in excluded_cells.itertuples(index=False)
+        )
+        print(
+            f"Excluded from cell-level summaries because n < "
+            f"{MIN_RNA_PER_CELL}: {excluded_text}"
+        )
     if distance_table.empty:
         cell_metrics["Nearest_Training_Cell"] = ""
         cell_metrics["Nearest_Cosine_Distance"] = np.nan
@@ -1574,9 +1718,14 @@ def main() -> None:
             "Strategy",
             "Strategy_Label",
             "Cell_Type",
+            "RNA_N",
+            "RNA_Passing_Depth_N",
+            "RNA_Excluded_By_Depth_N",
+            "Meets_Min_RNA_Per_Cell",
             "Nearest_Training_Cell",
             "Nearest_Cosine_Distance",
             "Expression_Coverage",
+            "Mean_RNA_Profile_Spearman",
             "Mean_CDS_Profile_Spearman",
             "CDS_Mean_Scale_Spearman",
             "CDS_Mean_MAE_Log1p",
