@@ -28,25 +28,25 @@ from utils import print_param_counts
 # -----------------------------------------------------------------------------
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
-    "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
-    "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
-    "hs_5c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_zero"
+    "hs_22c_18c_6k_depth0.1_cov0.1_rpm1"
+    "_e50_a2_b02_exp_aug"
     # "_e50_a2_b02_real"
     # "_e50_a2_b02_exp_aug"
 )
@@ -78,14 +78,14 @@ ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
-MASK_PERC = {"species": 0.0, "cell": 0.0}
+MASK_PERC = {"species": 0.0, "cell": 0.1}
 # MASK_PERC = {"species": 0.1, "cell": 0.1}
-EXPR_NOISE_STD = 0.0
+EXPR_NOISE_STD = 0.15
 # EXPR_NOISE_STD = 0.15
-EXPR_INTERPOLATION_PERC = 0.0
-# EXPR_INTERPOLATION_PERC = 0.2
-FORCE_ZERO_EXPRESSION = True
-# FORCE_ZERO_EXPRESSION = False
+EXPR_INTERPOLATION_PERC = 0.3
+# EXPR_INTERPOLATION_PERC = 0.3
+FORCE_ZERO_EXPRESSION = False
+# FORCE_ZERO_EXPRESSION = True
 BALANCE_CLASSES = True
 RESUME = True
 SAVE_EVERY = 1

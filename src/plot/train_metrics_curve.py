@@ -122,10 +122,19 @@ MODEL_RUNS = [
     },
     {
         "label": "TRACE (Mask+Interp.)",
-        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*exp_aug*.epoch_data.json",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b02_exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
         "color": "#166A9A",
+        "linestyle": "-",
+        "enabled": True,
+    },
+    {
+        "label": "TRACE (Mask+Interp. no ranking)",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b0_exp_aug*.epoch_data.json",
+        "dataset": COMPARISON_DATASET,
+        "loss_definition": LOSS_DEFINITION,
+        "color": "#9A6FB0",
         "linestyle": "-",
         "enabled": True,
     },
@@ -145,7 +154,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#5F9272",
         "linestyle": "-",
-        "enabled": False,
+        "enabled": True,
     },
     {
         "label": "TRACE Mask+Interp.",
@@ -154,7 +163,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#9A6FB0",
         "linestyle": "-.",
-        "enabled": True,
+        "enabled": False,
     },
     {
         "label": "TRACE Mask+Interp.",
@@ -163,7 +172,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#6A3D78",
         "linestyle": "-",
-        "enabled": True,
+        "enabled": False,
     },
 ]
 

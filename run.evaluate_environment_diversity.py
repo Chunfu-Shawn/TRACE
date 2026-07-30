@@ -59,8 +59,8 @@ from model.prediction_heads import PsiteDensityHead
 # Evaluation configuration: edit this section before running the script.
 # -----------------------------------------------------------------------------
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
-CHECKPOINT_DIR = Path("/public-supool/home/annie/translation_model/TRACE/checkpoint/train")
-OUTPUT_DIR = Path("/public-supool/home/annie/translation_model/results/environment_diversity")
+CHECKPOINT_DIR = Path("/public-supool/home/annie/translation_model/checkpoint/train")
+OUTPUT_DIR = Path("/public-supool/home/annie/translation_model/results/ablation/environment_diversity")
 
 TEST_DATASET_PATH = (
     DATASET_DIR
@@ -84,6 +84,7 @@ HEAD_HIDDEN_DIM = 384
 # Use one checkpoint-selection rule for all nine runs. ``best_profile`` is the
 # default because profile shape is the primary endpoint; change this to
 # ``.best_total.pt`` if total-loss selection is preferred for the final study.
+CHECKPOINT_PREFIX = "base_model_384d_16h_12l_64env_16ad_bs"
 CHECKPOINT_SUFFIX = ".best_profile.pt"
 
 # Exact paths take priority. Add entries here if a rule below matches more than
@@ -94,21 +95,21 @@ EXACT_CHECKPOINTS: Dict[Tuple[int, str], Path] = {}
 # Automatic matching is intentionally strict. Edit the tokens if the server-side
 # checkpoint names use a different dataset tag.
 CHECKPOINT_MATCH_RULES = {
-    (5, "zero"): {"required": ("hs_5c", "zero"), "forbidden": ()},
-    (5, "real"): {"required": ("hs_5c", "real"), "forbidden": ()},
-    (5, "exp_aug"): {"required": ("hs_5c", "exp_aug"), "forbidden": ()},
-    (22, "zero"): {"required": ("hs_22c", "zero"), "forbidden": ("18c",)},
-    (22, "real"): {"required": ("hs_22c", "real"), "forbidden": ("18c",)},
+    (5, "zero"): {"required": ("hs_5c", "a2_b02_zero"), "forbidden": ()},
+    (5, "real"): {"required": ("hs_5c", "a2_b02_real"), "forbidden": ()},
+    (5, "exp_aug"): {"required": ("hs_5c", "a2_b02_exp_aug"), "forbidden": ()},
+    (22, "zero"): {"required": ("hs_22c", "a2_b02_zero"), "forbidden": ("18c",)},
+    (22, "real"): {"required": ("hs_22c", "a2_b02_real"), "forbidden": ("18c",)},
     (22, "exp_aug"): {
-        "required": ("hs_22c", "exp_aug"),
+        "required": ("hs_22c", "a2_b02_exp_aug"),
         "forbidden": ("18c",),
     },
-    (40, "zero"): {"required": ("hs_22c_18c", "zero"), "forbidden": ()},
-    (40, "real"): {"required": ("hs_22c_18c", "real"), "forbidden": ()},
-    (40, "exp_aug"): {
-        "required": ("hs_22c_18c", "exp_aug"),
-        "forbidden": (),
-    },
+    # (40, "zero"): {"required": ("hs_22c_18c", "a2_b02_zero"), "forbidden": ()},
+    # (40, "real"): {"required": ("hs_22c_18c", "a2_b02_real"), "forbidden": ()},
+    # (40, "exp_aug"): {
+    #     "required": ("hs_22c_18c", "a2_b02_exp_aug"),
+    #     "forbidden": (),
+    # },
 }
 
 STRATEGY_LABELS = {
@@ -197,7 +198,7 @@ def resolve_checkpoint(environment_count: int, strategy: str) -> Path:
     forbidden = tuple(token.lower() for token in rule.get("forbidden", ()))
     matches = []
     if CHECKPOINT_DIR.is_dir():
-        for path in CHECKPOINT_DIR.glob(f"*{CHECKPOINT_SUFFIX}"):
+        for path in CHECKPOINT_DIR.glob(f"{CHECKPOINT_PREFIX}*{CHECKPOINT_SUFFIX}"):
             name = path.name.lower()
             if all(token in name for token in required) and not any(
                 token in name for token in forbidden
