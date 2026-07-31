@@ -1039,9 +1039,11 @@ def cluster_bootstrap_regression(
 
 
 def save_publication_figure(figure: plt.Figure, output_prefix: Path) -> None:
-    """Export one figure as an editable-text PDF."""
+    """Export editable vector files and a high-resolution PNG preview."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
     figure.savefig(output_prefix.with_suffix(".pdf"), bbox_inches="tight")
+    figure.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
 
 
 PANEL_METRICS = (
@@ -1072,6 +1074,19 @@ ZERO_SHOT_PANEL_METRICS = (
         "CDS_Mean_Scale_Spearman",
         "CDS signal scale",
         "Mean per-cell CDS-mean Spearman",
+    ),
+)
+
+ZERO_SHOT_DELTA_PANEL_METRICS = (
+    (
+        "Delta_Mean_CDS_Profile_Spearman",
+        "CDS profile shape",
+        "Δ mean per-cell CDS profile Spearman",
+    ),
+    (
+        "Delta_CDS_Mean_Scale_Spearman",
+        "CDS signal scale",
+        "Δ mean per-cell CDS-mean Spearman",
     ),
 )
 
@@ -1340,6 +1355,179 @@ def plot_zero_shot_distance_curves(
         fontsize=6.5,
     )
     figure.tight_layout(rect=(0, 0.10, 1, 0.93), h_pad=1.2, w_pad=1.2)
+    save_publication_figure(figure, output_prefix)
+    plt.close(figure)
+    return pd.DataFrame.from_records(regression_rows)
+
+
+def build_zero_shot_delta_source(cell_metrics: pd.DataFrame) -> pd.DataFrame:
+    """Pair ExpAug and Zero results within each environment count and cell type."""
+    metrics = [item[0] for item in ZERO_SHOT_PANEL_METRICS]
+    shared_columns = [
+        "Environment_Count",
+        "Cell_Type",
+        "Nearest_Training_Cell",
+        "Nearest_Cosine_Distance",
+        "Expression_Coverage",
+    ]
+    zero = cell_metrics[cell_metrics["Strategy"] == "zero"][
+        shared_columns + metrics
+    ].copy()
+    exp_aug = cell_metrics[cell_metrics["Strategy"] == "exp_aug"][
+        ["Environment_Count", "Cell_Type"] + metrics
+    ].copy()
+    zero = zero.rename(columns={metric: f"Zero_{metric}" for metric in metrics})
+    exp_aug = exp_aug.rename(
+        columns={metric: f"ExpAug_{metric}" for metric in metrics}
+    )
+    paired = zero.merge(
+        exp_aug,
+        on=["Environment_Count", "Cell_Type"],
+        how="inner",
+        validate="one_to_one",
+    )
+    for metric in metrics:
+        paired[f"Delta_{metric}"] = (
+            paired[f"ExpAug_{metric}"] - paired[f"Zero_{metric}"]
+        )
+    return paired.sort_values(["Environment_Count", "Cell_Type"])
+
+
+def plot_zero_shot_delta_curves(
+    delta_source: pd.DataFrame,
+    output_prefix: Path,
+) -> pd.DataFrame:
+    """Plot ExpAug-minus-Zero performance against expression distance."""
+    x_column = "Nearest_Cosine_Distance"
+    finite_distance = delta_source[x_column].replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna()
+    x_grid = np.linspace(
+        float(finite_distance.min()),
+        float(finite_distance.max()),
+        200,
+    )
+
+    figure, axes = plt.subplots(
+        len(ZERO_SHOT_DELTA_PANEL_METRICS),
+        3,
+        figsize=(9, 5.2),
+        sharex=True,
+        sharey="row",
+    )
+    regression_rows = []
+    panel_index = 0
+    for metric_index, (metric, row_title, ylabel) in enumerate(
+        ZERO_SHOT_DELTA_PANEL_METRICS
+    ):
+        for environment_index, environment_count in enumerate((5, 22, 40)):
+            axis = axes[metric_index, environment_index]
+            group = delta_source[
+                delta_source["Environment_Count"] == environment_count
+            ]
+            point_data = group[
+                np.isfinite(group[x_column]) & np.isfinite(group[metric])
+            ]
+            axis.axhline(
+                0.0,
+                color="#999999",
+                linewidth=0.9,
+                linestyle="--",
+                zorder=1,
+            )
+            axis.scatter(
+                point_data[x_column],
+                point_data[metric],
+                s=20,
+                marker=STRATEGY_MARKERS["exp_aug"],
+                facecolor=STRATEGY_COLORS["exp_aug"],
+                edgecolor="white",
+                linewidth=0.35,
+                alpha=0.58,
+                rasterized=True,
+                zorder=3,
+            )
+            result = cluster_bootstrap_regression(
+                group,
+                x_column,
+                metric,
+                x_grid,
+                BOOTSTRAP_ITERATIONS,
+                np.random.Generator(
+                    np.random.PCG64(
+                        RANDOM_SEED + metric_index * 1000 + environment_index * 100
+                    )
+                ),
+            )
+            fitted, lower, upper, slope, intercept, rho, n = result
+            if np.isfinite(fitted).any():
+                axis.fill_between(
+                    x_grid,
+                    lower,
+                    upper,
+                    color=STRATEGY_COLORS["exp_aug"],
+                    alpha=0.14,
+                    linewidth=0,
+                    zorder=2,
+                )
+                axis.plot(
+                    x_grid,
+                    fitted,
+                    color=STRATEGY_COLORS["exp_aug"],
+                    linewidth=1.8,
+                    zorder=4,
+                )
+            regression_rows.append(
+                {
+                    "Metric": metric,
+                    "Environment_Count": environment_count,
+                    "N_Paired_Cell_Types": n,
+                    "Excluded_Paired_Cell_Types": int(len(group) - n),
+                    "Linear_Slope": slope,
+                    "Linear_Intercept": intercept,
+                    "Distance_Delta_Spearman": rho,
+                }
+            )
+
+            if metric_index == 0:
+                axis.set_title(f"{environment_count} environments")
+            if environment_index == 0:
+                axis.set_ylabel(f"{row_title}\n{ylabel}")
+            axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
+            axis.text(
+                0.01,
+                0.98,
+                chr(ord("a") + panel_index),
+                transform=axis.transAxes,
+                fontsize=10,
+                fontweight="bold",
+                va="top",
+                ha="left",
+            )
+            panel_index += 1
+
+    figure.text(
+        0.5,
+        0.965,
+        "Δ performance = Mask + interpolation − Zero expression",
+        ha="center",
+        va="top",
+        fontsize=8,
+    )
+    figure.supxlabel(
+        "Distance to nearest training environment",
+        x=0.5,
+        y=0.06,
+        fontsize=8,
+    )
+    figure.text(
+        0.5,
+        -0.01,
+        "Points are paired held-out cell types; bands are cell-bootstrap 95% CIs.",
+        ha="center",
+        fontsize=6.5,
+    )
+    figure.tight_layout(rect=(0, 0.10, 1, 0.92), h_pad=1.2, w_pad=1.2)
     save_publication_figure(figure, output_prefix)
     plt.close(figure)
     return pd.DataFrame.from_records(regression_rows)
@@ -1737,6 +1925,17 @@ def main() -> None:
     )
     regression_summary.to_csv(
         OUTPUT_DIR / "zero_shot_distance_regression.csv", index=False
+    )
+    delta_source = build_zero_shot_delta_source(cell_metrics)
+    delta_source.to_csv(
+        OUTPUT_DIR / "zero_shot_distance_delta_curve_source.csv", index=False
+    )
+    delta_regression = plot_zero_shot_delta_curves(
+        delta_source,
+        figure_dir / "zero_shot_distance_delta_shape_and_scale",
+    )
+    delta_regression.to_csv(
+        OUTPUT_DIR / "zero_shot_distance_delta_regression.csv", index=False
     )
 
     print("\nEnvironment-diversity evaluation complete.")

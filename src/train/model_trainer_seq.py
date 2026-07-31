@@ -187,7 +187,8 @@ class Trainer:
             print(
                 "[Trainer] expression augmentation: "
                 f"continuous_interpolation={self.expr_interpolation_perc:.3f} "
-                f"among non-zero samples, noise_std={self.expr_noise_std:.3f}"
+                f"among non-zero samples, noise_std={self.expr_noise_std:.3f}, "
+                "order=strength_then_noise"
             )
             print(
                 f"[Trainer] alpha curriculum={self.alpha_limit[0]:.3f}->{self.alpha_limit[1]:.3f} "

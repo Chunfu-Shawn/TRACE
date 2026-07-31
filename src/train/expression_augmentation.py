@@ -13,12 +13,12 @@ def augment_expression_batch(
     interpolation_probability: float,
     noise_std: float = 0.0,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
-    """Mix selected non-masked vectors continuously between zero and real expression.
+    """Attenuate selected expression vectors before adding Gaussian noise.
 
     Strictly masked samples remain exactly zero. Other samples retain their full
     expression vector or, with ``interpolation_probability``, receive a scalar
-    strength sampled uniformly from [0, 1]. Gaussian noise is applied before
-    scaling so the zero endpoint remains exact.
+    strength sampled uniformly from [0, 1]. Gaussian noise is added after the
+    strength is applied so attenuation changes the expression-to-noise ratio.
     """
     if expression_batch.ndim != 2:
         raise ValueError(
@@ -53,11 +53,13 @@ def augment_expression_batch(
         strengths = torch.where(interpolation_mask, sampled_strengths, strengths)
     strengths[zero_mask] = 0.0
 
-    augmented = expression_batch
+    augmented = expression_batch * strengths.to(
+        dtype=expression_batch.dtype
+    ).unsqueeze(1)
     if noise_std > 0:
         noise = (
             torch.randn_like(expression_batch, dtype=torch.float32) * float(noise_std)
         )
         augmented = augmented + noise.to(dtype=expression_batch.dtype)
-    augmented = augmented * strengths.to(dtype=expression_batch.dtype).unsqueeze(1)
+    augmented[zero_mask] = 0.0
     return augmented, strengths

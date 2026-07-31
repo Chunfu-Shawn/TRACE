@@ -198,13 +198,52 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
                 cell_metrics,
                 Path("distance"),
             )
+            delta_source = environment_diversity.build_zero_shot_delta_source(
+                cell_metrics
+            )
+            delta_regression = environment_diversity.plot_zero_shot_delta_curves(
+                delta_source,
+                Path("delta_distance"),
+            )
 
         self.assertEqual(len(model_metrics), 9)
         self.assertTrue((model_metrics["RNA_N"] == 0).all())
         self.assertTrue(model_metrics["Mean_RNA_Profile_Spearman"].isna().all())
         self.assertTrue(model_metrics["Mean_CDS_Profile_Spearman"].isna().all())
         self.assertEqual(len(regression), 18)
-        self.assertEqual(save_figure.call_count, 2)
+        self.assertEqual(len(delta_regression), 6)
+        self.assertEqual(save_figure.call_count, 3)
+
+    def test_zero_shot_delta_is_exp_aug_minus_zero(self):
+        source = pd.DataFrame(
+            [
+                {
+                    "Environment_Count": 5,
+                    "Strategy": "zero",
+                    "Cell_Type": "cell_a",
+                    "Nearest_Training_Cell": "train_a",
+                    "Nearest_Cosine_Distance": 0.2,
+                    "Expression_Coverage": 0.8,
+                    "Mean_CDS_Profile_Spearman": 0.3,
+                    "CDS_Mean_Scale_Spearman": 0.4,
+                },
+                {
+                    "Environment_Count": 5,
+                    "Strategy": "exp_aug",
+                    "Cell_Type": "cell_a",
+                    "Nearest_Training_Cell": "train_a",
+                    "Nearest_Cosine_Distance": 0.2,
+                    "Expression_Coverage": 0.8,
+                    "Mean_CDS_Profile_Spearman": 0.35,
+                    "CDS_Mean_Scale_Spearman": 0.32,
+                },
+            ]
+        )
+
+        delta = environment_diversity.build_zero_shot_delta_source(source).iloc[0]
+
+        self.assertAlmostEqual(delta["Delta_Mean_CDS_Profile_Spearman"], 0.05)
+        self.assertAlmostEqual(delta["Delta_CDS_Mean_Scale_Spearman"], -0.08)
 
     def test_transcript_metrics_are_reused_without_re_evaluation(self):
         with tempfile.TemporaryDirectory() as directory:

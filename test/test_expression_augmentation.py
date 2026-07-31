@@ -56,3 +56,24 @@ def test_disabled_interpolation_keeps_unmasked_expression():
     assert torch.equal(augmented[~zero_mask], expression[~zero_mask])
     assert torch.equal(augmented[zero_mask], torch.zeros_like(augmented[zero_mask]))
     assert torch.equal(strengths[~zero_mask], torch.ones_like(strengths[~zero_mask]))
+
+
+def test_noise_is_added_after_expression_strength():
+    torch.manual_seed(11)
+    expression = torch.ones(8, 3)
+    zero_mask = torch.zeros(8, dtype=torch.bool)
+    augmented, strengths = augment_expression_batch(
+        expression,
+        zero_mask,
+        interpolation_probability=1.0,
+        noise_std=0.2,
+    )
+
+    torch.manual_seed(11)
+    torch.rand(8)
+    expected_strengths = torch.rand(8)
+    expected_noise = torch.randn_like(expression) * 0.2
+    expected = expression * expected_strengths.unsqueeze(1) + expected_noise
+
+    assert torch.equal(strengths, expected_strengths)
+    assert torch.allclose(augmented, expected)
