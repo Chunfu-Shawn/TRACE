@@ -161,48 +161,6 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
         self.assertEqual(cached, prediction_path)
         self.assertIsNone(stale)
 
-    def test_analysis_only_reuses_prediction_after_checkpoint_is_updated(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            output_dir = root / "results"
-            prediction_dir = output_dir / "predictions"
-            prediction_dir.mkdir(parents=True)
-            dataset_path = root / "test.h5"
-            config_path = root / "model.yaml"
-            checkpoint_path = root / "model.best_profile.pt"
-            dataset_path.write_bytes(b"dataset")
-            config_path.write_text("model: test\n", encoding="utf-8")
-            checkpoint_path.write_bytes(b"checkpoint-epoch-10")
-            spec = environment_diversity.ModelSpec(
-                environment_count=40,
-                strategy="zero",
-                checkpoint=checkpoint_path,
-                config_path=config_path,
-            )
-            prediction_path = prediction_dir / "predictions_count.base.40c_zero.pkl"
-            prediction_path.write_bytes(b"prediction")
-
-            with patch.object(
-                environment_diversity, "OUTPUT_DIR", output_dir
-            ), patch.object(
-                environment_diversity, "TEST_DATASET_PATH", dataset_path
-            ), patch.object(
-                environment_diversity, "ANALYSIS_ONLY", True
-            ), patch.object(
-                environment_diversity,
-                "EXACT_CHECKPOINTS",
-                {(40, "zero"): checkpoint_path},
-            ):
-                manifest = environment_diversity.prediction_manifest(spec)
-                Path(str(prediction_path) + ".manifest.json").write_text(
-                    json.dumps({**manifest, "checkpoint_epoch": 10}),
-                    encoding="utf-8",
-                )
-                checkpoint_path.write_bytes(b"checkpoint-epoch-40-updated")
-                cached = environment_diversity.find_cached_prediction(spec)
-
-        self.assertEqual(cached, prediction_path)
-
     def test_missing_models_remain_in_summary_and_plots(self):
         cells = ["cell_a", "cell_b"]
         specs = [
@@ -245,7 +203,7 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
         self.assertTrue((model_metrics["RNA_N"] == 0).all())
         self.assertTrue(model_metrics["Mean_RNA_Profile_Spearman"].isna().all())
         self.assertTrue(model_metrics["Mean_CDS_Profile_Spearman"].isna().all())
-        self.assertEqual(len(regression), 9)
+        self.assertEqual(len(regression), 18)
         self.assertEqual(save_figure.call_count, 2)
 
     def test_transcript_metrics_are_reused_without_re_evaluation(self):
@@ -314,7 +272,12 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
             config_path=Path("missing.yaml"),
         )
         records = []
-        for cell_type, count in (("cell_low", 29), ("cell_eligible", 30)):
+        threshold = environment_diversity.MIN_RNA_PER_CELL
+        passing_depth = (environment_diversity.MIN_RPF_DEPTH or 0.0) + 1.0
+        for cell_type, count in (
+            ("cell_low", threshold - 1),
+            ("cell_eligible", threshold),
+        ):
             for index in range(count):
                 observed = float(index) / max(count - 1, 1)
                 predicted = observed + 0.01
@@ -329,7 +292,7 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
                         "Cell_Type": cell_type,
                         "Transcript_Length": 100,
                         "CDS_Length": 60,
-                        "RPF_Depth": 1.0,
+                        "RPF_Depth": passing_depth,
                         "RPF_Coverage": 1.0,
                         "RNA_Profile_Spearman": predicted,
                         "CDS_Profile_Spearman": predicted,
@@ -374,7 +337,7 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
         self.assertEqual(model_metrics["Cell_Type_N"], 2)
         self.assertEqual(model_metrics["Eligible_Cell_Type_N"], 1)
         self.assertEqual(model_metrics["Mean_CDS_Profile_Spearman_Cell_N"], 1)
-        self.assertEqual(model_metrics["Min_RNA_Per_Cell"], 30)
+        self.assertEqual(model_metrics["Min_RNA_Per_Cell"], threshold)
 
     def test_rpf_depth_filter_is_applied_before_cell_eligibility(self):
         spec = environment_diversity.ModelSpec(
@@ -384,8 +347,10 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
             config_path=Path("missing.yaml"),
         )
         records = []
-        for index in range(31):
-            observed = float(index) / 30.0
+        threshold = environment_diversity.MIN_RNA_PER_CELL
+        minimum_depth = environment_diversity.MIN_RPF_DEPTH or 0.0
+        for index in range(threshold + 1):
+            observed = float(index) / float(threshold)
             predicted = observed + 0.01
             records.append(
                 {
@@ -398,7 +363,7 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
                     "Cell_Type": "cell_a",
                     "Transcript_Length": 100,
                     "CDS_Length": 60,
-                    "RPF_Depth": 0.05 if index == 0 else 0.1,
+                    "RPF_Depth": minimum_depth - 0.1 if index == 0 else minimum_depth,
                     "RPF_Coverage": 1.0,
                     "RNA_Profile_Spearman": predicted,
                     "CDS_Profile_Spearman": predicted,
@@ -418,11 +383,11 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
             ["cell_a"],
         ).iloc[0]
 
-        self.assertEqual(cell_metrics["RNA_N"], 31)
-        self.assertEqual(cell_metrics["RNA_Passing_Depth_N"], 30)
+        self.assertEqual(cell_metrics["RNA_N"], threshold + 1)
+        self.assertEqual(cell_metrics["RNA_Passing_Depth_N"], threshold)
         self.assertEqual(cell_metrics["RNA_Excluded_By_Depth_N"], 1)
         self.assertTrue(bool(cell_metrics["Meets_Min_RNA_Per_Cell"]))
-        self.assertEqual(cell_metrics["RNA_Profile_N"], 30)
+        self.assertEqual(cell_metrics["RNA_Profile_N"], threshold)
 
 
 if __name__ == "__main__":

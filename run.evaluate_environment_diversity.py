@@ -126,7 +126,6 @@ STRATEGY_COLORS = {
     "exp_aug": "#D67A3A",
 }
 STRATEGY_MARKERS = {"zero": "o", "real": "s", "exp_aug": "^"}
-ENVIRONMENT_MARKERS = {5: "o", 22: "s", 40: "D"}
 
 BATCH_SIZE = 50
 # Cache reuse requires matching dataset, model configuration, strategy, and
@@ -1063,6 +1062,19 @@ PANEL_METRICS = (
     ),
 )
 
+ZERO_SHOT_PANEL_METRICS = (
+    (
+        "Mean_CDS_Profile_Spearman",
+        "CDS profile shape",
+        "Mean per-cell CDS profile Spearman",
+    ),
+    (
+        "CDS_Mean_Scale_Spearman",
+        "CDS signal scale",
+        "Mean per-cell CDS-mean Spearman",
+    ),
+)
+
 
 def quality_filter_description() -> str:
     """Return a concise description of the cell and RNA quality gates."""
@@ -1183,41 +1195,47 @@ def plot_zero_shot_distance_curves(
     cell_metrics: pd.DataFrame,
     output_prefix: Path,
 ) -> pd.DataFrame:
-    """Plot expression distance against zero-shot RNA, CDS, and scale metrics."""
+    """Plot zero-shot CDS shape and scale separately for 5/22/40 environments."""
     x_column = "Nearest_Cosine_Distance"
-    finite_distance = cell_metrics[x_column].replace([np.inf, -np.inf], np.nan).dropna()
-    distance_available = not finite_distance.empty and finite_distance.nunique() >= 2
-    x_grid = (
-        np.linspace(float(finite_distance.min()), float(finite_distance.max()), 200)
-        if distance_available
-        else np.linspace(0.0, 1.0, 2)
+    finite_distance = cell_metrics[x_column].replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna()
+    x_grid = np.linspace(
+        float(finite_distance.min()),
+        float(finite_distance.max()),
+        200,
     )
 
     figure, axes = plt.subplots(
-        1,
-        len(PANEL_METRICS),
-        figsize=(9, 3),
+        len(ZERO_SHOT_PANEL_METRICS),
+        3,
+        figsize=(9, 5.2),
         sharex=True,
+        sharey="row",
     )
     regression_rows = []
-    for panel_index, (axis, (metric, title, ylabel)) in enumerate(
-        zip(axes, PANEL_METRICS)
+    panel_index = 0
+    for metric_index, (metric, row_title, ylabel) in enumerate(
+        ZERO_SHOT_PANEL_METRICS
     ):
-        panel_has_data = False
-        for strategy_index, strategy in enumerate(("zero", "real", "exp_aug")):
-            group = cell_metrics[cell_metrics["Strategy"] == strategy]
-            for environment_count in (5, 22, 40):
-                point_data = group[group["Environment_Count"] == environment_count]
-                point_data = point_data[
-                    np.isfinite(point_data[x_column])
-                    & np.isfinite(point_data[metric])
+        for environment_index, environment_count in enumerate((5, 22, 40)):
+            axis = axes[metric_index, environment_index]
+            environment_data = cell_metrics[
+                cell_metrics["Environment_Count"] == environment_count
+            ]
+
+            for strategy_index, strategy in enumerate(("zero", "real", "exp_aug")):
+                group = environment_data[
+                    environment_data["Strategy"] == strategy
                 ]
-                panel_has_data = panel_has_data or not point_data.empty
+                point_data = group[
+                    np.isfinite(group[x_column]) & np.isfinite(group[metric])
+                ]
                 axis.scatter(
                     point_data[x_column],
                     point_data[metric],
                     s=18,
-                    marker=ENVIRONMENT_MARKERS[environment_count],
+                    marker=STRATEGY_MARKERS[strategy],
                     facecolor=STRATEGY_COLORS[strategy],
                     edgecolor="white",
                     linewidth=0.35,
@@ -1225,7 +1243,6 @@ def plot_zero_shot_distance_curves(
                     rasterized=True,
                     zorder=2,
                 )
-            if distance_available:
                 result = cluster_bootstrap_regression(
                     group,
                     x_column,
@@ -1234,107 +1251,79 @@ def plot_zero_shot_distance_curves(
                     BOOTSTRAP_ITERATIONS,
                     np.random.Generator(
                         np.random.PCG64(
-                            RANDOM_SEED + panel_index * 100 + strategy_index
+                            RANDOM_SEED
+                            + metric_index * 1000
+                            + environment_index * 100
+                            + strategy_index
                         )
                     ),
                 )
-            else:
-                nan_grid = np.full_like(x_grid, np.nan, dtype=np.float64)
-                result = (
-                    nan_grid,
-                    nan_grid,
-                    nan_grid,
-                    np.nan,
-                    np.nan,
-                    np.nan,
-                    0,
+                fitted, lower, upper, slope, intercept, rho, n = result
+                if np.isfinite(fitted).any():
+                    axis.fill_between(
+                        x_grid,
+                        lower,
+                        upper,
+                        color=STRATEGY_COLORS[strategy],
+                        alpha=0.10,
+                        linewidth=0,
+                        zorder=1,
+                    )
+                    axis.plot(
+                        x_grid,
+                        fitted,
+                        color=STRATEGY_COLORS[strategy],
+                        linewidth=1.8,
+                        zorder=3,
+                    )
+                regression_rows.append(
+                    {
+                        "Metric": metric,
+                        "Environment_Count": environment_count,
+                        "Strategy": strategy,
+                        "Strategy_Label": STRATEGY_LABELS[strategy],
+                        "N_Cell_Model_Points": n,
+                        "Excluded_Cell_Model_Points": int(len(group) - n),
+                        "Linear_Slope": slope,
+                        "Linear_Intercept": intercept,
+                        "Distance_Performance_Spearman": rho,
+                    }
                 )
-            fitted, lower, upper, slope, intercept, rho, n = result
-            if np.isfinite(fitted).any():
-                axis.fill_between(
-                    x_grid,
-                    lower,
-                    upper,
-                    color=STRATEGY_COLORS[strategy],
-                    alpha=0.10,
-                    linewidth=0,
-                    zorder=1,
-                )
-                axis.plot(
-                    x_grid,
-                    fitted,
-                    color=STRATEGY_COLORS[strategy],
-                    linewidth=1.8,
-                    zorder=3,
-                )
-            regression_rows.append(
-                {
-                    "Metric": metric,
-                    "Strategy": strategy,
-                    "Strategy_Label": STRATEGY_LABELS[strategy],
-                    "N_Cell_Model_Points": n,
-                    "Excluded_Cell_Model_Points": int(len(group) - n),
-                    "Linear_Slope": slope,
-                    "Linear_Intercept": intercept,
-                    "Distance_Performance_Spearman": rho,
-                }
-            )
 
-        axis.set_title(title)
-        axis.set_ylabel(ylabel)
-        axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
-        if not panel_has_data:
+            if metric_index == 0:
+                axis.set_title(f"{environment_count} environments")
+            if environment_index == 0:
+                axis.set_ylabel(f"{row_title}\n{ylabel}")
+            axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
             axis.text(
-                0.5,
-                0.5,
-                "No evaluated model metrics"
-                if distance_available
-                else "Insufficient expression-distance data",
+                0.01,
+                0.98,
+                chr(ord("a") + panel_index),
                 transform=axis.transAxes,
-                ha="center",
-                va="center",
-                color="#666666",
+                fontsize=10,
+                fontweight="bold",
+                va="top",
+                ha="left",
             )
-        axis.text(
-            0.01,
-            0.98,
-            chr(ord("a") + panel_index),
-            transform=axis.transAxes,
-            fontsize=11,
-            fontweight="bold",
-            va="top",
-            ha="left",
-            bbox={"facecolor": "white", "edgecolor": "none", "pad": 1.0},
-            zorder=10,
-        )
+            panel_index += 1
 
     method_handles = [
         mpl.lines.Line2D(
             [],
             [],
             color=STRATEGY_COLORS[strategy],
+            marker=STRATEGY_MARKERS[strategy],
             linewidth=1.8,
+            markersize=4.5,
             label=STRATEGY_LABELS[strategy],
         )
         for strategy in ("zero", "real", "exp_aug")
     ]
-    environment_handles = [
-        mpl.lines.Line2D(
-            [],
-            [],
-            color="#666666",
-            marker=ENVIRONMENT_MARKERS[count],
-            linestyle="none",
-            markersize=4.5,
-            label=f"{count} cells",
-        )
-        for count in (5, 22, 40)
-    ]
     figure.legend(
-        handles=method_handles + environment_handles,
+        handles=method_handles,
         loc="upper center",
-        ncol=6,
-        bbox_to_anchor=(0.5, 1.03),
+        ncol=3,
+        bbox_to_anchor=(0.5, 1.01),
     )
     figure.supxlabel(
         "Distance to nearest training environment",
@@ -1350,7 +1339,7 @@ def plot_zero_shot_distance_curves(
         ha="center",
         fontsize=6.5,
     )
-    figure.tight_layout(rect=(0, 0.12, 1, 0.93), w_pad=1.5)
+    figure.tight_layout(rect=(0, 0.10, 1, 0.93), h_pad=1.2, w_pad=1.2)
     save_publication_figure(figure, output_prefix)
     plt.close(figure)
     return pd.DataFrame.from_records(regression_rows)
