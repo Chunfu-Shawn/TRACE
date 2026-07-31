@@ -17,6 +17,8 @@ if str(SRC_DIR) not in sys.path:
 
 from data.translation_dataset import TranslationDataset
 from model.base_model import BaseModel
+from model.base_model_hybrid import BaseModelHybrid
+from model.model_modules import AdaZeroEncoderLayer
 from model.prediction_heads import PsiteDensityHead
 
 
@@ -27,7 +29,13 @@ DATASET_PATH = (
     PROJECT_ROOT.parent
     / "dataset/human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.test.h5"
 )
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+MODEL_VARIANT = "base"  # Choose from: "base" or "hybrid".
+MODEL_CONFIG_PATHS = {
+    "base": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+    "hybrid": SRC_DIR
+    / "config/base_model_hybrid_384d_16h_7preln_5preadaln_64env_16ad_bs.yaml",
+}
+MODEL_CONFIG_PATH = MODEL_CONFIG_PATHS[MODEL_VARIANT]
 CHECKPOINT_PATH = (
     PROJECT_ROOT.parent
     / "checkpoint/train/base_model_384d_16h_12l_64env_16ad_bs-"
@@ -37,6 +45,7 @@ CHECKPOINT_PATH = (
 OUTPUT_DIR = PROJECT_ROOT.parent / "results/ablation/adaln_modulation"
 HEAD_HIDDEN_DIM = 384
 CELL_BATCH_SIZE = 32
+MODEL_CLASSES = {"base": BaseModel, "hybrid": BaseModelHybrid}
 
 
 def checkpoint_state_dict(checkpoint):
@@ -54,7 +63,7 @@ def checkpoint_state_dict(checkpoint):
 
 def load_model(device):
     """Create BaseModel, attach its density head, and restore the checkpoint."""
-    model = BaseModel.from_config(str(MODEL_CONFIG_PATH))
+    model = MODEL_CLASSES[MODEL_VARIANT].from_config(str(MODEL_CONFIG_PATH))
     model.add_head(
         "count",
         PsiteDensityHead.create_from_model(model, d_pred_h=HEAD_HIDDEN_DIM),
@@ -137,6 +146,8 @@ def collect_modulation_statistics(model, species, expression, device):
         )
 
         for layer_index, layer in enumerate(model.encoder.encoder_layers, start=1):
+            if not isinstance(layer, AdaZeroEncoderLayer):
+                continue
             for sublayer_index, sublayer in enumerate(layer.sublayers):
                 raw_style = sublayer.adaLN_modulation(compact_style).float()
                 chunks = raw_style.chunk(3, dim=-1)
@@ -157,7 +168,12 @@ def collect_modulation_statistics(model, species, expression, device):
         row.update(summarize_values(values, bound))
         layer_rows.append(row)
 
-    first_sublayer = model.encoder.encoder_layers[0].sublayers[0]
+    first_adaln_layer = next(
+        layer
+        for layer in model.encoder.encoder_layers
+        if isinstance(layer, AdaZeroEncoderLayer)
+    )
+    first_sublayer = first_adaln_layer.sublayers[0]
     overall_bounds = first_sublayer.adaln_modulation_bounds or (None, None, None)
     overall_rows = []
     for name, bound in zip(names, overall_bounds):

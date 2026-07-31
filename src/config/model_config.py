@@ -27,6 +27,7 @@ class ModelConfig:
     expr_dict_path: Optional[str] = None
     n_heads: int = 8
     number_of_layers: int = 6
+    number_of_adaln_layers: Optional[int] = None
     d_ff: int = 1024
     adaptive_dim: int = 32
     p_drop: float = 0.1

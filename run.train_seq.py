@@ -16,6 +16,7 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from model.base_model import BaseModel
+from model.base_model_hybrid import BaseModelHybrid
 from model.prediction_heads import PsiteDensityHead
 from model.translation_base_model_LN import BaseModelLN
 from model.translation_base_model_conv import BaseModelConv
@@ -30,7 +31,7 @@ DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
     # "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
     # "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
@@ -38,27 +39,29 @@ TRAIN_DATASET_FILES = [
 VALID_DATASET_FILES = [
     # "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     # "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
-    "hs_22c_18c_6k_depth0.1_cov0.1_rpm1"
+    "hs_22c_6k_depth0.1_cov0.1_rpm1"
     "_e50_a2_b02_exp_aug"
     # "_e50_a2_b02_real"
     # "_e50_a2_b02_exp_aug"
 )
 
-MODEL_VARIANT = "adaln"  # Choose from: "adaln", "ln", or "conv".
+MODEL_VARIANT = "hybrid"  # Choose from: "adaln", "hybrid", "ln", or "conv".
 MODEL_CONFIG_PATHS = {
     "adaln": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+    "hybrid": SRC_DIR / "config/base_model_hybrid_384d_16h_12l_64env_16ad_bs.yaml",
     "ln": SRC_DIR / "config/base_model_LN_384d_16h_12l.yaml",
     "conv": SRC_DIR / "config/base_model_conv_384d_12l_7k.yaml",
 }
 MODEL_CLASSES = {
     "adaln": BaseModel,
+    "hybrid": BaseModelHybrid,
     "ln": BaseModelLN,
     "conv": BaseModelConv,
 }
@@ -82,8 +85,8 @@ MASK_PERC = {"species": 0.0, "cell": 0.1}
 # MASK_PERC = {"species": 0.1, "cell": 0.1}
 EXPR_NOISE_STD = 0.15
 # EXPR_NOISE_STD = 0.15
-EXPR_INTERPOLATION_PERC = 0.3
-# EXPR_INTERPOLATION_PERC = 0.3
+EXPR_INTERPOLATION_PERC = 0.4
+# EXPR_INTERPOLATION_PERC = 0.4
 FORCE_ZERO_EXPRESSION = False
 # FORCE_ZERO_EXPRESSION = True
 BALANCE_CLASSES = True
