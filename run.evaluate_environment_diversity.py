@@ -128,7 +128,7 @@ STRATEGY_COLORS = {
 STRATEGY_MARKERS = {"zero": "o", "real": "s", "exp_aug": "^"}
 ENVIRONMENT_MARKERS = {5: "o", 22: "s", 40: "D"}
 
-BATCH_SIZE = 1
+BATCH_SIZE = 50
 # Cache reuse requires matching dataset, model configuration, strategy, and
 # checkpoint provenance. New checkpoint versions receive new prediction files.
 REUSE_EXISTING_PREDICTIONS = True
@@ -141,10 +141,10 @@ FAIL_FAST = False
 EXPECTED_TEST_CELL_TYPES = 26
 # Cell-level correlations and means based on fewer RNAs are retained as source
 # rows but excluded from model summaries, confidence intervals, and regressions.
-MIN_RNA_PER_CELL = 30
+MIN_RNA_PER_CELL = 50
 # Apply the same transcript-quality gate to RNA-profile, CDS-profile, scale, and
 # periodicity metrics. Set to None to disable additional depth filtering.
-MIN_RPF_DEPTH: Optional[float] = 0.1
+MIN_RPF_DEPTH: Optional[float] = 0.5
 REQUIRE_DISJOINT_ENVIRONMENTS = True
 HIGH_PERIODICITY_THRESHOLD = 0.60
 BOOTSTRAP_ITERATIONS = 2000
@@ -1080,7 +1080,7 @@ def plot_environment_diversity_curves(
     figure, axes = plt.subplots(
         1,
         len(PANEL_METRICS),
-        figsize=(7.2, 3.05),
+        figsize=(9, 3),
         sharex=True,
     )
     for panel_index, (axis, (metric, title, ylabel)) in enumerate(
@@ -1196,7 +1196,7 @@ def plot_zero_shot_distance_curves(
     figure, axes = plt.subplots(
         1,
         len(PANEL_METRICS),
-        figsize=(7.2, 3.05),
+        figsize=(9, 3),
         sharex=True,
     )
     regression_rows = []

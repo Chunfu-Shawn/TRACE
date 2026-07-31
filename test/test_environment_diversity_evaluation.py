@@ -144,11 +144,11 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
             prediction_path = prediction_dir / "predictions_count.base.5c_zero.pkl"
             prediction_path.write_bytes(b"prediction")
 
-            with patch.object(environment_diversity, "OUTPUT_DIR", output_dir), patch.object(
-                environment_diversity,
-                "TEST_DATASET_PATH",
-                dataset_path,
-            ):
+            with patch.object(
+                environment_diversity, "OUTPUT_DIR", output_dir
+            ), patch.object(
+                environment_diversity, "TEST_DATASET_PATH", dataset_path
+            ), patch.object(environment_diversity, "ANALYSIS_ONLY", False):
                 manifest = environment_diversity.prediction_manifest(spec)
                 Path(str(prediction_path) + ".manifest.json").write_text(
                     json.dumps({**manifest, "checkpoint_epoch": 12}),
@@ -160,6 +160,48 @@ class EnvironmentDiversityEvaluationTests(unittest.TestCase):
 
         self.assertEqual(cached, prediction_path)
         self.assertIsNone(stale)
+
+    def test_analysis_only_reuses_prediction_after_checkpoint_is_updated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output_dir = root / "results"
+            prediction_dir = output_dir / "predictions"
+            prediction_dir.mkdir(parents=True)
+            dataset_path = root / "test.h5"
+            config_path = root / "model.yaml"
+            checkpoint_path = root / "model.best_profile.pt"
+            dataset_path.write_bytes(b"dataset")
+            config_path.write_text("model: test\n", encoding="utf-8")
+            checkpoint_path.write_bytes(b"checkpoint-epoch-10")
+            spec = environment_diversity.ModelSpec(
+                environment_count=40,
+                strategy="zero",
+                checkpoint=checkpoint_path,
+                config_path=config_path,
+            )
+            prediction_path = prediction_dir / "predictions_count.base.40c_zero.pkl"
+            prediction_path.write_bytes(b"prediction")
+
+            with patch.object(
+                environment_diversity, "OUTPUT_DIR", output_dir
+            ), patch.object(
+                environment_diversity, "TEST_DATASET_PATH", dataset_path
+            ), patch.object(
+                environment_diversity, "ANALYSIS_ONLY", True
+            ), patch.object(
+                environment_diversity,
+                "EXACT_CHECKPOINTS",
+                {(40, "zero"): checkpoint_path},
+            ):
+                manifest = environment_diversity.prediction_manifest(spec)
+                Path(str(prediction_path) + ".manifest.json").write_text(
+                    json.dumps({**manifest, "checkpoint_epoch": 10}),
+                    encoding="utf-8",
+                )
+                checkpoint_path.write_bytes(b"checkpoint-epoch-40-updated")
+                cached = environment_diversity.find_cached_prediction(spec)
+
+        self.assertEqual(cached, prediction_path)
 
     def test_missing_models_remain_in_summary_and_plots(self):
         cells = ["cell_a", "cell_b"]
