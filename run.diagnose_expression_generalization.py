@@ -45,6 +45,7 @@ from eval.periodicity_corr import calculate_periodicity
 from eval.psite_pos_wise_corr_depth import _correlation_pair
 from eval.save_prediction_results import _extract_head_tensor
 from model.base_model import BaseModel
+from model.base_model_hybrid import BaseModelHybrid
 from model.prediction_heads import PsiteDensityHead
 
 
@@ -60,7 +61,20 @@ REFERENCE_DATASET_PATHS = [
     DATASET_DIR / "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 
-MODEL_CONFIG_PATH = SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+# Choose "base" for the all-AdaLN model or "hybrid" for the Pre-LN/Pre-AdaLN model.
+MODEL_VARIANT = "base"
+MODEL_CLASSES = {
+    "base": BaseModel,
+    "hybrid": BaseModelHybrid,
+}
+MODEL_CONFIG_PATHS = {
+    "base": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+    "hybrid": SRC_DIR
+    / "config/base_model_hybrid_384d_16h_12l_64env_16ad_bs.yaml",
+}
+MODEL_CONFIG_PATH = MODEL_CONFIG_PATHS[MODEL_VARIANT]
+
+# The checkpoint must match MODEL_VARIANT and MODEL_CONFIG_PATH.
 CHECKPOINT_PATH = (
     PROJECT_ROOT.parent
     / "checkpoint/train"
@@ -101,11 +115,12 @@ def require_files(paths: Iterable[Path], label: str) -> None:
 
 
 def load_model(device: torch.device) -> Tuple[BaseModel, dict]:
-    """Build BaseModel, attach its density head, and restore a checkpoint."""
+    """Build the selected model, attach its density head, and restore a checkpoint."""
     require_files([MODEL_CONFIG_PATH], "model config")
     require_files([CHECKPOINT_PATH], "checkpoint")
 
-    model = BaseModel.from_config(str(MODEL_CONFIG_PATH))
+    model_class = MODEL_CLASSES[MODEL_VARIANT]
+    model = model_class.from_config(str(MODEL_CONFIG_PATH))
     model.add_head(
         "count",
         PsiteDensityHead.create_from_model(model, d_pred_h=HEAD_HIDDEN_DIM),
@@ -642,6 +657,8 @@ def main() -> None:
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
+    print(f"Model variant: {MODEL_VARIANT}")
+    print(f"Model config: {MODEL_CONFIG_PATH}")
     test_dataset = TranslationDataset.from_h5(str(TEST_DATASET_PATH), lazy=True)
 
     reference_vectors = load_expression_vectors(REFERENCE_DATASET_PATHS)
@@ -689,6 +706,8 @@ def main() -> None:
     report = {
         "test_dataset": str(TEST_DATASET_PATH),
         "reference_datasets": [str(path) for path in REFERENCE_DATASET_PATHS],
+        "model_variant": MODEL_VARIANT,
+        "model_config": str(MODEL_CONFIG_PATH),
         "checkpoint": str(CHECKPOINT_PATH),
         "checkpoint_epoch": checkpoint_metadata.get("epoch"),
         "target_cell_types": list(TARGET_CELL_TYPES),

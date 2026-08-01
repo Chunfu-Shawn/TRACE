@@ -47,12 +47,10 @@ VALID_DATASET_FILES = [
 
 DATASET_NAME = (
     "hs_22c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_exp_aug"
-    # "_e50_a2_b02_real"
-    # "_e50_a2_b02_exp_aug"
+    "_e50_a2_b02_exp_aug_i06_m15_balanced"
 )
 
-MODEL_VARIANT = "hybrid"  # Choose from: "adaln", "hybrid", "ln", or "conv".
+MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".
 MODEL_CONFIG_PATHS = {
     "adaln": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
     "hybrid": SRC_DIR / "config/base_model_hybrid_384d_16h_12l_64env_16ad_bs.yaml",
@@ -76,21 +74,17 @@ ALPHA_LIMIT = (0.2, 2.0)
 RANKING_LOSS_WEIGHT = 0.2
 LEARNING_RATE = 1e-3
 LR_WARMUP_PERC = 0.3
-EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1 #* LR_WARMUP_PERC
+EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1
 ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
-MASK_PERC = {"species": 0.0, "cell": 0.1}
-# MASK_PERC = {"species": 0.1, "cell": 0.1}
+MASK_PERC = {"species": 0.0, "cell": 0.15}
 EXPR_NOISE_STD = 0.15
-# EXPR_NOISE_STD = 0.15
-EXPR_INTERPOLATION_PERC = 0.4
-# EXPR_INTERPOLATION_PERC = 0.4
+EXPR_INTERPOLATION_PERC = 0.6
 FORCE_ZERO_EXPRESSION = False
-# FORCE_ZERO_EXPRESSION = True
 BALANCE_CLASSES = True
-RESUME = True
+RESUME = False
 SAVE_EVERY = 1
 PRINT_EVERY = 50
 
