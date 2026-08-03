@@ -31,23 +31,23 @@ DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
     # "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
     # "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
     "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
-    "hs_22c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_exp_aug_i06_m15_balanced"
+    "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
+    "_e50_a2_b02_exp_aug_i04_m15_balanced"
 )
 
 MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".
@@ -80,11 +80,11 @@ WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
 MASK_PERC = {"species": 0.0, "cell": 0.15}
-EXPR_NOISE_STD = 0.15
-EXPR_INTERPOLATION_PERC = 0.6
+EXPR_NOISE_STD = 0.1
+EXPR_INTERPOLATION_PERC = 0.4
 FORCE_ZERO_EXPRESSION = False
 BALANCE_CLASSES = True
-RESUME = False
+RESUME = True
 SAVE_EVERY = 1
 PRINT_EVERY = 50
 

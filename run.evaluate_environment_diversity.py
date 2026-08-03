@@ -88,7 +88,7 @@ HEAD_HIDDEN_DIM = 384
 # default because profile shape is the primary endpoint; change this to
 # ``.best_total.pt`` if total-loss selection is preferred for the final study.
 CHECKPOINT_PREFIX = "base_model_384d_16h_12l_64env_16ad_bs"
-CHECKPOINT_SUFFIX = ".best_profile.pt"
+CHECKPOINT_SUFFIX = ".best_total.pt"
 
 # Exact paths take priority. Add entries here if a rule below matches more than
 # one checkpoint, for example:
@@ -127,7 +127,7 @@ STRATEGY_COLORS = {
 }
 STRATEGY_MARKERS = {"zero": "o", "real": "s", "exp_aug": "^"}
 
-BATCH_SIZE = 50
+BATCH_SIZE = 30
 # Cache reuse requires matching dataset, model configuration, strategy, and
 # checkpoint provenance. New checkpoint versions receive new prediction files.
 REUSE_EXISTING_PREDICTIONS = True
@@ -1041,9 +1041,7 @@ def cluster_bootstrap_regression(
 def save_publication_figure(figure: plt.Figure, output_prefix: Path) -> None:
     """Export editable vector files and a high-resolution PNG preview."""
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
     figure.savefig(output_prefix.with_suffix(".pdf"), bbox_inches="tight")
-    figure.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
 
 
 PANEL_METRICS = (

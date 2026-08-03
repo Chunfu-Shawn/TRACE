@@ -2,7 +2,9 @@
 """Plot configurable Trainer metrics against epoch for multiple TRACE runs.
 
 Edit ``MODEL_RUNS`` and ``PLOT_METRICS`` before running this file on the
-server. Each enabled metric is exported as an independent figure.
+server. Each enabled metric is exported as an independent figure. Use
+``run.evaluate_architecture_ablation.py`` for held-out cell-environment model
+comparisons; this module remains a training-diagnostics plotter.
 """
 
 from __future__ import annotations
@@ -118,10 +120,10 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#78A9CF",
         "linestyle": "--",
-        "enabled": True,
+        "enabled": False,
     },
     {
-        "label": "TRACE (Mask+Interp.)",
+        "label": "TRACE",
         "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b02_exp_aug*.epoch_data.json",
         "dataset": COMPARISON_DATASET,
         "loss_definition": LOSS_DEFINITION,
@@ -136,7 +138,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#9A6FB0",
         "linestyle": "-",
-        "enabled": True,
+        "enabled": False,
     },
     {
         "label": "LN Transformer",
@@ -523,7 +525,7 @@ def plot_metric_curve(
 ):
     """Plot one configured metric against epoch in an independent figure."""
     metric = _metric_config(metric_config)
-    figure, axis = plt.subplots(figsize=(5, 4))
+    figure, axis = plt.subplots(figsize=(4, 4))
     for history in histories:
         y_values = np.asarray(getattr(history, metric["key"]), dtype=float)
         finite = np.isfinite(y_values)
