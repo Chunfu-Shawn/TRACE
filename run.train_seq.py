@@ -47,7 +47,7 @@ VALID_DATASET_FILES = [
 
 DATASET_NAME = (
     "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_exp_aug_i04_m15_balanced"
+    "_e50_a2_b02_exp_aug_i04_m15"
 )
 
 MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".

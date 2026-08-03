@@ -3,8 +3,8 @@
 
 The script resolves one validation-selected checkpoint per model, reuses or
 creates test-set prediction PKLs, calculates RNA-level metrics, aggregates them
-with equal weight per held-out cell type, and draws a two-panel comparison of
-RNA profile Spearman and CDS-mean Spearman.
+with equal weight per held-out cell type, and draws a four-panel comparison of
+RNA profile Spearman, CDS profile Spearman, CDS-mean Spearman, and CDS-mean MAE.
 """
 
 from __future__ import annotations
@@ -115,10 +115,11 @@ MODEL_SPECS = (
             "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b02_real*"
         ),
         color="#78A9CF",
+        enabled=False,
     ),
     ModelSpec(
         model_id="trace_exp_aug",
-        label="TRACE (Mask + interpolation)",
+        label="TRACE",
         model_class=BaseModel,
         config_path=SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
         checkpoint_glob=(
@@ -135,6 +136,7 @@ MODEL_SPECS = (
             "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b0_exp_aug*"
         ),
         color="#9A6FB0",
+        enabled=False,
     ),
     ModelSpec(
         model_id="ln_transformer",
@@ -359,7 +361,7 @@ def evaluate_prediction_file(
     prediction_path: Path,
     spec: ModelSpec,
 ) -> pd.DataFrame:
-    """Calculate RNA profile and CDS-mean values for every matched RNA."""
+    """Calculate RNA/CDS profile and CDS-mean values for every matched RNA."""
     predictions = load_prediction_input(str(prediction_path))
     records = []
     for index in tqdm(range(len(dataset)), desc=f"Evaluate {spec.label}"):
@@ -382,8 +384,10 @@ def evaluate_prediction_file(
 
         target_signal = np.asarray(target_signal[:length], dtype=np.float32)
         prediction_signal = np.asarray(prediction_signal[:length], dtype=np.float32)
-        observed_cds_mean = float(np.mean(target_signal[cds_start:cds_end]))
-        predicted_cds_mean = float(np.mean(prediction_signal[cds_start:cds_end]))
+        target_cds = target_signal[cds_start:cds_end]
+        prediction_cds = prediction_signal[cds_start:cds_end]
+        observed_cds_mean = float(np.mean(target_cds))
+        predicted_cds_mean = float(np.mean(prediction_cds))
         records.append(
             {
                 "Model_ID": spec.model_id,
@@ -395,8 +399,14 @@ def evaluate_prediction_file(
                 "RNA_Profile_Spearman": safe_spearman(
                     prediction_signal, target_signal
                 ),
+                "CDS_Profile_Spearman": safe_spearman(
+                    prediction_cds, target_cds
+                ),
                 "Observed_CDS_Mean_Log1p": observed_cds_mean,
                 "Predicted_CDS_Mean_Log1p": predicted_cds_mean,
+                "CDS_Mean_Absolute_Error": abs(
+                    predicted_cds_mean - observed_cds_mean
+                ),
             }
         )
     return pd.DataFrame.from_records(records)
@@ -408,7 +418,7 @@ def metric_manifest(prediction_path: Path, spec: ModelSpec) -> Dict[str, object]
         "model_id": spec.model_id,
         "prediction": file_fingerprint(prediction_path),
         "test_dataset": file_fingerprint(TEST_DATASET_PATH),
-        "metric_definition": "rna_profile_and_cds_mean_log1p_v1",
+        "metric_definition": "rna_cds_profile_and_cds_mean_log1p_v2",
     }
 
 
@@ -461,8 +471,13 @@ def summarize_cell_types(
             filtered = raw[np.isfinite(depth) & (depth >= MIN_RPF_DEPTH)]
         eligible = len(filtered) >= MIN_RNA_PER_CELL
         rna_profile_n = int(filtered["RNA_Profile_Spearman"].notna().sum())
+        cds_profile_n = int(filtered["CDS_Profile_Spearman"].notna().sum())
         scale_columns = filtered[
-            ["Observed_CDS_Mean_Log1p", "Predicted_CDS_Mean_Log1p"]
+            [
+                "Observed_CDS_Mean_Log1p",
+                "Predicted_CDS_Mean_Log1p",
+                "CDS_Mean_Absolute_Error",
+            ]
         ].apply(pd.to_numeric, errors="coerce")
         scale_mask = np.isfinite(scale_columns).all(axis=1)
         scale_rows = scale_columns[scale_mask]
@@ -477,10 +492,17 @@ def summarize_cell_types(
                 "Meets_Min_RNA_Per_Cell": bool(eligible),
                 "RNA_Profile_N": rna_profile_n,
                 "RNA_Profile_Excluded_N": int(len(filtered) - rna_profile_n),
+                "CDS_Profile_N": cds_profile_n,
+                "CDS_Profile_Excluded_N": int(len(filtered) - cds_profile_n),
                 "CDS_Mean_N": int(len(scale_rows)),
                 "CDS_Mean_Excluded_N": int(len(filtered) - len(scale_rows)),
                 "Mean_RNA_Profile_Spearman": (
                     finite_mean(filtered["RNA_Profile_Spearman"])
+                    if eligible
+                    else float("nan")
+                ),
+                "Mean_CDS_Profile_Spearman": (
+                    finite_mean(filtered["CDS_Profile_Spearman"])
                     if eligible
                     else float("nan")
                 ),
@@ -489,6 +511,11 @@ def summarize_cell_types(
                         scale_rows["Observed_CDS_Mean_Log1p"],
                         scale_rows["Predicted_CDS_Mean_Log1p"],
                     )
+                    if eligible
+                    else float("nan")
+                ),
+                "CDS_Mean_MAE": (
+                    finite_mean(scale_rows["CDS_Mean_Absolute_Error"])
                     if eligible
                     else float("nan")
                 ),
@@ -521,9 +548,14 @@ def summarize_models(
     cell_metrics: pd.DataFrame,
     ordered_specs: Sequence[ModelSpec],
 ) -> pd.DataFrame:
-    """Summarize both endpoints with equal weight per held-out cell type."""
+    """Summarize all endpoints with equal weight per held-out cell type."""
     rows = []
-    metrics = ("Mean_RNA_Profile_Spearman", "CDS_Mean_Spearman")
+    metrics = (
+        "Mean_RNA_Profile_Spearman",
+        "Mean_CDS_Profile_Spearman",
+        "CDS_Mean_Spearman",
+        "CDS_Mean_MAE",
+    )
     for model_index, spec in enumerate(ordered_specs):
         group = cell_metrics[cell_metrics["Model_ID"] == spec.model_id]
         if group.empty:
@@ -560,9 +592,19 @@ PANEL_METRICS = (
         "Mean per-cell RNA profile Spearman",
     ),
     (
+        "Mean_CDS_Profile_Spearman",
+        "CDS profile shape",
+        "Mean CDS profile Spearman",
+    ),
+    (
         "CDS_Mean_Spearman",
         "CDS signal scale",
-        "Mean per-cell CDS-mean Spearman",
+        "CDS-mean Spearman",
+    ),
+    (
+        "CDS_Mean_MAE",
+        "CDS scale error",
+        "CDS-mean MAE",
     ),
 )
 
@@ -578,8 +620,8 @@ def plot_architecture_comparison(
     y_positions = np.arange(len(specs))[::-1]
     figure, axes = plt.subplots(
         1,
-        2,
-        figsize=(7.2, max(2.8, 0.42 * len(specs) + 1.2)),
+        len(PANEL_METRICS),
+        figsize=(12.2, max(2.8, 0.42 * len(specs) + 1.2)),
         sharey=True,
     )
     jitter_rng = np.random.Generator(np.random.PCG64(RANDOM_SEED))
@@ -598,7 +640,6 @@ def plot_architecture_comparison(
                 color=spec.color,
                 alpha=0.28,
                 edgecolors="none",
-                rasterized=True,
                 zorder=1,
             )
 
@@ -638,7 +679,8 @@ def plot_architecture_comparison(
             fontweight="bold",
         )
 
-    axes[1].tick_params(axis="y", labelleft=False)
+    for axis in axes[1:]:
+        axis.tick_params(axis="y", labelleft=False)
     filter_text = f"RPF depth ≥ {MIN_RPF_DEPTH:g}" if MIN_RPF_DEPTH is not None else "all RNAs"
     figure.text(
         0.5,
@@ -649,7 +691,9 @@ def plot_architecture_comparison(
         va="bottom",
         fontsize=6.5,
     )
-    figure.subplots_adjust(left=0.31, right=0.98, bottom=0.18, top=0.88, wspace=0.16)
+    figure.subplots_adjust(
+        left=0.20, right=0.99, bottom=0.18, top=0.88, wspace=0.24
+    )
 
     figure_dir = OUTPUT_DIR / "figures"
     figure_dir.mkdir(parents=True, exist_ok=True)
@@ -777,7 +821,9 @@ def main() -> None:
                 "Model_Label",
                 "Eligible_Cell_Type_N",
                 "Mean_RNA_Profile_Spearman",
+                "Mean_CDS_Profile_Spearman",
                 "CDS_Mean_Spearman",
+                "CDS_Mean_MAE",
             ]
         ].to_string(index=False)
     )
