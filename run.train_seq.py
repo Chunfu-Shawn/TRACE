@@ -47,7 +47,7 @@ VALID_DATASET_FILES = [
 
 DATASET_NAME = (
     "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_exp_aug_i04_m15"
+    "_e50_a2_b02_exp_aug_i03_m15"
 )
 
 MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".
@@ -74,14 +74,14 @@ ALPHA_LIMIT = (0.2, 2.0)
 RANKING_LOSS_WEIGHT = 0.2
 LEARNING_RATE = 1e-3
 LR_WARMUP_PERC = 0.3
-EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1
+EARLY_STOPPING_START_EPOCH = EPOCH_NUM * LR_WARMUP_PERC
 ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9
-MASK_PERC = {"species": 0.0, "cell": 0.15}
+MASK_PERC = {"species": 0.15, "cell": 0.15}
 EXPR_NOISE_STD = 0.1
-EXPR_INTERPOLATION_PERC = 0.4
+EXPR_INTERPOLATION_PERC = 0.3
 FORCE_ZERO_EXPRESSION = False
 BALANCE_CLASSES = True
 RESUME = True

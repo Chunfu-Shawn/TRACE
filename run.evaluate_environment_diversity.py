@@ -1397,24 +1397,14 @@ def plot_zero_shot_delta_curves(
 ) -> pd.DataFrame:
     """Plot ExpAug-minus-Zero performance against expression distance."""
     x_column = "Nearest_Cosine_Distance"
-    finite_distance = delta_source[x_column].replace(
-        [np.inf, -np.inf], np.nan
-    ).dropna()
-    x_grid = np.linspace(
-        float(finite_distance.min()),
-        float(finite_distance.max()),
-        200,
-    )
-
     figure, axes = plt.subplots(
         len(ZERO_SHOT_DELTA_PANEL_METRICS),
         3,
-        figsize=(9, 5.2),
-        sharex=True,
+        figsize=(6, 4),
+        sharex=False,
         sharey="row",
     )
     regression_rows = []
-    panel_index = 0
     for metric_index, (metric, row_title, ylabel) in enumerate(
         ZERO_SHOT_DELTA_PANEL_METRICS
     ):
@@ -1426,6 +1416,14 @@ def plot_zero_shot_delta_curves(
             point_data = group[
                 np.isfinite(group[x_column]) & np.isfinite(group[metric])
             ]
+            if len(point_data):
+                x_grid = np.linspace(
+                    float(point_data[x_column].min()),
+                    float(point_data[x_column].max()),
+                    200,
+                )
+            else:
+                x_grid = np.linspace(0.0, 1.0, 200)
             axis.axhline(
                 0.0,
                 color="#999999",
@@ -1442,7 +1440,6 @@ def plot_zero_shot_delta_curves(
                 edgecolor="white",
                 linewidth=0.35,
                 alpha=0.58,
-                rasterized=True,
                 zorder=3,
             )
             result = cluster_bootstrap_regression(
@@ -1458,6 +1455,14 @@ def plot_zero_shot_delta_curves(
                 ),
             )
             fitted, lower, upper, slope, intercept, rho, n = result
+            if n >= 2 and point_data[x_column].nunique() >= 2:
+                correlation = spearmanr(
+                    point_data[x_column], point_data[metric]
+                )
+                rho = float(correlation.statistic)
+                p_value = float(correlation.pvalue)
+            else:
+                p_value = float("nan")
             if np.isfinite(fitted).any():
                 axis.fill_between(
                     x_grid,
@@ -1484,25 +1489,27 @@ def plot_zero_shot_delta_curves(
                     "Linear_Slope": slope,
                     "Linear_Intercept": intercept,
                     "Distance_Delta_Spearman": rho,
+                    "Distance_Delta_Spearman_P": p_value,
                 }
             )
+
+            if np.isfinite(rho) and np.isfinite(p_value):
+                p_text = f"{p_value:.2e}" if p_value < 0.001 else f"{p_value:.3f}"
+                axis.text(
+                    0.98,
+                    0.97,
+                    f"ρ = {rho:.2f}\nP = {p_text}",
+                    transform=axis.transAxes,
+                    fontsize=6.5,
+                    va="top",
+                    ha="right",
+                )
 
             if metric_index == 0:
                 axis.set_title(f"{environment_count} environments")
             if environment_index == 0:
                 axis.set_ylabel(f"{row_title}\n{ylabel}")
             axis.grid(color="#E7E7E7", linewidth=0.7, zorder=0)
-            axis.text(
-                0.01,
-                0.98,
-                chr(ord("a") + panel_index),
-                transform=axis.transAxes,
-                fontsize=10,
-                fontweight="bold",
-                va="top",
-                ha="left",
-            )
-            panel_index += 1
 
     figure.text(
         0.5,
