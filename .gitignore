@@ -20,3 +20,5 @@ Translatomer/
 
 manuscript*
 *.docx
+
+.codex*/*
