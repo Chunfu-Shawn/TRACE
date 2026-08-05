@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
-from eval.calculate_te import calculate_morf_mean_signal
+from eval.calculate_te import calculate_morf_mean_signal, calculate_morf_codon_mean_signal
 
 
 def _normalize_datasets(dataset):
@@ -236,14 +236,18 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
                 morf_mean_density = calculate_morf_mean_signal(
                     density_profile, m_start, m_end
                 )
+                morf_codon_mean_density = calculate_morf_codon_mean_signal(
+                    density_profile, m_start, m_end
+                )
 
                 metric_key = (tid, cell_type)
                 metric_values = observed_metrics.setdefault(
                     metric_key,
-                    {'te_scale': [], 'mORF_Mean_Density': []},
+                    {'te_scale': [], 'mORF_Mean_Density': [], 'mORF_Codon_Mean_Density': []},
                 )
                 metric_values['te_scale'].append(te_scale_val)
                 metric_values['mORF_Mean_Density'].append(morf_mean_density)
+                metric_values['mORF_Codon_Mean_Density'].append(morf_codon_mean_density)
 
                 # Create rows for observed and requested cell types first. Metric
                 # values are resolved only after every dataset has been scanned.
@@ -257,6 +261,7 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
                         row_data.update(seq_features)
                         row_data['te_scale'] = np.nan
                         row_data['mORF_Mean_Density'] = np.nan
+                        row_data['mORF_Codon_Mean_Density'] = np.nan
                         feature_dict[key] = row_data
 
         metrics_by_cell = {
@@ -270,7 +275,7 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
         for (tid, _), metrics in metrics_by_cell.items():
             transcript_metrics = metrics_by_transcript.setdefault(
                 tid,
-                {'te_scale': [], 'mORF_Mean_Density': []},
+                {'te_scale': [], 'mORF_Mean_Density': [], 'mORF_Codon_Mean_Density': []},
             )
             for metric_name, value in metrics.items():
                 transcript_metrics[metric_name].append(value)
@@ -285,7 +290,7 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
         for (tid, cell_type), row_data in feature_dict.items():
             cell_metrics = metrics_by_cell.get((tid, cell_type))
             fallback_metrics = metrics_by_transcript.get(tid, {})
-            for metric_name in ('te_scale', 'mORF_Mean_Density'):
+            for metric_name in ('te_scale', 'mORF_Mean_Density', 'mORF_Codon_Mean_Density'):
                 cell_value = (
                     cell_metrics.get(metric_name, np.nan)
                     if cell_metrics is not None
@@ -367,6 +372,7 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
                     # No real data to extract, keep them NaN
                     row_data['te_scale'] = np.nan
                     row_data['mORF_Mean_Density'] = np.nan
+                    row_data['mORF_Codon_Mean_Density'] = np.nan
                     feature_dict[key] = row_data
 
     # Convert to DataFrame
@@ -398,7 +404,8 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
     if dataset is not None:
         metrics_to_export.extend([
             ('te_scale', 'baseline_te_scale.csv'),
-            ('mORF_Mean_Density', 'baseline_morf_mean_density.csv') 
+            ('mORF_Mean_Density', 'baseline_morf_mean_density.csv'),
+            ('mORF_Codon_Mean_Density', 'baseline_morf_codon_mean_density.csv'),
         ])
     
     print("\n>>> Exporting Baseline CSVs:")

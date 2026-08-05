@@ -47,6 +47,25 @@ def calculate_morf_mean_signal(density_array, m_start, m_end, eps=1e-6):
 
     return morf_mean
 
+
+def calculate_morf_codon_mean_signal(density_array, m_start, m_end, eps=1e-6):
+    """
+    计算翻译效率 (TE) for frame 0
+    """
+    if m_start >= len(density_array): 
+        return 0.0
+    
+    valid_end = min(len(density_array), m_end)
+    if m_start >= valid_end: 
+        return 0.0
+
+    codon_n = (valid_end - m_start)/3
+    
+    morf_mean = np.mean(density_array[m_start:valid_end:3])/codon_n + eps
+
+    return morf_mean
+
+
 def calculate_morf_median_signal(density_array, m_start, m_end, eps=1e-6):
     """
     计算翻译效率 (TE)
