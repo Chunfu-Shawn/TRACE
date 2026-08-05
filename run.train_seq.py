@@ -29,25 +29,25 @@ from utils import print_param_counts
 # -----------------------------------------------------------------------------
 DATASET_DIR = Path("/public-supool/home/annie/translation_model/dataset")
 TRAIN_DATASET_FILES = [
-    # "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
-    "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    "human_5c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.train.h5",
+    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.train.h5",
 ]
 VALID_DATASET_FILES = [
-    # "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
-    "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    "human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_tissue_22c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_cell_line_18c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "human_cell_line_uncommon_26c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "macaque_4c_6k_depth0.1_cov0.1_rpm1.valid.h5",
+    # "mouse_3c_6k_depth0.1_cov0.1_rpm1.valid.h5",
 ]
 
 DATASET_NAME = (
-    "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1"
-    "_e50_a2_b02_exp_aug_i03_m15"
+    "hs_5c_6k_depth0.1_cov0.1_rpm1"
+    "_e50_a1_b0_exp_aug_i03_m15"
 )
 
 MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".
@@ -70,12 +70,12 @@ HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 50
 EPOCH_NUM = 50
 PATIENCE = 10
-ALPHA_LIMIT = (0.2, 2.0)
-RANKING_LOSS_WEIGHT = 0.2
+ALPHA_LIMIT = (0.2, 1.0)
+RANKING_LOSS_WEIGHT = 0.0
 LEARNING_RATE = 1e-3
 LR_WARMUP_PERC = 0.3
 EARLY_STOPPING_START_EPOCH = EPOCH_NUM * LR_WARMUP_PERC
-ACCUMULATION_STEPS = 1
+ACCUMULATION_STEPS = 2
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
 EPSILON = 1e-9

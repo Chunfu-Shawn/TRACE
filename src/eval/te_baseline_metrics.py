@@ -6,6 +6,27 @@ import torch
 from tqdm import tqdm
 from eval.calculate_te import calculate_morf_mean_signal
 
+
+def _normalize_datasets(dataset):
+    """Return one or more dataset objects as a validated list."""
+    if dataset is None:
+        return []
+    if isinstance(dataset, (list, tuple)):
+        datasets = list(dataset)
+    else:
+        datasets = [dataset]
+    if not datasets:
+        raise ValueError("At least one dataset must be provided.")
+    if any(item is None for item in datasets):
+        raise ValueError("Dataset collections cannot contain None.")
+    return datasets
+
+
+def _finite_mean(values):
+    """Calculate a mean from finite values and return NaN when none exist."""
+    finite_values = [float(value) for value in values if np.isfinite(value)]
+    return float(np.mean(finite_values)) if finite_values else np.nan
+
 #=======================================
 # 1. 基础权重字典配置 (与之前一致)
 # ==========================================
@@ -87,14 +108,16 @@ def calculate_kozak_score(full_seq, cds_start):
 # 3. 核心提取引擎
 # ==========================================
 
-def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines", 
-                                     dataset=None, tx_cds_file=None, 
+def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines",
+                                     dataset=None, tx_cds_file=None,
                                      unlog_data=True, target_cell_types=None):
     """
     Generate baseline features.
-    Priority 1: Use `dataset` to extract real mORF_Mean_Density if available.
+    Priority 1: Use one dataset, or a list/tuple of datasets, to extract real
+    mORF_Mean_Density if available.
     Priority 2: Fallback to `tx_cds_file` to only extract sequence-intrinsic features.
-    If `target_cell_types` is provided, features are broadcasted to these cells (with missing TE as NaN).
+    Target cell types are searched across all datasets. When a transcript is not
+    observed in a target cell type, its mean across observed cell types is used.
     """
     if dataset is None and tx_cds_file is None:
         raise ValueError("You must provide either 'dataset' or 'tx_cds_file'.")
@@ -105,109 +128,174 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
         seqs_dict = pickle.load(f)
         
     feature_dict = {}
-    cells_to_broadcast = set(target_cell_types) if target_cell_types else set()
+    if isinstance(target_cell_types, str):
+        cells_to_broadcast = {target_cell_types}
+    else:
+        cells_to_broadcast = set(target_cell_types) if target_cell_types else set()
+    datasets = _normalize_datasets(dataset)
 
     # ==========================================
     # PATH A: Use Dataset (Preferred)
     # ==========================================
     if dataset is not None:
-        print(f"Extracting baseline features from Dataset (N={len(dataset)})...")
-        for i in tqdm(range(len(dataset))):
-            uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = dataset[i]
-            uuid_str = str(uuid)
-            parts = uuid_str.split('-')
-            
-            if len(parts) < 2: continue
-            tid = parts[0]
-            
-            lookup_tid = tid
-            if lookup_tid not in seqs_dict:
-                tid_no_version = tid.split('.')[0]
-                if tid_no_version in seqs_dict:
-                    lookup_tid = tid_no_version
-                else:
+        total_samples = sum(len(item) for item in datasets)
+        print(
+            f"Extracting baseline features from {len(datasets)} Dataset(s) "
+            f"(N={total_samples})..."
+        )
+        observed_metrics = {}
+        for dataset_index, current_dataset in enumerate(datasets, start=1):
+            progress = tqdm(
+                range(len(current_dataset)),
+                desc=f"Dataset {dataset_index}/{len(datasets)}",
+            )
+            for i in progress:
+                uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = current_dataset[i]
+                uuid_str = str(uuid)
+                parts = uuid_str.split('-')
+
+                if len(parts) < 2:
                     continue
+                tid = parts[0]
+                cell_type = str(cell_type)
+
+                lookup_tid = tid
+                if lookup_tid not in seqs_dict:
+                    tid_no_version = tid.split('.')[0]
+                    if tid_no_version in seqs_dict:
+                        lookup_tid = tid_no_version
+                    else:
+                        continue
                     
-            cds_s = int(meta_info.get("cds_start_pos", -1))
-            cds_e = int(meta_info.get("cds_end_pos", -1))
-            if cds_s == -1 or cds_e == -1: continue
+                cds_s = int(meta_info.get("cds_start_pos", -1))
+                cds_e = int(meta_info.get("cds_end_pos", -1))
+                if cds_s == -1 or cds_e == -1:
+                    continue
                 
-            m_start = max(0, cds_s - 1)
-            m_end = cds_e
-            full_seq = seqs_dict[lookup_tid].upper()
+                m_start = max(0, cds_s - 1)
+                m_end = cds_e
+                full_seq = seqs_dict[lookup_tid].upper()
             
-            if m_start < 0 or m_end > len(full_seq) or m_start >= m_end: continue
+                if m_start < 0 or m_end > len(full_seq) or m_start >= m_end:
+                    continue
             
-            # Sequence Segmentation
-            utr5_seq = full_seq[:m_start]
-            cds_seq = full_seq[m_start:m_end]
-            utr3_seq = full_seq[m_end:]
+                # Sequence Segmentation
+                utr5_seq = full_seq[:m_start]
+                cds_seq = full_seq[m_start:m_end]
+                utr3_seq = full_seq[m_end:]
             
-            cds_len = len(cds_seq)
-            if cds_len <= 0: continue
+                cds_len = len(cds_seq)
+                if cds_len <= 0:
+                    continue
                 
-            # Sequence Features
-            utr5_len = len(utr5_seq)
-            utr3_len = len(utr3_seq)
-            codon_freq_sum = calculate_codon_freq_sum(cds_seq)
-            cds_gc = calculate_gc_content(cds_seq)
-            kozak_score = calculate_kozak_score(full_seq, m_start) 
-            uaug_count = utr5_seq.replace('U', 'T').count('ATG')
+                # Sequence Features
+                utr5_len = len(utr5_seq)
+                utr3_len = len(utr3_seq)
+                codon_freq_sum = calculate_codon_freq_sum(cds_seq)
+                cds_gc = calculate_gc_content(cds_seq)
+                kozak_score = calculate_kozak_score(full_seq, m_start)
+                uaug_count = utr5_seq.replace('U', 'T').count('ATG')
             
-            seq_features = {
-                '5UTR_Length': utr5_len,
-                'Inverse_5UTR_Length': 1000 / (utr5_len + 10),
-                'CDS_Length': cds_len,
-                'Inverse_CDS_Length': 1000 / (cds_len + 10),
-                '3UTR_Length': utr3_len,
-                'Inverse_3UTR_Length': 1000 / (utr3_len + 10),
-                'CAI': codon_freq_sum / cds_len,
-                'CDS_GC_Content': cds_gc,
-                'Inverse_CDS_GC_Content': 1 - cds_gc,
-                'Kozak_Score': kozak_score,
-                'uAUG_Count': uaug_count,
-                'Inverse_uAUG_Count': 10 / (uaug_count + 1)
+                seq_features = {
+                    '5UTR_Length': utr5_len,
+                    'Inverse_5UTR_Length': 1000 / (utr5_len + 10),
+                    'CDS_Length': cds_len,
+                    'Inverse_CDS_Length': 1000 / (cds_len + 10),
+                    '3UTR_Length': utr3_len,
+                    'Inverse_3UTR_Length': 1000 / (utr3_len + 10),
+                    'CAI': codon_freq_sum / cds_len,
+                    'CDS_GC_Content': cds_gc,
+                    'Inverse_CDS_GC_Content': 1 - cds_gc,
+                    'Kozak_Score': kozak_score,
+                    'uAUG_Count': uaug_count,
+                    'Inverse_uAUG_Count': 10 / (uaug_count + 1)
+                }
+
+                # Extract real TE indicators
+                te_scale_val = meta_info.get("te_scale", np.nan)
+                if te_scale_val is not None and not pd.isna(te_scale_val):
+                    te_scale_val = float(te_scale_val)
+                else:
+                    te_scale_val = np.nan
+
+                if isinstance(count_emb, torch.Tensor):
+                    density = count_emb.detach().cpu().numpy()
+                else:
+                    density = np.asarray(count_emb)
+
+                if unlog_data:
+                    density = np.expm1(density.astype(np.float32))
+            
+                if len(density.shape) > 1 and density.shape[1] > 1:
+                    density_profile = np.sum(density, axis=1)
+                elif len(density.shape) > 1 and density.shape[1] == 1:
+                    density_profile = density.flatten()
+                else:
+                    density_profile = density
+                
+                morf_mean_density = calculate_morf_mean_signal(
+                    density_profile, m_start, m_end
+                )
+
+                metric_key = (tid, cell_type)
+                metric_values = observed_metrics.setdefault(
+                    metric_key,
+                    {'te_scale': [], 'mORF_Mean_Density': []},
+                )
+                metric_values['te_scale'].append(te_scale_val)
+                metric_values['mORF_Mean_Density'].append(morf_mean_density)
+
+                # Create rows for observed and requested cell types first. Metric
+                # values are resolved only after every dataset has been scanned.
+                cells_to_process = cells_to_broadcast.copy()
+                cells_to_process.add(cell_type)
+            
+                for ct in cells_to_process:
+                    key = (tid, ct)
+                    if key not in feature_dict:
+                        row_data = {'Tid': tid, 'Cell_Type': ct}
+                        row_data.update(seq_features)
+                        row_data['te_scale'] = np.nan
+                        row_data['mORF_Mean_Density'] = np.nan
+                        feature_dict[key] = row_data
+
+        metrics_by_cell = {
+            key: {
+                metric_name: _finite_mean(values)
+                for metric_name, values in metrics.items()
             }
+            for key, metrics in observed_metrics.items()
+        }
+        metrics_by_transcript = {}
+        for (tid, _), metrics in metrics_by_cell.items():
+            transcript_metrics = metrics_by_transcript.setdefault(
+                tid,
+                {'te_scale': [], 'mORF_Mean_Density': []},
+            )
+            for metric_name, value in metrics.items():
+                transcript_metrics[metric_name].append(value)
+        metrics_by_transcript = {
+            tid: {
+                metric_name: _finite_mean(values)
+                for metric_name, values in metrics.items()
+            }
+            for tid, metrics in metrics_by_transcript.items()
+        }
 
-            # Extract real TE indicators
-            te_scale_val = meta_info.get("te_scale", np.nan)
-            if te_scale_val is not None and not pd.isna(te_scale_val):
-                te_scale_val = float(te_scale_val)
-
-            if isinstance(count_emb, torch.Tensor):
-                density = count_emb.detach().cpu().numpy()
-            else:
-                density = count_emb
-
-            if unlog_data:
-                density = np.expm1(density.astype(np.float32))
-            
-            if len(density.shape) > 1 and density.shape[1] > 1:
-                density_profile = np.sum(density, axis=1)
-            elif len(density.shape) > 1 and density.shape[1] == 1:
-                density_profile = density.flatten()
-            else:
-                density_profile = density
-                
-            morf_mean_density = calculate_morf_mean_signal(density_profile, m_start, m_end)
-
-            # Broadcasting
-            cells_to_process = cells_to_broadcast.copy()
-            cells_to_process.add(cell_type) 
-            
-            for ct in cells_to_process:
-                key = (tid, ct)
-                if key not in feature_dict:
-                    row_data = {'Tid': tid, 'Cell_Type': ct}
-                    row_data.update(seq_features)
-                    row_data['te_scale'] = np.nan
-                    row_data['mORF_Mean_Density'] = np.nan
-                    feature_dict[key] = row_data
-                
-                # Fill real TE values only for the actual cell type present in the dataset
-                if ct == cell_type:
-                    feature_dict[key]['te_scale'] = te_scale_val
-                    feature_dict[key]['mORF_Mean_Density'] = morf_mean_density
+        for (tid, cell_type), row_data in feature_dict.items():
+            cell_metrics = metrics_by_cell.get((tid, cell_type))
+            fallback_metrics = metrics_by_transcript.get(tid, {})
+            for metric_name in ('te_scale', 'mORF_Mean_Density'):
+                cell_value = (
+                    cell_metrics.get(metric_name, np.nan)
+                    if cell_metrics is not None
+                    else np.nan
+                )
+                row_data[metric_name] = (
+                    cell_value
+                    if np.isfinite(cell_value)
+                    else fallback_metrics.get(metric_name, np.nan)
+                )
 
     # ==========================================
     # PATH B: Use tx_cds_file (Fallback)
@@ -333,62 +421,78 @@ def generate_comprehensive_baselines(seq_pkl_path, out_dir="./results/baselines"
 
 def generate_mean_te_baselines(dataset, out_dir="./results/baselines", unlog_data=True):
     """
-    遍历 Dataset，计算真实的 TE，并生成两种统计学基线：
+    遍历一个或多个 Dataset，计算真实的 TE，并生成两种统计学基线：
     1. Transcript-Mean: 计算一个转录本在所有细胞类型中的平均翻译强度，并复制到该转录本的每个细胞记录中。
     2. Cell-Mean: 计算一个细胞类型内所有转录本的平均翻译强度，并复制到该细胞的每个转录本记录中。
     """
     os.makedirs(out_dir, exist_ok=True)
     results = []
-    
-    print(f"Extracting true TE from Dataset (N={len(dataset)})...")
-    for i in tqdm(range(len(dataset))):
-        # 兼容你的 dataset 返回结构
-        uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = dataset[i]
-        uuid_str = str(uuid)
-        parts = uuid_str.split('-')
-        
-        if len(parts) < 2: continue
-        tid = parts[0]
-                
-        cds_s = int(meta_info.get("cds_start_pos", -1))
-        cds_e = int(meta_info.get("cds_end_pos", -1))
-        if cds_s == -1 or cds_e == -1: 
-            continue
-            
-        m_start = max(0, cds_s - 1)
-        m_end = cds_e
-        
-        # 处理 count_emb (真实 Ribo-seq 密度)
-        if isinstance(count_emb, torch.Tensor):
-            truth = count_emb.detach().cpu().numpy()
-        else:
-            truth = count_emb
-            
-        if len(truth.shape) > 1 and truth.shape[1] > 1:
-            truth = np.sum(truth, axis=1)
-        elif len(truth.shape) > 1 and truth.shape[1] == 1:
-            truth = truth.flatten()
-            
-        truth = truth.astype(np.float32)
 
-        # 还原 log 转换的数据 (如果 dataset 里存储的是 log(x+1))
-        if unlog_data:
-            truth = np.expm1(truth)
-            
-        # 计算该样本真实的 TE
-        actual_te = calculate_morf_mean_signal(truth, m_start, m_end)
+    datasets = _normalize_datasets(dataset)
+    total_samples = sum(len(item) for item in datasets)
+    print(
+        f"Extracting true TE from {len(datasets)} Dataset(s) "
+        f"(N={total_samples})..."
+    )
+    for dataset_index, current_dataset in enumerate(datasets, start=1):
+        progress = tqdm(
+            range(len(current_dataset)),
+            desc=f"Dataset {dataset_index}/{len(datasets)}",
+        )
+        for i in progress:
+            uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = current_dataset[i]
+            uuid_str = str(uuid)
+            parts = uuid_str.split('-')
         
-        results.append({
-            'Tid': tid,
-            'Cell_Type': cell_type,
-            'Actual_TE': actual_te
-        })
+            if len(parts) < 2:
+                continue
+            tid = parts[0]
+                
+            cds_s = int(meta_info.get("cds_start_pos", -1))
+            cds_e = int(meta_info.get("cds_end_pos", -1))
+            if cds_s == -1 or cds_e == -1:
+                continue
+            
+            m_start = max(0, cds_s - 1)
+            m_end = cds_e
+        
+            # Convert the observed Ribo-seq density to a one-dimensional profile.
+            if isinstance(count_emb, torch.Tensor):
+                truth = count_emb.detach().cpu().numpy()
+            else:
+                truth = np.asarray(count_emb)
+            
+            if len(truth.shape) > 1 and truth.shape[1] > 1:
+                truth = np.sum(truth, axis=1)
+            elif len(truth.shape) > 1 and truth.shape[1] == 1:
+                truth = truth.flatten()
+            
+            truth = truth.astype(np.float32)
+
+            # Restore values stored as log(x + 1) when requested.
+            if unlog_data:
+                truth = np.expm1(truth)
+            
+            actual_te = calculate_morf_mean_signal(truth, m_start, m_end)
+        
+            results.append({
+                'Tid': tid,
+                'Cell_Type': str(cell_type),
+                'Actual_TE': actual_te
+            })
 
     df_all = pd.DataFrame(results)
     
     if df_all.empty:
         print("No valid Ground Truth TE data extracted.")
         return
+
+    # Collapse duplicate transcript/cell observations before computing means so
+    # every observed cell type receives equal weight across multiple datasets.
+    df_all = (
+        df_all.groupby(['Tid', 'Cell_Type'], as_index=False, sort=False)['Actual_TE']
+        .mean()
+    )
         
     print("\nCalculating statistical means...")
     

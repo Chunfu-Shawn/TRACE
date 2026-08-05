@@ -33,7 +33,7 @@ class DistributedBucketSampler(Sampler):
                  seed=0,
                  cell_types=None,
                  balance_classes=False,
-                 min_sampling_target=6000, 
+                 min_sampling_target=10000, 
                  upsample_minority=False):   
         
         if num_replicas is None:
