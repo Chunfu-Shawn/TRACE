@@ -260,7 +260,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Learning-rate ablation",
     ),
     HyperparameterSpec(
@@ -288,7 +288,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Learning-rate ablation",
     ),
     HyperparameterSpec(
@@ -316,7 +316,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Learning-rate ablation",
     ),
     HyperparameterSpec(
@@ -343,7 +343,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Model-width ablation",
     ),
     HyperparameterSpec(
@@ -370,7 +370,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Attention-head ablation",
     ),
     HyperparameterSpec(
@@ -397,7 +397,7 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=25,
         early_stopping_enabled=False,
-        effective_batch_size=50,
+        effective_batch_size=150,
         notes="Model-width and depth ablation",
     )
     # Add alpha, depth, width, or other ablations here using the same fields.
