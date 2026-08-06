@@ -65,8 +65,8 @@ TEST_DATASET_PATH = (
 CHECKPOINT_SUFFIX = ".best_total.pt"
 BATCH_SIZE = 30
 NUM_TEST_SAMPLES: Optional[int] = None
-MIN_RPF_DEPTH: Optional[float] = 0.5
-MIN_RNA_PER_CELL = 50
+MIN_RPF_DEPTH: Optional[float] = 0.1
+MIN_RNA_PER_CELL = 500
 BOOTSTRAP_ITERATIONS = 2000
 RANDOM_SEED = 42
 REUSE_EXISTING_PREDICTIONS = True
@@ -97,11 +97,13 @@ class HyperparameterSpec:
     ranking_beta: float
     training_environment_n: int
     training_strategy: str
+    learning_rate: Optional[float] = None
     expression_mask_probability: Optional[float] = None
     expression_interpolation_probability: Optional[float] = None
     expression_noise_std: Optional[float] = None
     seed: Optional[int] = None
     requested_epochs: Optional[int] = None
+    early_stopping_enabled: bool = True
     effective_batch_size: Optional[int] = None
     force_zero_expression: bool = False
     notes: str = ""
@@ -169,7 +171,7 @@ MODEL_SPECS = (
         ),
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
-            "hs_5c*a1_b0_exp_aug*"
+            "hs_5c*e50_a1_b0_exp_aug*"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -231,54 +233,172 @@ MODEL_SPECS = (
         seed=42,
         requested_epochs=50,
         notes="Ranking-loss, alpha ablation",
+        enabled=False,
     ),
     HyperparameterSpec(
-        model_id="trace_256d_12l_alpha0_beta0",
-        label="TRACE 256d 12L alpha=0 beta=0",
+        model_id="trace_384d_12l_alpha1_beta0_lr0005",
+        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.005",
+        model_class="BaseModel",
+        config_path=(
+            SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+        ),
+        checkpoint_glob=(
+            "base_model_384d_16h_12l_64env_16ad_bs*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15_lr_sweep*"
+            "_0.005"
+        ),
+        head_hidden_dim=384,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
+        ranking_beta=0.0,
+        training_environment_n=5,
+        training_strategy="Mask + interpolation",
+        learning_rate=0.005,
+        expression_mask_probability=0.15,
+        expression_interpolation_probability=0.3,
+        expression_noise_std=0.1,
+        seed=42,
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Learning-rate ablation",
+    ),
+    HyperparameterSpec(
+        model_id="trace_384d_12l_alpha1_beta0_lr0001",
+        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.001",
+        model_class="BaseModel",
+        config_path=(
+            SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+        ),
+        checkpoint_glob=(
+            "base_model_384d_16h_12l_64env_16ad_bs*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15_lr_sweep*"
+            "_0.001"
+        ),
+        head_hidden_dim=384,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
+        ranking_beta=0.0,
+        training_environment_n=5,
+        training_strategy="Mask + interpolation",
+        learning_rate=0.001,
+        expression_mask_probability=0.15,
+        expression_interpolation_probability=0.3,
+        expression_noise_std=0.1,
+        seed=42,
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Learning-rate ablation",
+    ),
+    HyperparameterSpec(
+        model_id="trace_384d_12l_alpha1_beta0_lr00001",
+        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.0001",
+        model_class="BaseModel",
+        config_path=(
+            SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
+        ),
+        checkpoint_glob=(
+            "base_model_384d_16h_12l_64env_16ad_bs*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15_lr_sweep*"
+            "_0.0001"
+        ),
+        head_hidden_dim=384,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
+        ranking_beta=0.0,
+        training_environment_n=5,
+        training_strategy="Mask + interpolation",
+        learning_rate=0.0001,
+        expression_mask_probability=0.15,
+        expression_interpolation_probability=0.3,
+        expression_noise_std=0.1,
+        seed=42,
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Learning-rate ablation",
+    ),
+    HyperparameterSpec(
+        model_id="trace_256d_12l_alpha1_beta0",
+        label="TRACE 256d 12L alpha=0.1-1 beta=0",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_12l_64env_16ad_bs.yaml"
         ),
         checkpoint_glob=(
             "base_model_256d_16h_12l_64env_16ad_bs*"
-            "hs_5c*a0_b0_exp_aug*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0,
-        macro_alpha_final=0,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
-        requested_epochs=50,
-        notes="Ranking-loss, alpha ablation",
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Model-width ablation",
     ),
     HyperparameterSpec(
-        model_id="trace_256d_6l_alpha0_beta0",
-        label="TRACE 256d 6L alpha=0 beta=0",
+        model_id="trace_256d_8h_12l_alpha1_beta0",
+        label="TRACE 256d 8H 12L alpha=0.1-1 beta=0",
+        model_class="BaseModel",
+        config_path=(
+            SRC_DIR / "config/base_model_256d_8h_12l_64env_16ad_bs.yaml"
+        ),
+        checkpoint_glob=(
+            "base_model_256d_8h_12l_64env_16ad_bs*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
+        ),
+        head_hidden_dim=384,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
+        ranking_beta=0.0,
+        training_environment_n=5,
+        training_strategy="Mask + interpolation",
+        learning_rate=0.001,
+        expression_mask_probability=0.15,
+        expression_interpolation_probability=0.3,
+        expression_noise_std=0.1,
+        seed=42,
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Attention-head ablation",
+    ),
+    HyperparameterSpec(
+        model_id="trace_256d_6l_alpha1_beta0",
+        label="TRACE 256d 6L alpha=0.1-1 beta=0",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_6l_64env_16ad_bs.yaml"
         ),
         checkpoint_glob=(
             "base_model_256d_16h_6l_64env_16ad_bs*"
-            "hs_5c*a0_b0_exp_aug*"
+            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0,
-        macro_alpha_final=0,
+        macro_alpha_start=0.1,
+        macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
-        requested_epochs=50,
-        notes="Ranking-loss, alpha ablation",
+        requested_epochs=25,
+        early_stopping_enabled=False,
+        effective_batch_size=50,
+        notes="Model-width and depth ablation",
     )
     # Add alpha, depth, width, or other ablations here using the same fields.
     # Set checkpoint=Path("/exact/path/model.best_total.pt") when a glob is
@@ -383,6 +503,7 @@ def experiment_metadata(spec: HyperparameterSpec) -> Dict[str, object]:
         "Macro_Alpha_Final": spec.macro_alpha_final,
         "Ranking_Loss_Enabled": spec.ranking_beta > 0,
         "Ranking_Beta": spec.ranking_beta,
+        "Learning_Rate": spec.learning_rate,
         "Training_Environment_N": spec.training_environment_n,
         "Training_Strategy": spec.training_strategy,
         "Expression_Mask_Probability": spec.expression_mask_probability,
@@ -393,6 +514,7 @@ def experiment_metadata(spec: HyperparameterSpec) -> Dict[str, object]:
         "Force_Zero_Expression_at_Test": spec.force_zero_expression,
         "Seed": spec.seed,
         "Requested_Epochs": spec.requested_epochs,
+        "Early_Stopping_Enabled": spec.early_stopping_enabled,
         "Effective_Batch_Size": spec.effective_batch_size,
         "Notes": spec.notes,
     }
@@ -410,6 +532,7 @@ def checkpoint_metadata(metadata: dict) -> Dict[str, object]:
             metadata.get("best_scale_spearman")
         ),
         "Checkpoint_Current_Alpha": scalar_or_nan(metadata.get("current_alpha")),
+        "Checkpoint_Learning_Rate": scalar_or_nan(metadata.get("learning_rate")),
     }
 
 
@@ -435,12 +558,14 @@ SUPPLEMENTARY_COLUMNS = (
     "Macro_Alpha_Final",
     "Ranking_Loss_Enabled",
     "Ranking_Beta",
+    "Learning_Rate",
     "Expression_Mask_Probability",
     "Expression_Interpolation_Probability",
     "Expression_Noise_STD",
     "Force_Zero_Expression_at_Test",
     "Seed",
     "Requested_Epochs",
+    "Early_Stopping_Enabled",
     "Effective_Batch_Size",
     "Checkpoint_Selection",
     "Checkpoint_Epoch",
@@ -448,6 +573,7 @@ SUPPLEMENTARY_COLUMNS = (
     "Best_Validation_Profile_Spearman",
     "Best_Validation_Scale_Spearman",
     "Checkpoint_Current_Alpha",
+    "Checkpoint_Learning_Rate",
     "Test_Dataset",
     "Cell_Type_N",
     "Eligible_Cell_Type_N",
@@ -604,6 +730,7 @@ def main() -> None:
                 "Number_of_Layers",
                 "Macro_Alpha_Final",
                 "Ranking_Beta",
+                "Learning_Rate",
                 "Mean_RNA_Profile_Spearman",
                 "Mean_CDS_Profile_Spearman",
                 "CDS_Mean_Spearman",

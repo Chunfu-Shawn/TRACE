@@ -24,6 +24,24 @@ from train.model_trainer_seq import Trainer
 from utils import print_param_counts
 
 
+def env_float(name, default):
+    """Read an optional floating-point experiment override."""
+    return float(os.environ.get(name, default))
+
+
+def env_int(name, default):
+    """Read an optional integer experiment override."""
+    return int(os.environ.get(name, default))
+
+
+def env_bool(name, default):
+    """Read an optional Boolean experiment override."""
+    value = os.environ.get(name)
+    if value is None:
+        return bool(default)
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 # -----------------------------------------------------------------------------
 # Experiment configuration: edit this section before running the script.
 # -----------------------------------------------------------------------------
@@ -50,6 +68,16 @@ DATASET_NAME = (
     "_e50_a2_b0_exp_aug_i03_m15"
 )
 
+# The environment override is useful for sequential cluster sweeps while the
+# editable constants above remain convenient for ordinary single experiments.
+DATASET_PRESET = os.environ.get("TRACE_DATASET_PRESET", "configured").lower()
+if DATASET_PRESET == "5c":
+    TRAIN_DATASET_FILES = ["human_5c_6k_depth0.1_cov0.1_rpm1.train.h5"]
+    VALID_DATASET_FILES = ["human_5c_6k_depth0.1_cov0.1_rpm1.valid.h5"]
+elif DATASET_PRESET != "configured":
+    raise ValueError("TRACE_DATASET_PRESET must be 'configured' or '5c'")
+DATASET_NAME = os.environ.get("TRACE_DATASET_NAME", DATASET_NAME)
+
 MODEL_VARIANT = "adaln"  # Choose from: "adaln", "hybrid", "ln", or "conv".
 MODEL_CONFIG_PATHS = {
     "adaln": SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
@@ -63,18 +91,22 @@ MODEL_CLASSES = {
     "ln": BaseModelLN,
     "conv": BaseModelConv,
 }
+MODEL_CONFIG_OVERRIDE = os.environ.get("TRACE_MODEL_CONFIG_PATH")
 CHECKPOINT_DIR = PROJECT_ROOT.parent / "checkpoint/train"
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
 
 HEAD_HIDDEN_DIM = 384
 BATCH_SIZE = 50
-EPOCH_NUM = 50
+EPOCH_NUM = env_int("TRACE_EPOCH_NUM", 50)
 PATIENCE = 10
-ALPHA_LIMIT = (0.1, 1)
-RANKING_LOSS_WEIGHT = 0.0
-LEARNING_RATE = 1e-3
+ALPHA_LIMIT = (
+    env_float("TRACE_ALPHA_START", 0.1),
+    env_float("TRACE_ALPHA_FINAL", 1.0),
+)
+RANKING_LOSS_WEIGHT = env_float("TRACE_RANKING_LOSS_WEIGHT", 0.0)
+LEARNING_RATE = env_float("TRACE_LEARNING_RATE", 1e-3)
 LR_WARMUP_PERC = 0.3
-EARLY_STOPPING_START_EPOCH = EPOCH_NUM * LR_WARMUP_PERC
+EARLY_STOPPING_START_EPOCH = int(EPOCH_NUM * LR_WARMUP_PERC) + 1
 ACCUMULATION_STEPS = 1
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
@@ -84,9 +116,13 @@ EXPR_NOISE_STD = 0.1
 EXPR_INTERPOLATION_PERC = 0.3
 FORCE_ZERO_EXPRESSION = False
 BALANCE_CLASSES = True
-RESUME = True
+RESUME = env_bool("TRACE_RESUME", True)
+DISABLE_EARLY_STOPPING = env_bool("TRACE_DISABLE_EARLY_STOPPING", False)
 SAVE_EVERY = 1
 PRINT_EVERY = 50
+
+if DISABLE_EARLY_STOPPING:
+    EARLY_STOPPING_START_EPOCH = EPOCH_NUM + 1
 
 
 def setup_runtime():
@@ -130,7 +166,12 @@ def build_model():
             f"Unknown MODEL_VARIANT={MODEL_VARIANT!r}; "
             f"choose from {sorted(MODEL_CLASSES)}"
         )
-    config_path = MODEL_CONFIG_PATHS[variant]
+    if MODEL_CONFIG_OVERRIDE:
+        config_path = Path(MODEL_CONFIG_OVERRIDE).expanduser()
+        if not config_path.is_absolute():
+            config_path = PROJECT_ROOT / config_path
+    else:
+        config_path = MODEL_CONFIG_PATHS[variant]
     if not config_path.is_file():
         raise FileNotFoundError(f"Model config not found: {config_path}")
     return MODEL_CLASSES[variant].from_config(str(config_path))
@@ -152,6 +193,14 @@ def main():
 
     if rank == 0:
         print(f"Model variant: {MODEL_VARIANT}")
+        print(f"Dataset preset: {DATASET_PRESET}")
+        print(f"Dataset name: {DATASET_NAME}")
+        print(
+            "Model config: "
+            f"{MODEL_CONFIG_OVERRIDE or MODEL_CONFIG_PATHS[MODEL_VARIANT.lower()]}"
+        )
+        print(f"Learning rate: {LEARNING_RATE:g}")
+        print(f"Early stopping disabled: {DISABLE_EARLY_STOPPING}")
         print(model.model_name)
         print(model.list_heads())
         print_param_counts(model)
