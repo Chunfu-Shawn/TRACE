@@ -116,7 +116,7 @@ class HyperparameterSpec:
 MODEL_SPECS = (
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha2_beta02",
-        label="TRACE 384d 12L alpha=2 beta=0.2",
+        label="TRACE 384d 12L alpha=2 beta=0.2 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
@@ -131,16 +131,18 @@ MODEL_SPECS = (
         ranking_beta=0.2,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
         requested_epochs=50,
+        effective_batch_size=100,
         notes="Reference model",
     ),
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha2_beta0",
-        label="TRACE 384d 12L alpha=2 beta=0",
+        label="TRACE 384d 12L alpha=2 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
@@ -155,23 +157,25 @@ MODEL_SPECS = (
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
         requested_epochs=50,
+        effective_batch_size=150,
         notes="Ranking-loss ablation",
     ),
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha1_beta0",
-        label="TRACE 384d 12L alpha=1 beta=0",
+        label="TRACE 384d 12L alpha=1 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
         ),
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
-            "hs_5c*e50_a1_b0_exp_aug*"
+            "hs_5c*e25_a1_b0_exp_aug*"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -179,23 +183,25 @@ MODEL_SPECS = (
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
-        requested_epochs=50,
+        requested_epochs=25,
+        effective_batch_size=150,
         notes="Ranking-loss, alpha ablation",
     ),
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha0.5_beta0",
-        label="TRACE 384d 12L alpha=0.5 beta=0",
+        label="TRACE 384d 12L alpha=0.5 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
         ),
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
-            "hs_5c*a05_b0_exp_aug*"
+            "hs_5c*e25_a05_b0_exp_aug*"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -203,23 +209,25 @@ MODEL_SPECS = (
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
-        requested_epochs=50,
+        requested_epochs=25,
+        effective_batch_size=150,
         notes="Ranking-loss, alpha ablation",
     ),
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha0_beta0",
-        label="TRACE 384d 12L alpha=0 beta=0",
+        label="TRACE 384d 12L alpha=0 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
         ),
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
-            "hs_5c*a0_b0_exp_aug*"
+            "hs_5c*e25_a0_b0_exp_aug*"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0,
@@ -227,17 +235,18 @@ MODEL_SPECS = (
         ranking_beta=0.0,
         training_environment_n=5,
         training_strategy="Mask + interpolation",
+        learning_rate=0.001,
         expression_mask_probability=0.15,
         expression_interpolation_probability=0.3,
         expression_noise_std=0.1,
         seed=42,
-        requested_epochs=50,
-        notes="Ranking-loss, alpha ablation",
-        enabled=False,
+        requested_epochs=25,
+        effective_batch_size=150,
+        notes="Ranking-loss, alpha ablation"
     ),
     HyperparameterSpec(
         model_id="trace_384d_12l_alpha1_beta0_lr0005",
-        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.005",
+        label="TRACE 384d 12L alpha=1 beta=0 lr=0.005",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
@@ -248,7 +257,7 @@ MODEL_SPECS = (
             "_0.005"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0.1,
+        macro_alpha_start=0.2,
         macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
@@ -264,36 +273,8 @@ MODEL_SPECS = (
         notes="Learning-rate ablation",
     ),
     HyperparameterSpec(
-        model_id="trace_384d_12l_alpha1_beta0_lr0001",
-        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.001",
-        model_class="BaseModel",
-        config_path=(
-            SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
-        ),
-        checkpoint_glob=(
-            "base_model_384d_16h_12l_64env_16ad_bs*"
-            "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15_lr_sweep*"
-            "_0.001"
-        ),
-        head_hidden_dim=384,
-        macro_alpha_start=0.1,
-        macro_alpha_final=1.0,
-        ranking_beta=0.0,
-        training_environment_n=5,
-        training_strategy="Mask + interpolation",
-        learning_rate=0.001,
-        expression_mask_probability=0.15,
-        expression_interpolation_probability=0.3,
-        expression_noise_std=0.1,
-        seed=42,
-        requested_epochs=25,
-        early_stopping_enabled=False,
-        effective_batch_size=150,
-        notes="Learning-rate ablation",
-    ),
-    HyperparameterSpec(
         model_id="trace_384d_12l_alpha1_beta0_lr00001",
-        label="TRACE 384d 12L alpha=0.1-1 beta=0 lr=0.0001",
+        label="TRACE 384d 12L alpha=1 beta=0 lr=0.0001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
@@ -304,7 +285,7 @@ MODEL_SPECS = (
             "_0.0001"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0.1,
+        macro_alpha_start=0.2,
         macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
@@ -321,7 +302,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_12l_alpha1_beta0",
-        label="TRACE 256d 12L alpha=0.1-1 beta=0",
+        label="TRACE 256d 12L alpha=1 beta=0",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_12l_64env_16ad_bs.yaml"
@@ -331,7 +312,7 @@ MODEL_SPECS = (
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0.1,
+        macro_alpha_start=0.2,
         macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
@@ -348,7 +329,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_8h_12l_alpha1_beta0",
-        label="TRACE 256d 8H 12L alpha=0.1-1 beta=0",
+        label="TRACE 256d 8H 12L alpha=1 beta=0",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_8h_12l_64env_16ad_bs.yaml"
@@ -358,7 +339,7 @@ MODEL_SPECS = (
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0.1,
+        macro_alpha_start=0.2,
         macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
@@ -375,7 +356,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_6l_alpha1_beta0",
-        label="TRACE 256d 6L alpha=0.1-1 beta=0",
+        label="TRACE 256d 6L alpha=1 beta=0",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_6l_64env_16ad_bs.yaml"
@@ -385,7 +366,7 @@ MODEL_SPECS = (
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
         ),
         head_hidden_dim=384,
-        macro_alpha_start=0.1,
+        macro_alpha_start=0.2,
         macro_alpha_final=1.0,
         ranking_beta=0.0,
         training_environment_n=5,
