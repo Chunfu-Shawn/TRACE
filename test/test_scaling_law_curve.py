@@ -16,7 +16,7 @@ SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
-from plot.scaling_law_curve import (
+from plot.train_metrics_curve import (
     load_run_history,
     parse_epoch_json,
     parse_text_log,
@@ -27,6 +27,48 @@ from plot.scaling_law_curve import (
 
 
 class ScalingLawCurveTests(unittest.TestCase):
+    def test_single_history_is_valid_and_plots_multiple_metrics(self):
+        history = load_run_history(
+            {
+                "label": "TRACE",
+                "dataset": "validation-set",
+                "loss_data": [
+                    {
+                        "epoch": 1,
+                        "train_loss": 0.30,
+                        "valid_loss": 0.25,
+                        "profile_spearman": 0.40,
+                    },
+                    {
+                        "epoch": 2,
+                        "train_loss": 0.20,
+                        "valid_loss": 0.18,
+                        "profile_spearman": 0.55,
+                    },
+                ],
+            }
+        )
+        metric_configs = [
+            {"key": "train_loss", "filename": "train_loss", "best": "min"},
+            {"key": "valid_loss", "filename": "valid_loss", "best": "min"},
+            {
+                "key": "profile_spearman",
+                "filename": "profile_spearman",
+                "best": "max",
+            },
+        ]
+
+        validate_comparison([history])
+        figures = plot_model_metric_curves([history], metric_configs)
+
+        self.assertEqual(
+            set(figures), {"train_loss", "valid_loss", "profile_spearman"}
+        )
+        for figure in figures.values():
+            self.assertEqual(len(figure.axes[0].lines), 1)
+            self.assertEqual(figure.axes[0].lines[0].get_label(), "TRACE")
+            plt.close(figure)
+
     def test_current_json_structure_and_resume_duplicates(self):
         payload = [
             {

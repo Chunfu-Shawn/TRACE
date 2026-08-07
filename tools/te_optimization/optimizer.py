@@ -6,10 +6,9 @@ import argparse
 import numpy as np
 import torch
 import pandas as pd
-from typing import Callable, Tuple, List, Optional, Dict
+from typing import Any, Callable, Tuple, List, Optional, Dict
 import sys
 import matplotlib.pyplot as plt
-import heapq
 
 # Model Loading and Environment Configuration
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -404,6 +403,128 @@ class BatchedBeamOptimizer:
 
         return "".join(seq_list)
 
+    @staticmethod
+    def _edit_distance_bin(total_edits: int) -> str:
+        """Return a compact label for edit-distance-stratified candidate archives."""
+        if total_edits <= 2:
+            return "0-2"
+        if total_edits <= 5:
+            return "3-5"
+        if total_edits <= 10:
+            return "6-10"
+        if total_edits <= 20:
+            return "11-20"
+        return "21+"
+
+    @classmethod
+    def _mutation_load(
+        cls, seq: str, wt_seq: str, cds_start: int, cds_end: int,
+        cds_mutable_codon_count: int, active_unit_count: int,
+    ) -> Dict[str, Any]:
+        """Measure cumulative edits relative to WT using nucleotides for UTRs and codons for CDS."""
+        utr5_edits = sum(a != b for a, b in zip(seq[:cds_start], wt_seq[:cds_start]))
+        utr3_edits = sum(a != b for a, b in zip(seq[cds_end:], wt_seq[cds_end:]))
+        cds_codon_edits = sum(
+            seq[pos:pos + 3] != wt_seq[pos:pos + 3]
+            for pos in range(cds_start, cds_end, 3)
+        )
+        cds_nt_edits = sum(
+            a != b for a, b in zip(seq[cds_start:cds_end], wt_seq[cds_start:cds_end])
+        )
+        total_design_edits = utr5_edits + cds_codon_edits + utr3_edits
+
+        utr5_units = cds_start
+        utr3_units = len(wt_seq) - cds_end
+        return {
+            "utr5_edits": int(utr5_edits),
+            "cds_codon_edits": int(cds_codon_edits),
+            "cds_nt_edits": int(cds_nt_edits),
+            "utr3_edits": int(utr3_edits),
+            "total_design_edits": int(total_design_edits),
+            "utr5_edit_fraction": utr5_edits / max(utr5_units, 1),
+            "cds_edit_fraction": cds_codon_edits / max(cds_mutable_codon_count, 1),
+            "utr3_edit_fraction": utr3_edits / max(utr3_units, 1),
+            "total_mutation_burden": total_design_edits / max(active_unit_count, 1),
+            "edit_distance_bin": cls._edit_distance_bin(total_design_edits),
+        }
+
+    @staticmethod
+    def _pareto_front_indices(records: List[Dict[str, Any]]) -> List[int]:
+        """Return non-dominated indices for minimizing burden and maximizing adjusted gain."""
+        ranked_indices = sorted(
+            range(len(records)),
+            key=lambda idx: (
+                records[idx]["total_mutation_burden"],
+                -records[idx]["prior_adjusted_gain"],
+                -records[idx]["target_te"],
+                records[idx]["sequence"],
+            ),
+        )
+        front = []
+        best_gain = -np.inf
+        for idx in ranked_indices:
+            gain = records[idx]["prior_adjusted_gain"]
+            if gain > best_gain + 1e-12:
+                front.append(idx)
+                best_gain = gain
+        return front
+
+    @staticmethod
+    def _select_pareto_knee(
+        records: List[Dict[str, Any]], front_indices: List[int]
+    ) -> int:
+        """Select the maximum-curvature point on a normalized two-objective Pareto front."""
+        if not front_indices:
+            raise ValueError("Cannot select a Pareto knee from an empty front.")
+        if len(front_indices) == 1:
+            return front_indices[0]
+
+        ordered = sorted(
+            front_indices,
+            key=lambda idx: (
+                records[idx]["total_mutation_burden"],
+                records[idx]["prior_adjusted_gain"],
+            ),
+        )
+        burdens = np.array(
+            [records[idx]["total_mutation_burden"] for idx in ordered], dtype=float
+        )
+        gains = np.array([records[idx]["prior_adjusted_gain"] for idx in ordered], dtype=float)
+
+        burden_span = float(np.ptp(burdens))
+        gain_span = float(np.ptp(gains))
+        if len(ordered) < 3 or burden_span <= 1e-12 or gain_span <= 1e-12:
+            return max(
+                ordered,
+                key=lambda idx: (
+                    records[idx]["prior_adjusted_gain"]
+                    / max(records[idx]["total_mutation_burden"], 1e-12),
+                    records[idx]["prior_adjusted_gain"],
+                    -records[idx]["total_mutation_burden"],
+                ),
+            )
+
+        x = (burdens - burdens.min()) / burden_span
+        y = (gains - gains.min()) / gain_span
+        start = np.array([x[0], y[0]])
+        end = np.array([x[-1], y[-1]])
+        chord = end - start
+        chord_norm = float(np.linalg.norm(chord))
+        points = np.column_stack((x, y))
+        offsets = points - start
+        distances = np.abs(
+            chord[0] * offsets[:, 1] - chord[1] * offsets[:, 0]
+        ) / chord_norm
+        max_distance = float(np.max(distances))
+        knee_positions = np.flatnonzero(np.isclose(distances, max_distance, atol=1e-12))
+        return max(
+            (ordered[int(pos)] for pos in knee_positions),
+            key=lambda idx: (
+                records[idx]["prior_adjusted_gain"],
+                -records[idx]["total_mutation_burden"],
+            ),
+        )
+
     def optimize(
         self, full_seq: str, cds_start: int, cds_end: int, 
         mode: int = 1, iterations: int = 200, batch_size: int = 128, 
@@ -431,8 +552,13 @@ class BatchedBeamOptimizer:
         aug_context_weight: float = 0.1, specificity_weight: float = 1.0,
         consistency_tolerance: float = 0.1, utr5_tolerance: float = 0.1,
         aug_context_tolerance: float = 0.1, min_gain: float = 0.01,
-        patience: int = 50, top_k_size: int = 100,
-        max_candidate_attempts: Optional[int] = None
+        patience: int = 50, max_candidate_attempts: Optional[int] = None,
+        max_lineage_depth: int = 10,
+        max_utr5_mutation_fraction: float = 0.10,
+        max_cds_mutation_fraction: float = 0.10,
+        max_utr3_mutation_fraction: float = 0.10,
+        max_total_mutation_fraction: float = 0.10,
+        high_te_exclusion_fraction: float = 0.20,
     ) -> Tuple[str, float, List[Dict], List[float], List[float]]:
         
         self.set_seed(self.seed)
@@ -450,8 +576,24 @@ class BatchedBeamOptimizer:
             utr5_penalty_weight, aug_context_weight, specificity_weight,
         )):
             raise ValueError("Fitness weights must be non-negative.")
-        if batch_size < 1 or beam_width < 1 or top_k_size < 1:
-            raise ValueError("batch_size, beam_width, and top_k_size must be positive.")
+        if batch_size < 1 or beam_width < 1:
+            raise ValueError("batch_size and beam_width must be positive.")
+        if iterations < 0 or patience < 0:
+            raise ValueError("iterations and patience must be non-negative.")
+        if max_candidate_attempts is not None and max_candidate_attempts < 1:
+            raise ValueError("max_candidate_attempts must be positive when provided.")
+        if max_lineage_depth < 1:
+            raise ValueError("max_lineage_depth must be at least 1.")
+        mutation_fraction_limits = (
+            max_utr5_mutation_fraction,
+            max_cds_mutation_fraction,
+            max_utr3_mutation_fraction,
+            max_total_mutation_fraction,
+        )
+        if any(not 0.0 <= value <= 1.0 for value in mutation_fraction_limits):
+            raise ValueError("Cumulative mutation fractions must be between 0 and 1.")
+        if not 0.0 <= high_te_exclusion_fraction < 1.0:
+            raise ValueError("high_te_exclusion_fraction must be in [0, 1).")
 
         if mutation_rate is not None:
             utr5_base_rate = mutation_rate
@@ -499,6 +641,47 @@ class BatchedBeamOptimizer:
         if mode == 5 and utr5_length + utr3_length == 0:
             raise ValueError("UTR-only mode requires at least one non-empty UTR.")
 
+        active_units_by_mode = {
+            1: utr5_length + cds_mutable_codon_count + utr3_length,
+            2: cds_mutable_codon_count,
+            3: utr5_length,
+            4: utr3_length,
+            5: utr5_length + utr3_length,
+        }
+        active_unit_count = active_units_by_mode[mode]
+
+        def mutation_limit(unit_count: int, fraction: float) -> int:
+            if unit_count <= 0 or fraction <= 0.0:
+                return 0
+            return min(unit_count, int(math.ceil(unit_count * fraction)))
+
+        mutation_limits = {
+            "utr5_edits": mutation_limit(utr5_length, max_utr5_mutation_fraction),
+            "cds_codon_edits": mutation_limit(
+                cds_mutable_codon_count, max_cds_mutation_fraction
+            ),
+            "utr3_edits": mutation_limit(utr3_length, max_utr3_mutation_fraction),
+            "total_design_edits": mutation_limit(
+                active_unit_count, max_total_mutation_fraction
+            ),
+        }
+
+        def mutation_load(seq: str) -> Dict[str, Any]:
+            return self._mutation_load(
+                seq,
+                current_seq,
+                cds_start,
+                cds_end,
+                cds_mutable_codon_count,
+                active_unit_count,
+            )
+
+        def within_mutation_budget(seq: str) -> bool:
+            load = mutation_load(seq)
+            return all(
+                load[name] <= limit for name, limit in mutation_limits.items()
+            )
+
         available_region_count = sum((
             cds_mutable_codon_count > 0,
             utr5_length > 0,
@@ -536,6 +719,14 @@ class BatchedBeamOptimizer:
         print(
             "Mutation operator mixture: "
             + ", ".join(f"{name}={weight:.1%}" for name, weight in operator_weights.items())
+        )
+        print(
+            "Cumulative WT-relative mutation limits | "
+            f"5'UTR nt={mutation_limits['utr5_edits']} | "
+            f"CDS codons={mutation_limits['cds_codon_edits']} | "
+            f"3'UTR nt={mutation_limits['utr3_edits']} | "
+            f"total active-unit edits={mutation_limits['total_design_edits']}/{active_unit_count} | "
+            f"maximum lineage depth={max_lineage_depth}"
         )
         if self.valid_negative_cell_types:
             print(f"Target: {self.target_cell_type} | Negative Targets: {', '.join(self.valid_negative_cell_types)} | Spec. Weight: {specificity_weight}")
@@ -601,9 +792,69 @@ class BatchedBeamOptimizer:
         wt_true_fit, wt_true_te = wt_metrics[0], wt_metrics[1]
         print(f"Baseline (WT) Target TE: {wt_true_te:.4f} | Baseline Fitness: {wt_true_fit:.4f}")
 
-        top_k_heap = []
-        seen_in_top_k = set()
-        sequence_origin = {current_seq: "wt"}
+        sequence_metadata = {
+            current_seq: {
+                "parent_sequence": None,
+                "generation": 0,
+                "lineage_depth": 0,
+                "mutation_operator": "wt",
+            }
+        }
+        candidate_archive = {}
+
+        def archive_candidate(seq: str, metric: Tuple[float, float, float, float]) -> None:
+            if seq in candidate_archive:
+                return
+            fit, te, neg_te, spec_fc = metric
+            metadata = sequence_metadata[seq]
+            parent_sequence = metadata["parent_sequence"]
+            load = mutation_load(seq)
+            log2_te_gain = float(np.log2(max(te / (wt_true_te + eps), eps)))
+            prior_adjusted_gain = float(fit - wt_true_fit)
+            candidate_archive[seq] = {
+                "candidate_id": len(candidate_archive),
+                "parent_candidate_id": (
+                    candidate_archive[parent_sequence]["candidate_id"]
+                    if parent_sequence is not None and parent_sequence in candidate_archive
+                    else None
+                ),
+                "sequence": seq,
+                "generation": metadata["generation"],
+                "lineage_depth": metadata["lineage_depth"],
+                "mutation_operator": metadata["mutation_operator"],
+                "fitness": float(fit),
+                "prior_adjusted_gain": prior_adjusted_gain,
+                "fitness_adjustment_vs_te": prior_adjusted_gain - log2_te_gain,
+                "target_te": float(te),
+                "target_te_gain": float(te - wt_true_te),
+                "target_te_fold_change": float(te / (wt_true_te + eps)),
+                "log2_target_te_gain": log2_te_gain,
+                "neg_te": float(neg_te),
+                "specificity_fc": float(spec_fc),
+                "meets_min_gain": bool(te >= min_acceptable_te),
+                "min_acceptable_te": float(min_acceptable_te),
+                "within_mutation_budget": True,
+                "active_unit_count": active_unit_count,
+                "max_utr5_edits": mutation_limits["utr5_edits"],
+                "max_cds_codon_edits": mutation_limits["cds_codon_edits"],
+                "max_utr3_edits": mutation_limits["utr3_edits"],
+                "max_total_design_edits": mutation_limits["total_design_edits"],
+                "configured_max_utr5_mutation_fraction": max_utr5_mutation_fraction,
+                "configured_max_cds_mutation_fraction": max_cds_mutation_fraction,
+                "configured_max_utr3_mutation_fraction": max_utr3_mutation_fraction,
+                "configured_max_total_mutation_fraction": max_total_mutation_fraction,
+                "configured_max_lineage_depth": max_lineage_depth,
+                "configured_high_te_exclusion_fraction": high_te_exclusion_fraction,
+                "parameter1_te_rank": None,
+                "parameter1_te_percentile": None,
+                "high_te_tail_excluded": False,
+                "pareto_eligible": False,
+                "on_pareto_front": False,
+                "selected_as_pareto_knee": False,
+                **load,
+            }
+
+        archive_candidate(current_seq, wt_metrics)
 
         pool = [(current_seq, wt_true_fit, wt_true_te)]
         
@@ -611,16 +862,26 @@ class BatchedBeamOptimizer:
         search_best_fit = wt_true_fit
         global_best_fit = None
         global_best_te = None
-        best_seq = None
         patience_counter = 0
 
         for i in range(iterations):
-            candidates_set = {p[0] for p in pool} 
-            
+            candidates_set = {p[0] for p in pool}
+
+            eligible_pool = [
+                record for record in pool
+                if sequence_metadata[record[0]]["lineage_depth"] < max_lineage_depth
+            ]
+            if not eligible_pool:
+                print(
+                    f"Lineage-depth stopping triggered before iteration {i:03d}: "
+                    f"all beam parents reached depth {max_lineage_depth}."
+                )
+                break
+
             # ==========================================
             # Roulette Wheel Sampling for balanced mutations
             # ==========================================
-            pool_fits = np.array([p[1] for p in pool])
+            pool_fits = np.array([p[1] for p in eligible_pool])
             if np.max(pool_fits) == np.min(pool_fits):
                 parent_probs = np.ones(len(pool_fits)) / len(pool_fits)
             else:
@@ -649,23 +910,32 @@ class BatchedBeamOptimizer:
                 10,
                 min(100, attempt_limit // max(1, requested_new_candidates)),
             )
+            budget_rejections = 0
 
             for operator in operator_schedule:
                 for _ in range(per_slot_attempt_limit):
                     if attempts >= attempt_limit:
                         break
                     attempts += 1
-                    parent_idx = np.random.choice(len(pool), p=parent_probs)
-                    parent_seq = pool[parent_idx][0]
+                    parent_idx = np.random.choice(len(eligible_pool), p=parent_probs)
+                    parent_seq = eligible_pool[parent_idx][0]
                     mutant = self._mutate_sequence(
                         parent_seq, cds_start, cds_end, operator=operator,
                         utr5_mutation_rate=utr5_effective_rate,
                         utr3_mutation_rate=utr3_effective_rate,
                         cds_mutation_rate=cds_effective_rate,
                     )
+                    if not within_mutation_budget(mutant):
+                        budget_rejections += 1
+                        continue
                     if mutant not in candidates_set:
                         candidates_set.add(mutant)
-                        sequence_origin.setdefault(mutant, operator)
+                        sequence_metadata.setdefault(mutant, {
+                            "parent_sequence": parent_seq,
+                            "generation": i + 1,
+                            "lineage_depth": sequence_metadata[parent_seq]["lineage_depth"] + 1,
+                            "mutation_operator": operator,
+                        })
                         successful_operator_counts[operator] += 1
                         break
 
@@ -683,22 +953,30 @@ class BatchedBeamOptimizer:
                         operator_weights[name] for name in operator_names
                     ])
                 operator = str(np.random.choice(operator_names, p=operator_probabilities))
-                parent_idx = np.random.choice(len(pool), p=parent_probs)
-                parent_seq = pool[parent_idx][0]
+                parent_idx = np.random.choice(len(eligible_pool), p=parent_probs)
+                parent_seq = eligible_pool[parent_idx][0]
                 mutant = self._mutate_sequence(
                     parent_seq, cds_start, cds_end, operator=operator,
                     utr5_mutation_rate=utr5_effective_rate,
                     utr3_mutation_rate=utr3_effective_rate,
                     cds_mutation_rate=cds_effective_rate,
                 )
+                if not within_mutation_budget(mutant):
+                    budget_rejections += 1
+                    continue
                 if mutant not in candidates_set:
                     candidates_set.add(mutant)
-                    sequence_origin.setdefault(mutant, operator)
+                    sequence_metadata.setdefault(mutant, {
+                        "parent_sequence": parent_seq,
+                        "generation": i + 1,
+                        "lineage_depth": sequence_metadata[parent_seq]["lineage_depth"] + 1,
+                        "mutation_operator": operator,
+                    })
                     successful_operator_counts[operator] += 1
             if len(candidates_set) < batch_size:
                 print(
                     f"Warning: generated {len(candidates_set)}/{batch_size} unique candidates "
-                    f"after {attempt_limit} attempts."
+                    f"after {attempt_limit} attempts; mutation-budget rejections={budget_rejections}."
                 )
 
             candidates_list = sorted(candidates_set)
@@ -709,22 +987,11 @@ class BatchedBeamOptimizer:
             feasible_improved = False
             for seq, metric in zip(candidates_list, metrics):
                 fit, te, neg_te, spec_fc = metric
-                origin_operator = sequence_origin.get(seq, "elite")
+                archive_candidate(seq, metric)
+                origin_operator = sequence_metadata[seq]["mutation_operator"]
                 batch_records.append((seq, fit, te, origin_operator))
 
                 is_feasible = te >= min_acceptable_te
-                if is_feasible and seq not in seen_in_top_k:
-                    if len(top_k_heap) < top_k_size:
-                        heapq.heappush(top_k_heap, (fit, seq, te, neg_te, spec_fc, origin_operator))
-                        seen_in_top_k.add(seq)
-                    elif fit > top_k_heap[0][0]:
-                        removed = heapq.heappushpop(
-                            top_k_heap,
-                            (fit, seq, te, neg_te, spec_fc, origin_operator),
-                        )
-                        seen_in_top_k.remove(removed[1])
-                        seen_in_top_k.add(seq)
-
                 if is_feasible and (
                     global_best_fit is None
                     or fit > global_best_fit
@@ -732,7 +999,6 @@ class BatchedBeamOptimizer:
                 ):
                     global_best_fit = fit
                     global_best_te = te
-                    best_seq = seq
                     feasible_improved = True
                     print(
                         f"Iteration {i:03d} [{mode_str} Focus]: Feasible Variant Identified | "
@@ -802,35 +1068,86 @@ class BatchedBeamOptimizer:
             best_te_hist.append(global_best_te if global_best_te is not None else wt_true_te)
             curr_te_hist.append(pool[0][2])
 
-        if best_seq is None:
+        feasible_records = [
+            record for record in candidate_archive.values()
+            if record["meets_min_gain"] and record["mutation_operator"] != "wt"
+        ]
+        if not feasible_records:
             print(
                 "Optimization completed without a candidate meeting the minimum TE gain. "
-                "Returning WT as a safe fallback and exporting no optimized variants."
+                "Returning WT as a safe fallback while preserving the complete candidate archive."
             )
-            return current_seq, wt_true_te, [], best_te_hist, curr_te_hist
+            trajectory_history = sorted(
+                candidate_archive.values(),
+                key=lambda record: (
+                    record["generation"],
+                    record["total_design_edits"],
+                    -record["target_te"],
+                    record["sequence"],
+                ),
+            )
+            return current_seq, wt_true_te, trajectory_history, best_te_hist, curr_te_hist
 
         print(
-            f"Optimization Completed. Feasible fitness: {global_best_fit:.4f} | "
-            f"Target TE: {global_best_te:.4f}"
+            f"Search completed with {len(candidate_archive)} archived candidates and "
+            f"{len(feasible_records)} candidates meeting the minimum TE gain."
         )
-        
-        sorted_top_k = sorted(top_k_heap, key=lambda x: x[0], reverse=True)
-        trajectory_history = [
-            {
-                "sequence": item[1],
-                "fitness": item[0],
-                "target_te": item[2],
-                "neg_te": item[3],
-                "specificity_fc": item[4],
-                "target_te_fold_change": item[2] / (wt_true_te + eps),
-                "meets_min_gain": True,
-                "min_acceptable_te": min_acceptable_te,
-                "mutation_operator": item[5],
-            }
-            for item in sorted_top_k
-        ]
 
-        return best_seq, global_best_te, trajectory_history, best_te_hist, curr_te_hist
+        ranked_by_te = sorted(
+            feasible_records,
+            key=lambda record: (-record["target_te"], -record["fitness"], record["sequence"]),
+        )
+        for rank, record in enumerate(ranked_by_te, start=1):
+            record["parameter1_te_rank"] = rank
+            record["parameter1_te_percentile"] = (
+                100.0 * (len(ranked_by_te) - rank + 1) / len(ranked_by_te)
+            )
+        excluded_count = 0
+        if len(ranked_by_te) > 1 and high_te_exclusion_fraction > 0.0:
+            excluded_count = min(
+                len(ranked_by_te) - 1,
+                int(math.ceil(len(ranked_by_te) * high_te_exclusion_fraction)),
+            )
+        for record in ranked_by_te[:excluded_count]:
+            record["high_te_tail_excluded"] = True
+
+        pareto_candidates = ranked_by_te[excluded_count:]
+        for record in pareto_candidates:
+            record["pareto_eligible"] = True
+
+        front_indices = self._pareto_front_indices(pareto_candidates)
+        for idx in front_indices:
+            pareto_candidates[idx]["on_pareto_front"] = True
+        knee_idx = self._select_pareto_knee(pareto_candidates, front_indices)
+        selected_record = pareto_candidates[knee_idx]
+        selected_record["selected_as_pareto_knee"] = True
+
+        print(
+            f"Safe selection excluded the highest-TE {excluded_count}/{len(ranked_by_te)} "
+            f"feasible candidates ({high_te_exclusion_fraction:.1%} target), retained "
+            f"{len(front_indices)} Pareto-front candidates, and selected candidate "
+            f"{selected_record['candidate_id']} at lineage depth "
+            f"{selected_record['lineage_depth']} with TE={selected_record['target_te']:.4f}, "
+            f"fitness gain={selected_record['prior_adjusted_gain']:.4f}, and mutation "
+            f"burden={selected_record['total_mutation_burden']:.4f}."
+        )
+
+        trajectory_history = sorted(
+            candidate_archive.values(),
+            key=lambda record: (
+                record["generation"],
+                record["total_design_edits"],
+                -record["target_te"],
+                record["sequence"],
+            ),
+        )
+        return (
+            selected_record["sequence"],
+            selected_record["target_te"],
+            trajectory_history,
+            best_te_hist,
+            curr_te_hist,
+        )
 
 # Visualization and Data Export
 def plot_convergence(best_hist: list, curr_hist: list, wt_te: float, out_path: str):
@@ -912,6 +1229,12 @@ def main():
     parser.add_argument("--cds_mut_rate", type=float, default=None, help="Deprecated compatibility option overriding the CDS base rate")
     parser.add_argument("--min_gain", type=float, default=0.01, help="Minimum required target TE gain over WT")
     parser.add_argument("--patience", type=int, default=50, help="Number of consecutive epochs without improvement to stop training")
+    parser.add_argument("--max_lineage_depth", type=int, default=10, help="Maximum number of mutation steps from WT in any candidate lineage")
+    parser.add_argument("--max_utr5_mutation_fraction", type=float, default=0.10, help="Maximum cumulative 5'UTR nucleotide edit fraction relative to WT")
+    parser.add_argument("--max_cds_mutation_fraction", type=float, default=0.10, help="Maximum cumulative CDS codon edit fraction relative to mutable WT codons")
+    parser.add_argument("--max_utr3_mutation_fraction", type=float, default=0.10, help="Maximum cumulative 3'UTR nucleotide edit fraction relative to WT")
+    parser.add_argument("--max_total_mutation_fraction", type=float, default=0.10, help="Maximum cumulative edit fraction across active design units")
+    parser.add_argument("--high_te_exclusion_fraction", type=float, default=0.20, help="Fraction of highest-TE feasible candidates excluded before Pareto selection")
     parser.add_argument("--continuity_weight", type=float, default=0.2, help="Weight for relative WT-profile drop penalty")
     parser.add_argument("--drop_tolerance", type=float, default=0.5, help="Allowed per-position drop relative to the WT profile")
     parser.add_argument("--consistency_weight", type=float, default=0.25, help="Weight for relative CDS CV increase penalty")
@@ -1014,71 +1337,61 @@ def main():
         utr5_tolerance=args.utr5_tolerance,
         aug_context_tolerance=args.aug_context_tolerance,
         min_gain=args.min_gain,
-        patience=args.patience
+        patience=args.patience,
+        max_lineage_depth=args.max_lineage_depth,
+        max_utr5_mutation_fraction=args.max_utr5_mutation_fraction,
+        max_cds_mutation_fraction=args.max_cds_mutation_fraction,
+        max_utr3_mutation_fraction=args.max_utr3_mutation_fraction,
+        max_total_mutation_fraction=args.max_total_mutation_fraction,
+        high_te_exclusion_fraction=args.high_te_exclusion_fraction,
     )
 
     total_seqs = len(history_list)
-    print(f"Optimization concluded. Displaying Top-K variant distribution spanning {total_seqs} sequences.")
+    print(f"Optimization concluded with {total_seqs} unique archived candidates.")
 
-    if total_seqs == 0:
-        print(
-            "Warning: No variant met the minimum target TE gain. "
-            "No optimized FASTA or CSV was exported."
-        )
-        return
+    pareto_records = sorted(
+        [record for record in history_list if record["on_pareto_front"]],
+        key=lambda record: (
+            record["total_mutation_burden"],
+            -record["prior_adjusted_gain"],
+        ),
+    )
+    selected_records = [
+        record for record in history_list if record["selected_as_pareto_knee"]
+    ]
 
-    # ==========================================================
-    # High-Density Percentile Extraction & De-duplication
-    # ==========================================================
-    base_percentiles = [10, 30, 50]
-    top_percentiles = np.linspace(70, 100, 20).tolist()
-    all_percentiles = base_percentiles + top_percentiles
-
-    selected_variants = {}
-    seen_indices = set()  
-
-    for p in all_percentiles:
-        idx = min(
-            int((100 - p) / 100 * (total_seqs - 1)),
-            total_seqs - 1
-        )
-        
-        if idx in seen_indices:
-            continue
-        seen_indices.add(idx)
-
-        info = history_list[idx]
-        p_label = f"{p:.1f}".rstrip('0').rstrip('.')
-
-        selected_variants[f"Variant_{p_label}th_Percentile"] = {
-            "sequence": info["sequence"],
-            "fitness": info["fitness"],
-            "target_te": info["target_te"],
-            "neg_te": info["neg_te"],
-            "specificity_fc": info["specificity_fc"],
-            "target_te_fold_change": info["target_te_fold_change"],
-            "min_acceptable_te": info["min_acceptable_te"],
-            "mutation_operator": info["mutation_operator"],
-        }
-            
     # Data Export
     os.makedirs(args.outdir, exist_ok=True)
-    
+
     output_fasta = os.path.join(args.outdir, f"{args.prefix}_M{args.mode}_Spec_seed{args.seed}.fasta")
     output_csv = os.path.join(args.outdir, f"{args.prefix}_M{args.mode}_Spec_seed{args.seed}.csv")
+    archive_csv = os.path.join(
+        args.outdir,
+        f"{args.prefix}_M{args.mode}_Spec_seed{args.seed}_all_candidates.csv",
+    )
     output_png = os.path.join(args.outdir, f"{args.prefix}_M{args.mode}_Spec_seed{args.seed}_convergence.png")
 
+    pd.DataFrame(history_list).to_csv(archive_csv, index=False)
     results_list = []
 
     with open(output_fasta, "w") as f_out:
-
-        for label, data in selected_variants.items():
-
+        for data in pareto_records:
+            label = (
+                "Selected_Pareto_Knee"
+                if data["selected_as_pareto_knee"]
+                else f"Pareto_Candidate_{data['candidate_id']}"
+            )
             f_out.write(
                 f">{label}"
+                f" | Candidate_ID={data['candidate_id']}"
+                f" | Generation={data['generation']}"
+                f" | Lineage_Depth={data['lineage_depth']}"
                 f" | Fitness={data['fitness']:.4f}"
+                f" | Prior_Adjusted_Gain={data['prior_adjusted_gain']:.4f}"
                 f" | Target_TE={data['target_te']:.4f}"
                 f" | Target_TE_FC={data['target_te_fold_change']:.4f}"
+                f" | Mutation_Burden={data['total_mutation_burden']:.4f}"
+                f" | Total_Design_Edits={data['total_design_edits']}"
                 f" | Operator={data['mutation_operator']}"
                 f" | Max_Neg_TE={data['neg_te']:.4f}"
                 f" | SpecFC={data['specificity_fc']:.4f}\n"
@@ -1088,13 +1401,7 @@ def main():
 
             row_dict = {
                 "Variant_Name": label,
-                "Fitness": data["fitness"],
-                "Target_TE": data["target_te"],
-                "Target_TE_Fold_Change": data["target_te_fold_change"],
-                "Minimum_Acceptable_TE": data["min_acceptable_te"],
-                "Mutation_Operator": data["mutation_operator"],
-                "Max_Neg_TE": data["neg_te"],
-                "Specificity_FC": data["specificity_fc"],
+                **data,
             }
 
             for neg_cell in args.neg_cells:
@@ -1108,21 +1415,29 @@ def main():
 
                 row_dict[f"Neg_TE_{neg_cell}"] = neg_score
 
-            row_dict["Sequence"] = data["sequence"]
-
             results_list.append(row_dict)
-            
+
     df_results = pd.DataFrame(results_list)
     df_results.to_csv(output_csv, index=False)
 
-    print("Gradient Selection of Optimized Variants:")
-    for res in results_list:
-        neg_info = " | ".join([f"{k}: {v:.4f}" for k, v in res.items() if k.startswith("Neg_TE_")])
-        print(f"[{res['Variant_Name']:<25}] Target TE: {res['Target_TE']:.4f} | {neg_info} | Max_Neg_TE: {res['Max_Neg_TE']:.4f}")
+    if selected_records:
+        selected = selected_records[0]
+        print(
+            "Selected Pareto knee: "
+            f"candidate={selected['candidate_id']} | TE={selected['target_te']:.4f} | "
+            f"TE_FC={selected['target_te_fold_change']:.4f} | "
+            f"prior-adjusted gain={selected['prior_adjusted_gain']:.4f} | "
+            f"mutation burden={selected['total_mutation_burden']:.4f}"
+        )
+    else:
+        print("No feasible candidate remained for Pareto selection; WT was returned.")
 
     plot_convergence(best_hist, curr_hist, wt_target_te, output_png)
 
-    print(f"Pipeline executed successfully. Artifacts saved to: {args.outdir}")
+    print(
+        f"Pipeline executed successfully. Pareto FASTA/CSV and the complete archive "
+        f"were saved to: {args.outdir}"
+    )
 
 if __name__ == "__main__":
     main()

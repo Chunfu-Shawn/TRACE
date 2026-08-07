@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot configurable Trainer metrics against epoch for multiple TRACE runs.
+"""Plot configurable Trainer metrics against epoch for one or more TRACE runs.
 
 Edit ``MODEL_RUNS`` and ``PLOT_METRICS`` before running this file on the
 server. Each enabled metric is exported as an independent figure. Use
@@ -29,7 +29,7 @@ from matplotlib.ticker import MaxNLocator
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 LOG_DIR = PROJECT_ROOT.parent / "log/train"
 OUTPUT_PREFIX = (
-    PROJECT_ROOT.parent / "results/ablation/loss_curves/model_metric_comparison"
+    PROJECT_ROOT.parent / "results/loss_curves/model_metric"
 )
 
 # Validation metrics are directly comparable only when all runs use the same
@@ -111,7 +111,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#7A7A7A",
         "linestyle": ":",
-        "enabled": True,
+        "enabled": False,
     },
     {
         "label": "TRACE (Real)",
@@ -129,7 +129,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#166A9A",
         "linestyle": "-",
-        "enabled": True,
+        "enabled": False,
     },
     {
         "label": "TRACE (Mask+Interp. no ranking)",
@@ -147,7 +147,7 @@ MODEL_RUNS = [
         "loss_definition": LOSS_DEFINITION,
         "color": "#C28548",
         "linestyle": "-",
-        "enabled": True,
+        "enabled": False,
     },
     {
         "label": "Conv model",
@@ -175,6 +175,15 @@ MODEL_RUNS = [
         "color": "#6A3D78",
         "linestyle": "-",
         "enabled": False,
+    },
+    {
+        "label": "TRACE",
+        "glob": "base_model_384d_16h_12l_64env_16ad_bs*hs_22c_18c_26c_rm_4c_mm_3c*exp_aug*.epoch_data.json",
+        "dataset": COMPARISON_DATASET,
+        "loss_definition": LOSS_DEFINITION,
+        "color": "#6A3D78",
+        "linestyle": "-",
+        "enabled": True,
     },
 ]
 
@@ -487,9 +496,11 @@ def load_run_history(
 def validate_comparison(
     histories: Sequence[RunHistory], allow_mixed_datasets: bool = False
 ) -> None:
-    """Check that validation metrics use comparable datasets and loss definitions."""
-    if len(histories) < 2:
-        raise ValueError("At least two model histories are required")
+    """Validate one run or check that multiple runs are directly comparable."""
+    if not histories:
+        raise ValueError("At least one model history is required")
+    if len(histories) == 1:
+        return
     datasets = {history.dataset for history in histories if history.dataset}
     if len(datasets) > 1 and not allow_mixed_datasets:
         raise ValueError(
@@ -702,8 +713,8 @@ def plot_scaling_law_curves(
 def main() -> None:
     """Load configured runs and export every enabled epoch-metric figure."""
     enabled_runs = [config for config in MODEL_RUNS if config.get("enabled", True)]
-    if len(enabled_runs) < 2:
-        raise ValueError("Enable at least two entries in MODEL_RUNS")
+    if not enabled_runs:
+        raise ValueError("Enable at least one entry in MODEL_RUNS")
 
     histories = [load_run_history(config) for config in enabled_runs]
     validate_comparison(histories, allow_mixed_datasets=ALLOW_MIXED_DATASETS)

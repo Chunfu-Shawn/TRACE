@@ -2,10 +2,13 @@
 #BSUB -J trace_lr_sweep
 #BSUB -n 3
 #BSUB -q gpuA
-#BSUB -gpu "num=3"
+#BSUB -gpu "num=3:mode=exclusive_process"
 #BSUB -R "span[hosts=1]"
-#BSUB -o trace_lr_sweep.%J.out
-#BSUB -e trace_lr_sweep.%J.err
+#BSUB -o trace_lr_sweep.out
+#BSUB -e trace_lr_sweep.err
+
+#:mode=exclusive_process
+export CUDA_VISIBLE_DEVICES='1,4,5'
 
 set -euo pipefail
 
@@ -14,8 +17,6 @@ EVALUATION_LOG="${PROJECT_DIR}/run.evaluate_hyperparameter_ablation.log"
 
 cd "${PROJECT_DIR}"
 
-# These settings define a controlled learning-rate ablation. LSF assigns the
-# requested GPUs, so CUDA_VISIBLE_DEVICES should not be overwritten manually.
 export TRACE_DATASET_PRESET="5c"
 export TRACE_DATASET_NAME="hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15_lr_sweep"
 export TRACE_EPOCH_NUM="25"
