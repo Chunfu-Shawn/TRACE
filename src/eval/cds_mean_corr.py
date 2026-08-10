@@ -11,6 +11,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from scipy.stats import pearsonr, spearmanr
 from tqdm import tqdm
 
@@ -34,15 +35,16 @@ except ImportError:
 
 BASES = np.asarray(list("ACGT"))
 STOP_CODONS = {"TAA", "TAG", "TGA"}
-DEFAULT_BIOTYPE_COLORS = {
-    "protein_coding": "#176D9C",
-    "lncRNA": "#C47A42",
-    "nonsense_mediated_decay": "#7B6DA8",
-    "retained_intron": "#5A9372",
-    "processed_transcript": "#B18B49",
-    "Unknown": "#8C8C8C",
-    "Other": "#B5B5B5",
+GENE_TYPE_ORDER = ["Other", "lncRNA", "Housekeeping"]
+GENE_TYPE_COLORS = {
+    "Other": "#B0B0B0",
+    "lncRNA": "#3498DB",
+    "Housekeeping": "#E74C3C",
 }
+DEFAULT_HOUSEKEEPING_PATH = (
+    "/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/"
+    "other_gene_list/housekeeping_genes.tsv"
+)
 
 
 def load_transcript_biotypes(gtf_path: Optional[Union[str, os.PathLike]]) -> Dict[str, str]:
@@ -81,6 +83,54 @@ def load_transcript_biotypes(gtf_path: Optional[Union[str, os.PathLike]]) -> Dic
             )
             biotypes[transcript_id.split(".", 1)[0]] = biotype
     return biotypes
+
+
+def load_housekeeping_transcripts(
+    hk_genes_path: Optional[Union[str, os.PathLike]],
+) -> set:
+    """Load version-free housekeeping transcript IDs from a CSV or TSV file."""
+    if hk_genes_path is None:
+        return set()
+    path = Path(hk_genes_path)
+    if not path.is_file():
+        print(f"Housekeeping transcript file not found; labels skipped: {path}")
+        return set()
+    separator = "\t" if path.suffix.lower() in {".tsv", ".txt"} else ","
+    frame = pd.read_csv(path, sep=separator)
+    transcript_column = next(
+        (
+            column
+            for column in ("Transcript ID", "Transcript_ID", "transcript_id", "Tid")
+            if column in frame.columns
+        ),
+        None,
+    )
+    if transcript_column is None:
+        raise ValueError(
+            "Housekeeping file must contain Transcript ID, Transcript_ID, "
+            "transcript_id, or Tid."
+        )
+    return set(
+        frame[transcript_column]
+        .dropna()
+        .astype(str)
+        .str.split(".", regex=False)
+        .str[0]
+    )
+
+
+def classify_gene_type(
+    transcript_id: str,
+    biotype: str,
+    housekeeping_transcripts: set,
+) -> str:
+    """Map a transcript to Housekeeping, lncRNA, or Other."""
+    clean_tid = str(transcript_id).split(".", 1)[0]
+    if clean_tid in housekeeping_transcripts:
+        return "Housekeeping"
+    if str(biotype) == "lncRNA":
+        return "lncRNA"
+    return "Other"
 
 
 def decode_one_hot_sequence(sequence_embedding: object) -> str:
@@ -239,6 +289,7 @@ def aggregate_by_transcript(sample_df: pd.DataFrame) -> pd.DataFrame:
     required = {
         "Tid_Clean",
         "Biotype",
+        "Gene_Type",
         "Region_Source",
         "Observed_Mean_Linear",
         "Predicted_Mean_Linear",
@@ -252,7 +303,7 @@ def aggregate_by_transcript(sample_df: pd.DataFrame) -> pd.DataFrame:
 
     transcript_df = (
         sample_df.groupby(
-            ["Tid_Clean", "Biotype", "Region_Source"],
+            ["Tid_Clean", "Biotype", "Gene_Type"],
             as_index=False,
             observed=True,
         )
@@ -260,6 +311,7 @@ def aggregate_by_transcript(sample_df: pd.DataFrame) -> pd.DataFrame:
             Tid=("Tid", "first"),
             Cell_Type_Count=("Cell_Type", "nunique"),
             Sample_Count=("Cell_Type", "size"),
+            Region_Source=("Region_Source", "first"),
             Region_Length=("Region_Length", "first"),
             Observed_Mean_Linear=("Observed_Mean_Linear", "mean"),
             Predicted_Mean_Linear=("Predicted_Mean_Linear", "mean"),
@@ -280,39 +332,21 @@ def aggregate_by_transcript(sample_df: pd.DataFrame) -> pd.DataFrame:
 
 def summarize_by_biotype(
     transcript_df: pd.DataFrame,
-    min_biotype_n: int = 20,
-    max_biotypes: int = 8,
     n_bootstrap: int = 500,
     random_state: int = 42,
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """Collapse rare biotypes for plotting and calculate correlation summaries."""
+    """Calculate correlation and amplitude summaries for three transcript types."""
     if transcript_df.empty:
         return transcript_df.copy(), pd.DataFrame()
-    if min_biotype_n < 2:
-        raise ValueError("min_biotype_n must be at least 2.")
-    if max_biotypes < 3:
-        raise ValueError("max_biotypes must be at least 3.")
 
     plot_df = transcript_df.copy()
-    counts = plot_df["Biotype"].value_counts()
-    eligible = counts[counts >= min_biotype_n].index.tolist()
-    priority = []
-    for priority_type in ("protein_coding", "lncRNA"):
-        if counts.get(priority_type, 0) >= 3:
-            priority.append(priority_type)
-    ordered_candidates = priority + [
-        biotype for biotype in eligible if biotype not in priority
-    ]
-    if len(ordered_candidates) > max_biotypes:
-        ordered_candidates = ordered_candidates[: max_biotypes - 1]
-    keep = set(ordered_candidates)
-    plot_df["Plot_Biotype"] = plot_df["Biotype"].where(
-        plot_df["Biotype"].isin(keep), "Other"
+    plot_df["Gene_Type"] = pd.Categorical(
+        plot_df["Gene_Type"], categories=GENE_TYPE_ORDER, ordered=True
     )
 
     rows = []
-    for index, (biotype, group) in enumerate(
-        plot_df.groupby("Plot_Biotype", sort=False, observed=True)
+    for index, (gene_type, group) in enumerate(
+        plot_df.groupby("Gene_Type", sort=True, observed=True)
     ):
         observed = group["Observed_Mean_Log1p"].to_numpy(dtype=float)
         predicted = group["Predicted_Mean_Log1p"].to_numpy(dtype=float)
@@ -325,43 +359,26 @@ def summarize_by_biotype(
         )
         rows.append(
             {
-                "Biotype": biotype,
+                "Gene_Type": str(gene_type),
                 **stats,
+                "Observed_Median_Log1p": float(np.median(observed)),
+                "Predicted_Median_Log1p": float(np.median(predicted)),
                 "Spearman_CI95_Low": ci_low,
                 "Spearman_CI95_High": ci_high,
             }
         )
-    summary = pd.DataFrame(rows).sort_values(
-        ["N", "Spearman_R"], ascending=[False, False], na_position="last"
-    )
+    summary = pd.DataFrame(rows)
     return plot_df, summary
 
 
-def _biotype_colors(biotypes: Sequence[str]) -> Dict[str, str]:
-    """Return a stable restrained color map for displayed biotypes."""
-    fallback = plt.get_cmap("tab20").colors
-    colors = {}
-    for index, biotype in enumerate(biotypes):
-        colors[str(biotype)] = DEFAULT_BIOTYPE_COLORS.get(
-            str(biotype), mpl.colors.to_hex(fallback[index % len(fallback)])
-        )
-    return colors
-
-
-def _display_biotype(biotype: object) -> str:
-    """Convert machine-readable GTF biotypes to compact figure labels."""
-    return str(biotype).replace("_", " ")
-
-
-def plot_amplitude_correlation_by_biotype(
+def plot_amplitude_scatter(
     transcript_df: pd.DataFrame,
-    summary_df: pd.DataFrame,
     out_dir: Union[str, os.PathLike],
     suffix: str = "",
 ) -> Optional[Path]:
-    """Plot transcript amplitude agreement and biotype-stratified correlations."""
+    """Plot observed/predicted amplitude with transcript-type marginal densities."""
     required = {
-        "Plot_Biotype",
+        "Gene_Type",
         "Observed_Mean_Log1p",
         "Predicted_Mean_Log1p",
     }
@@ -376,149 +393,190 @@ def plot_amplitude_correlation_by_biotype(
         f"Amplitude plotting pairs: {len(plot_df):,}/{input_count:,} transcripts "
         "after finite-value filtering."
     )
-    if plot_df.empty or summary_df.empty:
+    if plot_df.empty:
         print("No finite amplitude pairs available for plotting.")
         return None
 
     output_dir = Path(out_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    category_order = summary_df["Biotype"].astype(str).tolist()
-    colors = _biotype_colors(category_order)
+    present_types = set(plot_df["Gene_Type"].dropna().astype(str))
+    category_order = [value for value in GENE_TYPE_ORDER if value in present_types]
+    plot_df["Gene_Type"] = pd.Categorical(
+        plot_df["Gene_Type"], categories=category_order, ordered=True
+    )
+    plot_df = plot_df.sort_values("Gene_Type")
+    color_map = {key: GENE_TYPE_COLORS[key] for key in category_order}
+
+    overall = _safe_correlations(
+        plot_df["Observed_Mean_Log1p"], plot_df["Predicted_Mean_Log1p"]
+    )
+    p_value = overall["Spearman_P"]
+    p_text = (
+        f"{p_value:.1e}"
+        if np.isfinite(p_value) and p_value < 0.001
+        else f"{p_value:.3f}"
+    )
+    stats_text = (
+        f"Spearman $R$ = {overall['Spearman_R']:.3f}\n"
+        f"$P$ = {p_text}\n"
+        f"$n$ = {overall['N']:,} transcripts"
+    )
 
     with mpl.rc_context(
         {
             "font.family": "sans-serif",
             "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
-            "font.size": 7,
-            "axes.labelsize": 8,
-            "axes.titlesize": 8,
-            "xtick.labelsize": 7,
-            "ytick.labelsize": 7,
-            "axes.linewidth": 0.8,
-            "axes.spines.top": False,
-            "axes.spines.right": False,
+            "font.size": 12,
             "legend.frameon": False,
             "svg.fonttype": "none",
             "pdf.fonttype": 42,
         }
     ):
-        figure, (scatter_axis, summary_axis) = plt.subplots(
-            1,
-            2,
-            figsize=(7.0, 3.25),
-            gridspec_kw={"width_ratios": [1.25, 1.0]},
+        grid = sns.JointGrid(
+            data=plot_df,
+            x="Observed_Mean_Log1p",
+            y="Predicted_Mean_Log1p",
+            hue="Gene_Type",
+            palette=color_map,
+            height=6,
+            ratio=6,
+            space=0,
         )
-
-        for biotype in category_order:
-            group = plot_df[plot_df["Plot_Biotype"].astype(str) == biotype]
-            if group.empty:
-                continue
-            scatter_axis.scatter(
-                group["Observed_Mean_Log1p"],
-                group["Predicted_Mean_Log1p"],
-                s=8,
-                alpha=0.35,
-                color=colors[biotype],
-                edgecolors="none",
-                label=f"{_display_biotype(biotype)} (n={len(group):,})",
-                rasterized=True,
+        grid.plot_joint(
+            sns.scatterplot,
+            alpha=0.4,
+            s=15,
+            edgecolor="none",
+            rasterized=True,
+        )
+        try:
+            grid.plot_marginals(
+                sns.kdeplot,
+                fill=True,
+                alpha=0.3,
+                linewidth=1.2,
+                common_norm=False,
+                warn_singular=False,
             )
+        except (ValueError, TypeError, np.linalg.LinAlgError) as error:
+            print(f"KDE marginals unavailable ({error}); using histograms instead.")
+            grid.ax_marg_x.clear()
+            grid.ax_marg_y.clear()
+            sns.histplot(
+                data=plot_df,
+                x="Observed_Mean_Log1p",
+                hue="Gene_Type",
+                palette=color_map,
+                element="step",
+                fill=False,
+                legend=False,
+                ax=grid.ax_marg_x,
+            )
+            sns.histplot(
+                data=plot_df,
+                y="Predicted_Mean_Log1p",
+                hue="Gene_Type",
+                palette=color_map,
+                element="step",
+                fill=False,
+                legend=False,
+                ax=grid.ax_marg_y,
+            )
+
         lower = float(
-            min(plot_df["Observed_Mean_Log1p"].min(), plot_df["Predicted_Mean_Log1p"].min())
+            min(
+                plot_df["Observed_Mean_Log1p"].min(),
+                plot_df["Predicted_Mean_Log1p"].min(),
+            )
         )
         upper = float(
-            max(plot_df["Observed_Mean_Log1p"].max(), plot_df["Predicted_Mean_Log1p"].max())
+            max(
+                plot_df["Observed_Mean_Log1p"].max(),
+                plot_df["Predicted_Mean_Log1p"].max(),
+            )
         )
         padding = max(0.05 * (upper - lower), 0.05)
-        limits = (lower - padding, upper + padding)
-        scatter_axis.plot(limits, limits, color="#555555", linewidth=0.9, linestyle="--")
-        scatter_axis.set_xlim(limits)
-        scatter_axis.set_ylim(limits)
-        scatter_axis.set_aspect("equal", adjustable="box")
-        scatter_axis.set_xlabel("Observed mean translation signal, log1p")
-        scatter_axis.set_ylabel("Predicted mean translation signal, log1p")
-        scatter_axis.set_title("a  Transcript-level signal amplitude", loc="left", fontweight="bold")
-        scatter_axis.grid(color="#E5E5E5", linewidth=0.6, zorder=0)
-        overall = _safe_correlations(
-            plot_df["Observed_Mean_Log1p"], plot_df["Predicted_Mean_Log1p"]
+        limits = (max(0.0, lower - padding), upper + padding)
+        grid.ax_joint.plot(
+            limits,
+            limits,
+            color="#6B6B6B",
+            linestyle="--",
+            linewidth=1.5,
+            zorder=10,
         )
-        scatter_axis.text(
-            0.04,
-            0.96,
-            (
-                f"Spearman $R$ = {overall['Spearman_R']:.3f}\n"
-                f"Pearson $R$ = {overall['Pearson_R']:.3f}\n"
-                f"n = {overall['N']:,} transcripts"
-            ),
-            transform=scatter_axis.transAxes,
-            ha="left",
-            va="top",
+        grid.ax_joint.set_xlim(limits)
+        grid.ax_joint.set_ylim(limits)
+        grid.ax_joint.set_aspect("equal", adjustable="box")
+        grid.ax_joint.grid(
+            True,
+            color="lightgray",
+            linestyle="-",
+            linewidth=1.0,
+            alpha=0.8,
         )
-        scatter_axis.legend(
+        grid.ax_joint.set_axisbelow(True)
+        grid.ax_joint.set_xlabel("Observed TE proxy (log1p)", fontsize=14)
+        grid.ax_joint.set_ylabel("Predicted TE proxy (log1p)", fontsize=14)
+        grid.ax_joint.text(
+            0.95,
+            0.05,
+            stats_text,
+            transform=grid.ax_joint.transAxes,
+            fontsize=12,
+            ha="right",
+            va="bottom",
+            color="black",
+        )
+        grid.ax_joint.legend(
+            title="Transcript Type",
+            title_fontsize=14,
+            fontsize=12,
             loc="upper left",
-            bbox_to_anchor=(0.0, -0.20),
-            ncol=2,
-            handletextpad=0.4,
-            columnspacing=0.8,
+            bbox_to_anchor=(1.2, 1),
+            frameon=False,
         )
-
-        summary_plot = summary_df.iloc[::-1].reset_index(drop=True)
-        y_positions = np.arange(len(summary_plot))
-        for position, row in summary_plot.iterrows():
-            biotype = str(row["Biotype"])
-            correlation = float(row["Spearman_R"])
-            if not np.isfinite(correlation):
-                continue
-            ci_low = float(row["Spearman_CI95_Low"])
-            ci_high = float(row["Spearman_CI95_High"])
-            xerr = None
-            if np.isfinite(ci_low) and np.isfinite(ci_high):
-                xerr = np.asarray(
-                    [
-                        [max(correlation - ci_low, 0.0)],
-                        [max(ci_high - correlation, 0.0)],
-                    ]
-                )
-            summary_axis.errorbar(
-                correlation,
-                position,
-                xerr=xerr,
-                fmt="o",
-                color=colors.get(biotype, "#777777"),
-                markersize=5,
-                capsize=2.5,
-                linewidth=1.1,
-                zorder=3,
-            )
-            summary_axis.text(
-                1.02,
-                position,
-                f"n={int(row['N']):,}",
-                va="center",
-                fontsize=6.5,
-                clip_on=False,
-            )
-        summary_axis.axvline(0, color="#777777", linewidth=0.8, linestyle="--")
-        summary_axis.set_yticks(
-            y_positions,
-            [_display_biotype(value) for value in summary_plot["Biotype"]],
+        grid.ax_joint.tick_params(
+            axis="both",
+            which="major",
+            labelsize=12,
+            direction="out",
+            length=6,
+            width=1.5,
+            colors="black",
         )
-        summary_axis.set_xlim(-1.05, 1.15)
-        summary_axis.set_xticks([-1.0, -0.5, 0.0, 0.5, 1.0])
-        summary_axis.set_xlabel("Spearman correlation")
-        summary_axis.set_title("b  Correlation by transcript biotype", loc="left", fontweight="bold")
-        summary_axis.grid(axis="x", color="#E5E5E5", linewidth=0.6, zorder=0)
+        for spine in grid.ax_joint.spines.values():
+            spine.set_linewidth(1.5)
+            spine.set_color("black")
+        for marginal_axis in (grid.ax_marg_x, grid.ax_marg_y):
+            marginal_axis.tick_params(
+                axis="both",
+                bottom=False,
+                top=False,
+                left=False,
+                right=False,
+                labelbottom=False,
+                labelleft=False,
+            )
+            marginal_axis.grid(False)
+            for spine in marginal_axis.spines.values():
+                spine.set_visible(False)
 
-        figure.subplots_adjust(left=0.09, right=0.94, bottom=0.28, top=0.90, wspace=0.42)
-        stem = "cds_mean_amplitude_by_biotype"
+        stem = "cds_mean_amplitude_scatter_density"
         if suffix:
             stem += f".{suffix}"
         pdf_path = output_dir / f"{stem}.pdf"
-        figure.savefig(pdf_path, bbox_inches="tight")
-        plt.close(figure)
+        svg_path = output_dir / f"{stem}.svg"
+        png_path = output_dir / f"{stem}.png"
+        tiff_path = output_dir / f"{stem}.tiff"
+        grid.savefig(pdf_path, bbox_inches="tight")
+        grid.figure.savefig(svg_path, bbox_inches="tight")
+        grid.figure.savefig(png_path, dpi=300, bbox_inches="tight")
+        grid.figure.savefig(tiff_path, dpi=600, bbox_inches="tight")
+        plt.close(grid.figure)
     print(
         "Amplitude correlation figure saved to "
-        f"{pdf_path}"
+        f"{pdf_path}, {svg_path}, {png_path}, and {tiff_path}"
     )
     return pdf_path
 
@@ -526,13 +584,12 @@ def plot_amplitude_correlation_by_biotype(
 def evaluate_cds_mean_correlation(
     dataset,
     pkl_input,
+    hk_genes_path: Optional[Union[str, os.PathLike]] = DEFAULT_HOUSEKEEPING_PATH,
     gtf_path: Optional[Union[str, os.PathLike]] = None,
     out_dir: Union[str, os.PathLike] = "./results/cds_mean_correlation",
     suffix: str = "",
     unlog_data: bool = True,
     min_orf_codons: int = 10,
-    min_biotype_n: int = 20,
-    max_biotypes: int = 8,
     n_bootstrap: int = 500,
     random_state: int = 42,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -541,7 +598,8 @@ def evaluate_cds_mean_correlation(
     Annotated transcripts use their CDS. Transcripts without CDS annotations use
     the longest complete ORF when available and otherwise use the full transcript.
     The latter values are equivalent translation-amplitude proxies, not canonical
-    RNA-normalized translation efficiencies.
+    RNA-normalized translation efficiencies. Plot groups follow the periodicity
+    evaluation convention: Other, lncRNA, and Housekeeping.
     """
     output_dir = Path(out_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -552,6 +610,7 @@ def evaluate_cds_mean_correlation(
     else:
         predictions = load_prediction_input(pkl_input)
     biotype_map = load_transcript_biotypes(gtf_path)
+    housekeeping_transcripts = load_housekeeping_transcripts(hk_genes_path)
     records = []
 
     print("--- Evaluating transcript-level translation amplitude ---")
@@ -586,13 +645,20 @@ def evaluate_cds_mean_correlation(
         predicted_mean = _mean_signal(predicted, start, end)
         if not np.isfinite(observed_mean) or not np.isfinite(predicted_mean):
             continue
+        biotype = biotype_map.get(clean_tid, "Unknown")
+        gene_type = classify_gene_type(
+            clean_tid,
+            biotype,
+            housekeeping_transcripts,
+        )
         records.append(
             {
                 "UUID": str(uuid),
                 "Tid": tid,
                 "Tid_Clean": clean_tid,
                 "Cell_Type": cell_type,
-                "Biotype": biotype_map.get(clean_tid, "Unknown"),
+                "Biotype": biotype,
+                "Gene_Type": gene_type,
                 "Region_Source": region_source,
                 "Region_Start_0based": start,
                 "Region_End_0based_Exclusive": end,
@@ -615,8 +681,6 @@ def evaluate_cds_mean_correlation(
     transcript_df = aggregate_by_transcript(sample_df)
     plot_df, summary_df = summarize_by_biotype(
         transcript_df,
-        min_biotype_n=min_biotype_n,
-        max_biotypes=max_biotypes,
         n_bootstrap=n_bootstrap,
         random_state=random_state,
     )
@@ -624,16 +688,15 @@ def evaluate_cds_mean_correlation(
     tag = f".{suffix}" if suffix else ""
     sample_path = output_dir / f"cds_mean_amplitude_samples{tag}.csv"
     transcript_path = output_dir / f"cds_mean_amplitude_transcripts{tag}.csv"
-    summary_path = output_dir / f"cds_mean_amplitude_by_biotype{tag}.csv"
+    summary_path = output_dir / f"cds_mean_amplitude_by_gene_type{tag}.csv"
     sample_df.to_csv(sample_path, index=False)
     plot_df.to_csv(transcript_path, index=False)
     summary_df.to_csv(summary_path, index=False)
     print(f"Sample-level source data saved to {sample_path}")
     print(f"Transcript-level source data saved to {transcript_path}")
-    print(f"Biotype summary saved to {summary_path}")
-    plot_amplitude_correlation_by_biotype(
+    print(f"Transcript-type summary saved to {summary_path}")
+    plot_amplitude_scatter(
         plot_df,
-        summary_df,
         out_dir=output_dir,
         suffix=suffix,
     )

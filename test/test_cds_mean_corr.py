@@ -16,10 +16,13 @@ if SRC_DIR not in sys.path:
 
 from eval.cds_mean_corr import (
     aggregate_by_transcript,
+    classify_gene_type,
     decode_one_hot_sequence,
     find_longest_complete_orf,
+    load_housekeeping_transcripts,
     load_transcript_biotypes,
     select_amplitude_region,
+    summarize_by_biotype,
 )
 
 
@@ -80,6 +83,7 @@ class CdsMeanCorrelationTests(unittest.TestCase):
                     "Tid": "TX1.1",
                     "Tid_Clean": "TX1",
                     "Biotype": "protein_coding",
+                    "Gene_Type": "Housekeeping",
                     "Region_Source": "annotated_CDS",
                     "Cell_Type": "cell_a",
                     "Region_Length": 90,
@@ -90,6 +94,7 @@ class CdsMeanCorrelationTests(unittest.TestCase):
                     "Tid": "TX1.1",
                     "Tid_Clean": "TX1",
                     "Biotype": "protein_coding",
+                    "Gene_Type": "Housekeeping",
                     "Region_Source": "annotated_CDS",
                     "Cell_Type": "cell_b",
                     "Region_Length": 90,
@@ -115,7 +120,39 @@ class CdsMeanCorrelationTests(unittest.TestCase):
             result = load_transcript_biotypes(path)
         self.assertEqual(result, {"TX1": "lncRNA"})
 
+    def test_housekeeping_parser_removes_transcript_versions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "housekeeping.tsv"
+            path.write_text("Transcript ID\nTX1.2\nTX2.1\n", encoding="utf-8")
+            result = load_housekeeping_transcripts(path)
+        self.assertEqual(result, {"TX1", "TX2"})
+
+    def test_gene_type_classification_prioritizes_housekeeping(self):
+        housekeeping = {"TX1"}
+        self.assertEqual(
+            classify_gene_type("TX1.2", "lncRNA", housekeeping),
+            "Housekeeping",
+        )
+        self.assertEqual(classify_gene_type("TX2", "lncRNA", housekeeping), "lncRNA")
+        self.assertEqual(
+            classify_gene_type("TX3", "protein_coding", housekeeping),
+            "Other",
+        )
+
+    def test_summary_uses_fixed_three_type_order(self):
+        transcript_df = pd.DataFrame(
+            {
+                "Gene_Type": ["Housekeeping", "Other", "lncRNA"] * 2,
+                "Observed_Mean_Log1p": [3.0, 1.5, 0.3, 3.5, 1.8, 0.5],
+                "Predicted_Mean_Log1p": [2.9, 1.6, 0.4, 3.4, 1.7, 0.6],
+            }
+        )
+        _, summary = summarize_by_biotype(transcript_df, n_bootstrap=0)
+        self.assertEqual(
+            summary["Gene_Type"].tolist(),
+            ["Other", "lncRNA", "Housekeeping"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
-
