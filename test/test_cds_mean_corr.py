@@ -107,6 +107,29 @@ class CdsMeanCorrelationTests(unittest.TestCase):
         self.assertEqual(result["Cell_Type_Count"], 2)
         self.assertAlmostEqual(result["Observed_Mean_Linear"], 2.0)
         self.assertAlmostEqual(result["Predicted_Mean_Linear"], 2.5)
+        self.assertAlmostEqual(result["Observed_Mean_Log"], np.log(2.0))
+        self.assertAlmostEqual(result["Predicted_Mean_Log"], np.log(2.5))
+
+    def test_zero_mean_is_undefined_on_natural_log_scale(self):
+        sample_df = pd.DataFrame(
+            [
+                {
+                    "Tid": "TX0.1",
+                    "Tid_Clean": "TX0",
+                    "Biotype": "lncRNA",
+                    "Gene_Type": "lncRNA",
+                    "Region_Source": "transcript_wide",
+                    "Cell_Type": "cell_a",
+                    "Region_Length": 60,
+                    "Observed_Mean_Linear": 0.0,
+                    "Predicted_Mean_Linear": 0.5,
+                }
+            ]
+        )
+        result = aggregate_by_transcript(sample_df).iloc[0]
+        self.assertTrue(np.isnan(result["Observed_Mean_Log"]))
+        self.assertAlmostEqual(result["Predicted_Mean_Log"], np.log(0.5))
+        self.assertTrue(np.isnan(result["Absolute_Error_Log"]))
 
     def test_gtf_biotype_parser_removes_transcript_versions(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -143,8 +166,8 @@ class CdsMeanCorrelationTests(unittest.TestCase):
         transcript_df = pd.DataFrame(
             {
                 "Gene_Type": ["Housekeeping", "Other", "lncRNA"] * 2,
-                "Observed_Mean_Log1p": [3.0, 1.5, 0.3, 3.5, 1.8, 0.5],
-                "Predicted_Mean_Log1p": [2.9, 1.6, 0.4, 3.4, 1.7, 0.6],
+                "Observed_Mean_Log": [3.0, 1.5, 0.3, 3.5, 1.8, 0.5],
+                "Predicted_Mean_Log": [2.9, 1.6, 0.4, 3.4, 1.7, 0.6],
             }
         )
         _, summary = summarize_by_biotype(transcript_df, n_bootstrap=0)

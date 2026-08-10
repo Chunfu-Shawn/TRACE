@@ -221,6 +221,15 @@ def _mean_signal(signal: np.ndarray, start: int, end: int) -> float:
     return float(np.mean(region)) if region.size else float("nan")
 
 
+def _natural_log_positive(values: object) -> np.ndarray:
+    """Return natural logs for strictly positive finite values and NaN otherwise."""
+    values = np.asarray(values, dtype=np.float64)
+    logged = np.full(values.shape, np.nan, dtype=np.float64)
+    valid = np.isfinite(values) & (values > 0)
+    logged[valid] = np.log(values[valid])
+    return logged
+
+
 def _safe_correlations(observed: Sequence[float], predicted: Sequence[float]) -> dict:
     """Return Pearson and Spearman statistics for finite nonconstant pairs."""
     observed = np.asarray(observed, dtype=np.float64)
@@ -234,10 +243,10 @@ def _safe_correlations(observed: Sequence[float], predicted: Sequence[float]) ->
         "Pearson_P": float("nan"),
         "Spearman_R": float("nan"),
         "Spearman_P": float("nan"),
-        "MAE_Log1p": float("nan"),
+        "MAE_Log": float("nan"),
     }
     if len(observed):
-        result["MAE_Log1p"] = float(np.mean(np.abs(predicted - observed)))
+        result["MAE_Log"] = float(np.mean(np.abs(predicted - observed)))
     if len(observed) < 2 or np.ptp(observed) == 0 or np.ptp(predicted) == 0:
         return result
     pearson = pearsonr(observed, predicted)
@@ -317,15 +326,15 @@ def aggregate_by_transcript(sample_df: pd.DataFrame) -> pd.DataFrame:
             Predicted_Mean_Linear=("Predicted_Mean_Linear", "mean"),
         )
     )
-    transcript_df["Observed_Mean_Log1p"] = np.log1p(
-        transcript_df["Observed_Mean_Linear"].clip(lower=0)
+    transcript_df["Observed_Mean_Log"] = _natural_log_positive(
+        transcript_df["Observed_Mean_Linear"]
     )
-    transcript_df["Predicted_Mean_Log1p"] = np.log1p(
-        transcript_df["Predicted_Mean_Linear"].clip(lower=0)
+    transcript_df["Predicted_Mean_Log"] = _natural_log_positive(
+        transcript_df["Predicted_Mean_Linear"]
     )
-    transcript_df["Absolute_Error_Log1p"] = np.abs(
-        transcript_df["Predicted_Mean_Log1p"]
-        - transcript_df["Observed_Mean_Log1p"]
+    transcript_df["Absolute_Error_Log"] = np.abs(
+        transcript_df["Predicted_Mean_Log"]
+        - transcript_df["Observed_Mean_Log"]
     )
     return transcript_df
 
@@ -348,8 +357,11 @@ def summarize_by_biotype(
     for index, (gene_type, group) in enumerate(
         plot_df.groupby("Gene_Type", sort=True, observed=True)
     ):
-        observed = group["Observed_Mean_Log1p"].to_numpy(dtype=float)
-        predicted = group["Predicted_Mean_Log1p"].to_numpy(dtype=float)
+        observed = group["Observed_Mean_Log"].to_numpy(dtype=float)
+        predicted = group["Predicted_Mean_Log"].to_numpy(dtype=float)
+        valid = np.isfinite(observed) & np.isfinite(predicted)
+        observed = observed[valid]
+        predicted = predicted[valid]
         stats = _safe_correlations(observed, predicted)
         ci_low, ci_high = _bootstrap_spearman_ci(
             observed,
@@ -361,8 +373,12 @@ def summarize_by_biotype(
             {
                 "Gene_Type": str(gene_type),
                 **stats,
-                "Observed_Median_Log1p": float(np.median(observed)),
-                "Predicted_Median_Log1p": float(np.median(predicted)),
+                "Observed_Median_Log": (
+                    float(np.median(observed)) if observed.size else float("nan")
+                ),
+                "Predicted_Median_Log": (
+                    float(np.median(predicted)) if predicted.size else float("nan")
+                ),
                 "Spearman_CI95_Low": ci_low,
                 "Spearman_CI95_High": ci_high,
             }
@@ -379,15 +395,15 @@ def plot_amplitude_scatter(
     """Plot observed/predicted amplitude with transcript-type marginal densities."""
     required = {
         "Gene_Type",
-        "Observed_Mean_Log1p",
-        "Predicted_Mean_Log1p",
+        "Observed_Mean_Log",
+        "Predicted_Mean_Log",
     }
     missing = required - set(transcript_df.columns)
     if missing:
         raise ValueError(f"Missing plotting columns: {sorted(missing)}")
     input_count = len(transcript_df)
     plot_df = transcript_df.replace([np.inf, -np.inf], np.nan).dropna(
-        subset=["Observed_Mean_Log1p", "Predicted_Mean_Log1p"]
+        subset=["Observed_Mean_Log", "Predicted_Mean_Log"]
     )
     print(
         f"Amplitude plotting pairs: {len(plot_df):,}/{input_count:,} transcripts "
@@ -408,7 +424,7 @@ def plot_amplitude_scatter(
     color_map = {key: GENE_TYPE_COLORS[key] for key in category_order}
 
     overall = _safe_correlations(
-        plot_df["Observed_Mean_Log1p"], plot_df["Predicted_Mean_Log1p"]
+        plot_df["Observed_Mean_Log"], plot_df["Predicted_Mean_Log"]
     )
     p_value = overall["Spearman_P"]
     p_text = (
@@ -434,8 +450,8 @@ def plot_amplitude_scatter(
     ):
         grid = sns.JointGrid(
             data=plot_df,
-            x="Observed_Mean_Log1p",
-            y="Predicted_Mean_Log1p",
+            x="Observed_Mean_Log",
+            y="Predicted_Mean_Log",
             hue="Gene_Type",
             palette=color_map,
             height=6,
@@ -464,7 +480,7 @@ def plot_amplitude_scatter(
             grid.ax_marg_y.clear()
             sns.histplot(
                 data=plot_df,
-                x="Observed_Mean_Log1p",
+                x="Observed_Mean_Log",
                 hue="Gene_Type",
                 palette=color_map,
                 element="step",
@@ -474,7 +490,7 @@ def plot_amplitude_scatter(
             )
             sns.histplot(
                 data=plot_df,
-                y="Predicted_Mean_Log1p",
+                y="Predicted_Mean_Log",
                 hue="Gene_Type",
                 palette=color_map,
                 element="step",
@@ -485,18 +501,18 @@ def plot_amplitude_scatter(
 
         lower = float(
             min(
-                plot_df["Observed_Mean_Log1p"].min(),
-                plot_df["Predicted_Mean_Log1p"].min(),
+                plot_df["Observed_Mean_Log"].min(),
+                plot_df["Predicted_Mean_Log"].min(),
             )
         )
         upper = float(
             max(
-                plot_df["Observed_Mean_Log1p"].max(),
-                plot_df["Predicted_Mean_Log1p"].max(),
+                plot_df["Observed_Mean_Log"].max(),
+                plot_df["Predicted_Mean_Log"].max(),
             )
         )
         padding = max(0.05 * (upper - lower), 0.05)
-        limits = (max(0.0, lower - padding), upper + padding)
+        limits = (lower - padding, upper + padding)
         grid.ax_joint.plot(
             limits,
             limits,
@@ -516,8 +532,8 @@ def plot_amplitude_scatter(
             alpha=0.8,
         )
         grid.ax_joint.set_axisbelow(True)
-        grid.ax_joint.set_xlabel("Observed TE proxy (log1p)", fontsize=14)
-        grid.ax_joint.set_ylabel("Predicted TE proxy (log1p)", fontsize=14)
+        grid.ax_joint.set_xlabel("Observed TE proxy (ln)", fontsize=14)
+        grid.ax_joint.set_ylabel("Predicted TE proxy (ln)", fontsize=14)
         grid.ax_joint.text(
             0.95,
             0.05,
@@ -651,6 +667,8 @@ def evaluate_cds_mean_correlation(
             biotype,
             housekeeping_transcripts,
         )
+        observed_log = float(_natural_log_positive(observed_mean))
+        predicted_log = float(_natural_log_positive(predicted_mean))
         records.append(
             {
                 "UUID": str(uuid),
@@ -665,10 +683,12 @@ def evaluate_cds_mean_correlation(
                 "Region_Length": end - start,
                 "Observed_Mean_Linear": observed_mean,
                 "Predicted_Mean_Linear": predicted_mean,
-                "Observed_Mean_Log1p": float(np.log1p(max(observed_mean, 0.0))),
-                "Predicted_Mean_Log1p": float(np.log1p(max(predicted_mean, 0.0))),
-                "Absolute_Error_Log1p": float(
-                    abs(np.log1p(max(predicted_mean, 0.0)) - np.log1p(max(observed_mean, 0.0)))
+                "Observed_Mean_Log": observed_log,
+                "Predicted_Mean_Log": predicted_log,
+                "Absolute_Error_Log": (
+                    abs(predicted_log - observed_log)
+                    if np.isfinite(observed_log) and np.isfinite(predicted_log)
+                    else float("nan")
                 ),
             }
         )
