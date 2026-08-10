@@ -43,6 +43,45 @@ CORRELATION_COLUMNS = [
     "Spearman_P_value",
 ]
 
+DEPTH_BIN_LABELS = [
+    "<0.2",
+    "0.2 - 0.5",
+    "0.5 - 1",
+    "1 - 5",
+    "5 - 10",
+    "10-20",
+    ">20",
+]
+
+
+def categorize_depth(depth_values):
+    """Assign raw depth values to the standard ordered depth intervals."""
+    depth_series = (
+        depth_values
+        if isinstance(depth_values, pd.Series)
+        else pd.Series(depth_values)
+    )
+    values = pd.to_numeric(depth_series, errors="coerce").to_numpy(dtype=float)
+    codes = np.select(
+        [
+            values < 0.2,
+            (values >= 0.2) & (values < 0.5),
+            (values >= 0.5) & (values < 1.0),
+            (values >= 1.0) & (values < 5.0),
+            (values >= 5.0) & (values < 10.0),
+            (values >= 10.0) & (values <= 20.0),
+            values > 20.0,
+        ],
+        np.arange(len(DEPTH_BIN_LABELS)),
+        default=-1,
+    )
+    categories = pd.Categorical.from_codes(
+        codes,
+        categories=DEPTH_BIN_LABELS,
+        ordered=True,
+    )
+    return pd.Series(categories, index=depth_series.index, name="Depth_Group")
+
 
 def load_pickle(path):
     """Load a pickle file after validating its path."""
@@ -146,10 +185,11 @@ def calculate_psite_metrics(data_paths_dict, seq_pkl_path, out_dir, suffix=""):
     return df
 
 
-def plot_correlation_by_depth(df, out_dir, prefix="comparison", bins=5):
+def plot_correlation_by_depth(df, out_dir, prefix="comparison", bins=None):
     """Bin sequencing depth and plot Pearson/Spearman distributions.
 
-    ``bins`` may be an integer for quantile bins or a sequence of absolute edges.
+    By default, use the standard absolute depth intervals. ``bins`` may also be
+    an integer for quantile bins or a sequence of custom absolute edges.
     """
     df_plot = df.copy()
     if df_plot.empty:
@@ -157,7 +197,13 @@ def plot_correlation_by_depth(df, out_dir, prefix="comparison", bins=5):
         return
 
     try:
-        if isinstance(bins, int):
+        if bins is None:
+            print(f"Binning by standard absolute ranges: {DEPTH_BIN_LABELS} ...")
+            df_plot["Depth_Bin_Label"] = categorize_depth(df_plot["Depth"])
+            bin_codes = df_plot["Depth_Bin_Label"].cat.codes.astype(float)
+            df_plot["Depth_Bin_Code"] = bin_codes.mask(bin_codes < 0)
+            xlabel_text = "RNA Ribosome Load Density"
+        elif isinstance(bins, int):
             print(f"Binning by {bins} quantiles...")
             df_plot["Depth_Bin_Label"] = pd.qcut(
                 df_plot["Depth"], q=bins, duplicates="drop"
@@ -520,9 +566,7 @@ def load_and_process_comparison_data(
     metric="Pearson_R",
     target_ratio=None,
 ):
-    """Load two correlation CSV files and assign log10 sequencing-depth bins."""
-    bins = [-np.inf, -1, -0.301, 0, 0.699, 1, np.inf]
-    labels = ["<0.1", "0.1 - 0.5", "0.5 - 1", "1 - 5", "5 - 10", ">10"]
+    """Load two correlation CSV files and assign standard raw-depth bins."""
 
     def process_file(path, label):
         if not os.path.exists(path):
@@ -540,8 +584,7 @@ def load_and_process_comparison_data(
             return None
         frame = frame[[metric, "Depth"]].replace([np.inf, -np.inf], np.nan).dropna()
         frame = frame[frame["Depth"] > 0].copy()
-        frame["log_depth"] = np.log10(frame["Depth"])
-        frame["Depth_Group"] = pd.cut(frame["log_depth"], bins=bins, labels=labels)
+        frame["Depth_Group"] = categorize_depth(frame["Depth"])
         frame["Source"] = label
         return frame
 
@@ -553,7 +596,7 @@ def load_and_process_comparison_data(
         subset=["Depth_Group"]
     )
     combined_df["Depth_Group"] = pd.Categorical(
-        combined_df["Depth_Group"], categories=list(reversed(labels)), ordered=True
+        combined_df["Depth_Group"], categories=DEPTH_BIN_LABELS, ordered=True
     )
     return combined_df
 
@@ -591,7 +634,7 @@ def plot_ridge_density_comparison(df, metric="Pearson_R", out_dir="./results"):
         )
         + labs(
             x=f"Position-wise correlation per transcript ({metric})",
-            y="Sequencing Depth (Log10 Bins)",
+            y="RNA Ribosome Load Density",
         )
     )
     os.makedirs(out_dir, exist_ok=True)

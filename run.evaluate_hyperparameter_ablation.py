@@ -63,7 +63,7 @@ TEST_DATASET_PATH = (
 
 # Use the same validation-selected checkpoint type for every ablation.
 CHECKPOINT_SUFFIX = ".best_total.pt"
-BATCH_SIZE = 30
+BATCH_SIZE = 20
 NUM_TEST_SAMPLES: Optional[int] = None
 MIN_RPF_DEPTH: Optional[float] = 0.1
 MIN_RNA_PER_CELL = 500
@@ -124,6 +124,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
             "hs_5c*a2_b02_exp_aug*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -150,6 +151,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
             "hs_5c*a2_b0_exp_aug*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -176,6 +178,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
             "hs_5c*e25_a1_b0_exp_aug*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -202,6 +205,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
             "hs_5c*e25_a05_b0_exp_aug*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -228,6 +232,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*"
             "hs_5c*e25_a0_b0_exp_aug*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0,
@@ -302,7 +307,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_12l_alpha1_beta0",
-        label="TRACE 256d 12L alpha=1 beta=0",
+        label="TRACE 256d 12L alpha=1 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_12l_64env_16ad_bs.yaml"
@@ -310,6 +315,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_256d_16h_12l_64env_16ad_bs*"
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -329,7 +335,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_8h_12l_alpha1_beta0",
-        label="TRACE 256d 8H 12L alpha=1 beta=0",
+        label="TRACE 256d 8H 12L alpha=1 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_8h_12l_64env_16ad_bs.yaml"
@@ -337,6 +343,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_256d_8h_12l_64env_16ad_bs*"
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
@@ -356,7 +363,7 @@ MODEL_SPECS = (
     ),
     HyperparameterSpec(
         model_id="trace_256d_6l_alpha1_beta0",
-        label="TRACE 256d 6L alpha=1 beta=0",
+        label="TRACE 256d 6L alpha=1 beta=0 lr=0.001",
         model_class="BaseModel",
         config_path=(
             SRC_DIR / "config/base_model_256d_16h_6l_64env_16ad_bs.yaml"
@@ -364,6 +371,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_256d_16h_6l_64env_16ad_bs*"
             "hs_5c_6k_depth0.1_cov0.1_rpm1_e25_a1_b0_exp_aug_i03_m15*"
+            "_0.001"
         ),
         head_hidden_dim=384,
         macro_alpha_start=0.2,
