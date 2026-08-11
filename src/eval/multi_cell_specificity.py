@@ -611,11 +611,12 @@ class MultiCellEvaluator:
     # 绘图函数保持不变，它们只负责调用上面的接口
     # ==========================================
     def plot_merged_heatmap(self, out_path="merged_heatmap.pdf",
-                            tpm_file=None, mapping_file=None):
+                            tpm_file=None, mapping_file=None, cluster=True):
         """
         Profile-based merged-triangle heatmap.
         Upper triangle = GT (observed).
         Lower triangle = Pred (model) by default, or TPM if tpm_file/mapping_file provided.
+        Set cluster=False to preserve the original cell-type order.
         """
         self._run_global_analysis()
         pairwise_df = self.compute_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".")
@@ -649,7 +650,11 @@ class MultiCellEvaluator:
             lower_label = "Pred"
             title = "Profile: Obs. (Upper) vs Pred. (Lower)"
 
-        cells = cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
+        cells = (
+            cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
+            if cluster
+            else list(self.cell_types)
+        )
         plot_data = []
         for i, c1 in enumerate(cells):
             for j, c2 in enumerate(cells):
@@ -775,11 +780,12 @@ class MultiCellEvaluator:
         return df_corr
 
     def plot_te_merged_heatmap(self, out_path="te_merged_heatmap.pdf",
-                               tpm_file=None, mapping_file=None):
+                               tpm_file=None, mapping_file=None, cluster=True):
         """
         TE-based merged-triangle heatmap.
         Upper triangle = GT (observed).
         Lower triangle = Pred (model) by default, or TPM if tpm_file/mapping_file provided.
+        Set cluster=False to preserve the original cell-type order.
         """
         if not hasattr(self, 'te_pairwise_data') or self.te_pairwise_data is None:
             self.compute_te_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".", log_transform=True)
@@ -806,7 +812,11 @@ class MultiCellEvaluator:
             pair: metrics.get('GT', np.nan)
             for pair, metrics in self.te_pairwise_data.items()
         }
-        cells = cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
+        cells = (
+            cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
+            if cluster
+            else list(self.cell_types)
+        )
 
         plot_data = []
         for i, c1 in enumerate(cells):
