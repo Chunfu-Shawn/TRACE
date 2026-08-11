@@ -1,11 +1,14 @@
 import os
 import pickle
+import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import torch
 from tqdm import tqdm
 from collections import defaultdict
 from plotnine import *
+from scipy.cluster.hierarchy import leaves_list, linkage
+from scipy.spatial.distance import squareform
 from scipy.stats import spearmanr
 import warnings
 
@@ -19,6 +22,84 @@ from eval.multi_cell_te_specificity import (
 
 # 忽略警告
 warnings.filterwarnings("ignore")
+
+mpl.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
+    "pdf.fonttype": 42,
+})
+
+
+CORRELATION_LOW_COLOR = "#F7FBFF"
+CORRELATION_HIGH_COLOR = "#08306B"
+CORRELATION_MISSING_COLOR = "#D9D9D9"
+
+
+def _save_heatmap_pdf(plot, out_path):
+    """Save a heatmap as PDF regardless of the supplied filename extension."""
+    out_path = os.fspath(out_path)
+    stem, extension = os.path.splitext(out_path)
+    if extension.lower() == ".pdf":
+        pdf_path = out_path
+    else:
+        pdf_path = f"{stem if extension else out_path}.pdf"
+    plot.save(pdf_path, verbose=False)
+    return pdf_path
+
+
+def _symmetric_pair_value(lookup, cell_1, cell_2):
+    """Return a pair value regardless of the stored cell-order direction."""
+    value = lookup.get((cell_1, cell_2), np.nan)
+    if not np.isfinite(value):
+        value = lookup.get((cell_2, cell_1), np.nan)
+    return value
+
+
+def cluster_cell_order(cells, upper_lookup, lower_lookup):
+    """Cluster cell types using consensus upper/lower correlation distance.
+
+    A shared order is used for rows and columns so the merged upper/lower
+    triangles remain aligned to the same cell type along the diagonal.
+    """
+    cells = list(cells)
+    if len(cells) < 3:
+        return cells
+
+    similarity = np.full((len(cells), len(cells)), np.nan, dtype=np.float64)
+    np.fill_diagonal(similarity, 1.0)
+
+    for i, cell_1 in enumerate(cells):
+        for j in range(i + 1, len(cells)):
+            cell_2 = cells[j]
+            values = [
+                _symmetric_pair_value(upper_lookup, cell_1, cell_2),
+                _symmetric_pair_value(lower_lookup, cell_1, cell_2),
+            ]
+            finite_values = [value for value in values if np.isfinite(value)]
+            if finite_values:
+                pair_similarity = float(np.mean(finite_values))
+                similarity[i, j] = pair_similarity
+                similarity[j, i] = pair_similarity
+
+    off_diagonal = similarity[~np.eye(len(cells), dtype=bool)]
+    finite_off_diagonal = off_diagonal[np.isfinite(off_diagonal)]
+    if finite_off_diagonal.size == 0:
+        return cells
+
+    fill_value = float(np.median(finite_off_diagonal))
+    similarity = np.nan_to_num(similarity, nan=fill_value)
+    similarity = np.clip((similarity + similarity.T) / 2.0, -1.0, 1.0)
+
+    distance = np.clip(1.0 - similarity, 0.0, 2.0)
+    np.fill_diagonal(distance, 0.0)
+    linkage_matrix = linkage(
+        squareform(distance, checks=False),
+        method="average",
+        optimal_ordering=True,
+    )
+    order = leaves_list(linkage_matrix)
+    return [cells[index] for index in order]
+
 
 def extract_gt_and_cds_from_datasets(datasets):
     """
@@ -529,8 +610,6 @@ class MultiCellEvaluator:
     # ==========================================
     # 绘图函数保持不变，它们只负责调用上面的接口
     # ==========================================
-
-
     def plot_merged_heatmap(self, out_path="merged_heatmap.pdf",
                             tpm_file=None, mapping_file=None):
         """
@@ -570,33 +649,42 @@ class MultiCellEvaluator:
             lower_label = "Pred"
             title = "Profile: Obs. (Upper) vs Pred. (Lower)"
 
-        cells = self.cell_types
+        cells = cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
         plot_data = []
         for i, c1 in enumerate(cells):
             for j, c2 in enumerate(cells):
                 if i == j:
                     val = 1.0
                 elif i < j:
-                    val = lookup_gt.get((c1, c2), np.nan)
+                    val = _symmetric_pair_value(lookup_gt, c1, c2)
                 else:
-                    val = lookup_lower.get((c1, c2), np.nan)
+                    val = _symmetric_pair_value(lookup_lower, c1, c2)
                 plot_data.append({'Cell_X': c2, 'Cell_Y': c1, 'Correlation': val})
 
         df_plot = pd.DataFrame(plot_data)
-        df_plot['Cell_X'] = pd.Categorical(df_plot['Cell_X'], categories=cells)
-        df_plot['Cell_Y'] = pd.Categorical(df_plot['Cell_Y'], categories=list(reversed(cells)))
+        df_plot['Cell_X'] = pd.Categorical(
+            df_plot['Cell_X'], categories=cells, ordered=True
+        )
+        df_plot['Cell_Y'] = pd.Categorical(
+            df_plot['Cell_Y'], categories=list(reversed(cells)), ordered=True
+        )
 
         p = (
             ggplot(df_plot, aes(x='Cell_X', y='Cell_Y', fill='Correlation'))
             + geom_tile(color="white", size=0.5)
-            + scale_fill_distiller(palette="YlGnBu", direction=-1, limits=(0, 1))
+            + scale_fill_gradient(
+                low=CORRELATION_LOW_COLOR,
+                high=CORRELATION_HIGH_COLOR,
+                limits=(-1, 1),
+                na_value=CORRELATION_MISSING_COLOR,
+            )
             + labs(title=title, x="", y="")
             + theme_minimal()
             + theme(axis_text_x=element_text(rotation=45, hjust=1),
                     figure_size=(7, 6), panel_grid=element_blank())
         )
-        p.save(out_path)
-        print(f"Saved: {out_path}")
+        pdf_path = _save_heatmap_pdf(p, out_path)
+        print(f"Saved heatmap PDF: {pdf_path}")
 
     def compute_te_pairwise_matrices(self, out_dir="./results", log_transform=True):
         """
@@ -696,8 +784,6 @@ class MultiCellEvaluator:
         if not hasattr(self, 'te_pairwise_data') or self.te_pairwise_data is None:
             self.compute_te_pairwise_matrices(out_dir=os.path.dirname(out_path) or ".", log_transform=True)
 
-        cells = self.cell_types
-
         # Build lower-triangle lookup: Pred or TPM
         if tpm_file is not None and mapping_file is not None:
             tpm_corr = self._load_tpm_for_heatmap(tpm_file, mapping_file)
@@ -710,8 +796,17 @@ class MultiCellEvaluator:
             lower_label = "TPM"
             title = "TE: Obs. (Upper) vs TPM (Lower)"
         else:
-            lookup_lower = None  # use self.te_pairwise_data['Pred']
+            lookup_lower = {
+                pair: metrics.get('Pred', np.nan)
+                for pair, metrics in self.te_pairwise_data.items()
+            }
             title = "TE: Obs. (Upper) vs Pred. (Lower)"
+
+        lookup_gt = {
+            pair: metrics.get('GT', np.nan)
+            for pair, metrics in self.te_pairwise_data.items()
+        }
+        cells = cluster_cell_order(self.cell_types, lookup_gt, lookup_lower)
 
         plot_data = []
         for i, c1 in enumerate(cells):
@@ -719,29 +814,35 @@ class MultiCellEvaluator:
                 if i == j:
                     val = 1.0
                 elif i < j:
-                    val = self.te_pairwise_data.get((c1, c2), {}).get('GT', np.nan)
+                    val = _symmetric_pair_value(lookup_gt, c1, c2)
                 else:
-                    if lookup_lower is not None:
-                        val = lookup_lower.get((c1, c2), np.nan)
-                    else:
-                        val = self.te_pairwise_data.get((c1, c2), {}).get('Pred', np.nan)
+                    val = _symmetric_pair_value(lookup_lower, c1, c2)
                 plot_data.append({'Cell_X': c2, 'Cell_Y': c1, 'Correlation': val})
 
         df_plot = pd.DataFrame(plot_data)
-        df_plot['Cell_X'] = pd.Categorical(df_plot['Cell_X'], categories=cells)
-        df_plot['Cell_Y'] = pd.Categorical(df_plot['Cell_Y'], categories=list(reversed(cells)))
+        df_plot['Cell_X'] = pd.Categorical(
+            df_plot['Cell_X'], categories=cells, ordered=True
+        )
+        df_plot['Cell_Y'] = pd.Categorical(
+            df_plot['Cell_Y'], categories=list(reversed(cells)), ordered=True
+        )
 
         p = (
             ggplot(df_plot, aes(x='Cell_X', y='Cell_Y', fill='Correlation'))
             + geom_tile(color="white", size=0.5)
-            + scale_fill_distiller(palette="OrRd", direction=-1, limits=(0, 1))
+            + scale_fill_gradient(
+                low=CORRELATION_LOW_COLOR,
+                high=CORRELATION_HIGH_COLOR,
+                limits=(-1, 1),
+                na_value=CORRELATION_MISSING_COLOR,
+            )
             + labs(title=title, x="", y="")
             + theme_minimal()
             + theme(axis_text_x=element_text(rotation=45, hjust=1),
                     figure_size=(7, 6), panel_grid=element_blank())
         )
-        p.save(out_path)
-        print(f"Saved: {out_path}")
+        pdf_path = _save_heatmap_pdf(p, out_path)
+        print(f"Saved heatmap PDF: {pdf_path}")
 
     def _load_tpm_for_heatmap(self, tpm_file, mapping_file):
         """Load TPM correlation matrix aligned to evaluator cells/transcripts."""
@@ -755,5 +856,3 @@ class MultiCellEvaluator:
             te_pivot=getattr(self, 'te_pred_pivot', None),
             log_transform=True,
         )
-
-

@@ -7,6 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 from tqdm import tqdm
+from scipy.cluster.hierarchy import linkage
 from scipy.stats import spearmanr, pearsonr
 
 # =================================================================
@@ -14,7 +15,7 @@ from scipy.stats import spearmanr, pearsonr
 # =================================================================
 GLOBAL_MODEL_ORDER = [
     "TRACE", "Encoder", "Convolution", 
-    "Optimus-5Prime", "RiboDecode", "RiboNN",
+    "RiboNN", "RiboDecode", "Optimus-5Prime",
     "Raw-dataset", "Mean density", "TE scale", "Transcript-Mean", 
     "Inverse CDS length", "Inverse 5'UTR length", "Inverse 3'UTR length",
     "Inverse CDS GC%", "CAI", "Kozak score", "Inverse uAUG count"
@@ -25,9 +26,9 @@ GLOBAL_MODEL_COLORS = {
     "TRACE": "#2C6B9A", 
     "Encoder": "#4A4A4A", # Fallback for Encoder if present
     "Convolution": "#637D96",
-    "Optimus-5Prime": "#555555",
+    "RiboNN": "#555555",
     "RiboDecode": "#777777",
-    "RiboNN": "#BBBBBB",
+    "Optimus-5Prime": "#BBBBBB",
 
     # Feature Baselines (Earth tones & Warm gold gradients)
     "Raw-dataset": "#8C6D51",
@@ -624,8 +625,11 @@ def plot_polysome_correlation_heatmap(
         metric_name: str = "Spearman correlation coefficient",
         suffix: str = ""):
     """
-    绘制模型在 Polysome 数据集上的相关性热图 (Heatmap)。
-    高度还原发表级美学：左侧带有模型专属颜色的边条，使用蓝白红的发散型色带，并附带白色网格分割线。
+    Plot a hierarchically clustered correlation heatmap for polysome datasets.
+
+    Higher correlations are represented by progressively darker blue. Missing
+    values are imputed only for linkage calculation and remain masked in the
+    displayed heatmap.
     """
     if agg_df.empty:
         print("No data to plot.")
@@ -634,11 +638,8 @@ def plot_polysome_correlation_heatmap(
     os.makedirs(out_dir, exist_ok=True)
     plot_df = agg_df.copy()
 
-    # =================================================================
-    # 1. 构建 X 轴标签 (Dataset + Cell_type) 并透视数据
-    # =================================================================
+    # Build dataset labels and pivot to model-by-dataset correlation matrix.
     if 'Dataset' in plot_df.columns and 'Cell_type' in plot_df.columns:
-        # 智能合并标签：如果 Dataset 名称中没有包含 Cell_type，则拼在一起
         plot_df['x_label'] = plot_df.apply(
             lambda x: f"{x['Dataset']}-{x['Cell_type']}" if str(x['Cell_type']) not in str(x['Dataset']) else x['Dataset'], 
             axis=1
@@ -648,109 +649,108 @@ def plot_polysome_correlation_heatmap(
     else:
         plot_df['x_label'] = plot_df['Cell_type']
 
-    # 生成透视表: 行是 Model, 列是 数据集, 值是 相关性 Mean
     heatmap_data = plot_df.pivot(index='Model', columns='x_label', values='Mean')
+    heatmap_data = heatmap_data.replace([np.inf, -np.inf], np.nan)
+    heatmap_data = heatmap_data.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
-    # =================================================================
-    # 2. 排序 行(Model) 和 列(Dataset)
-    # =================================================================
-    valid_models = [m for m in GLOBAL_MODEL_ORDER if m in heatmap_data.index]
-    for m in heatmap_data.index:
-        if m not in valid_models:
-            valid_models.append(m)
-            
-    heatmap_data = heatmap_data.reindex(valid_models)
-    
-    # 列按字母顺序排序，保证展现整齐
-    heatmap_data = heatmap_data[sorted(heatmap_data.columns)]
+    if heatmap_data.empty:
+        print("No finite correlation values to plot.")
+        return
 
-    # =================================================================
-    # 3. 绘图与布局逻辑 (GridSpec)
-    # =================================================================
-    print(f"Generating Polysome Heatmap...")
-    
-    # 动态计算画幅宽度和高度
+    # Impute only the clustering copy so missing cells remain blank in the plot.
+    clustering_data = heatmap_data.apply(
+        lambda row: row.fillna(row.mean()), axis=1
+    )
+    clustering_data = clustering_data.fillna(clustering_data.mean(axis=0))
+    finite_values = clustering_data.to_numpy(dtype=float)
+    overall_mean = np.nanmean(finite_values) if np.isfinite(finite_values).any() else 0.0
+    clustering_data = clustering_data.fillna(overall_mean)
+
+    row_linkage = None
+    col_linkage = None
+    if len(clustering_data.index) > 1:
+        row_linkage = linkage(
+            clustering_data.to_numpy(dtype=float),
+            method='average',
+            metric='euclidean',
+            optimal_ordering=True,
+        )
+    if len(clustering_data.columns) > 1:
+        col_linkage = linkage(
+            clustering_data.to_numpy(dtype=float).T,
+            method='average',
+            metric='euclidean',
+            optimal_ordering=True,
+        )
+
+    print("Generating clustered polysome heatmap...")
+
     width = max(8, len(heatmap_data.columns) * 0.7 + 3)
     height = max(5, len(heatmap_data.index) * 0.6 + 2)
-    
-    fig = plt.figure(figsize=(width, height))
-    
-    # 将画布分为左右两部分：极窄的左侧用于画颜色条，右侧用于画热图
-    gs = fig.add_gridspec(1, 2, width_ratios=[0.03, 1], wspace=0.01)
-    
-    ax_colors = fig.add_subplot(gs[0])
-    ax_heatmap = fig.add_subplot(gs[1])
 
-    # =================================================================
-    # [MODIFIED] 修改色带：
-    # 负值端保持冷蓝(240)，正值端将大红(10)改为橙红(20)
-    # s(饱和度)从90降为80，l(亮度)从50提至55，使颜色更加柔和不扎眼
-    # =================================================================
-    cmap = sns.diverging_palette(240, 20, s=80, l=55, center="light", as_cmap=True)
+    row_colors = pd.Series(
+        [GLOBAL_MODEL_COLORS.get(model, "#C0C0C0") for model in heatmap_data.index],
+        index=heatmap_data.index,
+        name="Model",
+    )
+    cmap = sns.light_palette("#08306B", as_cmap=True)
 
-    # 绘制核心 Heatmap
-    sns.heatmap(
-        heatmap_data, 
-        annot=True,            # 显示数值
-        fmt=".2f",             # 保留两位小数
-        cmap=cmap,             # 蓝白橙红色带
-        center=0,              # 强制 0 为白色
-        linewidths=1,          # 白色网格线宽
-        linecolor='white',     # 网格线颜色
-        annot_kws={"size": 14}, 
+    grid = sns.clustermap(
+        heatmap_data,
+        row_cluster=row_linkage is not None,
+        col_cluster=col_linkage is not None,
+        row_linkage=row_linkage,
+        col_linkage=col_linkage,
+        row_colors=row_colors,
+        mask=heatmap_data.isna(),
+        annot=True,
+        fmt=".2f",
+        cmap=cmap,
+        vmin=-1,
+        vmax=1,
+        linewidths=1,
+        linecolor='white',
+        annot_kws={"size": 12},
         cbar_kws={
-            'label': metric_name, 
-            'shrink': 0.5,     # 缩短 Colorbar，复刻原图右侧悬浮风格
-            'aspect': 15       # 调整 Colorbar 粗细
+            'label': metric_name,
+            'ticks': [-1, -0.5, 0, 0.5, 1],
         },
-        ax=ax_heatmap
+        dendrogram_ratio=(0.14, 0.12),
+        colors_ratio=0.025,
+        cbar_pos=(0.92, 0.25, 0.02, 0.35),
+        figsize=(width, height),
     )
 
-    # 隐藏 Heatmap 自带的 Y 轴标签（我们将把它转移到左侧颜色条上）
-    ax_heatmap.set_yticks([])
-    ax_heatmap.set_ylabel('')
-    ax_heatmap.set_xlabel('')
-    
-    # 调整 X 轴标签的角度和对其方式 (此处如果觉得刻度字小，也可将 fontsize 调大)
-    ax_heatmap.set_xticklabels(ax_heatmap.get_xticklabels(), rotation=45, ha='right', fontsize=12)
+    grid.ax_heatmap.set_xlabel('')
+    grid.ax_heatmap.set_ylabel('')
+    grid.ax_heatmap.set_xticklabels(
+        grid.ax_heatmap.get_xticklabels(), rotation=45, ha='right', fontsize=11
+    )
+    grid.ax_heatmap.set_yticklabels(
+        grid.ax_heatmap.get_yticklabels(), rotation=0, fontsize=12
+    )
+    grid.ax_heatmap.tick_params(axis='both', length=0)
+    grid.cax.set_ylabel(metric_name, fontsize=11)
 
-    # =================================================================
-    # 4. 绘制左侧的 Model Color Strip
-    # =================================================================
-    ax_colors.set_xlim(0, 1)
-    ax_colors.set_ylim(len(heatmap_data.index), 0) # 方向与 seaborn heatmap 的倒序 Y 轴保持一致
-    
-    # 逐行绘制带有颜色的方块
-    for i, model in enumerate(heatmap_data.index):
-        color = GLOBAL_MODEL_COLORS.get(model, "#C0C0C0") # 默认颜色兜底
-        # 加上白色的边框线，让颜色条也具有和热图一样的切割感
-        rect = plt.Rectangle((0, i), 1, 1, facecolor=color, edgecolor='white', linewidth=1)
-        ax_colors.add_patch(rect)
-
-    # 将 Y 轴的模型名称标签添加到颜色条的左侧
-    ax_colors.set_yticks(np.arange(len(heatmap_data.index)) + 0.5)
-    # [MODIFIED] 如果觉得模型名字太小，可将这里的 fontsize 从 12 提至 13 或 14
-    ax_colors.set_yticklabels(heatmap_data.index, fontsize=13)
-    ax_colors.set_xticks([])
-    
-    # 移除颜色条自带的所有坐标轴边框
-    ax_colors.tick_params(axis='y', length=0)
-    for spine in ax_colors.spines.values():
-        spine.set_visible(False)
-
-    # =================================================================
-    # 5. 保存图表
-    # =================================================================
     file_suffix = f".{suffix}" if suffix else ""
     save_path = os.path.join(out_dir, f"polysome_multidataset_correlation_heatmap{file_suffix}.pdf")
-    
-    # bbox_inches='tight' 保证长标签不会被切除
-    plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    plt.close()
-    
+
+    grid.savefig(save_path, dpi=300, bbox_inches='tight')
+    plt.close(grid.fig)
+
     print(f"✅ Heatmap saved to: {save_path}")
-    
-    return heatmap_data
+
+    row_order = (
+        grid.dendrogram_row.reordered_ind
+        if grid.dendrogram_row is not None
+        else list(range(len(heatmap_data.index)))
+    )
+    col_order = (
+        grid.dendrogram_col.reordered_ind
+        if grid.dendrogram_col is not None
+        else list(range(len(heatmap_data.columns)))
+    )
+    return heatmap_data.iloc[row_order, col_order]
 
 
 
@@ -1191,7 +1191,8 @@ def plot_silac_correlation_bar(
         out_dir: str = "./", 
         metric_name: str = "Model Translation Prediction",
         corr_abs: bool = False,
-        suffix: str = ""
+        suffix: str = "",
+        w=6, h=5
         ):
     """
     Plot bar chart with error bars and jitter points for SILAC translation rate correlations.
@@ -1274,12 +1275,12 @@ def plot_silac_correlation_bar(
             legend_position="right",
             legend_title=element_text(size=13, fontweight='bold'),
             legend_text=element_text(size=11),
-            figure_size=(6, 5) 
+            figure_size=(w, h) 
         )
     )
 
     save_path = os.path.join(out_dir, f"silac_correlation_bar{file_suffix}.pdf")
-    p.save(save_path, width=6.5, height=5, dpi=300, verbose=False)
+    p.save(save_path, width=w, height=h, dpi=300, verbose=False)
     print(f"✅ Bar chart saved to: {save_path}")
 
     return summary_df
