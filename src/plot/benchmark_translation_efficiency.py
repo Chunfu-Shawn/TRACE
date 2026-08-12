@@ -1,14 +1,22 @@
 import os
+import re
 import numpy as np
 import pandas as pd
 import pickle
 from plotnine import *
 import seaborn as sns
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 from tqdm import tqdm
 from scipy.cluster.hierarchy import linkage
 from scipy.stats import spearmanr, pearsonr
+
+mpl.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
+    "pdf.fonttype": 42,
+})
 
 # =================================================================
 # Global Model Order & Color Mapping 
@@ -278,7 +286,8 @@ def load_and_calculate_te_correlation(
 
 def plot_te_correlation_performance(
         agg_df, cell_types=None, metric_name="mORF Mean Density", 
-        corr_method="Spearman", out_dir="./", suffix="", no_color=False):
+        corr_method="Spearman", out_dir="./", suffix="", no_color=False,
+        corr_abs=False):
     """
     Plot bar chart with error bars and jitter points for TE correlations.
     Dynamically handles ANY number of Cell Types by manually cycling shapes.
@@ -288,6 +297,8 @@ def plot_te_correlation_performance(
         return
         
     agg_df = agg_df.copy()
+    if corr_abs:
+        agg_df['Mean'] = agg_df['Mean'].abs()
 
     # Replace specific unseen label
     agg_df['Cell_type'] = agg_df['Cell_type'].replace({'lung': 'lung (unseen)'})
@@ -374,7 +385,11 @@ def plot_te_correlation_performance(
             legend_title=element_text(fontweight='bold')
         )
         + labs(
-            y=f"{corr_method.capitalize()} correlation between prediction and PTR score",
+            y=(
+                f"Absolute {corr_method.capitalize()} correlation between prediction and PTR score"
+                if corr_abs
+                else f"{corr_method.capitalize()} correlation between prediction and PTR score"
+            ),
             fill="Model",
             shape="Cell Type", 
             color="Cell Type" 
@@ -754,14 +769,25 @@ def plot_polysome_correlation_heatmap(
 
 
 
+def _extract_study_name(dataset_name):
+    """Extract a shared 'et al.' study label from a dataset name when present."""
+    dataset_name = str(dataset_name)
+    match = re.search(r"^.*?\bet\s+al\.?", dataset_name, flags=re.IGNORECASE)
+    return match.group(0).strip() if match else dataset_name
+
+
 def plot_polysome_correlation_bar(
         agg_df: pd.DataFrame, 
         out_dir: str = "./", 
         metric_name: str = "Translation dynamics position-wise correlation",
-        suffix: str = ""):
+        suffix: str = "",
+        corr_abs: bool = False,
+        shape_by_study: bool = False,
+        study_column: str = "Study",
+        study_mapping=None):
     """
     Plot bar chart with error bars and jitter points for Polysome correlations.
-    [MODIFIED] Removed Cell_type coloring. Focus strictly on Dataset shapes.
+    Point shapes can represent individual datasets or shared study labels.
     """
 
     if agg_df.empty:
@@ -770,6 +796,8 @@ def plot_polysome_correlation_bar(
         
     os.makedirs(out_dir, exist_ok=True)
     plot_df = agg_df.copy()
+    if corr_abs:
+        plot_df['Mean'] = plot_df['Mean'].abs()
 
     summary_df = plot_df.groupby('Model', observed=False).agg(
         Overall_Mean=('Mean', 'mean'),
@@ -796,8 +824,34 @@ def plot_polysome_correlation_bar(
     if 'Dataset' not in plot_df.columns:
         raise ValueError("The input DataFrame must contain a 'Dataset' column for shape mapping.")
         
-    unique_datasets = plot_df['Dataset'].unique().tolist()
-    plot_df['Dataset'] = pd.Categorical(plot_df['Dataset'], categories=unique_datasets, ordered=True)
+    unique_datasets = plot_df['Dataset'].dropna().astype(str).unique().tolist()
+    plot_df['Dataset'] = plot_df['Dataset'].astype(str)
+    plot_df['Dataset'] = pd.Categorical(
+        plot_df['Dataset'], categories=unique_datasets, ordered=True
+    )
+
+    if shape_by_study:
+        if study_mapping is not None:
+            study_labels = plot_df['Dataset'].astype(str).map(study_mapping)
+            fallback_labels = plot_df['Dataset'].astype(str).map(_extract_study_name)
+            study_labels = study_labels.fillna(fallback_labels)
+        elif study_column in plot_df.columns:
+            study_labels = plot_df[study_column].astype('string')
+            fallback_labels = plot_df['Dataset'].astype(str).map(_extract_study_name)
+            study_labels = study_labels.fillna(fallback_labels)
+        else:
+            study_labels = plot_df['Dataset'].astype(str).map(_extract_study_name)
+        shape_column = 'Study_Shape_Group'
+        shape_title = 'Study'
+        plot_df[shape_column] = study_labels.astype(str)
+    else:
+        shape_column = 'Dataset'
+        shape_title = 'Dataset'
+
+    unique_shape_groups = plot_df[shape_column].dropna().astype(str).unique().tolist()
+    plot_df[shape_column] = pd.Categorical(
+        plot_df[shape_column], categories=unique_shape_groups, ordered=True
+    )
     
     # =================================================================
     # [MODIFIED] Selected high-contrast, universally recognized shapes 
@@ -806,9 +860,10 @@ def plot_polysome_correlation_bar(
     # *=star, >=triangle right, <=triangle left, X=x
     # =================================================================
     shapes_pool = ['o', '^', 's', 'D', 'v', '*', '>', '<', 'X']
-    dataset_shapes = {}
-    for i, ds in enumerate(unique_datasets):
-        dataset_shapes[ds] = shapes_pool[i % len(shapes_pool)]
+    point_shapes = {
+        group: shapes_pool[i % len(shapes_pool)]
+        for i, group in enumerate(unique_shape_groups)
+    }
 
     print(f"Generating Polysome Bar Chart...")
     
@@ -831,20 +886,24 @@ def plot_polysome_correlation_bar(
         # gray color and a slight outline to make points pop against the bars.
         # =================================================================
         + geom_jitter(
-            data=plot_df, 
-            mapping=aes(x='Model', y='Mean', shape='Dataset'), 
+            data=plot_df,
+            mapping=aes(x='Model', y='Mean', shape=shape_column),
             width=0.2, 
             size=3.5, 
             color="#202020",
             stroke=0.8,
             alpha=0.85
         )
-        + scale_fill_manual(values=model_colors, guide=None) 
-        + scale_shape_manual(values=dataset_shapes, name="Dataset") 
+        + scale_fill_manual(values=model_colors, guide=None)
+        + scale_shape_manual(values=point_shapes, name=shape_title)
         + theme_bw()
         + labs(
             x="",
-            y=f"{metric_name}\ncorrelation with ribosome load"
+            y=(
+                f"Absolute {metric_name}\ncorrelation with ribosome load"
+                if corr_abs
+                else f"{metric_name}\ncorrelation with ribosome load"
+            )
         )
         + theme(
             axis_text_x=element_text(angle=45, hjust=1, color="black"),

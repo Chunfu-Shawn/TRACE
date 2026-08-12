@@ -7,6 +7,7 @@ import torch
 from tqdm import tqdm
 from collections import defaultdict
 from plotnine import *
+from mizani.bounds import squish
 from scipy.cluster.hierarchy import leaves_list, linkage
 from scipy.spatial.distance import squareform
 from scipy.stats import spearmanr
@@ -30,8 +31,7 @@ mpl.rcParams.update({
 })
 
 
-CORRELATION_LOW_COLOR = "#F7FBFF"
-CORRELATION_HIGH_COLOR = "#08306B"
+CORRELATION_COLORS = ["#F7FBFF", "#6BAED6", "#08306B"]
 CORRELATION_MISSING_COLOR = "#D9D9D9"
 
 
@@ -677,10 +677,10 @@ class MultiCellEvaluator:
         p = (
             ggplot(df_plot, aes(x='Cell_X', y='Cell_Y', fill='Correlation'))
             + geom_tile(color="white", size=0.5)
-            + scale_fill_gradient(
-                low=CORRELATION_LOW_COLOR,
-                high=CORRELATION_HIGH_COLOR,
-                limits=(-1, 1),
+            + scale_fill_gradientn(
+                colors=CORRELATION_COLORS,
+                limits=(0, 1),
+                oob=squish,
                 na_value=CORRELATION_MISSING_COLOR,
             )
             + labs(title=title, x="", y="")
@@ -840,10 +840,10 @@ class MultiCellEvaluator:
         p = (
             ggplot(df_plot, aes(x='Cell_X', y='Cell_Y', fill='Correlation'))
             + geom_tile(color="white", size=0.5)
-            + scale_fill_gradient(
-                low=CORRELATION_LOW_COLOR,
-                high=CORRELATION_HIGH_COLOR,
-                limits=(-1, 1),
+            + scale_fill_gradientn(
+                colors=CORRELATION_COLORS,
+                limits=(0, 1),
+                oob=squish,
                 na_value=CORRELATION_MISSING_COLOR,
             )
             + labs(title=title, x="", y="")
