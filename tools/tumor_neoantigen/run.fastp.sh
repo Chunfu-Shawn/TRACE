@@ -8,24 +8,8 @@ set -Eeuo pipefail
 #Modified: Added auto-detection for SE/PE compatibility
 ################################################
 
-##并发运行脚本，并控制并发数
-# 设置并发的进程数
+# Run a bounded number of fastp jobs without a FIFO token pool.
 thread_num=3
-a=$(date +%H%M%S)
-# mkfifo
-tempfifo="my_temp_fifo"
-mkfifo ${tempfifo}
-# 使文件描述符为非阻塞式
-exec 6<>${tempfifo}
-rm -f ${tempfifo}
-
-# 为文件描述符创建占位信息
-for ((i=1;i<=${thread_num};i++))
-do
-{
-    echo 
-}
-done >&6 #事实上就是在fd6中放置了$thread个回车符
 
 ## Argument
 while [[ $# -gt 0 ]]; do
@@ -44,11 +28,29 @@ done
 samples=(`cd $fastqDir && ls *.fastq.gz | sed -E 's/(_1|_2|_R1|_R2)?\.fastq\.gz//g' | sort -u`)
 
 pids=()
+active_jobs=0
+
+wait_for_batch() {
+    local pid
+    local batch_failed=0
+    if (( active_jobs == 0 )); then
+        return 0
+    fi
+    for pid in "${pids[@]}"; do
+        if ! wait "$pid"; then
+            batch_failed=1
+        fi
+    done
+    pids=()
+    active_jobs=0
+    if (( batch_failed != 0 )); then
+        return 1
+    fi
+}
+
 for sample in ${samples[@]};
 do
-    read -u6
     {
-        trap 'echo >&6' EXIT
         [ -d $outputDir ] || mkdir -p $outputDir
         cd $outputDir
         
@@ -86,11 +88,15 @@ do
         if [ -n "$fq1" ] && [ -n "$fq2" ]; then
             # ================== 双端 (PE) 模式 ==================
             echo "[Info] Detected Paired-End data for $sample"
-            [ -f ${sample}_1.clean.fastq.gz ] || fastp \
+            if [ -s "${sample}_1.clean.fastq.gz" ] && [ -s "${sample}_2.clean.fastq.gz" ]; then
+                echo "[Skip] Both cleaned FASTQ files already exist for $sample."
+            else
+                fastp \
                 -i $fq1 -I $fq2 \
                 -o ${sample}_1.clean.fastq.gz -O ${sample}_2.clean.fastq.gz \
                 -w 16 --qualified_quality_phred 20 --length_required 50 \
                 -h ${sample}_fastp.html -j ${sample}_fastp.json
+            fi
                 
         elif [ -n "$fq1" ]; then
             echo "[Skip] Single-end sample $sample is excluded by preprocessing policy."
@@ -101,14 +107,16 @@ do
 
     }&
     pids+=("$!")
-done
-failed=0
-for pid in "${pids[@]}"; do
-    if ! wait "$pid"; then
-        failed=1
+    ((active_jobs += 1))
+    if (( active_jobs == thread_num )); then
+        if ! wait_for_batch; then
+            echo "[ERROR] At least one fastp job failed." >&2
+            exit 1
+        fi
     fi
 done
-if (( failed != 0 )); then
+
+if ! wait_for_batch; then
     echo "[ERROR] At least one fastp job failed." >&2
     exit 1
 fi

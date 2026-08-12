@@ -41,16 +41,38 @@ echo "=========================================================="
 echo "### Phase 1: Per-sample Transcript Assembly ###"
 echo "=========================================================="
 
-tempfifo="my_temp_fifo_$$"
-mkfifo ${tempfifo}
-exec 6<>${tempfifo} 
-rm -f ${tempfifo}
-
-for ((i=1;i<=${job_num};i++)); do echo; done >&6 
-
-samples=($(ls ${bamDir}/*/*.uniq.sorted.bam | awk -F'/' '{print $(NF-1)}'))
+shopt -s nullglob
+bam_files=("${bamDir}"/*/*.uniq.sorted.bam)
+if (( ${#bam_files[@]} == 0 )); then
+    echo "[Error] No *.uniq.sorted.bam files found under ${bamDir}." >&2
+    exit 1
+fi
+samples=()
+for bam_path in "${bam_files[@]}"; do
+    samples+=("$(basename "$(dirname "$bam_path")")")
+done
 
 pids=()
+active_jobs=0
+
+wait_for_batch() {
+    local pid
+    local batch_failed=0
+    if (( active_jobs == 0 )); then
+        return 0
+    fi
+    for pid in "${pids[@]}"; do
+        if ! wait "$pid"; then
+            batch_failed=1
+        fi
+    done
+    pids=()
+    active_jobs=0
+    if (( batch_failed != 0 )); then
+        return 1
+    fi
+}
+
 for sample in ${samples[@]}; do
     sample_outdir="${outputDir}/${sample}"
     input_bam="${bamDir}/${sample}/${sample}.uniq.sorted.bam"
@@ -61,26 +83,25 @@ for sample in ${samples[@]}; do
         continue
     fi
     
-    read -u6
     {
-        trap 'echo >&6' EXIT
         echo "-- assembling $sample --"
         [ -d $sample_outdir ] || mkdir -p $sample_outdir
         stringtie ${input_bam} -G ${refGTF} "${stringtie_strand_args[@]}" -p ${threads_per_job} -o ${output_gtf}
     }&
     pids+=("$!")
-done
-failed=0
-for pid in "${pids[@]}"; do
-    if ! wait "$pid"; then
-        failed=1
+    ((active_jobs += 1))
+    if (( active_jobs == job_num )); then
+        if ! wait_for_batch; then
+            echo "[ERROR] At least one StringTie assembly job failed." >&2
+            exit 1
+        fi
     fi
 done
-if (( failed != 0 )); then
+
+if ! wait_for_batch; then
     echo "[ERROR] At least one StringTie assembly job failed." >&2
     exit 1
 fi
-exec 6>&-
 
 mergelist="${outputDir}/mergelist.txt"
 find ${outputDir} -mindepth 2 -name "*.gtf" > $mergelist

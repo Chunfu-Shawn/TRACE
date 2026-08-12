@@ -23,16 +23,6 @@ if [ -z "${fastqDir:-}" ] || [ -z "${outputDir:-}" ] || [ -z "${annoIndex:-}" ];
     exit 1
 fi
 
-# mkfifo (并发控制)
-tempfifo="my_temp_fifo_$$"
-mkfifo ${tempfifo}
-exec 6<>${tempfifo} 
-rm -f ${tempfifo}
-
-for ((i=1;i<=${thread_num};i++)); do
-    echo
-done >&6 
-
 echo "### Mapping to genome by STAR (2-pass mode) ###"
 
 [ -d $outputDir ] || mkdir -p $outputDir
@@ -56,21 +46,45 @@ for fastq_path in "${fastq_files[@]}"; do
         *.clean.fastq.gz)    sample_names+=("${fastq_name%.clean.fastq.gz}") ;;
     esac
 done
-mapfile -t samples < <(printf '%s\n' "${sample_names[@]}" | sort -u)
+samples=()
+while IFS= read -r sample_name; do
+    samples+=("$sample_name")
+done < <(printf '%s\n' "${sample_names[@]}" | sort -u)
 
 pids=()
+active_jobs=0
+
+wait_for_batch() {
+    local pid
+    local batch_failed=0
+    if (( active_jobs == 0 )); then
+        return 0
+    fi
+    for pid in "${pids[@]}"; do
+        if ! wait "$pid"; then
+            batch_failed=1
+        fi
+    done
+    pids=()
+    active_jobs=0
+    if (( batch_failed != 0 )); then
+        return 1
+    fi
+}
+
 for sample in "${samples[@]}";
 do
     final_output="${outputDir}/${sample}/${sample}.uniq.sorted.bam"
     
-    if [ -f "$final_output" ]; then
+    if [ -s "$final_output" ] && [ -s "${final_output}.bai" ]; then
         echo "Skip ${sample}, output exists."
         continue
     fi
+    if [ -e "$final_output" ] || [ -e "${final_output}.bai" ]; then
+        echo "[Warning] Incomplete BAM checkpoint found for ${sample}; rebuilding mapping output."
+    fi
     
-    read -u6
     {
-        trap 'echo >&6' EXIT
         echo "-- processing $sample --"
 
         [ -d $outputDir/${sample} ] || mkdir -p $outputDir/${sample}
@@ -101,6 +115,9 @@ do
 
         ### Perform 2-pass mapping.
         # 优化点：直接利用 STAR 管道输出 BAM 并通过 samtools 排序
+        temp_bam="${sample}.uniq.sorted.bam.incomplete"
+        temp_bai="${temp_bam}.bai"
+        trap 'rm -f "$temp_bam" "$temp_bai"' EXIT
         time STAR \
             --genomeDir $annoIndex \
             --readFilesIn "${input_files[@]}" \
@@ -123,24 +140,29 @@ do
             --outSAMattributes All \
             --outSAMtype BAM Unsorted \
             --outStd BAM_Unsorted | \
-            samtools sort -@ 20 -m 2G -o ${sample}.uniq.sorted.bam
+            samtools sort -@ 20 -m 2G -o "$temp_bam"
         
         # index
-        samtools index -@ 20 ${sample}.uniq.sorted.bam
+        samtools index -@ 20 "$temp_bam"
+        mv "$temp_bam" "${sample}.uniq.sorted.bam"
+        mv "$temp_bai" "${sample}.uniq.sorted.bam.bai"
         
         # stat
         samtools flagstat -@ 20 ${sample}.uniq.sorted.bam > ${sample}.uniq.sorted.bam.flagstat
+        trap - EXIT
 
     }&
     pids+=("$!")
-done
-failed=0
-for pid in "${pids[@]}"; do
-    if ! wait "$pid"; then
-        failed=1
+    ((active_jobs += 1))
+    if (( active_jobs == thread_num )); then
+        if ! wait_for_batch; then
+            echo "[ERROR] At least one STAR mapping job failed." >&2
+            exit 1
+        fi
     fi
 done
-if (( failed != 0 )); then
+
+if ! wait_for_batch; then
     echo "[ERROR] At least one STAR mapping job failed." >&2
     exit 1
 fi

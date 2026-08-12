@@ -4,7 +4,7 @@ set -euo pipefail
 # ==============================================================================
 # Script: run.rnaseq_variants_calling.sh
 # Purpose: Auto-pair Tumor/Normal RNA-seq BAMs from CSV and run GATK4 Mutect2.
-#          Features mkfifo concurrency and fixes Async I/O writer bugs.
+#          Features bounded batch concurrency and fixes Async I/O writer bugs.
 # ==============================================================================
 
 # ==============================================================================
@@ -67,35 +67,40 @@ done < "$META_FILE"
 echo " -> Successfully loaded metadata mapping."
 echo " -> Concurrency set to: $THREAD_NUM patients at a time."
 
-# ==============================================================================
-# Phase 2: Concurrent Processing Initialization (mkfifo setup)
-# ==============================================================================
-tempfifo="my_temp_fifo_$$"
-mkfifo ${tempfifo}
-exec 6<>${tempfifo} 
-rm -f ${tempfifo}
+shopt -s nullglob
 
-# 为 fifo 注入初始的令牌 (tokens)
-for ((i=1; i<=${THREAD_NUM}; i++)); do
-    echo >&6
-done 
+pids=()
+active_jobs=0
 
-shopt -s nullglob 
+wait_for_batch() {
+    local job_pid
+    local batch_failed=0
+    if (( active_jobs == 0 )); then
+        return 0
+    fi
+    for job_pid in "${pids[@]}"; do
+        if ! wait "$job_pid"; then
+            batch_failed=1
+        fi
+    done
+    pids=()
+    active_jobs=0
+    if (( batch_failed != 0 )); then
+        return 1
+    fi
+}
 
 echo "=========================================================="
 echo " Phase 3: Executing GATK Pipeline"
 echo "=========================================================="
 
 for pid in "${!tumor_runs[@]}"; do
-    # 领取一个并发令牌，如果没有令牌则在此阻塞等待
-    read -u6
     {
         t_run="${tumor_runs[$pid]:-}"
         n_run="${normal_runs[$pid]:-}"
         
         if [[ -z "$t_run" || -z "$n_run" ]]; then
             echo "[Warning] Patient $pid is missing either a Tumor or Normal run. Skipping..."
-            echo >&6 # 归还令牌
             continue
         fi
         
@@ -104,7 +109,6 @@ for pid in "${!tumor_runs[@]}"; do
         
         if [ ${#t_bam_array[@]} -eq 0 ] || [ ${#n_bam_array[@]} -eq 0 ]; then
             echo "[Warning] Could not find .uniq.sorted.bam files for patient $pid. Skipping..."
-            echo >&6 # 归还令牌
             continue
         fi
         
@@ -235,17 +239,24 @@ for pid in "${!tumor_runs[@]}"; do
         rm -rf "$WORK_DIR/tmp"
         echo " [Thread Finish] Patient $pid Complete!"
         
-        # 归还并发令牌，允许下一个患者进入队列
-        echo >&6 
-        
     } & # '&' 符号使得大括号内的代码块进入后台运行
+    pids+=("$!")
+    ((active_jobs += 1))
+    if (( active_jobs == THREAD_NUM )); then
+        if ! wait_for_batch; then
+            echo "[Error] At least one patient variant-calling job failed." >&2
+            exit 1
+        fi
+    fi
 done
 
 # ==============================================================================
 # Phase 4: Wait for completion
 # ==============================================================================
 echo " -> All patient jobs dispatched. Waiting for background threads to finish..."
-wait
-exec 6>&- # 关闭文件描述符
+if ! wait_for_batch; then
+    echo "[Error] At least one patient variant-calling job failed." >&2
+    exit 1
+fi
 
 echo "🎉 All pipelines executed successfully!"
