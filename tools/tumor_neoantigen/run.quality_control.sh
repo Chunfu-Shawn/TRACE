@@ -37,11 +37,6 @@ if ! command -v fastqc >/dev/null 2>&1; then
     echo "[Error] fastqc is not available in PATH." >&2
     exit 1
 fi
-if ! command -v multiqc >/dev/null 2>&1; then
-    echo "[Error] multiqc is not available in PATH." >&2
-    exit 1
-fi
-
 mkdir -p "$outputDir"
 
 # Discover sample prefixes without parsing ls output.
@@ -123,22 +118,28 @@ run_fastqc_sample() {
 wait_for_batch() {
     local pid
     local batch_failed=0
+    if (( active_jobs == 0 )); then
+        return 0
+    fi
     for pid in "${pids[@]}"; do
         if ! wait "$pid"; then
             batch_failed=1
         fi
     done
     pids=()
+    active_jobs=0
     if (( batch_failed != 0 )); then
         return 1
     fi
 }
 
 pids=()
+active_jobs=0
 for sample in "${samples[@]}"; do
     run_fastqc_sample "$sample" &
     pids+=("$!")
-    if (( ${#pids[@]} == thread_num )); then
+    ((active_jobs += 1))
+    if (( active_jobs == thread_num )); then
         if ! wait_for_batch; then
             echo "[Error] At least one FastQC job failed in the current batch." >&2
             exit 1
@@ -152,5 +153,9 @@ if ! wait_for_batch; then
 fi
 
 echo "-- Running MultiQC --"
-multiqc "$outputDir" --outdir "$outputDir" --force
+if command -v multiqc >/dev/null 2>&1; then
+    multiqc "$outputDir" --outdir "$outputDir" --force
+else
+    echo "[Warning] multiqc is not available; FastQC reports are complete, but cohort aggregation was skipped." >&2
+fi
 echo "All tasks finished!"
