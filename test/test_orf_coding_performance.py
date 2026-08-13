@@ -16,6 +16,7 @@ if SRC_DIR not in sys.path:
 
 from eval.orf_coding_performance import (
     calculate_top_k_precision,
+    match_and_build_eval_df,
     normalize_transcript_id,
     plot_top_k_metric,
     plot_top_k_precision,
@@ -24,6 +25,36 @@ from eval.orf_coding_performance import (
 
 
 class OrfTopKTests(unittest.TestCase):
+    def test_main_evaluation_allows_multiple_predictions_per_gt(self):
+        gt_df = pd.DataFrame(
+            {
+                "Cell_Type": ["cell_a"],
+                "Tid_clean": ["ENST1"],
+                "gt_idx": [0],
+                "start_gt": [0],
+                "stop_gt": [90],
+                "length": [90],
+            }
+        )
+        pred_df = pd.DataFrame(
+            {
+                "Cell_Type": ["cell_a", "cell_a"],
+                "Tid_clean": ["ENST1", "ENST1"],
+                "pred_idx": [0, 1],
+                "start": [0, 0],
+                "stop": [90, 87],
+                "length": [90, 87],
+                "score": [0.9, 0.8],
+            }
+        )
+
+        result = match_and_build_eval_df(
+            pred_df, gt_df, ["score"], overlap_threshold=0.7
+        )
+
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result["y_true"].tolist(), [1, 1])
+
     def test_only_enst_ids_have_version_suffix_removed(self):
         self.assertEqual(normalize_transcript_id("ENST00000381348.7"), "ENST00000381348")
         self.assertEqual(normalize_transcript_id("PB.123.4"), "PB.123.4")
@@ -88,7 +119,7 @@ class OrfTopKTests(unittest.TestCase):
         self.assertEqual(result["Prediction_Source"].nunique(), 2)
         self.assertEqual(result["Matched_GT_Source"].nunique(), 2)
 
-    def test_cell_aware_unique_matching_and_recall(self):
+    def test_cell_aware_many_to_one_matching_and_unique_gt_recall(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)
             gt_path = directory / "gt.csv"
@@ -118,13 +149,15 @@ class OrfTopKTests(unittest.TestCase):
                 target_score_col="score",
             )
 
-        self.assertEqual(result["Is_TP"].tolist(), [1, 0, 1, 0])
-        self.assertEqual(result["TP_Count"].tolist(), [1, 1, 2, 2])
-        np.testing.assert_allclose(result["Precision"], [1.0, 0.5, 2 / 3, 0.5])
+        self.assertEqual(result["Is_TP"].tolist(), [1, 1, 1, 0])
+        self.assertEqual(result["TP_Count"].tolist(), [1, 2, 3, 3])
+        self.assertEqual(result["Unique_GT_Hit_Count"].tolist(), [1, 1, 2, 2])
+        self.assertEqual(result["Is_New_GT_Hit"].tolist(), [1, 0, 1, 0])
+        np.testing.assert_allclose(result["Precision"], [1.0, 1.0, 1.0, 0.75])
         np.testing.assert_allclose(result["Recall"], [0.5, 0.5, 1.0, 1.0])
         self.assertEqual(result["Cell_Type_K"].tolist(), [1, 2, 1, 3])
         np.testing.assert_allclose(
-            result["Cell_Type_Precision"], [1.0, 0.5, 1.0, 1 / 3]
+            result["Cell_Type_Precision"], [1.0, 1.0, 1.0, 2 / 3]
         )
         np.testing.assert_allclose(result["Cell_Type_Recall"], [1.0] * 4)
         self.assertTrue((result["Total_GT_ORFs"] == 2).all())

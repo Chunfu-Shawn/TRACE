@@ -167,7 +167,7 @@ def load_and_filter_data(
 
 
 # =====================================================================
-# Module 2: Cell-Aware NMS Matching
+# Module 2: Cell-Aware Many-to-One Matching
 # =====================================================================
 def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_metrics: List[str], overlap_threshold: float) -> pd.DataFrame:
     print(f"\nCell-Aware Memory-Safe Matching (Frame Consistent & Overlap > {overlap_threshold*100}%)...")
@@ -178,7 +178,7 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
         if key not in gt_dict: gt_dict[key] = []
         gt_dict[key].append((row.gt_idx, row.start_gt, row.stop_gt))
         
-    pred_to_gt = {} 
+    pred_to_gt = {}
     matched_gt_indices = set()
     
     for row in pred_df.itertuples(index=False):
@@ -187,8 +187,8 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
             
         p_start, p_stop, p_idx, p_len = row.start, row.stop, row.pred_idx, row.length
         
+        best_match = None
         for g_idx, g_start, g_stop in gt_dict[key]:
-            if g_idx in matched_gt_indices: continue 
             if p_start % 3 != g_start % 3: continue
                 
             overlap_s = max(p_start, g_start)
@@ -197,10 +197,15 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
             
             if overlap_l > 0:
                 g_len = g_stop - g_start
-                if (overlap_l / (p_len + g_len - overlap_l)) >= overlap_threshold:
-                    pred_to_gt[p_idx] = g_idx
-                    matched_gt_indices.add(g_idx)
-                    break 
+                iou = overlap_l / (p_len + g_len - overlap_l)
+                if iou >= overlap_threshold and (
+                    best_match is None or iou > best_match[1]
+                ):
+                    best_match = (g_idx, iou)
+
+        if best_match is not None:
+            pred_to_gt[p_idx] = best_match[0]
+            matched_gt_indices.add(best_match[0])
 
     print("Assembling Unified Evaluation DataFrame...")
     eval_records = []
@@ -223,9 +228,10 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
     eval_df = pd.DataFrame(eval_records)
     print("-" * 40)
     print(f"Total Evaluated MS Ground Truth : {len(gt_df)}")
-    print(f"Successfully Matched (TP)       : {len(matched_gt_indices)}")
+    print(f"Matched Predictions (TP)        : {len(pred_to_gt)}")
+    print(f"Unique Matched Ground Truths    : {len(matched_gt_indices)}")
     print(f"Missed Ground Truths (FN)       : {len(gt_df) - len(matched_gt_indices)}")
-    print(f"False Positives (FP)            : {len(pred_df) - len(matched_gt_indices)}")
+    print(f"False Positives (FP)            : {len(pred_df) - len(pred_to_gt)}")
     print("-" * 40)
     return eval_df
 
@@ -452,8 +458,10 @@ def calculate_top_k_precision(
     The singular path arguments are retained for backward compatibility.
 
     Predictions are greedily matched in descending score order. Each ground
-    truth ORF can be matched at most once, using the highest-IoU eligible ORF
-    within the same cell type, transcript, and reading frame.
+    truth ORF may support multiple predictions. Each prediction is assigned to
+    its highest-IoU eligible ORF within the same cell type, transcript, and
+    reading frame. Precision counts all supported predictions, whereas Recall
+    counts each recovered ground-truth ORF only once.
     """
     if not 0 <= overlap_threshold <= 1:
         raise ValueError("overlap_threshold must be between 0 and 1.")
@@ -628,7 +636,6 @@ def calculate_top_k_precision(
         gt_dict[key].append((row.gt_idx, row.start_gt, row.stop_gt))
 
     is_tp_list = []
-    matched_gt_indices = set()
     matched_gt_list = []
     matched_iou_list = []
 
@@ -639,8 +646,6 @@ def calculate_top_k_precision(
         best_match = None
         if key in gt_dict:
             for gt_idx, g_start, g_stop in gt_dict[key]:
-                if gt_idx in matched_gt_indices:
-                    continue
                 if p_start % 3 != g_start % 3:
                     continue
 
@@ -657,7 +662,6 @@ def calculate_top_k_precision(
                         best_match = (gt_idx, iou)
 
         if best_match is not None:
-            matched_gt_indices.add(best_match[0])
             is_tp_list.append(1)
             matched_gt_list.append(best_match[0])
             matched_iou_list.append(best_match[1])
@@ -669,23 +673,34 @@ def calculate_top_k_precision(
     print("Calculating global and cell-type-specific Precision@K and Recall@K...")
     is_tp_array = np.array(is_tp_list)
     tp_cumsum = np.cumsum(is_tp_array)
+    unique_gt_hit_array = np.zeros(len(matched_gt_list), dtype=int)
+    seen_gt_indices = set()
+    for index, matched_gt_index in enumerate(matched_gt_list):
+        if pd.notna(matched_gt_index) and matched_gt_index not in seen_gt_indices:
+            unique_gt_hit_array[index] = 1
+            seen_gt_indices.add(matched_gt_index)
+    unique_gt_cumsum = np.cumsum(unique_gt_hit_array)
     k_array = np.arange(1, len(is_tp_array) + 1)
     precision_at_k = tp_cumsum / k_array
-    recall_at_k = tp_cumsum / len(gt_df)
+    recall_at_k = unique_gt_cumsum / len(gt_df)
 
     cell_type_series = pred_df['Cell_Type'].astype(str).reset_index(drop=True)
     cell_type_k = cell_type_series.groupby(cell_type_series, sort=False).cumcount() + 1
     cell_type_tp_count = pd.Series(is_tp_array).groupby(
         cell_type_series, sort=False
     ).cumsum()
+    cell_type_unique_gt_count = pd.Series(unique_gt_hit_array).groupby(
+        cell_type_series, sort=False
+    ).cumsum()
     cell_type_gt_counts = gt_df.groupby('Cell_Type').size().to_dict()
     cell_type_total_gt = cell_type_series.map(cell_type_gt_counts).astype(int)
     cell_type_precision = cell_type_tp_count / cell_type_k
-    cell_type_recall = cell_type_tp_count / cell_type_total_gt
+    cell_type_recall = cell_type_unique_gt_count / cell_type_total_gt
 
     pk_df = pd.DataFrame({
         'K': k_array,
         'TP_Count': tp_cumsum,
+        'Unique_GT_Hit_Count': unique_gt_cumsum,
         'Precision': precision_at_k,
         'Recall': recall_at_k,
         'Precision_at_K': precision_at_k,
@@ -694,6 +709,7 @@ def calculate_top_k_precision(
         'Cell_Type': cell_type_series.to_numpy(),
         'Cell_Type_K': cell_type_k.to_numpy(),
         'Cell_Type_TP_Count': cell_type_tp_count.to_numpy(),
+        'Cell_Type_Unique_GT_Hit_Count': cell_type_unique_gt_count.to_numpy(),
         'Cell_Type_Precision': cell_type_precision.to_numpy(),
         'Cell_Type_Recall': cell_type_recall.to_numpy(),
         'Cell_Type_Total_GT_ORFs': cell_type_total_gt.to_numpy(),
@@ -702,6 +718,7 @@ def calculate_top_k_precision(
         'Pred_Stop': pred_df['stop'].to_numpy(),
         'Score': pred_df[score_col].to_numpy(),
         'Is_TP': is_tp_array,
+        'Is_New_GT_Hit': unique_gt_hit_array,
         'Matched_GT_Index': matched_gt_list,
         'Match_IoU': matched_iou_list,
         'Prediction_Source': pred_df['Prediction_Source'].astype(str).to_numpy(),
