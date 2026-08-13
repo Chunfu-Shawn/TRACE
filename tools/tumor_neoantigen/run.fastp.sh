@@ -22,10 +22,31 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-# 【修改点 1】: 智能提取样本前缀
-# 兼容后缀包含 _1.fastq.gz, _2.fastq.gz, _R1.fastq.gz, _R2.fastq.gz 或单纯的 .fastq.gz
-# sort -u 用于去除双端文件产生的重复前缀
-samples=(`cd $fastqDir && ls *.fastq.gz | sed -E 's/(_1|_2|_R1|_R2)?\.fastq\.gz//g' | sort -u`)
+if [ -z "${fastqDir:-}" ] || [ -z "${outputDir:-}" ]; then
+    echo "[Error] --fastqDir and --outputDir are required." >&2
+    exit 1
+fi
+if [ ! -d "$fastqDir" ]; then
+    echo "[Error] FASTQ directory does not exist: $fastqDir" >&2
+    exit 1
+fi
+
+# Discover sample prefixes without parsing ls output.
+shopt -s nullglob
+fastq_files=("${fastqDir}"/*.fastq.gz)
+if (( ${#fastq_files[@]} == 0 )); then
+    echo "[Error] No *.fastq.gz files found in ${fastqDir}." >&2
+    exit 1
+fi
+sample_names=()
+for fastq_path in "${fastq_files[@]}"; do
+    fastq_name=$(basename "$fastq_path")
+    sample_names+=("$(printf '%s\n' "$fastq_name" | sed -E 's/(_1|_2|_R1|_R2)?\.fastq\.gz$//')")
+done
+samples=()
+while IFS= read -r sample_name; do
+    samples+=("$sample_name")
+done < <(printf '%s\n' "${sample_names[@]}" | sort -u)
 
 pids=()
 active_jobs=0
@@ -48,7 +69,7 @@ wait_for_batch() {
     fi
 }
 
-for sample in ${samples[@]};
+for sample in "${samples[@]}";
 do
     {
         [ -d $outputDir ] || mkdir -p $outputDir

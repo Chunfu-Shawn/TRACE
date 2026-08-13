@@ -286,7 +286,9 @@ def load_and_calculate_te_correlation(
 
 def plot_te_correlation_performance(
         agg_df, cell_types=None, metric_name="mORF Mean Density", 
-        corr_method="Spearman", out_dir="./", suffix="", no_color=False,
+        corr_method="Spearman", out_dir="./", suffix="", 
+        w=6, h=5,
+        no_color=False,
         corr_abs=False):
     """
     Plot bar chart with error bars and jitter points for TE correlations.
@@ -404,7 +406,7 @@ def plot_te_correlation_performance(
 
     os.makedirs(out_dir, exist_ok=True)
     save_path = os.path.join(out_dir, f"te_correlation_performance_{metric_name}.{suffix}.pdf")
-    plot.save(save_path, width=max(6, len(valid_models)*0.6), height=5, dpi=300, verbose=False)
+    plot.save(save_path, width=w, height=h, dpi=300, verbose=False)
     print(f"Plot saved to: {save_path}")
 
 
@@ -781,6 +783,8 @@ def plot_polysome_correlation_bar(
         out_dir: str = "./", 
         metric_name: str = "Translation dynamics position-wise correlation",
         suffix: str = "",
+        w: float = 6,
+        h: float = 5
         corr_abs: bool = False,
         shape_by_study: bool = False,
         study_column: str = "Study",
@@ -913,13 +917,13 @@ def plot_polysome_correlation_bar(
             legend_position="right",
             legend_title=element_text(size=13, fontweight='bold'),
             legend_text=element_text(size=11),
-            figure_size=(7.5, 5) # Ensured figure size is properly set in theme
+            figure_size=(w, h) # Ensured figure size is properly set in theme
         )
     )
 
     file_suffix = f".{suffix}" if suffix else ""
     save_path = os.path.join(out_dir, f"polysome_multidataset_correlation_bar{file_suffix}.pdf")
-    p.save(save_path, width=7.5, height=5, dpi=300, verbose=False)
+    p.save(save_path, width=w, height=h, dpi=300, verbose=False)
     print(f"✅ Bar chart saved to: {save_path}")
 
     return summary_df

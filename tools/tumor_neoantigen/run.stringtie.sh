@@ -21,9 +21,9 @@ strand_mode=${strand_mode:-0}
 job_num=3 # 并发处理的样本数量
 
 case "$strand_mode" in
-    0) stringtie_strand_args=() ;;
-    1) stringtie_strand_args=(--fr) ;;
-    2) stringtie_strand_args=(--rf) ;;
+    0) stringtie_strand_arg="" ;;
+    1) stringtie_strand_arg="--fr" ;;
+    2) stringtie_strand_arg="--rf" ;;
     *) echo "Error: --strand_mode must be 0, 1, or 2."; exit 1 ;;
 esac
 
@@ -73,7 +73,7 @@ wait_for_batch() {
     fi
 }
 
-for sample in ${samples[@]}; do
+for sample in "${samples[@]}"; do
     sample_outdir="${outputDir}/${sample}"
     input_bam="${bamDir}/${sample}/${sample}.uniq.sorted.bam"
     output_gtf="${sample_outdir}/${sample}.gtf"
@@ -86,7 +86,13 @@ for sample in ${samples[@]}; do
     {
         echo "-- assembling $sample --"
         [ -d $sample_outdir ] || mkdir -p $sample_outdir
-        stringtie ${input_bam} -G ${refGTF} "${stringtie_strand_args[@]}" -p ${threads_per_job} -o ${output_gtf}
+        if [ -n "$stringtie_strand_arg" ]; then
+            stringtie "$input_bam" -G "$refGTF" "$stringtie_strand_arg" \
+                -p "$threads_per_job" -o "$output_gtf"
+        else
+            stringtie "$input_bam" -G "$refGTF" \
+                -p "$threads_per_job" -o "$output_gtf"
+        fi
     }&
     pids+=("$!")
     ((active_jobs += 1))

@@ -123,17 +123,7 @@ CONFIG_DIR=/home/user/data3/rbase/translation_model/models/src/config
 WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/pretrain
 TRACE_MODE="short"
 
-if is_true "${RUN_COHORT_TRACE}"; then
-    echo -e "\n"
-    echo "----------------------------------------------"
-    echo "=> Cohort TRACE prediction (single model load)"
-    echo "----------------------------------------------"
-    mkdir -p "${WORK_DIR}/translation"
-    conda activate ribo_model
-    TRACE_SUBSET_ARGS=()
-    if [ -n "${TRACE_MAX_PATIENTS}" ]; then
-        TRACE_SUBSET_ARGS=(--max_patients "${TRACE_MAX_PATIENTS}")
-    fi
+run_cohort_trace() {
     python "${SCRIPT_DIR}/run_trace_cohort_prediction.py" \
         --input_csv "${FINAL_TARGET_CSV}" \
         --out_dir "${WORK_DIR}/translation" \
@@ -150,8 +140,23 @@ if is_true "${RUN_COHORT_TRACE}"; then
         --mode "${TRACE_MODE}" \
         --batch_size "${TRACE_BATCH_SIZE}" \
         --device cuda \
-        "${TRACE_SUBSET_ARGS[@]}" \
-        1> "${WORK_DIR}/translation/trace_cohort_prediction.log" 2>&1
+        "$@"
+}
+
+if is_true "${RUN_COHORT_TRACE}"; then
+    echo -e "\n"
+    echo "----------------------------------------------"
+    echo "=> Cohort TRACE prediction (single model load)"
+    echo "----------------------------------------------"
+    mkdir -p "${WORK_DIR}/translation"
+    conda activate ribo_model
+    if [ -n "${TRACE_MAX_PATIENTS}" ]; then
+        run_cohort_trace --max_patients "${TRACE_MAX_PATIENTS}" \
+            1> "${WORK_DIR}/translation/trace_cohort_prediction.log" 2>&1
+    else
+        run_cohort_trace \
+            1> "${WORK_DIR}/translation/trace_cohort_prediction.log" 2>&1
+    fi
     if [ -n "${TRACE_MAX_PATIENTS}" ]; then
         echo "[Info] TRACE benchmark subset complete; inspect trace_cohort_status.csv before the full rerun."
         exit 0

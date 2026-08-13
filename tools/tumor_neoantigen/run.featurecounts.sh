@@ -48,7 +48,14 @@ echo "Complete annotation generated successfully: $complete_gtf"
 echo "=========================================================="
 echo "### Phase 2: Gathering BAM files ###"
 echo "=========================================================="
-mapfile -t discovered_bam_files < <(find "${bamDir}" -type f -name "*.uniq.sorted.bam" | sort)
+discovered_bam_files=()
+while IFS= read -r bam_file; do
+    discovered_bam_files+=("$bam_file")
+done < <(find "${bamDir}" -type f -name "*.uniq.sorted.bam" | sort)
+if (( ${#discovered_bam_files[@]} == 0 )); then
+    echo "Error: No .uniq.sorted.bam files found in $bamDir"
+    exit 1
+fi
 bam_files=()
 for bam_file in "${discovered_bam_files[@]}"; do
     paired_alignment_count=$(samtools view -c -f 1 "$bam_file")

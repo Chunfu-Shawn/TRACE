@@ -41,18 +41,27 @@ total_bams=0
 
 for tissue in "${tissues[@]}"; do
     if [ -d "$bamDir/$tissue/uniq_bam" ]; then
-        bam_list=($(ls -S "$bamDir/$tissue/uniq_bam/"*_uniq.sorted.bam | head -n 50))
-        for bam in "${bam_list[@]}"; do
+        bam_list=()
+        while IFS= read -r bam; do
+            bam_list+=("$bam")
+        done < <(find "$bamDir/$tissue/uniq_bam" -maxdepth 1 -type f \
+            -name '*_uniq.sorted.bam' -printf '%s\t%p\n' | sort -rn | head -n 50 | cut -f2-)
+        for bam in "${bam_list[@]:-}"; do
+            [ -n "$bam" ] || continue
             bams+="$bam "
             total_bams=$((total_bams + 1))
         done
-        echo " -> Collected ${bam_list[@]} BAMs for $tissue"
+        echo " -> Collected ${#bam_list[@]} BAMs for $tissue"
     else
         echo " -> [Warning] Directory not found: $bamDir/$tissue/uniq_bam"
     fi
 done
 
 echo "Total GTEx BAM files collected: $total_bams"
+if (( total_bams == 0 )); then
+    echo "Error: No GTEx BAM files were collected." >&2
+    exit 1
+fi
 
 
 echo "=========================================================="
