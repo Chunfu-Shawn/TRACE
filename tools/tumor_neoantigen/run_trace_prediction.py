@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 
 # Custom model imports
-from model.translation_base_model import TranslationBaseModel
+from model.base_model import BaseModel
 from model.translation_predictor import TranslationProfilePredictor
 from model.prediction_heads import TranslationProfileHead, PsiteDensityHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
@@ -96,7 +96,7 @@ def main():
     print(f"Successfully extracted expression vector for '{expr_key}'.")
 
     print(f"\n--- Phase 3: Initializing TRACE Model ---")
-    base_model = TranslationBaseModel.from_config(args.config_path).to(args.device)
+    base_model = BaseModel.from_config(args.config_path).to(args.device)
     base_model.add_head(
         "count",
         PsiteDensityHead.create_from_model(base_model, d_pred_h=384),

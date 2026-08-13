@@ -21,7 +21,7 @@ def safe_clean_id(tid: str) -> str:
     - Strip version numbers ONLY for Ensembl IDs (e.g., ENST, ENSG).
     - Keep novel IDs (e.g., MSTRG.123.1) exactly as they are to prevent destructive truncation.
     """
-    tid_str = str(tid).strip()
+    tid_str = str(tid).strip().split('|', 1)[0]
     if tid_str.startswith('ENS'):
         return tid_str.split('.')[0]
     return tid_str.split(':')[0]

@@ -14,6 +14,15 @@ mpl.rcParams['font.sans-serif'] = ['Arial', 'Helvetica', 'DejaVu Sans']
 mpl.rcParams['pdf.fonttype'] = 42
 mpl.rcParams['svg.fonttype'] = 'none'
 
+
+def normalize_transcript_id(transcript_id) -> str:
+    """Remove version suffixes from ENST IDs while preserving all other IDs."""
+    transcript_id = str(transcript_id)
+    if transcript_id.startswith('ENST'):
+        return transcript_id.split('.', 1)[0]
+    return transcript_id
+
+
 # =====================================================================
 # Helper function: Dynamically resolve evaluation score column
 # =====================================================================
@@ -62,7 +71,7 @@ def load_and_filter_data(
         except Exception as e:
             raise ValueError(f"Error reading GT for {cell_type}: {e}")
             
-        gt_df['Tid_clean'] = gt_df['Tid'].astype(str).apply(lambda x: x.split('.')[0] if x.startswith('ENST') else x)
+        gt_df['Tid_clean'] = gt_df['Tid'].apply(normalize_transcript_id)
         gt_df['start_gt'] = gt_df['CDS_Start_0based']
         gt_df['stop_gt'] = gt_df['CDS_End_0based']
         gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt']
@@ -86,7 +95,7 @@ def load_and_filter_data(
         if 'Cell_Type' not in pred_df.columns:
             raise ValueError(f"Prediction file {pred_path} is missing the required 'Cell_Type' column!")
             
-        pred_df['Tid_clean'] = pred_df['Tid'].astype(str).apply(lambda x: x.split('.')[0] if x.startswith('ENST') else x)
+        pred_df['Tid_clean'] = pred_df['Tid'].apply(normalize_transcript_id)
         if 'length' not in pred_df.columns: pred_df['length'] = pred_df['stop'] - pred_df['start']
         pred_dfs.append(pred_df)
         print(f"  -> Loaded Pred chunk: {len(pred_df)} records.")
@@ -115,7 +124,10 @@ def load_and_filter_data(
             for ct in valid_cell_types:
                 if ct in target_transcript_ids:
                     # 提取该细胞系对应的活跃转录本
-                    target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids[ct])
+                    target_set = set(
+                        normalize_transcript_id(t)
+                        for t in target_transcript_ids[ct]
+                    )
                     
                     filtered_gt.append(master_gt_df[(master_gt_df['Cell_Type'] == ct) & (master_gt_df['Tid_clean'].isin(target_set))])
                     filtered_pred.append(master_pred_df[(master_pred_df['Cell_Type'] == ct) & (master_pred_df['Tid_clean'].isin(target_set))])
@@ -130,7 +142,9 @@ def load_and_filter_data(
         else:
             # 兼容原有的单一列表全局过滤模式
             print(f"\nFiltering entire dataset globally to {len(target_transcript_ids)} target transcripts...")
-            target_set = set(str(t).split('.')[0] if str(t).startswith('ENST') else str(t) for t in target_transcript_ids)
+            target_set = set(
+                normalize_transcript_id(t) for t in target_transcript_ids
+            )
             master_gt_df = master_gt_df[master_gt_df['Tid_clean'].isin(target_set)].copy()
             master_pred_df = master_pred_df[master_pred_df['Tid_clean'].isin(target_set)].copy()
         
@@ -420,29 +434,83 @@ def evaluate_orf_level_predictions(
 # Module 1 (Top-K): Precision@K Calculation Engine
 # =====================================================================
 def calculate_top_k_precision(
-        pred_csv_path: str, 
-        gt_csv_path: str, 
+        pred_csv_paths: Optional[Union[str, List[str]]] = None,
+        gt_csv_paths: Optional[Union[str, List[str], Dict[str, str]]] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         overlap_threshold: float = 0.70,
         target_score_col: Optional[str] = None,
-        cell_type: Optional[str] = None) -> pd.DataFrame:
+        cell_type: Optional[str] = None,
+        pred_csv_path: Optional[str] = None,
+        gt_csv_path: Optional[str] = None) -> pd.DataFrame:
     """
     Calculate cell-aware Precision@K and Recall@K for ranked predicted ORFs.
 
-    Predictions are greedily matched in descending score order. Each ground-
+    ``pred_csv_paths`` accepts one path or a list of paths. ``gt_csv_paths``
+    accepts one path, a list of paths with embedded Cell_Type values, or a
+    ``{cell_type: path}`` dictionary matching evaluate_orf_level_predictions.
+    The singular path arguments are retained for backward compatibility.
+
+    Predictions are greedily matched in descending score order. Each ground
     truth ORF can be matched at most once, using the highest-IoU eligible ORF
     within the same cell type, transcript, and reading frame.
     """
     if not 0 <= overlap_threshold <= 1:
         raise ValueError("overlap_threshold must be between 0 and 1.")
 
+    if pred_csv_paths is not None and pred_csv_path is not None:
+        raise ValueError("Use either pred_csv_paths or pred_csv_path, not both.")
+    if gt_csv_paths is not None and gt_csv_path is not None:
+        raise ValueError("Use either gt_csv_paths or gt_csv_path, not both.")
+    if pred_csv_paths is None:
+        pred_csv_paths = pred_csv_path
+    if gt_csv_paths is None:
+        gt_csv_paths = gt_csv_path
+    if pred_csv_paths is None or gt_csv_paths is None:
+        raise ValueError("Both prediction and ground-truth paths are required.")
+
     print(f"\nLoading and preparing data for Top-K evaluation...")
 
-    with open(gt_csv_path, encoding="utf-8") as handle:
-        separator = '\t' if '\t' in handle.readline() else ','
-    gt_df = pd.read_csv(gt_csv_path, sep=separator)
-    pred_df = pd.read_csv(pred_csv_path)
+    pred_paths = [pred_csv_paths] if isinstance(pred_csv_paths, str) else list(pred_csv_paths)
+    if isinstance(gt_csv_paths, str):
+        gt_entries = [(None, gt_csv_paths)]
+    elif isinstance(gt_csv_paths, dict):
+        gt_entries = list(gt_csv_paths.items())
+    else:
+        gt_entries = [(None, path) for path in gt_csv_paths]
+
+    if not pred_paths or not gt_entries:
+        raise ValueError("Prediction and ground-truth path collections cannot be empty.")
+
+    pred_dfs = []
+    for path in pred_paths:
+        frame = pd.read_csv(path)
+        frame['Prediction_Source'] = str(path)
+        pred_dfs.append(frame)
+        print(f"  -> Loaded predictions: {path} ({len(frame)} records)")
+
+    gt_dfs = []
+    for assigned_cell_type, path in gt_entries:
+        with open(path, encoding="utf-8") as handle:
+            separator = '\t' if '\t' in handle.readline() else ','
+        frame = pd.read_csv(path, sep=separator)
+        if assigned_cell_type is not None:
+            frame['Cell_Type'] = str(assigned_cell_type)
+        frame['GT_Source'] = str(path)
+        gt_dfs.append(frame)
+        label = f" [{assigned_cell_type}]" if assigned_cell_type is not None else ""
+        print(f"  -> Loaded ground truth{label}: {path} ({len(frame)} records)")
+
+    common_score_columns = set(pred_dfs[0].columns)
+    for frame in pred_dfs[1:]:
+        common_score_columns &= set(frame.columns)
+    if target_score_col is not None and target_score_col not in common_score_columns:
+        raise ValueError(
+            f"Score column '{target_score_col}' must exist in every prediction file."
+        )
+
+    pred_df = pd.concat(pred_dfs, ignore_index=True)
+    gt_df = pd.concat(gt_dfs, ignore_index=True)
 
     required_gt = {'Tid', 'CDS_Start_0based', 'CDS_End_0based'}
     required_pred = {'Tid', 'start', 'stop'}
@@ -453,12 +521,8 @@ def calculate_top_k_precision(
     if missing_pred:
         raise ValueError(f"Predictions are missing columns: {sorted(missing_pred)}")
 
-    gt_df['Tid_clean'] = gt_df['Tid'].astype(str).apply(
-        lambda x: x.split('.')[0] if (x.startswith('ENST') or x.startswith('ENSG')) and '.' in x else x
-    )
-    pred_df['Tid_clean'] = pred_df['Tid'].astype(str).apply(
-        lambda x: x.split('.')[0] if (x.startswith('ENST') or x.startswith('ENSG')) and '.' in x else x
-    )
+    gt_df['Tid_clean'] = gt_df['Tid'].apply(normalize_transcript_id)
+    pred_df['Tid_clean'] = pred_df['Tid'].apply(normalize_transcript_id)
 
     for column in ('CDS_Start_0based', 'CDS_End_0based'):
         gt_df[column] = pd.to_numeric(gt_df[column], errors='coerce')
@@ -511,9 +575,25 @@ def calculate_top_k_precision(
         pred_df['Cell_Type'] = 'Unspecified'
 
     score_col = resolve_score_col(pred_df, target_score_col)
+    if score_col not in common_score_columns:
+        raise ValueError(
+            f"Resolved score column '{score_col}' must exist in every prediction file."
+        )
     pred_df[score_col] = pd.to_numeric(pred_df[score_col], errors='coerce')
     pred_df = pred_df.replace([np.inf, -np.inf], np.nan).dropna(subset=[score_col])
     print(f"  -> Ranking predictions using column: '{score_col}'")
+
+    valid_cell_types = set(gt_df['Cell_Type'].astype(str).unique())
+    prediction_count_before = len(pred_df)
+    pred_df = pred_df[
+        pred_df['Cell_Type'].astype(str).isin(valid_cell_types)
+    ].copy()
+    dropped_prediction_count = prediction_count_before - len(pred_df)
+    if dropped_prediction_count:
+        print(
+            f"  -> Dropped {dropped_prediction_count} predictions without "
+            "a matching ground-truth Cell_Type."
+        )
         
     if min_orf_len is not None or max_orf_len is not None:
         if min_orf_len is not None and max_orf_len is not None and min_orf_len > max_orf_len:
@@ -586,12 +666,22 @@ def calculate_top_k_precision(
             matched_gt_list.append(np.nan)
             matched_iou_list.append(np.nan)
 
-    print("Calculating cumulative Precision@K and Recall@K...")
+    print("Calculating global and cell-type-specific Precision@K and Recall@K...")
     is_tp_array = np.array(is_tp_list)
     tp_cumsum = np.cumsum(is_tp_array)
     k_array = np.arange(1, len(is_tp_array) + 1)
     precision_at_k = tp_cumsum / k_array
     recall_at_k = tp_cumsum / len(gt_df)
+
+    cell_type_series = pred_df['Cell_Type'].astype(str).reset_index(drop=True)
+    cell_type_k = cell_type_series.groupby(cell_type_series, sort=False).cumcount() + 1
+    cell_type_tp_count = pd.Series(is_tp_array).groupby(
+        cell_type_series, sort=False
+    ).cumsum()
+    cell_type_gt_counts = gt_df.groupby('Cell_Type').size().to_dict()
+    cell_type_total_gt = cell_type_series.map(cell_type_gt_counts).astype(int)
+    cell_type_precision = cell_type_tp_count / cell_type_k
+    cell_type_recall = cell_type_tp_count / cell_type_total_gt
 
     pk_df = pd.DataFrame({
         'K': k_array,
@@ -601,7 +691,12 @@ def calculate_top_k_precision(
         'Precision_at_K': precision_at_k,
         'Recall_at_K': recall_at_k,
         'Total_GT_ORFs': len(gt_df),
-        'Cell_Type': pred_df['Cell_Type'].astype(str).to_numpy(),
+        'Cell_Type': cell_type_series.to_numpy(),
+        'Cell_Type_K': cell_type_k.to_numpy(),
+        'Cell_Type_TP_Count': cell_type_tp_count.to_numpy(),
+        'Cell_Type_Precision': cell_type_precision.to_numpy(),
+        'Cell_Type_Recall': cell_type_recall.to_numpy(),
+        'Cell_Type_Total_GT_ORFs': cell_type_total_gt.to_numpy(),
         'Tid': pred_df['Tid'].astype(str).to_numpy(),
         'Pred_Start': pred_df['start'].to_numpy(),
         'Pred_Stop': pred_df['stop'].to_numpy(),
@@ -609,8 +704,11 @@ def calculate_top_k_precision(
         'Is_TP': is_tp_array,
         'Matched_GT_Index': matched_gt_list,
         'Match_IoU': matched_iou_list,
+        'Prediction_Source': pred_df['Prediction_Source'].astype(str).to_numpy(),
         'Score_Type': score_col
     })
+    gt_source_by_index = gt_df.set_index('gt_idx')['GT_Source'].to_dict()
+    pk_df['Matched_GT_Source'] = pk_df['Matched_GT_Index'].map(gt_source_by_index)
 
     print(
         f"Done! Evaluated {len(pk_df)} predictions against "
@@ -625,37 +723,82 @@ def plot_top_k_metric(
         pk_df: pd.DataFrame,
         metric: str,
         out_dir: str = "./results/eval",
-        max_k: Optional[int] = None) -> Optional[str]:
-    """Plot either Precision@K or Recall@K and save a PDF."""
+        max_k: Optional[int] = None,
+        rank_scope: str = "global") -> Optional[str]:
+    """Plot global or cell-type-specific Precision@K/Recall@K as a PDF."""
     if pk_df.empty:
         print("Dataframe is empty, skipping plot generation.")
         return
 
     if metric not in {'Precision', 'Recall'}:
         raise ValueError("metric must be either 'Precision' or 'Recall'.")
-    if metric not in pk_df.columns:
-        raise ValueError(f"Input dataframe does not contain a '{metric}' column.")
+    if rank_scope not in {'global', 'cell_type'}:
+        raise ValueError("rank_scope must be either 'global' or 'cell_type'.")
 
-    print(f"\nGenerating {metric}@K line chart...")
+    if rank_scope == 'global':
+        k_column = 'K'
+        metric_column = metric
+    else:
+        k_column = 'Cell_Type_K'
+        metric_column = f'Cell_Type_{metric}'
+    required_columns = {k_column, metric_column}
+    if rank_scope == 'cell_type':
+        required_columns.add('Cell_Type')
+    missing_columns = required_columns - set(pk_df.columns)
+    if missing_columns:
+        raise ValueError(
+            f"Input dataframe is missing columns: {sorted(missing_columns)}"
+        )
+
+    scope_label = "cell-type-specific" if rank_scope == 'cell_type' else "global"
+    print(f"\nGenerating {scope_label} {metric}@K line chart...")
     os.makedirs(out_dir, exist_ok=True)
     
     plot_df = pk_df.copy()
     if max_k is not None:
-        plot_df = plot_df[plot_df['K'] <= max_k]
+        plot_df = plot_df[plot_df[k_column] <= max_k]
         
     if len(plot_df) > 5000:
-        indices = np.linspace(0, len(plot_df) - 1, 5000).astype(int)
-        plot_df = plot_df.iloc[indices]
+        if rank_scope == 'global':
+            indices = np.linspace(0, len(plot_df) - 1, 5000).astype(int)
+            plot_df = plot_df.iloc[indices]
+        else:
+            sampled_frames = []
+            number_of_cell_types = plot_df['Cell_Type'].nunique()
+            points_per_cell_type = max(2, 5000 // number_of_cell_types)
+            for _, frame in plot_df.groupby('Cell_Type', sort=False):
+                if len(frame) > points_per_cell_type:
+                    indices = np.linspace(
+                        0, len(frame) - 1, points_per_cell_type
+                    ).astype(int)
+                    frame = frame.iloc[indices]
+                sampled_frames.append(frame)
+            plot_df = pd.concat(sampled_frames, ignore_index=True)
         
     score_label = plot_df['Score_Type'].iloc[0] if 'Score_Type' in plot_df.columns else 'Final Score'
     color = "#2980b9" if metric == 'Precision' else "#D55E00"
 
+    mapping = (
+        aes(x=k_column, y=metric_column)
+        if rank_scope == 'global'
+        else aes(x=k_column, y=metric_column, color='Cell_Type', group='Cell_Type')
+    )
+    line_layer = (
+        geom_line(color=color, size=1.5, alpha=0.9)
+        if rank_scope == 'global'
+        else geom_line(size=1.1, alpha=0.85)
+    )
+
     p = (
-        ggplot(plot_df, aes(x='K', y=metric))
-        + geom_line(color=color, size=1.5, alpha=0.9)
+        ggplot(plot_df, mapping)
+        + line_layer
         + theme_classic()
         + labs(
-            title=f"{metric}@K: Ranked predicted ORFs vs proteomics evidence",
+            title=(
+                f"{metric}@K by cell type"
+                if rank_scope == 'cell_type'
+                else f"{metric}@K: Ranked predicted ORFs vs proteomics evidence"
+            ),
             x=f"Top K Predicted ORFs (Ranked by {score_label})", 
             y=(
                 "Fraction of top-K predictions supported by proteomics"
@@ -668,11 +811,20 @@ def plot_top_k_metric(
         + theme(
             figure_size=(6, 5),
             axis_title=element_text(size=12),
-            axis_text=element_text(size=10)
+            axis_text=element_text(size=10),
+            legend_title=element_blank(),
+            legend_position=(
+                "right" if rank_scope == 'cell_type' else "none"
+            )
         )
     )
     
-    filename = f"TopK_{metric}_Curve_{'All' if max_k is None else max_k}.pdf"
+    limit_suffix = 'All' if max_k is None else max_k
+    filename = (
+        f"TopK_{metric}_Curve_By_Cell_Type_{limit_suffix}.pdf"
+        if rank_scope == 'cell_type'
+        else f"TopK_{metric}_Curve_{limit_suffix}.pdf"
+    )
     save_path = os.path.join(out_dir, filename)
     p.save(save_path, dpi=300, verbose=False)
 
@@ -683,14 +835,16 @@ def plot_top_k_metric(
 def plot_top_k_precision(
         pk_df: pd.DataFrame,
         out_dir: str = "./results/eval",
-        max_k: Optional[int] = None):
+        max_k: Optional[int] = None,
+        rank_scope: str = "global"):
     """Plot Precision@K while preserving the original public API."""
-    return plot_top_k_metric(pk_df, 'Precision', out_dir, max_k)
+    return plot_top_k_metric(pk_df, 'Precision', out_dir, max_k, rank_scope)
 
 
 def plot_top_k_recall(
         pk_df: pd.DataFrame,
         out_dir: str = "./results/eval",
-        max_k: Optional[int] = None):
+        max_k: Optional[int] = None,
+        rank_scope: str = "global"):
     """Plot Recall@K from calculate_top_k_precision output."""
-    return plot_top_k_metric(pk_df, 'Recall', out_dir, max_k)
+    return plot_top_k_metric(pk_df, 'Recall', out_dir, max_k, rank_scope)

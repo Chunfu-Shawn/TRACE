@@ -118,9 +118,9 @@ echo "======================================================"
 
 HLA_CSV=${WORK_DIR}/patient_hla_typing.csv
 TRANSCRIPTS_FASTA=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/transcripts/gencode.v48.transcripts.fa
-DENOVO_TRANSCRIPTS_FASTA=/home/user/data3/rbase/small_peptide/denovo_genes/nucl_fa/denovo_gene_transcripts.fasta
+DENOVO_TRANSCRIPTS_FASTA=/home/user/data3/rbase/small_peptide/denovo_genes/fasta/denovo_gene_transcripts.fasta
 CONFIG_DIR=/home/user/data3/rbase/translation_model/models/src/config
-WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/pretrain
+WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/train
 TRACE_MODE="short"
 
 run_cohort_trace() {
@@ -128,8 +128,8 @@ run_cohort_trace() {
         --input_csv "${FINAL_TARGET_CSV}" \
         --out_dir "${WORK_DIR}/translation" \
         --fasta_files "${WORK_DIR}/assembly/novel_transcripts.fasta" "$TRANSCRIPTS_FASTA" "$DENOVO_TRANSCRIPTS_FASTA" \
-        --config_path "${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml" \
-        --weights_path "${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt" \
+        --config_path "${CONFIG_DIR}/base_model_384d_16h_12l_64env_16ad_bs.yaml" \
+        --weights_path "${WEIGHT_DIR}/base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.200_0.001.best_profile.pt" \
         --patient_counts_file "${GENE_COUNTS_IN}" \
         --counts_level gene \
         --tpm_csv "${TPM_MATRIX}" \
@@ -219,8 +219,8 @@ do
             --input_csv ${FINAL_TARGET_CSV} \
             --out_dir ${PATIENT_TRACE_DIR} \
             --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
-            --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
-            --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
+            --config_path ${CONFIG_DIR}/base_model_384d_16h_12l_64env_16ad_bs.yaml \
+            --weights_path ${WEIGHT_DIR}/base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.200_0.001.best_profile.pt \
             --patient_counts_file ${GENE_COUNTS_IN} \
             --counts_level "gene" \
             --tpm_csv ${TPM_MATRIX} \
@@ -298,8 +298,8 @@ do
                     --input_csv ${NORMAL_TX_CSV} \
                     --out_dir ${PATIENT_TRACE_DIR}/normal \
                     --fasta_files ${WORK_DIR}/assembly/novel_transcripts.fasta $TRANSCRIPTS_FASTA $DENOVO_TRANSCRIPTS_FASTA \
-                    --config_path ${CONFIG_DIR}/base_model_expr_384d_8h_10l_64env_16ad.yaml \
-                    --weights_path ${WEIGHT_DIR}/base_model_expr_384d_8h_10l_64env_16ad-PsiteDensityHead.human_7c_8k_depth0.1_cov0.1_rpm1.90_0.001.best.pt \
+                    --config_path ${CONFIG_DIR}/base_model_384d_16h_12l_64env_16ad_bs.yaml \
+                    --weights_path ${WEIGHT_DIR}/base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.200_0.001.best_profile.pt \
                     --patient_counts_file ${GENE_COUNTS_IN} \
                     --counts_level "gene" \
                     --tpm_csv ${TPM_MATRIX} \

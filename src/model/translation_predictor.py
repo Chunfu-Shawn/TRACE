@@ -131,6 +131,14 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
     print(f"✅ Successfully loaded a total of {len(seq_dict)} unique sequences from {total_files} file(s).")
     return seq_dict
 
+
+def clean_transcript_id(value: object) -> str:
+    """Normalize FASTA and target transcript identifiers consistently."""
+    transcript_id = str(value).strip().split('|', 1)[0]
+    if transcript_id.startswith('ENS'):
+        return transcript_id.split('.', 1)[0]
+    return transcript_id
+
 # =================================================================
 # Zero-shot inference Dataset
 # =================================================================
@@ -247,29 +255,23 @@ class TranslationProfilePredictor:
         # ========================================================
         if target_tids is not None:
             # 1. Preprocess target_tids: strip version suffix if ENST-prefixed
-            cleaned_target_tids = []
-            for t in target_tids:
-                t_str = str(t).split('|')[0]
-                if t_str.startswith("ENST") and "." in t_str:
-                    cleaned_target_tids.append(t_str.split(".")[0])
-                else:
-                    cleaned_target_tids.append(t_str)
-                    
-            target_set = set(cleaned_target_tids)
+            target_set = {clean_transcript_id(t) for t in target_tids}
             filtered_seq_dict = {}
             
             # 2. Preprocess FASTA dictionary keys
             for tid, seq in self.seq_dict.items():
                 # remove pipe separators
-                clean_tid = str(tid).split('|')[0]
-                
-                # If the FASTA ID is ENST-prefixed, also strip the version suffix for matching
-                if clean_tid.startswith("ENST") and "." in clean_tid:
-                    clean_tid = clean_tid.split(".")[0]
+                clean_tid = clean_transcript_id(tid)
                     
                 if clean_tid in target_set:
-                    # Note: keep the original tid in the dictionary key to preserve consistency with downstream results and pickle output
-                    filtered_seq_dict[tid] = seq
+                    # Clean keys make prediction, PKL, and ORF-caller identifiers identical.
+                    existing = filtered_seq_dict.get(clean_tid)
+                    if existing is not None and existing != seq:
+                        raise ValueError(
+                            "Multiple FASTA records normalize to the same transcript ID "
+                            f"with different sequences: {clean_tid}"
+                        )
+                    filtered_seq_dict[clean_tid] = seq
             
             print(f"Filtered Fasta: Keeping {len(filtered_seq_dict)} sequences matching target Tids "
                   f"(out of {len(self.seq_dict)} total).")

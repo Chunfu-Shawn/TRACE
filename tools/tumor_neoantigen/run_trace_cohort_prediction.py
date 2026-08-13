@@ -52,10 +52,30 @@ def require_columns(frame: pd.DataFrame, columns: set[str], label: str) -> None:
 
 def clean_id(value: object) -> str:
     """Match TRACE identifier cleaning without importing the model stack."""
-    identifier = str(value).strip()
+    identifier = str(value).strip().split("|", 1)[0]
     if identifier.startswith("ENS"):
         return identifier.split(".")[0]
     return identifier.split(":")[0]
+
+
+def build_clean_sequence_dict(sequence_dict: dict[str, str]) -> dict[str, str]:
+    """Normalize predictor FASTA keys for direct reuse by the ORF caller."""
+    cleaned = {}
+    conflicting_ids = []
+    for raw_id, sequence in sequence_dict.items():
+        transcript_id = clean_id(raw_id)
+        previous = cleaned.get(transcript_id)
+        if previous is not None and previous != sequence:
+            conflicting_ids.append(transcript_id)
+            continue
+        cleaned[transcript_id] = sequence.replace("U", "T")
+    if conflicting_ids:
+        examples = ", ".join(sorted(set(conflicting_ids))[:5])
+        raise ValueError(
+            "FASTA normalization produced transcript IDs with conflicting sequences. "
+            f"Examples: {examples}"
+        )
+    return cleaned
 
 
 def load_tx2gene(path: Optional[str]) -> dict[str, str]:
@@ -91,7 +111,7 @@ def main() -> int:
     from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
     from model.orf_caller import TranslationSignalORFCaller
     from model.prediction_heads import PsiteDensityHead
-    from model.translation_base_model import TranslationBaseModel
+    from model.base_model import BaseModel
     from model.translation_predictor import TranslationProfilePredictor
 
     targets = pd.read_csv(args.input_csv)
@@ -152,7 +172,7 @@ def main() -> int:
     tx2gene_dict = load_tx2gene(args.tx2gene_mapping)
     tpm_matrix = load_tpm_matrix(args.tpm_csv)
 
-    model = TranslationBaseModel.from_config(args.config_path).to(args.device)
+    model = BaseModel.from_config(args.config_path).to(args.device)
     model.add_head(
         "count",
         PsiteDensityHead.create_from_model(model, d_pred_h=384),
@@ -160,6 +180,11 @@ def main() -> int:
     )
     model.load_pretrained_weights(args.weights_path, strict=False)
     predictor = TranslationProfilePredictor(model=model, fasta_files=args.fasta_files)
+    orf_sequence_dict = build_clean_sequence_dict(predictor.seq_dict)
+    print(
+        "[FASTA] Reusable ORF sequence dictionary: "
+        f"{len(orf_sequence_dict)} normalized transcript IDs."
+    )
 
     status_rows = []
     for patient, patient_frame in targets.groupby("Patient", sort=False):
@@ -169,15 +194,10 @@ def main() -> int:
         patient_dir.mkdir(parents=True, exist_ok=True)
         protein_path = patient_dir / f"high_confidence_proteins.{patient}.{args.mode}_mode.fasta"
         orf_path = patient_dir / f"high_confidence_orfs.{patient}.{args.mode}_mode.csv"
-        complete_marker = patient_dir / f".trace_complete.{args.mode}"
+        # The versioned marker prevents reuse of outputs produced before FASTA-ID normalization.
+        complete_marker = patient_dir / f".trace_complete.id_normalization_v2.{args.mode}"
 
-        if (
-            not args.overwrite
-            and (
-                complete_marker.exists()
-                or (protein_path.exists() and protein_path.stat().st_size > 0)
-            )
-        ):
+        if not args.overwrite and complete_marker.exists():
             print(f"[Skip] Completed TRACE output: {patient}")
             status_rows.append(
                 {
@@ -202,8 +222,35 @@ def main() -> int:
             )
             continue
 
+        # Move pre-fix products aside before recomputing so stale MSTRG-only files cannot be reused.
+        for stale_output in (protein_path, orf_path):
+            if stale_output.exists():
+                backup_output = stale_output.with_name(stale_output.name + ".pre_id_fix")
+                if not backup_output.exists():
+                    stale_output.rename(backup_output)
+
         transcript_ids = patient_frame["Transcript_ID"].drop_duplicates().tolist()
-        print(f"[TRACE] {patient}: {len(transcript_ids)} transcripts")
+        matched_transcript_ids = [
+            transcript_id
+            for transcript_id in transcript_ids
+            if transcript_id in orf_sequence_dict
+        ]
+        missing_transcript_ids = sorted(set(transcript_ids) - set(matched_transcript_ids))
+        target_enst_count = sum(transcript_id.startswith("ENST") for transcript_id in transcript_ids)
+        matched_enst_count = sum(
+            transcript_id.startswith("ENST") for transcript_id in matched_transcript_ids
+        )
+        print(
+            f"[TRACE] {patient}: targets={len(transcript_ids)}, "
+            f"FASTA-matched={len(matched_transcript_ids)}, "
+            f"ENST={matched_enst_count}/{target_enst_count}"
+        )
+        if missing_transcript_ids:
+            print(
+                f"[Warning] {patient}: {len(missing_transcript_ids)} target transcripts "
+                "were not found in the normalized FASTA dictionary. "
+                f"Examples: {', '.join(missing_transcript_ids[:5])}"
+            )
         pkl_path = predictor.run(
             species="human",
             cell_type=patient,
@@ -238,10 +285,19 @@ def main() -> int:
             pkl_file=pkl_path,
             cell_type=patient,
             tpm_level=args.tpm_level,
-            seq_dict=predictor.seq_dict,
+            seq_dict=orf_sequence_dict,
             tx2gene_dict=tx2gene_dict,
             tpm_dict=tpm_dict,
         )
+        predicted_ids = set(caller.preds_data[patient])
+        predicted_enst_count = sum(
+            transcript_id.startswith("ENST") for transcript_id in predicted_ids
+        )
+        if matched_enst_count > 0 and predicted_enst_count == 0:
+            raise RuntimeError(
+                f"{patient}: {matched_enst_count} ENST targets matched FASTA, but no ENST "
+                "prediction reached the ORF caller. Check transcript-ID normalization."
+            )
         orfs = caller.run(
             out_dir=str(patient_dir),
             start_codons=["ATG", "CTG", "GTG", "TTG", "ACG"],
@@ -261,7 +317,15 @@ def main() -> int:
                 "Tumor_Run": tumor_run,
                 "Status": "complete" if orf_path.exists() else "no_orfs",
                 "Transcripts": len(transcript_ids),
+                "FASTA_Matched_Transcripts": len(matched_transcript_ids),
+                "Target_ENST": target_enst_count,
+                "FASTA_Matched_ENST": matched_enst_count,
+                "Predicted_Transcripts": len(predicted_ids),
+                "Predicted_ENST": predicted_enst_count,
                 "ORFs": len(orfs),
+                "ORF_ENST": int(orfs["Tid"].astype(str).str.startswith("ENST").sum())
+                if not orfs.empty and "Tid" in orfs.columns
+                else 0,
                 "Elapsed_Seconds": time.perf_counter() - patient_started,
             }
         )

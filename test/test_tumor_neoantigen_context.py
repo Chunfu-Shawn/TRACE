@@ -30,6 +30,7 @@ from cohort_annotation_utils import (
     population_coverage,
 )
 from select_shared_vaccine_peptides import largest_remainder_quotas, parse_netmhcpan_log
+from run_trace_cohort_prediction import build_clean_sequence_dict, clean_id
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
@@ -266,6 +267,26 @@ class MetadataContextTests(unittest.TestCase):
             self.assertEqual(parsed.iloc[0]["Rank_EL"], 1.0)
         finally:
             os.unlink(path)
+
+    def test_cohort_fasta_keys_keep_enst_and_novel_transcripts(self):
+        sequences = {
+            "ENST000001.7|ENSG000001.3": "AUGAAATAA",
+            "MSTRG.12.3": "CTGAAATAA",
+        }
+        cleaned = build_clean_sequence_dict(sequences)
+        self.assertEqual(clean_id("ENST000001.7|ENSG000001.3"), "ENST000001")
+        self.assertEqual(clean_id("MSTRG.12.3"), "MSTRG.12.3")
+        self.assertEqual(cleaned["ENST000001"], "ATGAAATAA")
+        self.assertEqual(cleaned["MSTRG.12.3"], "CTGAAATAA")
+
+    def test_cohort_fasta_rejects_conflicting_normalized_enst_versions(self):
+        with self.assertRaises(ValueError):
+            build_clean_sequence_dict(
+                {
+                    "ENST000001.1|ENSG000001.1": "ATGAAATAA",
+                    "ENST000001.2|ENSG000001.1": "ATGCCCTAA",
+                }
+            )
 
 
 if __name__ == "__main__":

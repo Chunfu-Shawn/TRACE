@@ -784,7 +784,7 @@ def plot_polysome_correlation_bar(
         metric_name: str = "Translation dynamics position-wise correlation",
         suffix: str = "",
         w: float = 6,
-        h: float = 5
+        h: float = 5,
         corr_abs: bool = False,
         shape_by_study: bool = False,
         study_column: str = "Study",
