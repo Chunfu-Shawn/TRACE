@@ -607,6 +607,7 @@ PANEL_METRICS = (
         "CDS-mean MAE",
     ),
 )
+REFERENCE_MODEL_ID = "trace_exp_aug"
 
 
 def plot_architecture_comparison(
@@ -617,11 +618,14 @@ def plot_architecture_comparison(
     """Draw held-out cell points and equal-cell bootstrap summaries."""
     available_ids = set(model_metrics["Model_ID"])
     specs = [spec for spec in ordered_specs if spec.model_id in available_ids]
+    reference_spec = next(
+        (spec for spec in specs if spec.model_id == REFERENCE_MODEL_ID), None
+    )
     y_positions = np.arange(len(specs))[::-1]
     figure, axes = plt.subplots(
         1,
         len(PANEL_METRICS),
-        figsize=(12.2, max(2.8, 0.42 * len(specs) + 1.2)),
+        figsize=(12.2, max(2.4, 0.30 * len(specs) + 1.1)),
         sharey=True,
     )
     jitter_rng = np.random.Generator(np.random.PCG64(RANDOM_SEED))
@@ -632,13 +636,13 @@ def plot_architecture_comparison(
             cell_group = cell_metrics[cell_metrics["Model_ID"] == spec.model_id]
             values = pd.to_numeric(cell_group[metric], errors="coerce").to_numpy()
             values = values[np.isfinite(values)]
-            jitter = jitter_rng.uniform(-0.10, 0.10, size=len(values))
+            jitter = jitter_rng.uniform(-0.08, 0.08, size=len(values))
             axis.scatter(
                 values,
                 np.full(len(values), y_position) + jitter,
-                s=13,
+                s=22,
                 color=spec.color,
-                alpha=0.28,
+                alpha=0.32,
                 edgecolors="none",
                 zorder=1,
             )
@@ -651,21 +655,37 @@ def plot_architecture_comparison(
                 mean,
                 y_position,
                 xerr=np.asarray([[mean - low], [high - mean]]),
-                fmt="D",
-                markersize=5,
+                fmt="o",
+                markersize=6.5,
                 markerfacecolor=spec.color,
-                markeredgecolor="white",
-                markeredgewidth=0.6,
+                markeredgecolor=spec.color,
+                markeredgewidth=0.0,
                 color=spec.color,
-                capsize=2.5,
-                linewidth=1.2,
+                capsize=3.0,
+                linewidth=1.3,
                 zorder=3,
             )
+
+        if reference_spec is not None:
+            reference_row = model_metrics[
+                model_metrics["Model_ID"] == reference_spec.model_id
+            ].iloc[0]
+            reference_mean = float(reference_row[metric])
+            if math.isfinite(reference_mean):
+                axis.axvline(
+                    reference_mean,
+                    color=reference_spec.color,
+                    linestyle=(0, (4, 3)),
+                    linewidth=1.0,
+                    alpha=0.75,
+                    zorder=0,
+                )
 
         axis.set_title(title)
         axis.set_xlabel(x_label)
         axis.set_yticks(y_positions)
         axis.set_yticklabels([spec.label for spec in specs])
+        axis.margins(y=0.08)
         axis.grid(axis="x", color="#D9D9D9", linewidth=0.6, alpha=0.8)
         axis.set_axisbelow(True)
         axis.text(
@@ -685,8 +705,9 @@ def plot_architecture_comparison(
     figure.text(
         0.5,
         0.01,
-        "Dots: held-out cell types; diamonds: equal-cell means; bars: "
-        f"cell-bootstrap 95% CIs; {filter_text}; ≥{MIN_RNA_PER_CELL} RNAs per cell.",
+        "Dots: held-out cell types; circles: equal-cell means; bars: "
+        "cell-bootstrap 95% CIs; dashed lines: TRACE (Mask + interpolation); "
+        f"{filter_text}; ≥{MIN_RNA_PER_CELL} RNAs per cell.",
         ha="center",
         va="bottom",
         fontsize=6.5,
