@@ -29,6 +29,172 @@ from model.orf_caller import FastSignalDrivenORFCaller, TranslationSignalORFCall
 
 
 class OrfTopKTests(unittest.TestCase):
+    def test_top_k_score_col_alias_selects_existing_column(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            gt_path = directory / "gt.csv"
+            pred_path = directory / "pred.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1"],
+                    "CDS_Start_0based": [0],
+                    "CDS_End_0based": [90],
+                }
+            ).to_csv(gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1", "ENST2"],
+                    "Cell_Type": ["brain", "brain"],
+                    "start": [0, 300],
+                    "stop": [90, 390],
+                    "score": [0.1, 0.9],
+                    "mean_intensity": [0.8, 0.2],
+                }
+            ).to_csv(pred_path, index=False)
+
+            result = calculate_top_k_precision(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={"brain": str(gt_path)},
+                score_col="mean_intensity",
+            )
+
+        self.assertEqual(result["Tid"].tolist(), ["ENST1", "ENST2"])
+        self.assertEqual(result["Score_Type"].unique().tolist(), ["mean_intensity"])
+        self.assertEqual(result["Precision"].iloc[0], 1.0)
+
+    def test_top_k_recomputes_combined_score_from_evaluation_definition(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            gt_path = directory / "gt.csv"
+            pred_path = directory / "pred.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1"],
+                    "CDS_Start_0based": [0],
+                    "CDS_End_0based": [90],
+                }
+            ).to_csv(gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1", "ENST2"],
+                    "Cell_Type": ["brain", "brain"],
+                    "start": [0, 300],
+                    "stop": [90, 390],
+                    "score": [0.1, 0.9],
+                    "base_expr_score": [0.5, 0.8],
+                    "tri_nucleotide_periodicity": [0.9, 0.1],
+                    "uniformity_of_signal": [0.8, 0.5],
+                }
+            ).to_csv(pred_path, index=False)
+
+            result = calculate_top_k_precision(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={"brain": str(gt_path)},
+                combined_score=pd.Series({
+                    "Base_Score": "base_expr_score",
+                    "Features": (
+                        "tri_nucleotide_periodicity+uniformity_of_signal"
+                    ),
+                    "Method": "product",
+                }),
+            )
+
+        self.assertEqual(result["Tid"].tolist(), ["ENST1", "ENST2"])
+        np.testing.assert_allclose(result["Score"], [0.36, 0.04])
+        self.assertEqual(result["Precision"].iloc[0], 1.0)
+        self.assertEqual(
+            result["Score_Type"].unique().tolist(),
+            [
+                "base_expr_score | product("
+                "tri_nucleotide_periodicity+uniformity_of_signal)"
+            ],
+        )
+
+    def test_top_k_filters_global_targets_and_callable_start_codons(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            gt_path = directory / "gt.csv"
+            pred_path = directory / "pred.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.1", "ENST2.1", "ENST3.1"],
+                    "CDS_Start_0based": [0, 300, 600],
+                    "CDS_End_0based": [90, 390, 690],
+                    "Start_Codon": ["ATG", "CTG", "ATG"],
+                }
+            ).to_csv(gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.2", "ENST2.2", "ENST3.2"],
+                    "Cell_Type": ["brain", "brain", "brain"],
+                    "start": [0, 300, 600],
+                    "stop": [90, 390, 690],
+                    "start_codon": ["ATG", "CTG", "ATG"],
+                    "score": [0.9, 0.8, 0.7],
+                }
+            ).to_csv(pred_path, index=False)
+
+            result = calculate_top_k_precision(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={"brain": str(gt_path)},
+                target_transcript_ids=np.array(["ENST1.9", "ENST2.9"]),
+                callable_start_codons=["ATG"],
+                target_score_col="score",
+            )
+
+        self.assertEqual(result["Tid"].tolist(), ["ENST1.2"])
+        self.assertEqual(result["Total_GT_ORFs"].tolist(), [1])
+        self.assertEqual(result["Is_TP"].tolist(), [1])
+        self.assertEqual(result["Precision"].tolist(), [1.0])
+
+    def test_top_k_filters_cell_specific_target_transcript_dictionary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            brain_gt_path = directory / "brain_gt.csv"
+            liver_gt_path = directory / "liver_gt.csv"
+            pred_path = directory / "pred.csv"
+            gt_frame = pd.DataFrame(
+                {
+                    "Tid": ["ENST1.1", "ENST2.1"],
+                    "CDS_Start_0based": [0, 300],
+                    "CDS_End_0based": [90, 390],
+                    "Start_Codon": ["ATG", "ATG"],
+                }
+            )
+            gt_frame.to_csv(brain_gt_path, index=False)
+            gt_frame.to_csv(liver_gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.2", "ENST2.2", "ENST1.3", "ENST2.3"],
+                    "Cell_Type": ["brain", "brain", "liver", "liver"],
+                    "start": [0, 300, 0, 300],
+                    "stop": [90, 390, 90, 390],
+                    "start_codon": ["ATG", "ATG", "ATG", "ATG"],
+                    "score": [0.9, 0.8, 0.7, 0.6],
+                }
+            ).to_csv(pred_path, index=False)
+
+            result = calculate_top_k_precision(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={
+                    "brain": str(brain_gt_path),
+                    "liver": str(liver_gt_path),
+                },
+                target_transcript_ids={
+                    "brain": ["ENST1.8"],
+                    "liver": ["ENST2.8"],
+                },
+                callable_start_codons=["ATG"],
+                target_score_col="score",
+            )
+
+        self.assertEqual(
+            list(zip(result["Cell_Type"], result["Tid"])),
+            [("brain", "ENST1.2"), ("liver", "ENST2.3")],
+        )
+        self.assertEqual(result["Is_TP"].tolist(), [1, 1])
+        self.assertEqual(result["Total_GT_ORFs"].tolist(), [2, 2])
+
     def test_max_len_removes_long_candidates_before_collapse_and_nms(self):
         sequence = "ATG" + "AAA" * 19 + "ATG" + "AAA" * 12 + "TAA"
         caller = FastSignalDrivenORFCaller(min_len=30, max_len=60)

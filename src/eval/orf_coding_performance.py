@@ -1017,6 +1017,100 @@ def evaluate_orf_level_predictions(
 # =====================================================================
 # Module 1 (Top-K): Precision@K Calculation Engine
 # =====================================================================
+def add_requested_combined_score(
+        pred_df: pd.DataFrame,
+        combined_score: Union[str, Mapping[str, object], pd.Series],
+        common_columns: Optional[set] = None):
+    """Create one Top-K score from an evaluation combination definition."""
+    if isinstance(combined_score, str):
+        if combined_score not in pred_df.columns:
+            raise ValueError(
+                f"Combined score column '{combined_score}' was not found."
+            )
+        if common_columns is not None and combined_score not in common_columns:
+            raise ValueError(
+                f"Combined score column '{combined_score}' must exist in "
+                "every prediction file."
+            )
+        return pred_df.copy(), combined_score, combined_score
+
+    if isinstance(combined_score, pd.Series):
+        definition = combined_score.to_dict()
+    elif isinstance(combined_score, Mapping):
+        definition = dict(combined_score)
+    else:
+        raise TypeError(
+            "combined_score must be a column name or a combination-definition "
+            "dictionary/Series."
+        )
+
+    base_score = definition.get('base_score', definition.get('Base_Score'))
+    features = definition.get('features', definition.get('Features', []))
+    method = definition.get('method', definition.get('Method', 'product'))
+    if base_score is None or pd.isna(base_score):
+        raise ValueError("combined_score must define Base_Score or base_score.")
+    base_score = str(base_score)
+
+    if isinstance(features, str):
+        feature_columns = (
+            [] if features.strip().lower() in {'', 'none', 'nan'}
+            else [value.strip() for value in features.split('+') if value.strip()]
+        )
+    elif features is None:
+        feature_columns = []
+    else:
+        feature_columns = [str(value) for value in features]
+
+    method = str(method).lower()
+    if method == 'base' and not feature_columns:
+        method = 'product'
+    valid_methods = {'product', 'geometric_mean', 'arithmetic_mean'}
+    if method not in valid_methods:
+        raise ValueError(f"Combined-score method must be one of {sorted(valid_methods)}.")
+
+    required_columns = [base_score, *feature_columns]
+    missing_columns = [
+        column for column in required_columns if column not in pred_df.columns
+    ]
+    if common_columns is not None:
+        missing_columns.extend(
+            column for column in required_columns
+            if column not in common_columns and column not in missing_columns
+        )
+    if missing_columns:
+        raise ValueError(
+            "Combined-score columns must exist in every prediction file. "
+            f"Missing columns: {missing_columns}"
+        )
+
+    scored_df = pred_df.copy()
+    base_values = pd.to_numeric(
+        scored_df[base_score], errors='coerce'
+    ).fillna(0.0).clip(lower=0.0).to_numpy()
+    if feature_columns:
+        feature_values = np.vstack([
+            pd.to_numeric(scored_df[column], errors='coerce')
+            .fillna(0.0).clip(lower=0.0, upper=1.0).to_numpy()
+            for column in feature_columns
+        ])
+        if method == 'product':
+            feature_factor = np.prod(feature_values, axis=0)
+        elif method == 'geometric_mean':
+            feature_factor = np.exp(np.mean(
+                np.log(np.clip(feature_values, 1e-9, None)), axis=0
+            ))
+        else:
+            feature_factor = np.mean(feature_values, axis=0)
+    else:
+        feature_factor = np.ones(len(scored_df), dtype=np.float64)
+
+    combined_column = '__top_k_combined_score'
+    scored_df[combined_column] = base_values * feature_factor
+    feature_label = '+'.join(feature_columns) if feature_columns else 'none'
+    score_label = f"{base_score} | {method}({feature_label})"
+    return scored_df, combined_column, score_label
+
+
 def calculate_top_k_precision(
         pred_csv_paths: Optional[Union[str, List[str]]] = None,
         gt_csv_paths: Optional[Union[str, List[str], Dict[str, str]]] = None,
@@ -1026,7 +1120,13 @@ def calculate_top_k_precision(
         target_score_col: Optional[str] = None,
         cell_type: Optional[str] = None,
         pred_csv_path: Optional[str] = None,
-        gt_csv_path: Optional[str] = None) -> pd.DataFrame:
+        gt_csv_path: Optional[str] = None,
+        target_transcript_ids: Optional[TranscriptTargetInput] = None,
+        callable_start_codons: Optional[List[str]] = None,
+        score_col: Optional[str] = None,
+        combined_score: Optional[
+            Union[str, Mapping[str, object], pd.Series]
+        ] = None) -> pd.DataFrame:
     """
     Calculate cell-aware Precision@K and Recall@K for ranked predicted ORFs.
 
@@ -1034,6 +1134,17 @@ def calculate_top_k_precision(
     accepts one path, a list of paths with embedded Cell_Type values, or a
     ``{cell_type: path}`` dictionary matching evaluate_orf_level_predictions.
     The singular path arguments are retained for backward compatibility.
+
+    ``target_transcript_ids`` accepts either one transcript collection applied
+    globally or a ``{cell_type: transcript_collection}`` mapping. Both GT and
+    predictions are filtered to this callable transcript universe and to
+    ``callable_start_codons`` before ranking and matching.
+
+    ``score_col`` selects an existing prediction column and is an alias for
+    ``target_score_col``. ``combined_score`` may be an existing column name or
+    one row/dictionary from ``feature_combination_definitions.csv`` or
+    ``feature_combination_metrics.csv`` using the ``Base_Score``, ``Features``,
+    and ``Method`` fields.
 
     Predictions are greedily matched in descending score order. Each ground
     truth ORF may support multiple predictions. Each prediction is assigned to
@@ -1043,6 +1154,14 @@ def calculate_top_k_precision(
     """
     if not 0 <= overlap_threshold <= 1:
         raise ValueError("overlap_threshold must be between 0 and 1.")
+
+    if score_col is not None and target_score_col is not None:
+        raise ValueError("Use either score_col or target_score_col, not both.")
+    requested_score_col = score_col or target_score_col
+    if combined_score is not None and requested_score_col is not None:
+        raise ValueError(
+            "Use either score_col/target_score_col or combined_score, not both."
+        )
 
     if pred_csv_paths is not None and pred_csv_path is not None:
         raise ValueError("Use either pred_csv_paths or pred_csv_path, not both.")
@@ -1090,9 +1209,9 @@ def calculate_top_k_precision(
     common_score_columns = set(pred_dfs[0].columns)
     for frame in pred_dfs[1:]:
         common_score_columns &= set(frame.columns)
-    if target_score_col is not None and target_score_col not in common_score_columns:
+    if requested_score_col is not None and requested_score_col not in common_score_columns:
         raise ValueError(
-            f"Score column '{target_score_col}' must exist in every prediction file."
+            f"Score column '{requested_score_col}' must exist in every prediction file."
         )
 
     pred_df = pd.concat(pred_dfs, ignore_index=True)
@@ -1160,14 +1279,28 @@ def calculate_top_k_precision(
         gt_df['Cell_Type'] = 'Unspecified'
         pred_df['Cell_Type'] = 'Unspecified'
 
-    score_col = resolve_score_col(pred_df, target_score_col)
-    if score_col not in common_score_columns:
-        raise ValueError(
-            f"Resolved score column '{score_col}' must exist in every prediction file."
+    if combined_score is not None:
+        pred_df, ranking_score_col, score_type_label = add_requested_combined_score(
+            pred_df=pred_df,
+            combined_score=combined_score,
+            common_columns=common_score_columns,
         )
-    pred_df[score_col] = pd.to_numeric(pred_df[score_col], errors='coerce')
-    pred_df = pred_df.replace([np.inf, -np.inf], np.nan).dropna(subset=[score_col])
-    print(f"  -> Ranking predictions using column: '{score_col}'")
+    else:
+        ranking_score_col = resolve_score_col(pred_df, requested_score_col)
+        if ranking_score_col not in common_score_columns:
+            raise ValueError(
+                f"Resolved score column '{ranking_score_col}' must exist in "
+                "every prediction file."
+            )
+        score_type_label = ranking_score_col
+
+    pred_df[ranking_score_col] = pd.to_numeric(
+        pred_df[ranking_score_col], errors='coerce'
+    )
+    pred_df = pred_df.replace([np.inf, -np.inf], np.nan).dropna(
+        subset=[ranking_score_col]
+    )
+    print(f"  -> Ranking predictions using: '{score_type_label}'")
 
     prediction_cell_types = set(pred_df['Cell_Type'].astype(str).unique())
     gt_df = gt_df[
@@ -1184,6 +1317,93 @@ def calculate_top_k_precision(
             f"  -> Dropped {dropped_prediction_count} predictions without "
             "a matching ground-truth Cell_Type."
         )
+
+    if target_transcript_ids is not None:
+        normalized_targets = normalize_transcript_targets(target_transcript_ids)
+        gt_count_before = len(gt_df)
+        pred_count_before = len(pred_df)
+
+        if isinstance(normalized_targets, dict):
+            print("  -> Applying cell-specific callable transcript sets.")
+            evaluated_cell_types = set(gt_df['Cell_Type']).union(
+                pred_df['Cell_Type']
+            )
+            missing_target_cells = sorted(
+                evaluated_cell_types.difference(normalized_targets)
+            )
+            if missing_target_cells:
+                print(
+                    "  [Warning] No target transcripts were provided for "
+                    f"these cell types; they will be dropped: "
+                    f"{missing_target_cells}"
+                )
+
+            gt_mask = pd.Series(False, index=gt_df.index)
+            pred_mask = pd.Series(False, index=pred_df.index)
+            for target_cell_type, target_set in normalized_targets.items():
+                gt_mask |= (
+                    (gt_df['Cell_Type'] == target_cell_type)
+                    & gt_df['Tid_clean'].isin(target_set)
+                )
+                pred_mask |= (
+                    (pred_df['Cell_Type'] == target_cell_type)
+                    & pred_df['Tid_clean'].isin(target_set)
+                )
+            gt_df = gt_df[gt_mask].copy()
+            pred_df = pred_df[pred_mask].copy()
+        else:
+            print(
+                f"  -> Applying one global callable set containing "
+                f"{len(normalized_targets)} transcripts."
+            )
+            gt_df = gt_df[gt_df['Tid_clean'].isin(normalized_targets)].copy()
+            pred_df = pred_df[
+                pred_df['Tid_clean'].isin(normalized_targets)
+            ].copy()
+
+        print(
+            f"     GT ORFs: {gt_count_before} -> {len(gt_df)}; "
+            f"predicted ORFs: {pred_count_before} -> {len(pred_df)}"
+        )
+
+    if callable_start_codons is not None:
+        allowed_start_codons = {
+            str(codon).strip().upper() for codon in callable_start_codons
+        }
+        if not allowed_start_codons:
+            raise ValueError("callable_start_codons cannot be empty.")
+
+        gt_count_before = len(gt_df)
+        pred_count_before = len(pred_df)
+        if 'Start_Codon' in gt_df.columns:
+            gt_df = gt_df[
+                gt_df['Start_Codon'].astype(str).str.strip().str.upper().isin(
+                    allowed_start_codons
+                )
+            ].copy()
+        else:
+            print(
+                "  [Warning] GT data has no Start_Codon column; "
+                "callable_start_codons was not applied to GT ORFs."
+            )
+
+        if 'start_codon' in pred_df.columns:
+            pred_df = pred_df[
+                pred_df['start_codon'].astype(str).str.strip().str.upper().isin(
+                    allowed_start_codons
+                )
+            ].copy()
+        else:
+            print(
+                "  [Warning] Prediction data has no start_codon column; "
+                "callable_start_codons was not applied to predicted ORFs."
+            )
+
+        print(
+            f"  -> Callable start codons {sorted(allowed_start_codons)}: "
+            f"GT ORFs {gt_count_before} -> {len(gt_df)}; "
+            f"predicted ORFs {pred_count_before} -> {len(pred_df)}"
+        )
         
     if min_orf_len is not None or max_orf_len is not None:
         if min_orf_len is not None and max_orf_len is not None and min_orf_len > max_orf_len:
@@ -1194,6 +1414,17 @@ def calculate_top_k_precision(
         
         gt_df = gt_df[(gt_df['length'] >= lower_bound) & (gt_df['length'] <= upper_bound)].copy()
         pred_df = pred_df[(pred_df['length'] >= lower_bound) & (pred_df['length'] <= upper_bound)].copy()
+
+    callable_gt_cell_types = set(gt_df['Cell_Type'].astype(str).unique())
+    pred_count_before = len(pred_df)
+    pred_df = pred_df[
+        pred_df['Cell_Type'].astype(str).isin(callable_gt_cell_types)
+    ].copy()
+    if len(pred_df) < pred_count_before:
+        print(
+            f"  -> Dropped {pred_count_before - len(pred_df)} predictions "
+            "from cell types with no GT ORFs left in the callable universe."
+        )
         
     gt_df = gt_df.drop_duplicates(
         subset=['Cell_Type', 'Tid_clean', 'start_gt', 'stop_gt']
@@ -1206,7 +1437,9 @@ def calculate_top_k_precision(
             columns=['K', 'TP_Count', 'Precision', 'Recall', 'Score_Type']
         )
 
-    pred_df = pred_df.sort_values(by=score_col, ascending=False).reset_index(drop=True)
+    pred_df = pred_df.sort_values(
+        by=ranking_score_col, ascending=False
+    ).reset_index(drop=True)
     pred_df['pred_idx'] = pred_df.index
     
     print(f"Executing ultra-fast coordinate matching (Overlap > {overlap_threshold*100}%)...")
@@ -1298,13 +1531,14 @@ def calculate_top_k_precision(
         'Tid': pred_df['Tid'].astype(str).to_numpy(),
         'Pred_Start': pred_df['start'].to_numpy(),
         'Pred_Stop': pred_df['stop'].to_numpy(),
-        'Score': pred_df[score_col].to_numpy(),
+        'Score': pred_df[ranking_score_col].to_numpy(),
         'Is_TP': is_tp_array,
         'Is_New_GT_Hit': unique_gt_hit_array,
         'Matched_GT_Index': matched_gt_list,
         'Match_IoU': matched_iou_list,
         'Prediction_Source': pred_df['Prediction_Source'].astype(str).to_numpy(),
-        'Score_Type': score_col
+        'Score_Type': score_type_label,
+        'Score_Column': ranking_score_col,
     })
     gt_source_by_index = gt_df.set_index('gt_idx')['GT_Source'].to_dict()
     pk_df['Matched_GT_Source'] = pk_df['Matched_GT_Index'].map(gt_source_by_index)
