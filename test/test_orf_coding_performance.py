@@ -15,16 +15,210 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from eval.orf_coding_performance import (
+    add_feature_combination_scores,
     calculate_top_k_precision,
+    load_and_filter_data,
     match_and_build_eval_df,
     normalize_transcript_id,
     plot_top_k_metric,
     plot_top_k_precision,
     plot_top_k_recall,
 )
+from model.orf_caller import FastSignalDrivenORFCaller
 
 
 class OrfTopKTests(unittest.TestCase):
+    def test_cell_specific_transcript_targets_filter_gt_and_predictions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            brain_gt_path = directory / "brain_gt.csv"
+            liver_gt_path = directory / "liver_gt.csv"
+            pred_path = directory / "pred.csv"
+
+            gt_frame = pd.DataFrame(
+                {
+                    "Tid": ["ENST1.1", "ENST2.1"],
+                    "CDS_Start_0based": [0, 300],
+                    "CDS_End_0based": [90, 390],
+                }
+            )
+            gt_frame.to_csv(brain_gt_path, index=False)
+            gt_frame.to_csv(liver_gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.2", "ENST2.2", "ENST1.3", "ENST2.3"],
+                    "Cell_Type": ["brain", "brain", "liver", "liver"],
+                    "start": [0, 300, 0, 300],
+                    "stop": [90, 390, 90, 390],
+                    "score": [0.9, 0.8, 0.7, 0.6],
+                }
+            ).to_csv(pred_path, index=False)
+
+            pred_df, gt_df, _ = load_and_filter_data(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={
+                    "brain": str(brain_gt_path),
+                    "liver": str(liver_gt_path),
+                },
+                target_transcript_ids={
+                    "brain": np.array(["ENST1.9"]),
+                    "liver": np.array(["ENST2.9"]),
+                },
+                target_score_col="score",
+            )
+
+        self.assertEqual(
+            list(zip(pred_df["Cell_Type"], pred_df["Tid_clean"])),
+            [("brain", "ENST1"), ("liver", "ENST2")],
+        )
+        self.assertEqual(
+            list(zip(gt_df["Cell_Type"], gt_df["Tid_clean"])),
+            [("brain", "ENST1"), ("liver", "ENST2")],
+        )
+
+    def test_global_transcript_array_still_supports_single_cell_evaluation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            gt_path = directory / "gt.csv"
+            pred_path = directory / "pred.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.1", "ENST2.1"],
+                    "CDS_Start_0based": [0, 300],
+                    "CDS_End_0based": [90, 390],
+                }
+            ).to_csv(gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.2", "ENST2.2"],
+                    "Cell_Type": ["brain", "brain"],
+                    "start": [0, 300],
+                    "stop": [90, 390],
+                    "score": [0.9, 0.8],
+                }
+            ).to_csv(pred_path, index=False)
+
+            pred_df, gt_df, _ = load_and_filter_data(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={"brain": str(gt_path)},
+                target_transcript_ids=np.array(["ENST2.8"]),
+                target_score_col="score",
+            )
+
+        self.assertEqual(pred_df["Tid_clean"].tolist(), ["ENST2"])
+        self.assertEqual(gt_df["Tid_clean"].tolist(), ["ENST2"])
+
+    def test_nms_only_suppresses_candidates_in_the_same_frame(self):
+        caller = FastSignalDrivenORFCaller()
+        candidates = [
+            {"start": 0, "stop": 99, "length": 102, "score": 1.0},
+            {"start": 1, "stop": 100, "length": 102, "score": 0.9},
+            {"start": 3, "stop": 99, "length": 99, "score": 0.8},
+        ]
+
+        result = caller.fast_nms(candidates, iou_threshold=0.7)
+
+        self.assertEqual([(row["start"], row["stop"]) for row in result], [(0, 99), (1, 100)])
+
+    def test_feature_combination_scores_are_enumerated(self):
+        pred_df = pd.DataFrame(
+            {
+                "translation_score": [2.0],
+                "tri_nucleotide_periodicity": [0.5],
+                "uniformity_of_signal": [0.25],
+            }
+        )
+
+        result, metadata = add_feature_combination_scores(
+            pred_df,
+            base_score_columns=["translation_score"],
+            feature_columns=[
+                "tri_nucleotide_periodicity",
+                "uniformity_of_signal",
+            ],
+            method="product",
+        )
+
+        combo_columns = metadata.loc[
+            metadata["Method"] == "product", "Score_Column"
+        ].tolist()
+        self.assertEqual(len(combo_columns), 3)
+        np.testing.assert_allclose(
+            result[combo_columns].iloc[0].sort_values().to_numpy(),
+            [0.25, 0.5, 1.0],
+        )
+
+    def test_gt_cell_types_without_prediction_files_are_not_counted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            pred_path = directory / "brain_pred.csv"
+            brain_gt_path = directory / "brain_gt.csv"
+            liver_gt_path = directory / "liver_gt.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1"],
+                    "Cell_Type": ["brain"],
+                    "start": [0],
+                    "stop": [90],
+                    "length": [93],
+                    "score": [1.0],
+                }
+            ).to_csv(pred_path, index=False)
+            for path in (brain_gt_path, liver_gt_path):
+                pd.DataFrame(
+                    {
+                        "Tid": ["ENST1"],
+                        "CDS_Start_0based": [0],
+                        "CDS_End_0based": [90],
+                    }
+                ).to_csv(path, index=False)
+
+            _, gt_df, _ = load_and_filter_data(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={
+                    "brain": str(brain_gt_path),
+                    "liver": str(liver_gt_path),
+                },
+                target_score_col="score",
+            )
+
+        self.assertEqual(gt_df["Cell_Type"].unique().tolist(), ["brain"])
+        self.assertEqual(gt_df["length"].tolist(), [93])
+
+    def test_callable_start_codons_filter_gt_and_predictions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            pred_path = directory / "pred.csv"
+            gt_path = directory / "gt.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1", "ENST2"],
+                    "Cell_Type": ["brain", "brain"],
+                    "start": [0, 0],
+                    "stop": [90, 90],
+                    "start_codon": ["ATG", "TTG"],
+                    "score": [1.0, 0.9],
+                }
+            ).to_csv(pred_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1", "ENST2"],
+                    "CDS_Start_0based": [0, 0],
+                    "CDS_End_0based": [90, 90],
+                    "Start_Codon": ["ATG", "TTG"],
+                }
+            ).to_csv(gt_path, index=False)
+
+            pred_df, gt_df, _ = load_and_filter_data(
+                pred_csv_paths=[str(pred_path)],
+                gt_csv_paths={"brain": str(gt_path)},
+                target_score_col="score",
+                callable_start_codons=["ATG"],
+            )
+
+        self.assertEqual(pred_df["Tid_clean"].tolist(), ["ENST1"])
+        self.assertEqual(gt_df["Tid_clean"].tolist(), ["ENST1"])
+
     def test_main_evaluation_allows_multiple_predictions_per_gt(self):
         gt_df = pd.DataFrame(
             {

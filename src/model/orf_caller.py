@@ -75,10 +75,50 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
 # Core Algorithm: Multi-dimensional Prefix Sum ORF Caller
 # =================================================================
 class FastSignalDrivenORFCaller:
-    def __init__(self, start_codons=['ATG', 'CTG', 'GTG'], stop_codons=['TAA', 'TAG', 'TGA'], min_len=30, mode='balanced'):
+    def __init__(
+            self,
+            start_codons=['ATG', 'CTG', 'GTG'],
+            stop_codons=['TAA', 'TAG', 'TGA'],
+            min_len=30,
+            mode='balanced',
+            score_features: Optional[List[str]] = None,
+            score_combination_method: str = 'product'):
         self.start_codons, self.stop_codons, self.min_len, self.mode = start_codons, stop_codons, min_len, mode.lower()
         self.stop_re = re.compile(f"(?=({'|'.join(stop_codons)}))")
         self.start_re = re.compile(f"(?=({'|'.join(start_codons)}))")
+        self.score_features = list(score_features or [])
+        self.score_combination_method = score_combination_method.lower()
+        valid_methods = {'product', 'geometric_mean', 'arithmetic_mean'}
+        if self.score_combination_method not in valid_methods:
+            raise ValueError(
+                f"score_combination_method must be one of {sorted(valid_methods)}."
+            )
+
+    def _combine_score_features(self, feature_values: Dict[str, float]) -> float:
+        """Combine selected unit-scale signal features into one score factor."""
+        if not self.score_features:
+            return 1.0
+
+        missing_features = [
+            feature for feature in self.score_features
+            if feature not in feature_values
+        ]
+        if missing_features:
+            raise ValueError(
+                f"Unknown score features: {missing_features}. "
+                f"Available features: {sorted(feature_values)}"
+            )
+
+        values = np.asarray(
+            [feature_values[feature] for feature in self.score_features],
+            dtype=np.float64
+        )
+        values = np.clip(values, 0.0, 1.0)
+        if self.score_combination_method == 'product':
+            return float(np.prod(values))
+        if self.score_combination_method == 'geometric_mean':
+            return float(np.exp(np.mean(np.log(np.clip(values, 1e-9, None)))))
+        return float(np.mean(values))
 
     def extract_all_candidates(self, sequence: str) -> List[dict]:
         candidates = []
@@ -124,12 +164,16 @@ class FastSignalDrivenORFCaller:
         for i, cand in enumerate(cands):
             if cand.get('suppressed', False): continue
             keep.append(cand)
-            s1, e1, l1 = cand['start'], cand['stop'], cand['length']
+            s1, e1 = cand['start'], cand['stop'] + 3
             for j in range(i + 1, len(cands)):
                 if cands[j].get('suppressed', False): continue
-                s2, e2, l2 = cands[j]['start'], cands[j]['stop'], cands[j]['length']
+                s2, e2 = cands[j]['start'], cands[j]['stop'] + 3
+                if s1 % 3 != s2 % 3:
+                    continue
                 overlap_l = max(0, min(e1, e2) - max(s1, s2))
                 if overlap_l > 0:
+                    l1 = e1 - s1
+                    l2 = e2 - s2
                     iou = overlap_l / (l1 + l2 - overlap_l)
                     if iou > iou_threshold:
                         cands[j]['suppressed'] = True
@@ -189,9 +233,20 @@ class FastSignalDrivenORFCaller:
             if self.mode == 'long': length_bonus = np.log10(length + 1)
             elif self.mode == 'short': length_bonus = np.log2(min(length, 450) + 1) * 0.5
             
-            translation_score = length_bonus * mean_intensity # * (uniformity + 1e-3) * periodicity * step_up_contrast * drop_off 
+            feature_values = {
+                'tri_nucleotide_periodicity': periodicity,
+                'uniformity_of_signal': uniformity,
+                'step_up_contrast': step_up_contrast,
+                'drop_off': drop_off,
+            }
+            base_translation_score = length_bonus * mean_intensity
+            score_factor = self._combine_score_features(feature_values)
+            translation_score = base_translation_score * score_factor
             cand.update({'tri_nucleotide_periodicity': periodicity, 'uniformity_of_signal': uniformity,
-                         'step_up_contrast': step_up_contrast, 'drop_off': drop_off, 'score': float(translation_score)})
+                         'step_up_contrast': step_up_contrast, 'drop_off': drop_off,
+                         'base_translation_score': float(base_translation_score),
+                         'score_feature_factor': float(score_factor),
+                         'score': float(translation_score)})
             extracted_cands.append(cand)
         return extracted_cands
 
@@ -332,11 +387,19 @@ class TranslationSignalORFCaller:
     def run(self, mane_orfs_path=None, out_dir="./results", start_codons=['ATG', 'CTG', 'GTG'],
             min_len=30, offset_tolerance=6, mode='balanced', use_mane_filter=True, mane_quantile=0.05,
             plot_density=True, hard_thresh_intensity=0.01, hard_thresh_periodicity=0.40,
-            hard_thresh_uniformity=0.20, hard_thresh_step_up=0.3, hard_thresh_drop_off=0.3) -> pd.DataFrame:
+            hard_thresh_uniformity=0.20, hard_thresh_step_up=0.3, hard_thresh_drop_off=0.3,
+            score_features: Optional[List[str]] = None,
+            score_combination_method: str = 'product') -> pd.DataFrame:
         
         os.makedirs(out_dir, exist_ok=True)
         cell_preds = self.preds_data[self.cell_type]
-        caller = FastSignalDrivenORFCaller(start_codons=start_codons, min_len=min_len, mode=mode)
+        caller = FastSignalDrivenORFCaller(
+            start_codons=start_codons,
+            min_len=min_len,
+            mode=mode,
+            score_features=score_features,
+            score_combination_method=score_combination_method
+        )
         all_raw_records = []
         
         print(f"\n[Phase 1] Extracting candidates & integrating LogTPM...")
@@ -370,7 +433,10 @@ class TranslationSignalORFCaller:
                     'Cell_Type': self.cell_type,
                     'tpm': tpm_val, 
                     'log2_tpm_plus_1': log_tpm,
+                    'score_features': '+'.join(score_features or []) or 'none',
+                    'score_combination_method': score_combination_method,
                     'translation_score': cand['score'],
+                    'base_expr_score': cand['base_translation_score'] * log_tpm,
                     'expr_score': cand['score'] * log_tpm
                 })
                 all_raw_records.append(cand)
@@ -440,6 +506,15 @@ class TranslationSignalORFCaller:
         
         annotated_csv_path = os.path.join(out_dir, f"all_candidates_labeled.{self.cell_type}.csv")
         raw_df.drop(columns=['orf_index']).to_csv(annotated_csv_path, index=False)
+
+        pre_nms_csv_path = os.path.join(
+            out_dir,
+            f"high_confidence_orfs_pre_nms.{self.cell_type}.{mode}_mode.csv"
+        )
+        high_conf_df.drop(columns=['orf_index']).sort_values(
+            by=['expr_score'], ascending=False
+        ).to_csv(pre_nms_csv_path, index=False)
+        print(f"  -> Saved pre-NMS candidates to: {pre_nms_csv_path}")
         
         print(f"\n[Phase 5] Stop-Codon Collapse (Score Driven) and NMS...")
         final_records = []
@@ -448,7 +523,9 @@ class TranslationSignalORFCaller:
         
         final_df = pd.DataFrame(final_records)
         cols = ['Tid', 'Gene_ID', 'Cell_Type', 'start', 'stop', 'length', 'start_codon', 
-                'translation_score', 'tpm', 'log2_tpm_plus_1', 'expr_score', 'mean_intensity', 
+                'base_translation_score', 'score_feature_factor', 'score_features',
+                'score_combination_method', 'translation_score', 'tpm',
+                'log2_tpm_plus_1', 'base_expr_score', 'expr_score', 'mean_intensity',
                 'tri_nucleotide_periodicity', 'uniformity_of_signal', 'step_up_contrast', 'drop_off']
         
         if not final_df.empty:

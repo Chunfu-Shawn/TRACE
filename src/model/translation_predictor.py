@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from torch.nn.utils.rnn import pad_sequence
-from typing import Dict, Optional, List, Union
+from typing import Dict, Iterable, Optional, List, Union
 from tqdm import tqdm
 
 from eval.save_prediction_results import (
@@ -18,26 +18,34 @@ from utils import unwrap_model, clean_up_memory
 
 
 def get_active_transcripts(
-    tpm_csv_path: str, 
-    mapping_csv_path: str, 
-    # accept a single string or a list of strings
-    cell_type: Union[str, List[str]], 
-    min_tpm: float = 0.5
+        tpm_csv_path: str,
+        mapping_csv_path: str,
+        cell_type: Union[str, Iterable[str]],
+        min_tpm: float = 0.5,
 ) -> Union[np.ndarray, Dict[str, np.ndarray]]:
-    """
-    Reads the TPM CSV matrix and a Gene-to-Transcript mapping table.
-    - If cell_type is a string, returns an array of active Transcript IDs.
-    - If cell_type is a list, returns a dict of {cell_type: array_of_active_Transcript_IDs}.
-    """
-    # =================================================================
-    # 1. Normalize input types
-    # =================================================================
-    is_single_input = isinstance(cell_type, str)
-    target_cells = [cell_type] if is_single_input else cell_type
+    """Return expressed transcript IDs for one or more cell types.
 
-    # =================================================================
-    # 2. Load data once (shared across all cell types for speed)
-    # =================================================================
+    A single cell-type string returns one ``numpy.ndarray`` for backward
+    compatibility. Any iterable of cell types returns a dictionary keyed by
+    cell type, including an iterable containing only one cell type.
+    """
+    is_single_input = isinstance(cell_type, str)
+    if is_single_input:
+        target_cells = [str(cell_type)]
+    else:
+        try:
+            target_cells = [str(value) for value in cell_type]
+        except TypeError as exc:
+            raise TypeError(
+                "cell_type must be a string or an iterable of strings."
+            ) from exc
+        target_cells = list(dict.fromkeys(target_cells))
+
+    if not target_cells:
+        raise ValueError("cell_type cannot be empty.")
+    if not np.isfinite(min_tpm):
+        raise ValueError("min_tpm must be finite.")
+
     print(f"Loading TPM matrix from: {tpm_csv_path}")
     try:
         df = pd.read_csv(tpm_csv_path, index_col=0)
@@ -55,10 +63,13 @@ def get_active_transcripts(
     if gene_col not in mapping_df.columns or tx_col not in mapping_df.columns:
         raise ValueError(f"Mapping table must contain '{gene_col}' and '{tx_col}' columns.")
 
-    # =================================================================
-    # 3. Iterate over cell types
-    # =================================================================
-    results = {}
+    df.columns = df.columns.astype(str)
+    df.index = df.index.astype(str)
+    mapping_df = mapping_df.dropna(subset=[gene_col, tx_col]).copy()
+    mapping_df[gene_col] = mapping_df[gene_col].astype(str)
+    mapping_df[tx_col] = mapping_df[tx_col].astype(str)
+
+    results: Dict[str, np.ndarray] = {}
     print(f"Extracting active transcripts (TPM > {min_tpm}) for {len(target_cells)} cell types...")
     
     for ct in target_cells:
@@ -67,22 +78,17 @@ def get_active_transcripts(
             results[ct] = np.array([])
             continue
 
-        # filter active genes
-        active_mask = df[ct] > min_tpm
-        active_gene_ids = df[active_mask].index.values
+        expression = pd.to_numeric(df[ct], errors='coerce').fillna(0.0)
+        active_gene_ids = df.index[expression > min_tpm].to_numpy()
         
-        # map to transcripts
         active_mapping = mapping_df[mapping_df[gene_col].isin(active_gene_ids)]
-        active_transcript_ids = active_mapping[tx_col].unique()
+        active_transcript_ids = active_mapping[tx_col].dropna().unique()
         
         results[ct] = active_transcript_ids
         print(f"  -> {ct}: {len(active_gene_ids)} active genes mapped to {len(active_transcript_ids)} unique transcripts.")
     
-    # =================================================================
-    # 4. Return the appropriate structure based on input type
-    # =================================================================
     if is_single_input:
-        return results[cell_type]
+        return results[str(cell_type)]
     
     return results
 

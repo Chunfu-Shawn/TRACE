@@ -1,4 +1,6 @@
 import os
+from collections.abc import Iterable, Mapping
+from itertools import combinations
 import numpy as np
 import pandas as pd
 from typing import Dict, List, Optional, Union
@@ -11,16 +13,60 @@ from plotnine import *
 
 mpl.rcParams['font.family'] = 'sans-serif'
 mpl.rcParams['font.sans-serif'] = ['Arial', 'Helvetica', 'DejaVu Sans']
-mpl.rcParams['pdf.fonttype'] = 42
-mpl.rcParams['svg.fonttype'] = 'none'
+mpl.rcParams["pdf.fonttype"] = 42
+mpl.rcParams["svg.fonttype"] = "none"
 
 
 def normalize_transcript_id(transcript_id) -> str:
     """Remove version suffixes from ENST IDs while preserving all other IDs."""
-    transcript_id = str(transcript_id)
+    transcript_id = str(transcript_id).strip()
     if transcript_id.startswith('ENST'):
         return transcript_id.split('.', 1)[0]
     return transcript_id
+
+
+TranscriptTargetInput = Union[
+    Iterable[str],
+    Mapping[str, Iterable[str]],
+]
+
+
+def normalize_transcript_targets(
+        target_transcript_ids: TranscriptTargetInput,
+) -> Union[set, Dict[str, set]]:
+    """Normalize global or cell-specific target transcript collections."""
+    def build_target_set(values: Iterable[str], label: str) -> set:
+        if isinstance(values, (str, bytes)):
+            raise TypeError(
+                f"{label} must be a collection of transcript IDs, not a string."
+            )
+        try:
+            return {
+                normalize_transcript_id(value)
+                for value in values
+                if pd.notna(value)
+            }
+        except TypeError as exc:
+            raise TypeError(
+                f"{label} must be an iterable of transcript IDs."
+            ) from exc
+
+    if isinstance(target_transcript_ids, Mapping):
+        normalized_targets: Dict[str, set] = {}
+        for raw_cell_type, transcript_ids in target_transcript_ids.items():
+            cell_type = str(raw_cell_type)
+            if cell_type in normalized_targets:
+                raise ValueError(
+                    f"Duplicate target-transcript key after string conversion: "
+                    f"'{cell_type}'."
+                )
+            normalized_targets[cell_type] = build_target_set(
+                transcript_ids,
+                f"target_transcript_ids['{cell_type}']",
+            )
+        return normalized_targets
+
+    return build_target_set(target_transcript_ids, "target_transcript_ids")
 
 
 # =====================================================================
@@ -51,10 +97,11 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
 def load_and_filter_data(
         pred_csv_paths: List[str],               
         gt_csv_paths: Dict[str, str],            
-        target_transcript_ids: Optional[Union[List[str], Dict[str, List[str]]]] = None,
+        target_transcript_ids: Optional[TranscriptTargetInput] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
-        target_score_col: Optional[str] = None):
+        target_score_col: Optional[str] = None,
+        callable_start_codons: Optional[List[str]] = None):
     
     # 1. Load Ground Truths
     gt_dfs = []
@@ -72,17 +119,22 @@ def load_and_filter_data(
             raise ValueError(f"Error reading GT for {cell_type}: {e}")
             
         gt_df['Tid_clean'] = gt_df['Tid'].apply(normalize_transcript_id)
-        gt_df['start_gt'] = gt_df['CDS_Start_0based']
-        gt_df['stop_gt'] = gt_df['CDS_End_0based']
-        gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt']
+        gt_df['start_gt'] = pd.to_numeric(
+            gt_df['CDS_Start_0based'], errors='coerce'
+        )
+        gt_df['stop_gt'] = pd.to_numeric(
+            gt_df['CDS_End_0based'], errors='coerce'
+        )
+        gt_df = gt_df.dropna(subset=['start_gt', 'stop_gt']).copy()
+        gt_df['start_gt'] = gt_df['start_gt'].astype(int)
+        gt_df['stop_gt'] = gt_df['stop_gt'].astype(int)
+        gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt'] + 3
         gt_df['Cell_Type'] = cell_type
         gt_dfs.append(gt_df)
         print(f"  -> Loaded '{cell_type}' GT: {len(gt_df)} records.")
 
     if not gt_dfs: raise ValueError("No valid Ground Truth data loaded!")
     master_gt_df = pd.concat(gt_dfs, ignore_index=True)
-    valid_cell_types = set(master_gt_df['Cell_Type'].unique())
-
     # 2. Load Predictions
     pred_dfs = []
     print("\n--- Loading Prediction Data ---")
@@ -96,7 +148,12 @@ def load_and_filter_data(
             raise ValueError(f"Prediction file {pred_path} is missing the required 'Cell_Type' column!")
             
         pred_df['Tid_clean'] = pred_df['Tid'].apply(normalize_transcript_id)
-        if 'length' not in pred_df.columns: pred_df['length'] = pred_df['stop'] - pred_df['start']
+        pred_df['start'] = pd.to_numeric(pred_df['start'], errors='coerce')
+        pred_df['stop'] = pd.to_numeric(pred_df['stop'], errors='coerce')
+        pred_df = pred_df.dropna(subset=['start', 'stop']).copy()
+        pred_df['start'] = pred_df['start'].astype(int)
+        pred_df['stop'] = pred_df['stop'].astype(int)
+        pred_df['length'] = pred_df['stop'] - pred_df['start'] + 3
         pred_dfs.append(pred_df)
         print(f"  -> Loaded Pred chunk: {len(pred_df)} records.")
 
@@ -104,8 +161,27 @@ def load_and_filter_data(
     master_pred_df = pd.concat(pred_dfs, ignore_index=True)
 
     # 3. Align Valid Cell Types
+    prediction_cell_types = set(master_pred_df['Cell_Type'].astype(str).unique())
+    master_gt_df['Cell_Type'] = master_gt_df['Cell_Type'].astype(str)
+    gt_count_before = len(master_gt_df)
+    master_gt_df = master_gt_df[
+        master_gt_df['Cell_Type'].isin(prediction_cell_types)
+    ].copy()
+    dropped_gt_count = gt_count_before - len(master_gt_df)
+    if dropped_gt_count > 0:
+        print(
+            f"  -> Dropped {dropped_gt_count} GT ORFs from Cell Types "
+            "without a prediction CSV."
+        )
+    valid_cell_types = master_gt_df['Cell_Type'].drop_duplicates().tolist()
+    if not valid_cell_types:
+        raise ValueError("No overlapping Cell Types between predictions and GT data.")
+
     initial_pred_len = len(master_pred_df)
-    master_pred_df = master_pred_df[master_pred_df['Cell_Type'].isin(valid_cell_types)]
+    master_pred_df['Cell_Type'] = master_pred_df['Cell_Type'].astype(str)
+    master_pred_df = master_pred_df[
+        master_pred_df['Cell_Type'].isin(valid_cell_types)
+    ]
     dropped_preds = initial_pred_len - len(master_pred_df)
     if dropped_preds > 0:
         print(f"  -> Dropped {dropped_preds} predictions whose Cell_Type lacks Ground Truth data.")
@@ -113,40 +189,88 @@ def load_and_filter_data(
     global_score_col = resolve_score_col(master_pred_df, target_score_col)
     print(f"  -> Decided primary score column: '{global_score_col}'")
 
-    # =================================================================
-    # [MODIFIED] 4. Filter by Transcript IDs (支持字典按细胞系过滤)
-    # =================================================================
+    # 4. Filter both GT and predictions by the callable transcript universe.
     if target_transcript_ids is not None:
-        if isinstance(target_transcript_ids, dict):
+        normalized_targets = normalize_transcript_targets(target_transcript_ids)
+        if isinstance(normalized_targets, dict):
             print("\nFiltering datasets using cell-specific active transcripts...")
             filtered_gt, filtered_pred = [], []
-            
+
             for ct in valid_cell_types:
-                if ct in target_transcript_ids:
-                    # 提取该细胞系对应的活跃转录本
-                    target_set = set(
-                        normalize_transcript_id(t)
-                        for t in target_transcript_ids[ct]
+                if ct not in normalized_targets:
+                    print(
+                        f"  [Warning] No target transcripts provided for "
+                        f"'{ct}'. This cell type will be dropped."
                     )
-                    
-                    filtered_gt.append(master_gt_df[(master_gt_df['Cell_Type'] == ct) & (master_gt_df['Tid_clean'].isin(target_set))])
-                    filtered_pred.append(master_pred_df[(master_pred_df['Cell_Type'] == ct) & (master_pred_df['Tid_clean'].isin(target_set))])
-                    print(f"  -> {ct}: Kept {len(target_set)} target transcripts.")
-                else:
-                    print(f"  [Warning] No target transcripts provided for '{ct}'. This cell type will be dropped.")
-            
-            # 重新组装大表
-            master_gt_df = pd.concat(filtered_gt, ignore_index=True) if filtered_gt else pd.DataFrame(columns=master_gt_df.columns)
-            master_pred_df = pd.concat(filtered_pred, ignore_index=True) if filtered_pred else pd.DataFrame(columns=master_pred_df.columns)
-            
-        else:
-            # 兼容原有的单一列表全局过滤模式
-            print(f"\nFiltering entire dataset globally to {len(target_transcript_ids)} target transcripts...")
-            target_set = set(
-                normalize_transcript_id(t) for t in target_transcript_ids
+                    continue
+
+                target_set = normalized_targets[ct]
+                gt_subset = master_gt_df[
+                    (master_gt_df['Cell_Type'] == ct)
+                    & (master_gt_df['Tid_clean'].isin(target_set))
+                ].copy()
+                pred_subset = master_pred_df[
+                    (master_pred_df['Cell_Type'] == ct)
+                    & (master_pred_df['Tid_clean'].isin(target_set))
+                ].copy()
+                filtered_gt.append(gt_subset)
+                filtered_pred.append(pred_subset)
+                print(
+                    f"  -> {ct}: {len(target_set)} callable transcripts; "
+                    f"kept {len(gt_subset)} GT ORFs and "
+                    f"{len(pred_subset)} predicted ORFs."
+                )
+
+            unused_cell_types = sorted(
+                set(normalized_targets).difference(valid_cell_types)
             )
-            master_gt_df = master_gt_df[master_gt_df['Tid_clean'].isin(target_set)].copy()
-            master_pred_df = master_pred_df[master_pred_df['Tid_clean'].isin(target_set)].copy()
+            if unused_cell_types:
+                print(
+                    "  [Warning] Target transcript entries have no matching "
+                    f"prediction/GT cell type: {unused_cell_types}"
+                )
+
+            master_gt_df = (
+                pd.concat(filtered_gt, ignore_index=True)
+                if filtered_gt else master_gt_df.iloc[0:0].copy()
+            )
+            master_pred_df = (
+                pd.concat(filtered_pred, ignore_index=True)
+                if filtered_pred else master_pred_df.iloc[0:0].copy()
+            )
+        else:
+            print(
+                f"\nFiltering all evaluated cell types globally to "
+                f"{len(normalized_targets)} target transcripts..."
+            )
+            master_gt_df = master_gt_df[
+                master_gt_df['Tid_clean'].isin(normalized_targets)
+            ].copy()
+            master_pred_df = master_pred_df[
+                master_pred_df['Tid_clean'].isin(normalized_targets)
+            ].copy()
+
+    if callable_start_codons is not None:
+        allowed_start_codons = {
+            str(codon).upper() for codon in callable_start_codons
+        }
+        if 'Start_Codon' in master_gt_df.columns:
+            master_gt_df = master_gt_df[
+                master_gt_df['Start_Codon'].astype(str).str.upper().isin(
+                    allowed_start_codons
+                )
+            ].copy()
+        else:
+            print(
+                "  [Warning] GT data has no Start_Codon column; "
+                "callable_start_codons was not applied to GT ORFs."
+            )
+        if 'start_codon' in master_pred_df.columns:
+            master_pred_df = master_pred_df[
+                master_pred_df['start_codon'].astype(str).str.upper().isin(
+                    allowed_start_codons
+                )
+            ].copy()
         
     # 5. Filter by ORF Length
     if min_orf_len is not None or max_orf_len is not None:
@@ -155,12 +279,27 @@ def load_and_filter_data(
         master_gt_df = master_gt_df[(master_gt_df['length'] >= lower_bound) & (master_gt_df['length'] <= upper_bound)].copy()
         master_pred_df = master_pred_df[(master_pred_df['length'] >= lower_bound) & (master_pred_df['length'] <= upper_bound)].copy()
 
-    if len(master_gt_df) == 0: raise ValueError("No Ground Truth data left after filtering!")
+    if len(master_gt_df) == 0:
+        raise ValueError("No Ground Truth data left after filtering!")
+    if len(master_pred_df) == 0:
+        raise ValueError("No predicted ORFs left after filtering!")
 
     # 6. Indexing
-    master_gt_df = master_gt_df.reset_index(drop=True)
+    master_gt_df = master_gt_df[
+        (master_gt_df['start_gt'] >= 0) & (master_gt_df['length'] > 0)
+    ].copy()
+    master_pred_df = master_pred_df[
+        (master_pred_df['start'] >= 0) & (master_pred_df['length'] > 0)
+    ].copy()
+    master_gt_df = master_gt_df.drop_duplicates(
+        subset=['Cell_Type', 'Tid_clean', 'start_gt', 'stop_gt']
+    ).reset_index(drop=True)
     master_gt_df['gt_idx'] = master_gt_df.index
-    master_pred_df = master_pred_df.sort_values(global_score_col, ascending=False).reset_index(drop=True)
+    master_pred_df = master_pred_df.sort_values(
+        global_score_col, ascending=False
+    ).drop_duplicates(
+        subset=['Cell_Type', 'Tid_clean', 'start', 'stop']
+    ).reset_index(drop=True)
     master_pred_df['pred_idx'] = master_pred_df.index
     
     return master_pred_df, master_gt_df, global_score_col
@@ -192,11 +331,11 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
             if p_start % 3 != g_start % 3: continue
                 
             overlap_s = max(p_start, g_start)
-            overlap_e = min(p_stop, g_stop)
+            overlap_e = min(p_stop + 3, g_stop + 3)
             overlap_l = max(0, overlap_e - overlap_s)
             
             if overlap_l > 0:
-                g_len = g_stop - g_start
+                g_len = g_stop - g_start + 3
                 iou = overlap_l / (p_len + g_len - overlap_l)
                 if iou >= overlap_threshold and (
                     best_match is None or iou > best_match[1]
@@ -215,13 +354,29 @@ def match_and_build_eval_df(pred_df: pd.DataFrame, gt_df: pd.DataFrame, eval_met
         is_tp = row.pred_idx in pred_to_gt
         eval_len = gt_lengths[pred_to_gt[row.pred_idx]] if is_tp else row.length
         
-        record = {'Cell_Type': row.Cell_Type, 'y_true': 1 if is_tp else 0, 'length': eval_len}
+        record = {
+            'Record_Type': 'Prediction',
+            'Cell_Type': row.Cell_Type,
+            'Tid': row.Tid_clean,
+            'Pred_Index': row.pred_idx,
+            'Matched_GT_Index': pred_to_gt.get(row.pred_idx, np.nan),
+            'y_true': 1 if is_tp else 0,
+            'length': eval_len
+        }
         for m in eval_metrics: record[m] = float(getattr(row, m, 0.0) if hasattr(row, m) else 0.0)
         eval_records.append(record)
         
     for row in gt_df.itertuples(index=False):
         if row.gt_idx not in matched_gt_indices:
-            record = {'Cell_Type': row.Cell_Type, 'y_true': 1, 'length': row.length}
+            record = {
+                'Record_Type': 'Missed_GT',
+                'Cell_Type': row.Cell_Type,
+                'Tid': row.Tid_clean,
+                'Pred_Index': np.nan,
+                'Matched_GT_Index': row.gt_idx,
+                'y_true': 1,
+                'length': row.length
+            }
             for m in eval_metrics: record[m] = -1.0 
             eval_records.append(record)
             
@@ -252,11 +407,15 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     # ---------------------------------------------------------
     # 1. Calculate overall performance metrics across all cell types
     # ---------------------------------------------------------
-    y_true_all = eval_df['y_true'].values
+    candidate_eval_df = (
+        eval_df[eval_df['Record_Type'] == 'Prediction'].copy()
+        if 'Record_Type' in eval_df.columns else eval_df.copy()
+    )
+    y_true_all = candidate_eval_df['y_true'].values
     baseline_all = np.sum(y_true_all) / len(y_true_all) if len(y_true_all) > 0 else 0
 
     for metric in eval_metrics:
-        scores = eval_df[metric].values
+        scores = candidate_eval_df[metric].values
         d_name = display_names.get(metric, metric)
         
         # ROC-AUC
@@ -288,7 +447,7 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     # ---------------------------------------------------------
     # 2. Calculate performance metrics split by Cell_Type
     # ---------------------------------------------------------
-    for cell_type, group_df in eval_df.groupby('Cell_Type'):
+    for cell_type, group_df in candidate_eval_df.groupby('Cell_Type'):
         y_c = group_df['y_true'].values
         # Both positive and negative samples must exist to calculate AUC
         if sum(y_c) == 0 or sum(y_c) == len(y_c):
@@ -331,7 +490,12 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     all_roc_df['Legend'] = all_roc_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
     all_pr_df['Legend'] = all_pr_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
 
-    color_palette = ["#e74c3c", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e", "#e67e22", "#1abc9c", "#7f8c8d"]
+    color_palette = [
+        mpl.colors.to_hex(color)
+        for color in sns.color_palette(
+            'colorblind', n_colors=max(len(eval_metrics), 1)
+        )
+    ]
     
     p_roc = (
         ggplot(all_roc_df, aes(x='FPR', y='TPR', color='Legend'))
@@ -364,27 +528,386 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     plt.close()
 
 
+def add_feature_combination_scores(
+        pred_df: pd.DataFrame,
+        base_score_columns: List[str],
+        feature_columns: List[str],
+        method: str = 'product',
+        max_combination_size: Optional[int] = None):
+    """Add systematically enumerated feature-combination scores."""
+    valid_methods = {'product', 'geometric_mean', 'arithmetic_mean'}
+    method = method.lower()
+    if method not in valid_methods:
+        raise ValueError(f"method must be one of {sorted(valid_methods)}.")
+
+    available_bases = [
+        column for column in base_score_columns if column in pred_df.columns
+    ]
+    available_features = [
+        column for column in feature_columns if column in pred_df.columns
+    ]
+    if not available_bases:
+        raise ValueError("None of the requested base score columns are available.")
+    if not available_features:
+        raise ValueError("None of the requested combination features are available.")
+
+    max_size = max_combination_size or len(available_features)
+    max_size = min(max_size, len(available_features))
+    if max_size < 1:
+        raise ValueError("max_combination_size must be at least 1.")
+
+    scored_df = pred_df.copy()
+    feature_arrays = {}
+    for feature in available_features:
+        values = pd.to_numeric(scored_df[feature], errors='coerce').fillna(0.0)
+        feature_arrays[feature] = values.clip(lower=0.0, upper=1.0).to_numpy()
+
+    metadata_records = []
+    score_index = 0
+    for base_score in available_bases:
+        base_values = pd.to_numeric(
+            scored_df[base_score], errors='coerce'
+        ).fillna(0.0).clip(lower=0.0).to_numpy()
+        metadata_records.append({
+            'Score_Column': base_score,
+            'Base_Score': base_score,
+            'Features': 'none',
+            'Method': 'base',
+            'Display_Name': base_score,
+        })
+
+        for combination_size in range(1, max_size + 1):
+            for selected_features in combinations(
+                    available_features, combination_size):
+                stacked_values = np.vstack([
+                    feature_arrays[feature] for feature in selected_features
+                ])
+                if method == 'product':
+                    feature_factor = np.prod(stacked_values, axis=0)
+                elif method == 'geometric_mean':
+                    feature_factor = np.exp(
+                        np.mean(np.log(np.clip(stacked_values, 1e-9, None)), axis=0)
+                    )
+                else:
+                    feature_factor = np.mean(stacked_values, axis=0)
+
+                score_index += 1
+                score_column = f'feature_combo_score_{score_index:03d}'
+                scored_df[score_column] = base_values * feature_factor
+                metadata_records.append({
+                    'Score_Column': score_column,
+                    'Base_Score': base_score,
+                    'Features': '+'.join(selected_features),
+                    'Method': method,
+                    'Display_Name': (
+                        f"{base_score} × " + ' × '.join(selected_features)
+                    ),
+                })
+
+    metadata_df = pd.DataFrame(metadata_records).drop_duplicates(
+        subset=['Score_Column']
+    )
+    return scored_df, metadata_df
+
+
+def summarize_feature_combination_performance(
+        eval_df: pd.DataFrame,
+        gt_df: pd.DataFrame,
+        score_metadata: pd.DataFrame,
+        top_k_values: List[int]) -> pd.DataFrame:
+    """Summarize candidate discrimination and Top-K GT recovery per score."""
+    candidate_df = eval_df[eval_df['Record_Type'] == 'Prediction'].copy()
+    top_k_values = sorted(set(int(k) for k in top_k_values if int(k) > 0))
+    if not top_k_values:
+        raise ValueError("top_k_values must contain at least one positive integer.")
+
+    scopes = [('Overall', candidate_df)]
+    scopes.extend(candidate_df.groupby('Cell_Type', sort=False))
+    records = []
+
+    for scope_name, scope_df in scopes:
+        if scope_name == 'Overall':
+            total_gt = len(gt_df)
+        else:
+            total_gt = int((gt_df['Cell_Type'] == scope_name).sum())
+
+        for metadata in score_metadata.itertuples(index=False):
+            score_column = metadata.Score_Column
+            if score_column not in scope_df.columns:
+                continue
+            metric_df = scope_df.dropna(subset=[score_column]).copy()
+            y_true = metric_df['y_true'].astype(int).to_numpy()
+            scores = pd.to_numeric(
+                metric_df[score_column], errors='coerce'
+            ).to_numpy()
+            finite_mask = np.isfinite(scores)
+            metric_df = metric_df.loc[finite_mask].copy()
+            y_true = y_true[finite_mask]
+            scores = scores[finite_mask]
+
+            if len(np.unique(y_true)) == 2:
+                fpr, tpr, _ = roc_curve(y_true, scores)
+                roc_auc_value = auc(fpr, tpr)
+                precision_curve, recall_curve, _ = precision_recall_curve(
+                    y_true, scores
+                )
+                pr_auc_value = average_precision_score(y_true, scores)
+                f1_values = (
+                    2 * precision_curve * recall_curve
+                    / (precision_curve + recall_curve + 1e-9)
+                )
+                best_f1_value = float(np.max(f1_values))
+            else:
+                roc_auc_value = np.nan
+                pr_auc_value = np.nan
+                best_f1_value = np.nan
+
+            record = {
+                'Cell_Type': scope_name,
+                'Score_Column': score_column,
+                'Score_Label': metadata.Display_Name,
+                'Base_Score': metadata.Base_Score,
+                'Features': metadata.Features,
+                'Method': metadata.Method,
+                'Candidate_ROC_AUC': roc_auc_value,
+                'Candidate_PR_AUC': pr_auc_value,
+                'Candidate_Best_F1': best_f1_value,
+                'Candidate_Count': len(metric_df),
+                'Candidate_TP_Count': int(y_true.sum()),
+                'Total_GT_ORFs': total_gt,
+            }
+
+            ranked_df = metric_df.sort_values(
+                score_column, ascending=False
+            ).reset_index(drop=True)
+            for k in top_k_values:
+                effective_k = min(k, len(ranked_df))
+                top_df = ranked_df.iloc[:effective_k]
+                precision_value = (
+                    float(top_df['y_true'].sum() / effective_k)
+                    if effective_k else np.nan
+                )
+                unique_gt_hits = int(
+                    top_df['Matched_GT_Index'].dropna().nunique()
+                )
+                recall_value = (
+                    unique_gt_hits / total_gt if total_gt else np.nan
+                )
+                record[f'Effective_K_at_{k}'] = effective_k
+                record[f'Precision_at_{k}'] = precision_value
+                record[f'Unique_GT_Recall_at_{k}'] = recall_value
+
+            records.append(record)
+
+    summary_df = pd.DataFrame(records)
+    cell_df = summary_df[summary_df['Cell_Type'] != 'Overall'].copy()
+    if not cell_df.empty:
+        performance_columns = [
+            column for column in summary_df.columns
+            if column.startswith('Candidate_')
+            or column.startswith('Precision_at_')
+            or column.startswith('Unique_GT_Recall_at_')
+        ]
+        count_columns = [
+            column for column in summary_df.columns
+            if column.startswith('Effective_K_at_')
+            or column in {'Candidate_Count', 'Candidate_TP_Count', 'Total_GT_ORFs'}
+        ]
+        macro_records = []
+        for score_column, group_df in cell_df.groupby('Score_Column', sort=False):
+            first_row = group_df.iloc[0]
+            macro_record = {
+                'Cell_Type': 'Macro_Average',
+                'Score_Column': score_column,
+                'Score_Label': first_row['Score_Label'],
+                'Base_Score': first_row['Base_Score'],
+                'Features': first_row['Features'],
+                'Method': first_row['Method'],
+            }
+            for column in performance_columns:
+                macro_record[column] = group_df[column].mean()
+            for column in count_columns:
+                macro_record[column] = group_df[column].sum()
+            macro_records.append(macro_record)
+        summary_df = pd.concat(
+            [summary_df, pd.DataFrame(macro_records)], ignore_index=True
+        )
+
+    return summary_df
+
+
+def plot_feature_combination_performance(
+        summary_df: pd.DataFrame,
+        out_dir: str,
+        primary_metric: str,
+        top_n: int = 20,
+        ranking_scope: str = 'Overall') -> List[str]:
+    """Plot overall metric profiles and per-cell performance for top scores."""
+    if primary_metric not in summary_df.columns:
+        raise ValueError(f"Unknown primary metric: {primary_metric}")
+    os.makedirs(out_dir, exist_ok=True)
+
+    if ranking_scope not in set(summary_df['Cell_Type']):
+        raise ValueError(f"Unknown combination ranking scope: {ranking_scope}")
+    overall_df = summary_df[
+        summary_df['Cell_Type'] == ranking_scope
+    ].copy()
+    overall_df = overall_df.sort_values(
+        primary_metric, ascending=False, na_position='last'
+    ).head(top_n)
+    if overall_df.empty:
+        return []
+
+    metric_columns = [
+        column for column in [
+            'Candidate_ROC_AUC', 'Candidate_PR_AUC', 'Candidate_Best_F1',
+            *[c for c in summary_df.columns if c.startswith('Precision_at_')],
+            *[c for c in summary_df.columns if c.startswith('Unique_GT_Recall_at_')],
+        ] if column in summary_df.columns
+    ]
+    overall_matrix = overall_df.set_index('Score_Label')[metric_columns]
+    figure_height = max(4.0, 0.34 * len(overall_matrix) + 1.6)
+    fig, ax = plt.subplots(figsize=(8.2, figure_height))
+    sns.heatmap(
+        overall_matrix,
+        cmap='YlGnBu',
+        vmin=0,
+        vmax=1,
+        annot=True,
+        fmt='.3f',
+        linewidths=0.4,
+        linecolor='white',
+        cbar_kws={'label': 'Performance'},
+        ax=ax
+    )
+    ax.set_xlabel('')
+    ax.set_ylabel('')
+    ax.set_title(
+        f'Feature combinations ranked by {primary_metric} ({ranking_scope})'
+    )
+    plt.tight_layout()
+    overall_path = os.path.join(
+        out_dir, 'feature_combination_performance.overall.pdf'
+    )
+    fig.savefig(overall_path, bbox_inches='tight')
+    plt.close(fig)
+
+    selected_scores = overall_df['Score_Column'].tolist()
+    cell_df = summary_df[
+        (~summary_df['Cell_Type'].isin(['Overall', 'Macro_Average']))
+        & (summary_df['Score_Column'].isin(selected_scores))
+    ].copy()
+    output_paths = [overall_path]
+    if not cell_df.empty:
+        cell_matrix = cell_df.pivot(
+            index='Score_Label', columns='Cell_Type', values=primary_metric
+        ).reindex(overall_df['Score_Label'])
+        fig_width = max(6.0, 0.65 * len(cell_matrix.columns) + 3.5)
+        fig, ax = plt.subplots(figsize=(fig_width, figure_height))
+        sns.heatmap(
+            cell_matrix,
+            cmap='YlGnBu',
+            vmin=0,
+            vmax=1,
+            annot=True,
+            fmt='.3f',
+            linewidths=0.4,
+            linecolor='white',
+            cbar_kws={'label': primary_metric},
+            ax=ax
+        )
+        ax.set_xlabel('Cell Type')
+        ax.set_ylabel('')
+        ax.set_title(f'{primary_metric} across Cell Types')
+        plt.tight_layout()
+        cell_path = os.path.join(
+            out_dir, 'feature_combination_performance.by_cell_type.pdf'
+        )
+        fig.savefig(cell_path, bbox_inches='tight')
+        plt.close(fig)
+        output_paths.append(cell_path)
+
+    return output_paths
+
+
 # =====================================================================
 # Main Orchestrator
 # =====================================================================
 def evaluate_orf_level_predictions(
         pred_csv_paths: List[str],               
         gt_csv_paths: Dict[str, str],            
-        target_transcript_ids: Optional[Union[List[str], Dict[str, List[str]]]] = None,
+        target_transcript_ids: Optional[TranscriptTargetInput] = None,
         min_orf_len: Optional[int] = None,
         max_orf_len: Optional[int] = None,
         out_dir: str = "./results/eval",
         overlap_threshold: float = 0.70,
-        target_score_col: Optional[str] = None):
+        target_score_col: Optional[str] = None,
+        callable_start_codons: Optional[List[str]] = None,
+        evaluate_score_combinations: bool = False,
+        combination_base_scores: Optional[List[str]] = None,
+        combination_features: Optional[List[str]] = None,
+        combination_method: str = 'product',
+        combination_max_size: Optional[int] = None,
+        combination_top_k_values: Optional[List[int]] = None,
+        combination_primary_metric: Optional[str] = None,
+        combination_top_n: int = 20,
+        combination_ranking_scope: str = 'Overall'):
+    """Evaluate predicted ORFs within a global or cell-specific transcript set.
+
+    ``target_transcript_ids`` may be a single transcript collection applied to
+    every evaluated cell type, or a ``{cell_type: transcript_collection}``
+    mapping. Mapping keys must match prediction ``Cell_Type`` values and the
+    keys used in ``gt_csv_paths``.
+    """
     
     os.makedirs(out_dir, exist_ok=True)
     
     # 1. Filter and Load
     pred_df, gt_df, score_col = load_and_filter_data(
-        pred_csv_paths, gt_csv_paths, target_transcript_ids, min_orf_len, max_orf_len, target_score_col)
+        pred_csv_paths,
+        gt_csv_paths,
+        target_transcript_ids,
+        min_orf_len,
+        max_orf_len,
+        target_score_col,
+        callable_start_codons,
+    )
+
+    combination_metadata = pd.DataFrame()
+    if evaluate_score_combinations:
+        if 'base_translation_score' in pred_df.columns:
+            default_base_scores = [
+                'base_translation_score',
+                'base_expr_score',
+                'mean_intensity',
+            ]
+        else:
+            default_base_scores = [
+                score_col,
+                'translation_score',
+                'mean_intensity',
+            ]
+        base_scores = list(dict.fromkeys(
+            combination_base_scores or default_base_scores
+        ))
+        feature_columns = combination_features or [
+            'tri_nucleotide_periodicity',
+            'uniformity_of_signal',
+            'step_up_contrast',
+            'drop_off',
+        ]
+        pred_df, combination_metadata = add_feature_combination_scores(
+            pred_df=pred_df,
+            base_score_columns=base_scores,
+            feature_columns=feature_columns,
+            method=combination_method,
+            max_combination_size=combination_max_size,
+        )
     
     all_possible_metrics = {
         'expr_score': 'Expression Score (TPM*Signal)',
+        'base_translation_score': 'Base Translation Score',
+        'base_expr_score': 'Base Expression-weighted Score',
         'translation_score': 'Pure Translation Score',
         'transcription_score': 'Pure Transcription Score',
         'seq_score': 'Pure ORF-structure Score',
@@ -401,28 +924,56 @@ def evaluate_orf_level_predictions(
     display_names = {k: all_possible_metrics[k] for k in eval_metrics}
 
     # 2. Match
-    eval_df = match_and_build_eval_df(pred_df, gt_df, eval_metrics, overlap_threshold)
+    combination_score_columns = (
+        combination_metadata['Score_Column'].tolist()
+        if not combination_metadata.empty else []
+    )
+    match_metrics = list(dict.fromkeys(
+        eval_metrics + combination_score_columns
+    ))
+    eval_df = match_and_build_eval_df(
+        pred_df, gt_df, match_metrics, overlap_threshold
+    )
     eval_df.to_csv(os.path.join(out_dir, "unified_evaluation_table.csv"), index=False)
     
     # 3. Base Threshold Summary (Based on primary score)
     print("\nCalculating Threshold Summary on Primary Score...")
-    tp_count = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= 0)).sum()
-    fp_count = (eval_df['y_true'] == 0).sum()
+    candidate_eval_df = eval_df[
+        eval_df['Record_Type'] == 'Prediction'
+    ].copy()
+    tp_count = (candidate_eval_df['y_true'] == 1).sum()
+    fp_count = (candidate_eval_df['y_true'] == 0).sum()
     total_preds = tp_count + fp_count
     overall_prec = tp_count / total_preds if total_preds > 0 else 0.0
 
-    prec, rec, threshs = precision_recall_curve(eval_df['y_true'].values, eval_df[score_col].values)
+    prec, rec, threshs = precision_recall_curve(
+        candidate_eval_df['y_true'].values,
+        candidate_eval_df[score_col].values
+    )
     f1 = 2 * (prec * rec) / (prec + rec + 1e-9)
     opt_idx = np.argmax(f1)
     opt_thresh = threshs[opt_idx] if opt_idx < len(threshs) else threshs[-1]
-    best_tp = ((eval_df['y_true'] == 1) & (eval_df[score_col] >= opt_thresh) & (eval_df[score_col] >= 0)).sum()
-    best_fp = ((eval_df['y_true'] == 0) & (eval_df[score_col] >= opt_thresh) & (eval_df[score_col] >= 0)).sum()
+    best_tp = (
+        (candidate_eval_df['y_true'] == 1)
+        & (candidate_eval_df[score_col] >= opt_thresh)
+    ).sum()
+    best_fp = (
+        (candidate_eval_df['y_true'] == 0)
+        & (candidate_eval_df[score_col] >= opt_thresh)
+    ).sum()
+    unique_gt_hits = int(
+        candidate_eval_df['Matched_GT_Index'].dropna().nunique()
+    )
+    unique_gt_recall = unique_gt_hits / len(gt_df) if len(gt_df) else np.nan
 
     pd.DataFrame({
         'Total_Predictions': [total_preds],
         'True_Positives_TP': [tp_count],
         'False_Positives_FP': [fp_count],
         'Overall_Precision': [overall_prec],
+        'Total_Unique_GT_ORFs': [len(gt_df)],
+        'Recovered_Unique_GT_ORFs': [unique_gt_hits],
+        'Unique_GT_Recall': [unique_gt_recall],
         'Best_F1_Score': [f1[opt_idx]],
         'Best_Threshold': [opt_thresh],
         'TP_at_Best_Threshold': [best_tp],
@@ -431,6 +982,33 @@ def evaluate_orf_level_predictions(
     
     # 4. Global Plots & Comprehensive CSV Output
     evaluate_and_plot_global(eval_df, eval_metrics, display_names, out_dir)
+
+    if evaluate_score_combinations:
+        top_k_values = combination_top_k_values or [100, 500, 1000]
+        combination_summary = summarize_feature_combination_performance(
+            eval_df=eval_df,
+            gt_df=gt_df,
+            score_metadata=combination_metadata,
+            top_k_values=top_k_values,
+        )
+        combination_metadata.to_csv(
+            os.path.join(out_dir, 'feature_combination_definitions.csv'),
+            index=False
+        )
+        combination_summary.to_csv(
+            os.path.join(out_dir, 'feature_combination_metrics.csv'),
+            index=False
+        )
+        primary_metric = combination_primary_metric or (
+            f"Precision_at_{max(top_k_values)}"
+        )
+        plot_feature_combination_performance(
+            summary_df=combination_summary,
+            out_dir=out_dir,
+            primary_metric=primary_metric,
+            top_n=combination_top_n,
+            ranking_scope=combination_ranking_scope,
+        )
     
     print(f"\n✅ All Evaluation processes successfully finished! Output directory: {out_dir}")
 
@@ -542,8 +1120,8 @@ def calculate_top_k_precision(
     gt_df['stop_gt'] = gt_df['CDS_End_0based'].astype(int)
     pred_df['start'] = pred_df['start'].astype(int)
     pred_df['stop'] = pred_df['stop'].astype(int)
-    gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt']
-    pred_df['length'] = pred_df['stop'] - pred_df['start']
+    gt_df['length'] = gt_df['stop_gt'] - gt_df['start_gt'] + 3
+    pred_df['length'] = pred_df['stop'] - pred_df['start'] + 3
     gt_df = gt_df[(gt_df['start_gt'] >= 0) & (gt_df['length'] > 0)].copy()
     pred_df = pred_df[(pred_df['start'] >= 0) & (pred_df['length'] > 0)].copy()
 
@@ -591,6 +1169,10 @@ def calculate_top_k_precision(
     pred_df = pred_df.replace([np.inf, -np.inf], np.nan).dropna(subset=[score_col])
     print(f"  -> Ranking predictions using column: '{score_col}'")
 
+    prediction_cell_types = set(pred_df['Cell_Type'].astype(str).unique())
+    gt_df = gt_df[
+        gt_df['Cell_Type'].astype(str).isin(prediction_cell_types)
+    ].copy()
     valid_cell_types = set(gt_df['Cell_Type'].astype(str).unique())
     prediction_count_before = len(pred_df)
     pred_df = pred_df[
@@ -650,11 +1232,11 @@ def calculate_top_k_precision(
                     continue
 
                 overlap_s = max(p_start, g_start)
-                overlap_e = min(p_stop, g_stop)
+                overlap_e = min(p_stop + 3, g_stop + 3)
                 overlap_l = max(0, overlap_e - overlap_s)
 
                 if overlap_l > 0:
-                    g_len = g_stop - g_start
+                    g_len = g_stop - g_start + 3
                     iou = overlap_l / (p_len + g_len - overlap_l)
                     if iou >= overlap_threshold and (
                         best_match is None or iou > best_match[1]
