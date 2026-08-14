@@ -82,8 +82,18 @@ class FastSignalDrivenORFCaller:
             min_len=30,
             mode='balanced',
             score_features: Optional[List[str]] = None,
-            score_combination_method: str = 'product'):
-        self.start_codons, self.stop_codons, self.min_len, self.mode = start_codons, stop_codons, min_len, mode.lower()
+            score_combination_method: str = 'product',
+            max_len: Optional[int] = None):
+        if min_len <= 0:
+            raise ValueError("min_len must be greater than 0.")
+        if max_len is not None and max_len < min_len:
+            raise ValueError("max_len must be greater than or equal to min_len.")
+
+        self.start_codons = start_codons
+        self.stop_codons = stop_codons
+        self.min_len = min_len
+        self.max_len = max_len
+        self.mode = mode.lower()
         self.stop_re = re.compile(f"(?=({'|'.join(stop_codons)}))")
         self.start_re = re.compile(f"(?=({'|'.join(start_codons)}))")
         self.score_features = list(score_features or [])
@@ -150,7 +160,10 @@ class FastSignalDrivenORFCaller:
                 while start_idx < num_starts and starts[start_idx] < curr_stop:
                     start_pos = starts[start_idx]
                     orf_len = curr_stop - start_pos + 3
-                    if orf_len >= self.min_len:
+                    within_max_len = (
+                        self.max_len is None or orf_len <= self.max_len
+                    )
+                    if orf_len >= self.min_len and within_max_len:
                         candidates.append({
                             'start': start_pos, 'stop': curr_stop, # 0-based
                             'length': orf_len, 'start_codon': sequence[start_pos:start_pos+3]
@@ -389,20 +402,29 @@ class TranslationSignalORFCaller:
             plot_density=True, hard_thresh_intensity=0.01, hard_thresh_periodicity=0.40,
             hard_thresh_uniformity=0.20, hard_thresh_step_up=0.3, hard_thresh_drop_off=0.3,
             score_features: Optional[List[str]] = None,
-            score_combination_method: str = 'product') -> pd.DataFrame:
+            score_combination_method: str = 'product',
+            max_len: Optional[int] = None) -> pd.DataFrame:
         
         os.makedirs(out_dir, exist_ok=True)
         cell_preds = self.preds_data[self.cell_type]
         caller = FastSignalDrivenORFCaller(
             start_codons=start_codons,
             min_len=min_len,
+            max_len=max_len,
             mode=mode,
             score_features=score_features,
             score_combination_method=score_combination_method
         )
         all_raw_records = []
         
-        print(f"\n[Phase 1] Extracting candidates & integrating LogTPM...")
+        length_range_label = (
+            f"{min_len}-{max_len} nt" if max_len is not None
+            else f">={min_len} nt"
+        )
+        print(
+            "\n[Phase 1] Extracting candidates & integrating LogTPM "
+            f"(ORF length: {length_range_label})..."
+        )
         for tid, pred_raw in tqdm(cell_preds.items()):
             # use safe cleaning function
             clean_tid = safe_clean_id(tid)

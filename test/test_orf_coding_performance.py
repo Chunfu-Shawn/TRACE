@@ -1,6 +1,7 @@
 """Tests for cell-aware ORF Precision@K and Recall@K evaluation."""
 
 import os
+import inspect
 import sys
 import tempfile
 import unittest
@@ -24,10 +25,30 @@ from eval.orf_coding_performance import (
     plot_top_k_precision,
     plot_top_k_recall,
 )
-from model.orf_caller import FastSignalDrivenORFCaller
+from model.orf_caller import FastSignalDrivenORFCaller, TranslationSignalORFCaller
 
 
 class OrfTopKTests(unittest.TestCase):
+    def test_max_len_removes_long_candidates_before_collapse_and_nms(self):
+        sequence = "ATG" + "AAA" * 19 + "ATG" + "AAA" * 12 + "TAA"
+        caller = FastSignalDrivenORFCaller(min_len=30, max_len=60)
+
+        candidates = caller.extract_all_candidates(sequence)
+
+        self.assertEqual(
+            [(candidate["start"], candidate["stop"], candidate["length"])
+             for candidate in candidates],
+            [(60, 99, 42)],
+        )
+        self.assertIn(
+            "max_len",
+            inspect.signature(TranslationSignalORFCaller.run).parameters,
+        )
+
+    def test_max_len_cannot_be_shorter_than_min_len(self):
+        with self.assertRaisesRegex(ValueError, "greater than or equal"):
+            FastSignalDrivenORFCaller(min_len=60, max_len=30)
+
     def test_cell_specific_transcript_targets_filter_gt_and_predictions(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)
