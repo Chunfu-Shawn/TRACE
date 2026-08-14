@@ -839,3 +839,110 @@ def plot_sorted_correlation_rank(
     plt.close()
     
     print(f"✅ Correlation Plot successfully saved to: {save_path}")
+
+
+import os
+import pickle
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import spearmanr
+import warnings
+
+# 忽略全零向量计算相关性时的警告
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
+def calculate_spearman(gt_signal: np.ndarray, pred_signal: np.ndarray) -> float:
+    """计算两条等长信号的 Spearman 相关系数"""
+    # 长度不一致、太短，或者其中一条毫无波澜(方差为0)，都无法计算相关性
+    if len(gt_signal) != len(pred_signal) or len(gt_signal) < 3:
+        return np.nan
+    if np.std(gt_signal) < 1e-6 or np.std(pred_signal) < 1e-6:
+        return np.nan
+        
+    r_val, _ = spearmanr(gt_signal, pred_signal)
+    return float(r_val)
+
+
+# ==============================================================================
+# Step 1: Data Extraction & Correlation Calculation
+# ==============================================================================
+def extract_and_rank_correlation(
+    file_config: dict, 
+    gt_name: str = "Observation",
+    target_cell: str = None,
+    min_read_density: float = 0.1   # 转录本平均 Read 密度阈值
+) -> pd.DataFrame:
+    """
+    加载 PKL 文件，提取真实数据的 Read 密度并据此分配 Rank。
+    然后计算所有模型与真实值之间的 Position-wise Spearman Correlation。
+    """
+    loaded_data = {}
+    print(f"--- [Step 1] Loading Data & Calculating Correlation ---")
+    
+    # 1. 加载所有字典
+    for model_name, pkl_path in file_config.items():
+        if not os.path.exists(pkl_path):
+            print(f"  [Error] File not found for {model_name}: {pkl_path}")
+            continue
+            
+        with open(pkl_path, 'rb') as f:
+            data = pickle.load(f)
+            
+        is_nested = isinstance(data, dict) and any(isinstance(v, dict) for v in data.values())
+        if is_nested:
+            if target_cell and target_cell in data:
+                loaded_data[model_name] = data[target_cell]
+            else:
+                fallback_cell = list(data.keys())[0]
+                loaded_data[model_name] = data[fallback_cell]
+                print(f"  [Warning] {model_name}: Auto-fallback to cell '{fallback_cell}'")
+        else:
+            loaded_data[model_name] = data
+
+    if gt_name not in loaded_data:
+        raise ValueError(f"Ground Truth key '{gt_name}' not found.")
+
+    # 2. 从 GT 中提取高置信度转录本，并计算密度排序
+    gt_dict = loaded_data.pop(gt_name) # 把 GT 抽出来单独作为标尺
+    gt_densities = {}
+    
+    for tid, val in gt_dict.items():
+        signal = np.asarray(val, dtype=np.float32)
+        tx_len = len(signal)
+        total_reads = np.sum(signal)
+        
+        if tx_len > 0 and (total_reads / tx_len) > min_read_density:
+            gt_densities[tid] = total_reads / tx_len
+
+    # 按密度从大到小降序排列
+    sorted_tids = sorted(gt_densities.keys(), key=lambda x: gt_densities[x], reverse=True)
+    tid_to_rank = {tid: rank for rank, tid in enumerate(sorted_tids)}
+    
+    print(f"  -> Ground Truth Filter: Retained {len(sorted_tids)} transcripts (Density > {min_read_density}).")
+
+    # 3. 计算各个模型针对这些转录本的相关性
+    records = []
+    for model_name, model_dict in loaded_data.items():
+        valid_count = 0
+        for tid in sorted_tids:
+            if tid in model_dict:
+                pred_signal = np.asarray(model_dict[tid], dtype=np.float32)
+                gt_signal = np.asarray(gt_dict[tid], dtype=np.float32)
+                
+                corr = calculate_spearman(gt_signal, pred_signal)
+                if not np.isnan(corr):
+                    records.append({
+                        "Tid": tid,
+                        "Rank": tid_to_rank[tid],
+                        "Model": model_name,
+                        "Correlation": corr
+                    })
+                    valid_count += 1
+                    
+        print(f"  -> {model_name}: Successfully computed correlation for {valid_count} transcripts.")
+
+    df_ranked = pd.DataFrame(records)
+    print("✅ Correlation ranking complete. Ready for plotting.")
+    return df_ranked
