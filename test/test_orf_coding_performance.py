@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
@@ -17,13 +18,16 @@ if SRC_DIR not in sys.path:
 
 from eval.orf_coding_performance import (
     add_feature_combination_scores,
+    calculate_top_k_from_evaluation,
     calculate_top_k_precision,
+    evaluate_orf_level_predictions,
     load_and_filter_data,
     match_and_build_eval_df,
     normalize_transcript_id,
     plot_top_k_metric,
     plot_top_k_precision,
     plot_top_k_recall,
+    summarize_top_k_values,
 )
 from model.orf_caller import FastSignalDrivenORFCaller, TranslationSignalORFCaller
 
@@ -571,6 +575,87 @@ class OrfTopKTests(unittest.TestCase):
                     str(gt_path),
                     target_score_col="score",
                 )
+
+    def test_comprehensive_evaluation_and_top_k_share_one_match_table(self):
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            gt_path = directory / "gt.csv"
+            pred_path = directory / "pred.csv"
+            output_dir = directory / "output"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.1", "ENST2.1"],
+                    "CDS_Start_0based": [0, 300],
+                    "CDS_End_0based": [90, 390],
+                    "Start_Codon": ["ATG", "ATG"],
+                }
+            ).to_csv(gt_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1.2", "ENST1.2", "ENST2.2", "ENST3.1"],
+                    "Cell_Type": ["brain"] * 4,
+                    "start": [0, 0, 300, 600],
+                    "stop": [90, 90, 390, 690],
+                    "start_codon": ["ATG"] * 4,
+                    "score": [0.9, 0.8, 0.7, 0.6],
+                }
+            ).to_csv(pred_path, index=False)
+
+            with patch(
+                "eval.orf_coding_performance.evaluate_and_plot_global"
+            ):
+                results = evaluate_orf_level_predictions(
+                    pred_csv_paths=[str(pred_path)],
+                    gt_csv_paths={"brain": str(gt_path)},
+                    out_dir=str(output_dir),
+                    target_score_col="score",
+                    combination_top_k_values=[1, 2, 3],
+                )
+
+            recalculated = calculate_top_k_precision(
+                evaluation_df=results["evaluation"],
+                score_col="score",
+            )
+            output_files_exist = all([
+                (output_dir / "unified_evaluation_table.csv").is_file(),
+                (output_dir / "Precision_at_K_data.csv").is_file(),
+                (output_dir / "top_k_metrics_summary.csv").is_file(),
+            ])
+
+        self.assertEqual(len(results["evaluation"].query(
+            "Record_Type == 'Prediction'"
+        )), 3)
+        pd.testing.assert_frame_equal(
+            results["top_k"].reset_index(drop=True),
+            recalculated.reset_index(drop=True),
+            check_dtype=False,
+        )
+        self.assertEqual(
+            results["top_k_summary"]["Precision"].tolist(),
+            [1.0, 1.0, 2 / 3],
+        )
+        self.assertTrue(output_files_exist)
+
+    def test_top_k_helper_uses_exact_requested_k_values(self):
+        evaluation = pd.DataFrame(
+            {
+                "Record_Type": ["Prediction", "Prediction", "Missed_GT"],
+                "Cell_Type": ["brain", "brain", "brain"],
+                "Tid": ["ENST1", "ENST2", "ENST3"],
+                "Matched_GT_Index": [0, np.nan, 1],
+                "y_true": [1, 0, 1],
+                "score": [0.9, 0.8, -1.0],
+                "Total_GT_ORFs": [2, 2, 2],
+                "Cell_Type_Total_GT_ORFs": [2, 2, 2],
+            }
+        )
+
+        top_k = calculate_top_k_from_evaluation(evaluation, "score")
+        summary = summarize_top_k_values(top_k, [1, 2, 100])
+
+        self.assertEqual(summary["Effective_K"].tolist(), [1, 2, 2])
+        np.testing.assert_allclose(summary["Precision"], [1.0, 0.5, 0.5])
+        np.testing.assert_allclose(summary["Recall"], [0.5, 0.5, 0.5])
 
     def test_precision_and_recall_plotters_save_pdf(self):
         top_k = pd.DataFrame(

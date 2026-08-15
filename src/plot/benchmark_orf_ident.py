@@ -5,9 +5,16 @@ import numpy as np
 import pandas as pd
 from typing import Optional
 from plotnine import *
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import spearmanr
+
+mpl.rcParams['font.family'] = 'sans-serif'
+mpl.rcParams['font.sans-serif'] = [
+    'Arial', 'Helvetica', 'DejaVu Sans', 'sans-serif'
+]
+mpl.rcParams['pdf.fonttype'] = 42
 
 # =================================================================
 # [NEW] 定义全局配置：统一的颜色与顺序
@@ -328,6 +335,228 @@ def plot_multi_model_top_k_precision(
         )
     )
     p.save(os.path.join(out_dir, f"Benchmark_TopK_Precision_Curve_{file_suffix}.pdf"), dpi=300, verbose=False)
+
+
+def _extract_top_k_recall_curve(
+        df: pd.DataFrame,
+        score_col: str,
+        total_gt_override: Optional[int] = None):
+    """Extract or calculate global unique-GT Recall@K from one model table."""
+    if 'K' in df.columns and ('Recall' in df.columns or 'Recall_at_K' in df.columns):
+        recall_col = 'Recall' if 'Recall' in df.columns else 'Recall_at_K'
+        curve_df = df[['K', recall_col]].rename(
+            columns={recall_col: 'Recall'}
+        ).copy()
+        curve_df['K'] = pd.to_numeric(curve_df['K'], errors='coerce')
+        curve_df['Recall'] = pd.to_numeric(
+            curve_df['Recall'], errors='coerce'
+        )
+        curve_df = curve_df.replace([np.inf, -np.inf], np.nan).dropna()
+        curve_df = curve_df[curve_df['K'] > 0].sort_values('K')
+        curve_df = curve_df.drop_duplicates('K', keep='last')
+        if not curve_df['Recall'].between(0, 1).all():
+            raise ValueError("Precomputed Recall values must be between 0 and 1.")
+        known_total_gt = total_gt_override
+        if known_total_gt is None and 'Total_GT_ORFs' in df.columns:
+            total_values = pd.to_numeric(
+                df['Total_GT_ORFs'], errors='coerce'
+            ).dropna()
+            if not total_values.empty:
+                known_total_gt = int(total_values.max())
+        return curve_df, known_total_gt
+
+    if score_col not in df.columns:
+        raise ValueError(f"Score column '{score_col}' was not found.")
+    if 'Matched_GT_Index' not in df.columns:
+        raise ValueError(
+            "Recall@K requires Matched_GT_Index, or a precomputed table with "
+            "K and Recall columns."
+        )
+
+    total_gt = total_gt_override
+    if total_gt is None and 'Total_GT_ORFs' in df.columns:
+        total_values = pd.to_numeric(
+            df['Total_GT_ORFs'], errors='coerce'
+        ).dropna()
+        if not total_values.empty:
+            total_gt = int(total_values.max())
+    if total_gt is None:
+        total_gt = int(df['Matched_GT_Index'].dropna().nunique())
+    if total_gt <= 0:
+        raise ValueError("No callable GT ORFs were found for Recall@K.")
+    observed_gt_count = int(df['Matched_GT_Index'].dropna().nunique())
+    if observed_gt_count > total_gt:
+        raise ValueError(
+            f"Observed {observed_gt_count} GT identifiers, exceeding the "
+            f"declared total_gt={total_gt}."
+        )
+
+    candidate_df = df.copy()
+    if 'Record_Type' in candidate_df.columns:
+        candidate_df = candidate_df[
+            candidate_df['Record_Type'] == 'Prediction'
+        ].copy()
+    candidate_df[score_col] = pd.to_numeric(
+        candidate_df[score_col], errors='coerce'
+    )
+    candidate_df = candidate_df.replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna(subset=[score_col])
+    if 'Record_Type' not in df.columns:
+        candidate_df = candidate_df[candidate_df[score_col] >= 0].copy()
+    candidate_df = candidate_df.sort_values(
+        score_col, ascending=False, kind='mergesort'
+    ).reset_index(drop=True)
+    if candidate_df.empty:
+        return pd.DataFrame(columns=['K', 'Recall']), total_gt
+
+    matched_gt = candidate_df['Matched_GT_Index']
+    new_gt_hit = matched_gt.notna() & ~matched_gt.duplicated(keep='first')
+    k_array = np.arange(1, len(candidate_df) + 1)
+    curve_df = pd.DataFrame({
+        'K': k_array,
+        'Recall': new_gt_hit.astype(int).cumsum().to_numpy() / total_gt,
+    })
+    return curve_df, total_gt
+
+
+def plot_multi_model_top_k_recall(
+        manifest: list,
+        out_dir: str = "./results/benchmark",
+        min_k: Optional[int] = None,
+        max_k: Optional[int] = None,
+        suffix: str = "",
+        require_same_total_gt: bool = True,
+        y_limits: tuple = (0, 1)):
+    """Plot unique-GT Recall@K curves for multiple ORF-calling models."""
+    if min_k is not None and min_k < 1:
+        raise ValueError("min_k must be at least 1 for a logarithmic K axis.")
+    if max_k is not None and max_k < 1:
+        raise ValueError("max_k must be at least 1 for a logarithmic K axis.")
+    if min_k is not None and max_k is not None and min_k > max_k:
+        raise ValueError("min_k cannot be greater than max_k.")
+    if len(y_limits) != 2 or not 0 <= y_limits[0] < y_limits[1] <= 1:
+        raise ValueError("y_limits must satisfy 0 <= lower < upper <= 1.")
+
+    os.makedirs(out_dir, exist_ok=True)
+    all_recall_data = []
+    model_gt_counts = {}
+
+    for cfg in manifest:
+        model_name = cfg['model']
+        csv_path = cfg['path']
+        score_col = cfg.get('score_col', 'score')
+        total_gt_override = cfg.get('total_gt')
+        if not os.path.exists(csv_path):
+            warnings.warn(f"Top-K input was not found and will be skipped: {csv_path}")
+            continue
+
+        source_df = pd.read_csv(csv_path)
+        recall_df, total_gt = _extract_top_k_recall_curve(
+            source_df,
+            score_col=score_col,
+            total_gt_override=total_gt_override,
+        )
+        if recall_df.empty:
+            warnings.warn(f"No valid Recall@K data for model '{model_name}'.")
+            continue
+        recall_df['Model'] = model_name
+        all_recall_data.append(recall_df)
+        if total_gt is not None:
+            model_gt_counts[model_name] = int(total_gt)
+
+    if not all_recall_data:
+        raise ValueError("No valid Top-K recall data processed.")
+    if require_same_total_gt and len(set(model_gt_counts.values())) > 1:
+        details = ', '.join(
+            f"{model}={count}" for model, count in model_gt_counts.items()
+        )
+        raise ValueError(
+            "Models use different callable GT denominators, so Recall@K is "
+            f"not directly comparable: {details}"
+        )
+
+    plot_df = pd.concat(all_recall_data, ignore_index=True)
+    if min_k is not None:
+        plot_df = plot_df[plot_df['K'] >= min_k]
+    if max_k is not None:
+        plot_df = plot_df[plot_df['K'] <= max_k]
+    if plot_df.empty:
+        raise ValueError("No Recall@K observations remain in the requested K range.")
+
+    def downsample(group, max_pts=3000):
+        if len(group) <= max_pts:
+            return group
+        indices = np.unique(
+            np.linspace(0, len(group) - 1, max_pts).astype(int)
+        )
+        return group.iloc[indices]
+
+    plot_df = (
+        plot_df.groupby('Model', group_keys=False, observed=False)
+        .apply(downsample)
+        .reset_index(drop=True)
+    )
+    actual_models = plot_df['Model'].drop_duplicates().tolist()
+    valid_order = [
+        model for model in GLOBAL_MODEL_ORDER if model in actual_models
+    ]
+    valid_order.extend(
+        model for model in actual_models if model not in valid_order
+    )
+    plot_df['Model'] = pd.Categorical(
+        plot_df['Model'], categories=valid_order, ordered=True
+    )
+    color_mapping = {
+        model: GLOBAL_MODEL_COLORS.get(model, "#C0C0C0")
+        for model in valid_order
+    }
+    linetype_mapping = {
+        model: "solid" if "TRACE" in model else "dashed"
+        for model in valid_order
+    }
+
+    if min_k is not None and max_k is not None:
+        title_suffix = f"(K: {min_k} to {max_k})"
+        file_suffix = f"{suffix}_{min_k}_to_{max_k}"
+    elif min_k is not None:
+        title_suffix = f"(K >= {min_k})"
+        file_suffix = f"{suffix}_{min_k}_to_All"
+    elif max_k is not None:
+        title_suffix = f"(Top {max_k})"
+        file_suffix = f"{suffix}_1_to_{max_k}"
+    else:
+        title_suffix = "(All Predictions)"
+        file_suffix = f"{suffix}_All"
+
+    plot = (
+        ggplot(plot_df, aes(x='K', y='Recall', color='Model'))
+        + geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
+        + scale_color_manual(values=color_mapping)
+        + scale_linetype_manual(values=linetype_mapping, guide=None)
+        + scale_y_continuous(limits=y_limits)
+        + scale_x_log10()
+        + theme_classic()
+        + labs(
+            title=f"Recall@K Benchmark {title_suffix}",
+            x="Top K Predicted ORFs (Log Scale, Ranked by Score)",
+            y="Recall (Fraction of Unique GT ORFs Recovered)",
+        )
+        + theme(
+            figure_size=(7, 5),
+            axis_title=element_text(size=12, face="bold"),
+            axis_text=element_text(size=10),
+            legend_position="right",
+            legend_text=element_text(size=10),
+            legend_title=element_blank(),
+        )
+    )
+    save_path = os.path.join(
+        out_dir,
+        f"Benchmark_TopK_Recall_Curve_{file_suffix}.pdf",
+    )
+    plot.save(save_path, dpi=300, verbose=False)
+    return plot_df, save_path
 
 
 def plot_top_k_precision_bar(
