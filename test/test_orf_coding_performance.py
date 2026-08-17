@@ -219,6 +219,73 @@ class OrfTopKTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "greater than or equal"):
             FastSignalDrivenORFCaller(min_len=60, max_len=30)
 
+    def test_long_mode_uses_sequence_length_score_without_signal_filter(self):
+        sequence = "ATG" + "AAA" * 19 + "ATG" + "AAA" * 12 + "TAA"
+        signal = np.zeros(len(sequence), dtype=np.float32)
+        caller = FastSignalDrivenORFCaller(min_len=30, mode="long")
+
+        candidates = caller.extract_features(
+            sequence,
+            signal,
+            intensity_threshold=0.01,
+        )
+
+        self.assertEqual(len(candidates), 2)
+        for candidate in candidates:
+            expected = np.log10(candidate["length"] + 1)
+            self.assertAlmostEqual(candidate["sequence_length_score"], expected)
+            self.assertAlmostEqual(candidate["score"], expected)
+
+        collapsed = caller.collapse_and_nms(candidates, iou_threshold=0.3)
+        self.assertEqual(len(collapsed), 1)
+        self.assertEqual(collapsed[0]["start"], 0)
+        self.assertEqual(collapsed[0]["length"], len(sequence))
+
+    def test_long_mode_applies_baseline_start_codon_weights(self):
+        sequence = "CTG" + "AAA" * 19 + "TAA"
+        signal = np.zeros(len(sequence), dtype=np.float32)
+        caller = FastSignalDrivenORFCaller(
+            start_codons=["CTG"],
+            min_len=30,
+            mode="long",
+        )
+
+        candidate = caller.extract_features(sequence, signal)[0]
+
+        expected = 0.8 * np.log10(candidate["length"] + 1)
+        self.assertAlmostEqual(candidate["sequence_length_score"], expected)
+        self.assertAlmostEqual(candidate["score"], expected)
+
+    def test_long_mode_uses_baseline_start_codons_by_default(self):
+        caller = FastSignalDrivenORFCaller(mode="long")
+        balanced_caller = FastSignalDrivenORFCaller(mode="balanced")
+
+        self.assertEqual(
+            caller.start_codons,
+            ["ATG", "CTG", "GTG", "TTG", "ACG"],
+        )
+        self.assertEqual(
+            balanced_caller.start_codons,
+            ["ATG", "CTG", "GTG"],
+        )
+
+    def test_legacy_long_mode_can_still_require_translation_signal(self):
+        sequence = "ATG" + "AAA" * 19 + "TAA"
+        signal = np.zeros(len(sequence), dtype=np.float32)
+        caller = FastSignalDrivenORFCaller(
+            min_len=30,
+            mode="long",
+            long_mode_length_only=False,
+        )
+
+        candidates = caller.extract_features(
+            sequence,
+            signal,
+            intensity_threshold=0.01,
+        )
+
+        self.assertEqual(candidates, [])
+
     def test_cell_specific_transcript_targets_filter_gt_and_predictions(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)
@@ -310,6 +377,34 @@ class OrfTopKTests(unittest.TestCase):
         result = caller.fast_nms(candidates, iou_threshold=0.7)
 
         self.assertEqual([(row["start"], row["stop"]) for row in result], [(0, 99), (1, 100)])
+
+    def test_nms_can_suppress_candidates_across_frames(self):
+        caller = FastSignalDrivenORFCaller()
+        candidates = [
+            {"start": 0, "stop": 99, "length": 102, "score": 1.0},
+            {"start": 1, "stop": 100, "length": 102, "score": 0.9},
+            {"start": 3, "stop": 99, "length": 99, "score": 0.8},
+        ]
+
+        result = caller.fast_nms(
+            candidates,
+            iou_threshold=0.7,
+            nms_respect_frame=False,
+        )
+
+        self.assertEqual(
+            [(row["start"], row["stop"]) for row in result],
+            [(0, 99)],
+        )
+        self.assertTrue(
+            all("suppressed" not in candidate for candidate in candidates)
+        )
+
+    def test_run_exposes_nms_respect_frame(self):
+        self.assertIn(
+            "nms_respect_frame",
+            inspect.signature(TranslationSignalORFCaller.run).parameters,
+        )
 
     def test_feature_combination_scores_are_enumerated(self):
         pred_df = pd.DataFrame(

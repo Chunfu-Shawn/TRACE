@@ -77,25 +77,41 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
 class FastSignalDrivenORFCaller:
     def __init__(
             self,
-            start_codons=['ATG', 'CTG', 'GTG'],
+            start_codons: Optional[List[str]] = None,
             stop_codons=['TAA', 'TAG', 'TGA'],
             min_len=30,
             mode='balanced',
             score_features: Optional[List[str]] = None,
             score_combination_method: str = 'product',
-            max_len: Optional[int] = None):
+            max_len: Optional[int] = None,
+            long_mode_length_only: bool = True,
+            start_codon_weights: Optional[Dict[str, float]] = None):
         if min_len <= 0:
             raise ValueError("min_len must be greater than 0.")
         if max_len is not None and max_len < min_len:
             raise ValueError("max_len must be greater than or equal to min_len.")
 
-        self.start_codons = start_codons
         self.stop_codons = stop_codons
         self.min_len = min_len
         self.max_len = max_len
         self.mode = mode.lower()
+        self.long_mode_length_only = bool(long_mode_length_only)
+        if start_codons is None:
+            if self.mode == 'long' and self.long_mode_length_only:
+                start_codons = ['ATG', 'CTG', 'GTG', 'TTG', 'ACG']
+            else:
+                start_codons = ['ATG', 'CTG', 'GTG']
+        self.start_codons = list(start_codons)
+        self.start_codon_weights = {
+            'ATG': 1.0,
+            'CTG': 0.8,
+            'GTG': 0.6,
+            'TTG': 0.4,
+            'ACG': 0.2,
+            **(start_codon_weights or {}),
+        }
         self.stop_re = re.compile(f"(?=({'|'.join(stop_codons)}))")
-        self.start_re = re.compile(f"(?=({'|'.join(start_codons)}))")
+        self.start_re = re.compile(f"(?=({'|'.join(self.start_codons)}))")
         self.score_features = list(score_features or [])
         self.score_combination_method = score_combination_method.lower()
         valid_methods = {'product', 'geometric_mean', 'arithmetic_mean'}
@@ -103,6 +119,16 @@ class FastSignalDrivenORFCaller:
             raise ValueError(
                 f"score_combination_method must be one of {sorted(valid_methods)}."
             )
+
+    @property
+    def uses_length_only_ranking(self) -> bool:
+        """Return whether long mode follows the sequence-length baseline."""
+        return self.mode == 'long' and self.long_mode_length_only
+
+    def _sequence_length_score(self, cand: dict) -> float:
+        """Score an ORF using the sequence-only baseline definition."""
+        codon_weight = self.start_codon_weights.get(cand['start_codon'], 0.1)
+        return float(codon_weight * np.log10(cand['length'] + 1))
 
     def _combine_score_features(self, feature_values: Dict[str, float]) -> float:
         """Combine selected unit-scale signal features into one score factor."""
@@ -171,17 +197,25 @@ class FastSignalDrivenORFCaller:
                     start_idx += 1 
         return candidates
 
-    def fast_nms(self, cands: List[dict], iou_threshold: float = 0.3) -> List[dict]:
+    def fast_nms(
+            self,
+            cands: List[dict],
+            iou_threshold: float = 0.3,
+            nms_respect_frame: bool = True) -> List[dict]:
         keep = []
-        cands.sort(key=lambda x: x['score'], reverse=True)
-        for i, cand in enumerate(cands):
-            if cand.get('suppressed', False): continue
+        sorted_cands = sorted(cands, key=lambda x: x['score'], reverse=True)
+        suppressed = np.zeros(len(sorted_cands), dtype=bool)
+        for i, cand in enumerate(sorted_cands):
+            if suppressed[i]:
+                continue
             keep.append(cand)
             s1, e1 = cand['start'], cand['stop'] + 3
-            for j in range(i + 1, len(cands)):
-                if cands[j].get('suppressed', False): continue
-                s2, e2 = cands[j]['start'], cands[j]['stop'] + 3
-                if s1 % 3 != s2 % 3:
+            for j in range(i + 1, len(sorted_cands)):
+                if suppressed[j]:
+                    continue
+                s2 = sorted_cands[j]['start']
+                e2 = sorted_cands[j]['stop'] + 3
+                if nms_respect_frame and s1 % 3 != s2 % 3:
                     continue
                 overlap_l = max(0, min(e1, e2) - max(s1, s2))
                 if overlap_l > 0:
@@ -189,9 +223,7 @@ class FastSignalDrivenORFCaller:
                     l2 = e2 - s2
                     iou = overlap_l / (l1 + l2 - overlap_l)
                     if iou > iou_threshold:
-                        cands[j]['suppressed'] = True
-        for k in keep:
-            k.pop('suppressed', None)
+                        suppressed[j] = True
         return keep
 
     def extract_features(self, sequence: str, signal_array: np.ndarray, intensity_threshold: float = 0.01) -> List[dict]:
@@ -207,7 +239,8 @@ class FastSignalDrivenORFCaller:
             s, e, length = cand['start'], cand['stop'], cand['length']
             total_sig = float(cumsum_sig[e] - cumsum_sig[s])
             mean_intensity = total_sig / length
-            if mean_intensity <= intensity_threshold: continue
+            if not self.uses_length_only_ranking and mean_intensity <= intensity_threshold:
+                continue
             cand['mean_intensity'] = mean_intensity
             cand['total_sig'] = total_sig  
             valid_cands_pre.append(cand)
@@ -254,16 +287,25 @@ class FastSignalDrivenORFCaller:
             }
             base_translation_score = length_bonus * mean_intensity
             score_factor = self._combine_score_features(feature_values)
-            translation_score = base_translation_score * score_factor
+            sequence_length_score = self._sequence_length_score(cand)
+            if self.uses_length_only_ranking:
+                translation_score = sequence_length_score
+            else:
+                translation_score = base_translation_score * score_factor
             cand.update({'tri_nucleotide_periodicity': periodicity, 'uniformity_of_signal': uniformity,
                          'step_up_contrast': step_up_contrast, 'drop_off': drop_off,
                          'base_translation_score': float(base_translation_score),
+                         'sequence_length_score': sequence_length_score,
                          'score_feature_factor': float(score_factor),
                          'score': float(translation_score)})
             extracted_cands.append(cand)
         return extracted_cands
 
-    def collapse_and_nms(self, cands: List[dict], iou_threshold: float = 0.3) -> List[dict]:
+    def collapse_and_nms(
+            self,
+            cands: List[dict],
+            iou_threshold: float = 0.3,
+            nms_respect_frame: bool = True) -> List[dict]:
         cands_by_stop = {}
         for cand in cands:
             e = cand['stop']
@@ -272,9 +314,17 @@ class FastSignalDrivenORFCaller:
         resolved_cands = []
         for e, group in cands_by_stop.items():
             atg_cands = [c for c in group if c['start_codon'] == 'ATG']
-            best_cand = max(atg_cands if atg_cands else group, key=lambda x: x['score'])
+            eligible_cands = atg_cands if atg_cands else group
+            if self.uses_length_only_ranking:
+                best_cand = max(eligible_cands, key=lambda x: x['length'])
+            else:
+                best_cand = max(eligible_cands, key=lambda x: x['score'])
             resolved_cands.append(best_cand)
-        return self.fast_nms(resolved_cands, iou_threshold=iou_threshold)
+        return self.fast_nms(
+            resolved_cands,
+            iou_threshold=iou_threshold,
+            nms_respect_frame=nms_respect_frame,
+        )
 
 
 # =================================================================
@@ -354,15 +404,17 @@ class TranslationSignalORFCaller:
         
         fig, axes = plt.subplots(2, 3, figsize=(18, 10))
         axes = axes.flatten()
-        palette = {'MANE Annotated ORFs': '#e74c3c', 'Novel Potential ORFs': '#2980b9', 'All Predicted ORFs': '#27ae60'}
+        palette = {
+            'MANE Annotated ORFs': '#e74c3c',
+            'Novel Potential ORFs': '#2980b9',
+            'All Predicted ORFs': '#27ae60',
+            'All Sequence ORF Candidates': '#8e44ad',
+        }
 
         for i, metric in enumerate(metrics_to_plot):
             if metric not in raw_df.columns: continue
             ax = axes[i]
             
-            thresh_val = thresholds.get(metric, 0)
-            thresh_label = f"Threshold (Bottom {mane_quantile*100:.0f}% + Hard):\n{thresh_val:.3f}"
-                
             p01, p99 = raw_df[metric].quantile(0.01), raw_df[metric].quantile(0.99)
             plot_df = raw_df[(raw_df[metric] >= p01) & (raw_df[metric] <= p99)]
             
@@ -377,10 +429,28 @@ class TranslationSignalORFCaller:
                 common_norm=False, palette=palette, alpha=0.4, linewidth=2.5, ax=ax
             )
             
-            ax.axvline(x=thresh_val, color='#e74c3c', linestyle='--', linewidth=2)
-            y_max = ax.get_ylim()[1]
-            ax.text(thresh_val, y_max * 0.85, f' {thresh_label}', 
-                    color='#e74c3c', fontsize=11, fontweight='bold', ha='left')
+            if metric in thresholds:
+                thresh_val = thresholds[metric]
+                thresh_label = (
+                    f"Threshold (Bottom {mane_quantile*100:.0f}% + Hard):\n"
+                    f"{thresh_val:.3f}"
+                )
+                ax.axvline(
+                    x=thresh_val,
+                    color='#e74c3c',
+                    linestyle='--',
+                    linewidth=2,
+                )
+                y_max = ax.get_ylim()[1]
+                ax.text(
+                    thresh_val,
+                    y_max * 0.85,
+                    f' {thresh_label}',
+                    color='#e74c3c',
+                    fontsize=11,
+                    fontweight='bold',
+                    ha='left',
+                )
             
             title_name = metric.replace('_', ' ').title()
             ax.set_title(f"{title_name} Distribution", fontsize=14, pad=10)
@@ -397,13 +467,18 @@ class TranslationSignalORFCaller:
         plt.close()
         print(f"  -> Plots successfully saved to: {plot_path}")
 
-    def run(self, mane_orfs_path=None, out_dir="./results", start_codons=['ATG', 'CTG', 'GTG'],
+    def run(self, mane_orfs_path=None, out_dir="./results",
+            start_codons: Optional[List[str]] = None,
             min_len=30, offset_tolerance=6, mode='balanced', use_mane_filter=True, mane_quantile=0.05,
             plot_density=True, hard_thresh_intensity=0.01, hard_thresh_periodicity=0.40,
             hard_thresh_uniformity=0.20, hard_thresh_step_up=0.3, hard_thresh_drop_off=0.3,
             score_features: Optional[List[str]] = None,
             score_combination_method: str = 'product',
-            max_len: Optional[int] = None) -> pd.DataFrame:
+            max_len: Optional[int] = None,
+            long_mode_length_only: bool = True,
+            start_codon_weights: Optional[Dict[str, float]] = None,
+            nms_iou_threshold: Optional[float] = None,
+            nms_respect_frame: bool = True) -> pd.DataFrame:
         
         os.makedirs(out_dir, exist_ok=True)
         cell_preds = self.preds_data[self.cell_type]
@@ -413,8 +488,25 @@ class TranslationSignalORFCaller:
             max_len=max_len,
             mode=mode,
             score_features=score_features,
-            score_combination_method=score_combination_method
+            score_combination_method=score_combination_method,
+            long_mode_length_only=long_mode_length_only,
+            start_codon_weights=start_codon_weights,
         )
+        effective_nms_iou = nms_iou_threshold
+        if effective_nms_iou is None:
+            effective_nms_iou = 0.3 if caller.uses_length_only_ranking else 0.7
+        if not 0.0 <= effective_nms_iou <= 1.0:
+            raise ValueError("nms_iou_threshold must be between 0 and 1.")
+
+        if caller.uses_length_only_ranking:
+            print(
+                "[Long mode] Using sequence-length baseline ranking: "
+                "start-codon weight * log10(ORF length + 1)."
+            )
+            print(
+                "[Long mode] Signal features are retained for diagnostics but "
+                "are not used for filtering or ranking."
+            )
         all_raw_records = []
         
         length_range_label = (
@@ -457,6 +549,11 @@ class TranslationSignalORFCaller:
                     'log2_tpm_plus_1': log_tpm,
                     'score_features': '+'.join(score_features or []) or 'none',
                     'score_combination_method': score_combination_method,
+                    'score_strategy': (
+                        'sequence_length_baseline'
+                        if caller.uses_length_only_ranking
+                        else 'translation_signal'
+                    ),
                     'translation_score': cand['score'],
                     'base_expr_score': cand['base_translation_score'] * log_tpm,
                     'expr_score': cand['score'] * log_tpm
@@ -473,7 +570,13 @@ class TranslationSignalORFCaller:
         }
         
         final_thresholds = {}
-        if use_mane_filter and mane_orfs_path and os.path.exists(mane_orfs_path):
+        if caller.uses_length_only_ranking:
+            print(
+                "\n[Phase 2 & 3] Sequence-length long mode is enabled. "
+                "Skipping MANE-derived and absolute signal thresholds."
+            )
+            raw_df['Group'] = 'All Sequence ORF Candidates'
+        elif use_mane_filter and mane_orfs_path and os.path.exists(mane_orfs_path):
             print(f"\n[Phase 2] Mapping candidates to MANE annotations (Tolerance: ±{offset_tolerance} nt)...")
             mane_df = pd.read_csv(mane_orfs_path)
             
@@ -533,25 +636,48 @@ class TranslationSignalORFCaller:
             out_dir,
             f"high_confidence_orfs_pre_nms.{self.cell_type}.{mode}_mode.csv"
         )
+        output_sort_col = (
+            'translation_score'
+            if caller.uses_length_only_ranking
+            else 'expr_score'
+        )
         high_conf_df.drop(columns=['orf_index']).sort_values(
-            by=['expr_score'], ascending=False
+            by=[output_sort_col], ascending=False
         ).to_csv(pre_nms_csv_path, index=False)
         print(f"  -> Saved pre-NMS candidates to: {pre_nms_csv_path}")
         
-        print(f"\n[Phase 5] Stop-Codon Collapse (Score Driven) and NMS...")
+        collapse_strategy = (
+            'Longest ATG/ORF Driven'
+            if caller.uses_length_only_ranking
+            else 'Score Driven'
+        )
+        nms_scope = 'same-frame only' if nms_respect_frame else 'all frames'
+        print(
+            f"\n[Phase 5] Stop-Codon Collapse ({collapse_strategy}) and NMS "
+            f"({nms_scope}, IoU > {effective_nms_iou:.2f})..."
+        )
         final_records = []
         for _, group in tqdm(high_conf_df.groupby('Tid')):
-            final_records.extend(caller.collapse_and_nms(group.to_dict('records'), iou_threshold=0.7))
+            final_records.extend(
+                caller.collapse_and_nms(
+                    group.to_dict('records'),
+                    iou_threshold=effective_nms_iou,
+                    nms_respect_frame=nms_respect_frame,
+                )
+            )
         
         final_df = pd.DataFrame(final_records)
         cols = ['Tid', 'Gene_ID', 'Cell_Type', 'start', 'stop', 'length', 'start_codon', 
-                'base_translation_score', 'score_feature_factor', 'score_features',
-                'score_combination_method', 'translation_score', 'tpm',
+                'sequence_length_score', 'base_translation_score',
+                'score_feature_factor', 'score_features', 'score_combination_method',
+                'score_strategy', 'translation_score', 'tpm',
                 'log2_tpm_plus_1', 'base_expr_score', 'expr_score', 'mean_intensity',
                 'tri_nucleotide_periodicity', 'uniformity_of_signal', 'step_up_contrast', 'drop_off']
         
         if not final_df.empty:
-            final_df = final_df[cols].sort_values(by=['expr_score'], ascending=False)
+            final_df = final_df[cols].sort_values(
+                by=[output_sort_col], ascending=False
+            )
             final_df.to_csv(os.path.join(out_dir, f"high_confidence_orfs.{self.cell_type}.{mode}_mode.csv"), index=False)
             print(f"\n🎉 ORF Calling Completed! Found {len(final_df)} Final High-Confidence ORFs.")
 
