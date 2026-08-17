@@ -216,16 +216,13 @@ def compare_multi_model_roc_auc(
     model_order = list(dict.fromkeys(
         model for model in model_order if model in set(curve_df['Model'])
     ))
-    default_colors = sns.color_palette(
-        'colorblind', n_colors=max(len(model_order), 1)
-    )
     color_lookup = {
         model: (
             model_colors[model]
             if model_colors is not None and model in model_colors
-            else mpl.colors.to_hex(default_colors[index])
+            else GLOBAL_MODEL_COLORS.get(model, "#C0C0C0")
         )
-        for index, model in enumerate(model_order)
+        for model in model_order
     }
 
     os.makedirs(out_dir, exist_ok=True)
