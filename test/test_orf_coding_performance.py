@@ -27,12 +27,52 @@ from eval.orf_coding_performance import (
     plot_top_k_metric,
     plot_top_k_precision,
     plot_top_k_recall,
+    prepare_evaluation_score,
+    resolve_manifest_score_request,
     summarize_top_k_values,
 )
 from model.orf_caller import FastSignalDrivenORFCaller, TranslationSignalORFCaller
 
 
 class OrfTopKTests(unittest.TestCase):
+    def test_prepare_evaluation_score_excludes_missed_gt_before_combining(self):
+        evaluation = pd.DataFrame(
+            {
+                "Record_Type": ["Prediction", "Prediction", "Missed_GT"],
+                "base_expr_score": [0.8, 0.4, -1.0],
+                "uniformity_of_signal": [0.5, 0.25, -1.0],
+            }
+        )
+
+        scored, score_col, score_label = prepare_evaluation_score(
+            evaluation,
+            combined_score={
+                "Base_Score": "base_expr_score",
+                "Features": "uniformity_of_signal",
+                "Method": "product",
+            },
+        )
+
+        self.assertEqual(len(scored), 2)
+        np.testing.assert_allclose(scored[score_col], [0.4, 0.1])
+        self.assertEqual(
+            score_label,
+            "base_expr_score | product(uniformity_of_signal)",
+        )
+
+    def test_trace_combination_overrides_manifest_score_column(self):
+        score_col, combined_score = resolve_manifest_score_request(
+            {"model": "TRACE", "score_col": "score"},
+            trace_combined_score={
+                "Base_Score": "base_expr_score",
+                "Features": "uniformity_of_signal",
+                "Method": "product",
+            },
+        )
+
+        self.assertIsNone(score_col)
+        self.assertEqual(combined_score["Base_Score"], "base_expr_score")
+
     def test_top_k_score_col_alias_selects_existing_column(self):
         with tempfile.TemporaryDirectory() as directory:
             directory = Path(directory)

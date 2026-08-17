@@ -42,11 +42,11 @@ GLOBAL_MODEL_COLORS = {
     "Raw-dataset": "#8C6D51",
     "Mean density": "#967554",
     "TE scale": "#A07E58",
-    "Inverse 5'UTR length": "#8C6D51",  
+    "Inverse 5'UTR length": "#AF804F", # 8C6D51  
     "Inverse 3'UTR length": "#B98C57",
     "Inverse CDS length": "#C3975F",   
     "Inverse CDS GC%": "#CDA367",                   
-    "Kozak score": "#AF804F",
+    "Kozak score": "#EBC67F", # AF804F
     "CAI": "#D7AF6F",      
     "Inverse uAUG count": "#EBC67F"    
 }

@@ -1133,6 +1133,7 @@ def evaluate_orf_level_predictions(
         'expr_score': 'Expression Score (TPM*Signal)',
         'base_translation_score': 'Base Translation Score',
         'base_expr_score': 'Base Expression-weighted Score',
+        'sequence_length_score': 'Sequence-length Score',
         'translation_score': 'Pure Translation Score',
         'transcription_score': 'Pure Transcription Score',
         'seq_score': 'Pure ORF-structure Score',
@@ -1360,6 +1361,70 @@ def add_requested_combined_score(
     feature_label = '+'.join(feature_columns) if feature_columns else 'none'
     score_label = f"{base_score} | {method}({feature_label})"
     return scored_df, combined_column, score_label
+
+
+def resolve_manifest_score_request(
+        config: Mapping[str, object],
+        trace_combined_score: Optional[
+            Union[str, Mapping[str, object], pd.Series]
+        ] = None,
+        trace_model_name: str = 'TRACE'):
+    """Resolve one model's score column or feature-combination request.
+
+    A manifest-level ``combined_score`` has the highest priority. The global
+    ``trace_combined_score`` then overrides ``score_col`` for the named TRACE
+    model. Other models use their manifest-level ``score_col``.
+    """
+    model_name = str(config.get('model', ''))
+    configured_combination = config.get('combined_score')
+    configured_score_col = config.get('score_col')
+    if configured_combination is not None and configured_score_col is not None:
+        raise ValueError(
+            f"Model '{model_name}' defines both score_col and combined_score. "
+            "Specify only one."
+        )
+
+    if configured_combination is not None:
+        return None, configured_combination
+    if (
+            trace_combined_score is not None
+            and model_name.casefold() == str(trace_model_name).casefold()
+    ):
+        return None, trace_combined_score
+    return configured_score_col, None
+
+
+def prepare_evaluation_score(
+        evaluation_df: pd.DataFrame,
+        score_col: Optional[str] = None,
+        combined_score: Optional[
+            Union[str, Mapping[str, object], pd.Series]
+        ] = None):
+    """Filter prediction records and prepare one ranking score consistently."""
+    if score_col is not None and combined_score is not None:
+        raise ValueError("Specify either score_col or combined_score, not both.")
+
+    candidate_df = evaluation_df.copy()
+    if 'Record_Type' in candidate_df.columns:
+        candidate_df = candidate_df[
+            candidate_df['Record_Type'] == 'Prediction'
+        ].copy()
+    if candidate_df.empty:
+        raise ValueError("The evaluation table contains no prediction records.")
+
+    if combined_score is not None:
+        return add_requested_combined_score(candidate_df, combined_score)
+
+    if score_col is not None:
+        if score_col not in candidate_df.columns:
+            raise ValueError(
+                f"Score column '{score_col}' was not found. Available columns: "
+                f"{candidate_df.columns.tolist()}"
+            )
+        selected_score_col = score_col
+    else:
+        selected_score_col = resolve_score_col(candidate_df, None)
+    return candidate_df, selected_score_col, selected_score_col
 
 
 def calculate_top_k_from_evaluation(
