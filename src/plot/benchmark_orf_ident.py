@@ -255,10 +255,15 @@ def compare_multi_model_roc_auc(
 
 def _resolve_tissue_model_path(
         tissue: str,
-        result_dir: str,
         config: Mapping[str, object]) -> str:
-    """Resolve one model evaluation table inside a tissue result directory."""
+    """Resolve one tissue table from a model-specific manifest item."""
     path_by_tissue = config.get('path_by_tissue')
+    tissue_result_dirs = config.get('tissue_result_dirs')
+    if path_by_tissue is not None and tissue_result_dirs is not None:
+        raise ValueError(
+            f"Model '{config.get('model')}' defines both path_by_tissue and "
+            "tissue_result_dirs. Specify only one."
+        )
     if path_by_tissue is not None:
         if not isinstance(path_by_tissue, Mapping):
             raise TypeError("path_by_tissue must be a tissue-to-path mapping.")
@@ -268,11 +273,25 @@ def _resolve_tissue_model_path(
                 f"'{tissue}'."
             )
         path_value = str(path_by_tissue[tissue])
-    elif config.get('path') is not None:
-        path_value = str(config['path'])
+        result_dir = os.path.dirname(path_value)
+    elif tissue_result_dirs is not None:
+        if not isinstance(tissue_result_dirs, Mapping):
+            raise TypeError(
+                "tissue_result_dirs must be a tissue-to-directory mapping."
+            )
+        if tissue not in tissue_result_dirs:
+            raise ValueError(
+                f"Model '{config.get('model')}' has no result directory for "
+                f"tissue '{tissue}'."
+            )
+        result_dir = str(tissue_result_dirs[tissue])
+        path_value = str(
+            config.get('path', 'unified_evaluation_table.csv')
+        )
     else:
         raise ValueError(
-            "Every model manifest item must define path or path_by_tissue."
+            "Every model manifest item must define tissue_result_dirs or "
+            "path_by_tissue."
         )
 
     path_value = path_value.format(
@@ -282,6 +301,28 @@ def _resolve_tissue_model_path(
     if not os.path.isabs(path_value):
         path_value = os.path.join(str(result_dir), path_value)
     return os.path.normpath(path_value)
+
+
+def _get_manifest_tissues(config: Mapping[str, object]) -> list:
+    """Return the tissue labels declared by one model manifest item."""
+    path_by_tissue = config.get('path_by_tissue')
+    tissue_result_dirs = config.get('tissue_result_dirs')
+    if path_by_tissue is not None and tissue_result_dirs is not None:
+        raise ValueError(
+            f"Model '{config.get('model')}' defines both path_by_tissue and "
+            "tissue_result_dirs. Specify only one."
+        )
+    tissue_mapping = (
+        tissue_result_dirs
+        if tissue_result_dirs is not None
+        else path_by_tissue
+    )
+    if not isinstance(tissue_mapping, Mapping) or not tissue_mapping:
+        raise ValueError(
+            f"Model '{config.get('model')}' must define a non-empty "
+            "tissue_result_dirs or path_by_tissue mapping."
+        )
+    return [str(tissue) for tissue in tissue_mapping]
 
 
 def _extract_total_gt_count(
@@ -302,7 +343,6 @@ def _extract_total_gt_count(
 
 
 def _collect_multi_tissue_pr_auc(
-        tissue_result_dirs: Mapping[str, str],
         manifest: list,
         trace_score_col: Optional[str] = None,
         trace_combined_score: Optional[
@@ -312,8 +352,6 @@ def _collect_multi_tissue_pr_auc(
         require_same_total_gt: bool = True,
         require_complete_grid: bool = True) -> pd.DataFrame:
     """Calculate candidate-level Average Precision for each tissue and model."""
-    if not isinstance(tissue_result_dirs, Mapping) or not tissue_result_dirs:
-        raise ValueError("tissue_result_dirs must be a non-empty mapping.")
     if not manifest:
         raise ValueError("manifest cannot be empty.")
     if trace_score_col is not None and trace_combined_score is not None:
@@ -321,20 +359,41 @@ def _collect_multi_tissue_pr_auc(
             "Use either trace_score_col or trace_combined_score, not both."
         )
 
+    model_names = []
+    tissues_by_model = {}
+    tissue_order = []
+    for config in manifest:
+        if not isinstance(config, Mapping) or 'model' not in config:
+            raise ValueError("Every manifest item must define model.")
+        model_name = str(config['model'])
+        model_names.append(model_name)
+        model_tissues = _get_manifest_tissues(config)
+        tissues_by_model[model_name] = set(model_tissues)
+        tissue_order.extend(
+            tissue for tissue in model_tissues if tissue not in tissue_order
+        )
+    duplicate_models = sorted({
+        model for model in model_names if model_names.count(model) > 1
+    })
+    if duplicate_models:
+        raise ValueError(
+            f"Manifest model names must be unique: {duplicate_models}"
+        )
+
     records = []
     incomplete_entries = []
     gt_counts_by_tissue = {}
-    for tissue_value, result_dir_value in tissue_result_dirs.items():
-        tissue = str(tissue_value)
-        result_dir = str(result_dir_value)
+    for tissue in tissue_order:
         gt_counts_by_tissue[tissue] = {}
         for config in manifest:
-            if 'model' not in config:
-                raise ValueError("Every manifest item must define model.")
             model_name = str(config['model'])
+            if tissue not in tissues_by_model[model_name]:
+                incomplete_entries.append(
+                    f"{tissue} / {model_name}: tissue is not declared"
+                )
+                continue
             csv_path = _resolve_tissue_model_path(
                 tissue=tissue,
-                result_dir=result_dir,
                 config=config,
             )
             if not os.path.exists(csv_path):
@@ -344,7 +403,18 @@ def _collect_multi_tissue_pr_auc(
                 continue
 
             source_df = pd.read_csv(csv_path)
-            table_tissue = config.get('cell_type')
+            cell_type_by_tissue = config.get('cell_type_by_tissue')
+            if cell_type_by_tissue is not None:
+                if not isinstance(cell_type_by_tissue, Mapping):
+                    raise TypeError(
+                        "cell_type_by_tissue must be a tissue-to-cell-type "
+                        "mapping."
+                    )
+                table_tissue = cell_type_by_tissue.get(
+                    tissue, config.get('cell_type')
+                )
+            else:
+                table_tissue = config.get('cell_type')
             if table_tissue is not None:
                 if 'Cell_Type' not in source_df.columns:
                     raise ValueError(
@@ -465,7 +535,6 @@ def _collect_multi_tissue_pr_auc(
 
 
 def plot_multi_model_pr_auc_across_tissues(
-        tissue_result_dirs: Mapping[str, str],
         manifest: list,
         out_dir: str = "./results/benchmark",
         trace_score_col: Optional[str] = None,
@@ -484,10 +553,12 @@ def plot_multi_model_pr_auc_across_tissues(
         h: float = 5.0):
     """Plot mean PR-AUC bars with one point per tissue for every model.
 
-    Relative manifest paths are resolved inside every tissue result directory.
-    TRACE can be reranked with one existing ``trace_score_col`` or a dynamic
+    Every manifest item defines its own ``tissue_result_dirs`` mapping. Its
+    relative ``path`` is resolved inside each tissue directory. TRACE can be
+    reranked with one existing ``trace_score_col`` or a dynamic
     ``trace_combined_score`` definition. Other models use ``score_col`` or
-    ``combined_score`` from their own manifest item.
+    ``combined_score`` from their own manifest item. ``cell_type_by_tissue``
+    optionally maps display tissue labels to table ``Cell_Type`` values.
     """
     if len(y_limits) != 2 or not 0 <= y_limits[0] < y_limits[1] <= 1:
         raise ValueError("y_limits must satisfy 0 <= lower < upper <= 1.")
@@ -495,7 +566,6 @@ def plot_multi_model_pr_auc_across_tissues(
         raise ValueError("w and h must be greater than 0.")
 
     plot_df = _collect_multi_tissue_pr_auc(
-        tissue_result_dirs=tissue_result_dirs,
         manifest=manifest,
         trace_score_col=trace_score_col,
         trace_combined_score=trace_combined_score,
@@ -513,7 +583,7 @@ def plot_multi_model_pr_auc_across_tissues(
     requested_tissue_order = (
         [str(tissue) for tissue in tissue_order]
         if tissue_order is not None
-        else [str(tissue) for tissue in tissue_result_dirs]
+        else plot_df['Tissue'].drop_duplicates().tolist()
     )
     observed_tissues = set(plot_df['Tissue'])
     invalid_tissues = [

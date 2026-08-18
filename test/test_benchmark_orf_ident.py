@@ -70,20 +70,29 @@ class OrfRecallBenchmarkTests(unittest.TestCase):
                 "brain": str(brain_dir),
                 "liver": str(liver_dir),
             }
+            trace_dirs = {
+                tissue: str(Path(path) / "TRACE")
+                for tissue, path in tissue_dirs.items()
+            }
+            ribotie_dirs = {
+                tissue: str(Path(path) / "RiboTIE")
+                for tissue, path in tissue_dirs.items()
+            }
             manifest = [
                 {
                     "model": "TRACE",
-                    "path": "TRACE/unified_evaluation_table.csv",
+                    "tissue_result_dirs": trace_dirs,
+                    "path": "unified_evaluation_table.csv",
                 },
                 {
                     "model": "RiboTIE",
-                    "path": "RiboTIE/unified_evaluation_table.csv",
+                    "tissue_result_dirs": ribotie_dirs,
+                    "path": "unified_evaluation_table.csv",
                     "score_col": "score",
                 },
             ]
 
             plot_df = _collect_multi_tissue_pr_auc(
-                tissue_result_dirs=tissue_dirs,
                 manifest=manifest,
                 trace_combined_score={
                     "Base_Score": "rank_score",
@@ -108,15 +117,20 @@ class OrfRecallBenchmarkTests(unittest.TestCase):
             )
             summary, points, save_path = (
                 plot_multi_model_pr_auc_across_tissues(
-                    tissue_result_dirs={"brain": str(brain_dir)},
                     manifest=[
                         {
                             "model": "TRACE",
-                            "path": "TRACE/unified_evaluation_table.csv",
+                            "tissue_result_dirs": {
+                                "brain": str(brain_dir / "TRACE"),
+                            },
+                            "path": "unified_evaluation_table.csv",
                         },
                         {
                             "model": "RiboTIE",
-                            "path": "RiboTIE/unified_evaluation_table.csv",
+                            "tissue_result_dirs": {
+                                "brain": str(brain_dir / "RiboTIE"),
+                            },
+                            "path": "unified_evaluation_table.csv",
                             "score_col": "score",
                         },
                     ],
