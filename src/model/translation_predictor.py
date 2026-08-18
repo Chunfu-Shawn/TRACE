@@ -145,6 +145,53 @@ def clean_transcript_id(value: object) -> str:
         return transcript_id.split('.', 1)[0]
     return transcript_id
 
+
+def _resolve_prediction_expression_vector(
+        model: torch.nn.Module,
+        cell_expr_vector: Optional[np.ndarray],
+) -> np.ndarray:
+    """Return a one-dimensional expression vector for profile prediction.
+
+    When no vector is supplied, an all-zero vector is created using the
+    expression dimension declared by the unwrapped model. The mean expression
+    buffer is used only to infer the dimension when ``d_expr`` is unavailable;
+    its values are never used as the prediction input.
+    """
+    expected_dim = getattr(model, "d_expr", None)
+    if expected_dim is None:
+        mean_expr_vector = getattr(model, "mean_expr_vector", None)
+        if mean_expr_vector is not None:
+            if isinstance(mean_expr_vector, torch.Tensor):
+                expected_dim = mean_expr_vector.numel()
+            else:
+                expected_dim = np.asarray(mean_expr_vector).size
+
+    if expected_dim is None:
+        raise ValueError(
+            "Cannot create a default cell expression vector because the model "
+            "does not expose 'd_expr' or 'mean_expr_vector'."
+        )
+
+    expected_dim = int(expected_dim)
+    if expected_dim < 0:
+        raise ValueError(f"Model expression dimension must be non-negative, got {expected_dim}.")
+
+    if cell_expr_vector is None:
+        return np.zeros(expected_dim, dtype=np.float32)
+
+    resolved_vector = np.asarray(cell_expr_vector, dtype=np.float32)
+    if resolved_vector.ndim != 1:
+        raise ValueError(
+            "cell_expr_vector must be one-dimensional, "
+            f"got shape {resolved_vector.shape}."
+        )
+    if resolved_vector.size != expected_dim:
+        raise ValueError(
+            "cell_expr_vector has the wrong length: "
+            f"expected {expected_dim}, got {resolved_vector.size}."
+        )
+    return resolved_vector
+
 # =================================================================
 # Zero-shot inference Dataset
 # =================================================================
@@ -238,7 +285,7 @@ class TranslationProfilePredictor:
             self,
             species: str,
             cell_type: str,
-            cell_expr_vector: np.ndarray, 
+            cell_expr_vector: Optional[np.ndarray] = None,
             target_tids: Optional[list] = None, 
             out_dir: str = "./results",
             suffix: str = "results",
@@ -250,6 +297,8 @@ class TranslationProfilePredictor:
         """
         Run FASTA reading and prediction.
         If target_tids is provided, only predict transcripts present in that list.
+        If cell_expr_vector is omitted, use an all-zero vector with the model's
+        expected expression dimension.
         """
 
         os.makedirs(out_dir, exist_ok=True)
@@ -293,6 +342,16 @@ class TranslationProfilePredictor:
         self.model.eval()
         base_model = unwrap_model(self.model)
         device = _model_device(base_model)
+        using_default_expr = cell_expr_vector is None
+        cell_expr_vector = _resolve_prediction_expression_vector(
+            base_model,
+            cell_expr_vector,
+        )
+        if using_default_expr:
+            print(
+                "No cell expression vector provided; using an all-zero vector "
+                f"with dimension {cell_expr_vector.size}."
+            )
         
         # build Dataset and DataLoader
         dataset = DeNovoSequenceDataset(seq_dict, species, cell_type, cell_expr_vector, min_len, max_len)
