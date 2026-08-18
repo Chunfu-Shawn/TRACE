@@ -220,30 +220,59 @@ class uStartCodonEvaluatorEmb:
             'N': np.array([0, 0, 0, 0], dtype=np.float32)
         }
 
-    # =================================================================
-    # [MODIFIED] Added logic to embed a strong Kozak context specifically for ATG
-    # =================================================================
-    def inject_start_codon(self, base_emb, morf_start, distance, codon='ATG'):
+    @staticmethod
+    def _normalize_non_atg_kozak_context(value):
+        """Normalize and validate the requested non-ATG Kozak context."""
+        context = str(value).strip().lower()
+        if context == 'week':
+            context = 'weak'
+        valid_contexts = {'unchanged', 'weak', 'strong'}
+        if context not in valid_contexts:
+            raise ValueError(
+                "non_atg_kozak_context must be one of "
+                f"{sorted(valid_contexts)}, got '{value}'."
+            )
+        return context
+
+    def inject_start_codon(
+            self,
+            base_emb,
+            morf_start,
+            distance,
+            codon='ATG',
+            non_atg_kozak_context='unchanged'):
+        """Insert one upstream start codon and its requested Kozak context."""
         new_emb = base_emb.copy()
         codon_pos = morf_start - distance
-        
-        # Ensure we have enough space for the Kozak context (-3 upstream, +4 downstream)
-        if codon_pos < 3 or codon_pos + 3 >= len(new_emb):
+        codon = str(codon).upper()
+        context = self._normalize_non_atg_kozak_context(
+            non_atg_kozak_context
+        )
+
+        if len(codon) != 3 or any(base not in self.BASES_MAP for base in codon):
+            raise ValueError(f"codon must contain three valid bases, got '{codon}'.")
+        if codon_pos < 0 or codon_pos + 2 >= len(new_emb):
             return None
-            
-        # 1. Insert the main codon (ATG, CTG, or GTG)
+
+        use_strong_context = codon == 'ATG' or context == 'strong'
+        use_weak_context = codon != 'ATG' and context == 'weak'
+        if use_strong_context and (
+                codon_pos < 3 or codon_pos + 3 >= len(new_emb)):
+            return None
+        if use_weak_context and codon_pos < 3:
+            return None
+
         for i, base in enumerate(codon):
             new_emb[codon_pos + i] = self.BASES_MAP[base]
-            
-        # 2. Add optimal Kozak context (ACC[ATG]G) ONLY if the codon is ATG
-        if codon == 'ATG':
-            # -3: A, -2: C, -1: C
+
+        if use_strong_context:
             new_emb[codon_pos - 3] = self.BASES_MAP['A']
             new_emb[codon_pos - 2] = self.BASES_MAP['C']
             new_emb[codon_pos - 1] = self.BASES_MAP['C']
-            # +4: G
             new_emb[codon_pos + 3] = self.BASES_MAP['G']
-            
+        elif use_weak_context:
+            new_emb[codon_pos - 3] = self.BASES_MAP['A']
+
         return new_emb
 
     def _predict_batch(self, seq_tensor, expr_tensor, species):
@@ -272,13 +301,28 @@ class uStartCodonEvaluatorEmb:
 
         return pred_np
 
-    def evaluate_scanning(self, samples, max_distance=50, batch_size=32, num_samples: int = None, 
-                          suffix: str = "", save_csv: bool = True):
+    def evaluate_scanning(
+            self,
+            samples,
+            max_distance=50,
+            batch_size=32,
+            num_samples: int = None,
+            suffix: str = "",
+            save_csv: bool = True,
+            non_atg_kozak_context: str = 'unchanged'):
         """
         Global Batch Scanning using DataLoader.
         Now handles data saving right after evaluation completes.
+
+        ``non_atg_kozak_context`` controls CTG/GTG context mutation:
+        ``unchanged`` preserves flanking bases, ``weak`` sets only -3 to A,
+        and ``strong`` inserts ACC at -3/-2/-1 and G at +4. ``week`` is
+        accepted as an alias for ``weak``. ATG always uses the strong context.
         """
         os.makedirs(self.out_dir, exist_ok=True)
+        non_atg_kozak_context = self._normalize_non_atg_kozak_context(
+            non_atg_kozak_context
+        )
         
         # --- 1. Sub-sample selection ---
         if num_samples is not None and len(samples) > num_samples:
@@ -333,7 +377,13 @@ class uStartCodonEvaluatorEmb:
                 frame_status = "In-frame" if dist % 3 == 0 else "Out-frame"
                 
                 for codon in codons:
-                    emb_mut = self.inject_start_codon(base_emb, m_start, distance=dist, codon=codon)
+                    emb_mut = self.inject_start_codon(
+                        base_emb,
+                        m_start,
+                        distance=dist,
+                        codon=codon,
+                        non_atg_kozak_context=non_atg_kozak_context,
+                    )
                     if emb_mut is not None:
                         mutant_records.append({
                             'uuid': uuid,
@@ -390,6 +440,11 @@ class uStartCodonEvaluatorEmb:
                         'Distance': b_dists[j], 
                         'Codon': b_codons[j], 
                         'Frame': b_frames[j],
+                        'Kozak_Context': (
+                            'strong'
+                            if b_codons[j] == 'ATG'
+                            else non_atg_kozak_context
+                        ),
                         'Relative_TE': te_mut / b_te_wts[j]
                     })
             except Exception as e:
@@ -404,7 +459,9 @@ class uStartCodonEvaluatorEmb:
             df_results.to_csv(raw_csv, index=False)
             print(f"Saved raw scanning data to {raw_csv}")
             
-            agg_df = df_results.groupby(['Distance', 'Codon'])['Relative_TE'].mean().reset_index()
+            agg_df = df_results.groupby(
+                ['Distance', 'Codon', 'Kozak_Context']
+            )['Relative_TE'].mean().reset_index()
             agg_csv = os.path.join(self.out_dir, f"uStartCodon_scanning_aggregated.{suffix}.csv" if suffix else "uStartCodon_scanning_aggregated.csv")
             agg_df.to_csv(agg_csv, index=False)
             print(f"Saved aggregated scanning data to {agg_csv}")

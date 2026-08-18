@@ -28,7 +28,6 @@ mpl.rcParams.update({
     "pdf.fonttype": 42,
     "svg.fonttype": "none",
 })
-
 # =================================================================
 # [NEW] 定义全局配置：统一的颜色与顺序
 # =================================================================
@@ -39,6 +38,7 @@ GLOBAL_MODEL_COLORS = {
     "RiboTIE": "#777777",
     "RibORF": "#BBBBBB",
     "RiboTISH": "#999999",
+    "Kozak-score": "#AF804F",
     "ORF-length": "#AF804F",
     "Transcription-level": "#EBC67F"
 }
@@ -50,9 +50,11 @@ GLOBAL_MODEL_ORDER = [
     "RiboTIE", 
     "RiboTISH", 
     "RibORF",
+    "Kozak-score",
     "ORF-length", 
     "Transcription-level"
 ]
+
 
 
 def compare_multi_model_roc_auc(

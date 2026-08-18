@@ -132,6 +132,66 @@ class UaugBaseModelTests(unittest.TestCase):
 
         self.assertEqual(batch[1], ["human"])
 
+    def test_non_atg_kozak_context_modes(self):
+        evaluator = uStartCodonEvaluatorEmb(RecordingBaseModel())
+        base_emb = np.tile(
+            np.array([0, 0, 0, 1], dtype=np.float32),
+            (25, 1),
+        )
+
+        unchanged = evaluator.inject_start_codon(
+            base_emb,
+            morf_start=15,
+            distance=5,
+            codon="CTG",
+            non_atg_kozak_context="unchanged",
+        )
+        weak = evaluator.inject_start_codon(
+            base_emb,
+            morf_start=15,
+            distance=5,
+            codon="CTG",
+            non_atg_kozak_context="weak",
+        )
+        strong = evaluator.inject_start_codon(
+            base_emb,
+            morf_start=15,
+            distance=5,
+            codon="CTG",
+            non_atg_kozak_context="strong",
+        )
+        week_alias = evaluator.inject_start_codon(
+            base_emb,
+            morf_start=15,
+            distance=5,
+            codon="CTG",
+            non_atg_kozak_context="week",
+        )
+
+        self.assertEqual(np.argmax(unchanged[7]), 3)
+        self.assertEqual(np.argmax(unchanged[13]), 3)
+        self.assertEqual(np.argmax(weak[7]), 0)
+        self.assertEqual(np.argmax(weak[8]), 3)
+        self.assertEqual(np.argmax(weak[13]), 3)
+        self.assertEqual(
+            [np.argmax(strong[index]) for index in (7, 8, 9, 13)],
+            [0, 1, 1, 2],
+        )
+        self.assertEqual(
+            [np.argmax(strong[index]) for index in (10, 11, 12)],
+            [1, 3, 2],
+        )
+        np.testing.assert_array_equal(week_alias, weak)
+
+        with self.assertRaisesRegex(ValueError, "non_atg_kozak_context"):
+            evaluator.inject_start_codon(
+                base_emb,
+                morf_start=15,
+                distance=5,
+                codon="CTG",
+                non_atg_kozak_context="unknown",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
