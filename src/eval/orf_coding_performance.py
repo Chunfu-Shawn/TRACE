@@ -962,7 +962,7 @@ def plot_feature_combination_performance(
     ]
     overall_matrix = overall_df.set_index('Score_Label')[metric_columns]
     figure_height = max(4.0, 0.34 * len(overall_matrix) + 1.6)
-    fig, ax = plt.subplots(figsize=(8.2, figure_height))
+    fig, ax = plt.subplots(figsize=(15, figure_height))
     sns.heatmap(
         overall_matrix,
         cmap='YlGnBu',

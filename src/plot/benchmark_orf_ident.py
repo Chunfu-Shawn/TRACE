@@ -568,7 +568,7 @@ def plot_multi_model_top_k_precision(
     plot_df = pd.concat(all_pk_data, ignore_index=True)
         
     def apply_smoothing(group):
-        group['Precision_Smooth'] = group['Precision'].rolling(window=10, min_periods=1).mean()
+        group['Precision_Smooth'] = group['Precision'].rolling(window=20, min_periods=1).mean()
         return group
         
     plot_df = plot_df.groupby('Model', group_keys=False).apply(apply_smoothing)

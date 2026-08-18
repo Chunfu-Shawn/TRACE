@@ -208,9 +208,37 @@ class BaselineORFIdentifier:
     def run(self, 
             out_dir: str = "./results/baseline", 
             start_codons: List[str] = ['ATG', 'CTG', 'GTG', 'TTG', 'ACG'],
-            # [MODIFIED] 支持接收单一列表，或按细胞系分类的字典 {cell_type: [tids]}
-            target_tids: Optional[Union[List[str], Dict[str, List[str]]]] = None, 
-            min_len: int = 30) -> pd.DataFrame:
+            target_transcript_ids: Optional[
+                Union[str, List[str], Dict[str, Union[str, List[str]]]]
+            ] = None,
+            min_len: int = 30,
+            *,
+            target_tids: Optional[
+                Union[str, List[str], Dict[str, Union[str, List[str]]]]
+            ] = None) -> pd.DataFrame:
+        """Call baseline ORFs within an optional transcript search space.
+
+        ``target_transcript_ids`` may be a shared transcript collection or a
+        ``{cell_type: transcript_collection}`` mapping. ENST version suffixes
+        are removed, while PacBio and other transcript identifiers are kept
+        unchanged. ``target_tids`` is retained as a backward-compatible alias.
+        """
+        if target_transcript_ids is not None and target_tids is not None:
+            raise ValueError(
+                "Specify only one of target_transcript_ids or target_tids."
+            )
+        transcript_targets = (
+            target_transcript_ids
+            if target_transcript_ids is not None
+            else target_tids
+        )
+
+        def normalize_target_values(values) -> set:
+            if values is None:
+                return set()
+            if isinstance(values, str):
+                values = [values]
+            return {safe_clean_id(value) for value in values}
         
         os.makedirs(out_dir, exist_ok=True)
         caller = BaselineSequenceORFCaller(start_codons=start_codons, min_len=min_len)
@@ -219,27 +247,51 @@ class BaselineORFIdentifier:
         # =================================================================
         # [MODIFIED] 构建每个细胞系的需要处理的转录本集合，提高后续分发效率
         # =================================================================
-        active_tids_per_cell = {ct: set(self.seq_dict.keys()) for ct in self.cell_types}
+        active_tids_per_cell = {
+            ct: set(self.seq_dict.keys()) for ct in self.cell_types
+        }
         
-        if target_tids is not None:
-            if isinstance(target_tids, dict):
-                # 传入的是 {cell_type: [tids]} 格式
+        if transcript_targets is not None:
+            if isinstance(transcript_targets, dict):
                 for ct in self.cell_types:
-                    if ct in target_tids:
-                        active_tids_per_cell[ct] = set(safe_clean_id(t) for t in target_tids[ct])
+                    active_tids_per_cell[ct] = normalize_target_values(
+                        transcript_targets.get(ct)
+                    )
+                unknown_cell_types = set(transcript_targets).difference(
+                    self.cell_types
+                )
+                if unknown_cell_types:
+                    print(
+                        "  [Warning] Ignoring transcript targets for unknown "
+                        f"cell types: {sorted(unknown_cell_types)}"
+                    )
             else:
-                # 传入的是统一的 [tids] 列表，所有细胞系共用
-                common_set = set(safe_clean_id(t) for t in target_tids)
+                common_set = normalize_target_values(transcript_targets)
                 for ct in self.cell_types:
                     active_tids_per_cell[ct] = common_set
                     
-        # 计算全局需要处理的转录本并集 (只对包含在任何一个细胞系里的转录本进行序列扫描)
-        global_target_tids = set.union(*active_tids_per_cell.values())
-        seq_dict_to_process = {tid: seq for tid, seq in self.seq_dict.items() if tid in global_target_tids}
+        global_target_tids = set().union(*active_tids_per_cell.values())
+        seq_dict_to_process = {
+            tid: sequence
+            for tid, sequence in self.seq_dict.items()
+            if tid in global_target_tids
+        }
         
         if not seq_dict_to_process:
             print("Warning: No matching sequences found to process!")
             return pd.DataFrame()
+
+        if transcript_targets is not None:
+            missing_count = len(global_target_tids.difference(self.seq_dict))
+            print(
+                f"Matched {len(seq_dict_to_process)} of "
+                f"{len(global_target_tids)} requested unique transcripts."
+            )
+            if missing_count:
+                print(
+                    f"  [Warning] {missing_count} requested transcript IDs "
+                    "were not found in the FASTA file."
+                )
 
         print(f"\nStarting Sequence-Based Baseline Calling for {len(seq_dict_to_process)} unique transcripts...")
         
