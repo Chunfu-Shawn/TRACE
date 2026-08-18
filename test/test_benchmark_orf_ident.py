@@ -16,8 +16,11 @@ if SRC_DIR not in sys.path:
 
 from plot.benchmark_orf_ident import (
     _collect_multi_tissue_pr_auc,
+    _expand_top_k_manifest,
     _extract_incomplete_curve_endpoints,
     _extract_top_k_recall_curve,
+    _normalize_tissue_metric_name,
+    _summarize_top_k_tissue_curves,
     compare_multi_model_roc_auc,
     plot_multi_model_pr_auc_across_tissues,
     plot_multi_model_top_k_precision,
@@ -26,6 +29,86 @@ from plot.benchmark_orf_ident import (
 
 
 class OrfRecallBenchmarkTests(unittest.TestCase):
+    def test_tissue_metric_name_normalization(self):
+        self.assertEqual(
+            _normalize_tissue_metric_name("PR-AUC"),
+            ("PR_AUC", "PR-AUC"),
+        )
+        self.assertEqual(
+            _normalize_tissue_metric_name("ROC_AUC"),
+            ("ROC_AUC", "ROC-AUC"),
+        )
+        self.assertEqual(
+            _normalize_tissue_metric_name("Best F1"),
+            ("Best_F1", "Best F1"),
+        )
+
+    def test_top_k_manifest_expands_model_specific_tissue_directories(self):
+        manifest = [
+            {
+                "model": "TRACE",
+                "tissue_result_dirs": {
+                    "brain": "/tmp/trace/brain",
+                    "liver": "/tmp/trace/liver",
+                },
+                "path": "unified_evaluation_table.csv",
+            },
+            {
+                "model": "RiboTIE",
+                "tissue_result_dirs": {
+                    "brain": "/tmp/ribotie/brain",
+                    "liver": "/tmp/ribotie/liver",
+                },
+                "path": "unified_evaluation_table.csv",
+            },
+        ]
+
+        expanded = _expand_top_k_manifest(manifest)
+
+        self.assertEqual(len(expanded), 4)
+        self.assertEqual(
+            {(item["model"], item["tissue"]) for item in expanded},
+            {
+                ("TRACE", "brain"),
+                ("TRACE", "liver"),
+                ("RiboTIE", "brain"),
+                ("RiboTIE", "liver"),
+            },
+        )
+
+    def test_top_k_summary_adds_ci_only_for_multiple_tissues(self):
+        tissue_curves = pd.DataFrame(
+            {
+                "Model": ["TRACE"] * 4 + ["RiboTIE"] * 2,
+                "Tissue": [
+                    "brain", "brain", "liver", "liver",
+                    "in-house", "in-house",
+                ],
+                "K": [1, 2, 1, 2, 1, 2],
+                "Precision_Smooth": [1.0, 0.8, 0.6, 0.4, 0.5, 0.25],
+                "Score_Type": ["rank_score"] * 4 + ["score"] * 2,
+            }
+        )
+
+        summary = _summarize_top_k_tissue_curves(
+            tissue_curve_df=tissue_curves,
+            value_col="Precision_Smooth",
+            confidence_level=0.95,
+        )
+
+        trace_summary = summary[summary["Model"] == "TRACE"]
+        single_summary = summary[summary["Model"] == "RiboTIE"]
+        self.assertTrue(trace_summary["Has_CI"].all())
+        self.assertFalse(single_summary["Has_CI"].any())
+        np.testing.assert_allclose(
+            single_summary["CI_Lower"],
+            single_summary["Precision_Smooth"],
+        )
+        np.testing.assert_allclose(
+            single_summary["CI_Upper"],
+            single_summary["Precision_Smooth"],
+        )
+
     @staticmethod
     def _write_tissue_evaluation_tables(directory, tissue, trace_scores):
         tissue_dir = Path(directory) / tissue
@@ -102,6 +185,9 @@ class OrfRecallBenchmarkTests(unittest.TestCase):
             )
 
             self.assertEqual(len(plot_df), 4)
+            self.assertTrue(
+                {"PR_AUC", "ROC_AUC", "Best_F1"}.issubset(plot_df.columns)
+            )
             self.assertEqual(set(plot_df["Tissue"]), {"brain", "liver"})
             trace_rows = plot_df[plot_df["Model"] == "TRACE"]
             self.assertTrue((trace_rows["PR_AUC"] == 1.0).all())
@@ -134,6 +220,7 @@ class OrfRecallBenchmarkTests(unittest.TestCase):
                             "score_col": "score",
                         },
                     ],
+                    metric="ROC_AUC",
                     trace_score_col="rank_score",
                     out_dir=directory,
                     filename="pr_auc.png",
@@ -144,6 +231,7 @@ class OrfRecallBenchmarkTests(unittest.TestCase):
             self.assertTrue(Path(save_path).is_file())
             self.assertEqual(set(summary["Model"].astype(str)), {"TRACE", "RiboTIE"})
             self.assertEqual(set(points["Score_Column"]), {"rank_score", "score"})
+            self.assertEqual(set(points["Metric"]), {"ROC_AUC"})
 
     def test_incomplete_curve_endpoints_mark_only_short_models(self):
         curves = pd.DataFrame(
