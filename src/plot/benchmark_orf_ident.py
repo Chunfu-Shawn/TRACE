@@ -10,7 +10,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import spearmanr
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, average_precision_score
 
 from eval.orf_coding_performance import (
     prepare_evaluation_score,
@@ -253,197 +253,377 @@ def compare_multi_model_roc_auc(
     return summary_df, curve_df, save_path
 
 
-def plot_model_benchmark(
-        manifest: list, 
-        out_dir: str = "./results/benchmark",
-        depth_levels: list = ['1M', '2M', '5M', '10M', 'Total']
-):
-    """
-    一次性读取多个模型的评估结果 CSV，绘制 Ribo-seq 深度与 AUC 的趋势对比图。
-    """
-    os.makedirs(out_dir, exist_ok=True)
-    print("Loading and aggregating AUC benchmark data...")
-    
-    records = []
-    
-    def extract_auc_metrics(df, target_feature):
-        if target_feature and 'Feature' in df.columns:
-            sub_df = df[df['Feature'] == target_feature]
-            if sub_df.empty: return None, None
-            row = sub_df.iloc[0]
-        else:
-            row = df.sort_values(by='PR-AUC', ascending=False).iloc[0]
-        return row['ROC-AUC'], row['PR-AUC']
-        
-    for cfg in manifest:
-        model_name = cfg['model']
-        model_type = cfg['type']  
-        target_feature = cfg.get('feature', None)
-        
-        if model_type == 'w/o Ribo-seq':
-            csv_path = cfg['path']
-            if not os.path.exists(csv_path):
-                continue
-                
-            df = pd.read_csv(csv_path)
-            roc_auc, pr_auc = extract_auc_metrics(df, target_feature)
-            
-            if roc_auc is not None and pr_auc is not None:
-                for d in depth_levels:
-                    records.append({
-                        'Model': model_name, 'Type': model_type, 'Depth': d,
-                        'ROC-AUC': roc_auc, 'PR-AUC': pr_auc
-                    })
-                
-        elif model_type == 'w/ Ribo-seq':
-            base_dir = cfg['base_dir']
-            file_name = cfg.get('file_name', 'overall_metrics.csv')
-            target_depths = cfg.get('depths', depth_levels)
-            
-            for d in target_depths:
-                csv_path = os.path.join(base_dir, d, file_name)
-                if not os.path.exists(csv_path):
-                    continue
-                    
-                df = pd.read_csv(csv_path)
-                roc_auc, pr_auc = extract_auc_metrics(df, target_feature)
-                
-                if roc_auc is not None and pr_auc is not None:
-                    records.append({
-                        'Model': model_name, 'Type': model_type, 'Depth': d,
-                        'ROC-AUC': roc_auc, 'PR-AUC': pr_auc
-                    })
-            
-    if not records:
-        raise ValueError("No valid records extracted.")
-        
-    plot_df = pd.DataFrame(records)
-    plot_df['Depth'] = pd.Categorical(plot_df['Depth'], categories=depth_levels, ordered=True)
-
-    print("Generating Benchmark Trend Plots...")
-    
-    # =================================================================
-    # [MODIFIED] 动态过滤类别顺序，只保留数据中存在的模型
-    # =================================================================
-    actual_models = plot_df['Model'].unique().tolist()
-    # 按照 GLOBAL_MODEL_ORDER 的顺序提取实际存在的模型
-    valid_order = [m for m in GLOBAL_MODEL_ORDER if m in actual_models]
-    # 处理未在配置表中声明的新模型（追加在末尾）
-    for m in actual_models:
-        if m not in valid_order:
-            valid_order.append(m)
-            
-    plot_df['Model'] = pd.Categorical(plot_df['Model'], categories=valid_order, ordered=True)
-
-    color_mapping = {m: GLOBAL_MODEL_COLORS.get(m, "#C0C0C0") for m in valid_order}
-    
-    def build_trend_plot(metric_name: str, y_label: str):
-        p = (
-            ggplot(plot_df, aes(x='Depth', y=metric_name, color='Model', group='Model'))
-            + geom_line(aes(linetype='Type'), size=1.5, alpha=0.8)
-            + geom_point(data=plot_df[plot_df['Type'] == 'w/ Ribo-seq'], size=3.5, alpha=0.9)
-            + scale_color_manual(values=color_mapping)
-            + scale_linetype_manual(values={'w/ Ribo-seq': 'dashed', 'w/o Ribo-seq': 'solid'})
-            + scale_x_discrete(expand=[0, 0])
-            + theme_bw()
-            + labs(x="Ribo-seq Data Depth", y=y_label)
-            + theme(
-                panel_border=element_rect(color="black", size=1),
-                axis_title=element_text(size=12),
-                axis_text_x=element_text(rotation=0, ha='center', size=10),
-                axis_text_y=element_text(size=10),
-                legend_position="right",
-                legend_title=element_blank()
+def _resolve_tissue_model_path(
+        tissue: str,
+        result_dir: str,
+        config: Mapping[str, object]) -> str:
+    """Resolve one model evaluation table inside a tissue result directory."""
+    path_by_tissue = config.get('path_by_tissue')
+    if path_by_tissue is not None:
+        if not isinstance(path_by_tissue, Mapping):
+            raise TypeError("path_by_tissue must be a tissue-to-path mapping.")
+        if tissue not in path_by_tissue:
+            raise ValueError(
+                f"Model '{config.get('model')}' has no path for tissue "
+                f"'{tissue}'."
             )
+        path_value = str(path_by_tissue[tissue])
+    elif config.get('path') is not None:
+        path_value = str(config['path'])
+    else:
+        raise ValueError(
+            "Every model manifest item must define path or path_by_tissue."
         )
-        return p
 
-    p_roc = build_trend_plot('ROC-AUC', 'ROC-AUC')
-    p_roc.save(os.path.join(out_dir, "Benchmark_ROC_AUC_Trend.pdf"), dpi=300, verbose=False)
-    p_pr = build_trend_plot('PR-AUC', 'PR-AUC')
-    p_pr.save(os.path.join(out_dir, "Benchmark_PR_AUC_Trend.pdf"), dpi=300, verbose=False)
-    print(f"✅ Benchmark Complete! Plots saved to: {out_dir}")
+    path_value = path_value.format(
+        tissue=tissue,
+        result_dir=str(result_dir),
+    )
+    if not os.path.isabs(path_value):
+        path_value = os.path.join(str(result_dir), path_value)
+    return os.path.normpath(path_value)
 
 
-def plot_tradeoff_benchmark(
-        manifest: list, 
-        out_dir: str = "./results/benchmark",
-        depth_levels: list = ['1M', '5M', '10M', '50M', '100M', 'Total'],
-        x_col: str = 'TP_at_Best_Threshold',
-        y_col: str = 'Best_F1_Score',
-        x_label: str = 'True Positives at Best F1 (Log Scale)',
-        y_label: str = 'Best F1-Score',
-        title: str = 'Quantity-Quality Trade-off at Best Threshold'
-):
-    os.makedirs(out_dir, exist_ok=True)
+def _extract_total_gt_count(
+        source_df: pd.DataFrame,
+        tissue: Optional[str] = None) -> float:
+    """Extract the callable GT denominator recorded in an evaluation table."""
+    preferred_columns = []
+    if tissue is not None:
+        preferred_columns.append('Cell_Type_Total_GT_ORFs')
+    preferred_columns.append('Total_GT_ORFs')
+    for column in preferred_columns:
+        if column not in source_df.columns:
+            continue
+        values = pd.to_numeric(source_df[column], errors='coerce').dropna()
+        if not values.empty:
+            return float(values.max())
+    return np.nan
+
+
+def _collect_multi_tissue_pr_auc(
+        tissue_result_dirs: Mapping[str, str],
+        manifest: list,
+        trace_score_col: Optional[str] = None,
+        trace_combined_score: Optional[
+            Union[str, Mapping[str, object], pd.Series]
+        ] = None,
+        trace_model_name: str = 'TRACE',
+        require_same_total_gt: bool = True,
+        require_complete_grid: bool = True) -> pd.DataFrame:
+    """Calculate candidate-level Average Precision for each tissue and model."""
+    if not isinstance(tissue_result_dirs, Mapping) or not tissue_result_dirs:
+        raise ValueError("tissue_result_dirs must be a non-empty mapping.")
+    if not manifest:
+        raise ValueError("manifest cannot be empty.")
+    if trace_score_col is not None and trace_combined_score is not None:
+        raise ValueError(
+            "Use either trace_score_col or trace_combined_score, not both."
+        )
+
     records = []
-    
-    for cfg in manifest:
-        model_name = cfg['model']
-        model_type = cfg['type']  
-        
-        if model_type == 'w/o Ribo-seq':
-            csv_path = cfg['path']
-            if not os.path.exists(csv_path): continue
-            df = pd.read_csv(csv_path)
+    incomplete_entries = []
+    gt_counts_by_tissue = {}
+    for tissue_value, result_dir_value in tissue_result_dirs.items():
+        tissue = str(tissue_value)
+        result_dir = str(result_dir_value)
+        gt_counts_by_tissue[tissue] = {}
+        for config in manifest:
+            if 'model' not in config:
+                raise ValueError("Every manifest item must define model.")
+            model_name = str(config['model'])
+            csv_path = _resolve_tissue_model_path(
+                tissue=tissue,
+                result_dir=result_dir,
+                config=config,
+            )
+            if not os.path.exists(csv_path):
+                incomplete_entries.append(
+                    f"{tissue} / {model_name}: file not found"
+                )
+                continue
+
+            source_df = pd.read_csv(csv_path)
+            table_tissue = config.get('cell_type')
+            if table_tissue is not None:
+                if 'Cell_Type' not in source_df.columns:
+                    raise ValueError(
+                        f"Model '{model_name}' in tissue '{tissue}' has no "
+                        "Cell_Type column for the requested filter."
+                    )
+                source_df = source_df[
+                    source_df['Cell_Type'].astype(str) == str(table_tissue)
+                ].copy()
+
+            is_trace = (
+                model_name.casefold() == str(trace_model_name).casefold()
+            )
+            if is_trace and trace_score_col is not None:
+                requested_score_col = trace_score_col
+                requested_combination = None
+            else:
+                requested_score_col, requested_combination = (
+                    resolve_manifest_score_request(
+                        config,
+                        trace_combined_score=trace_combined_score,
+                        trace_model_name=trace_model_name,
+                    )
+                )
+
+            candidate_df, selected_score_col, score_label = (
+                prepare_evaluation_score(
+                    source_df,
+                    score_col=requested_score_col,
+                    combined_score=requested_combination,
+                )
+            )
+            if 'y_true' not in candidate_df.columns:
+                raise ValueError(
+                    f"Model '{model_name}' in tissue '{tissue}' has no "
+                    "y_true column."
+                )
+
+            metric_df = candidate_df[['y_true', selected_score_col]].copy()
+            candidate_count_before_filter = len(metric_df)
+            metric_df['y_true'] = pd.to_numeric(
+                metric_df['y_true'], errors='coerce'
+            )
+            metric_df[selected_score_col] = pd.to_numeric(
+                metric_df[selected_score_col], errors='coerce'
+            )
+            metric_df = metric_df.replace(
+                [np.inf, -np.inf], np.nan
+            ).dropna()
+            excluded_nonfinite_count = (
+                candidate_count_before_filter - len(metric_df)
+            )
+            metric_df['y_true'] = metric_df['y_true'].astype(int)
+            unexpected_labels = set(metric_df['y_true'].unique()) - {0, 1}
+            if unexpected_labels:
+                raise ValueError(
+                    f"Model '{model_name}' in tissue '{tissue}' has "
+                    f"non-binary y_true values: {sorted(unexpected_labels)}"
+                )
+            if metric_df['y_true'].nunique() != 2:
+                incomplete_entries.append(
+                    f"{tissue} / {model_name}: y_true lacks both classes"
+                )
+                continue
+
+            y_true = metric_df['y_true'].to_numpy()
+            scores = metric_df[selected_score_col].to_numpy()
+            pr_auc_value = average_precision_score(y_true, scores)
+            total_gt = _extract_total_gt_count(
+                source_df,
+                tissue=str(config.get('cell_type', tissue)),
+            )
+            if np.isfinite(total_gt):
+                gt_counts_by_tissue[tissue][model_name] = int(total_gt)
+
+            positive_count = int(y_true.sum())
+            candidate_count = len(metric_df)
             records.append({
-                'Model': model_name, 'Type': model_type, 'Depth': 'Constant', 
-                x_col: df.iloc[0][x_col], y_col: df.iloc[0][y_col]
+                'Tissue': tissue,
+                'Model': model_name,
+                'PR_AUC': float(pr_auc_value),
+                'Score_Type': score_label,
+                'Score_Column': selected_score_col,
+                'Candidate_Count': candidate_count,
+                'Excluded_Nonfinite_Count': excluded_nonfinite_count,
+                'Positive_Count': positive_count,
+                'Negative_Count': int(candidate_count - positive_count),
+                'Positive_Prevalence': positive_count / candidate_count,
+                'Total_GT_ORFs': total_gt,
             })
-            
-        elif model_type == 'w/ Ribo-seq':
-            base_dir = cfg['base_dir']
-            file_name = cfg.get('file_name', 'overall_prediction_summary.csv')
-            target_depths = cfg.get('depths', depth_levels)
-            
-            for d in target_depths:
-                csv_path = os.path.join(base_dir, d, file_name)
-                if not os.path.exists(csv_path): continue
-                df = pd.read_csv(csv_path)
-                records.append({
-                    'Model': model_name, 'Type': model_type, 'Depth': d,
-                    x_col: df.iloc[0][x_col], y_col: df.iloc[0][y_col]
-                })
-            
-    if not records: raise ValueError("No valid records extracted.")
-        
-    plot_df = pd.DataFrame(records)
-    all_depth_categories = depth_levels + ['Constant']
-    plot_df['Depth'] = pd.Categorical(plot_df['Depth'], categories=all_depth_categories, ordered=True)
 
-    # =================================================================
-    # [MODIFIED] 动态过滤类别顺序
-    # =================================================================
-    actual_models = plot_df['Model'].unique().tolist()
-    valid_order = [m for m in GLOBAL_MODEL_ORDER if m in actual_models]
-    for m in actual_models:
-        if m not in valid_order: valid_order.append(m)
-            
-    plot_df['Model'] = pd.Categorical(plot_df['Model'], categories=valid_order, ordered=True)
-    color_mapping = {m: GLOBAL_MODEL_COLORS.get(m, "#C0C0C0") for m in valid_order}
-            
-    min_size, max_size = 2, 5  
-    depth_sizes = np.linspace(min_size, max_size, len(depth_levels))
-    size_mapping = {d: s for d, s in zip(depth_levels, depth_sizes)}
-    size_mapping['Constant'] = 5 
+    if incomplete_entries and require_complete_grid:
+        details = '; '.join(incomplete_entries)
+        raise ValueError(
+            "The tissue-by-model benchmark grid is incomplete: " + details
+        )
+    for entry in incomplete_entries:
+        warnings.warn(f"Skipping incomplete PR-AUC entry: {entry}")
+    if not records:
+        raise ValueError("No valid tissue-by-model PR-AUC values were found.")
 
-    p = (
-        ggplot(plot_df, aes(x=x_col, y=y_col, color='Model'))
-        + geom_line(data=plot_df[plot_df['Type'] == 'w/ Ribo-seq'], mapping=aes(group='Model'), linetype='dashed', size=1.2, alpha=0.7)
-        + geom_point(mapping=aes(size='Depth'), alpha=0.9, stroke=0.5)
-        + scale_x_log10()
-        + scale_color_manual(values=color_mapping)
-        + scale_size_manual(values=size_mapping, breaks=depth_levels, name="Ribo-seq Depth")
+    if require_same_total_gt:
+        mismatches = []
+        for tissue, model_counts in gt_counts_by_tissue.items():
+            if len(set(model_counts.values())) > 1:
+                details = ', '.join(
+                    f"{model}={count}"
+                    for model, count in model_counts.items()
+                )
+                mismatches.append(f"{tissue}: {details}")
+        if mismatches:
+            raise ValueError(
+                "Models use different callable GT denominators within the "
+                "same tissue, so their PR-AUC values are not directly "
+                "comparable: " + '; '.join(mismatches)
+            )
+    return pd.DataFrame(records)
+
+
+def plot_multi_model_pr_auc_across_tissues(
+        tissue_result_dirs: Mapping[str, str],
+        manifest: list,
+        out_dir: str = "./results/benchmark",
+        trace_score_col: Optional[str] = None,
+        trace_combined_score: Optional[
+            Union[str, Mapping[str, object], pd.Series]
+        ] = None,
+        trace_model_name: str = 'TRACE',
+        tissue_order: Optional[list] = None,
+        require_same_total_gt: bool = True,
+        require_complete_grid: bool = True,
+        model_colors: Optional[Mapping[str, str]] = None,
+        y_limits: tuple = (0, 1),
+        title: Optional[str] = None,
+        filename: str = 'Benchmark_Multi_Model_PR_AUC_by_Tissue.pdf',
+        w: float = 6.0,
+        h: float = 5.0):
+    """Plot mean PR-AUC bars with one point per tissue for every model.
+
+    Relative manifest paths are resolved inside every tissue result directory.
+    TRACE can be reranked with one existing ``trace_score_col`` or a dynamic
+    ``trace_combined_score`` definition. Other models use ``score_col`` or
+    ``combined_score`` from their own manifest item.
+    """
+    if len(y_limits) != 2 or not 0 <= y_limits[0] < y_limits[1] <= 1:
+        raise ValueError("y_limits must satisfy 0 <= lower < upper <= 1.")
+    if w <= 0 or h <= 0:
+        raise ValueError("w and h must be greater than 0.")
+
+    plot_df = _collect_multi_tissue_pr_auc(
+        tissue_result_dirs=tissue_result_dirs,
+        manifest=manifest,
+        trace_score_col=trace_score_col,
+        trace_combined_score=trace_combined_score,
+        trace_model_name=trace_model_name,
+        require_same_total_gt=require_same_total_gt,
+        require_complete_grid=require_complete_grid,
+    )
+    actual_models = plot_df['Model'].drop_duplicates().tolist()
+    model_order = [
+        model for model in GLOBAL_MODEL_ORDER if model in actual_models
+    ]
+    model_order.extend(
+        model for model in actual_models if model not in model_order
+    )
+    requested_tissue_order = (
+        [str(tissue) for tissue in tissue_order]
+        if tissue_order is not None
+        else [str(tissue) for tissue in tissue_result_dirs]
+    )
+    observed_tissues = set(plot_df['Tissue'])
+    invalid_tissues = [
+        tissue for tissue in requested_tissue_order
+        if tissue not in observed_tissues
+    ]
+    if invalid_tissues:
+        raise ValueError(
+            f"tissue_order contains unavailable tissues: {invalid_tissues}"
+        )
+    ordered_tissues = [
+        tissue for tissue in requested_tissue_order
+        if tissue in observed_tissues
+    ]
+    ordered_tissues.extend(
+        tissue for tissue in plot_df['Tissue'].drop_duplicates()
+        if tissue not in ordered_tissues
+    )
+
+    plot_df['Model'] = pd.Categorical(
+        plot_df['Model'], categories=model_order, ordered=True
+    )
+    plot_df['Tissue'] = pd.Categorical(
+        plot_df['Tissue'], categories=ordered_tissues, ordered=True
+    )
+    summary_df = (
+        plot_df.groupby('Model', observed=True)['PR_AUC']
+        .agg(['mean', 'sem', 'count'])
+        .reset_index()
+        .rename(columns={'count': 'Tissue_Count'})
+    )
+    summary_df['sem'] = summary_df['sem'].fillna(0.0)
+    summary_df['ymin'] = (
+        summary_df['mean'] - summary_df['sem']
+    ).clip(lower=y_limits[0])
+    summary_df['ymax'] = (
+        summary_df['mean'] + summary_df['sem']
+    ).clip(upper=y_limits[1])
+
+    color_lookup = {
+        model: (
+            model_colors[model]
+            if model_colors is not None and model in model_colors
+            else GLOBAL_MODEL_COLORS.get(model, "#C0C0C0")
+        )
+        for model in model_order
+    }
+    marker_values = [
+        'o', '^', 's', 'D', 'v', 'p', '*', 'h', 'X', 'P', '<', '>',
+        '8', 'd', 'H',
+    ]
+    if len(ordered_tissues) > len(marker_values):
+        raise ValueError(
+            f"At most {len(marker_values)} tissues can be assigned unique "
+            "point shapes."
+        )
+    tissue_shapes = {
+        tissue: marker_values[index]
+        for index, tissue in enumerate(ordered_tissues)
+    }
+
+    plot = (
+        ggplot()
+        + geom_col(
+            data=summary_df,
+            mapping=aes(x='Model', y='mean', fill='Model'),
+            width=0.8,
+            color='black',
+            size=0.35,
+        )
+        + geom_errorbar(
+            data=summary_df,
+            mapping=aes(x='Model', ymin='ymin', ymax='ymax'),
+            width=0.24,
+            size=0.8,
+            color='black',
+        )
+        + geom_jitter(
+            data=plot_df,
+            mapping=aes(x='Model', y='PR_AUC', shape='Tissue'),
+            fill='#202020',
+            color='#202020',
+            size=3.5,
+            width=0.18,
+            alpha=0.85,
+            stroke=0,
+        )
+        + scale_fill_manual(values=color_lookup)
+        + scale_shape_manual(values=tissue_shapes)
+        + scale_y_continuous(limits=y_limits)
+        + guides(fill=None, shape=guide_legend(title="Tissue"))
         + theme_bw()
-        + labs(title=title, x=x_label, y=y_label)
+        + labs(x="", y="PR-AUC", title=title)
         + theme(
-            panel_border=element_rect(color="black", size=1),
-            legend_position="right",
-            legend_title=element_text(size=10, face="bold") 
+            figure_size=(w, h),
+            axis_text_x=element_text(angle=45, hjust=1, color="black"),
+            axis_title_x=element_blank(),
+            panel_grid_major_x=element_blank(),
+            legend_position='right',
+            legend_title=element_text(fontweight='bold'),
         )
     )
-    save_path = os.path.join(out_dir, f"Benchmark_Tradeoff_{x_col}_vs_{y_col}.pdf")
-    p.save(save_path, dpi=300, verbose=False)
+
+    output_stem, output_extension = os.path.splitext(filename)
+    if output_extension.lower() != '.pdf':
+        filename = f"{output_stem or filename}.pdf"
+    os.makedirs(out_dir, exist_ok=True)
+    save_path = os.path.join(out_dir, filename)
+    plot.save(save_path, width=w, height=h, verbose=False)
+    return summary_df, plot_df, save_path
 
 
 def _extract_incomplete_curve_endpoints(

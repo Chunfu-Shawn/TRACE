@@ -15,15 +15,122 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 from plot.benchmark_orf_ident import (
+    _collect_multi_tissue_pr_auc,
     _extract_incomplete_curve_endpoints,
     _extract_top_k_recall_curve,
     compare_multi_model_roc_auc,
+    plot_multi_model_pr_auc_across_tissues,
     plot_multi_model_top_k_precision,
     plot_multi_model_top_k_recall,
 )
 
 
 class OrfRecallBenchmarkTests(unittest.TestCase):
+    @staticmethod
+    def _write_tissue_evaluation_tables(directory, tissue, trace_scores):
+        tissue_dir = Path(directory) / tissue
+        (tissue_dir / "TRACE").mkdir(parents=True)
+        (tissue_dir / "RiboTIE").mkdir(parents=True)
+        common_columns = {
+            "Record_Type": ["Prediction"] * 4,
+            "Cell_Type": [tissue] * 4,
+            "y_true": [1, 0, 1, 0],
+            "Total_GT_ORFs": [2] * 4,
+        }
+        pd.DataFrame(
+            {
+                **common_columns,
+                "rank_score": trace_scores,
+                "uniformity_of_signal": [0.9, 0.1, 0.8, 0.2],
+            }
+        ).to_csv(
+            tissue_dir / "TRACE" / "unified_evaluation_table.csv",
+            index=False,
+        )
+        pd.DataFrame(
+            {
+                **common_columns,
+                "score": [0.8, 0.7, 0.6, 0.5],
+            }
+        ).to_csv(
+            tissue_dir / "RiboTIE" / "unified_evaluation_table.csv",
+            index=False,
+        )
+        return tissue_dir
+
+    def test_multi_tissue_pr_auc_accepts_trace_combination(self):
+        with tempfile.TemporaryDirectory() as directory:
+            brain_dir = self._write_tissue_evaluation_tables(
+                directory, "brain", [0.9, 0.8, 0.7, 0.6]
+            )
+            liver_dir = self._write_tissue_evaluation_tables(
+                directory, "liver", [0.7, 0.9, 0.8, 0.6]
+            )
+            tissue_dirs = {
+                "brain": str(brain_dir),
+                "liver": str(liver_dir),
+            }
+            manifest = [
+                {
+                    "model": "TRACE",
+                    "path": "TRACE/unified_evaluation_table.csv",
+                },
+                {
+                    "model": "RiboTIE",
+                    "path": "RiboTIE/unified_evaluation_table.csv",
+                    "score_col": "score",
+                },
+            ]
+
+            plot_df = _collect_multi_tissue_pr_auc(
+                tissue_result_dirs=tissue_dirs,
+                manifest=manifest,
+                trace_combined_score={
+                    "Base_Score": "rank_score",
+                    "Features": "uniformity_of_signal",
+                    "Method": "product",
+                },
+            )
+
+            self.assertEqual(len(plot_df), 4)
+            self.assertEqual(set(plot_df["Tissue"]), {"brain", "liver"})
+            trace_rows = plot_df[plot_df["Model"] == "TRACE"]
+            self.assertTrue((trace_rows["PR_AUC"] == 1.0).all())
+            self.assertEqual(
+                set(trace_rows["Score_Type"]),
+                {"rank_score | product(uniformity_of_signal)"},
+            )
+
+    def test_multi_tissue_pr_auc_plot_is_pdf_and_uses_score_column(self):
+        with tempfile.TemporaryDirectory() as directory:
+            brain_dir = self._write_tissue_evaluation_tables(
+                directory, "brain", [0.9, 0.8, 0.7, 0.6]
+            )
+            summary, points, save_path = (
+                plot_multi_model_pr_auc_across_tissues(
+                    tissue_result_dirs={"brain": str(brain_dir)},
+                    manifest=[
+                        {
+                            "model": "TRACE",
+                            "path": "TRACE/unified_evaluation_table.csv",
+                        },
+                        {
+                            "model": "RiboTIE",
+                            "path": "RiboTIE/unified_evaluation_table.csv",
+                            "score_col": "score",
+                        },
+                    ],
+                    trace_score_col="rank_score",
+                    out_dir=directory,
+                    filename="pr_auc.png",
+                )
+            )
+
+            self.assertTrue(save_path.endswith(".pdf"))
+            self.assertTrue(Path(save_path).is_file())
+            self.assertEqual(set(summary["Model"].astype(str)), {"TRACE", "RiboTIE"})
+            self.assertEqual(set(points["Score_Column"]), {"rank_score", "score"})
+
     def test_incomplete_curve_endpoints_mark_only_short_models(self):
         curves = pd.DataFrame(
             {
