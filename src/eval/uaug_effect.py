@@ -1,12 +1,18 @@
 import os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torch.nn.utils.rnn import pad_sequence
 from eval.calculate_te import calculate_morf_mean_signal
+from eval.save_prediction_results import (
+    _autocast_context,
+    _extract_head_tensor,
+    _model_device,
+)
+from model.base_model import BaseModel
+from utils import unwrap_model
 
 
 def get_samples_5utr_clean_starts(
@@ -49,9 +55,14 @@ def get_samples_5utr_clean_starts(
 
     for i in tqdm(range(len(dataset))):
         try:
-            # Unpack based on the new dataset structure
+            # Ignore any trailing supervision fields, including observed counts.
             item = dataset[i]
-            uuid, species, cell_type, expr_vector, meta_info, seq_emb, count_emb = item
+            if len(item) < 6:
+                raise ValueError(
+                    "Each dataset item must provide uuid, species, cell_type, "
+                    "expr_vector, meta_info, and seq_emb."
+                )
+            uuid, species, cell_type, expr_vector, meta_info, seq_emb = item[:6]
             
             # =================================================================
             # [NEW] Skip if the sample does not match the target cell type
@@ -115,6 +126,7 @@ def get_samples_5utr_clean_starts(
             # 5. Store valid candidate
             candidates.append({
                 'index': i,
+                'species': species,
                 'cell_type': cell_type,
                 'expr_vector': expr_np, 
                 'utr5_len': start,
@@ -157,6 +169,7 @@ class MutantDataset(Dataset):
         record = self.records[idx]
         return (
             record['uuid'],
+            record['species'],
             record['distance'],
             record['codon'],
             record['frame'],
@@ -168,13 +181,19 @@ class MutantDataset(Dataset):
         )
 
 def collate_fn_mutants(batch):
-    uuids, distances, codons, frames, te_wts, m_starts, m_ends, seq_embs, expr_vectors = zip(*batch)
+    (
+        uuids, species, distances, codons, frames, te_wts, m_starts, m_ends,
+        seq_embs, expr_vectors,
+    ) = zip(*batch)
     
     lengths = [s.shape[0] for s in seq_embs]
     seq_padded = pad_sequence(seq_embs, batch_first=True, padding_value=-1)
     expr_padded = torch.stack(expr_vectors)
     
-    return uuids, distances, codons, frames, te_wts, m_starts, m_ends, seq_padded, expr_padded, lengths
+    return (
+        uuids, list(species), distances, codons, frames, te_wts, m_starts,
+        m_ends, seq_padded, expr_padded, lengths,
+    )
 
 
 # ==============================================================================
@@ -182,9 +201,16 @@ def collate_fn_mutants(batch):
 # ==============================================================================
 class uStartCodonEvaluatorEmb:
     def __init__(self, model, out_dir="."):
-        self.device = model.device 
+        base_model = unwrap_model(model)
+        if not isinstance(base_model, BaseModel):
+            raise TypeError(
+                "uStartCodonEvaluatorEmb requires model.base_model.BaseModel "
+                "or one of its subclasses."
+            )
+
+        self.device = _model_device(base_model)
         self.out_dir = out_dir
-        self.model = model
+        self.model = base_model
         
         self.BASES_MAP = {
             'A': np.array([1, 0, 0, 0], dtype=np.float32),
@@ -220,27 +246,30 @@ class uStartCodonEvaluatorEmb:
             
         return new_emb
 
-    def _predict_batch(self, seq_tensor, expr_tensor):
-        """Internal helper to call model.predict and clean up memory."""
+    def _predict_batch(self, seq_tensor, expr_tensor, species):
+        """Predict a linear-scale positional profile with BaseModel."""
         self.model.eval()
-        with torch.no_grad():
-            with torch.amp.autocast(device_type='cuda', dtype=torch.bfloat16):
-                masked_batch = torch.zeros((seq_tensor.shape[0], seq_tensor.shape[1], 1), device=self.device)
-                src_mask = (seq_tensor[:, :, 0] != -1)
-                
+        with torch.inference_mode():
+            with _autocast_context(self.device):
+                src_mask = (seq_tensor != -1).any(dim=-1)
                 out_dict = self.model.predict(
-                    seq_batch=seq_tensor, 
-                    count_batch=masked_batch,
-                    expr_vector=expr_tensor, 
+                    seq_batch=seq_tensor,
+                    species=species,
+                    expr_vector=expr_tensor,
                     src_mask=src_mask,
-                    head_names=["count"]
+                    head_names=["count"],
                 )
-                pred_tensor = out_dict['count']
-                
-            pred_np = np.expm1(pred_tensor.cpu().numpy().astype(np.float32))
-            
-            del out_dict, pred_tensor, masked_batch, src_mask
-            
+                pred_tensor = _extract_head_tensor(out_dict, "count")
+
+            if pred_tensor.ndim != 3 or pred_tensor.shape[-1] != 1:
+                raise ValueError(
+                    "The BaseModel count head must return shape (batch, length, 1), "
+                    f"got {tuple(pred_tensor.shape)}."
+                )
+            pred_np = torch.expm1(
+                pred_tensor.squeeze(-1).float()
+            ).cpu().numpy()
+
         return pred_np
 
     def evaluate_scanning(self, samples, max_distance=50, batch_size=32, num_samples: int = None, 
@@ -271,13 +300,14 @@ class uStartCodonEvaluatorEmb:
             uuid = sample.get('uuid', 'unknown')
             seq_emb = sample['seq_emb']
             expr_vec = sample['expr_vector']
+            species = sample['species']
             m_start = sample['morf_start']
             m_end = sample['morf_end']
             
             seq_t = torch.from_numpy(seq_emb).unsqueeze(0).to(self.device)
             expr_t = torch.from_numpy(expr_vec).unsqueeze(0).float().to(self.device)
             
-            pred_wt = self._predict_batch(seq_t, expr_t)[0]
+            pred_wt = self._predict_batch(seq_t, expr_t, [species])[0]
             te_wt = calculate_morf_mean_signal(pred_wt, m_start, m_end)
             wt_te_dict[uuid] = te_wt
             
@@ -307,6 +337,7 @@ class uStartCodonEvaluatorEmb:
                     if emb_mut is not None:
                         mutant_records.append({
                             'uuid': uuid,
+                            'species': sample['species'],
                             'distance': dist, 
                             'codon': codon, 
                             'frame': frame_status,
@@ -333,13 +364,20 @@ class uStartCodonEvaluatorEmb:
 
         results = []
         for batch_data in tqdm(dataloader, desc="Mutant Inference"):
-            b_uuids, b_dists, b_codons, b_frames, b_te_wts, b_m_starts, b_m_ends, b_seq, b_expr, b_lengths = batch_data
+            (
+                b_uuids, b_species, b_dists, b_codons, b_frames, b_te_wts,
+                b_m_starts, b_m_ends, b_seq, b_expr, b_lengths,
+            ) = batch_data
             
             b_seq = b_seq.to(self.device)
             b_expr = b_expr.float().to(self.device)
             
             try:
-                batch_preds = self._predict_batch(b_seq, b_expr)
+                batch_preds = self._predict_batch(
+                    b_seq,
+                    b_expr,
+                    b_species,
+                )
                 
                 for j in range(len(b_uuids)):
                     valid_len = b_lengths[j]
