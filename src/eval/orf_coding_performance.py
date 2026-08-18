@@ -81,6 +81,9 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
         return target_col
     
     fallback_candidates = [
+        'rank_score',
+        'occupancy_expr_score',
+        'occupancy_score',
         'expr_score', 
         'translation_score', 
         'transcription_score', 
@@ -1087,6 +1090,9 @@ def evaluate_orf_level_predictions(
     if evaluate_score_combinations:
         if 'base_translation_score' in pred_df.columns:
             default_base_scores = [
+                'rank_score',
+                'occupancy_expr_score',
+                'occupancy_score',
                 'base_translation_score',
                 'base_expr_score',
                 'mean_intensity',
@@ -1130,6 +1136,12 @@ def evaluate_orf_level_predictions(
         top_k_score_label = selected_top_k_col
 
     all_possible_metrics = {
+        'rank_score': 'Caller Ranking Score',
+        'occupancy_expr_score': 'Expression-weighted Occupancy Score',
+        'occupancy_score': 'Predicted Occupancy Score',
+        'log_total_occupancy': 'Log Total Predicted Occupancy',
+        'total_occupancy': 'Total Predicted Occupancy',
+        'collapse_score': 'Boundary-aware Collapse Score',
         'expr_score': 'Expression Score (TPM*Signal)',
         'base_translation_score': 'Base Translation Score',
         'base_expr_score': 'Base Expression-weighted Score',

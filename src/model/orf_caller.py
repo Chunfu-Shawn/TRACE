@@ -75,6 +75,13 @@ def read_fasta(file_paths: Union[str, List[str]]) -> Dict[str, str]:
 # Core Algorithm: Multi-dimensional Prefix Sum ORF Caller
 # =================================================================
 class FastSignalDrivenORFCaller:
+    RANKING_STRATEGIES = {
+        'occupancy',
+        'occupancy_expression',
+        'legacy_translation',
+        'legacy_expression',
+    }
+
     def __init__(
             self,
             start_codons: Optional[List[str]] = None,
@@ -156,6 +163,64 @@ class FastSignalDrivenORFCaller:
             return float(np.exp(np.mean(np.log(np.clip(values, 1e-9, None)))))
         return float(np.mean(values))
 
+    def add_ranking_scores(
+            self,
+            cand: dict,
+            log_tpm: float = 1.0,
+            has_tpm: bool = False,
+            ranking_strategy: str = 'occupancy_expression',
+            tpm_exponent: float = 1.0,
+            collapse_boundary_weight: float = 0.5,
+            start_codon_prior_strength: float = 0.25) -> dict:
+        """Add consistent ranking and collapse scores to one candidate."""
+        ranking_strategy = str(ranking_strategy).lower()
+        if ranking_strategy not in self.RANKING_STRATEGIES:
+            raise ValueError(
+                "ranking_strategy must be one of "
+                f"{sorted(self.RANKING_STRATEGIES)}."
+            )
+        for value, name in (
+                (tpm_exponent, 'tpm_exponent'),
+                (collapse_boundary_weight, 'collapse_boundary_weight'),
+                (start_codon_prior_strength, 'start_codon_prior_strength')):
+            if not np.isfinite(value) or value < 0:
+                raise ValueError(f"{name} must be finite and non-negative.")
+
+        occupancy_score = float(cand['occupancy_score'])
+        expression_factor = (
+            float(max(log_tpm, 0.0) ** tpm_exponent)
+            if has_tpm else 1.0
+        )
+        occupancy_expr_score = occupancy_score * expression_factor
+        legacy_translation_score = float(cand['score'])
+        legacy_expr_score = legacy_translation_score * expression_factor
+        strategy_scores = {
+            'occupancy': occupancy_score,
+            'occupancy_expression': occupancy_expr_score,
+            'legacy_translation': legacy_translation_score,
+            'legacy_expression': legacy_expr_score,
+        }
+        if self.uses_length_only_ranking:
+            rank_score = float(cand['sequence_length_score'])
+            applied_strategy = 'sequence_length_baseline'
+        else:
+            rank_score = float(strategy_scores[ranking_strategy])
+            applied_strategy = ranking_strategy
+
+        boundary_score = float(np.clip(cand['boundary_score'], 0.0, 1.0))
+        boundary_factor = max(boundary_score, 1e-6) ** collapse_boundary_weight
+        codon_prior = float(np.clip(
+            cand['start_codon_score'], 1e-6, 1.0
+        )) ** start_codon_prior_strength
+        collapse_score = rank_score * boundary_factor * codon_prior
+        cand.update({
+            'occupancy_expr_score': float(occupancy_expr_score),
+            'rank_score': rank_score,
+            'rank_strategy': applied_strategy,
+            'collapse_score': float(collapse_score),
+        })
+        return cand
+
     def extract_all_candidates(self, sequence: str) -> List[dict]:
         candidates = []
         starts_by_frame = {0: [], 1: [], 2: []}
@@ -201,9 +266,18 @@ class FastSignalDrivenORFCaller:
             self,
             cands: List[dict],
             iou_threshold: float = 0.3,
-            nms_respect_frame: bool = True) -> List[dict]:
+            nms_respect_frame: bool = True,
+            score_key: str = 'score') -> List[dict]:
         keep = []
-        sorted_cands = sorted(cands, key=lambda x: x['score'], reverse=True)
+        missing_score = [cand for cand in cands if score_key not in cand]
+        if missing_score:
+            raise ValueError(
+                f"NMS score column '{score_key}' is missing from "
+                f"{len(missing_score)} candidates."
+            )
+        sorted_cands = sorted(
+            cands, key=lambda x: x[score_key], reverse=True
+        )
         suppressed = np.zeros(len(sorted_cands), dtype=bool)
         for i, cand in enumerate(sorted_cands):
             if suppressed[i]:
@@ -288,12 +362,26 @@ class FastSignalDrivenORFCaller:
             base_translation_score = length_bonus * mean_intensity
             score_factor = self._combine_score_features(feature_values)
             sequence_length_score = self._sequence_length_score(cand)
+            log_total_occupancy = float(np.log1p(max(total_sig, 0.0)))
+            occupancy_score = log_total_occupancy * score_factor
+            boundary_score = float(np.sqrt(
+                np.clip(step_up_contrast, 0.0, 1.0)
+                * np.clip(drop_off, 0.0, 1.0)
+            ))
+            start_codon_score = float(self.start_codon_weights.get(
+                cand['start_codon'], 0.1
+            ))
             if self.uses_length_only_ranking:
                 translation_score = sequence_length_score
             else:
                 translation_score = base_translation_score * score_factor
             cand.update({'tri_nucleotide_periodicity': periodicity, 'uniformity_of_signal': uniformity,
                          'step_up_contrast': step_up_contrast, 'drop_off': drop_off,
+                         'total_occupancy': float(total_sig),
+                         'log_total_occupancy': log_total_occupancy,
+                         'occupancy_score': float(occupancy_score),
+                         'boundary_score': boundary_score,
+                         'start_codon_score': start_codon_score,
                          'base_translation_score': float(base_translation_score),
                          'sequence_length_score': sequence_length_score,
                          'score_feature_factor': float(score_factor),
@@ -305,7 +393,8 @@ class FastSignalDrivenORFCaller:
             self,
             cands: List[dict],
             iou_threshold: float = 0.3,
-            nms_respect_frame: bool = True) -> List[dict]:
+            nms_respect_frame: bool = True,
+            score_key: str = 'score') -> List[dict]:
         cands_by_stop = {}
         for cand in cands:
             e = cand['stop']
@@ -313,17 +402,24 @@ class FastSignalDrivenORFCaller:
             cands_by_stop[e].append(cand)
         resolved_cands = []
         for e, group in cands_by_stop.items():
-            atg_cands = [c for c in group if c['start_codon'] == 'ATG']
-            eligible_cands = atg_cands if atg_cands else group
             if self.uses_length_only_ranking:
+                atg_cands = [c for c in group if c['start_codon'] == 'ATG']
+                eligible_cands = atg_cands if atg_cands else group
                 best_cand = max(eligible_cands, key=lambda x: x['length'])
             else:
-                best_cand = max(eligible_cands, key=lambda x: x['score'])
+                missing_score = [cand for cand in group if score_key not in cand]
+                if missing_score:
+                    raise ValueError(
+                        f"Collapse score column '{score_key}' is missing from "
+                        f"{len(missing_score)} candidates."
+                    )
+                best_cand = max(group, key=lambda x: x[score_key])
             resolved_cands.append(best_cand)
         return self.fast_nms(
             resolved_cands,
             iou_threshold=iou_threshold,
             nms_respect_frame=nms_respect_frame,
+            score_key=score_key,
         )
 
 
@@ -474,6 +570,10 @@ class TranslationSignalORFCaller:
             hard_thresh_uniformity=0.20, hard_thresh_step_up=0.3, hard_thresh_drop_off=0.3,
             score_features: Optional[List[str]] = None,
             score_combination_method: str = 'product',
+            ranking_strategy: str = 'occupancy_expression',
+            tpm_exponent: float = 1.0,
+            collapse_boundary_weight: float = 0.5,
+            start_codon_prior_strength: float = 0.25,
             max_len: Optional[int] = None,
             long_mode_length_only: bool = True,
             start_codon_weights: Optional[Dict[str, float]] = None,
@@ -492,6 +592,12 @@ class TranslationSignalORFCaller:
             long_mode_length_only=long_mode_length_only,
             start_codon_weights=start_codon_weights,
         )
+        ranking_strategy = str(ranking_strategy).lower()
+        if ranking_strategy not in caller.RANKING_STRATEGIES:
+            raise ValueError(
+                "ranking_strategy must be one of "
+                f"{sorted(caller.RANKING_STRATEGIES)}."
+            )
         effective_nms_iou = nms_iou_threshold
         if effective_nms_iou is None:
             effective_nms_iou = 0.3 if caller.uses_length_only_ranking else 0.7
@@ -541,6 +647,15 @@ class TranslationSignalORFCaller:
                 log_tpm = 1.0
             
             for cand in cands:
+                caller.add_ranking_scores(
+                    cand,
+                    log_tpm=log_tpm,
+                    has_tpm=self.has_tpm,
+                    ranking_strategy=ranking_strategy,
+                    tpm_exponent=tpm_exponent,
+                    collapse_boundary_weight=collapse_boundary_weight,
+                    start_codon_prior_strength=start_codon_prior_strength,
+                )
                 cand.update({
                     'Tid': clean_tid, 
                     'Gene_ID': gene_id, 
@@ -552,7 +667,7 @@ class TranslationSignalORFCaller:
                     'score_strategy': (
                         'sequence_length_baseline'
                         if caller.uses_length_only_ranking
-                        else 'translation_signal'
+                        else ranking_strategy
                     ),
                     'translation_score': cand['score'],
                     'base_expr_score': cand['base_translation_score'] * log_tpm,
@@ -639,7 +754,7 @@ class TranslationSignalORFCaller:
         output_sort_col = (
             'translation_score'
             if caller.uses_length_only_ranking
-            else 'expr_score'
+            else 'rank_score'
         )
         high_conf_df.drop(columns=['orf_index']).sort_values(
             by=[output_sort_col], ascending=False
@@ -649,7 +764,7 @@ class TranslationSignalORFCaller:
         collapse_strategy = (
             'Longest ATG/ORF Driven'
             if caller.uses_length_only_ranking
-            else 'Score Driven'
+            else 'Occupancy Rank + Boundary Prior Driven'
         )
         nms_scope = 'same-frame only' if nms_respect_frame else 'all frames'
         print(
@@ -663,6 +778,11 @@ class TranslationSignalORFCaller:
                     group.to_dict('records'),
                     iou_threshold=effective_nms_iou,
                     nms_respect_frame=nms_respect_frame,
+                    score_key=(
+                        'translation_score'
+                        if caller.uses_length_only_ranking
+                        else 'collapse_score'
+                    ),
                 )
             )
         
@@ -670,7 +790,10 @@ class TranslationSignalORFCaller:
         cols = ['Tid', 'Gene_ID', 'Cell_Type', 'start', 'stop', 'length', 'start_codon', 
                 'sequence_length_score', 'base_translation_score',
                 'score_feature_factor', 'score_features', 'score_combination_method',
-                'score_strategy', 'translation_score', 'tpm',
+                'score_strategy', 'translation_score', 'total_occupancy',
+                'log_total_occupancy', 'occupancy_score',
+                'occupancy_expr_score', 'boundary_score', 'start_codon_score',
+                'collapse_score', 'rank_score', 'rank_strategy', 'tpm',
                 'log2_tpm_plus_1', 'base_expr_score', 'expr_score', 'mean_intensity',
                 'tri_nucleotide_periodicity', 'uniformity_of_signal', 'step_up_contrast', 'drop_off']
         

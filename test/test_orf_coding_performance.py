@@ -28,6 +28,7 @@ from eval.orf_coding_performance import (
     plot_top_k_precision,
     plot_top_k_recall,
     prepare_evaluation_score,
+    resolve_score_col,
     resolve_manifest_score_request,
     summarize_top_k_values,
 )
@@ -440,9 +441,83 @@ class OrfTopKTests(unittest.TestCase):
             all("suppressed" not in candidate for candidate in candidates)
         )
 
+    def test_occupancy_expression_score_uses_total_predicted_signal(self):
+        sequence = "ATG" + "AAA" * 9 + "TAA"
+        signal = np.ones(len(sequence), dtype=np.float32)
+        caller = FastSignalDrivenORFCaller(min_len=30)
+
+        candidate = caller.extract_features(
+            sequence,
+            signal,
+            intensity_threshold=0.0,
+        )[0]
+        caller.add_ranking_scores(
+            candidate,
+            log_tpm=4.0,
+            has_tpm=True,
+            ranking_strategy="occupancy_expression",
+        )
+
+        self.assertAlmostEqual(candidate["total_occupancy"], 30.0)
+        self.assertAlmostEqual(
+            candidate["occupancy_score"],
+            np.log1p(30.0),
+        )
+        self.assertAlmostEqual(
+            candidate["rank_score"],
+            np.log1p(30.0) * 4.0,
+        )
+        self.assertEqual(candidate["rank_strategy"], "occupancy_expression")
+
+    def test_collapse_can_use_boundary_aware_score_instead_of_legacy_score(self):
+        caller = FastSignalDrivenORFCaller()
+        candidates = [
+            {
+                "start": 0,
+                "stop": 90,
+                "length": 93,
+                "start_codon": "ATG",
+                "score": 10.0,
+                "collapse_score": 1.0,
+            },
+            {
+                "start": 3,
+                "stop": 90,
+                "length": 90,
+                "start_codon": "CTG",
+                "score": 1.0,
+                "collapse_score": 5.0,
+            },
+        ]
+
+        result = caller.collapse_and_nms(
+            candidates,
+            score_key="collapse_score",
+        )
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["start"], 3)
+
+    def test_evaluation_prefers_caller_rank_score_by_default(self):
+        score_column = resolve_score_col(
+            pd.DataFrame(
+                {
+                    "rank_score": [1.0],
+                    "expr_score": [10.0],
+                }
+            ),
+            target_col=None,
+        )
+
+        self.assertEqual(score_column, "rank_score")
+
     def test_run_exposes_nms_respect_frame(self):
         self.assertIn(
             "nms_respect_frame",
+            inspect.signature(TranslationSignalORFCaller.run).parameters,
+        )
+        self.assertIn(
+            "ranking_strategy",
             inspect.signature(TranslationSignalORFCaller.run).parameters,
         )
 
