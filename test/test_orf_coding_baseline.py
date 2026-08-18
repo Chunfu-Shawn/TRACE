@@ -6,6 +6,8 @@ import sys
 import types
 from pathlib import Path
 
+import numpy as np
+
 
 SRC_DIR = Path(__file__).resolve().parents[1] / "src"
 if str(SRC_DIR) not in sys.path:
@@ -79,6 +81,60 @@ class BaselineORFIdentifierTests(unittest.TestCase):
                     target_transcript_ids=["ENST000001"],
                     target_tids=["ENST000002"],
                 )
+
+    def test_outputs_kozak_and_start_codon_prior_scores(self):
+        with tempfile.TemporaryDirectory() as directory_name:
+            directory = Path(directory_name)
+            fasta_path = directory / "kozak.fa"
+            fasta_path.write_text(
+                ">ENST_KOZAK.1\nGCCACCATGGGGTAA\n"
+                ">PB.KOZAK.1\nGCCACCCTGGGGTAA\n"
+            )
+            identifier = BaselineORFIdentifier(
+                fasta_file=str(fasta_path),
+                cell_types=["brain"],
+            )
+
+            result = identifier.run(
+                out_dir=str(directory / "output"),
+                min_len=9,
+            ).set_index("Tid")
+
+            self.assertIn("kozak_score", result.columns)
+            self.assertIn("start_codon_score", result.columns)
+            self.assertAlmostEqual(
+                result.loc["ENST_KOZAK", "kozak_score"],
+                1.58,
+            )
+            self.assertAlmostEqual(
+                result.loc["ENST_KOZAK", "start_codon_score"],
+                1.0,
+            )
+            self.assertAlmostEqual(
+                result.loc["PB.KOZAK.1", "kozak_score"],
+                0.88,
+            )
+            self.assertAlmostEqual(
+                result.loc["PB.KOZAK.1", "start_codon_score"],
+                0.3,
+            )
+
+    def test_kozak_score_is_missing_without_complete_context(self):
+        with tempfile.TemporaryDirectory() as directory_name:
+            directory = Path(directory_name)
+            identifier = BaselineORFIdentifier(
+                fasta_file=str(self._write_fasta(directory)),
+                cell_types=["brain"],
+            )
+
+            result = identifier.run(
+                out_dir=str(directory / "output"),
+                target_transcript_ids=["ENST000001"],
+                min_len=9,
+            )
+
+            self.assertTrue(np.isnan(result.iloc[0]["kozak_score"]))
+            self.assertEqual(result.iloc[0]["start_codon_score"], 1.0)
 
 
 if __name__ == "__main__":

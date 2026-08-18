@@ -5,6 +5,11 @@ import pandas as pd
 from typing import Dict, List, Optional, Union
 from tqdm import tqdm
 
+from eval.te_baseline_metrics import (
+    START_CODON_WEIGHTS,
+    calculate_kozak_score,
+)
+
 # =================================================================
 # 安全清理 ID 的辅助函数 (复用之前的稳健逻辑)
 # =================================================================
@@ -94,6 +99,13 @@ class BaselineSequenceORFCaller:
                             'stop': stop_pos,
                             'length': orf_len,
                             'start_codon': start_codon,
+                            'kozak_score': calculate_kozak_score(
+                                sequence,
+                                start_pos,
+                            ),
+                            'start_codon_score': float(
+                                START_CODON_WEIGHTS.get(start_codon, -1.0)
+                            ),
                             'score': float(baseline_score) 
                         })
                     break 
@@ -342,7 +354,11 @@ class BaselineORFIdentifier:
         final_df = pd.DataFrame(all_records)
         
         # [MODIFIED] 增加 Cell_Type 列
-        cols = ['Cell_Type', 'Tid', 'start', 'stop', 'length', 'start_codon', 'seq_score', 'transcription_score', 'tpm']
+        cols = [
+            'Cell_Type', 'Tid', 'start', 'stop', 'length', 'start_codon',
+            'seq_score', 'kozak_score', 'start_codon_score',
+            'transcription_score', 'tpm'
+        ]
         final_df = final_df[cols].sort_values(by=['Cell_Type', 'transcription_score', 'seq_score'], ascending=[True, False, False])
         
         save_path = os.path.join(out_dir, f"baseline_called_orfs.multicell.csv")
