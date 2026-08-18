@@ -87,7 +87,9 @@ def resolve_score_col(df: pd.DataFrame, target_col: Optional[str]) -> str:
         'expr_score', 
         'translation_score', 
         'transcription_score', 
-        'seq_score', 
+        'seq_score',
+        'kozak_score',
+        'start_codon_score',
         'score'
     ]
     
@@ -602,6 +604,17 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
         indices = np.linspace(0, len(x_array) - 1, max_points).astype(int)
         return x_array[indices], y_array[indices]
 
+    def finite_metric_arrays(frame, metric):
+        """Return aligned labels and finite numeric scores for one metric."""
+        scores = pd.to_numeric(frame[metric], errors='coerce').to_numpy(
+            dtype=float
+        )
+        labels = pd.to_numeric(frame['y_true'], errors='coerce').to_numpy(
+            dtype=float
+        )
+        finite_mask = np.isfinite(scores) & np.isfinite(labels)
+        return labels[finite_mask].astype(int), scores[finite_mask]
+
     # ---------------------------------------------------------
     # 1. Calculate overall performance metrics across all cell types
     # ---------------------------------------------------------
@@ -613,25 +626,36 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     baseline_all = np.sum(y_true_all) / len(y_true_all) if len(y_true_all) > 0 else 0
 
     for metric in eval_metrics:
-        scores = candidate_eval_df[metric].values
+        y_true, scores = finite_metric_arrays(candidate_eval_df, metric)
         d_name = display_names.get(metric, metric)
-        
-        # ROC-AUC
-        fpr, tpr, _ = roc_curve(y_true_all, scores)
-        roc_auc = auc(fpr, tpr)
-        fpr_plot, tpr_plot = subsample_curve(fpr, tpr)
-        roc_dfs.append(pd.DataFrame({'FPR': fpr_plot, 'TPR': tpr_plot, 'Metric': d_name, 'AUC': roc_auc}))
-        
-        # PR-AUC & Best F1
-        prec, rec, _ = precision_recall_curve(y_true_all, scores)
-        pr_auc = average_precision_score(y_true_all, scores)
-        
-        # Prevent division by zero warning
-        f1_scores = 2 * (prec * rec) / (prec + rec + 1e-9)
-        best_f1 = np.max(f1_scores) if len(f1_scores) > 0 else 0.0
-        
-        rec_plot, prec_plot = subsample_curve(rec, prec)
-        pr_dfs.append(pd.DataFrame({'Recall': rec_plot, 'Precision': prec_plot, 'Metric': d_name, 'AUC': pr_auc}))
+
+        if len(y_true) > 0 and len(np.unique(y_true)) == 2:
+            fpr, tpr, _ = roc_curve(y_true, scores)
+            roc_auc = auc(fpr, tpr)
+            fpr_plot, tpr_plot = subsample_curve(fpr, tpr)
+            roc_dfs.append(pd.DataFrame({
+                'FPR': fpr_plot, 'TPR': tpr_plot,
+                'Metric': d_name, 'AUC': roc_auc,
+            }))
+
+            prec, rec, _ = precision_recall_curve(y_true, scores)
+            pr_auc = average_precision_score(y_true, scores)
+            f1_scores = 2 * (prec * rec) / (prec + rec + 1e-9)
+            best_f1 = np.max(f1_scores) if len(f1_scores) > 0 else 0.0
+
+            rec_plot, prec_plot = subsample_curve(rec, prec)
+            pr_dfs.append(pd.DataFrame({
+                'Recall': rec_plot, 'Precision': prec_plot,
+                'Metric': d_name, 'AUC': pr_auc,
+            }))
+        else:
+            roc_auc = np.nan
+            pr_auc = np.nan
+            best_f1 = np.nan
+            print(
+                f"  [Warning] Skipping curves for '{metric}': fewer than "
+                "two label classes remain after removing non-finite scores."
+            )
         
         # Append to comprehensive records
         comprehensive_records.append({
@@ -639,7 +663,8 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
             'Feature': d_name,
             'ROC-AUC': roc_auc,
             'PR-AUC': pr_auc,
-            'Best_F1': best_f1
+            'Best_F1': best_f1,
+            'Candidate_Count': len(y_true),
         })
 
     # ---------------------------------------------------------
@@ -652,17 +677,17 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
             continue
             
         for metric in eval_metrics:
-            scores_c = group_df[metric].values
+            y_metric, scores_c = finite_metric_arrays(group_df, metric)
             d_name = display_names.get(metric, metric)
-            
-            # ROC-AUC
-            fpr_c, tpr_c, _ = roc_curve(y_c, scores_c)
+            if len(y_metric) == 0 or len(np.unique(y_metric)) < 2:
+                continue
+
+            fpr_c, tpr_c, _ = roc_curve(y_metric, scores_c)
             roc_auc_c = auc(fpr_c, tpr_c)
-            
-            # PR-AUC & Best F1
-            prec_c, rec_c, _ = precision_recall_curve(y_c, scores_c)
-            pr_auc_c = average_precision_score(y_c, scores_c)
-            
+
+            prec_c, rec_c, _ = precision_recall_curve(y_metric, scores_c)
+            pr_auc_c = average_precision_score(y_metric, scores_c)
+
             f1_scores_c = 2 * (prec_c * rec_c) / (prec_c + rec_c + 1e-9)
             best_f1_c = np.max(f1_scores_c) if len(f1_scores_c) > 0 else 0.0
             
@@ -672,7 +697,8 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
                 'Feature': d_name,
                 'ROC-AUC': roc_auc_c,
                 'PR-AUC': pr_auc_c,
-                'Best_F1': best_f1_c
+                'Best_F1': best_f1_c,
+                'Candidate_Count': len(y_metric),
             })
 
     # ---------------------------------------------------------
@@ -683,35 +709,40 @@ def evaluate_and_plot_global(eval_df: pd.DataFrame, eval_metrics: List[str], dis
     print("  -> Saved unified metrics table to 'comprehensive_metrics_summary.csv'")
 
     # --- Plot: Overall curves ---
-    all_roc_df = pd.concat(roc_dfs, ignore_index=True)
-    all_pr_df = pd.concat(pr_dfs, ignore_index=True)
-    all_roc_df['Legend'] = all_roc_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
-    all_pr_df['Legend'] = all_pr_df.apply(lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1)
-
-    color_palette = [
-        mpl.colors.to_hex(color)
-        for color in sns.color_palette(
-            'colorblind', n_colors=max(len(eval_metrics), 1)
+    if roc_dfs and pr_dfs:
+        all_roc_df = pd.concat(roc_dfs, ignore_index=True)
+        all_pr_df = pd.concat(pr_dfs, ignore_index=True)
+        all_roc_df['Legend'] = all_roc_df.apply(
+            lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1
         )
-    ]
-    
-    p_roc = (
-        ggplot(all_roc_df, aes(x='FPR', y='TPR', color='Legend'))
-        + geom_line(size=1.2, alpha=0.8) + geom_abline(intercept=0, slope=1, linetype='dashed', color='gray')
-        + scale_color_manual(values=color_palette) + theme_bw()
-        + labs(title="Overall ROC Curves (All Cell Types)", x="False Positive Rate", y="True Positive Rate")
-        + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
-    )
-    p_roc.save(os.path.join(out_dir, "Overall_ROC_Curves.pdf"), verbose=False)
+        all_pr_df['Legend'] = all_pr_df.apply(
+            lambda row: f"{row['Metric']} (AUC={row['AUC']:.3f})", axis=1
+        )
 
-    p_pr = (
-        ggplot(all_pr_df, aes(x='Recall', y='Precision', color='Legend'))
-        + geom_line(size=1.2, alpha=0.8) + geom_hline(yintercept=baseline_all, linetype='dashed', color='gray')
-        + scale_color_manual(values=color_palette) + theme_bw()
-        + labs(title="Overall PR Curves (All Cell Types)", x="Recall", y="Precision")
-        + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
-    )
-    p_pr.save(os.path.join(out_dir, "Overall_PR_Curves.pdf"), verbose=False)
+        color_palette = [
+            mpl.colors.to_hex(color)
+            for color in sns.color_palette(
+                'colorblind', n_colors=max(len(eval_metrics), 1)
+            )
+        ]
+
+        p_roc = (
+            ggplot(all_roc_df, aes(x='FPR', y='TPR', color='Legend'))
+            + geom_line(size=1.2, alpha=0.8) + geom_abline(intercept=0, slope=1, linetype='dashed', color='gray')
+            + scale_color_manual(values=color_palette) + theme_bw()
+            + labs(title="Overall ROC Curves (All Cell Types)", x="False Positive Rate", y="True Positive Rate")
+            + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
+        )
+        p_roc.save(os.path.join(out_dir, "Overall_ROC_Curves.pdf"), verbose=False)
+
+        p_pr = (
+            ggplot(all_pr_df, aes(x='Recall', y='Precision', color='Legend'))
+            + geom_line(size=1.2, alpha=0.8) + geom_hline(yintercept=baseline_all, linetype='dashed', color='gray')
+            + scale_color_manual(values=color_palette) + theme_bw()
+            + labs(title="Overall PR Curves (All Cell Types)", x="Recall", y="Precision")
+            + theme(figure_size=(7, 6), panel_border=element_rect(color="black", size=1), legend_position="bottom", legend_title=element_blank())
+        )
+        p_pr.save(os.path.join(out_dir, "Overall_PR_Curves.pdf"), verbose=False)
 
     # --- Plot: 3-in-1 metric heatmap (Overall only) ---
     overall_df = comprehensive_df[comprehensive_df['Cell_Type'] == 'Overall']
@@ -1149,6 +1180,8 @@ def evaluate_orf_level_predictions(
         'translation_score': 'Pure Translation Score',
         'transcription_score': 'Pure Transcription Score',
         'seq_score': 'Pure ORF-structure Score',
+        'kozak_score': 'Kozak Context Score',
+        'start_codon_score': 'Start-codon Prior Score',
         'score': 'Final Score', 
         'mean_intensity': 'Mean Intensity', 
         'tri_nucleotide_periodicity': 'Periodicity',

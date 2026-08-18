@@ -511,6 +511,62 @@ class OrfTopKTests(unittest.TestCase):
 
         self.assertEqual(score_column, "rank_score")
 
+    def test_evaluation_resolves_new_baseline_scores(self):
+        score_column = resolve_score_col(
+            pd.DataFrame(
+                {
+                    "kozak_score": [1.58],
+                    "start_codon_score": [1.0],
+                }
+            ),
+            target_col=None,
+        )
+
+        self.assertEqual(score_column, "kozak_score")
+
+    def test_comprehensive_evaluation_includes_new_baseline_scores(self):
+        with tempfile.TemporaryDirectory() as directory_name:
+            directory = Path(directory_name)
+            pred_path = directory / "baseline.csv"
+            gt_path = directory / "gt.csv"
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1", "ENST2"],
+                    "Cell_Type": ["brain", "brain"],
+                    "start": [6, 6],
+                    "stop": [12, 12],
+                    "seq_score": [1.0, 0.8],
+                    "transcription_score": [2.0, 1.0],
+                    "kozak_score": [1.58, np.nan],
+                    "start_codon_score": [1.0, 0.3],
+                }
+            ).to_csv(pred_path, index=False)
+            pd.DataFrame(
+                {
+                    "Tid": ["ENST1"],
+                    "CDS_Start_0based": [6],
+                    "CDS_End_0based": [12],
+                }
+            ).to_csv(gt_path, index=False)
+
+            with patch(
+                "eval.orf_coding_performance.evaluate_and_plot_global"
+            ) as plot_mock:
+                result = evaluate_orf_level_predictions(
+                    pred_csv_paths=str(pred_path),
+                    gt_csv_paths={"brain": str(gt_path)},
+                    out_dir=str(directory / "output"),
+                    min_orf_len=9,
+                    target_score_col="start_codon_score",
+                    save_top_k=False,
+                )
+
+            evaluated_metrics = plot_mock.call_args.args[1]
+            self.assertIn("kozak_score", evaluated_metrics)
+            self.assertIn("start_codon_score", evaluated_metrics)
+            self.assertIn("kozak_score", result["evaluation"].columns)
+            self.assertIn("start_codon_score", result["evaluation"].columns)
+
     def test_run_exposes_nms_respect_frame(self):
         self.assertIn(
             "nms_respect_frame",
