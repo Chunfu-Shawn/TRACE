@@ -1209,7 +1209,7 @@ def plot_multi_model_top_k_precision(
         ggplot(plot_df, aes(x='K', y='Precision_Smooth', color='Model'))
     )
     if not ci_df.empty:
-        p += geom_ribbon(
+        p = p + geom_ribbon(
             data=ci_df,
             mapping=aes(
                 x='K', ymin='CI_Lower', ymax='CI_Upper',
@@ -1219,8 +1219,9 @@ def plot_multi_model_top_k_precision(
             color=None,
             inherit_aes=False,
         )
-    p += (
-        geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
+    p = (
+        p
+        + geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
         + scale_color_manual(values=color_mapping)
         + scale_fill_manual(values=color_mapping, guide=None)
         + scale_linetype_manual(values=linetype_mapping, guide=None)
@@ -1242,7 +1243,7 @@ def plot_multi_model_top_k_precision(
         )
     )
     if not endpoint_df.empty:
-        p += geom_point(
+        p = p + geom_point(
             data=endpoint_df,
             mapping=aes(x='K', y='Precision_Smooth', color='Model'),
             shape='o',
@@ -1569,7 +1570,7 @@ def plot_multi_model_top_k_recall(
         ggplot(plot_df, aes(x='K', y='Recall', color='Model'))
     )
     if not ci_df.empty:
-        plot += geom_ribbon(
+        plot = plot + geom_ribbon(
             data=ci_df,
             mapping=aes(
                 x='K', ymin='CI_Lower', ymax='CI_Upper',
@@ -1579,8 +1580,9 @@ def plot_multi_model_top_k_recall(
             color=None,
             inherit_aes=False,
         )
-    plot += (
-        geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
+    plot = (
+        plot
+        + geom_line(aes(linetype='Model'), size=1.5, alpha=0.85)
         + scale_color_manual(values=color_mapping)
         + scale_fill_manual(values=color_mapping, guide=None)
         + scale_linetype_manual(values=linetype_mapping, guide=None)
@@ -1602,7 +1604,7 @@ def plot_multi_model_top_k_recall(
         )
     )
     if not endpoint_df.empty:
-        plot += geom_point(
+        plot = plot + geom_point(
             data=endpoint_df,
             mapping=aes(x='K', y='Recall', color='Model'),
             shape='o',
