@@ -1063,6 +1063,7 @@ def plot_combined_vs_single_signature_performance(
         results: Optional[Union[Mapping[str, object], str, os.PathLike]] = None,
         combination_metrics_path: Optional[Union[str, os.PathLike]] = None,
         single_metrics_path: Optional[Union[str, os.PathLike]] = None,
+        evaluation_path: Optional[Union[str, os.PathLike]] = None,
         out_dir: Optional[Union[str, os.PathLike]] = None,
         primary_metric: str = 'Candidate_PR_AUC',
         top_n_combinations: int = 10,
@@ -1113,19 +1114,14 @@ def plot_combined_vs_single_signature_performance(
         for score_column, display_name in single_signature_display_names.items()
     }
     primary_metric = metric_aliases.get(primary_metric, primary_metric)
-    if metric_columns is None:
-        metric_columns = [
-            'Candidate_ROC_AUC',
-            'Candidate_PR_AUC',
-            'Candidate_Best_F1',
-        ]
-    else:
+    if metric_columns is not None:
         metric_columns = [
             metric_aliases.get(column, column) for column in metric_columns
         ]
 
     combination_source = combination_metrics_path
     single_source = single_metrics_path
+    evaluation_source = evaluation_path
     inferred_dir = None
 
     if isinstance(results, Mapping):
@@ -1133,9 +1129,15 @@ def plot_combined_vs_single_signature_performance(
             combination_source = results.get('feature_combination_metrics')
         if single_source is None:
             single_source = results.get('comprehensive_metrics')
-        evaluation_path = results.get('evaluation_path')
-        if evaluation_path:
-            inferred_dir = os.path.dirname(os.path.abspath(evaluation_path))
+        if evaluation_source is None:
+            evaluation_source = results.get('evaluation')
+        returned_evaluation_path = results.get('evaluation_path')
+        if evaluation_source is None:
+            evaluation_source = returned_evaluation_path
+        if returned_evaluation_path:
+            inferred_dir = os.path.dirname(
+                os.path.abspath(returned_evaluation_path)
+            )
     elif results is not None:
         result_path = os.path.abspath(os.fspath(results))
         if os.path.isdir(result_path):
@@ -1147,13 +1149,24 @@ def plot_combined_vs_single_signature_performance(
                 combination_source = combination_source or result_path
             elif filename == 'comprehensive_metrics_summary.csv':
                 single_source = single_source or result_path
+            elif filename == 'unified_evaluation_table.csv':
+                evaluation_source = evaluation_source or result_path
             else:
                 raise ValueError(
-                    "A results file must be feature_combination_metrics.csv "
-                    "or comprehensive_metrics_summary.csv."
+                    "A results file must be feature_combination_metrics.csv, "
+                    "comprehensive_metrics_summary.csv, or "
+                    "unified_evaluation_table.csv."
                 )
         else:
             raise FileNotFoundError(f"Results path not found: {result_path}")
+
+    if inferred_dir is None:
+        for source in (combination_source, single_source, evaluation_source):
+            if source is not None and not isinstance(source, pd.DataFrame):
+                inferred_dir = os.path.dirname(
+                    os.path.abspath(os.fspath(source))
+                )
+                break
 
     if inferred_dir is not None:
         inferred_combination_path = os.path.join(
@@ -1162,11 +1175,17 @@ def plot_combined_vs_single_signature_performance(
         inferred_single_path = os.path.join(
             inferred_dir, 'comprehensive_metrics_summary.csv'
         )
+        inferred_evaluation_path = os.path.join(
+            inferred_dir, 'unified_evaluation_table.csv'
+        )
         if combination_source is None and os.path.isfile(
                 inferred_combination_path):
             combination_source = inferred_combination_path
         if single_source is None and os.path.isfile(inferred_single_path):
             single_source = inferred_single_path
+        if evaluation_source is None and os.path.isfile(
+                inferred_evaluation_path):
+            evaluation_source = inferred_evaluation_path
 
     def load_table(source, source_name: str) -> pd.DataFrame:
         if isinstance(source, pd.DataFrame):
@@ -1194,6 +1213,35 @@ def plot_combined_vs_single_signature_performance(
         raise ValueError(
             f"Combination metrics are missing columns: {sorted(missing)}"
         )
+
+    def top_k_sort_key(column: str) -> int:
+        try:
+            return int(column.rsplit('_', 1)[-1])
+        except ValueError:
+            return 0
+
+    precision_columns = sorted(
+        [
+            column for column in combination_df.columns
+            if column.startswith('Precision_at_')
+        ],
+        key=top_k_sort_key,
+    )
+    recall_columns = sorted(
+        [
+            column for column in combination_df.columns
+            if column.startswith('Unique_GT_Recall_at_')
+        ],
+        key=top_k_sort_key,
+    )
+    if metric_columns is None:
+        metric_columns = [
+            'Candidate_ROC_AUC',
+            'Candidate_PR_AUC',
+            'Candidate_Best_F1',
+            *precision_columns,
+            *recall_columns,
+        ]
 
     raw_single_df = load_table(single_source, 'Single-signature metrics table')
     if not raw_single_df.empty and {
@@ -1235,6 +1283,109 @@ def plot_combined_vs_single_signature_performance(
             single_df.reindex(columns=common_columns),
             base_df.reindex(columns=common_columns),
         ], ignore_index=True)
+
+    requested_top_k_columns = [
+        column for column in metric_columns
+        if column.startswith('Precision_at_')
+        or column.startswith('Unique_GT_Recall_at_')
+    ]
+    top_k_values = sorted({
+        top_k_sort_key(column)
+        for column in requested_top_k_columns
+        if top_k_sort_key(column) > 0
+    })
+    evaluation_df = load_table(
+        evaluation_source, 'Unified evaluation table'
+    )
+    if top_k_values and evaluation_df.empty:
+        raise ValueError(
+            "Top-K columns are present in the combination metrics, but the "
+            "unified evaluation table was not found. Supply evaluation_path "
+            "or pass the results dictionary/result directory."
+        )
+    if top_k_values:
+        required_evaluation_columns = {
+            'Cell_Type', 'y_true', 'Matched_GT_Index'
+        }
+        missing = required_evaluation_columns.difference(evaluation_df.columns)
+        if missing:
+            raise ValueError(
+                f"Unified evaluation table is missing columns: {sorted(missing)}"
+            )
+        candidate_df = (
+            evaluation_df[
+                evaluation_df['Record_Type'] == 'Prediction'
+            ].copy()
+            if 'Record_Type' in evaluation_df.columns
+            else evaluation_df.copy()
+        )
+        candidate_df['y_true'] = pd.to_numeric(
+            candidate_df['y_true'], errors='coerce'
+        ).fillna(0.0)
+
+        for row_index, row in single_df.iterrows():
+            score_column = str(row['Score_Column'])
+            if score_column not in candidate_df.columns:
+                continue
+            scope_name = str(row['Cell_Type'])
+            if scope_name == 'Overall':
+                scope_candidates = candidate_df.copy()
+                scope_evaluation = evaluation_df
+                total_column = 'Total_GT_ORFs'
+            elif scope_name == 'Macro_Average':
+                continue
+            else:
+                scope_candidates = candidate_df[
+                    candidate_df['Cell_Type'].astype(str) == scope_name
+                ].copy()
+                scope_evaluation = evaluation_df[
+                    evaluation_df['Cell_Type'].astype(str) == scope_name
+                ]
+                total_column = 'Cell_Type_Total_GT_ORFs'
+
+            scope_candidates[score_column] = pd.to_numeric(
+                scope_candidates[score_column], errors='coerce'
+            )
+            scope_candidates = scope_candidates.replace(
+                [np.inf, -np.inf], np.nan
+            ).dropna(subset=[score_column])
+            ranked_df = scope_candidates.sort_values(
+                score_column, ascending=False, kind='mergesort'
+            ).reset_index(drop=True)
+
+            total_gt_values = (
+                pd.to_numeric(
+                    scope_evaluation[total_column], errors='coerce'
+                ).dropna()
+                if total_column in scope_evaluation.columns
+                else pd.Series(dtype=float)
+            )
+            if not total_gt_values.empty:
+                total_gt = int(total_gt_values.iloc[0])
+            else:
+                total_gt = int(
+                    scope_evaluation['Matched_GT_Index'].dropna().nunique()
+                )
+
+            for k in top_k_values:
+                effective_k = min(k, len(ranked_df))
+                top_df = ranked_df.iloc[:effective_k]
+                precision_value = (
+                    float(top_df['y_true'].sum() / effective_k)
+                    if effective_k else np.nan
+                )
+                unique_gt_hits = int(
+                    top_df['Matched_GT_Index'].dropna().nunique()
+                )
+                recall_value = (
+                    unique_gt_hits / total_gt if total_gt else np.nan
+                )
+                single_df.loc[
+                    row_index, f'Precision_at_{k}'
+                ] = precision_value
+                single_df.loc[
+                    row_index, f'Unique_GT_Recall_at_{k}'
+                ] = recall_value
 
     combined_df = combination_df[
         combination_df['Method'].astype(str).str.lower() != 'base'
@@ -1309,6 +1460,23 @@ def plot_combined_vs_single_signature_performance(
     ]
     if missing_metrics:
         raise ValueError(f"Unknown heatmap metrics: {missing_metrics}")
+    top_k_metric_columns = requested_top_k_columns
+    if top_k_metric_columns:
+        selected_single_df = selected_df[
+            selected_df['Signature_Group'] == 'Single signatures'
+        ]
+        incomplete_single_mask = selected_single_df[
+            top_k_metric_columns
+        ].isna().any(axis=1)
+        if incomplete_single_mask.any():
+            incomplete_signatures = selected_single_df.loc[
+                incomplete_single_mask, 'Score_Column'
+            ].astype(str).tolist()
+            raise ValueError(
+                "Top-K metrics could not be calculated for single signatures: "
+                f"{incomplete_signatures}. Confirm that these score columns "
+                "exist in unified_evaluation_table.csv."
+            )
 
     if out_dir is None:
         out_dir = inferred_dir or os.getcwd()
@@ -1317,7 +1485,8 @@ def plot_combined_vs_single_signature_performance(
 
     overall_matrix = selected_df.set_index('Score_Label')[metric_columns]
     figure_height = max(4.0, 0.36 * len(overall_matrix) + 1.8)
-    fig, ax = plt.subplots(figsize=(9, figure_height))
+    figure_width = max(9.0, 1.25 * len(metric_columns) + 4.0)
+    fig, ax = plt.subplots(figsize=(figure_width, figure_height))
     sns.heatmap(
         overall_matrix,
         cmap=cmap,

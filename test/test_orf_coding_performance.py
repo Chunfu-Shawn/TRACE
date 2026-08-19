@@ -616,6 +616,8 @@ class OrfTopKTests(unittest.TestCase):
                 "Candidate_ROC_AUC": [0.90, 0.80],
                 "Candidate_PR_AUC": [0.40, 0.30],
                 "Candidate_Best_F1": [0.50, 0.40],
+                "Precision_at_2": [0.75, 0.50],
+                "Unique_GT_Recall_at_2": [0.75, 0.50],
             }
         )
         single_df = pd.DataFrame(
@@ -627,6 +629,18 @@ class OrfTopKTests(unittest.TestCase):
                 "Best_F1": [0.60, 0.30],
             }
         )
+        evaluation_df = pd.DataFrame(
+            {
+                "Record_Type": ["Prediction"] * 4,
+                "Cell_Type": ["brain"] * 4,
+                "y_true": [1, 0, 1, 0],
+                "Matched_GT_Index": [0, np.nan, 1, np.nan],
+                "Total_GT_ORFs": [2] * 4,
+                "Cell_Type_Total_GT_ORFs": [2] * 4,
+                "tri_nucleotide_periodicity": [0.9, 0.8, 0.7, 0.6],
+                "uniformity_of_signal": [0.1, 0.9, 0.8, 0.7],
+            }
+        )
 
         with tempfile.TemporaryDirectory() as directory:
             with patch(
@@ -636,6 +650,7 @@ class OrfTopKTests(unittest.TestCase):
                     results={
                         "feature_combination_metrics": combination_df,
                         "comprehensive_metrics": single_df,
+                        "evaluation": evaluation_df,
                     },
                     out_dir=directory,
                     primary_metric="Candidate_PR_AUC",
@@ -648,6 +663,21 @@ class OrfTopKTests(unittest.TestCase):
         self.assertEqual(
             plotted_matrix.index.tolist(),
             ["Combined A", "Combined B", "Periodicity", "Uniformity"],
+        )
+        self.assertEqual(
+            plotted_matrix.columns.tolist(),
+            [
+                "Candidate_ROC_AUC",
+                "Candidate_PR_AUC",
+                "Candidate_Best_F1",
+                "Precision_at_2",
+                "Unique_GT_Recall_at_2",
+            ],
+        )
+        self.assertEqual(plotted_matrix.loc["Periodicity", "Precision_at_2"], 0.5)
+        self.assertEqual(
+            plotted_matrix.loc["Periodicity", "Unique_GT_Recall_at_2"],
+            0.5,
         )
         self.assertEqual(len(paths), 1)
 
