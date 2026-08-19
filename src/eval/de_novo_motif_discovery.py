@@ -240,12 +240,18 @@ def _extract_sample(dataset, idx):
 # ============================================================
 # Phase 1A: Attention positional importance
 # ============================================================
-def extract_attention_positional_importance(model, dataset, n_samples=200, min_len=500, max_len=1200, device=None):
+def extract_attention_positional_importance(
+        model,
+        dataset,
+        n_samples=200,
+        min_len=500,
+        max_len=1200,
+        device=None):
+    """Aggregate received attention by layer, head, and metagene position."""
     raw = _unwrap(model)
     device = _model_device(raw, device)
     raw.eval()
 
-    n_layers = len(raw.encoder.encoder_layers)
     n_heads = raw.n_heads
     head_dim = raw.encoder.encoder_layers[0].multi_headed_attention.head_dim
 
@@ -291,18 +297,22 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
                 mask = src_mask[:, :Lc].unsqueeze(1).unsqueeze(2)
                 scores.masked_fill_(~mask, float('-inf'))
                 attn_w = torch.softmax(scores, dim=-1)
-                received = attn_w.sum(dim=2).mean(dim=1)[0].cpu().numpy()
+                received_by_head = attn_w.sum(dim=2)[0].cpu().numpy()
 
-                for pos in range(Lc):
-                    # Proportional mapping for unification
-                    x_pos, rel_start, rel_stop = _map_to_metagene(pos, cds_start, cds_end, FIXED_CDS_LEN)
-                    
-                    key = (layer_idx, x_pos)
-                    accum[key]['sum'] += float(received[pos])
-                    accum[key]['sum_sq'] += float(received[pos]) ** 2
-                    accum[key]['n'] += 1
-                    accum[key]['rel_start_sum'] += rel_start
-                    accum[key]['rel_stop_sum'] += rel_stop
+                for head_idx in range(n_heads):
+                    for pos in range(Lc):
+                        x_pos, rel_start, rel_stop = _map_to_metagene(
+                            pos, cds_start, cds_end, FIXED_CDS_LEN
+                        )
+                        attention_value = float(
+                            received_by_head[head_idx, pos]
+                        )
+                        key = (layer_idx, head_idx, x_pos)
+                        accum[key]['sum'] += attention_value
+                        accum[key]['sum_sq'] += attention_value ** 2
+                        accum[key]['n'] += 1
+                        accum[key]['rel_start_sum'] += rel_start
+                        accum[key]['rel_stop_sum'] += rel_stop
 
                 attn_out = torch.matmul(attn_w, v)
                 attn_out = attn_out.transpose(1, 2).reshape(bs_, Lc, n_heads * head_dim)
@@ -332,12 +342,13 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
         valid_count += 1
 
     records = []
-    for (layer, x_pos), v in accum.items():
+    for (layer, head, x_pos), v in accum.items():
         if v['n'] >= 5:
             mean = v['sum'] / v['n']
             std = np.sqrt(max(0, v['sum_sq'] / v['n'] - mean ** 2))
             records.append({
                 'layer': layer,
+                'head': head,
                 'x_pos': x_pos,
                 'mean_attn': mean,
                 'std_attn': std,
@@ -347,12 +358,15 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
             })
 
     df = pd.DataFrame(records, columns=[
-        'layer', 'x_pos', 'mean_attn', 'std_attn',
+        'layer', 'head', 'x_pos', 'mean_attn', 'std_attn',
         'pos_from_cds_start', 'pos_from_cds_stop', 'n_contrib',
     ])
     if not df.empty:
-        df = df.sort_values(['layer', 'x_pos'])
-    print(f"Attention aggregated: {len(df)} metagene positions from {valid_count} samples.")
+        df = df.sort_values(['layer', 'head', 'x_pos'])
+    print(
+        f"Attention aggregated: {len(df)} layer-head metagene positions "
+        f"from {valid_count} samples."
+    )
     return df
 
 # ============================================================
@@ -595,14 +609,31 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
     else:
         df_plot = attn_df[(attn_df['x_pos'] >= -up_len) & (attn_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
         
+    if df_plot.empty:
+        raise ValueError("No attention positions remain within the plot range.")
     df_plot['layer'] = df_plot['layer'].astype(int)
+    has_head_profiles = 'head' in df_plot.columns
+    if has_head_profiles:
+        df_plot['head'] = df_plot['head'].astype(int)
 
     # 2. Aggregation logic based on whether we group by Frame
     if color_by_frame:
         df_plot = _assign_frame_colors(df_plot)
         group_cols = ['layer', 'x_pos', 'Frame']
+        head_group_cols = ['layer', 'head', 'x_pos', 'Frame']
     else:
         group_cols = ['layer', 'x_pos']
+        head_group_cols = ['layer', 'head', 'x_pos']
+
+    if has_head_profiles:
+        df_head_plot = df_plot.groupby(
+            head_group_cols, as_index=False, observed=True
+        )[['mean_attn']].mean().dropna(subset=['mean_attn'])
+        df_head_plot['log2_mean_attn'] = np.log2(
+            df_head_plot['mean_attn'] + 1
+        )
+    else:
+        df_head_plot = pd.DataFrame()
 
     df_plot = df_plot.groupby(group_cols, as_index=False, observed=True)[['mean_attn']].mean().dropna(subset=['mean_attn'])
     df_plot['log2_mean_attn'] = np.log2(df_plot['mean_attn'] + 1)
@@ -689,6 +720,89 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
                       strip_background=element_blank(), strip_text=element_text(size=12), figure_size=(weight, height*3))
     
     p_layers.save(f"{base_out}.per_layer.pdf")
+    print(f"Per-layer attention profile saved to {base_out}.per_layer.pdf")
+
+    output_paths = [
+        f"{base_out}.combined.pdf",
+        f"{base_out}.per_layer.pdf",
+    ]
+    if has_head_profiles and not df_head_plot.empty:
+        head_values = sorted(df_head_plot['head'].unique())
+        head_labels = [f'H{head}' for head in head_values]
+        layer_labels = [f'L{layer}' for layer in range(n_layers)]
+        df_head_plot['Layer'] = pd.Categorical(
+            [f'L{layer}' for layer in df_head_plot['layer']],
+            categories=layer_labels,
+        )
+        df_head_plot['Head'] = pd.Categorical(
+            [f'H{head}' for head in df_head_plot['head']],
+            categories=head_labels,
+        )
+
+        facet_pairs = pd.MultiIndex.from_product(
+            [layer_labels, head_labels], names=['Layer', 'Head']
+        ).to_frame(index=False)
+        facet_pairs['Layer'] = pd.Categorical(
+            facet_pairs['Layer'], categories=layer_labels
+        )
+        facet_pairs['Head'] = pd.Categorical(
+            facet_pairs['Head'], categories=head_labels
+        )
+        rect_per_head = facet_pairs.assign(
+            xmin=0,
+            xmax=FIXED_CDS_LEN,
+            ymin=-float('inf'),
+            ymax=float('inf'),
+            fill='lightgray',
+        )
+
+        p_heads = (
+            ggplot(df_head_plot, aes(x='x_pos', y='log2_mean_attn'))
+            + scale_fill_identity()
+        )
+        if show_cds:
+            p_heads += geom_rect(
+                data=rect_per_head,
+                mapping=aes(
+                    xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax',
+                    fill='fill',
+                ),
+                alpha=0.3,
+                inherit_aes=False,
+                show_legend=False,
+            )
+        p_heads += geom_line(size=0.35, alpha=0.4, color='#333333')
+        if color_by_frame:
+            p_heads += geom_point(
+                aes(color='Frame'), size=1.2, alpha=1, stroke=0
+            )
+            p_heads += scale_color_manual(values=frame_palette)
+        p_heads += facet_grid('Layer ~ Head', scales='free_y')
+        p_heads += labs(x=x_label_str, y='log2(Mean attention + 1)')
+        p_heads += theme_classic()
+        p_heads += theme(
+            axis_text_x=x_axis_text,
+            axis_ticks_major_x=x_axis_ticks,
+            axis_title_x=x_axis_title,
+            strip_background=element_blank(),
+            strip_text=element_text(size=9),
+            figure_size=(
+                max(weight, 2.2 * len(head_labels) + 2),
+                max(height, 1.8 * n_layers + 2),
+            ),
+        )
+        head_path = f"{base_out}.per_layer_head.pdf"
+        p_heads.save(head_path)
+        print(f"Layer-by-head attention profile saved to {head_path}")
+        output_paths.append(head_path)
+    elif not has_head_profiles:
+        print(
+            "Head-specific attention was not plotted because the input table "
+            "has no 'head' column. Re-run "
+            "extract_attention_positional_importance with the updated code."
+        )
+
+    return output_paths
 
 
 def plot_regional_attention_dynamics(attn_df, out_path="regional_attention_dynamics.pdf", up_len=300, down_len=300):
@@ -786,32 +900,106 @@ def plot_regional_attention_dynamics(attn_df, out_path="regional_attention_dynam
     p_bar.save(f"{base_out}.proportion.pdf")
     print(f"Regional dynamics (Proportion Bar) saved to {base_out}.proportion.pdf")
 
-def plot_saliency_profile(sal_df, out_path="saliency_profile.pdf", up_len=300, down_len=300):
-    from plotnine import (ggplot, aes, geom_point, geom_line, geom_rect,
-                          labs, theme_classic, theme, scale_color_manual, scale_fill_identity, element_blank)
-
-    df_plot = sal_df[(sal_df['x_pos'] >= -up_len) & (sal_df['x_pos'] <= FIXED_CDS_LEN + down_len - 1)].copy()
-    df_plot = _assign_frame_colors(df_plot)
-    
-    df_plot = df_plot.groupby(['x_pos', 'Frame'], as_index=False, observed=True)[['mean_saliency']].mean().dropna(subset=['mean_saliency'])
-    df_plot['log2_saliency'] = np.log2(df_plot['mean_saliency'] + 1)
-    
-    frame_palette = {'Frame 0': '#E41A1C', 'Frame 1': '#377EB8', 'Frame 2': 'gray'}
-    rect_cds = _cds_rect_data()
-
-    p = (
-        ggplot(df_plot, aes(x='x_pos', y='log2_saliency'))
-        + geom_rect(data=rect_cds, mapping=aes(xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax', fill='fill'), alpha=0.3, inherit_aes=False, show_legend=False)
-        + scale_fill_identity()
-        + geom_line(aes(color='Frame', group='Frame'), size=0.8, alpha=0.9)
-        + geom_point(aes(color='Frame', group='Frame'), size=0.3, alpha=0.3)
-        + scale_color_manual(values=frame_palette)
-        + labs(x='', y='log2(Mean |d(profile)/d(base)| + 1)')
-        + theme_classic()
-        + theme(axis_text_x=element_blank(), axis_ticks_major_x=element_blank(), axis_title_x=element_blank(), figure_size=(6, 4))
+def plot_saliency_profile(
+        sal_df,
+        out_path="saliency_profile.pdf",
+        up_len=300,
+        down_len=300,
+        color_by_frame=True,
+        xlim=None,
+        show_xaxis=False,
+        show_cds=True,
+        weight=6,
+        height=5):
+    """Plot a saliency profile with attention-profile-compatible controls."""
+    from plotnine import (
+        ggplot, aes, geom_point, geom_line, geom_rect, labs, theme_classic,
+        theme, scale_color_manual, scale_fill_identity, element_blank,
+        element_line, element_text,
     )
-    p.save(out_path)
-    print(f"Saliency profile saved to {out_path}")
+
+    required_columns = {'x_pos', 'mean_saliency'}
+    missing_columns = required_columns.difference(sal_df.columns)
+    if missing_columns:
+        raise ValueError(
+            f"Saliency table is missing columns: {sorted(missing_columns)}"
+        )
+
+    if xlim is not None:
+        if len(xlim) != 2 or xlim[0] > xlim[1]:
+            raise ValueError("xlim must contain two ordered coordinates.")
+        lower_bound, upper_bound = xlim
+    else:
+        lower_bound = -up_len
+        upper_bound = FIXED_CDS_LEN + down_len - 1
+    df_plot = sal_df[
+        sal_df['x_pos'].between(lower_bound, upper_bound)
+    ].copy()
+    if df_plot.empty:
+        raise ValueError("No saliency positions remain within the plot range.")
+
+    group_columns = ['x_pos']
+    if color_by_frame:
+        df_plot = _assign_frame_colors(df_plot)
+        group_columns.append('Frame')
+    df_plot = df_plot.groupby(
+        group_columns, as_index=False, observed=True
+    )[['mean_saliency']].mean().dropna(subset=['mean_saliency'])
+    df_plot['log2_saliency'] = np.log2(df_plot['mean_saliency'] + 1)
+
+    frame_palette = {
+        'Frame 0': '#E41A1C',
+        'Frame 1': '#377EB8',
+        'Frame 2': 'gray',
+    }
+    rect_cds = _cds_rect_data()
+    x_axis_text = element_text() if show_xaxis else element_blank()
+    x_axis_ticks = element_line() if show_xaxis else element_blank()
+    x_axis_title = element_text() if show_xaxis else element_blank()
+    x_label = 'Metagene Position (x_pos)' if show_xaxis else ''
+
+    plot = (
+        ggplot(df_plot, aes(x='x_pos', y='log2_saliency'))
+        + scale_fill_identity()
+    )
+    if show_cds:
+        plot += geom_rect(
+            data=rect_cds,
+            mapping=aes(
+                xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax',
+                fill='fill',
+            ),
+            alpha=0.3,
+            inherit_aes=False,
+            show_legend=False,
+        )
+    plot += geom_line(size=0.6, alpha=0.4, color='#333333')
+    if color_by_frame:
+        plot += geom_point(
+            aes(color='Frame'), size=2, alpha=1, stroke=0
+        )
+        plot += scale_color_manual(values=frame_palette)
+    plot += labs(
+        x=x_label,
+        y='log2(Mean |d(profile)/d(base)| + 1)',
+    )
+    plot += theme_classic()
+    plot += theme(
+        axis_text_x=x_axis_text,
+        axis_ticks_major_x=x_axis_ticks,
+        axis_title_x=x_axis_title,
+        figure_size=(weight, height),
+    )
+
+    requested_path = os.fspath(out_path)
+    base_path, extension = os.path.splitext(requested_path)
+    pdf_path = (
+        requested_path if extension.lower() == '.pdf'
+        else f"{base_path or requested_path}.pdf"
+    )
+    plot.save(pdf_path)
+    print(f"Saliency profile saved to {pdf_path}")
+    return pdf_path
 
 
 def plot_mutagenesis_profile(pos_agg, out_path="mutagenesis_profile.pdf", up_len=300, down_len=300):

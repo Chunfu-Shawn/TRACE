@@ -6,6 +6,7 @@ import unittest
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 
@@ -40,6 +41,8 @@ from eval.de_novo_motif_discovery import (
     _sequence_mask,
     compute_saliency_profile,
     extract_attention_positional_importance,
+    plot_attention_profile,
+    plot_saliency_profile,
 )
 from model.base_model import BaseModel
 
@@ -119,14 +122,87 @@ class DeNovoMotifBaseModelTests(unittest.TestCase):
         )
         attention = extract_attention_positional_importance(
             model,
-            dataset,
-            n_samples=1,
+            dataset * 5,
+            n_samples=5,
             min_len=0,
             max_len=20,
         )
 
         self.assertIn("mean_saliency", saliency.columns)
         self.assertIn("mean_attn", attention.columns)
+        self.assertIn("head", attention.columns)
+        self.assertEqual(sorted(attention["head"].unique().tolist()), [0, 1])
+
+    def test_attention_plot_adds_layer_by_head_pdf(self):
+        saved_paths = []
+
+        class FakePlot:
+            def __add__(self, other):
+                return self
+
+            def save(self, path):
+                saved_paths.append(path)
+
+        fake_plotnine = types.ModuleType("plotnine")
+        fake_plotnine.ggplot = lambda *args, **kwargs: FakePlot()
+        fake_plotnine.aes = lambda *args, **kwargs: {}
+        for name in (
+            "geom_line", "geom_point", "geom_rect", "labs", "theme",
+            "facet_grid", "scale_color_manual", "scale_fill_identity",
+            "element_text", "theme_classic", "element_blank", "element_line",
+        ):
+            setattr(
+                fake_plotnine,
+                name,
+                lambda *args, **kwargs: object(),
+            )
+
+        attention = pd.DataFrame(
+            {
+                "layer": [0, 0, 0, 0],
+                "head": [0, 0, 1, 1],
+                "x_pos": [0, 1, 0, 1],
+                "mean_attn": [0.2, 0.3, 0.4, 0.5],
+            }
+        )
+        previous_plotnine = sys.modules.get("plotnine")
+        sys.modules["plotnine"] = fake_plotnine
+        try:
+            output_paths = plot_attention_profile(
+                attention,
+                out_path="attention.pdf",
+            )
+            saliency_path = plot_saliency_profile(
+                pd.DataFrame(
+                    {
+                        "x_pos": [-1, 0, 1, 2],
+                        "mean_saliency": [0.1, 0.2, 0.3, 0.4],
+                    }
+                ),
+                out_path="saliency.png",
+                color_by_frame=False,
+                xlim=(0, 2),
+                show_xaxis=True,
+                show_cds=False,
+                weight=8,
+                height=4,
+            )
+        finally:
+            if previous_plotnine is None:
+                sys.modules.pop("plotnine", None)
+            else:
+                sys.modules["plotnine"] = previous_plotnine
+
+        self.assertEqual(
+            output_paths,
+            [
+                "attention.combined.pdf",
+                "attention.per_layer.pdf",
+                "attention.per_layer_head.pdf",
+            ],
+        )
+        self.assertEqual(saliency_path, "saliency.pdf")
+        self.assertEqual(saved_paths, output_paths + [saliency_path])
 
 if __name__ == "__main__":
     unittest.main()
