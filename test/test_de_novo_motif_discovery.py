@@ -198,6 +198,7 @@ class DeNovoMotifBaseModelTests(unittest.TestCase):
             [
                 "attention.combined.pdf",
                 "attention.per_layer.pdf",
+                "attention.per_head.pdf",
                 "attention.per_layer_head.pdf",
             ],
         )

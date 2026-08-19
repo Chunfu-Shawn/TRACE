@@ -739,6 +739,73 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
             categories=head_labels,
         )
 
+        per_head_group_columns = ['head', 'x_pos']
+        if color_by_frame:
+            per_head_group_columns.append('Frame')
+        per_head_df = df_head_plot.groupby(
+            per_head_group_columns, as_index=False, observed=True
+        )[['mean_attn']].mean()
+        per_head_df['log2_mean_attn'] = np.log2(
+            per_head_df['mean_attn'] + 1
+        )
+        per_head_df['Head'] = pd.Categorical(
+            [f'H{head}' for head in per_head_df['head']],
+            categories=head_labels,
+        )
+        rect_standalone_head = pd.DataFrame({
+            'Head': pd.Categorical(head_labels, categories=head_labels),
+            'xmin': [0] * len(head_labels),
+            'xmax': [FIXED_CDS_LEN] * len(head_labels),
+            'ymin': [-float('inf')] * len(head_labels),
+            'ymax': [float('inf')] * len(head_labels),
+            'fill': ['lightgray'] * len(head_labels),
+        })
+
+        per_head_plot = (
+            ggplot(per_head_df, aes(x='x_pos', y='log2_mean_attn'))
+            + scale_fill_identity()
+        )
+        if show_cds:
+            per_head_plot += geom_rect(
+                data=rect_standalone_head,
+                mapping=aes(
+                    xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax',
+                    fill='fill',
+                ),
+                alpha=0.3,
+                inherit_aes=False,
+                show_legend=False,
+            )
+        per_head_plot += geom_line(
+            size=0.4, alpha=0.4, color='#333333'
+        )
+        if color_by_frame:
+            per_head_plot += geom_point(
+                aes(color='Frame'), size=1.5, alpha=1, stroke=0
+            )
+            per_head_plot += scale_color_manual(values=frame_palette)
+        per_head_plot += facet_grid('Head ~ .', scales='free_y')
+        per_head_plot += labs(
+            x=x_label_str,
+            y='log2(Mean attention across layers + 1)',
+        )
+        per_head_plot += theme_classic()
+        per_head_plot += theme(
+            axis_text_x=x_axis_text,
+            axis_ticks_major_x=x_axis_ticks,
+            axis_title_x=x_axis_title,
+            strip_background=element_blank(),
+            strip_text=element_text(size=10),
+            figure_size=(
+                weight,
+                max(height, 1.6 * len(head_labels) + 2),
+            ),
+        )
+        standalone_head_path = f"{base_out}.per_head.pdf"
+        per_head_plot.save(standalone_head_path)
+        print(f"Per-head attention profile saved to {standalone_head_path}")
+        output_paths.append(standalone_head_path)
+
         facet_pairs = pd.MultiIndex.from_product(
             [layer_labels, head_labels], names=['Layer', 'Head']
         ).to_frame(index=False)
@@ -748,7 +815,7 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         facet_pairs['Head'] = pd.Categorical(
             facet_pairs['Head'], categories=head_labels
         )
-        rect_per_head = facet_pairs.assign(
+        rect_per_layer_head = facet_pairs.assign(
             xmin=0,
             xmax=FIXED_CDS_LEN,
             ymin=-float('inf'),
@@ -762,7 +829,7 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         )
         if show_cds:
             p_heads += geom_rect(
-                data=rect_per_head,
+                data=rect_per_layer_head,
                 mapping=aes(
                     xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax',
                     fill='fill',
