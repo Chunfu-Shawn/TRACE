@@ -68,7 +68,7 @@ TEST_DATASET_PATH = (
 # either of the two test endpoints shown in the final figure.
 CHECKPOINT_SUFFIX = ".best_total.pt"
 HEAD_HIDDEN_DIM = 384
-BATCH_SIZE = 30
+BATCH_SIZE = 10
 NUM_TEST_SAMPLES: Optional[int] = None
 MIN_RPF_DEPTH: Optional[float] = 0.5
 MIN_RNA_PER_CELL = 50
@@ -96,6 +96,26 @@ class ModelSpec:
 
 MODEL_SPECS = (
     ModelSpec(
+        model_id="trace_exp_aug",
+        label="TRACE",
+        model_class=BaseModel,
+        config_path=SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+        checkpoint_glob=(
+            "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a1_b0_exp_aug*"
+        ),
+        color="#166A9A",
+    ),
+    ModelSpec(
+        model_id="trace_no_alpha",
+        label="TRACE (No macro-loss)",
+        model_class=BaseModel,
+        config_path=SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
+        checkpoint_glob=(
+            "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a0_b0_exp_aug*"
+        ),
+        color="#166A9A", #9A6FB0
+    ),
+    ModelSpec(
         model_id="trace_zero",
         label="TRACE (Zero)",
         model_class=BaseModel,
@@ -105,6 +125,7 @@ MODEL_SPECS = (
         ),
         color="#777777",
         force_zero_expression=True,
+        enabled=False,
     ),
     ModelSpec(
         model_id="trace_real",
@@ -114,18 +135,7 @@ MODEL_SPECS = (
         checkpoint_glob=(
             "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b02_real*"
         ),
-        color="#78A9CF",
-        enabled=False,
-    ),
-    ModelSpec(
-        model_id="trace_exp_aug",
-        label="TRACE",
-        model_class=BaseModel,
-        config_path=SRC_DIR / "config/base_model_384d_16h_12l_64env_16ad_bs.yaml",
-        checkpoint_glob=(
-            "base_model_384d_16h_12l_64env_16ad_bs*hs_5c*a2_b02_exp_aug*"
-        ),
-        color="#166A9A",
+        color="#166A9A", #78A9CF
     ),
     ModelSpec(
         model_id="trace_exp_aug_no_ranking",
@@ -353,7 +363,7 @@ def safe_spearman(first: Sequence[float], second: Sequence[float]) -> float:
         or np.ptp(second_array) == 0
     ):
         return float("nan")
-    return float(spearmanr(first_array, second_array).statistic)
+    return float(np.abs(spearmanr(first_array, second_array).statistic))
 
 
 def evaluate_prediction_file(
@@ -659,7 +669,7 @@ def plot_architecture_comparison(
                 markersize=6.5,
                 markerfacecolor=spec.color,
                 markeredgecolor=spec.color,
-                markeredgewidth=0.0,
+                markeredgewidth=1.0,
                 color=spec.color,
                 capsize=3.0,
                 linewidth=1.3,

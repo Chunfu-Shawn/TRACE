@@ -48,8 +48,8 @@ GLOBAL_MODEL_ORDER = [
     "Convolution", 
     "TranslationAI", 
     "RiboTIE", 
-    "RiboTISH", 
     "RibORF",
+    "RiboTISH", 
     "Kozak-score",
     "ORF-length", 
     "Transcription-level"

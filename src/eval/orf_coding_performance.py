@@ -1059,6 +1059,340 @@ def plot_feature_combination_performance(
     return output_paths
 
 
+def plot_combined_vs_single_signature_performance(
+        results: Optional[Union[Mapping[str, object], str, os.PathLike]] = None,
+        combination_metrics_path: Optional[Union[str, os.PathLike]] = None,
+        single_metrics_path: Optional[Union[str, os.PathLike]] = None,
+        out_dir: Optional[Union[str, os.PathLike]] = None,
+        primary_metric: str = 'Candidate_PR_AUC',
+        top_n_combinations: int = 10,
+        selected_combinations: Optional[List[str]] = None,
+        single_signatures: Optional[List[str]] = None,
+        ranking_scope: str = 'Overall',
+        metric_columns: Optional[List[str]] = None,
+        output_prefix: str = 'combined_vs_single_signature_performance',
+        cmap: str = 'YlGnBu') -> List[str]:
+    """Plot selected combinations and individual signatures independently.
+
+    ``results`` may be the dictionary returned by
+    ``evaluate_orf_level_predictions`` or a result-directory path. Historical
+    results can instead be supplied through ``combination_metrics_path`` and
+    ``single_metrics_path``. The latter accepts either the comprehensive
+    metrics schema or the normalized feature-combination metrics schema.
+    """
+    metric_aliases = {
+        'ROC-AUC': 'Candidate_ROC_AUC',
+        'PR-AUC': 'Candidate_PR_AUC',
+        'Best_F1': 'Candidate_Best_F1',
+    }
+    single_signature_display_names = {
+        'rank_score': 'Caller Ranking Score',
+        'occupancy_expr_score': 'Expression-weighted Occupancy Score',
+        'occupancy_score': 'Predicted Occupancy Score',
+        'log_total_occupancy': 'Log Total Predicted Occupancy',
+        'total_occupancy': 'Total Predicted Occupancy',
+        'collapse_score': 'Boundary-aware Collapse Score',
+        'expr_score': 'Expression Score (TPM*Signal)',
+        'base_translation_score': 'Base Translation Score',
+        'base_expr_score': 'Base Expression-weighted Score',
+        'sequence_length_score': 'Sequence-length Score',
+        'translation_score': 'Pure Translation Score',
+        'transcription_score': 'Pure Transcription Score',
+        'seq_score': 'Pure ORF-structure Score',
+        'kozak_score': 'Kozak Context Score',
+        'start_codon_score': 'Start-codon Prior Score',
+        'score': 'Final Score',
+        'mean_intensity': 'Mean Intensity',
+        'tri_nucleotide_periodicity': 'Periodicity',
+        'uniformity_of_signal': 'Uniformity',
+        'step_up_contrast': 'Step-up Contrast',
+        'drop_off': 'Drop-off',
+    }
+    display_name_to_column = {
+        display_name: score_column
+        for score_column, display_name in single_signature_display_names.items()
+    }
+    primary_metric = metric_aliases.get(primary_metric, primary_metric)
+    if metric_columns is None:
+        metric_columns = [
+            'Candidate_ROC_AUC',
+            'Candidate_PR_AUC',
+            'Candidate_Best_F1',
+        ]
+    else:
+        metric_columns = [
+            metric_aliases.get(column, column) for column in metric_columns
+        ]
+
+    combination_source = combination_metrics_path
+    single_source = single_metrics_path
+    inferred_dir = None
+
+    if isinstance(results, Mapping):
+        if combination_source is None:
+            combination_source = results.get('feature_combination_metrics')
+        if single_source is None:
+            single_source = results.get('comprehensive_metrics')
+        evaluation_path = results.get('evaluation_path')
+        if evaluation_path:
+            inferred_dir = os.path.dirname(os.path.abspath(evaluation_path))
+    elif results is not None:
+        result_path = os.path.abspath(os.fspath(results))
+        if os.path.isdir(result_path):
+            inferred_dir = result_path
+        elif os.path.isfile(result_path):
+            inferred_dir = os.path.dirname(result_path)
+            filename = os.path.basename(result_path)
+            if filename == 'feature_combination_metrics.csv':
+                combination_source = combination_source or result_path
+            elif filename == 'comprehensive_metrics_summary.csv':
+                single_source = single_source or result_path
+            else:
+                raise ValueError(
+                    "A results file must be feature_combination_metrics.csv "
+                    "or comprehensive_metrics_summary.csv."
+                )
+        else:
+            raise FileNotFoundError(f"Results path not found: {result_path}")
+
+    if inferred_dir is not None:
+        inferred_combination_path = os.path.join(
+            inferred_dir, 'feature_combination_metrics.csv'
+        )
+        inferred_single_path = os.path.join(
+            inferred_dir, 'comprehensive_metrics_summary.csv'
+        )
+        if combination_source is None and os.path.isfile(
+                inferred_combination_path):
+            combination_source = inferred_combination_path
+        if single_source is None and os.path.isfile(inferred_single_path):
+            single_source = inferred_single_path
+
+    def load_table(source, source_name: str) -> pd.DataFrame:
+        if isinstance(source, pd.DataFrame):
+            return source.copy()
+        if source is None:
+            return pd.DataFrame()
+        path = os.path.abspath(os.fspath(source))
+        if not os.path.isfile(path):
+            raise FileNotFoundError(f"{source_name} not found: {path}")
+        return pd.read_csv(path)
+
+    combination_df = load_table(
+        combination_source, 'Combination metrics table'
+    )
+    if combination_df.empty:
+        raise ValueError(
+            "No feature-combination metrics were found. Run the evaluation "
+            "with evaluate_score_combinations=True first."
+        )
+    required_combination_columns = {
+        'Cell_Type', 'Score_Column', 'Score_Label', 'Method', primary_metric,
+    }
+    missing = required_combination_columns.difference(combination_df.columns)
+    if missing:
+        raise ValueError(
+            f"Combination metrics are missing columns: {sorted(missing)}"
+        )
+
+    raw_single_df = load_table(single_source, 'Single-signature metrics table')
+    if not raw_single_df.empty and {
+            'Feature', 'ROC-AUC', 'PR-AUC', 'Best_F1'
+    }.issubset(raw_single_df.columns):
+        single_df = raw_single_df.rename(columns={
+            'Feature': 'Score_Label',
+            'ROC-AUC': 'Candidate_ROC_AUC',
+            'PR-AUC': 'Candidate_PR_AUC',
+            'Best_F1': 'Candidate_Best_F1',
+        }).copy()
+        single_df['Score_Column'] = single_df['Score_Label'].map(
+            display_name_to_column
+        ).fillna(single_df['Score_Label'])
+        single_df['Method'] = 'single'
+    elif not raw_single_df.empty:
+        required_single_columns = {
+            'Cell_Type', 'Score_Column', 'Score_Label', primary_metric,
+        }
+        missing = required_single_columns.difference(raw_single_df.columns)
+        if missing:
+            raise ValueError(
+                f"Single-signature metrics are missing columns: {sorted(missing)}"
+            )
+        single_df = raw_single_df.copy()
+        single_df['Method'] = 'single'
+    else:
+        single_df = pd.DataFrame()
+
+    base_df = combination_df[
+        combination_df['Method'].astype(str).str.lower() == 'base'
+    ].copy()
+    base_df['Method'] = 'single'
+    if single_df.empty:
+        single_df = base_df
+    elif not base_df.empty:
+        common_columns = sorted(set(single_df.columns).union(base_df.columns))
+        single_df = pd.concat([
+            single_df.reindex(columns=common_columns),
+            base_df.reindex(columns=common_columns),
+        ], ignore_index=True)
+
+    combined_df = combination_df[
+        combination_df['Method'].astype(str).str.lower() != 'base'
+    ].copy()
+    combined_df['Signature_Group'] = 'Combined signatures'
+    single_df['Signature_Group'] = 'Single signatures'
+    combined_df['Plot_Key'] = (
+        'combined::' + combined_df['Score_Column'].astype(str)
+    )
+    single_df['Plot_Key'] = 'single::' + single_df['Score_Column'].astype(str)
+
+    def select_scores(
+            frame: pd.DataFrame,
+            requested: Optional[List[str]],
+            label: str) -> pd.DataFrame:
+        if requested is None:
+            return frame
+        if isinstance(requested, str):
+            requested = [requested]
+        requested = list(dict.fromkeys(str(value) for value in requested))
+        available = set(frame['Score_Column'].astype(str)).union(
+            frame['Score_Label'].astype(str)
+        )
+        missing_scores = [
+            value for value in requested if value not in available
+        ]
+        if missing_scores:
+            raise ValueError(
+                f"Unknown {label}: {missing_scores}. Use Score_Column or "
+                "Score_Label values from the corresponding metrics table."
+            )
+        return frame[
+            frame['Score_Column'].astype(str).isin(requested)
+            | frame['Score_Label'].astype(str).isin(requested)
+        ].copy()
+
+    combined_rank = combined_df[
+        combined_df['Cell_Type'].astype(str) == str(ranking_scope)
+    ].copy()
+    single_rank = single_df[
+        single_df['Cell_Type'].astype(str) == str(ranking_scope)
+    ].copy()
+    if combined_rank.empty:
+        raise ValueError(f"No combinations found for scope '{ranking_scope}'.")
+
+    if selected_combinations is None:
+        if top_n_combinations < 1:
+            raise ValueError("top_n_combinations must be at least 1.")
+        combined_rank = combined_rank.sort_values(
+            primary_metric, ascending=False, na_position='last'
+        ).head(top_n_combinations)
+    else:
+        combined_rank = select_scores(
+            combined_rank, selected_combinations, 'combined signatures'
+        ).sort_values(primary_metric, ascending=False, na_position='last')
+
+    single_rank = select_scores(
+        single_rank, single_signatures, 'single signatures'
+    ).sort_values(primary_metric, ascending=False, na_position='last')
+    if single_rank.empty:
+        raise ValueError(
+            "No individual signatures were selected. Supply "
+            "single_metrics_path or select base scores present in the "
+            "combination metrics table."
+        )
+
+    selected_df = pd.concat(
+        [combined_rank, single_rank], ignore_index=True
+    ).drop_duplicates(subset=['Plot_Key'], keep='first')
+    missing_metrics = [
+        column for column in metric_columns if column not in selected_df.columns
+    ]
+    if missing_metrics:
+        raise ValueError(f"Unknown heatmap metrics: {missing_metrics}")
+
+    if out_dir is None:
+        out_dir = inferred_dir or os.getcwd()
+    out_dir = os.path.abspath(os.fspath(out_dir))
+    os.makedirs(out_dir, exist_ok=True)
+
+    overall_matrix = selected_df.set_index('Score_Label')[metric_columns]
+    figure_height = max(4.0, 0.36 * len(overall_matrix) + 1.8)
+    fig, ax = plt.subplots(figsize=(9, figure_height))
+    sns.heatmap(
+        overall_matrix,
+        cmap=cmap,
+        vmin=0,
+        vmax=1,
+        annot=True,
+        fmt='.3f',
+        linewidths=0.4,
+        linecolor='white',
+        cbar_kws={'label': 'Performance'},
+        ax=ax,
+    )
+    combination_count = len(combined_rank)
+    ax.axhline(combination_count, color='black', linewidth=1.5)
+    for tick_label in ax.get_yticklabels()[combination_count:]:
+        tick_label.set_fontstyle('italic')
+    ax.set_xlabel('')
+    ax.set_ylabel('')
+    ax.set_title(
+        f'Combined versus individual signatures ({ranking_scope})'
+    )
+    plt.tight_layout()
+    overall_path = os.path.join(out_dir, f'{output_prefix}.overall.pdf')
+    fig.savefig(overall_path, bbox_inches='tight')
+    plt.close(fig)
+
+    all_metrics_df = pd.concat(
+        [combined_df, single_df], ignore_index=True, sort=False
+    )
+    selected_keys = selected_df['Plot_Key'].tolist()
+    cell_df = all_metrics_df[
+        (~all_metrics_df['Cell_Type'].isin(['Overall', 'Macro_Average']))
+        & all_metrics_df['Plot_Key'].isin(selected_keys)
+    ].copy()
+    output_paths = [overall_path]
+    if not cell_df.empty:
+        cell_matrix = cell_df.pivot_table(
+            index='Plot_Key',
+            columns='Cell_Type',
+            values=primary_metric,
+            aggfunc='first',
+        ).reindex(selected_keys)
+        label_lookup = selected_df.set_index('Plot_Key')['Score_Label']
+        cell_matrix.index = [
+            label_lookup.loc[index] for index in cell_matrix.index
+        ]
+        figure_width = max(6.0, 0.65 * len(cell_matrix.columns) + 3.5)
+        fig, ax = plt.subplots(figsize=(figure_width, figure_height))
+        sns.heatmap(
+            cell_matrix,
+            cmap=cmap,
+            vmin=0,
+            vmax=1,
+            annot=True,
+            fmt='.3f',
+            linewidths=0.4,
+            linecolor='white',
+            cbar_kws={'label': primary_metric},
+            ax=ax,
+        )
+        ax.axhline(combination_count, color='black', linewidth=1.5)
+        for tick_label in ax.get_yticklabels()[combination_count:]:
+            tick_label.set_fontstyle('italic')
+        ax.set_xlabel('Cell Type')
+        ax.set_ylabel('')
+        ax.set_title(f'{primary_metric} across Cell Types')
+        plt.tight_layout()
+        cell_path = os.path.join(out_dir, f'{output_prefix}.by_cell_type.pdf')
+        fig.savefig(cell_path, bbox_inches='tight')
+        plt.close(fig)
+        output_paths.append(cell_path)
+
+    return output_paths
+
+
 # =====================================================================
 # Main Orchestrator
 # =====================================================================

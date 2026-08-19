@@ -7,18 +7,18 @@ All position metrics are mapped to a Metagene Coordinate System:
   - 3' UTR: True nucleotide distance from CDS stop (>= fixed_cds_len)
 """
 
-import os, pickle
+import os
 import numpy as np
 import pandas as pd
 import torch
-import torch.nn as nn
-from collections import defaultdict, Counter
+from collections import defaultdict
 from tqdm import tqdm
-import warnings
-from eval.calculate_te import *
 import logomaker
 import matplotlib.pyplot as plt
-warnings.filterwarnings("ignore")
+from torch.utils.data import Subset
+
+from model.base_model import BaseModel
+from utils import unwrap_model
 
 # ============================================================
 # Global Parameter
@@ -89,16 +89,137 @@ def _inverse_metagene(x_pos, cds_start, cds_end, fixed_cds_len=FIXED_CDS_LEN):
 # Helper functions
 # ============================================================
 def _unwrap(model):
-    return model.module if hasattr(model, 'module') else model
+    """Return and validate the unwrapped BaseModel instance."""
+    raw = unwrap_model(model)
+    if type(raw) is not BaseModel:
+        raise TypeError(
+            "de_novo_motif_discovery requires an exact "
+            "model.base_model.BaseModel instance."
+        )
+    return raw
+
+
+def _model_device(model, device=None):
+    """Resolve an explicit or model-owned torch device."""
+    model_device = next(model.parameters()).device
+    if device is None:
+        return model_device
+    requested_device = torch.device(device)
+    same_device = (
+        requested_device.type == model_device.type
+        and (
+            requested_device.index is None
+            or requested_device.index == model_device.index
+        )
+    )
+    if not same_device:
+        raise ValueError(
+            f"Requested device {requested_device} does not match the model "
+            f"device {model_device}. Move the model before running analysis."
+        )
+    return model_device
+
+
+def _extract_count_profile(output):
+    """Extract a single-channel positional profile from the count head."""
+    if not isinstance(output, dict) or 'count' not in output:
+        raise KeyError("BaseModel output must contain a 'count' head.")
+    profile = output['count']
+    if isinstance(profile, dict):
+        if 'profile' not in profile:
+            raise KeyError("The count head dictionary has no 'profile' tensor.")
+        profile = profile['profile']
+    if not torch.is_tensor(profile):
+        raise TypeError("The count head must return a tensor.")
+    if profile.ndim != 3 or profile.shape[-1] != 1:
+        raise ValueError(
+            "The count head must return shape (batch, length, 1), "
+            f"got {tuple(profile.shape)}."
+        )
+    return profile
+
+
+def _sequence_mask(seq_tensor):
+    """Return an all-valid mask for one unpadded dataset sequence."""
+    return torch.ones(
+        seq_tensor.shape[:2],
+        dtype=torch.bool,
+        device=seq_tensor.device,
+    )
+
+
+def _resolve_base_model_context(raw, sample, seq_tensor, device):
+    """Build BaseModel sequence embeddings and environmental conditioning."""
+    expr = sample['ev']
+    expr_tensor = (
+        torch.from_numpy(expr).float().unsqueeze(0).to(device)
+        if expr is not None and len(expr) > 0
+        else None
+    )
+    resolved_expr = raw._resolve_expr_vector(
+        cell_type=sample['ct'],
+        expr_vector=expr_tensor,
+        batch_size=1,
+    ).to(device)
+    species_idx = raw._normalize_species(sample['species'], 1).to(device)
+    species_emb = raw.species_embedding(species_idx)
+    compact_style = raw.expr_projector(
+        torch.cat([resolved_expr, species_emb], dim=-1)
+    )
+    src_reps = raw.seq_embedding(seq_tensor)
+    return expr_tensor, compact_style, src_reps, _sequence_mask(seq_tensor)
+
+
+def _adaln_parameters(sublayer, compact_style):
+    """Resolve AdaLN parameters exactly as BaseModel does during forward."""
+    gamma, beta, alpha = sublayer.adaLN_modulation(
+        compact_style
+    ).chunk(3, dim=-1)
+    bounds = getattr(sublayer, 'adaln_modulation_bounds', None)
+    if bounds is not None:
+        gamma_bound, beta_bound, alpha_bound = bounds
+        gamma = sublayer._smooth_bound(gamma, gamma_bound)
+        beta = sublayer._smooth_bound(beta, beta_bound)
+        alpha = sublayer._smooth_bound(alpha, alpha_bound)
+    return gamma, beta, alpha
+
+
+def _prepare_adaln_input(sublayer, reps, compact_style):
+    """Prepare the standard BaseModel Pre-AdaLN sublayer input."""
+    gamma, beta, alpha = _adaln_parameters(sublayer, compact_style)
+    normalized = (
+        (1 + gamma.unsqueeze(1)) * sublayer.LN(reps)
+        + beta.unsqueeze(1)
+    )
+    return normalized, alpha
+
+
+def _apply_adaln_residual(sublayer, reps, output, gate):
+    """Apply the standard BaseModel gated AdaLN residual update."""
+    return reps + gate.unsqueeze(1) * sublayer.dropout(output)
 
 def _extract_sample(dataset, idx):
-    uuid, species, ct, ev, mi, se, ce = dataset[idx]
+    item = dataset[idx]
+    if len(item) < 6:
+        raise ValueError(
+            "Each dataset sample must provide uuid, species, cell_type, "
+            "expr_vector, meta_info, and seq_emb."
+        )
+    uuid, species, ct, ev, mi, se = item[:6]
 
-    se_np = se.cpu().numpy() if torch.is_tensor(se) else np.array(se)
-    ce_np = ce.cpu().numpy() if torch.is_tensor(ce) else np.array(ce)
+    se_np = (
+        se.detach().cpu().numpy()
+        if torch.is_tensor(se)
+        else np.asarray(se)
+    )
+    if se_np.ndim != 2 or se_np.shape[-1] != 4:
+        raise ValueError(
+            "seq_emb must have shape (length, 4), "
+            f"got {se_np.shape}."
+        )
 
     if torch.is_tensor(ev):
-        ev_np = ev.cpu().numpy()
+        ev_np = ev.detach().cpu().numpy()
     else:
         ev_np = np.array(ev) if ev is not None else None
     if ev_np is not None and ev_np.ndim == 1 and ev_np.shape[0] == 0:
@@ -109,7 +230,8 @@ def _extract_sample(dataset, idx):
     tid = str(uuid).rsplit('-', 2)[0] if '-' in str(uuid) else str(uuid).split('.')[0]
 
     return {
-        'se': se_np, 'ce': ce_np, 'ev': ev_np,
+        'se': se_np, 'ev': ev_np,
+        'meta_info': mi,
         'cds_start_0': cds_start, 'cds_end_0': cds_end,
         'L': se_np.shape[0], 'ct': ct, 'species': species, 'tid': tid,
         'valid': cds_start >= 0 and cds_end > cds_start
@@ -120,8 +242,7 @@ def _extract_sample(dataset, idx):
 # ============================================================
 def extract_attention_positional_importance(model, dataset, n_samples=200, min_len=500, max_len=1200, device=None):
     raw = _unwrap(model)
-    if device is None:
-        device = next(raw.parameters()).device
+    device = _model_device(raw, device)
     raw.eval()
 
     n_layers = len(raw.encoder.encoder_layers)
@@ -139,26 +260,21 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
             continue
 
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
-        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
         
         cds_start, cds_end = s['cds_start_0'], s['cds_end_0']
 
         with torch.no_grad():
-            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            species_idx = raw._normalize_species(s['species'], 1).to(device)
-            species_emb = raw.species_embedding(species_idx)
-            combined_env = torch.cat([resolved_expr, species_emb], dim=-1)
-            compact_style = raw.expr_projector(combined_env)
-
-            src_reps = raw.src_emb(se, ce)
-            src_mask = (se[:, :, 0] != 0).to(device)
+            _, compact_style, src_reps, src_mask = (
+                _resolve_base_model_context(raw, s, se, device)
+            )
 
             for layer_idx, enc_layer in enumerate(raw.encoder.encoder_layers):
                 sub = enc_layer.sublayers[0]
-                style = sub.adaLN_modulation(compact_style)
-                gamma, beta, alpha = style.chunk(3, dim=-1)
-                normed = (1 + gamma.unsqueeze(1)) * sub.LN(src_reps) + beta.unsqueeze(1)
+                normed, attention_gate = _prepare_adaln_input(
+                    sub,
+                    src_reps,
+                    compact_style,
+                )
 
                 attn_mod = enc_layer.multi_headed_attention
                 bs_, Lc, d = normed.shape
@@ -193,14 +309,25 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
                 attn_out = attn_mod.unifyheads(attn_out)
                 if hasattr(attn_mod, 'dropout'):
                     attn_out = attn_mod.dropout(attn_out)
-                src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
+                src_reps = _apply_adaln_residual(
+                    sub,
+                    src_reps,
+                    attn_out,
+                    attention_gate,
+                )
 
                 sub2 = enc_layer.sublayers[1]
-                style2 = sub2.adaLN_modulation(compact_style)
-                gamma2, beta2, alpha2 = style2.chunk(3, dim=-1)
-                normed2 = (1 + gamma2.unsqueeze(1)) * sub2.LN(src_reps) + beta2.unsqueeze(1)
-                ffn_out = sub2.dropout(enc_layer.ffn(normed2))
-                src_reps = src_reps + alpha2.unsqueeze(1) * ffn_out
+                normed2, ffn_gate = _prepare_adaln_input(
+                    sub2,
+                    src_reps,
+                    compact_style,
+                )
+                src_reps = _apply_adaln_residual(
+                    sub2,
+                    src_reps,
+                    enc_layer.ffn(normed2),
+                    ffn_gate,
+                )
 
         valid_count += 1
 
@@ -219,52 +346,48 @@ def extract_attention_positional_importance(model, dataset, n_samples=200, min_l
                 'n_contrib': v['n'],
             })
 
-    df = pd.DataFrame(records).sort_values(['layer', 'x_pos'])
+    df = pd.DataFrame(records, columns=[
+        'layer', 'x_pos', 'mean_attn', 'std_attn',
+        'pos_from_cds_start', 'pos_from_cds_stop', 'n_contrib',
+    ])
+    if not df.empty:
+        df = df.sort_values(['layer', 'x_pos'])
     print(f"Attention aggregated: {len(df)} metagene positions from {valid_count} samples.")
     return df
 
 # ============================================================
-# Phase 1B: Input saliency (Modified for Whole Profile Shape)
+# Phase 1B: Input saliency for mean CDS output
 # ============================================================
 def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200, device=None):
     raw = _unwrap(model)
-    if device is None:
-        device = next(raw.parameters()).device
+    device = _model_device(raw, device)
     raw.eval()
 
     accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0, 'rel_start_sum': 0.0, 'rel_stop_sum': 0.0})
     indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
     valid_count = 0
 
-    for idx in tqdm(indices, desc="Input saliency (Whole Profile)"):
+    for idx in tqdm(indices, desc="Input saliency (Mean CDS Output)"):
         s = _extract_sample(dataset, idx)
         if not s['valid'] or s['L'] > max_len:
             continue
             
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
-        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
         ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
         
         L, cds_start, cds_end = s['L'], s['cds_start_0'], s['cds_end_0']
 
         raw.eval()
         with torch.enable_grad():
-            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            species_idx = raw._normalize_species(s['species'], 1).to(device)
-
             out = raw.forward(
-                seq_batch=se, count_batch=ce,
-                expr_vector=resolved_expr, species=species_idx,
+                seq_batch=se,
+                cell_type=s['ct'],
+                expr_vector=ev,
+                species=s['species'],
+                src_mask=_sequence_mask(se),
                 head_names=['count'],
             )
-            pred = out['count']
-            if isinstance(pred, dict):
-                pred = pred.get('profile', pred)
-            
-            # [Mod]: 捕捉整体 Profile 的形状和振幅变化，而不仅仅是均值
-            # 求平方和 (L2 Norm squared) 可以确保波峰的正向和负向扰动都不会被抵消
-            #profile_tensor = pred[0, :, 0]
-            #profile_loss = (profile_tensor ** 2).sum()
+            pred = _extract_count_profile(out)
             te = pred[0, cds_start:cds_end, 0].mean()
 
         te.backward()
@@ -295,18 +418,29 @@ def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200, device
                 'n_contrib': v['n'],
             })
 
-    df = pd.DataFrame(records).sort_values('x_pos')
+    df = pd.DataFrame(records, columns=[
+        'x_pos', 'mean_saliency', 'std_saliency',
+        'pos_from_cds_start', 'pos_from_cds_stop', 'n_contrib',
+    ])
+    if not df.empty:
+        df = df.sort_values('x_pos')
     print(f"Saliency aggregated: {len(df)} metagene positions from {valid_count} samples")
     return df
 
 
-def run_differential_saliency(model, dataset, cell_type_A, cell_type_B, max_len=1200, n_samples=500):
+def run_differential_saliency(
+        model,
+        dataset,
+        cell_type_A,
+        cell_type_B,
+        max_len=1200,
+        n_samples=500,
+        device=None):
     # 1. 从数据集中筛出特定细胞系的样本索引
     indices_A = [i for i, d in enumerate(dataset) if d[2] == cell_type_A]
     indices_B = [i for i, d in enumerate(dataset) if d[2] == cell_type_B]
     
     # 构建临时的小型 Dataset 子集 (方便传给 compute_saliency_profile)
-    from torch.utils.data import Subset
     subset_A = Subset(dataset, indices_A)
     subset_B = Subset(dataset, indices_B)
 
@@ -353,10 +487,28 @@ def _load_gene_names(gene_order_path=None, gene_annot_path="/home/user/data3/rba
     return gene_names
 
 
-def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50, gene_annot_path=None):
+def compute_adaLN_gene_attribution(
+        model,
+        gene_names=None,
+        top_k=50,
+        gene_annot_path=None,
+        gene_order_path=None):
     raw = _unwrap(model)
     n_layers, d_expr = len(raw.encoder.encoder_layers), raw.d_expr
-    gene_names = gene_names or _load_gene_names()
+    if gene_names is None:
+        gene_names = (
+            _load_gene_names(gene_order_path=gene_order_path)
+            if gene_annot_path is None
+            else _load_gene_names(
+                gene_order_path=gene_order_path,
+                gene_annot_path=gene_annot_path,
+            )
+        )
+    gene_names = list(gene_names)
+    if len(gene_names) != d_expr:
+        raise ValueError(
+            f"gene_names length {len(gene_names)} does not match d_expr={d_expr}."
+        )
 
     W_proj1 = raw.expr_projector[1].weight.detach().cpu().numpy()
     W_proj1_expr = np.abs(W_proj1[:, :d_expr])
@@ -365,7 +517,10 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50, gene_annot_
     all_attr = []
     for layer_idx in range(n_layers):
         for sub_idx, sub_name in [(0, 'attn'), (1, 'ffn')]:
-            mod = raw.encoder.encoder_layers[layer_idx].sublayers[sub_idx].adaLN_modulation[1]
+            sublayer = raw.encoder.encoder_layers[layer_idx].sublayers[sub_idx]
+            if not hasattr(sublayer, 'adaLN_modulation'):
+                continue
+            mod = sublayer.adaLN_modulation[1]
             W_ada = np.abs(mod.weight.detach().cpu().numpy())
             ada_imp = W_ada.sum(axis=0)
             gene_scores = ada_imp @ W_proj2 @ W_proj1_expr
@@ -379,7 +534,18 @@ def compute_adaLN_gene_attribution(model, gene_names=None, top_k=50, gene_annot_
                 })
 
     df = pd.DataFrame(all_attr)
-    df['score_norm'] = df.groupby('layer_module')['score'].transform(lambda x: x / x.max())
+    if df.empty:
+        return pd.DataFrame(columns=[
+            'layer', 'layer_module', 'gene', 'gene_idx', 'score',
+            'score_norm',
+        ])
+    df['score_norm'] = df.groupby('layer_module')['score'].transform(
+        lambda values: (
+            values / values.max()
+            if values.max() > 0
+            else np.zeros(len(values))
+        )
+    )
     return df
 
     
@@ -781,11 +947,8 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
     微观切片：拿着宏观热点去真实转录本上切出短序列。
     加入 Saliency 过滤器：只保留那些在该物理位点上确实有显著响应的转录本片段。
     """
-    raw = _unwrap(model) if hasattr(model, 'module') else model
-    
-    # [关键修复 1]: 如果调用时未传入 device，自动从模型权重上继承 device
-    if device is None:
-        device = next(raw.parameters()).device
+    raw = _unwrap(model)
+    device = _model_device(raw, device)
         
     raw.eval()
     
@@ -808,26 +971,19 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
         seq = seq_dict[tid].upper()
         L = len(seq)
         
-        # 将张量送入正确的 device
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
-        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
         ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
         
         with torch.enable_grad():
-            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            
-            # [关键修复 2]: 显式传入 cell_type，并且直接传入原始 s['species']
-            # 这样符合你的 TranslationBaseModel.forward() 签名要求
             out = raw.forward(
                 seq_batch=se, 
-                count_batch=ce, 
                 cell_type=s['ct'], 
-                expr_vector=resolved_expr, 
+                expr_vector=ev,
                 species=s['species'], 
+                src_mask=_sequence_mask(se),
                 head_names=['count']
             )
-            
-            pred = out['count'].get('profile', out['count']) if isinstance(out['count'], dict) else out['count']
+            pred = _extract_count_profile(out)
             profile_loss = (pred[0, :, 0] ** 2).sum()
             
         profile_loss.backward()
@@ -854,11 +1010,14 @@ def extract_context_with_saliency_filter(model, dataset, seq_dict, tx_cds,
     return valid_contexts
 
 
-def plot_sequence_logo(sequences, title="Cell-Type Specific Motif"):
-    """使用 logomaker 绘制信息量 Logo 图"""
+def plot_sequence_logo(
+        sequences,
+        title="Cell-Type Specific Motif",
+        out_path="sequence_logo.pdf"):
+    """Plot an information-content sequence logo and save it as PDF."""
     if not sequences:
         print(f"No sequences found for {title}.")
-        return
+        return None
         
     # 计算每个位置的信息熵矩阵 (PWM)
     df = logomaker.alignment_to_matrix(sequences=sequences, to_type='information')
@@ -870,7 +1029,10 @@ def plot_sequence_logo(sequences, title="Cell-Type Specific Motif"):
     ax.set_ylabel('Information (bits)')
     ax.set_xlabel('Relative Position')
     plt.title(title)
-    plt.show()
+    fig.savefig(out_path, bbox_inches='tight', dpi=300)
+    plt.close(fig)
+    print(f"Sequence logo saved to {out_path}")
+    return out_path
 
 # ============================================================
 # Notebook Cell 1: Transcript-Level Physical Sequence Slicing
@@ -903,10 +1065,6 @@ def _slice_and_append(seq, pos, r, target_list, tid, cds_start, cds_end,
 
 
 
-from torch.utils.data import Subset
-import os
-
-
 def split_and_extract_contrastive_peaks(
         model, dataset, seq_dict, out_dir,
         min_len=500, max_len=4000, attn_perc=75,
@@ -917,6 +1075,9 @@ def split_and_extract_contrastive_peaks(
     Added strict sequence length filtering (min_len, max_len) to prevent GPU OOM caused by O(L^2) attention matrices.
     Generates `transcript_te_dict` for downstream RBP scanning.
     """
+    _unwrap(model)
+    if not 0 < top_ratio <= 0.5:
+        raise ValueError("top_ratio must be in the interval (0, 0.5].")
     print(f"--- Step 1: Parsing TE scales and filtering by length ({min_len} - {max_len} nt) ---")
     
     te_records = []
@@ -925,9 +1086,8 @@ def split_and_extract_contrastive_peaks(
     # Iterate through the dataset and extract the true TE scale
     for i in range(len(dataset)):
         try:
-            # Extract single sample dictionary
-            uuid, species, cell_type, cell_env, meta_info, seq_emb, count_emb = dataset[i]
-            tid = str(uuid).split("-")[0]
+            sample = _extract_sample(dataset, i)
+            tid = sample['tid']
             
             # [CRITICAL UPDATE]: Pre-filter by sequence length to prevent OOM
             if tid not in seq_dict:
@@ -937,13 +1097,17 @@ def split_and_extract_contrastive_peaks(
             if seq_length < min_len or seq_length > max_len:
                 continue # Skip transcripts that are too long or too short
                 
-            te_val = meta_info.get("te_scale", None)
+            meta_info = sample['meta_info']
+            te_val = (
+                meta_info.get("te_scale", None)
+                if isinstance(meta_info, dict)
+                else None
+            )
             
             if te_val is not None:
                 transcript_te_dict[tid] = float(te_val)
                 te_records.append((i, float(te_val)))
-        except Exception as e:
-            # Fault tolerance: Skip if occasional missing data occurs
+        except (TypeError, ValueError, IndexError, KeyError):
             continue
             
     # Sort in descending order based on te_scale (from ~2.0 down to ~-2.0)
@@ -954,7 +1118,7 @@ def split_and_extract_contrastive_peaks(
         print("Error: No valid transcripts found after length filtering!")
         return {}, {}, {}
         
-    n_extreme = int(n_total * top_ratio)
+    n_extreme = max(1, int(n_total * top_ratio))
     
     # Get original indices for the extreme groups
     high_te_indices = [x[0] for x in te_records[:n_extreme]]
@@ -1027,8 +1191,7 @@ def extract_attn_peaks_by_region(
     os.makedirs(out_dir, exist_ok=True)
 
     raw = _unwrap(model)
-    if device is None:
-        device = next(raw.parameters()).device
+    device = _model_device(raw, device)
     raw.eval()
 
     region_sequences = {"5UTR": [], "CDS": [], "3UTR": []}
@@ -1049,22 +1212,12 @@ def extract_attn_peaks_by_region(
         cds_start = s['cds_start_0']
         cds_end = s['cds_end_0']
 
-        # No requires_grad needed for Attention extraction
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
-        ce = torch.from_numpy(s['ce']).float().unsqueeze(0).to(device)
-        ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None else None
 
         with torch.no_grad():
-            # 1. Resolve environmental context exactly as in standard forward pass
-            resolved_expr = raw._resolve_expr_vector(cell_type=s['ct'], expr_vector=ev, batch_size=1).to(device)
-            species_idx = raw._normalize_species(s['species'], 1).to(device)
-            species_emb = raw.species_embedding(species_idx)
-            combined_env = torch.cat([resolved_expr, species_emb], dim=-1)
-            compact_style = raw.expr_projector(combined_env)
-
-            # 2. Extract input embeddings and masking
-            src_reps = raw.src_emb(se, ce)
-            src_mask = (se[:, :, 0] != 0).to(device)
+            _, compact_style, src_reps, src_mask = (
+                _resolve_base_model_context(raw, s, se, device)
+            )
             
             Lc = se.shape[1] # Length with padding
             n_heads = raw.n_heads
@@ -1077,9 +1230,11 @@ def extract_attn_peaks_by_region(
             # attention matrices that can consume >1 GB each for long sequences.
             for enc_layer in raw.encoder.encoder_layers:
                 sub = enc_layer.sublayers[0]
-                style = sub.adaLN_modulation(compact_style)
-                gamma, beta, alpha = style.chunk(3, dim=-1)
-                normed = (1 + gamma.unsqueeze(1)) * sub.LN(src_reps) + beta.unsqueeze(1)
+                normed, attention_gate = _prepare_adaln_input(
+                    sub,
+                    src_reps,
+                    compact_style,
+                )
 
                 attn_mod = enc_layer.multi_headed_attention
                 bs_, _, d = normed.shape
@@ -1129,17 +1284,28 @@ def extract_attn_peaks_by_region(
                 attn_out = attn_mod.unifyheads(attn_out)
                 if hasattr(attn_mod, 'dropout'):
                     attn_out = attn_mod.dropout(attn_out)
-                src_reps = src_reps + alpha.unsqueeze(1) * sub.dropout(attn_out)
+                src_reps = _apply_adaln_residual(
+                    sub,
+                    src_reps,
+                    attn_out,
+                    attention_gate,
+                )
 
                 del q_h, k_h, v_h, all_attn_outs, received_head, attn_out
 
                 # FFN sublayer
                 sub2 = enc_layer.sublayers[1]
-                style2 = sub2.adaLN_modulation(compact_style)
-                gamma2, beta2, alpha2 = style2.chunk(3, dim=-1)
-                normed2 = (1 + gamma2.unsqueeze(1)) * sub2.LN(src_reps) + beta2.unsqueeze(1)
-                ffn_out = sub2.dropout(enc_layer.ffn(normed2))
-                src_reps = src_reps + alpha2.unsqueeze(1) * ffn_out
+                normed2, ffn_gate = _prepare_adaln_input(
+                    sub2,
+                    src_reps,
+                    compact_style,
+                )
+                src_reps = _apply_adaln_residual(
+                    sub2,
+                    src_reps,
+                    enc_layer.ffn(normed2),
+                    ffn_gate,
+                )
 
         # Truncate to actual transcript length and calculate mean attention per layer
         attn_track = attn_track[:L] / len(raw.encoder.encoder_layers)
@@ -1311,8 +1477,6 @@ def cluster_and_visualize_region_motifs(region_dfs, region_name, out_dir, min_cl
         
         pdf_filename = os.path.join(out_dir, f"motif_logo_{region_name}_cluster_{cluster_id}.pdf")
         plt.savefig(pdf_filename, bbox_inches='tight', dpi=300)
-        
-        plt.show()
         plt.close(fig)
         
     return df
@@ -1409,7 +1573,6 @@ def plot_motif_metagene_heatmap(
             axis_line_y=element_blank()
         )
     )
-    
+
     p.save(out_path)
-    print(f"Motif Metagene Heatmap saved to {out_path}")\
-    
+    print(f"Motif Metagene Heatmap saved to {out_path}")

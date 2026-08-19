@@ -24,6 +24,7 @@ from eval.orf_coding_performance import (
     load_and_filter_data,
     match_and_build_eval_df,
     normalize_transcript_id,
+    plot_combined_vs_single_signature_performance,
     plot_top_k_metric,
     plot_top_k_precision,
     plot_top_k_recall,
@@ -604,6 +605,51 @@ class OrfTopKTests(unittest.TestCase):
             result[combo_columns].iloc[0].sort_values().to_numpy(),
             [0.25, 0.5, 1.0],
         )
+
+    def test_standalone_signature_plot_places_single_signatures_last(self):
+        combination_df = pd.DataFrame(
+            {
+                "Cell_Type": ["Overall", "Overall"],
+                "Score_Column": ["combo_a", "combo_b"],
+                "Score_Label": ["Combined A", "Combined B"],
+                "Method": ["product", "product"],
+                "Candidate_ROC_AUC": [0.90, 0.80],
+                "Candidate_PR_AUC": [0.40, 0.30],
+                "Candidate_Best_F1": [0.50, 0.40],
+            }
+        )
+        single_df = pd.DataFrame(
+            {
+                "Cell_Type": ["Overall", "Overall"],
+                "Feature": ["Periodicity", "Uniformity"],
+                "ROC-AUC": [0.95, 0.70],
+                "PR-AUC": [0.50, 0.20],
+                "Best_F1": [0.60, 0.30],
+            }
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            with patch(
+                "eval.orf_coding_performance.sns.heatmap"
+            ) as heatmap_mock:
+                paths = plot_combined_vs_single_signature_performance(
+                    results={
+                        "feature_combination_metrics": combination_df,
+                        "comprehensive_metrics": single_df,
+                    },
+                    out_dir=directory,
+                    primary_metric="Candidate_PR_AUC",
+                    selected_combinations=["Combined B", "combo_a"],
+                    single_signatures=["Periodicity", "Uniformity"],
+                )
+
+            plotted_matrix = heatmap_mock.call_args.args[0]
+
+        self.assertEqual(
+            plotted_matrix.index.tolist(),
+            ["Combined A", "Combined B", "Periodicity", "Uniformity"],
+        )
+        self.assertEqual(len(paths), 1)
 
     def test_gt_cell_types_without_prediction_files_are_not_counted(self):
         with tempfile.TemporaryDirectory() as directory:
