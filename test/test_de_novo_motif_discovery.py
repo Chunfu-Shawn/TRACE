@@ -38,6 +38,8 @@ except ModuleNotFoundError:
 
 from eval.de_novo_motif_discovery import (
     _extract_sample,
+    _infer_attention_focus,
+    _prepare_attention_heatmap_matrix,
     _sequence_mask,
     compute_saliency_profile,
     extract_attention_positional_importance,
@@ -204,6 +206,39 @@ class DeNovoMotifBaseModelTests(unittest.TestCase):
         )
         self.assertEqual(saliency_path, "saliency.pdf")
         self.assertEqual(saved_paths, output_paths + [saliency_path])
+
+    def test_attention_heatmap_matrix_and_focus_classification(self):
+        records = []
+        for layer in (0, 1):
+            for head in (0, 1):
+                values = [4.0, 1.0, 1.0] if layer == 0 else [1.0, 1.0, 1.0]
+                for position, value in zip((-10, 0, 600), values):
+                    records.append(
+                        {
+                            "layer": layer,
+                            "head": head,
+                            "x_pos": position,
+                            "mean_attn": value,
+                        }
+                    )
+        attention = pd.DataFrame(records)
+
+        raw_matrix, display_matrix = _prepare_attention_heatmap_matrix(
+            attention,
+            row_columns=["layer"],
+            xlim=(-10, 600),
+            position_bin_size=10,
+            normalization="row_zscore",
+        )
+        focus = _infer_attention_focus(
+            raw_matrix,
+            enrichment_threshold=1.15,
+        )
+
+        self.assertEqual(raw_matrix.shape, (2, 3))
+        self.assertEqual(display_matrix.shape, (2, 3))
+        self.assertEqual(focus.loc[0], "5' UTR")
+        self.assertEqual(focus.loc[1], "Full length")
 
 if __name__ == "__main__":
     unittest.main()

@@ -14,11 +14,17 @@ import torch
 from collections import defaultdict
 from tqdm import tqdm
 import logomaker
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from torch.utils.data import Subset
 
 from model.base_model import BaseModel
 from utils import unwrap_model
+
+mpl.rcParams["font.family"] = "sans-serif"
+mpl.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
+mpl.rcParams["pdf.fonttype"] = 42
+mpl.rcParams["svg.fonttype"] = "none"
 
 # ============================================================
 # Global Parameter
@@ -870,6 +876,401 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         )
 
     return output_paths
+
+
+def _prepare_attention_heatmap_matrix(
+        attn_df,
+        row_columns,
+        up_len=300,
+        down_len=300,
+        xlim=None,
+        position_bin_size=10,
+        normalization='row_zscore'):
+    """Aggregate an attention table into a row-by-position heatmap matrix."""
+    if position_bin_size < 1:
+        raise ValueError("position_bin_size must be a positive integer.")
+    if xlim is not None:
+        if len(xlim) != 2 or xlim[0] > xlim[1]:
+            raise ValueError("xlim must contain two ordered coordinates.")
+        lower_bound, upper_bound = xlim
+    else:
+        lower_bound = -up_len
+        upper_bound = FIXED_CDS_LEN + down_len - 1
+
+    required_columns = {'x_pos', 'mean_attn', *row_columns}
+    missing_columns = required_columns.difference(attn_df.columns)
+    if missing_columns:
+        raise ValueError(
+            f"Attention table is missing columns: {sorted(missing_columns)}"
+        )
+    working_df = attn_df[
+        attn_df['x_pos'].between(lower_bound, upper_bound)
+    ].copy()
+    if working_df.empty:
+        raise ValueError("No attention positions remain within the plot range.")
+
+    working_df['position_bin'] = (
+        np.floor(working_df['x_pos'] / position_bin_size).astype(int)
+        * position_bin_size
+    )
+    grouped_df = working_df.groupby(
+        [*row_columns, 'position_bin'], as_index=False, observed=True
+    )['mean_attn'].mean()
+    raw_matrix = grouped_df.pivot_table(
+        index=row_columns,
+        columns='position_bin',
+        values='mean_attn',
+        aggfunc='mean',
+    ).sort_index(axis=1)
+    number_of_bins_before = raw_matrix.shape[1]
+    raw_matrix = raw_matrix.dropna(axis=1, how='any')
+    number_of_bins_dropped = number_of_bins_before - raw_matrix.shape[1]
+    if number_of_bins_dropped:
+        print(
+            f"[Attention heatmap] Dropped {number_of_bins_dropped} of "
+            f"{number_of_bins_before} position bins because at least one "
+            "row lacked a measurement."
+        )
+    if raw_matrix.empty:
+        raise ValueError(
+            "No position bins have complete attention measurements across "
+            "all requested rows. Increase n_samples or position_bin_size."
+        )
+
+    valid_normalizations = {'none', 'row_fraction', 'row_zscore', 'row_minmax'}
+    normalization = str(normalization).lower()
+    if normalization not in valid_normalizations:
+        raise ValueError(
+            f"normalization must be one of {sorted(valid_normalizations)}."
+        )
+    if normalization == 'none':
+        display_matrix = raw_matrix.copy()
+    elif normalization == 'row_fraction':
+        row_sums = raw_matrix.sum(axis=1).replace(0, np.nan)
+        display_matrix = raw_matrix.div(row_sums, axis=0).fillna(0.0)
+    elif normalization == 'row_minmax':
+        row_min = raw_matrix.min(axis=1)
+        row_range = (raw_matrix.max(axis=1) - row_min).replace(0, np.nan)
+        display_matrix = raw_matrix.sub(row_min, axis=0).div(
+            row_range, axis=0
+        ).fillna(0.0)
+    else:
+        row_mean = raw_matrix.mean(axis=1)
+        row_std = raw_matrix.std(axis=1, ddof=0).replace(0, np.nan)
+        display_matrix = raw_matrix.sub(row_mean, axis=0).div(
+            row_std, axis=0
+        ).fillna(0.0)
+
+    return raw_matrix, display_matrix
+
+
+def _infer_attention_focus(raw_matrix, enrichment_threshold=1.15):
+    """Classify each attention row by its dominant transcript region."""
+    if enrichment_threshold <= 1:
+        raise ValueError("enrichment_threshold must be greater than 1.")
+    positions = np.asarray(raw_matrix.columns, dtype=float)
+    region_masks = {
+        "5' UTR": positions < 0,
+        'CDS': (positions >= 0) & (positions < FIXED_CDS_LEN),
+        "3' UTR": positions >= FIXED_CDS_LEN,
+    }
+    available_regions = [
+        region for region, mask in region_masks.items() if mask.any()
+    ]
+    focus_labels = {}
+    for row_label, row_values in raw_matrix.iterrows():
+        region_means = {
+            region: float(row_values.iloc[np.flatnonzero(region_masks[region])].mean())
+            for region in available_regions
+        }
+        if len(region_means) < 2 or not any(
+                np.isfinite(list(region_means.values()))):
+            focus_labels[row_label] = 'Full length'
+            continue
+        best_region = max(region_means, key=region_means.get)
+        other_values = [
+            value for region, value in region_means.items()
+            if region != best_region
+        ]
+        reference = float(np.mean(other_values))
+        enrichment = (
+            (region_means[best_region] + 1e-12) / (reference + 1e-12)
+        )
+        focus_labels[row_label] = (
+            best_region if enrichment >= enrichment_threshold
+            else 'Full length'
+        )
+    return pd.Series(focus_labels, name='Attention focus')
+
+
+def plot_attention_profile_heatmap(
+        attn_df,
+        out_path="attention_profile_heatmap.pdf",
+        up_len=300,
+        down_len=300,
+        xlim=None,
+        position_bin_size=10,
+        normalization='row_zscore',
+        cluster_layers=True,
+        cluster_heads=True,
+        cluster_metric='correlation',
+        cluster_method='average',
+        head_mode='head',
+        enrichment_threshold=1.15,
+        cmap=None,
+        vmin=None,
+        vmax=None,
+        layer_width=12,
+        layer_height=6,
+        head_width=12,
+        head_height=7,
+        font_size=8,
+        show_region_colors=True,
+        show_focus_colors=True):
+    """Plot clustered layer and head attention-position heatmaps.
+
+    Rows are clustered while metagene columns retain their biological 5'-to-3'
+    order. ``head_mode='head'`` averages the same head index across layers;
+    ``head_mode='layer_head'`` treats every layer-head pair independently.
+    """
+    import seaborn as sns
+    from matplotlib.patches import Patch
+    from scipy.cluster.hierarchy import linkage
+    from scipy.spatial.distance import pdist
+
+    if 'head' not in attn_df.columns:
+        raise ValueError(
+            "The attention table has no 'head' column. Re-run "
+            "extract_attention_positional_importance with the updated code."
+        )
+    head_mode = str(head_mode).lower()
+    normalization = str(normalization).lower()
+    cluster_metric = str(cluster_metric).lower()
+    cluster_method = str(cluster_method).lower()
+    if head_mode not in {'head', 'layer_head'}:
+        raise ValueError("head_mode must be 'head' or 'layer_head'.")
+    for dimension_name, dimension_value in {
+            'layer_width': layer_width,
+            'layer_height': layer_height,
+            'head_width': head_width,
+            'head_height': head_height,
+    }.items():
+        if dimension_value <= 0:
+            raise ValueError(f"{dimension_name} must be positive.")
+
+    layer_raw, layer_matrix = _prepare_attention_heatmap_matrix(
+        attn_df=attn_df,
+        row_columns=['layer'],
+        up_len=up_len,
+        down_len=down_len,
+        xlim=xlim,
+        position_bin_size=position_bin_size,
+        normalization=normalization,
+    )
+    head_row_columns = ['head'] if head_mode == 'head' else ['layer', 'head']
+    head_raw, head_matrix = _prepare_attention_heatmap_matrix(
+        attn_df=attn_df,
+        row_columns=head_row_columns,
+        up_len=up_len,
+        down_len=down_len,
+        xlim=xlim,
+        position_bin_size=position_bin_size,
+        normalization=normalization,
+    )
+
+    layer_raw.index = [f'L{int(value)}' for value in layer_raw.index]
+    layer_matrix.index = layer_raw.index
+    if head_mode == 'head':
+        head_raw.index = [f'H{int(value)}' for value in head_raw.index]
+    else:
+        head_raw.index = [
+            f'L{int(layer)}-H{int(head)}'
+            for layer, head in head_raw.index
+        ]
+    head_matrix.index = head_raw.index
+
+    focus_palette = {
+        "5' UTR": '#E69F00',
+        'CDS': '#D55E00',
+        "3' UTR": '#7B61A8',
+        'Full length': '#8A8A8A',
+    }
+    region_palette = {
+        "5' UTR": '#E69F00',
+        'CDS': '#56B4E9',
+        "3' UTR": '#7B61A8',
+    }
+
+    def build_linkage(matrix, enabled):
+        if not enabled or len(matrix) < 2:
+            return None
+        if cluster_method == 'ward' and cluster_metric != 'euclidean':
+            raise ValueError(
+                "Ward linkage requires cluster_metric='euclidean'."
+            )
+        distances = pdist(matrix.to_numpy(dtype=float), metric=cluster_metric)
+        distances = np.nan_to_num(
+            distances, nan=1.0, posinf=1.0, neginf=0.0
+        )
+        if not np.any(distances > 0):
+            return None
+        return linkage(
+            distances,
+            method=cluster_method,
+            optimal_ordering=True,
+        )
+
+    def draw_heatmap(
+            raw_matrix,
+            display_matrix,
+            cluster_rows,
+            width,
+            height,
+            title,
+            output_path):
+        focus = _infer_attention_focus(
+            raw_matrix,
+            enrichment_threshold=enrichment_threshold,
+        )
+        row_colors = (
+            focus.map(focus_palette) if show_focus_colors else None
+        )
+        position_values = np.asarray(display_matrix.columns, dtype=float)
+        position_regions = pd.Series(
+            np.select(
+                [
+                    position_values < 0,
+                    (position_values >= 0)
+                    & (position_values < FIXED_CDS_LEN),
+                    position_values >= FIXED_CDS_LEN,
+                ],
+                ["5' UTR", 'CDS', "3' UTR"],
+                default='CDS',
+            ),
+            index=display_matrix.columns,
+            name='Transcript region',
+        )
+        column_colors = (
+            position_regions.map(region_palette)
+            if show_region_colors else None
+        )
+        row_linkage = build_linkage(display_matrix, cluster_rows)
+        use_row_clustering = row_linkage is not None
+        selected_cmap = cmap or (
+            'vlag' if normalization == 'row_zscore' else 'mako'
+        )
+        center = 0 if normalization == 'row_zscore' else None
+        grid = sns.clustermap(
+            display_matrix,
+            row_cluster=use_row_clustering,
+            row_linkage=row_linkage,
+            col_cluster=False,
+            row_colors=row_colors,
+            col_colors=column_colors,
+            cmap=selected_cmap,
+            center=center,
+            vmin=vmin,
+            vmax=vmax,
+            xticklabels=False,
+            yticklabels=True,
+            linewidths=0,
+            figsize=(width, height),
+            dendrogram_ratio=(0.14, 0.05),
+            colors_ratio=(0.025, 0.025),
+            cbar_pos=(0.02, 0.80, 0.02, 0.15),
+            cbar_kws={'label': normalization.replace('_', ' ').title()},
+        )
+        grid.ax_heatmap.set_title(title, fontsize=font_size + 2, pad=10)
+        grid.ax_heatmap.set_xlabel('Metagene position', fontsize=font_size)
+        grid.ax_heatmap.set_ylabel('')
+        grid.ax_heatmap.tick_params(axis='y', labelsize=font_size)
+
+        number_of_ticks = min(9, len(display_matrix.columns))
+        tick_indices = np.linspace(
+            0, len(display_matrix.columns) - 1, number_of_ticks
+        ).astype(int)
+        grid.ax_heatmap.set_xticks(tick_indices + 0.5)
+        grid.ax_heatmap.set_xticklabels(
+            [
+                str(int(display_matrix.columns[index]))
+                for index in tick_indices
+            ],
+            rotation=0,
+            fontsize=font_size,
+        )
+
+        legend_handles = []
+        if show_focus_colors:
+            legend_handles.extend([
+                Patch(color=color, label=label)
+                for label, color in focus_palette.items()
+            ])
+        if show_region_colors:
+            legend_handles.extend([
+                Patch(
+                    facecolor=color,
+                    edgecolor='none',
+                    label=f'Position: {label}',
+                )
+                for label, color in region_palette.items()
+            ])
+        if legend_handles:
+            grid.ax_heatmap.legend(
+                handles=legend_handles,
+                title='Annotations',
+                frameon=False,
+                fontsize=font_size,
+                title_fontsize=font_size,
+                bbox_to_anchor=(1.02, 1),
+                loc='upper left',
+                borderaxespad=0,
+            )
+        grid.fig.savefig(output_path, bbox_inches='tight')
+        row_order = (
+            grid.dendrogram_row.reordered_ind
+            if use_row_clustering else list(range(len(display_matrix)))
+        )
+        ordered_labels = display_matrix.index[row_order].tolist()
+        plt.close(grid.fig)
+        return ordered_labels, focus
+
+    base_out = os.path.splitext(os.fspath(out_path))[0]
+    layer_path = f"{base_out}.layers.pdf"
+    head_path = f"{base_out}.heads.pdf"
+    layer_order, layer_focus = draw_heatmap(
+        raw_matrix=layer_raw,
+        display_matrix=layer_matrix,
+        cluster_rows=cluster_layers,
+        width=layer_width,
+        height=layer_height,
+        title='Layer attention profiles',
+        output_path=layer_path,
+    )
+    head_title = (
+        'Head attention profiles (averaged across layers)'
+        if head_mode == 'head'
+        else 'Layer-head attention profiles'
+    )
+    head_order, head_focus = draw_heatmap(
+        raw_matrix=head_raw,
+        display_matrix=head_matrix,
+        cluster_rows=cluster_heads,
+        width=head_width,
+        height=head_height,
+        title=head_title,
+        output_path=head_path,
+    )
+    print(f"Layer attention heatmap saved to {layer_path}")
+    print(f"Head attention heatmap saved to {head_path}")
+    return {
+        'paths': [layer_path, head_path],
+        'layer_matrix': layer_matrix,
+        'head_matrix': head_matrix,
+        'layer_order': layer_order,
+        'head_order': head_order,
+        'layer_focus': layer_focus,
+        'head_focus': head_focus,
+    }
 
 
 def plot_regional_attention_dynamics(attn_df, out_path="regional_attention_dynamics.pdf", up_len=300, down_len=300):
