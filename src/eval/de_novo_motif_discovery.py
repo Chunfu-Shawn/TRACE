@@ -804,7 +804,7 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
             strip_text=element_text(size=10),
             figure_size=(
                 weight,
-                max(height, 1.6 * len(head_labels) + 2),
+                max(height, 0.7 * len(head_labels) + 2),
             ),
         )
         standalone_head_path = f"{base_out}.per_head.pdf"
@@ -812,62 +812,7 @@ def plot_attention_profile(attn_df, out_path="attention_profile.pdf", up_len=300
         print(f"Per-head attention profile saved to {standalone_head_path}")
         output_paths.append(standalone_head_path)
 
-        facet_pairs = pd.MultiIndex.from_product(
-            [layer_labels, head_labels], names=['Layer', 'Head']
-        ).to_frame(index=False)
-        facet_pairs['Layer'] = pd.Categorical(
-            facet_pairs['Layer'], categories=layer_labels
-        )
-        facet_pairs['Head'] = pd.Categorical(
-            facet_pairs['Head'], categories=head_labels
-        )
-        rect_per_layer_head = facet_pairs.assign(
-            xmin=0,
-            xmax=FIXED_CDS_LEN,
-            ymin=-float('inf'),
-            ymax=float('inf'),
-            fill='lightgray',
-        )
-
-        p_heads = (
-            ggplot(df_head_plot, aes(x='x_pos', y='log2_mean_attn'))
-            + scale_fill_identity()
-        )
-        if show_cds:
-            p_heads += geom_rect(
-                data=rect_per_layer_head,
-                mapping=aes(
-                    xmin='xmin', xmax='xmax', ymin='ymin', ymax='ymax',
-                    fill='fill',
-                ),
-                alpha=0.3,
-                inherit_aes=False,
-                show_legend=False,
-            )
-        p_heads += geom_line(size=0.35, alpha=0.4, color='#333333')
-        if color_by_frame:
-            p_heads += geom_point(
-                aes(color='Frame'), size=1.2, alpha=1, stroke=0
-            )
-            p_heads += scale_color_manual(values=frame_palette)
-        p_heads += facet_grid('Layer ~ Head', scales='free_y')
-        p_heads += labs(x=x_label_str, y='log2(Mean attention + 1)')
-        p_heads += theme_classic()
-        p_heads += theme(
-            axis_text_x=x_axis_text,
-            axis_ticks_major_x=x_axis_ticks,
-            axis_title_x=x_axis_title,
-            strip_background=element_blank(),
-            strip_text=element_text(size=9),
-            figure_size=(
-                max(weight, 2.2 * len(head_labels) + 2),
-                max(height, 1.8 * n_layers + 2),
-            ),
-        )
-        head_path = f"{base_out}.per_layer_head.pdf"
-        p_heads.save(head_path)
-        print(f"Layer-by-head attention profile saved to {head_path}")
-        output_paths.append(head_path)
+        
     elif not has_head_profiles:
         print(
             "Head-specific attention was not plotted because the input table "

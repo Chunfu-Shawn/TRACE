@@ -1,0 +1,141 @@
+"""Tests for matched CDS-start Kozak mutagenesis."""
+
+import sys
+import types
+import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import numpy as np
+import pandas as pd
+import torch
+
+
+SRC_DIR = Path(__file__).resolve().parents[1] / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+try:
+    import tqdm  # noqa: F401
+except ModuleNotFoundError:
+    tqdm_module = types.ModuleType("tqdm")
+    tqdm_module.tqdm = lambda iterable=None, **kwargs: iterable
+    sys.modules["tqdm"] = tqdm_module
+
+try:
+    import yaml  # noqa: F401
+except ModuleNotFoundError:
+    yaml_module = types.ModuleType("yaml")
+    yaml_module.safe_load = lambda value: value
+    yaml_module.safe_dump = lambda value, stream: None
+    sys.modules["yaml"] = yaml_module
+
+from eval.start_codon_kozak_mutagenesis import (
+    KOZAK_CONTEXT_ORDER,
+    KozakMutagenesisEvaluator,
+    collect_kozak_mutagenesis_samples,
+    mutate_cds_start_context,
+    plot_kozak_mutagenesis_results,
+)
+from model.base_model import BaseModel
+
+
+class SequenceSensitiveBaseModel(BaseModel):
+    def __init__(self):
+        super().__init__(
+            d_seq=4,
+            d_model=8,
+            d_expr=3,
+            d_cell_env=4,
+            all_species=["human"],
+            d_species=2,
+            n_heads=2,
+            number_of_layers=1,
+            d_ff=16,
+            adaptive_dim=4,
+            p_drop=0.0,
+        )
+
+    def predict(self, **kwargs):
+        sequence = kwargs["seq_batch"]
+        signal = torch.ones(
+            sequence.shape[0], sequence.shape[1], 1, device=sequence.device
+        )
+        return {"count": torch.log1p(signal)}
+
+
+def _make_dataset():
+    sequence = np.zeros((60, 4), dtype=np.float32)
+    sequence[:, 3] = 1.0
+    return [(
+        "ENST000001.4-sample",
+        "human",
+        "brain",
+        torch.zeros(3),
+        {"cds_start_pos": 13, "cds_end_pos": 48},
+        torch.from_numpy(sequence),
+        torch.ones(60, 1),
+    )]
+
+
+class KozakMutagenesisTests(unittest.TestCase):
+    def test_mutation_changes_only_codon_and_critical_context(self):
+        original = np.zeros((60, 4), dtype=np.float32)
+        original[:, 0] = 1.0
+        mutated = mutate_cds_start_context(
+            original, cds_start=12, start_codon="CTG", kozak_class="Weak"
+        )
+        changed = np.flatnonzero(np.any(original != mutated, axis=1)).tolist()
+
+        self.assertEqual(changed, [9, 12, 13, 14, 15])
+        self.assertEqual(np.argmax(mutated[9]), 1)
+        self.assertEqual(
+            [np.argmax(mutated[index]) for index in (12, 13, 14)],
+            [1, 3, 2],
+        )
+        self.assertEqual(np.argmax(mutated[15]), 1)
+
+    def test_collection_filters_cell_type_and_normalizes_enst_version(self):
+        samples = collect_kozak_mutagenesis_samples(
+            _make_dataset(),
+            target_cell_type="brain",
+            target_transcript_ids={"brain": ["ENST000001"]},
+        )
+
+        self.assertEqual(len(samples), 1)
+        self.assertEqual(samples[0]["tid"], "ENST000001")
+
+    def test_evaluator_builds_complete_matched_design(self):
+        samples = collect_kozak_mutagenesis_samples(_make_dataset())
+        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveBaseModel())
+        results = evaluator.evaluate(
+            samples,
+            batch_size=8,
+            cds_skip_codons=1,
+            save_csv=False,
+        )
+
+        self.assertEqual(len(results), 4 * len(KOZAK_CONTEXT_ORDER))
+        self.assertEqual(results["Is_WT"].sum(), 1)
+        np.testing.assert_allclose(results["Relative_CDS_Translation"], 1.0)
+
+    def test_plotting_writes_pdf_only(self):
+        samples = collect_kozak_mutagenesis_samples(_make_dataset())
+        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveBaseModel())
+        results = evaluator.evaluate(samples, batch_size=16, save_csv=False)
+
+        with TemporaryDirectory() as temporary_directory:
+            paths = plot_kozak_mutagenesis_results(
+                results, temporary_directory, suffix="test"
+            )
+            self.assertEqual(set(paths), {
+                "boxplot", "per_codon_scatter", "global_scatter"
+            })
+            for path in paths.values():
+                self.assertTrue(Path(path).is_file())
+                self.assertEqual(Path(path).suffix, ".pdf")
+            self.assertFalse(list(Path(temporary_directory).glob("*.png")))
+
+
+if __name__ == "__main__":
+    unittest.main()
