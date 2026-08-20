@@ -40,6 +40,7 @@ from eval.de_novo_motif_discovery import (
     _extract_sample,
     _infer_attention_focus,
     _prepare_attention_heatmap_matrix,
+    _select_unique_transcript_samples,
     _sequence_mask,
     compute_saliency_profile,
     extract_attention_positional_importance,
@@ -101,6 +102,36 @@ class DeNovoMotifBaseModelTests(unittest.TestCase):
         self.assertEqual(sample["se"].shape, (9, 4))
         self.assertEqual(sample["cds_start_0"], 3)
 
+    def test_unique_transcript_selection_deduplicates_cell_types(self):
+        template = self._build_dataset()[0]
+        dataset = [
+            (
+                template[0],
+                template[1],
+                cell_type,
+                *template[3:],
+            )
+            for cell_type in ("brain", "liver", "kidney")
+        ]
+        dataset.append((
+            "PB.100.2-liver-0",
+            *template[1:],
+        ))
+
+        selected = _select_unique_transcript_samples(
+            dataset,
+            n_samples=10,
+            min_len=0,
+            max_len=20,
+            random_state=7,
+        )
+        tids = [sample["tid"] for _, sample in selected]
+
+        self.assertEqual(len(tids), 2)
+        self.assertEqual(len(tids), len(set(tids)))
+        self.assertIn("ENST1", tids)
+        self.assertIn("PB.100.2", tids)
+
     def test_unpadded_sequence_mask_keeps_every_nucleotide(self):
         sequence = torch.tensor([[[1.0, 0.0, 0.0, 0.0],
                                   [0.0, 1.0, 0.0, 0.0],
@@ -122,9 +153,15 @@ class DeNovoMotifBaseModelTests(unittest.TestCase):
             n_samples=1,
             max_len=20,
         )
+        attention_dataset = []
+        for index in range(5):
+            sample = list(dataset[0])
+            sample[0] = f"ENST{index + 1}-brain-0"
+            attention_dataset.append(tuple(sample))
+
         attention = extract_attention_positional_importance(
             model,
-            dataset * 5,
+            attention_dataset,
             n_samples=5,
             min_len=0,
             max_len=20,

@@ -233,7 +233,10 @@ def _extract_sample(dataset, idx):
 
     cds_start = int(mi.get('cds_start_pos', -1)) - 1 if isinstance(mi, dict) else -1
     cds_end = int(mi.get('cds_end_pos', -1)) if isinstance(mi, dict) else -1
-    tid = str(uuid).rsplit('-', 2)[0] if '-' in str(uuid) else str(uuid).split('.')[0]
+    uuid_text = str(uuid)
+    tid = uuid_text.rsplit('-', 2)[0] if '-' in uuid_text else uuid_text
+    if tid.startswith('ENST'):
+        tid = tid.split('.', 1)[0]
 
     return {
         'se': se_np, 'ev': ev_np,
@@ -242,6 +245,68 @@ def _extract_sample(dataset, idx):
         'L': se_np.shape[0], 'ct': ct, 'species': species, 'tid': tid,
         'valid': cds_start >= 0 and cds_end > cds_start
     }
+
+
+def _select_unique_transcript_samples(
+        dataset,
+        n_samples,
+        min_len=None,
+        max_len=None,
+        random_state=42):
+    """Select eligible dataset samples with at most one row per transcript."""
+    if n_samples is not None and n_samples < 1:
+        raise ValueError("n_samples must be positive or None.")
+    if min_len is not None and min_len < 0:
+        raise ValueError("min_len must be non-negative or None.")
+    if max_len is not None and max_len < 1:
+        raise ValueError("max_len must be positive or None.")
+    if (
+        min_len is not None
+        and max_len is not None
+        and min_len > max_len
+    ):
+        raise ValueError("min_len must not exceed max_len.")
+
+    rng = np.random.default_rng(random_state)
+    representatives = {}
+    occurrence_counts = defaultdict(int)
+    eligible_count = 0
+    ineligible_count = 0
+
+    for idx in range(len(dataset)):
+        sample = _extract_sample(dataset, idx)
+        if (
+            not sample['valid']
+            or (min_len is not None and sample['L'] < min_len)
+            or (max_len is not None and sample['L'] > max_len)
+        ):
+            ineligible_count += 1
+            continue
+
+        eligible_count += 1
+        tid = sample['tid']
+        occurrence_counts[tid] += 1
+        if (
+            tid not in representatives
+            or rng.random() < 1.0 / occurrence_counts[tid]
+        ):
+            representatives[tid] = (idx, sample)
+
+    unique_tids = np.asarray(list(representatives), dtype=object)
+    if n_samples is not None and len(unique_tids) > n_samples:
+        selected_tids = rng.choice(unique_tids, n_samples, replace=False)
+    else:
+        selected_tids = unique_tids
+        rng.shuffle(selected_tids)
+    selected = [representatives[tid] for tid in selected_tids]
+    duplicate_count = eligible_count - len(representatives)
+
+    print(
+        f"Selected {len(selected)} unique transcripts; skipped "
+        f"{duplicate_count} duplicate transcript rows and "
+        f"{ineligible_count} ineligible rows."
+    )
+    return selected
 
 # ============================================================
 # Phase 1A: Attention positional importance
@@ -252,8 +317,9 @@ def extract_attention_positional_importance(
         n_samples=200,
         min_len=500,
         max_len=1200,
-        device=None):
-    """Aggregate received attention by layer, head, and metagene position."""
+        device=None,
+        random_state=42):
+    """Aggregate attention using at most one dataset row per transcript."""
     raw = _unwrap(model)
     device = _model_device(raw, device)
     raw.eval()
@@ -263,13 +329,18 @@ def extract_attention_positional_importance(
 
     # Now using a unified metagene accumulator
     accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0, 'rel_start_sum': 0.0, 'rel_stop_sum': 0.0})
-    indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
+    selected_samples = _select_unique_transcript_samples(
+        dataset,
+        n_samples=n_samples,
+        min_len=min_len,
+        max_len=max_len,
+        random_state=random_state,
+    )
     valid_count = 0
 
-    for idx in tqdm(indices, desc="Attention positional importance"):
-        s = _extract_sample(dataset, idx)
-        if not s['valid'] or s['L'] > max_len or s['L'] < min_len:
-            continue
+    for _, s in tqdm(
+            selected_samples,
+            desc="Attention positional importance"):
 
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device)
         
@@ -378,19 +449,30 @@ def extract_attention_positional_importance(
 # ============================================================
 # Phase 1B: Input saliency for mean CDS output
 # ============================================================
-def compute_saliency_profile(model, dataset, n_samples=100, max_len=1200, device=None):
+def compute_saliency_profile(
+        model,
+        dataset,
+        n_samples=100,
+        max_len=1200,
+        device=None,
+        random_state=42):
+    """Aggregate input saliency using one representative row per transcript."""
     raw = _unwrap(model)
     device = _model_device(raw, device)
     raw.eval()
 
     accum = defaultdict(lambda: {'sum': 0.0, 'sum_sq': 0.0, 'n': 0, 'rel_start_sum': 0.0, 'rel_stop_sum': 0.0})
-    indices = np.random.choice(len(dataset), min(n_samples, len(dataset)), replace=False)
+    selected_samples = _select_unique_transcript_samples(
+        dataset,
+        n_samples=n_samples,
+        max_len=max_len,
+        random_state=random_state,
+    )
     valid_count = 0
 
-    for idx in tqdm(indices, desc="Input saliency (Mean CDS Output)"):
-        s = _extract_sample(dataset, idx)
-        if not s['valid'] or s['L'] > max_len:
-            continue
+    for _, s in tqdm(
+            selected_samples,
+            desc="Input saliency (Mean CDS Output)"):
             
         se = torch.from_numpy(s['se']).float().unsqueeze(0).to(device).requires_grad_(True)
         ev = torch.from_numpy(s['ev']).float().unsqueeze(0).to(device) if s['ev'] is not None and len(s['ev']) > 0 else None
