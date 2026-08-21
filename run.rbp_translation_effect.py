@@ -30,8 +30,11 @@ from eval.rbp_translation_effect import (
     build_motif_position_profiles,
     collect_rbp_motif_hits,
     collect_unique_transcript_samples,
+    compute_known_motif_scan_signature,
     discover_de_novo_translation_motifs,
     extract_signed_translation_attribution_windows,
+    load_known_motif_scan_cache,
+    save_known_motif_scan_cache,
     summarize_rbp_motif_effects,
     validate_rbp_pwm_library,
 )
@@ -364,6 +367,19 @@ def build_parser() -> argparse.ArgumentParser:
     selection.add_argument("--score-threshold", type=float, default=0.85)
     selection.add_argument("--max-hits-per-rbp-transcript-region", type=int, default=1)
     selection.add_argument("--context-flank", type=int, default=12)
+    selection.add_argument(
+        "--scan-workers",
+        type=int,
+        default=1,
+        help="Worker threads used to scan independent transcripts for RBP motifs.",
+    )
+    selection.add_argument(
+        "--known-motif-scan-cache-path",
+        help=(
+            "Portable known-RBP hit cache path; defaults to "
+            "OUT_DIR/known_rbp_motif_hits.pkl."
+        ),
+    )
     selection.add_argument("--random-state", type=int, default=42)
 
     statistics = parser.add_argument_group("statistics and discovery")
@@ -538,20 +554,44 @@ def main(argv: Optional[list[str]] = None) -> int:
     if _should_stop("samples", args.stop_after):
         return 0
 
+    portable_hits_path = (
+        Path(args.known_motif_scan_cache_path).expanduser().resolve()
+        if args.known_motif_scan_cache_path
+        else out_dir / "known_rbp_motif_hits.pkl"
+    )
+    portable_hits_signature = compute_known_motif_scan_signature(
+        samples,
+        valid_pwms,
+        metadata,
+        target_rbps=target_rbps,
+        regions=args.regions,
+        score_threshold=args.score_threshold,
+        max_hits_per_rbp_transcript_region=(
+            args.max_hits_per_rbp_transcript_region
+        ),
+        context_flank=args.context_flank,
+    )
     hits_signature = cache.stage_signature(
         "hits",
         {
-            "regions": args.regions,
-            "score_threshold": args.score_threshold,
-            "max_hits": args.max_hits_per_rbp_transcript_region,
-            "context_flank": args.context_flank,
-            "target_rbps": target_rbps,
+            "portable_scan_signature": portable_hits_signature,
         },
         dependencies=("validate_pwms", "samples"),
     )
-    if cache.reusable("hits", hits_signature):
-        hits = cache.load("hits")
-    else:
+    can_reuse_hits = (
+        not args.no_resume
+        and (
+            args.force_from is None
+            or STAGES.index("hits") < STAGES.index(args.force_from)
+        )
+    )
+    hits = None
+    if can_reuse_hits:
+        hits = load_known_motif_scan_cache(
+            str(portable_hits_path),
+            expected_signature=portable_hits_signature,
+        )
+    if hits is None:
         print("[RUN] hits")
         hits = collect_rbp_motif_hits(
             samples,
@@ -564,9 +604,17 @@ def main(argv: Optional[list[str]] = None) -> int:
                 args.max_hits_per_rbp_transcript_region
             ),
             context_flank=args.context_flank,
+            num_workers=args.scan_workers,
         )
-        cache.save("hits", hits_signature, hits)
+        save_known_motif_scan_cache(
+            hits,
+            str(portable_hits_path),
+            signature=portable_hits_signature,
+        )
         _atomic_csv(hits, out_dir / "rbp_motif_hits.csv")
+        print("[DONE] hits: portable motif-position cache saved")
+    else:
+        print("[SKIP] hits: loaded portable motif-position cache")
     if not (out_dir / "rbp_motif_hits.csv").is_file():
         _atomic_csv(hits, out_dir / "rbp_motif_hits.csv")
     if _should_stop("hits", args.stop_after):

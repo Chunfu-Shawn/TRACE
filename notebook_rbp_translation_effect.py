@@ -54,6 +54,11 @@ results = run_rbp_translation_effect_analysis(
     score_threshold=0.85,
     max_hits_per_rbp_transcript_region=1,
     context_flank=12,
+    known_motif_scan_workers=8,
+    reuse_known_motif_scan=True,
+    known_motif_scan_cache_path=os.path.join(
+        out_dir, "known_rbp_motif_hits.pkl"
+    ),
     prediction_scale="log1p",
     force_zero_expression=True,
     batch_size=32,
@@ -69,6 +74,8 @@ results = run_rbp_translation_effect_analysis(
     random_state=42,
 )
 
+# Move both the PKL and its .manifest.json sidecar between servers.
+print(results["known_motif_scan_cache_path"])
 display(results["summary"].head(20))
 display(results["de_novo_motifs"].head(20))
 """

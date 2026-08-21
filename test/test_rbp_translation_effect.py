@@ -1,6 +1,7 @@
 """Tests for matched RBP-motif translation-effect analysis."""
 
 import sys
+import tempfile
 import types
 import unittest
 from pathlib import Path
@@ -33,10 +34,13 @@ except ModuleNotFoundError:
 from eval.rbp_translation_effect import (
     RBPMotifMutagenesisEvaluator,
     build_motif_position_profiles,
+    collect_rbp_motif_hits,
     collect_unique_transcript_samples,
     discover_de_novo_translation_motifs,
     disrupt_pwm_hit,
     extract_signed_translation_attribution_windows,
+    load_known_motif_scan_cache,
+    save_known_motif_scan_cache,
     scan_pwm_hits,
     summarize_rbp_motif_effects,
     validate_rbp_pwm_library,
@@ -104,6 +108,70 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertEqual(status["M_NAN"], "Invalid")
         self.assertEqual(status["M_NEG"], "Invalid")
         self.assertEqual(status["M_MISSING"], "Missing")
+
+    def test_parallel_motif_scan_matches_sequential_scan(self):
+        sequence = "TTACGTTACGTT"
+        embedding = np.zeros((len(sequence), 4), dtype=np.float32)
+        for position, base in enumerate(sequence):
+            embedding[position, "ACGT".index(base)] = 1
+        sample = {
+            "Sequence": sequence,
+            "Seq_Emb": embedding,
+            "Transcript_Length": len(sequence),
+            "CDS_Start_0based": 2,
+            "CDS_End_exclusive": 10,
+        }
+        samples = {"TX1": sample, "TX2": dict(sample)}
+        library = {
+            "M1": np.array([
+                [10, 0, 0, 0],
+                [0, 10, 0, 0],
+                [0, 0, 10, 0],
+            ], dtype=float),
+        }
+        metadata = pd.DataFrame({
+            "Matrix_id": ["M1"],
+            "Gene_name": ["RBP1"],
+        })
+
+        sequential = collect_rbp_motif_hits(
+            samples,
+            library,
+            metadata,
+            score_threshold=0.95,
+            num_workers=1,
+        )
+        parallel = collect_rbp_motif_hits(
+            samples,
+            library,
+            metadata,
+            score_threshold=0.95,
+            num_workers=2,
+        )
+
+        pd.testing.assert_frame_equal(sequential, parallel)
+
+    def test_known_motif_scan_cache_is_signature_aware(self):
+        hits = pd.DataFrame({
+            "Tid": ["TX1"],
+            "Start": [3],
+            "End": [9],
+        })
+        with tempfile.TemporaryDirectory() as directory:
+            cache_path = str(Path(directory) / "known_rbp_motif_hits.pkl")
+            save_known_motif_scan_cache(hits, cache_path, "signature-a")
+
+            restored = load_known_motif_scan_cache(
+                cache_path,
+                expected_signature="signature-a",
+            )
+            stale = load_known_motif_scan_cache(
+                cache_path,
+                expected_signature="signature-b",
+            )
+
+        pd.testing.assert_frame_equal(restored, hits)
+        self.assertIsNone(stale)
 
     def test_position_profiles_cover_known_and_de_novo_motifs(self):
         sequence = "AAACCCGGGTTTAAACCCGGGTTT"

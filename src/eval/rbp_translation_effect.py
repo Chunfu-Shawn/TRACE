@@ -9,9 +9,12 @@ biological causality without orthogonal RBP-binding and perturbation evidence.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import pickle
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, Iterable, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
@@ -32,6 +35,7 @@ from utils import unwrap_model
 
 BASES = np.asarray(list("ACGT"))
 BASE_TO_INDEX = {base: index for index, base in enumerate(BASES)}
+KNOWN_MOTIF_SCAN_CACHE_VERSION = 1
 
 
 def _normalize_tid(value: object) -> str:
@@ -433,14 +437,22 @@ def collect_rbp_motif_hits(
     score_threshold: float = 0.85,
     max_hits_per_rbp_transcript_region: int = 1,
     context_flank: int = 12,
+    num_workers: int = 1,
 ) -> pd.DataFrame:
-    """Scan known RBP PWMs and retain non-overlapping top hits."""
+    """Scan known RBP PWMs and retain non-overlapping top hits.
+
+    Transcripts are independent scan units. ``num_workers > 1`` uses a thread
+    pool, avoiding repeated serialization of the shared PWM library while the
+    vectorized NumPy scoring kernels can execute concurrently.
+    """
     required = {"Matrix_id", "Gene_name"}
     missing = required.difference(metadata.columns)
     if missing:
         raise ValueError(f"RBP metadata is missing columns: {sorted(missing)}")
     if max_hits_per_rbp_transcript_region < 1 or context_flank < 0:
         raise ValueError("Hit limit must be positive and context_flank non-negative.")
+    if int(num_workers) < 1:
+        raise ValueError("num_workers must be at least 1.")
     regions = tuple(str(region) for region in regions)
     for region in regions:
         if region not in {"5UTR", "CDS", "3UTR"}:
@@ -483,15 +495,22 @@ def collect_rbp_motif_hits(
     motif_by_rbp = motif_rows.groupby("Gene_name", observed=True)[
         "Matrix_id"
     ].apply(list)
-    records = []
-    for tid, sample in tqdm(samples.items(), desc="Scan known RBP motifs"):
+    motif_groups = list(motif_by_rbp.items())
+    pwm_consensuses = {
+        matrix_id: pwm_consensus(pwm)
+        for matrix_id, pwm in prepared_pwms.items()
+    }
+
+    def scan_transcript(item):
+        tid, sample = item
+        transcript_records = []
         sequence = str(sample["Sequence"])
         for region in regions:
             region_start, region_end = _region_bounds(sample, region)
             region_sequence = sequence[region_start:region_end]
             if not region_sequence:
                 continue
-            for rbp_name, matrix_ids in motif_by_rbp.items():
+            for rbp_name, matrix_ids in motif_groups:
                 candidates = []
                 for matrix_id in matrix_ids:
                     pwm = prepared_pwms[matrix_id]
@@ -518,7 +537,7 @@ def collect_rbp_motif_hits(
                             "PWM_Score": float(hit["PWM_Score"]),
                             "Raw_Log_Odds": float(hit["Raw_Log_Odds"]),
                             "Motif_Sequence": hit["Sequence"],
-                            "PWM_Consensus": pwm_consensus(pwm),
+                            "PWM_Consensus": pwm_consensuses[matrix_id],
                             "Context_Start": context_start,
                             "Context_End": context_end,
                             "Context_Sequence": sequence[
@@ -529,7 +548,31 @@ def collect_rbp_motif_hits(
                     candidates,
                     max_hits_per_rbp_transcript_region,
                 )
-                records.extend(selected)
+                transcript_records.extend(selected)
+        return transcript_records
+
+    sample_items = list(samples.items())
+    records = []
+    if int(num_workers) == 1:
+        iterator = map(scan_transcript, sample_items)
+        for transcript_records in tqdm(
+            iterator,
+            total=len(sample_items),
+            desc="Scan known RBP motifs",
+        ):
+            records.extend(transcript_records)
+    else:
+        print(
+            f"Scanning known RBP motifs with {int(num_workers)} worker threads."
+        )
+        with ThreadPoolExecutor(max_workers=int(num_workers)) as executor:
+            iterator = executor.map(scan_transcript, sample_items)
+            for transcript_records in tqdm(
+                iterator,
+                total=len(sample_items),
+                desc="Scan known RBP motifs",
+            ):
+                records.extend(transcript_records)
     hits = pd.DataFrame(records)
     if hits.empty:
         return hits
@@ -539,6 +582,138 @@ def collect_rbp_motif_hits(
     ).reset_index(drop=True)
     hits.insert(0, "Hit_ID", [f"RBP_HIT_{i:07d}" for i in range(len(hits))])
     return hits
+
+
+def compute_known_motif_scan_signature(
+    samples: Mapping[str, Mapping],
+    pwm_library: Mapping[str, np.ndarray],
+    metadata: pd.DataFrame,
+    target_rbps: Optional[Iterable[str]],
+    regions: Sequence[str],
+    score_threshold: float,
+    max_hits_per_rbp_transcript_region: int,
+    context_flank: int,
+) -> str:
+    """Fingerprint every scientific input affecting known-motif positions."""
+    digest = hashlib.sha256()
+    target_values = (
+        None if target_rbps is None
+        else sorted({str(value) for value in target_rbps})
+    )
+    parameters = {
+        "cache_version": KNOWN_MOTIF_SCAN_CACHE_VERSION,
+        "target_rbps": target_values,
+        "regions": list(regions),
+        "score_threshold": float(score_threshold),
+        "max_hits_per_rbp_transcript_region": int(
+            max_hits_per_rbp_transcript_region
+        ),
+        "context_flank": int(context_flank),
+    }
+    digest.update(json.dumps(parameters, sort_keys=True).encode("utf-8"))
+    for tid in sorted(samples):
+        sample = samples[tid]
+        digest.update(str(tid).encode("utf-8"))
+        digest.update(str(sample["Sequence"]).encode("ascii", errors="replace"))
+        digest.update(str(int(sample["CDS_Start_0based"])).encode("ascii"))
+        digest.update(str(int(sample["CDS_End_exclusive"])).encode("ascii"))
+    target_set = None if target_values is None else set(target_values)
+    relevant_metadata = metadata.dropna(
+        subset=["Matrix_id", "Gene_name"]
+    ).copy()
+    relevant_metadata["Matrix_id"] = (
+        relevant_metadata["Matrix_id"].astype(str)
+    )
+    relevant_metadata["Gene_name"] = (
+        relevant_metadata["Gene_name"].astype(str)
+    )
+    normalized_library = {
+        str(matrix_id): pwm for matrix_id, pwm in pwm_library.items()
+    }
+    relevant_metadata = relevant_metadata[
+        relevant_metadata["Matrix_id"].isin(
+            set(normalized_library)
+        )
+    ]
+    if target_set is not None:
+        relevant_metadata = relevant_metadata[
+            relevant_metadata["Gene_name"].isin(target_set)
+        ]
+    relevant_matrix_ids = set(relevant_metadata["Matrix_id"])
+    for matrix_id in sorted(relevant_matrix_ids):
+        matrix = np.ascontiguousarray(
+            np.asarray(normalized_library[matrix_id], dtype=np.float32)
+        )
+        digest.update(str(matrix_id).encode("utf-8"))
+        digest.update(str(matrix.shape).encode("ascii"))
+        digest.update(matrix.tobytes())
+    metadata_columns = ["Matrix_id", "Gene_name"]
+    if not relevant_metadata.empty:
+        metadata_text = (
+            relevant_metadata[metadata_columns]
+            .fillna("")
+            .astype(str)
+            .drop_duplicates()
+            .sort_values(metadata_columns)
+            .to_csv(index=False)
+        )
+        digest.update(metadata_text.encode("utf-8"))
+    return digest.hexdigest()
+
+
+def load_known_motif_scan_cache(
+    cache_path: str,
+    expected_signature: str,
+) -> Optional[pd.DataFrame]:
+    """Load a completed known-motif positional scan when its signature matches."""
+    pickle_path = os.path.abspath(os.path.expanduser(cache_path))
+    manifest_path = f"{pickle_path}.manifest.json"
+    if not os.path.isfile(pickle_path) or not os.path.isfile(manifest_path):
+        return None
+    try:
+        with open(manifest_path, "r", encoding="utf-8") as handle:
+            manifest = json.load(handle)
+        if manifest.get("signature") != expected_signature:
+            print("Known-RBP scan cache is stale; rescanning motifs.")
+            return None
+        with open(pickle_path, "rb") as handle:
+            hits = pickle.load(handle)
+        if not isinstance(hits, pd.DataFrame):
+            raise TypeError("Cached known-RBP hits are not a pandas DataFrame.")
+        print(f"Loaded {len(hits):,} known-RBP motif hits from {pickle_path}")
+        return hits
+    except (OSError, ValueError, TypeError, pickle.UnpicklingError) as error:
+        print(f"Known-RBP scan cache could not be loaded ({error}); rescanning.")
+        return None
+
+
+def save_known_motif_scan_cache(
+    hits: pd.DataFrame,
+    cache_path: str,
+    signature: str,
+) -> None:
+    """Atomically save known-motif positions and their cache manifest."""
+    pickle_path = os.path.abspath(os.path.expanduser(cache_path))
+    manifest_path = f"{pickle_path}.manifest.json"
+    os.makedirs(os.path.dirname(pickle_path) or ".", exist_ok=True)
+    pickle_tmp = f"{pickle_path}.tmp"
+    manifest_tmp = f"{manifest_path}.tmp"
+    with open(pickle_tmp, "wb") as handle:
+        pickle.dump(hits, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open(manifest_tmp, "w", encoding="utf-8") as handle:
+        json.dump(
+            {
+                "cache_version": KNOWN_MOTIF_SCAN_CACHE_VERSION,
+                "signature": signature,
+                "n_hits": int(len(hits)),
+                "columns": list(hits.columns),
+            },
+            handle,
+            indent=2,
+        )
+    os.replace(pickle_tmp, pickle_path)
+    os.replace(manifest_tmp, manifest_path)
+    print(f"Saved {len(hits):,} known-RBP motif hits to {pickle_path}")
 
 
 def _fixed_metagene_position_bin(
@@ -1655,6 +1830,9 @@ def run_rbp_translation_effect_analysis(
     score_threshold: float = 0.85,
     max_hits_per_rbp_transcript_region: int = 1,
     context_flank: int = 12,
+    known_motif_scan_workers: int = 1,
+    reuse_known_motif_scan: bool = True,
+    known_motif_scan_cache_path: Optional[str] = None,
     prediction_scale: str = "log1p",
     force_zero_expression: bool = True,
     batch_size: int = 32,
@@ -1674,6 +1852,11 @@ def run_rbp_translation_effect_analysis(
 ) -> Dict[str, object]:
     """Run known-PWM perturbation, case attribution, and de novo discovery."""
     os.makedirs(out_dir, exist_ok=True)
+    target_rbps = (
+        None if target_rbps is None
+        else tuple(str(value) for value in target_rbps)
+    )
+    regions = tuple(str(region) for region in regions)
     samples = collect_unique_transcript_samples(
         dataset,
         target_transcript_ids=target_transcript_ids,
@@ -1692,16 +1875,51 @@ def run_rbp_translation_effect_analysis(
         metadata=metadata,
         target_rbps=target_rbps,
     )
-    hits = collect_rbp_motif_hits(
+    scan_cache_path = known_motif_scan_cache_path or os.path.join(
+        out_dir, "known_rbp_motif_hits.pkl"
+    )
+    scan_signature = compute_known_motif_scan_signature(
         samples,
         valid_pwm_library,
         metadata,
         target_rbps=target_rbps,
         regions=regions,
         score_threshold=score_threshold,
-        max_hits_per_rbp_transcript_region=max_hits_per_rbp_transcript_region,
+        max_hits_per_rbp_transcript_region=(
+            max_hits_per_rbp_transcript_region
+        ),
         context_flank=context_flank,
     )
+    hits = None
+    if reuse_known_motif_scan:
+        hits = load_known_motif_scan_cache(
+            scan_cache_path,
+            expected_signature=scan_signature,
+        )
+    if hits is None:
+        hits = collect_rbp_motif_hits(
+            samples,
+            valid_pwm_library,
+            metadata,
+            target_rbps=target_rbps,
+            regions=regions,
+            score_threshold=score_threshold,
+            max_hits_per_rbp_transcript_region=(
+                max_hits_per_rbp_transcript_region
+            ),
+            context_flank=context_flank,
+            num_workers=known_motif_scan_workers,
+        )
+        save_known_motif_scan_cache(
+            hits,
+            scan_cache_path,
+            signature=scan_signature,
+        )
+        # Save positions immediately so downstream failures do not lose a scan.
+        hits.to_csv(
+            os.path.join(out_dir, "rbp_motif_hits.csv"),
+            index=False,
+        )
     if hits.empty:
         print("No known RBP motif hits passed the requested filters.")
         effects = pd.DataFrame()
@@ -1818,4 +2036,7 @@ def run_rbp_translation_effect_analysis(
         "de_novo_alignments": alignments,
         "known_rbp_position_profiles": position_profiles["known_rbp"],
         "de_novo_position_profiles": position_profiles["de_novo"],
+        "known_motif_scan_cache_path": os.path.abspath(
+            os.path.expanduser(scan_cache_path)
+        ),
     }
