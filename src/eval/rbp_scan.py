@@ -6,11 +6,28 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+from data.prepare_rbp_database import pre_annotate_and_save_database
+from eval.rbp_translation_effect import (
+    RBPMotifMutagenesisEvaluator,
+    collect_rbp_motif_hits,
+    collect_unique_transcript_samples,
+    discover_de_novo_translation_motifs,
+    extract_signed_translation_attribution_windows,
+    run_rbp_translation_effect_analysis,
+    scan_pwm_hits,
+    summarize_rbp_motif_effects,
+)
+from plot.rbp_scan import (
+    plot_rbp_metagene_heatmap,
+    plot_rbp_regulatory_bubble,
+)
+
 def parse_cisbp_pwms(pwm_dir):
     """
-    遍历 CISBP 目录，读取所有单独的 PWM 文件，
-    跳过第一行 (Pos A C G U)，只提取数值矩阵。
-    返回与 ATtRACT 格式完全一致的字典：{Motif_ID: np.array([L, 4])}
+    Read individual PWM files from a CISBP directory.
+
+    Skip the ``Pos A C G U`` header and return a dictionary compatible
+    with the ATtRACT representation: ``{Motif_ID: np.array([L, 4])}``.
     """
     pwms = {}
     print(f"Scanning CISBP-RNA PWM directory: {pwm_dir} ...")
@@ -21,10 +38,10 @@ def parse_cisbp_pwms(pwm_dir):
         motif_id = filename.replace('.txt', '')
         filepath = os.path.join(pwm_dir, filename)
         try:
-            # skiprows=1 跳过表头，usecols=(1,2,3,4) 只读取 A C G U 四列数值
+            # Skip the header and read only the A, C, G, and U columns.
             matrix = np.loadtxt(filepath, skiprows=1, usecols=(1, 2, 3, 4), dtype=np.float32)
             
-            # 如果矩阵只有一行，确保它是二维的形状 (1, 4)
+            # Preserve a two-dimensional shape for single-position motifs.
             if matrix.ndim == 1:
                 matrix = matrix.reshape(1, 4)
                 
@@ -38,24 +55,23 @@ def parse_cisbp_pwms(pwm_dir):
 
 def load_cisbp_metadata(info_path):
     """
-    读取 CISBP 的 RBP_Information_all_motifs.txt，
-    筛选并重命名列，使其与 ATtRACT 的元数据格式无缝对接。
+    Read CISBP RBP metadata and standardize it to the ATtRACT schema.
     """
     print(f"Parsing CISBP-RNA Metadata: {info_path}")
     df = pd.read_csv(info_path, sep='\t')
     
-    # 过滤掉没有 Motif_ID 的行 (有些 RBP 在库里没有对应矩阵)
+    # Remove RBPs that have no associated motif matrix.
     df = df[df['Motif_ID'] != '.']
     
-    # 统一命名映射字典，对齐之前 ATtRACT 的字段名
+    # Standardize field names to match the ATtRACT metadata table.
     std_df = pd.DataFrame({
         'Matrix_id': df['Motif_ID'],
         'Gene_name': df['RBP_Name'],
         'Gene_id': df['DBID'],         # Ensembl ID
         'Family': df['Family_Name'],
-        # 拼接数据源标识，方便最后溯源
+        # Retain the source type for downstream provenance tracking.
         'Database': 'CISBP (' + df['MSource_Type'].astype(str) + ')',
-        # CISBP 没有直接提供 Consensus String，用固定占位符或 Motif_ID 替代
+        # CISBP does not provide a consensus string, so retain the motif ID.
         'Motif': df['Motif_ID'] 
     })
     
@@ -69,8 +85,6 @@ def parse_attract_pwms(pwm_path):
     Parses the ATtRACT pwm.txt file into a dictionary of numpy arrays.
     Each matrix row represents frequencies/probabilities for columns: [A, C, G, T].
     """
-    import numpy as np
-    
     pwms = {}
     current_id = None
     current_matrix = []
@@ -104,99 +118,6 @@ def parse_attract_pwms(pwm_path):
     return pwms
 
 
-def pre_annotate_and_save_database(combined_pwms, combined_meta, out_dir):
-    """
-    Pre-annotate merged metadata using the MyGene.info API and solidify the database locally.
-    [Updated]: Dynamically extracts GO Biological Process (BP) terms alongside standard summaries
-               to facilitate downstream functional clustering of RNA-binding proteins.
-    """
-    import os
-    import requests
-    import time
-    import pickle
-    import pandas as pd
-    from tqdm import tqdm
-
-    os.makedirs(out_dir, exist_ok=True)
-    print("\n--- Phase 1: Pre-annotating Metadata with MyGene.info ---")
-    
-    unique_ensgs = combined_meta['Gene_id'].dropna().unique()
-    print(f"Found {len(unique_ensgs)} unique Ensembl IDs to annotate.")
-    
-    # 初始化缓存字典，分别存储Summary和GO_BP描述
-    summary_cache = {}
-    go_bp_cache = {}
-    
-    for ensg in tqdm(unique_ensgs, desc="Fetching API"):
-        ensg_clean = str(ensg).strip()
-        if not ensg_clean.startswith("ENSG"):
-            summary_cache[ensg] = "Unannotated (Invalid ID)"
-            go_bp_cache[ensg] = "None"
-            continue
-            
-        # [修改]: 增加 go.BP 到请求字段中
-        url = f"https://mygene.info/v3/gene/{ensg_clean}?fields=summary,name,go.BP"
-        
-        try:
-            time.sleep(0.1)  # Rate limiting safety buffer
-            response = requests.get(url, timeout=5)
-            
-            if response.status_code == 200:
-                data = response.json()
-                
-                # 1. 提取基础功能摘要
-                func_desc = data.get('summary', data.get('name', 'Summary unavailable in NCBI.'))
-                summary_cache[ensg] = func_desc
-                
-                # 2. [新增]: 提取 GO 生物学过程 (Biological Process)
-                go_data = data.get('go', {})
-                bp_entries = go_data.get('BP', [])
-                
-                # MyGene API 的返回习惯：当只有1条GO时为字典，多条时为列表
-                bp_terms = []
-                if isinstance(bp_entries, list):
-                    for entry in bp_entries:
-                        term = entry.get('term')
-                        if term: bp_terms.append(term)
-                elif isinstance(bp_entries, dict):
-                    term = bp_entries.get('term')
-                    if term: bp_terms.append(term)
-                
-                # 将该基因捕获到的所有 BP 词条用分号连接
-                if bp_terms:
-                    go_bp_cache[ensg] = "; ".join(sorted(list(set(bp_terms))))
-                else:
-                    go_bp_cache[ensg] = "No BP terms annotated"
-                    
-            elif response.status_code == 404:
-                summary_cache[ensg] = "Gene not found in MyGene."
-                go_bp_cache[ensg] = "None"
-            else:
-                summary_cache[ensg] = f"HTTP {response.status_code}"
-                go_bp_cache[ensg] = "None"
-                
-        except Exception as e:
-            summary_cache[ensg] = "API Fetch Error"
-            go_bp_cache[ensg] = "None"
-
-    # 3. 将两组新特征无缝映射回联合元数据表中
-    combined_meta['RBP_Function'] = combined_meta['Gene_id'].map(summary_cache)
-    combined_meta['RBP_GO_BP'] = combined_meta['Gene_id'].map(go_bp_cache)
-    
-    print("\n--- Phase 2: Saving Unified Database to Disk ---")
-    
-    # 保存包含功能和GO标签的完整的元数据表为 TSV
-    meta_save_path = os.path.join(out_dir, "Unified_RBP_Metadata_Annotated.tsv")
-    combined_meta.to_csv(meta_save_path, sep='\t', index=False)
-    print(f"✅ Annotated Metadata saved: {meta_save_path}")
-    
-    # 无损保存 NumPy 概率矩阵字典为 Pickle
-    pwm_save_path = os.path.join(out_dir, "Unified_RBP_PWMs.pkl")
-    with open(pwm_save_path, 'wb') as f:
-        pickle.dump(combined_pwms, f)
-    print(f"✅ Unified PWM Dictionary saved: {pwm_save_path}")
-    
-    return combined_meta
 
 
 def compute_tomtom_similarity(matrix_q, matrix_t, min_overlap=4):
@@ -212,8 +133,6 @@ def compute_tomtom_similarity(matrix_q, matrix_t, min_overlap=4):
         max_pcc: Highest average column-to-column Pearson correlation observed.
         best_shift: Relative displacement coordinate maximizing the score.
     """
-    import numpy as np
-    
     l_q = len(matrix_q)
     l_t = len(matrix_t)
     max_pcc = -1.0
@@ -269,10 +188,6 @@ def annotate_motifs_with_unified_tomtom(all_motifs_df, combined_pwm_library, com
     [Feature]: Integrates a dual-key exact match lookup (ENSG ID -> Gene Symbol) 
     against a user-provided RBP functional annotation database to append biological context.
     """
-    import os
-    import pandas as pd
-    import numpy as np
-    
     if all_motifs_df.empty or 'Motif_Name' not in all_motifs_df.columns:
         print("Empty motif dataframes, skipping TOMTOM annotation pipeline.")
         return None
@@ -351,28 +266,22 @@ def annotate_motifs_with_unified_tomtom(all_motifs_df, combined_pwm_library, com
         return pd.DataFrame()
     
 
-import pandas as pd
-import numpy as np
-from tqdm import tqdm
-import os
-
 def _score_sequence_with_pwm(seq, pwm, min_match_score=0.85):
     """
-    使用 PWM 矩阵在序列上滑动扫描。
-    将匹配得分归一化为 0~1 之间，大于 min_match_score 视为命中。
+    Scan a sequence with a PWM and normalize the best score to [0, 1].
     """
     char_map = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     W = len(pwm)
     L = len(seq)
     if L < W: return False
     
-    # 计算该 PWM 的理论最大得分 (每行取最大概率相加)
+    # Sum row maxima to obtain the theoretical maximum PWM score.
     max_possible_score = np.sum(np.max(pwm, axis=1))
     if max_possible_score == 0: return False
     
     best_norm_score = 0.0
     
-    # 滑动窗口扫描
+    # Scan all full-length windows.
     for i in range(L - W + 1):
         window = seq[i:i+W]
         score = 0.0
@@ -395,7 +304,10 @@ def _score_sequence_with_pwm(seq, pwm, min_match_score=0.85):
 def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta,
                              out_dir, min_match_score=0.85):
     """
-    RBP-centric scanner over attention peaks from BOTH High- and Low-TE groups.
+    Legacy descriptive scanner over High- and Low-TE attention peaks.
+
+    Use ``run_rbp_translation_effect_analysis`` for directional matched
+    perturbation evidence. This function is retained for descriptive analyses.
 
     For each RBP:
       - Scans High-TE and Low-TE attention peak sequences.
@@ -447,7 +359,7 @@ def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta
     has_attn = 'mean_attn' in master_high.columns
 
     # Helper: scan one master_peaks DataFrame, return {rbp_name: {hits_5utr, hits_cds, hits_3utr, total, attns}}
-    def _scan_one(master, label):
+    def _scan_one(master):
         results = {}
         for rbp_name, matrix_ids in rbp_grouped.items():
             mats = [unified_pwms[mid] for mid in matrix_ids if mid in unified_pwms]
@@ -479,8 +391,8 @@ def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta
     rbp_grouped = unified_meta.groupby('Gene_name')['Matrix_id'].apply(list).to_dict()
 
     # Scan both groups
-    high_results = _scan_one(master_high, 'High')
-    low_results = _scan_one(master_low, 'Low') if n_low_peaks > 0 else {}
+    high_results = _scan_one(master_high)
+    low_results = _scan_one(master_low) if n_low_peaks > 0 else {}
 
     # Merge and build final table
     all_rbps = set(high_results.keys()) | set(low_results.keys())
@@ -529,16 +441,8 @@ def rbp_centric_peak_scanner(high_te_dfs, low_te_dfs, unified_pwms, unified_meta
     return result_df
 
 
-# ============================================================
-# Notebook Cell: RBP Landscape Bubble Plot & Metagene Heatmap
-# ============================================================
-from plotnine import (ggplot, aes, geom_tile, geom_vline, scale_fill_gradient, 
-                      labs, theme_classic, theme, element_text, element_blank, element_line)
-
 def score_and_map_peaks(master_peaks, unified_pwms, unified_meta, min_match_score=0.85):
-    """
-    内部辅助函数：用 PWM 扫描所有的 Peaks，返回带有 RBP 注释的详细坐标表，供热图使用。
-    """
+    """Map attention peaks to RBPs for downstream spatial plots."""
     rbp_grouped = unified_meta.groupby('Gene_name')['Matrix_id'].apply(list).to_dict()
     mapped_records = []
     
@@ -549,148 +453,12 @@ def score_and_map_peaks(master_peaks, unified_pwms, unified_meta, min_match_scor
         
         for _, row in master_peaks.iterrows():
             seq = row['sequence']
-            # 使用上一个 Cell 中的 _score_sequence_with_pwm 函数
             if any(_score_sequence_with_pwm(seq, pwm, min_match_score) for pwm in rbp_matrices):
                 mapped_records.append({
                     'RBP_Name': rbp_name,
                     'x_pos': row['x_pos'],
                     'Region': row['Region'],
-                    'sequence': seq # 保留序列用于后续画 Logo
+                    'sequence': seq,
                 })
                 
     return pd.DataFrame(mapped_records)
-
-
-def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=600, bin_size=20, up_len=300, down_len=300):
-    """
-    绘制基于 RBP 真实结合位点的 Metagene 概率热图。
-    """
-    if mapped_peaks_df.empty: return
-    
-    df_plot = mapped_peaks_df[(mapped_peaks_df['x_pos'] >= -up_len) & (mapped_peaks_df['x_pos'] <= FIXED_CDS_LEN + down_len)].copy()
-    df_plot['x_bin'] = (df_plot['x_pos'] // bin_size) * bin_size + (bin_size / 2)
-    
-    heatmap_data = df_plot.groupby(['RBP_Name', 'x_bin']).size().reset_index(name='count')
-    
-    # 构建完整网格填充
-    unique_rbps = heatmap_data['RBP_Name'].unique()
-    all_bins = np.arange((-up_len // bin_size) * bin_size + (bin_size / 2), 
-                         ((FIXED_CDS_LEN + down_len) // bin_size) * bin_size + (bin_size / 2) + bin_size, 
-                         bin_size)
-    full_df = pd.DataFrame(index=pd.MultiIndex.from_product([unique_rbps, all_bins], names=['RBP_Name', 'x_bin'])).reset_index()
-    heatmap_data = pd.merge(full_df, heatmap_data, on=['RBP_Name', 'x_bin'], how='left').fillna({'count': 0})
-    
-    # 行归一化计算空间偏好
-    rbp_totals = heatmap_data.groupby('RBP_Name')['count'].transform('sum')
-    heatmap_data['Probability'] = heatmap_data['count'] / (rbp_totals + 1e-9)
-    
-    # 按照 5' -> 3' 排序 RBP
-    peak_bins = heatmap_data.loc[heatmap_data.groupby('RBP_Name')['Probability'].idxmax()]
-    ordered_rbps = peak_bins.sort_values(['x_bin', 'RBP_Name'], ascending=[False, False])['RBP_Name'].tolist()
-    heatmap_data['RBP_Name'] = pd.Categorical(heatmap_data['RBP_Name'], categories=ordered_rbps)
-    
-    p = (
-        ggplot(heatmap_data, aes(x='x_bin', y='RBP_Name', fill='Probability'))
-        + geom_tile(color='white', size=0.1) 
-        + scale_fill_gradient(low='#EFF3FF', high='#08306B', limits=(0, heatmap_data['Probability'].max() or 1.0)) 
-        + geom_vline(xintercept=[0, FIXED_CDS_LEN], linetype='dashed', color='red', size=0.8)
-        + labs(x=f'Metagene Position', y='RNA Binding Proteins', fill='Spatial\nProbability', title='RBP Spatial Distribution')
-        + theme_classic()
-        + theme(
-            figure_size=(10, max(4, 0.15 * len(unique_rbps))),
-            axis_text_y=element_text(size=9), 
-            axis_line_x=element_blank(), 
-            axis_line_y=element_blank()
-            )
-    )
-    p.save(out_path)
-    print(f"RBP Heatmap saved to {out_path}")
-
-
-def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
-                                top_n_label=10, figsize=(9, 7)):
-    """
-    Bubble plot: RBP regulatory potential from attention and TE enrichment.
-
-    X-axis: Normalized mean attention score (RBP-binding peaks with
-            higher attention → model relies on that region more).
-    Y-axis: Top-20% TE enrichment ratio
-            (n_top_hit / n_bottom_hit, pseudocount +1).
-    Bubble size: Total_Hits (log2-scaled).
-    Color: 5'-to-3' preference (purple=5'UTR, green=CDS, orange=3'UTR).
-
-    Top `top_n_label` RBPs in the upper-right quadrant are labeled.
-    No motif logos are drawn — this is a clean quantitative overview.
-    """
-    import matplotlib.pyplot as plt
-    import numpy as np
-    from matplotlib.lines import Line2D
-
-    df = rbp_landscape_df.dropna(subset=['Mean_Attention', 'Enrichment_Ratio']).copy()
-    if df.empty:
-        print("No RBPs with valid attention + enrichment data.")
-        return
-
-    # ---- Color by dominant spatial preference ----
-    def dominant_region(row):
-        regions = {'5UTR': row['5UTR_Hits'], 'CDS': row['CDS_Hits'], '3UTR': row['3UTR_Hits']}
-        return max(regions, key=regions.get)
-
-    region_colors = {'5UTR': '#7B3294', 'CDS': '#238B45', '3UTR': '#D95F02'}
-    df['dominant'] = df.apply(dominant_region, axis=1)
-    df['color'] = df['dominant'].map(region_colors)
-
-    # ---- Compute axes ----
-    # Normalize attention to [0, 1] for interpretability
-    attn_raw = df['Mean_Attention'].values
-    attn_norm = (attn_raw - attn_raw.min()) / (attn_raw.max() - attn_raw.min() + 1e-8)
-    df['attn_norm'] = attn_norm
-
-    sizes = np.log2(df['Total_Hits'].values + 1) * 18  # scale factor for visibility
-
-    fig, ax = plt.subplots(figsize=figsize)
-
-    scatter = ax.scatter(
-        df['attn_norm'], df['Enrichment_Ratio'],
-        s=sizes, c=df['color'], alpha=0.7, edgecolors='#555555', linewidth=0.4,
-    )
-
-    # ---- Threshold lines ----
-    ax.axhline(y=1.0, linestyle='--', color='#888888', linewidth=0.8, alpha=0.6)
-    ax.axvline(x=0.5, linestyle='--', color='#888888', linewidth=0.8, alpha=0.6)
-
-    # ---- Label top RBPs in upper-right ----
-    upper_right = df[(df['attn_norm'] > 0.5) & (df['Enrichment_Ratio'] > 1.0)]
-    upper_right = upper_right.nlargest(top_n_label, 'Total_Hits')
-
-    for _, row in upper_right.iterrows():
-        offset = (0.008 + np.random.uniform(-0.004, 0.004),
-                  0.04 + np.random.uniform(-0.02, 0.02))
-        ax.annotate(
-            row['RBP_Name'],
-            (row['attn_norm'], row['Enrichment_Ratio']),
-            textcoords="offset points", xytext=(15, 5),
-            fontsize=7.5, fontweight='bold', alpha=0.85,
-            arrowprops=dict(arrowstyle='->', color='#555555', lw=0.6),
-        )
-
-    # ---- Legend ----
-    legend_elements = [
-        Line2D([0], [0], marker='o', color='w', markerfacecolor=region_colors[r],
-               markersize=9, label=f"{r} ({'5′UTR' if r == '5UTR' else r})")
-        for r in ['5UTR', 'CDS', '3UTR']
-    ]
-    ax.legend(handles=legend_elements, loc='upper left', framealpha=0.85,
-              fontsize=9, title='Dominant Region')
-
-    # ---- Labels ----
-    ax.set_xlabel("Normalized Mean Attention Score", fontsize=12)
-    ax.set_ylabel("High / Low TE Enrichment Ratio", fontsize=12)
-    ax.set_title("RBP Regulatory Landscape", fontsize=13, fontweight='bold')
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-
-    plt.tight_layout()
-    plt.savefig(out_path, dpi=300, bbox_inches='tight')
-    plt.show()
-    print(f"RBP regulatory bubble plot saved to {out_path}")

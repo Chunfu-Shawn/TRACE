@@ -38,12 +38,14 @@ except ModuleNotFoundError:
 
 from eval.de_novo_motif_discovery import (
     _extract_sample,
-    _infer_attention_focus,
-    _prepare_attention_heatmap_matrix,
     _select_unique_transcript_samples,
     _sequence_mask,
     compute_saliency_profile,
     extract_attention_positional_importance,
+)
+from plot.de_novo_motif_discovery import (
+    _infer_attention_focus,
+    _prepare_attention_heatmap_matrix,
     plot_attention_profile,
     plot_saliency_profile,
 )

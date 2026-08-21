@@ -22,7 +22,6 @@ import warnings; warnings.filterwarnings("ignore")
 from eval.de_novo_motif_discovery import (
     _unwrap,
     extract_attention_positional_importance,
-    plot_attention_profile,
     split_and_extract_contrastive_peaks,
     extract_attn_peaks_by_region,
 )
@@ -32,6 +31,9 @@ from eval.rbp_scan import (
     parse_attract_pwms,
     rbp_centric_peak_scanner,
     score_and_map_peaks,
+)
+from plot.de_novo_motif_discovery import plot_attention_profile
+from plot.rbp_scan import (
     plot_rbp_metagene_heatmap,
     plot_rbp_regulatory_bubble,
 )

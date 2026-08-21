@@ -1,0 +1,1298 @@
+"""Matched RBP-motif perturbation and de novo translation-motif discovery.
+
+The primary effect estimate is paired within the same transcript and model
+environment. A positive delta means that disrupting the native motif lowers
+predicted CDS translation; a negative delta means that disruption raises it.
+These quantities describe model sensitivity and should not be interpreted as
+biological causality without orthogonal RBP-binding and perturbation evidence.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+from collections import Counter, defaultdict
+from typing import Dict, Iterable, Mapping, Optional, Sequence, Tuple
+
+import numpy as np
+import pandas as pd
+import torch
+from scipy.stats import fisher_exact, wilcoxon
+from torch.nn.utils.rnn import pad_sequence
+from tqdm import tqdm
+
+from eval.save_prediction_results import (
+    _autocast_context,
+    _extract_head_tensor,
+    _model_device,
+)
+from model.base_model import BaseModel
+from utils import unwrap_model
+
+
+BASES = np.asarray(list("ACGT"))
+BASE_TO_INDEX = {base: index for index, base in enumerate(BASES)}
+
+
+def _normalize_tid(value: object) -> str:
+    tid = str(value)
+    if tid.startswith("ENST"):
+        return tid.split(".", 1)[0]
+    return tid
+
+
+def _meta_value(meta_info, names: Sequence[str], default=None):
+    for name in names:
+        if isinstance(meta_info, Mapping) and name in meta_info:
+            return meta_info[name]
+        if hasattr(meta_info, name):
+            return getattr(meta_info, name)
+    return default
+
+
+def _extract_tid(uuid: object, meta_info) -> str:
+    value = _meta_value(
+        meta_info,
+        ("Tid", "tid", "transcript_id", "transcript", "tx_id"),
+        default=None,
+    )
+    if value is None:
+        uuid_text = str(uuid)
+        value = uuid_text.rsplit("-", 2)[0] if "-" in uuid_text else uuid_text
+    return _normalize_tid(value)
+
+
+def _as_sequence_embedding(value) -> np.ndarray:
+    array = (
+        value.detach().cpu().numpy()
+        if torch.is_tensor(value)
+        else np.asarray(value)
+    )
+    if array.ndim != 2:
+        raise ValueError(
+            f"Sequence embedding must be two-dimensional, got {array.shape}."
+        )
+    if array.shape[1] != 4 and array.shape[0] == 4:
+        array = array.T
+    if array.shape[1] != 4:
+        raise ValueError(
+            f"Sequence embedding must have four channels, got {array.shape}."
+        )
+    return np.asarray(array, dtype=np.float32)
+
+
+def _as_expression_vector(value) -> np.ndarray:
+    if value is None:
+        return np.zeros(0, dtype=np.float32)
+    array = (
+        value.detach().cpu().numpy()
+        if torch.is_tensor(value)
+        else np.asarray(value)
+    )
+    return np.asarray(array, dtype=np.float32).reshape(-1)
+
+
+def _embedding_to_sequence(sequence_embedding: np.ndarray) -> str:
+    valid = np.asarray(sequence_embedding).sum(axis=1) > 0
+    indices = np.asarray(sequence_embedding).argmax(axis=1)
+    return "".join(
+        BASES[index] if is_valid else "N"
+        for index, is_valid in zip(indices, valid)
+    )
+
+
+def normalize_pwm(pwm: np.ndarray, pseudocount: float = 1e-4) -> np.ndarray:
+    """Normalize an A/C/G/T PWM or count matrix to row probabilities."""
+    matrix = np.asarray(pwm, dtype=float)
+    if matrix.ndim != 2 or matrix.shape[1] != 4:
+        raise ValueError(f"PWM must have shape (length, 4), got {matrix.shape}.")
+    if len(matrix) == 0 or not np.isfinite(matrix).all() or (matrix < 0).any():
+        raise ValueError("PWM values must be finite, non-negative, and non-empty.")
+    matrix = matrix + float(pseudocount)
+    return matrix / matrix.sum(axis=1, keepdims=True)
+
+
+def pwm_consensus(pwm: np.ndarray) -> str:
+    """Return the maximum-probability consensus sequence of a PWM."""
+    matrix = normalize_pwm(pwm)
+    return "".join(BASES[matrix.argmax(axis=1)])
+
+
+def scan_pwm_hits(
+    sequence: str,
+    pwm: np.ndarray,
+    score_threshold: float = 0.80,
+    background: Sequence[float] = (0.25, 0.25, 0.25, 0.25),
+) -> pd.DataFrame:
+    """Vectorize forward-strand PWM scanning and return normalized hits.
+
+    The normalized score maps the theoretical minimum and maximum log-odds
+    scores of the PWM to 0 and 1. RBP motifs are scanned in transcript
+    orientation; reverse-complement scanning is intentionally not performed.
+    """
+    if not 0 <= score_threshold <= 1:
+        raise ValueError("score_threshold must be within [0, 1].")
+    matrix = normalize_pwm(pwm)
+    bg = np.asarray(background, dtype=float)
+    if bg.shape != (4,) or (bg <= 0).any() or not np.isfinite(bg).all():
+        raise ValueError("background must contain four positive finite values.")
+    bg = bg / bg.sum()
+    log_odds = np.log2(matrix / bg[None, :])
+    minimum = float(log_odds.min(axis=1).sum())
+    maximum = float(log_odds.max(axis=1).sum())
+    denominator = maximum - minimum
+    motif_length = len(matrix)
+    sequence = str(sequence).upper().replace("U", "T")
+    if len(sequence) < motif_length or denominator <= 0:
+        return pd.DataFrame(columns=[
+            "Start", "End", "PWM_Score", "Raw_Log_Odds", "Sequence"
+        ])
+
+    indices = np.fromiter(
+        (BASE_TO_INDEX.get(base, -1) for base in sequence),
+        dtype=np.int8,
+        count=len(sequence),
+    )
+    windows = np.lib.stride_tricks.sliding_window_view(indices, motif_length)
+    valid = (windows >= 0).all(axis=1)
+    raw_scores = np.full(len(windows), np.nan, dtype=float)
+    if valid.any():
+        valid_windows = windows[valid]
+        raw_scores[valid] = log_odds[
+            np.arange(motif_length)[None, :], valid_windows
+        ].sum(axis=1)
+    normalized = (raw_scores - minimum) / denominator
+    selected = np.flatnonzero(valid & (normalized >= score_threshold))
+    return pd.DataFrame({
+        "Start": selected.astype(int),
+        "End": (selected + motif_length).astype(int),
+        "PWM_Score": normalized[selected],
+        "Raw_Log_Odds": raw_scores[selected],
+        "Sequence": [sequence[start:start + motif_length] for start in selected],
+    })
+
+
+def collect_unique_transcript_samples(
+    dataset,
+    target_transcript_ids: Optional[Iterable[str]] = None,
+    num_transcripts: Optional[int] = None,
+    min_length: int = 0,
+    max_length: Optional[int] = None,
+    random_state: int = 42,
+) -> Dict[str, Dict]:
+    """Collect one representative dataset row per transcript."""
+    if min_length < 0 or (
+        max_length is not None and max_length < min_length
+    ):
+        raise ValueError("Invalid transcript-length bounds.")
+    allowed = (
+        None
+        if target_transcript_ids is None
+        else {_normalize_tid(value) for value in target_transcript_ids}
+    )
+    rng = np.random.default_rng(random_state)
+    representatives: Dict[str, Dict] = {}
+    occurrence_counts: Dict[str, int] = defaultdict(int)
+    exclusions: Counter = Counter()
+
+    for dataset_index in tqdm(
+        range(len(dataset)), desc="Collect unique transcript samples"
+    ):
+        try:
+            item = dataset[dataset_index]
+            if len(item) < 6:
+                exclusions["missing_fields"] += 1
+                continue
+            uuid, species, cell_type, expr_vector, meta_info, seq_emb = item[:6]
+            tid = _extract_tid(uuid, meta_info)
+            if allowed is not None and tid not in allowed:
+                exclusions["target_filter"] += 1
+                continue
+            sequence_embedding = _as_sequence_embedding(seq_emb)
+            transcript_length = len(sequence_embedding)
+            if transcript_length < min_length or (
+                max_length is not None and transcript_length > max_length
+            ):
+                exclusions["length_filter"] += 1
+                continue
+            cds_start = int(_meta_value(
+                meta_info,
+                ("cds_start_pos", "CDS_Start", "cds_start"),
+                -1,
+            )) - 1
+            cds_end = int(_meta_value(
+                meta_info,
+                ("cds_end_pos", "CDS_End", "cds_end"),
+                -1,
+            ))
+            cds_end = min(cds_end, transcript_length)
+            if cds_start < 0 or cds_end <= cds_start:
+                exclusions["invalid_cds"] += 1
+                continue
+            occurrence_counts[tid] += 1
+            if (
+                tid in representatives
+                and rng.random() >= 1.0 / occurrence_counts[tid]
+            ):
+                continue
+            representatives[tid] = {
+                "Sample_ID": tid,
+                "Dataset_Index": dataset_index,
+                "UUID": str(uuid),
+                "Tid": tid,
+                "Species": species,
+                "Cell_Type": str(cell_type),
+                "Expr_Vector": _as_expression_vector(expr_vector),
+                "Seq_Emb": np.array(sequence_embedding, copy=True),
+                "Sequence": _embedding_to_sequence(sequence_embedding),
+                "Transcript_Length": transcript_length,
+                "CDS_Start_0based": cds_start,
+                "CDS_End_exclusive": cds_end,
+            }
+        except (TypeError, ValueError, IndexError):
+            exclusions["malformed_sample"] += 1
+
+    tids = np.asarray(list(representatives), dtype=object)
+    if num_transcripts is not None and len(tids) > num_transcripts:
+        selected = set(rng.choice(tids, num_transcripts, replace=False))
+        representatives = {
+            tid: sample for tid, sample in representatives.items()
+            if tid in selected
+        }
+    print(
+        f"Collected {len(representatives)} unique transcripts from "
+        f"{len(dataset)} dataset rows."
+    )
+    if exclusions:
+        print("Exclusions: " + ", ".join(
+            f"{key}={value}" for key, value in sorted(exclusions.items())
+        ))
+    return representatives
+
+
+def _region_bounds(sample: Mapping, region: str) -> Tuple[int, int]:
+    start = int(sample["CDS_Start_0based"])
+    end = int(sample["CDS_End_exclusive"])
+    length = int(sample["Transcript_Length"])
+    bounds = {
+        "5UTR": (0, start),
+        "CDS": (start, end),
+        "3UTR": (end, length),
+    }
+    if region not in bounds:
+        raise ValueError(f"Unknown transcript region '{region}'.")
+    return bounds[region]
+
+
+def _non_overlapping_top_hits(
+    candidates: Sequence[Dict],
+    maximum_hits: int,
+) -> Sequence[Dict]:
+    selected = []
+    for candidate in sorted(
+        candidates, key=lambda row: row["PWM_Score"], reverse=True
+    ):
+        overlaps = any(
+            candidate["Start"] < previous["End"]
+            and previous["Start"] < candidate["End"]
+            for previous in selected
+        )
+        if not overlaps:
+            selected.append(candidate)
+        if len(selected) >= maximum_hits:
+            break
+    return selected
+
+
+def collect_rbp_motif_hits(
+    samples: Mapping[str, Mapping],
+    pwm_library: Mapping[str, np.ndarray],
+    metadata: pd.DataFrame,
+    target_rbps: Optional[Iterable[str]] = None,
+    regions: Sequence[str] = ("5UTR", "CDS", "3UTR"),
+    score_threshold: float = 0.85,
+    max_hits_per_rbp_transcript_region: int = 1,
+    context_flank: int = 12,
+) -> pd.DataFrame:
+    """Scan known RBP PWMs and retain non-overlapping top hits."""
+    required = {"Matrix_id", "Gene_name"}
+    missing = required.difference(metadata.columns)
+    if missing:
+        raise ValueError(f"RBP metadata is missing columns: {sorted(missing)}")
+    if max_hits_per_rbp_transcript_region < 1 or context_flank < 0:
+        raise ValueError("Hit limit must be positive and context_flank non-negative.")
+    regions = tuple(str(region) for region in regions)
+    for region in regions:
+        if region not in {"5UTR", "CDS", "3UTR"}:
+            raise ValueError(f"Unsupported region '{region}'.")
+    target_set = (
+        None if target_rbps is None else {str(value) for value in target_rbps}
+    )
+    normalized_library = {
+        str(matrix_id): pwm for matrix_id, pwm in pwm_library.items()
+    }
+    motif_rows = metadata.dropna(subset=["Matrix_id", "Gene_name"]).copy()
+    motif_rows["Matrix_id"] = motif_rows["Matrix_id"].astype(str)
+    motif_rows["Gene_name"] = motif_rows["Gene_name"].astype(str)
+    motif_rows = motif_rows[motif_rows["Matrix_id"].isin(normalized_library)]
+    if target_set is not None:
+        motif_rows = motif_rows[motif_rows["Gene_name"].isin(target_set)]
+    motif_rows = motif_rows.drop_duplicates(["Gene_name", "Matrix_id"])
+    if motif_rows.empty:
+        return pd.DataFrame()
+
+    prepared_pwms = {
+        matrix_id: normalize_pwm(normalized_library[matrix_id])
+        for matrix_id in motif_rows["Matrix_id"].unique()
+    }
+    motif_by_rbp = motif_rows.groupby("Gene_name", observed=True)[
+        "Matrix_id"
+    ].apply(list)
+    records = []
+    for tid, sample in tqdm(samples.items(), desc="Scan known RBP motifs"):
+        sequence = str(sample["Sequence"])
+        for region in regions:
+            region_start, region_end = _region_bounds(sample, region)
+            region_sequence = sequence[region_start:region_end]
+            if not region_sequence:
+                continue
+            for rbp_name, matrix_ids in motif_by_rbp.items():
+                candidates = []
+                for matrix_id in matrix_ids:
+                    pwm = prepared_pwms[matrix_id]
+                    hits = scan_pwm_hits(
+                        region_sequence,
+                        pwm,
+                        score_threshold=score_threshold,
+                    )
+                    for hit in hits.to_dict("records"):
+                        absolute_start = region_start + int(hit["Start"])
+                        absolute_end = region_start + int(hit["End"])
+                        context_start = max(0, absolute_start - context_flank)
+                        context_end = min(
+                            len(sequence), absolute_end + context_flank
+                        )
+                        candidates.append({
+                            "Tid": tid,
+                            "RBP_Name": rbp_name,
+                            "Matrix_ID": matrix_id,
+                            "Region": region,
+                            "Start": absolute_start,
+                            "End": absolute_end,
+                            "PWM_Length": len(pwm),
+                            "PWM_Score": float(hit["PWM_Score"]),
+                            "Raw_Log_Odds": float(hit["Raw_Log_Odds"]),
+                            "Motif_Sequence": hit["Sequence"],
+                            "PWM_Consensus": pwm_consensus(pwm),
+                            "Context_Start": context_start,
+                            "Context_End": context_end,
+                            "Context_Sequence": sequence[
+                                context_start:context_end
+                            ],
+                        })
+                selected = _non_overlapping_top_hits(
+                    candidates,
+                    max_hits_per_rbp_transcript_region,
+                )
+                records.extend(selected)
+    hits = pd.DataFrame(records)
+    if hits.empty:
+        return hits
+    hits = hits.sort_values(
+        ["RBP_Name", "Tid", "Region", "PWM_Score"],
+        ascending=[True, True, True, False],
+    ).reset_index(drop=True)
+    hits.insert(0, "Hit_ID", [f"RBP_HIT_{i:07d}" for i in range(len(hits))])
+    return hits
+
+
+def _least_preferred_alternative(
+    pwm_row: np.ndarray,
+    native_index: int,
+) -> int:
+    for index in np.argsort(pwm_row):
+        if int(index) != native_index:
+            return int(index)
+    return int((native_index + 1) % 4)
+
+
+def disrupt_pwm_hit(
+    sequence_embedding: np.ndarray,
+    start: int,
+    pwm: np.ndarray,
+) -> Tuple[np.ndarray, int]:
+    """Replace each motif base by a low-probability alternative base."""
+    mutated = np.array(sequence_embedding, dtype=np.float32, copy=True)
+    matrix = normalize_pwm(pwm)
+    if start < 0 or start + len(matrix) > len(mutated):
+        raise ValueError("PWM hit lies outside the sequence embedding.")
+    native = mutated[start:start + len(matrix)].argmax(axis=1)
+    changes = 0
+    for offset, native_index in enumerate(native):
+        replacement = _least_preferred_alternative(
+            matrix[offset], int(native_index)
+        )
+        mutated[start + offset] = 0
+        mutated[start + offset, replacement] = 1
+        changes += int(replacement != native_index)
+    return mutated, changes
+
+
+def _mean_cds_signal(
+    profile: np.ndarray,
+    cds_start: int,
+    cds_end: int,
+    skip_codons: int = 5,
+) -> float:
+    start = int(cds_start) + 3 * int(skip_codons)
+    end = min(int(cds_end), len(profile))
+    if start >= end:
+        return np.nan
+    values = np.asarray(profile[start:end:3], dtype=float)
+    values = values[np.isfinite(values)]
+    if values.size == 0:
+        return np.nan
+    return float(np.maximum(values, 0).mean())
+
+
+def _benjamini_hochberg(p_values: Sequence[float]) -> np.ndarray:
+    values = np.asarray(p_values, dtype=float)
+    adjusted = np.full(values.shape, np.nan, dtype=float)
+    valid = np.flatnonzero(np.isfinite(values))
+    if valid.size == 0:
+        return adjusted
+    order = valid[np.argsort(values[valid])]
+    ranked = values[order] * valid.size / np.arange(1, valid.size + 1)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    adjusted[order] = np.minimum(ranked, 1.0)
+    return adjusted
+
+
+class RBPMotifMutagenesisEvaluator:
+    """Evaluate paired effects of disrupting known RBP motif instances."""
+
+    def __init__(
+        self,
+        model,
+        pwm_library: Mapping[str, np.ndarray],
+        prediction_scale: str = "log1p",
+    ):
+        base_model = unwrap_model(model)
+        if not isinstance(base_model, BaseModel):
+            raise TypeError(
+                "RBPMotifMutagenesisEvaluator requires a BaseModel instance."
+            )
+        if prediction_scale not in {"log1p", "linear"}:
+            raise ValueError("prediction_scale must be 'log1p' or 'linear'.")
+        self.model = base_model
+        self.device = _model_device(base_model)
+        self.pwm_library = {
+            str(key): normalize_pwm(value)
+            for key, value in pwm_library.items()
+        }
+        self.prediction_scale = prediction_scale
+
+    def _predict_records(
+        self,
+        records: Sequence[Mapping],
+        batch_size: int,
+    ) -> Dict[str, np.ndarray]:
+        predictions = {}
+        self.model.eval()
+        for batch_start in tqdm(
+            range(0, len(records), batch_size), desc="RBP motif inference"
+        ):
+            batch = records[batch_start:batch_start + batch_size]
+            sequences = [
+                torch.from_numpy(np.asarray(row["Seq_Emb"], dtype=np.float32))
+                for row in batch
+            ]
+            lengths = [len(sequence) for sequence in sequences]
+            seq_batch = pad_sequence(
+                sequences, batch_first=True, padding_value=-1
+            ).to(self.device)
+            expression_vectors = [
+                torch.from_numpy(np.asarray(
+                    row["Expr_Vector"], dtype=np.float32
+                ))
+                for row in batch
+            ]
+            widths = {int(vector.numel()) for vector in expression_vectors}
+            if len(widths) != 1:
+                raise ValueError(
+                    "Expression-vector widths differ within an inference batch."
+                )
+            expr_batch = (
+                None
+                if next(iter(widths)) == 0
+                else torch.stack(expression_vectors).to(self.device)
+            )
+            positions = torch.arange(
+                seq_batch.shape[1], device=self.device
+            ).unsqueeze(0)
+            src_mask = positions < torch.tensor(
+                lengths, device=self.device
+            ).unsqueeze(1)
+            with torch.inference_mode(), _autocast_context(self.device):
+                output = self.model.predict(
+                    seq_batch=seq_batch,
+                    species=[row["Species"] for row in batch],
+                    expr_vector=expr_batch,
+                    src_mask=src_mask,
+                    head_names=["count"],
+                )
+                profiles = _extract_head_tensor(output, "count")
+            if profiles.ndim != 3 or profiles.shape[-1] != 1:
+                raise ValueError(
+                    "The count head must return shape (batch, length, 1)."
+                )
+            profiles = profiles.squeeze(-1).float()
+            if self.prediction_scale == "log1p":
+                profiles = torch.expm1(profiles)
+            profiles = profiles.cpu().numpy()
+            for index, row in enumerate(batch):
+                predictions[str(row["Variant_ID"])] = profiles[
+                    index, :lengths[index]
+                ]
+        return predictions
+
+    def evaluate_hits(
+        self,
+        hits: pd.DataFrame,
+        samples: Mapping[str, Mapping],
+        batch_size: int = 32,
+        cds_skip_codons: int = 5,
+        eps: float = 1e-8,
+    ) -> pd.DataFrame:
+        """Disrupt every hit and calculate paired CDS translation effects."""
+        if hits.empty:
+            return pd.DataFrame()
+        required = {
+            "Hit_ID", "Tid", "RBP_Name", "Matrix_ID", "Region",
+            "Start", "End", "PWM_Score", "Motif_Sequence",
+        }
+        missing = required.difference(hits.columns)
+        if missing:
+            raise ValueError(f"Hit table is missing columns: {sorted(missing)}")
+        unknown_tids = set(hits["Tid"]) - set(samples)
+        if unknown_tids:
+            raise ValueError(
+                f"Samples are missing {len(unknown_tids)} hit transcripts."
+            )
+
+        wt_records = []
+        for tid in hits["Tid"].drop_duplicates():
+            sample = samples[tid]
+            wt_records.append({
+                "Variant_ID": f"WT::{tid}",
+                "Seq_Emb": sample["Seq_Emb"],
+                "Expr_Vector": sample["Expr_Vector"],
+                "Species": sample["Species"],
+            })
+        disrupted_records = []
+        mutation_counts = {}
+        for hit in hits.itertuples(index=False):
+            matrix_id = str(hit.Matrix_ID)
+            if matrix_id not in self.pwm_library:
+                raise KeyError(f"PWM '{matrix_id}' is unavailable.")
+            sample = samples[hit.Tid]
+            disrupted, changes = disrupt_pwm_hit(
+                sample["Seq_Emb"], int(hit.Start), self.pwm_library[matrix_id]
+            )
+            variant_id = f"DISRUPTED::{hit.Hit_ID}"
+            mutation_counts[hit.Hit_ID] = changes
+            disrupted_records.append({
+                "Variant_ID": variant_id,
+                "Seq_Emb": disrupted,
+                "Expr_Vector": sample["Expr_Vector"],
+                "Species": sample["Species"],
+            })
+        profiles = self._predict_records(
+            wt_records + disrupted_records,
+            batch_size=batch_size,
+        )
+
+        rows = []
+        for hit in hits.itertuples(index=False):
+            sample = samples[hit.Tid]
+            wt_signal = _mean_cds_signal(
+                profiles[f"WT::{hit.Tid}"],
+                sample["CDS_Start_0based"],
+                sample["CDS_End_exclusive"],
+                skip_codons=cds_skip_codons,
+            )
+            disrupted_signal = _mean_cds_signal(
+                profiles[f"DISRUPTED::{hit.Hit_ID}"],
+                sample["CDS_Start_0based"],
+                sample["CDS_End_exclusive"],
+                skip_codons=cds_skip_codons,
+            )
+            effect = np.log2((wt_signal + eps) / (disrupted_signal + eps))
+            rows.append({
+                **hit._asdict(),
+                "Cell_Type": sample["Cell_Type"],
+                "CDS_Start_0based": sample["CDS_Start_0based"],
+                "CDS_End_exclusive": sample["CDS_End_exclusive"],
+                "Transcript_Length": sample["Transcript_Length"],
+                "Mutation_Count": mutation_counts[hit.Hit_ID],
+                "Disruption_Strategy": "least_preferred_all_positions",
+                "WT_CDS_Mean_Signal": wt_signal,
+                "Disrupted_CDS_Mean_Signal": disrupted_signal,
+                "Delta_Log2_TE": effect,
+                "Delta_Log2_TE_Per_Mutation": (
+                    effect / max(mutation_counts[hit.Hit_ID], 1)
+                ),
+                "Direction": (
+                    "Positive" if effect > 0
+                    else "Negative" if effect < 0
+                    else "Neutral"
+                ),
+            })
+        return pd.DataFrame(rows)
+
+    def compute_nucleotide_contributions(
+        self,
+        hit_effects: pd.DataFrame,
+        samples: Mapping[str, Mapping],
+        n_cases_per_direction: int = 3,
+        min_case_transcripts: int = 5,
+        context_flank: int = 12,
+        batch_size: int = 64,
+        cds_skip_codons: int = 5,
+        eps: float = 1e-8,
+    ) -> pd.DataFrame:
+        """Run saturation mutagenesis around representative signed motif hits."""
+        if hit_effects.empty:
+            return pd.DataFrame()
+        if (
+            n_cases_per_direction < 1
+            or min_case_transcripts < 2
+            or context_flank < 0
+        ):
+            raise ValueError("Invalid case count or context flank.")
+        group_summary = (
+            hit_effects.groupby(["RBP_Name", "Region"], observed=True)
+            .agg(
+                Group_Median_Delta_Log2_TE=("Delta_Log2_TE", "median"),
+                Group_N_Transcripts=("Tid", "nunique"),
+            )
+            .reset_index()
+        )
+        group_summary = group_summary[
+            group_summary["Group_N_Transcripts"] >= min_case_transcripts
+        ]
+        group_summary["Direction"] = np.where(
+            group_summary["Group_Median_Delta_Log2_TE"] > 0,
+            "Positive",
+            np.where(
+                group_summary["Group_Median_Delta_Log2_TE"] < 0,
+                "Negative",
+                "Neutral",
+            ),
+        )
+        selected_rows = []
+        for direction, ascending in (("Positive", False), ("Negative", True)):
+            groups = group_summary[group_summary["Direction"] == direction]
+            groups = groups.sort_values(
+                "Group_Median_Delta_Log2_TE", ascending=ascending
+            ).drop_duplicates("RBP_Name").head(n_cases_per_direction)
+            for group in groups.itertuples(index=False):
+                candidates = hit_effects[
+                    (hit_effects["RBP_Name"] == group.RBP_Name)
+                    & (hit_effects["Region"] == group.Region)
+                ].copy()
+                distance = (
+                    candidates["Delta_Log2_TE"]
+                    - group.Group_Median_Delta_Log2_TE
+                ).abs()
+                representative = candidates.loc[distance.idxmin()].to_dict()
+                representative.update({
+                    "Group_Median_Delta_Log2_TE": (
+                        group.Group_Median_Delta_Log2_TE
+                    ),
+                    "Group_N_Transcripts": group.Group_N_Transcripts,
+                })
+                selected_rows.append(representative)
+        selected = pd.DataFrame(selected_rows)
+        if selected.empty:
+            return pd.DataFrame()
+
+        variant_records = []
+        position_variants = defaultdict(list)
+        for hit in selected.itertuples(index=False):
+            sample = samples[hit.Tid]
+            sequence = sample["Sequence"]
+            context_start = max(0, int(hit.Start) - context_flank)
+            context_end = min(len(sequence), int(hit.End) + context_flank)
+            for position in range(context_start, context_end):
+                native_base = sequence[position]
+                if native_base not in BASE_TO_INDEX:
+                    continue
+                for alternative in BASES:
+                    if alternative == native_base:
+                        continue
+                    mutated = np.array(sample["Seq_Emb"], copy=True)
+                    mutated[position] = 0
+                    mutated[position, BASE_TO_INDEX[str(alternative)]] = 1
+                    variant_id = (
+                        f"ISM::{hit.Hit_ID}::{position}::{alternative}"
+                    )
+                    variant_records.append({
+                        "Variant_ID": variant_id,
+                        "Seq_Emb": mutated,
+                        "Expr_Vector": sample["Expr_Vector"],
+                        "Species": sample["Species"],
+                    })
+                    position_variants[(hit.Hit_ID, position)].append(variant_id)
+        predictions = self._predict_records(
+            variant_records,
+            batch_size=batch_size,
+        )
+
+        rows = []
+        for hit in selected.itertuples(index=False):
+            sample = samples[hit.Tid]
+            wt_signal = float(hit.WT_CDS_Mean_Signal)
+            context_start = max(0, int(hit.Start) - context_flank)
+            context_end = min(
+                sample["Transcript_Length"], int(hit.End) + context_flank
+            )
+            for position in range(context_start, context_end):
+                variant_ids = position_variants.get((hit.Hit_ID, position), [])
+                if not variant_ids:
+                    continue
+                mutant_signals = [
+                    _mean_cds_signal(
+                        predictions[variant_id],
+                        sample["CDS_Start_0based"],
+                        sample["CDS_End_exclusive"],
+                        skip_codons=cds_skip_codons,
+                    )
+                    for variant_id in variant_ids
+                ]
+                mean_log_mutant = np.mean(np.log2(
+                    np.asarray(mutant_signals, dtype=float) + eps
+                ))
+                contribution = np.log2(wt_signal + eps) - mean_log_mutant
+                rows.append({
+                    "Hit_ID": hit.Hit_ID,
+                    "Tid": hit.Tid,
+                    "RBP_Name": hit.RBP_Name,
+                    "Matrix_ID": hit.Matrix_ID,
+                    "Region": hit.Region,
+                    "Motif_Start": int(hit.Start),
+                    "Motif_End": int(hit.End),
+                    "Absolute_Position": position,
+                    "Relative_Position": position - int(hit.Start),
+                    "Base": sample["Sequence"][position],
+                    "Is_Motif": int(hit.Start) <= position < int(hit.End),
+                    "Base_Contribution_Log2_TE": contribution,
+                    "Motif_Delta_Log2_TE": float(hit.Delta_Log2_TE),
+                    "Group_Median_Delta_Log2_TE": float(
+                        hit.Group_Median_Delta_Log2_TE
+                    ),
+                    "Group_N_Transcripts": int(hit.Group_N_Transcripts),
+                    "PWM_Score": float(hit.PWM_Score),
+                    "CDS_Start_0based": sample["CDS_Start_0based"],
+                    "CDS_End_exclusive": sample["CDS_End_exclusive"],
+                    "Transcript_Length": sample["Transcript_Length"],
+                })
+        return pd.DataFrame(rows)
+
+
+def summarize_rbp_motif_effects(
+    hit_effects: pd.DataFrame,
+    min_transcripts: int = 5,
+    bootstrap_iterations: int = 2000,
+    confidence_level: float = 0.95,
+    random_state: int = 42,
+) -> pd.DataFrame:
+    """Summarize motif effects at the transcript level with paired statistics."""
+    required = {"RBP_Name", "Region", "Tid", "Delta_Log2_TE"}
+    missing = required.difference(hit_effects.columns)
+    if missing:
+        raise ValueError(f"Effect table is missing columns: {sorted(missing)}")
+    if min_transcripts < 2 or bootstrap_iterations < 100:
+        raise ValueError("Use at least two transcripts and 100 bootstrap draws.")
+    working_effects = hit_effects.copy()
+    if "Delta_Log2_TE_Per_Mutation" not in working_effects:
+        if "Mutation_Count" in working_effects:
+            working_effects["Delta_Log2_TE_Per_Mutation"] = (
+                working_effects["Delta_Log2_TE"]
+                / working_effects["Mutation_Count"].clip(lower=1)
+            )
+        else:
+            working_effects["Delta_Log2_TE_Per_Mutation"] = np.nan
+    transcript_effects = (
+        working_effects.groupby(
+            ["RBP_Name", "Region", "Tid"], observed=True
+        )[["Delta_Log2_TE", "Delta_Log2_TE_Per_Mutation"]]
+        .median()
+        .reset_index()
+    )
+    rng = np.random.default_rng(random_state)
+    alpha = 1 - confidence_level
+    rows = []
+    for (rbp_name, region), group in transcript_effects.groupby(
+        ["RBP_Name", "Region"], observed=True
+    ):
+        values = group["Delta_Log2_TE"].replace(
+            [np.inf, -np.inf], np.nan
+        ).dropna().to_numpy()
+        normalized_values = group["Delta_Log2_TE_Per_Mutation"].replace(
+            [np.inf, -np.inf], np.nan
+        ).dropna().to_numpy()
+        if len(values) < min_transcripts:
+            continue
+        boot = np.median(
+            rng.choice(values, size=(bootstrap_iterations, len(values))),
+            axis=1,
+        )
+        if np.any(values != 0):
+            _, p_value = wilcoxon(values, alternative="two-sided")
+        else:
+            p_value = 1.0
+        median = float(np.median(values))
+        rows.append({
+            "RBP_Name": rbp_name,
+            "Region": region,
+            "N_Transcripts": len(values),
+            "Median_Delta_Log2_TE": median,
+            "Mean_Delta_Log2_TE": float(np.mean(values)),
+            "Median_Delta_Log2_TE_Per_Mutation": float(
+                np.median(normalized_values)
+            ) if len(normalized_values) else np.nan,
+            "CI_Lower": float(np.quantile(boot, alpha / 2)),
+            "CI_Upper": float(np.quantile(boot, 1 - alpha / 2)),
+            "P_Value": float(p_value),
+            "Direction": (
+                "Positive" if median > 0
+                else "Negative" if median < 0
+                else "Neutral"
+            ),
+        })
+    summary = pd.DataFrame(rows)
+    if summary.empty:
+        return summary
+    summary["FDR_BH"] = _benjamini_hochberg(summary["P_Value"])
+    return summary.sort_values(
+        "Median_Delta_Log2_TE", ascending=False
+    ).reset_index(drop=True)
+
+
+def _window_kmers(sequence: str, k: int) -> set:
+    sequence = str(sequence).upper().replace("U", "T")
+    return {
+        sequence[index:index + k]
+        for index in range(len(sequence) - k + 1)
+        if set(sequence[index:index + k]).issubset(BASE_TO_INDEX)
+    }
+
+
+def _position_region(position: int, sample: Mapping) -> str:
+    if position < int(sample["CDS_Start_0based"]):
+        return "5UTR"
+    if position < int(sample["CDS_End_exclusive"]):
+        return "CDS"
+    return "3UTR"
+
+
+def _select_signed_peaks(
+    scores: np.ndarray,
+    valid_positions: np.ndarray,
+    direction: str,
+    number_of_peaks: int,
+    minimum_separation: int,
+) -> Sequence[int]:
+    candidates = valid_positions[np.isfinite(scores[valid_positions])]
+    if direction == "Positive":
+        candidates = candidates[scores[candidates] > 0]
+        order = candidates[np.argsort(scores[candidates])[::-1]]
+    elif direction == "Negative":
+        candidates = candidates[scores[candidates] < 0]
+        order = candidates[np.argsort(scores[candidates])]
+    else:
+        raise ValueError("direction must be 'Positive' or 'Negative'.")
+    selected = []
+    for position in order:
+        if all(
+            abs(int(position) - previous) >= minimum_separation
+            for previous in selected
+        ):
+            selected.append(int(position))
+        if len(selected) >= number_of_peaks:
+            break
+    return selected
+
+
+def extract_signed_translation_attribution_windows(
+    model,
+    samples: Mapping[str, Mapping],
+    prediction_scale: str = "log1p",
+    num_transcripts: Optional[int] = 500,
+    peaks_per_direction: int = 1,
+    window_radius: int = 10,
+    cds_skip_codons: int = 5,
+    random_state: int = 42,
+    eps: float = 1e-8,
+) -> pd.DataFrame:
+    """Extract signed input-gradient peaks for predicted CDS translation.
+
+    The target is log mean frame-0 CDS signal. Positive native-base gradients
+    nominate sequence positions that locally support the target; negative
+    gradients nominate positions that locally suppress it. This first-order
+    attribution is intended for de novo candidate generation, not causal proof.
+    """
+    base_model = unwrap_model(model)
+    if not isinstance(base_model, BaseModel):
+        raise TypeError(
+            "Signed translation attribution requires a BaseModel instance."
+        )
+    if prediction_scale not in {"log1p", "linear"}:
+        raise ValueError("prediction_scale must be 'log1p' or 'linear'.")
+    if peaks_per_direction < 1 or window_radius < 1 or cds_skip_codons < 0:
+        raise ValueError("Invalid attribution-window parameters.")
+    device = _model_device(base_model)
+    rng = np.random.default_rng(random_state)
+    tids = np.asarray(list(samples), dtype=object)
+    if num_transcripts is not None and len(tids) > num_transcripts:
+        tids = rng.choice(tids, num_transcripts, replace=False)
+    else:
+        rng.shuffle(tids)
+    base_model.eval()
+    records = []
+    for tid in tqdm(tids, desc="Signed translation attribution"):
+        sample = samples[str(tid)]
+        sequence = str(sample["Sequence"])
+        sequence_tensor = torch.from_numpy(
+            np.asarray(sample["Seq_Emb"], dtype=np.float32)
+        ).unsqueeze(0).to(device).requires_grad_(True)
+        expression = np.asarray(sample["Expr_Vector"], dtype=np.float32)
+        expression_tensor = (
+            None
+            if expression.size == 0
+            else torch.from_numpy(expression).unsqueeze(0).to(device)
+        )
+        mask = torch.ones(
+            (1, sequence_tensor.shape[1]), dtype=torch.bool, device=device
+        )
+        with torch.enable_grad():
+            output = base_model.forward(
+                seq_batch=sequence_tensor,
+                species=sample["Species"],
+                cell_type=None,
+                expr_vector=expression_tensor,
+                src_mask=mask,
+                head_names=["count"],
+            )
+            profile = _extract_head_tensor(output, "count")[0, :, 0]
+            if prediction_scale == "log1p":
+                profile = torch.expm1(profile)
+            cds_start = int(sample["CDS_Start_0based"]) + 3 * cds_skip_codons
+            cds_end = min(
+                int(sample["CDS_End_exclusive"]), len(profile)
+            )
+            if cds_start >= cds_end:
+                continue
+            target = torch.log(
+                torch.clamp(profile[cds_start:cds_end:3], min=0).mean()
+                + eps
+            )
+            base_model.zero_grad(set_to_none=True)
+            target.backward()
+        gradient = sequence_tensor.grad[0].detach().cpu().numpy()
+        native_indices = np.asarray(sample["Seq_Emb"]).argmax(axis=1)
+        native_scores = gradient[
+            np.arange(len(native_indices)), native_indices
+        ]
+        valid = np.asarray([
+            position
+            for position in range(window_radius, len(sequence) - window_radius)
+            if "N" not in sequence[
+                position - window_radius:position + window_radius + 1
+            ]
+        ], dtype=int)
+        for direction in ("Positive", "Negative"):
+            peak_positions = _select_signed_peaks(
+                native_scores,
+                valid,
+                direction=direction,
+                number_of_peaks=peaks_per_direction,
+                minimum_separation=2 * window_radius + 1,
+            )
+            for position in peak_positions:
+                context_start = position - window_radius
+                context_end = position + window_radius + 1
+                records.append({
+                    "Tid": str(tid),
+                    "Cell_Type": sample["Cell_Type"],
+                    "Region": _position_region(position, sample),
+                    "Absolute_Position": position,
+                    "Attribution_Direction": direction,
+                    "Signed_Attribution": float(native_scores[position]),
+                    "Context_Start": context_start,
+                    "Context_End": context_end,
+                    "Context_Sequence": sequence[context_start:context_end],
+                    "Native_Base": sequence[position],
+                })
+        sequence_tensor.grad = None
+    return pd.DataFrame(records, columns=[
+        "Tid", "Cell_Type", "Region", "Absolute_Position",
+        "Attribution_Direction", "Signed_Attribution", "Context_Start",
+        "Context_End", "Context_Sequence", "Native_Base",
+    ])
+
+
+def discover_de_novo_translation_motifs(
+    sequence_effects: pd.DataFrame,
+    sequence_col: str = "Context_Sequence",
+    effect_col: str = "Delta_Log2_TE",
+    unit_col: str = "Tid",
+    k_values: Sequence[int] = (5, 6, 7, 8),
+    extreme_quantile: float = 0.75,
+    neutral_quantile: float = 0.40,
+    min_foreground_occurrences: int = 5,
+    top_n_per_direction: int = 10,
+    logo_flank: int = 3,
+) -> Tuple[pd.DataFrame, Dict[str, Sequence[str]]]:
+    """Discover k-mers enriched in signed-effect contexts versus neutral ones."""
+    required = {sequence_col, effect_col, unit_col}
+    missing = required.difference(sequence_effects.columns)
+    if missing:
+        raise ValueError(
+            f"Sequence-effect table is missing columns: {sorted(missing)}"
+        )
+    if not 0.5 <= extreme_quantile < 1:
+        raise ValueError("extreme_quantile must be within [0.5, 1).")
+    if not 0 < neutral_quantile < 1:
+        raise ValueError("neutral_quantile must be within (0, 1).")
+    working = sequence_effects[[unit_col, sequence_col, effect_col]].copy()
+    working = working.replace([np.inf, -np.inf], np.nan).dropna()
+    working = working.loc[
+        working.groupby(unit_col, observed=True)[effect_col]
+        .transform(lambda values: values.abs() == values.abs().max())
+    ].drop_duplicates(unit_col)
+    if len(working) < 2 * min_foreground_occurrences:
+        return pd.DataFrame(), {}
+    positive_values = working.loc[working[effect_col] > 0, effect_col]
+    negative_values = working.loc[working[effect_col] < 0, effect_col]
+    neutral_cutoff = working[effect_col].abs().quantile(neutral_quantile)
+    background = working[working[effect_col].abs() <= neutral_cutoff]
+    direction_sets = {}
+    if len(positive_values) >= min_foreground_occurrences:
+        cutoff = positive_values.quantile(extreme_quantile)
+        direction_sets["Positive"] = working[working[effect_col] >= cutoff]
+    if len(negative_values) >= min_foreground_occurrences:
+        cutoff = negative_values.quantile(1 - extreme_quantile)
+        direction_sets["Negative"] = working[working[effect_col] <= cutoff]
+    if len(background) < min_foreground_occurrences or not direction_sets:
+        return pd.DataFrame(), {}
+
+    records = []
+    foreground_sequences = {}
+    for direction, foreground in direction_sets.items():
+        foreground_sequences[direction] = foreground[sequence_col].astype(str).tolist()
+        for k in k_values:
+            if k < 3:
+                raise ValueError("All k-mer lengths must be at least 3.")
+            fg_sets = [_window_kmers(sequence, k) for sequence in foreground_sequences[direction]]
+            bg_sets = [
+                _window_kmers(sequence, k)
+                for sequence in background[sequence_col].astype(str)
+            ]
+            candidates = set().union(*fg_sets) if fg_sets else set()
+            for kmer in candidates:
+                fg_hit = sum(kmer in values for values in fg_sets)
+                if fg_hit < min_foreground_occurrences:
+                    continue
+                bg_hit = sum(kmer in values for values in bg_sets)
+                table = [
+                    [fg_hit, len(fg_sets) - fg_hit],
+                    [bg_hit, len(bg_sets) - bg_hit],
+                ]
+                odds_ratio, p_value = fisher_exact(table, alternative="greater")
+                fg_rate = fg_hit / len(fg_sets)
+                bg_rate = bg_hit / len(bg_sets)
+                records.append({
+                    "Direction": direction,
+                    "Kmer": kmer,
+                    "K": k,
+                    "Foreground_Hits": fg_hit,
+                    "Foreground_N": len(fg_sets),
+                    "Background_Hits": bg_hit,
+                    "Background_N": len(bg_sets),
+                    "Foreground_Rate": fg_rate,
+                    "Background_Rate": bg_rate,
+                    "Log2_Enrichment": float(np.log2(
+                        (fg_rate + 0.5 / len(fg_sets))
+                        / (bg_rate + 0.5 / len(bg_sets))
+                    )),
+                    "Odds_Ratio": float(odds_ratio),
+                    "P_Value": float(p_value),
+                })
+    results = pd.DataFrame(records)
+    if results.empty:
+        return results, {}
+    results["FDR_BH"] = _benjamini_hochberg(results["P_Value"])
+    results = results.sort_values(
+        ["Direction", "FDR_BH", "Log2_Enrichment"],
+        ascending=[True, True, False],
+    )
+    results = results.groupby("Direction", observed=True).head(
+        top_n_per_direction
+    ).reset_index(drop=True)
+
+    alignments: Dict[str, Sequence[str]] = {}
+    for row in results.itertuples(index=False):
+        aligned = []
+        for sequence in foreground_sequences[row.Direction]:
+            position = sequence.find(row.Kmer)
+            if position < logo_flank:
+                continue
+            end = position + len(row.Kmer) + logo_flank
+            if end > len(sequence):
+                continue
+            aligned.append(sequence[position - logo_flank:end])
+        alignments[f"{row.Direction}|{row.Kmer}"] = aligned
+    return results, alignments
+
+
+def run_rbp_translation_effect_analysis(
+    model,
+    dataset,
+    pwm_library: Mapping[str, np.ndarray],
+    metadata: pd.DataFrame,
+    out_dir: str,
+    target_rbps: Optional[Iterable[str]] = None,
+    target_transcript_ids: Optional[Iterable[str]] = None,
+    regions: Sequence[str] = ("5UTR", "CDS", "3UTR"),
+    num_transcripts: Optional[int] = None,
+    score_threshold: float = 0.85,
+    max_hits_per_rbp_transcript_region: int = 1,
+    context_flank: int = 12,
+    prediction_scale: str = "log1p",
+    force_zero_expression: bool = True,
+    batch_size: int = 32,
+    min_transcripts: int = 5,
+    n_cases_per_direction: int = 3,
+    de_novo_source: str = "signed_attribution",
+    de_novo_num_transcripts: Optional[int] = 500,
+    de_novo_peaks_per_direction: int = 1,
+    random_state: int = 42,
+) -> Dict[str, object]:
+    """Run known-PWM perturbation, case attribution, and de novo discovery."""
+    os.makedirs(out_dir, exist_ok=True)
+    samples = collect_unique_transcript_samples(
+        dataset,
+        target_transcript_ids=target_transcript_ids,
+        num_transcripts=num_transcripts,
+        random_state=random_state,
+    )
+    if force_zero_expression:
+        for sample in samples.values():
+            sample["Expr_Vector"] = np.zeros_like(sample["Expr_Vector"])
+        print(
+            "Using zero expression conditioning for sequence-focused RBP "
+            "motif analysis."
+        )
+    hits = collect_rbp_motif_hits(
+        samples,
+        pwm_library,
+        metadata,
+        target_rbps=target_rbps,
+        regions=regions,
+        score_threshold=score_threshold,
+        max_hits_per_rbp_transcript_region=max_hits_per_rbp_transcript_region,
+        context_flank=context_flank,
+    )
+    if hits.empty:
+        print("No known RBP motif hits passed the requested filters.")
+        effects = pd.DataFrame()
+        summary = pd.DataFrame()
+        contributions = pd.DataFrame()
+    else:
+        evaluator = RBPMotifMutagenesisEvaluator(
+            model,
+            pwm_library,
+            prediction_scale=prediction_scale,
+        )
+        effects = evaluator.evaluate_hits(
+            hits,
+            samples,
+            batch_size=batch_size,
+        )
+        effects["Expression_Conditioning"] = (
+            "zero" if force_zero_expression else "dataset"
+        )
+        summary = summarize_rbp_motif_effects(
+            effects,
+            min_transcripts=min_transcripts,
+            random_state=random_state,
+        )
+        contributions = evaluator.compute_nucleotide_contributions(
+            effects,
+            samples,
+            n_cases_per_direction=n_cases_per_direction,
+            min_case_transcripts=min_transcripts,
+            context_flank=context_flank,
+            batch_size=batch_size,
+        )
+    if de_novo_source == "signed_attribution":
+        attribution_windows = extract_signed_translation_attribution_windows(
+            model,
+            samples,
+            prediction_scale=prediction_scale,
+            num_transcripts=de_novo_num_transcripts,
+            peaks_per_direction=de_novo_peaks_per_direction,
+            window_radius=context_flank,
+            random_state=random_state,
+        )
+        de_novo, alignments = discover_de_novo_translation_motifs(
+            attribution_windows,
+            sequence_col="Context_Sequence",
+            effect_col="Signed_Attribution",
+            unit_col="Tid",
+        )
+    elif de_novo_source == "known_hit_context":
+        attribution_windows = pd.DataFrame()
+        if effects.empty:
+            de_novo, alignments = pd.DataFrame(), {}
+        else:
+            de_novo, alignments = discover_de_novo_translation_motifs(
+                effects,
+                sequence_col="Context_Sequence",
+                effect_col="Delta_Log2_TE",
+                unit_col="Tid",
+            )
+    else:
+        raise ValueError(
+            "de_novo_source must be 'signed_attribution' or "
+            "'known_hit_context'."
+        )
+
+    outputs = {
+        "rbp_motif_hits.csv": hits,
+        "rbp_motif_hit_effects.csv": effects,
+        "rbp_motif_effect_summary.csv": summary,
+        "rbp_nucleotide_contributions.csv": contributions,
+        "signed_translation_attribution_windows.csv": attribution_windows,
+        "de_novo_translation_motifs.csv": de_novo,
+    }
+    for filename, table in outputs.items():
+        table.to_csv(os.path.join(out_dir, filename), index=False)
+    with open(
+        os.path.join(out_dir, "de_novo_motif_alignments.json"),
+        "w",
+        encoding="utf-8",
+    ) as handle:
+        json.dump(alignments, handle, indent=2)
+    return {
+        "samples": samples,
+        "hits": hits,
+        "hit_effects": effects,
+        "summary": summary,
+        "nucleotide_contributions": contributions,
+        "signed_attribution_windows": attribution_windows,
+        "de_novo_motifs": de_novo,
+        "de_novo_alignments": alignments,
+    }
