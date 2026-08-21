@@ -27,6 +27,7 @@ if str(SRC_DIR) not in sys.path:
 from data.translation_dataset import TranslationDataset
 from eval.rbp_translation_effect import (
     RBPMotifMutagenesisEvaluator,
+    build_motif_position_profiles,
     collect_rbp_motif_hits,
     collect_unique_transcript_samples,
     discover_de_novo_translation_motifs,
@@ -45,6 +46,7 @@ STAGES = (
     "cases",
     "attribution",
     "de_novo",
+    "positions",
     "plots",
 )
 
@@ -389,6 +391,28 @@ def build_parser() -> argparse.ArgumentParser:
     plotting.add_argument("--plot-fdr-threshold", type=float)
     plotting.add_argument("--plot-max-cases", type=int, default=6)
     plotting.add_argument("--plot-logo-top-n", type=int, default=4)
+    plotting.add_argument(
+        "--position-cluster-mode",
+        choices=["regions", "full", "none"],
+        default="regions",
+    )
+    plotting.add_argument("--position-bins-per-region", type=int, default=20)
+    plotting.add_argument("--position-min-hits", type=int, default=10)
+    plotting.add_argument(
+        "--position-max-features",
+        type=int,
+        default=80,
+        help="Maximum heatmap rows; use 0 to show every retained feature.",
+    )
+    plotting.add_argument(
+        "--position-rbp-scope",
+        choices=["summary", "all"],
+        default="summary",
+        help="Use statistically summarized RBPs or every scanned RBP.",
+    )
+    plotting.add_argument("--position-pseudocount", type=float, default=0.5)
+    plotting.add_argument("--position-heatmap-width", type=float, default=7.2)
+    plotting.add_argument("--position-row-height", type=float, default=0.22)
 
     resume = parser.add_argument_group("checkpoint control")
     resume.add_argument("--no-resume", action="store_true")
@@ -749,6 +773,54 @@ def main(argv: Optional[list[str]] = None) -> int:
     if _should_stop("de_novo", args.stop_after):
         return 0
 
+    positions_signature = cache.stage_signature(
+        "positions",
+        {
+            "bins_per_region": args.position_bins_per_region,
+            "rbp_scope": args.position_rbp_scope,
+            "pseudocount": args.position_pseudocount,
+        },
+        dependencies=("samples", "hits", "summary", "de_novo"),
+    )
+    if cache.reusable("positions", positions_signature):
+        position_profiles = cache.load("positions")
+    else:
+        print("[RUN] positions")
+        known_rbp_names = None
+        if args.position_rbp_scope == "summary" and not summary.empty:
+            known_rbp_names = summary["RBP_Name"].dropna().astype(str).unique()
+        position_profiles = build_motif_position_profiles(
+            samples,
+            known_hits=hits,
+            de_novo_motifs=de_novo,
+            bins_per_region=args.position_bins_per_region,
+            known_rbp_names=known_rbp_names,
+            pseudocount=args.position_pseudocount,
+        )
+        cache.save("positions", positions_signature, position_profiles)
+        _atomic_csv(
+            position_profiles["known_rbp"],
+            out_dir / "known_rbp_position_profiles.csv",
+        )
+        _atomic_csv(
+            position_profiles["de_novo"],
+            out_dir / "de_novo_motif_position_profiles.csv",
+        )
+    known_position_profiles = position_profiles["known_rbp"]
+    de_novo_position_profiles = position_profiles["de_novo"]
+    if not (out_dir / "known_rbp_position_profiles.csv").is_file():
+        _atomic_csv(
+            known_position_profiles,
+            out_dir / "known_rbp_position_profiles.csv",
+        )
+    if not (out_dir / "de_novo_motif_position_profiles.csv").is_file():
+        _atomic_csv(
+            de_novo_position_profiles,
+            out_dir / "de_novo_motif_position_profiles.csv",
+        )
+    if _should_stop("positions", args.stop_after):
+        return 0
+
     plots_signature = cache.stage_signature(
         "plots",
         {
@@ -757,9 +829,14 @@ def main(argv: Optional[list[str]] = None) -> int:
             "fdr_threshold": args.plot_fdr_threshold,
             "max_cases": args.plot_max_cases,
             "logo_top_n": args.plot_logo_top_n,
+            "position_cluster_mode": args.position_cluster_mode,
+            "position_min_hits": args.position_min_hits,
+            "position_max_features": args.position_max_features,
+            "position_heatmap_width": args.position_heatmap_width,
+            "position_row_height": args.position_row_height,
             "format": "pdf_only",
         },
-        dependencies=("summary", "cases", "de_novo"),
+        dependencies=("summary", "cases", "de_novo", "positions"),
     )
     reuse_plots = cache.reusable("plots", plots_signature)
     if reuse_plots:
@@ -776,6 +853,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             # Import plotting dependencies only when PDF generation is requested.
             from plot.rbp_scan import (
                 plot_de_novo_translation_motif_logos,
+                plot_motif_position_preference_heatmap,
                 plot_rbp_nucleotide_contribution_cases,
                 plot_rbp_translation_effect_summary,
             )
@@ -808,6 +886,36 @@ def main(argv: Optional[list[str]] = None) -> int:
                     ))
                 except ValueError as error:
                     plot_notes.append(f"De novo logo plot skipped: {error}")
+            if not known_position_profiles.empty:
+                try:
+                    plot_paths.append(plot_motif_position_preference_heatmap(
+                        known_position_profiles,
+                        out_path=str(
+                            out_dir / "known_rbp_position_preference_heatmap.pdf"
+                        ),
+                        cluster_mode=args.position_cluster_mode,
+                        min_total_hits=args.position_min_hits,
+                        max_features=args.position_max_features,
+                        width=args.position_heatmap_width,
+                        row_height=args.position_row_height,
+                    ))
+                except ValueError as error:
+                    plot_notes.append(f"Known-RBP position heatmap skipped: {error}")
+            if not de_novo_position_profiles.empty:
+                try:
+                    plot_paths.append(plot_motif_position_preference_heatmap(
+                        de_novo_position_profiles,
+                        out_path=str(
+                            out_dir / "de_novo_position_preference_heatmap.pdf"
+                        ),
+                        cluster_mode=args.position_cluster_mode,
+                        min_total_hits=args.position_min_hits,
+                        max_features=args.position_max_features,
+                        width=args.position_heatmap_width,
+                        row_height=args.position_row_height,
+                    ))
+                except ValueError as error:
+                    plot_notes.append(f"De novo position heatmap skipped: {error}")
         else:
             plot_notes.append("Plotting disabled by --skip-plots.")
         plot_result = {
@@ -831,6 +939,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         "n_contribution_rows": len(contributions),
         "n_attribution_windows": len(attribution_windows),
         "n_de_novo_motifs": len(de_novo),
+        "n_known_position_profile_rows": len(known_position_profiles),
+        "n_de_novo_position_profile_rows": len(de_novo_position_profiles),
         "pdf_outputs": plot_result.get("paths", []),
         "plot_notes": plot_result.get("notes", []),
     }

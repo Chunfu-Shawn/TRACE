@@ -77,6 +77,172 @@ def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=600, bin_
     return pdf_path
 
 
+def plot_motif_position_preference_heatmap(
+        profile_df,
+        out_path,
+        cluster_mode='regions',
+        min_total_hits=10,
+        max_features=80,
+        value_col='Log2_Positional_Enrichment',
+        width=7.2,
+        row_height=0.22,
+        color_limit=None,
+        show_hit_counts=True):
+    """Plot normalized transcript-position preferences with row clustering.
+
+    ``cluster_mode='regions'`` clusters features using their mean 5UTR, CDS,
+    and 3UTR enrichment. ``cluster_mode='full'`` uses every positional bin.
+    Columns are never clustered because their biological 5'-to-3' order must
+    be retained.
+    """
+    from scipy.cluster.hierarchy import leaves_list, linkage
+
+    required = {
+        'Feature', 'Region', 'Region_Bin', 'Global_Bin', 'Total_Hits',
+        value_col,
+    }
+    missing = required.difference(profile_df.columns)
+    if missing:
+        raise ValueError(
+            f"Position-profile table is missing columns: {sorted(missing)}"
+        )
+    if cluster_mode not in {'regions', 'full', 'none'}:
+        raise ValueError("cluster_mode must be 'regions', 'full', or 'none'.")
+    if min_total_hits < 1:
+        raise ValueError("min_total_hits must be positive.")
+
+    input_features = profile_df['Feature'].nunique()
+    working = profile_df.replace([np.inf, -np.inf], np.nan).dropna(
+        subset=[value_col]
+    ).copy()
+    feature_hits = working.groupby('Feature', observed=True)['Total_Hits'].max()
+    retained = feature_hits[feature_hits >= min_total_hits].sort_values(
+        ascending=False
+    )
+    low_count_removed = input_features - len(retained)
+    if max_features is not None and int(max_features) > 0:
+        retained = retained.head(int(max_features))
+    display_removed = max(input_features - low_count_removed - len(retained), 0)
+    working = working[working['Feature'].isin(retained.index)]
+    if working.empty:
+        raise ValueError(
+            "No motif has enough positional hits for the requested heatmap."
+        )
+    print(
+        f"Position heatmap features: input={input_features}, "
+        f"low_count_removed={low_count_removed}, "
+        f"display_limit_removed={display_removed}, displayed={len(retained)}."
+    )
+
+    all_bins = sorted(working['Global_Bin'].astype(int).unique())
+    matrix = (
+        working.pivot_table(
+            index='Feature',
+            columns='Global_Bin',
+            values=value_col,
+            aggfunc='mean',
+        )
+        .reindex(index=retained.index, columns=all_bins)
+        .fillna(0.0)
+    )
+    if len(matrix) > 1 and cluster_mode != 'none':
+        if cluster_mode == 'regions':
+            cluster_features = (
+                working.groupby(['Feature', 'Region'], observed=True)[value_col]
+                .mean()
+                .unstack('Region')
+                .reindex(index=matrix.index, columns=['5UTR', 'CDS', '3UTR'])
+                .fillna(0.0)
+                .to_numpy(float)
+            )
+        else:
+            cluster_features = matrix.to_numpy(float)
+        centered = cluster_features - cluster_features.mean(axis=1, keepdims=True)
+        scale = centered.std(axis=1, keepdims=True)
+        standardized = np.divide(
+            centered,
+            scale,
+            out=np.zeros_like(centered),
+            where=scale > 0,
+        )
+        order = leaves_list(
+            linkage(standardized, method='average', metric='euclidean')
+        )
+        matrix = matrix.iloc[order]
+    elif cluster_mode == 'none':
+        dominant = working.loc[
+            working.groupby('Feature', observed=True)[value_col].idxmax(),
+            ['Feature', 'Global_Bin'],
+        ].set_index('Feature')['Global_Bin']
+        matrix = matrix.loc[
+            sorted(matrix.index, key=lambda feature: (
+                dominant.get(feature, np.inf), feature
+            ))
+        ]
+
+    values = matrix.to_numpy(float)
+    if color_limit is None:
+        finite_abs = np.abs(values[np.isfinite(values)])
+        color_limit = (
+            max(float(np.quantile(finite_abs, 0.98)), 0.5)
+            if finite_abs.size else 1.0
+        )
+    color_limit = float(color_limit)
+    if color_limit <= 0:
+        raise ValueError("color_limit must be positive.")
+
+    n_features, n_bins = matrix.shape
+    height = min(max(3.2, 1.5 + row_height * n_features), 20.0)
+    fig, ax = plt.subplots(figsize=(width, height))
+    image = ax.imshow(
+        values,
+        aspect='auto',
+        interpolation='nearest',
+        cmap='RdBu_r',
+        vmin=-color_limit,
+        vmax=color_limit,
+        rasterized=True,
+    )
+    hit_lookup = feature_hits.to_dict()
+    labels = [
+        f"{feature}  (n={int(hit_lookup.get(feature, 0))})"
+        if show_hit_counts else str(feature)
+        for feature in matrix.index
+    ]
+    ax.set_yticks(np.arange(n_features))
+    ax.set_yticklabels(labels, fontsize=max(5.0, min(7.0, 180 / n_features)))
+    bins_per_region = n_bins // 3
+    centers = [
+        bins_per_region / 2 - 0.5,
+        1.5 * bins_per_region - 0.5,
+        2.5 * bins_per_region - 0.5,
+    ]
+    ax.set_xticks(centers)
+    ax.set_xticklabels(["5′UTR", "CDS", "3′UTR"])
+    for boundary in (bins_per_region - 0.5, 2 * bins_per_region - 0.5):
+        ax.axvline(boundary, color='#333333', linewidth=0.8, linestyle='--')
+    ax.set_xlabel("Normalized transcript position (5′ → 3′)")
+    ax.set_ylabel("RBP / motif")
+    title_prefix = str(working['Feature_Type'].iloc[0]) if 'Feature_Type' in working else 'Motif'
+    cluster_label = {
+        'regions': 'clustered by regional enrichment',
+        'full': 'clustered by full positional profile',
+        'none': 'ordered by peak position',
+    }[cluster_mode]
+    ax.set_title(f"{title_prefix} positional preference ({cluster_label})", pad=8)
+    ax.tick_params(axis='both', length=0)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
+    colorbar.set_label(r'$log_2$ positional enrichment')
+    fig.tight_layout()
+    pdf_path = _as_pdf_path(out_path)
+    fig.savefig(pdf_path, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Motif position-preference heatmap saved to {pdf_path}")
+    return pdf_path
+
+
 def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
                                 top_n_label=10, figsize=(9, 7)):
     """

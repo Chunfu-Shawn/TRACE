@@ -541,6 +541,246 @@ def collect_rbp_motif_hits(
     return hits
 
 
+def _normalized_position_bin(
+    position: float,
+    region_start: int,
+    region_end: int,
+    bins_per_region: int,
+) -> Optional[int]:
+    """Map one transcript position to a normalized within-region bin."""
+    region_length = int(region_end) - int(region_start)
+    if region_length <= 0:
+        return None
+    relative = (float(position) - float(region_start)) / region_length
+    return min(max(int(np.floor(relative * bins_per_region)), 0), bins_per_region - 1)
+
+
+def _overlapping_exact_matches(sequence: str, motif: str) -> Iterable[int]:
+    """Yield overlapping exact motif starts in transcript orientation."""
+    start = 0
+    while True:
+        start = sequence.find(motif, start)
+        if start < 0:
+            return
+        yield start
+        start += 1
+
+
+def build_motif_position_profiles(
+    samples: Mapping[str, Mapping],
+    known_hits: Optional[pd.DataFrame] = None,
+    de_novo_motifs: Optional[pd.DataFrame] = None,
+    bins_per_region: int = 20,
+    known_rbp_names: Optional[Iterable[str]] = None,
+    pseudocount: float = 0.5,
+) -> Dict[str, pd.DataFrame]:
+    """Build exposure-adjusted metagene profiles for known and de novo motifs.
+
+    Each 5UTR, CDS, and 3UTR is independently scaled to ``bins_per_region``
+    bins. Values are log2 hit-density enrichment relative to the motif's
+    transcript-wide background. Known-RBP positions use retained PWM hits;
+    de novo k-mers are rescanned as exact matches across all sampled
+    transcripts so their spatial preference is evaluated independently of the
+    attribution windows used for discovery.
+    """
+    if bins_per_region < 3:
+        raise ValueError("bins_per_region must be at least 3.")
+    if pseudocount <= 0 or not np.isfinite(pseudocount):
+        raise ValueError("pseudocount must be positive and finite.")
+
+    regions = ("5UTR", "CDS", "3UTR")
+    region_offsets = {
+        region: index * bins_per_region
+        for index, region in enumerate(regions)
+    }
+    allowed_rbps = (
+        None
+        if known_rbp_names is None
+        else {str(value) for value in known_rbp_names}
+    )
+
+    def region_lengths() -> Dict[str, np.ndarray]:
+        lengths = {region: [] for region in regions}
+        for sample in samples.values():
+            for region in regions:
+                start, end = _region_bounds(sample, region)
+                lengths[region].append(max(int(end) - int(start), 0))
+        return {
+            region: np.asarray(values, dtype=int)
+            for region, values in lengths.items()
+        }
+
+    sample_region_lengths = region_lengths()
+
+    def assemble_profile(
+        feature_type: str,
+        feature_lengths: Mapping[str, int],
+        counts: Mapping[Tuple[str, str, int], int],
+        annotations: Optional[Mapping[str, Mapping[str, object]]] = None,
+    ) -> pd.DataFrame:
+        records = []
+        annotations = annotations or {}
+        for feature, motif_length_value in feature_lengths.items():
+            motif_length = max(int(motif_length_value), 1)
+            total_hits = sum(
+                counts.get((feature, region, bin_index), 0)
+                for region in regions
+                for bin_index in range(bins_per_region)
+            )
+            total_opportunity = sum(
+                np.maximum(lengths - motif_length + 1, 0).sum()
+                for lengths in sample_region_lengths.values()
+            )
+            smoothed_global_rate = (
+                total_hits + pseudocount * len(regions) * bins_per_region
+            ) / (
+                total_opportunity + len(regions) * bins_per_region
+            )
+            for region in regions:
+                region_opportunity = float(np.maximum(
+                    sample_region_lengths[region] - motif_length + 1,
+                    0,
+                ).sum())
+                bin_opportunity = region_opportunity / bins_per_region
+                for bin_index in range(bins_per_region):
+                    hits = int(counts.get((feature, region, bin_index), 0))
+                    smoothed_bin_rate = (
+                        (hits + pseudocount) / (bin_opportunity + 1.0)
+                    )
+                    enrichment = np.log2(
+                        smoothed_bin_rate / smoothed_global_rate
+                    )
+                    record = {
+                        "Feature_Type": feature_type,
+                        "Feature": feature,
+                        "Region": region,
+                        "Region_Bin": bin_index,
+                        "Region_Relative_Position": (
+                            bin_index + 0.5
+                        ) / bins_per_region,
+                        "Global_Bin": region_offsets[region] + bin_index,
+                        "Hits": hits,
+                        "Total_Hits": total_hits,
+                        "Motif_Length": motif_length,
+                        "Opportunity": bin_opportunity,
+                        "Hit_Rate_Per_Kb": (
+                            1000.0 * hits / bin_opportunity
+                            if bin_opportunity > 0 else np.nan
+                        ),
+                        "Log2_Positional_Enrichment": float(enrichment),
+                        "Normalization": (
+                            "region-scaled bins; nucleotide-opportunity adjusted"
+                        ),
+                    }
+                    record.update(annotations.get(feature, {}))
+                    records.append(record)
+        return pd.DataFrame(records)
+
+    known_counts: Counter = Counter()
+    known_lengths = {}
+    known_annotations = {}
+    if known_hits is not None and not known_hits.empty:
+        required = {"Tid", "RBP_Name", "Start", "End", "Region"}
+        missing = required.difference(known_hits.columns)
+        if missing:
+            raise ValueError(
+                f"Known-hit table is missing columns: {sorted(missing)}"
+            )
+        working_hits = known_hits.copy()
+        working_hits["RBP_Name"] = working_hits["RBP_Name"].astype(str)
+        if allowed_rbps is not None:
+            working_hits = working_hits[
+                working_hits["RBP_Name"].isin(allowed_rbps)
+            ]
+        for rbp_name, group in working_hits.groupby("RBP_Name", observed=True):
+            lengths = (
+                group["PWM_Length"].to_numpy(float)
+                if "PWM_Length" in group.columns
+                else (group["End"] - group["Start"]).to_numpy(float)
+            )
+            finite_lengths = lengths[np.isfinite(lengths) & (lengths > 0)]
+            if finite_lengths.size:
+                known_lengths[str(rbp_name)] = int(round(np.median(finite_lengths)))
+        for hit in working_hits.itertuples(index=False):
+            tid = str(hit.Tid)
+            region = str(hit.Region)
+            if tid not in samples or region not in region_offsets:
+                continue
+            region_start, region_end = _region_bounds(samples[tid], region)
+            center = (float(hit.Start) + float(hit.End)) / 2
+            bin_index = _normalized_position_bin(
+                center,
+                region_start,
+                region_end,
+                bins_per_region,
+            )
+            if bin_index is not None:
+                known_counts[(str(hit.RBP_Name), region, bin_index)] += 1
+
+    de_novo_counts: Counter = Counter()
+    de_novo_lengths = {}
+    de_novo_annotations = {}
+    if de_novo_motifs is not None and not de_novo_motifs.empty:
+        required = {"Direction", "Kmer"}
+        missing = required.difference(de_novo_motifs.columns)
+        if missing:
+            raise ValueError(
+                f"De novo motif table is missing columns: {sorted(missing)}"
+            )
+        motif_records = []
+        for row in de_novo_motifs.drop_duplicates(
+            ["Direction", "Kmer"]
+        ).itertuples(index=False):
+            direction = str(row.Direction)
+            kmer = str(row.Kmer).upper().replace("U", "T")
+            if not kmer or not set(kmer).issubset(BASE_TO_INDEX):
+                continue
+            feature = f"{kmer} ({direction.lower()})"
+            de_novo_lengths[feature] = len(kmer)
+            de_novo_annotations[feature] = {
+                "Direction": direction,
+                "Kmer": kmer,
+            }
+            motif_records.append((feature, kmer))
+        for sample in tqdm(
+            samples.values(), desc="Scan de novo motif positions"
+        ):
+            sequence = str(sample["Sequence"]).upper().replace("U", "T")
+            for region in regions:
+                region_start, region_end = _region_bounds(sample, region)
+                region_sequence = sequence[region_start:region_end]
+                if not region_sequence:
+                    continue
+                for feature, kmer in motif_records:
+                    for local_start in _overlapping_exact_matches(
+                        region_sequence, kmer
+                    ):
+                        center = region_start + local_start + len(kmer) / 2
+                        bin_index = _normalized_position_bin(
+                            center,
+                            region_start,
+                            region_end,
+                            bins_per_region,
+                        )
+                        if bin_index is not None:
+                            de_novo_counts[(feature, region, bin_index)] += 1
+
+    return {
+        "known_rbp": assemble_profile(
+            "Known RBP",
+            known_lengths,
+            known_counts,
+            known_annotations,
+        ),
+        "de_novo": assemble_profile(
+            "De novo",
+            de_novo_lengths,
+            de_novo_counts,
+            de_novo_annotations,
+        ),
+    }
+
+
 def _least_preferred_alternative(
     pwm_row: np.ndarray,
     native_index: int,
@@ -1313,6 +1553,9 @@ def run_rbp_translation_effect_analysis(
     de_novo_source: str = "signed_attribution",
     de_novo_num_transcripts: Optional[int] = 500,
     de_novo_peaks_per_direction: int = 1,
+    position_bins_per_region: int = 20,
+    position_known_rbp_scope: str = "summary",
+    position_pseudocount: float = 0.5,
     random_state: int = 42,
 ) -> Dict[str, object]:
     """Run known-PWM perturbation, case attribution, and de novo discovery."""
@@ -1410,6 +1653,22 @@ def run_rbp_translation_effect_analysis(
             "'known_hit_context'."
         )
 
+    if position_known_rbp_scope not in {"summary", "all"}:
+        raise ValueError(
+            "position_known_rbp_scope must be 'summary' or 'all'."
+        )
+    known_rbp_names = None
+    if position_known_rbp_scope == "summary" and not summary.empty:
+        known_rbp_names = summary["RBP_Name"].dropna().astype(str).unique()
+    position_profiles = build_motif_position_profiles(
+        samples,
+        known_hits=hits,
+        de_novo_motifs=de_novo,
+        bins_per_region=position_bins_per_region,
+        known_rbp_names=known_rbp_names,
+        pseudocount=position_pseudocount,
+    )
+
     outputs = {
         "rbp_pwm_validation.csv": pwm_validation,
         "rbp_motif_hits.csv": hits,
@@ -1418,6 +1677,8 @@ def run_rbp_translation_effect_analysis(
         "rbp_nucleotide_contributions.csv": contributions,
         "signed_translation_attribution_windows.csv": attribution_windows,
         "de_novo_translation_motifs.csv": de_novo,
+        "known_rbp_position_profiles.csv": position_profiles["known_rbp"],
+        "de_novo_motif_position_profiles.csv": position_profiles["de_novo"],
     }
     for filename, table in outputs.items():
         table.to_csv(os.path.join(out_dir, filename), index=False)
@@ -1437,4 +1698,6 @@ def run_rbp_translation_effect_analysis(
         "signed_attribution_windows": attribution_windows,
         "de_novo_motifs": de_novo,
         "de_novo_alignments": alignments,
+        "known_rbp_position_profiles": position_profiles["known_rbp"],
+        "de_novo_position_profiles": position_profiles["de_novo"],
     }

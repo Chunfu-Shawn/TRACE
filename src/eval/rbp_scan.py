@@ -9,6 +9,7 @@ from tqdm import tqdm
 from data.prepare_rbp_database import pre_annotate_and_save_database
 from eval.rbp_translation_effect import (
     RBPMotifMutagenesisEvaluator,
+    build_motif_position_profiles,
     collect_rbp_motif_hits,
     collect_unique_transcript_samples,
     discover_de_novo_translation_motifs,
@@ -19,6 +20,7 @@ from eval.rbp_translation_effect import (
     validate_rbp_pwm_library,
 )
 from plot.rbp_scan import (
+    plot_motif_position_preference_heatmap,
     plot_rbp_metagene_heatmap,
     plot_rbp_regulatory_bubble,
 )

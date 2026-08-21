@@ -32,6 +32,7 @@ except ModuleNotFoundError:
 
 from eval.rbp_translation_effect import (
     RBPMotifMutagenesisEvaluator,
+    build_motif_position_profiles,
     collect_unique_transcript_samples,
     discover_de_novo_translation_motifs,
     disrupt_pwm_hit,
@@ -103,6 +104,45 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertEqual(status["M_NAN"], "Invalid")
         self.assertEqual(status["M_NEG"], "Invalid")
         self.assertEqual(status["M_MISSING"], "Missing")
+
+    def test_position_profiles_cover_known_and_de_novo_motifs(self):
+        sequence = "AAACCCGGGTTTAAACCCGGGTTT"
+        samples = {
+            "T1": {
+                "Sequence": sequence,
+                "CDS_Start_0based": 6,
+                "CDS_End_exclusive": 18,
+                "Transcript_Length": len(sequence),
+            }
+        }
+        hits = pd.DataFrame([{
+            "Tid": "T1",
+            "RBP_Name": "RBP1",
+            "Start": 1,
+            "End": 4,
+            "Region": "5UTR",
+            "PWM_Length": 3,
+        }])
+        de_novo = pd.DataFrame([{
+            "Direction": "Positive",
+            "Kmer": "AAA",
+        }])
+
+        profiles = build_motif_position_profiles(
+            samples,
+            known_hits=hits,
+            de_novo_motifs=de_novo,
+            bins_per_region=5,
+        )
+
+        known = profiles["known_rbp"]
+        discovered = profiles["de_novo"]
+        self.assertEqual(len(known), 15)
+        self.assertEqual(known["Total_Hits"].max(), 1)
+        self.assertGreater(discovered["Total_Hits"].max(), 0)
+        self.assertTrue(np.isfinite(
+            known["Log2_Positional_Enrichment"]
+        ).all())
 
     def test_unique_sample_collection_ignores_repeated_cell_types(self):
         sequence = np.eye(4, dtype=np.float32)[[0, 1, 2, 3, 0, 1, 2, 3, 0]]
