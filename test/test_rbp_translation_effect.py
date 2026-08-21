@@ -148,8 +148,18 @@ class RBPTranslationEffectTests(unittest.TestCase):
             score_threshold=0.95,
             num_workers=2,
         )
+        process_parallel = collect_rbp_motif_hits(
+            samples,
+            library,
+            metadata,
+            score_threshold=0.95,
+            num_workers=2,
+            scan_backend="process",
+            scan_chunk_size=1,
+        )
 
         pd.testing.assert_frame_equal(sequential, parallel)
+        pd.testing.assert_frame_equal(sequential, process_parallel)
 
     def test_known_motif_scan_cache_is_signature_aware(self):
         hits = pd.DataFrame({

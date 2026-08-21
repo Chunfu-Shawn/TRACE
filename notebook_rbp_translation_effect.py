@@ -55,6 +55,8 @@ results = run_rbp_translation_effect_analysis(
     max_hits_per_rbp_transcript_region=1,
     context_flank=12,
     known_motif_scan_workers=8,
+    scan_backend="process",
+    scan_chunk_size=None,
     reuse_known_motif_scan=True,
     known_motif_scan_cache_path=os.path.join(
         out_dir, "known_rbp_motif_hits.pkl"

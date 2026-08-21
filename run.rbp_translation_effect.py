@@ -371,7 +371,24 @@ def build_parser() -> argparse.ArgumentParser:
         "--scan-workers",
         type=int,
         default=1,
-        help="Worker threads used to scan independent transcripts for RBP motifs.",
+        help=(
+            "Worker threads or processes used to scan independent transcripts "
+            "for RBP motifs."
+        ),
+    )
+    selection.add_argument(
+        "--scan-backend",
+        choices=["thread", "process"],
+        default="thread",
+        help="Parallel execution backend for known-RBP motif scanning.",
+    )
+    selection.add_argument(
+        "--scan-chunk-size",
+        type=int,
+        help=(
+            "Transcripts submitted per process task; by default this is "
+            "calculated to create approximately four chunks per worker."
+        ),
     )
     selection.add_argument(
         "--known-motif-scan-cache-path",
@@ -605,6 +622,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             ),
             context_flank=args.context_flank,
             num_workers=args.scan_workers,
+            scan_backend=args.scan_backend,
+            scan_chunk_size=args.scan_chunk_size,
         )
         save_known_motif_scan_cache(
             hits,

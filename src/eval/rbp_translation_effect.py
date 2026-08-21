@@ -11,10 +11,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
+import multiprocessing as mp
 import os
 import pickle
 from collections import Counter, defaultdict
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from typing import Dict, Iterable, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
@@ -428,6 +430,103 @@ def _non_overlapping_top_hits(
     return selected
 
 
+_RBP_SCAN_PROCESS_STATE = {}
+
+
+def _scan_one_rbp_transcript(
+    item,
+    motif_groups,
+    prepared_pwms,
+    pwm_consensuses,
+    regions,
+    score_threshold,
+    max_hits_per_rbp_transcript_region,
+    context_flank,
+):
+    """Scan one compact transcript record for known RBP motifs."""
+    tid, sample = item
+    transcript_records = []
+    sequence = str(sample["Sequence"])
+    for region in regions:
+        region_start, region_end = _region_bounds(sample, region)
+        region_sequence = sequence[region_start:region_end]
+        if not region_sequence:
+            continue
+        for rbp_name, matrix_ids in motif_groups:
+            candidates = []
+            for matrix_id in matrix_ids:
+                pwm = prepared_pwms[matrix_id]
+                hits = scan_pwm_hits(
+                    region_sequence,
+                    pwm,
+                    score_threshold=score_threshold,
+                )
+                for hit in hits.to_dict("records"):
+                    absolute_start = region_start + int(hit["Start"])
+                    absolute_end = region_start + int(hit["End"])
+                    context_start = max(0, absolute_start - context_flank)
+                    context_end = min(
+                        len(sequence), absolute_end + context_flank
+                    )
+                    candidates.append({
+                        "Tid": tid,
+                        "RBP_Name": rbp_name,
+                        "Matrix_ID": matrix_id,
+                        "Region": region,
+                        "Start": absolute_start,
+                        "End": absolute_end,
+                        "PWM_Length": len(pwm),
+                        "PWM_Score": float(hit["PWM_Score"]),
+                        "Raw_Log_Odds": float(hit["Raw_Log_Odds"]),
+                        "Motif_Sequence": hit["Sequence"],
+                        "PWM_Consensus": pwm_consensuses[matrix_id],
+                        "Context_Start": context_start,
+                        "Context_End": context_end,
+                        "Context_Sequence": sequence[
+                            context_start:context_end
+                        ],
+                    })
+            selected = _non_overlapping_top_hits(
+                candidates,
+                max_hits_per_rbp_transcript_region,
+            )
+            transcript_records.extend(selected)
+    return transcript_records
+
+
+def _initialize_rbp_scan_process(
+    motif_groups,
+    prepared_pwms,
+    pwm_consensuses,
+    regions,
+    score_threshold,
+    max_hits_per_rbp_transcript_region,
+    context_flank,
+):
+    """Initialize immutable scan state once in each worker process."""
+    global _RBP_SCAN_PROCESS_STATE
+    _RBP_SCAN_PROCESS_STATE = {
+        "motif_groups": motif_groups,
+        "prepared_pwms": prepared_pwms,
+        "pwm_consensuses": pwm_consensuses,
+        "regions": regions,
+        "score_threshold": score_threshold,
+        "max_hits_per_rbp_transcript_region": (
+            max_hits_per_rbp_transcript_region
+        ),
+        "context_flank": context_flank,
+    }
+
+
+def _scan_rbp_transcript_chunk(sample_chunk):
+    """Scan a transcript chunk using process-local immutable state."""
+    state = _RBP_SCAN_PROCESS_STATE
+    chunk_records = []
+    for item in sample_chunk:
+        chunk_records.extend(_scan_one_rbp_transcript(item, **state))
+    return chunk_records
+
+
 def collect_rbp_motif_hits(
     samples: Mapping[str, Mapping],
     pwm_library: Mapping[str, np.ndarray],
@@ -438,12 +537,14 @@ def collect_rbp_motif_hits(
     max_hits_per_rbp_transcript_region: int = 1,
     context_flank: int = 12,
     num_workers: int = 1,
+    scan_backend: str = "thread",
+    scan_chunk_size: Optional[int] = None,
 ) -> pd.DataFrame:
     """Scan known RBP PWMs and retain non-overlapping top hits.
 
-    Transcripts are independent scan units. ``num_workers > 1`` uses a thread
-    pool, avoiding repeated serialization of the shared PWM library while the
-    vectorized NumPy scoring kernels can execute concurrently.
+    Transcripts are independent scan units. The process backend initializes
+    shared scan configuration once per worker and submits compact transcript
+    chunks to reduce inter-process communication overhead.
     """
     required = {"Matrix_id", "Gene_name"}
     missing = required.difference(metadata.columns)
@@ -453,6 +554,11 @@ def collect_rbp_motif_hits(
         raise ValueError("Hit limit must be positive and context_flank non-negative.")
     if int(num_workers) < 1:
         raise ValueError("num_workers must be at least 1.")
+    scan_backend = str(scan_backend).lower()
+    if scan_backend not in {"thread", "process"}:
+        raise ValueError("scan_backend must be 'thread' or 'process'.")
+    if scan_chunk_size is not None and int(scan_chunk_size) < 1:
+        raise ValueError("scan_chunk_size must be at least 1 when provided.")
     regions = tuple(str(region) for region in regions)
     for region in regions:
         if region not in {"5UTR", "CDS", "3UTR"}:
@@ -501,78 +607,87 @@ def collect_rbp_motif_hits(
         for matrix_id, pwm in prepared_pwms.items()
     }
 
-    def scan_transcript(item):
-        tid, sample = item
-        transcript_records = []
-        sequence = str(sample["Sequence"])
-        for region in regions:
-            region_start, region_end = _region_bounds(sample, region)
-            region_sequence = sequence[region_start:region_end]
-            if not region_sequence:
-                continue
-            for rbp_name, matrix_ids in motif_groups:
-                candidates = []
-                for matrix_id in matrix_ids:
-                    pwm = prepared_pwms[matrix_id]
-                    hits = scan_pwm_hits(
-                        region_sequence,
-                        pwm,
-                        score_threshold=score_threshold,
-                    )
-                    for hit in hits.to_dict("records"):
-                        absolute_start = region_start + int(hit["Start"])
-                        absolute_end = region_start + int(hit["End"])
-                        context_start = max(0, absolute_start - context_flank)
-                        context_end = min(
-                            len(sequence), absolute_end + context_flank
-                        )
-                        candidates.append({
-                            "Tid": tid,
-                            "RBP_Name": rbp_name,
-                            "Matrix_ID": matrix_id,
-                            "Region": region,
-                            "Start": absolute_start,
-                            "End": absolute_end,
-                            "PWM_Length": len(pwm),
-                            "PWM_Score": float(hit["PWM_Score"]),
-                            "Raw_Log_Odds": float(hit["Raw_Log_Odds"]),
-                            "Motif_Sequence": hit["Sequence"],
-                            "PWM_Consensus": pwm_consensuses[matrix_id],
-                            "Context_Start": context_start,
-                            "Context_End": context_end,
-                            "Context_Sequence": sequence[
-                                context_start:context_end
-                            ],
-                        })
-                selected = _non_overlapping_top_hits(
-                    candidates,
-                    max_hits_per_rbp_transcript_region,
-                )
-                transcript_records.extend(selected)
-        return transcript_records
-
-    sample_items = list(samples.items())
+    sample_items = [
+        (
+            tid,
+            {
+                "Sequence": str(sample["Sequence"]),
+                "Transcript_Length": int(sample["Transcript_Length"]),
+                "CDS_Start_0based": int(sample["CDS_Start_0based"]),
+                "CDS_End_exclusive": int(sample["CDS_End_exclusive"]),
+            },
+        )
+        for tid, sample in samples.items()
+    ]
+    if not sample_items:
+        return pd.DataFrame()
+    scan_kwargs = {
+        "motif_groups": motif_groups,
+        "prepared_pwms": prepared_pwms,
+        "pwm_consensuses": pwm_consensuses,
+        "regions": regions,
+        "score_threshold": score_threshold,
+        "max_hits_per_rbp_transcript_region": (
+            max_hits_per_rbp_transcript_region
+        ),
+        "context_flank": context_flank,
+    }
     records = []
     if int(num_workers) == 1:
-        iterator = map(scan_transcript, sample_items)
-        for transcript_records in tqdm(
-            iterator,
-            total=len(sample_items),
-            desc="Scan known RBP motifs",
-        ):
-            records.extend(transcript_records)
-    else:
+        for item in tqdm(sample_items, desc="Scan known RBP motifs"):
+            records.extend(_scan_one_rbp_transcript(item, **scan_kwargs))
+    elif scan_backend == "thread":
         print(
             f"Scanning known RBP motifs with {int(num_workers)} worker threads."
         )
         with ThreadPoolExecutor(max_workers=int(num_workers)) as executor:
-            iterator = executor.map(scan_transcript, sample_items)
+            iterator = executor.map(
+                lambda item: _scan_one_rbp_transcript(item, **scan_kwargs),
+                sample_items,
+            )
             for transcript_records in tqdm(
                 iterator,
                 total=len(sample_items),
                 desc="Scan known RBP motifs",
             ):
                 records.extend(transcript_records)
+    else:
+        chunk_size = (
+            int(scan_chunk_size)
+            if scan_chunk_size is not None
+            else max(1, math.ceil(len(sample_items) / (int(num_workers) * 4)))
+        )
+        sample_chunks = [
+            sample_items[start:start + chunk_size]
+            for start in range(0, len(sample_items), chunk_size)
+        ]
+        effective_workers = min(int(num_workers), len(sample_chunks))
+        print(
+            f"Scanning known RBP motifs with {effective_workers} worker "
+            f"processes in {len(sample_chunks)} chunks "
+            f"({chunk_size} transcripts/chunk)."
+        )
+        with ProcessPoolExecutor(
+            max_workers=effective_workers,
+            mp_context=mp.get_context("spawn"),
+            initializer=_initialize_rbp_scan_process,
+            initargs=(
+                motif_groups,
+                prepared_pwms,
+                pwm_consensuses,
+                regions,
+                score_threshold,
+                max_hits_per_rbp_transcript_region,
+                context_flank,
+            ),
+        ) as executor:
+            iterator = executor.map(_scan_rbp_transcript_chunk, sample_chunks)
+            for chunk_records in tqdm(
+                iterator,
+                total=len(sample_chunks),
+                desc="Scan known RBP motif chunks",
+            ):
+                records.extend(chunk_records)
     hits = pd.DataFrame(records)
     if hits.empty:
         return hits
@@ -1831,6 +1946,8 @@ def run_rbp_translation_effect_analysis(
     max_hits_per_rbp_transcript_region: int = 1,
     context_flank: int = 12,
     known_motif_scan_workers: int = 1,
+    scan_backend: str = "thread",
+    scan_chunk_size: Optional[int] = None,
     reuse_known_motif_scan: bool = True,
     known_motif_scan_cache_path: Optional[str] = None,
     prediction_scale: str = "log1p",
@@ -1909,6 +2026,8 @@ def run_rbp_translation_effect_analysis(
             ),
             context_flank=context_flank,
             num_workers=known_motif_scan_workers,
+            scan_backend=scan_backend,
+            scan_chunk_size=scan_chunk_size,
         )
         save_known_motif_scan_cache(
             hits,
