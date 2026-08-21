@@ -38,6 +38,7 @@ from eval.rbp_translation_effect import (
     extract_signed_translation_attribution_windows,
     scan_pwm_hits,
     summarize_rbp_motif_effects,
+    validate_rbp_pwm_library,
 )
 from model.base_model import BaseModel
 
@@ -82,6 +83,26 @@ class RBPTranslationEffectTests(unittest.TestCase):
 
         self.assertEqual(hits["Start"].tolist(), [2])
         self.assertEqual(hits["Sequence"].tolist(), ["ACG"])
+
+    def test_pwm_validation_skips_invalid_and_missing_matrices(self):
+        metadata = pd.DataFrame({
+            "Matrix_id": ["M_VALID", "M_NAN", "M_NEG", "M_MISSING"],
+            "Gene_name": ["RBP1", "RBP2", "RBP3", "RBP4"],
+        })
+        library = {
+            "M_VALID": np.ones((3, 4)),
+            "M_NAN": np.array([[1, 0, np.nan, 0]], dtype=float),
+            "M_NEG": np.array([[1, 0, -1, 0]], dtype=float),
+        }
+
+        valid, audit = validate_rbp_pwm_library(library, metadata=metadata)
+        status = audit.set_index("Matrix_ID")["Status"].to_dict()
+
+        self.assertEqual(set(valid), {"M_VALID"})
+        self.assertEqual(status["M_VALID"], "Valid")
+        self.assertEqual(status["M_NAN"], "Invalid")
+        self.assertEqual(status["M_NEG"], "Invalid")
+        self.assertEqual(status["M_MISSING"], "Missing")
 
     def test_unique_sample_collection_ignores_repeated_cell_types(self):
         sequence = np.eye(4, dtype=np.float32)[[0, 1, 2, 3, 0, 1, 2, 3, 0]]

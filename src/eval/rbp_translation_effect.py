@@ -112,6 +112,126 @@ def normalize_pwm(pwm: np.ndarray, pseudocount: float = 1e-4) -> np.ndarray:
     return matrix / matrix.sum(axis=1, keepdims=True)
 
 
+def validate_rbp_pwm_library(
+    pwm_library: Mapping[str, np.ndarray],
+    metadata: Optional[pd.DataFrame] = None,
+    target_rbps: Optional[Iterable[str]] = None,
+) -> Tuple[Dict[str, np.ndarray], pd.DataFrame]:
+    """Validate relevant PWM matrices and return an audit table.
+
+    Matrices that cannot be interpreted as finite, non-negative A/C/G/T
+    probabilities or counts are excluded instead of terminating a full RBP
+    analysis. Negative PSSM/log-odds matrices are deliberately not transformed
+    because doing so without their original background model changes meaning.
+    """
+    normalized_library = {
+        str(matrix_id).strip(): pwm
+        for matrix_id, pwm in pwm_library.items()
+    }
+    target_set = (
+        None if target_rbps is None else {str(value) for value in target_rbps}
+    )
+
+    rbp_names_by_matrix = defaultdict(set)
+    if metadata is None:
+        relevant_matrix_ids = list(normalized_library)
+    else:
+        required = {"Matrix_id", "Gene_name"}
+        missing = required.difference(metadata.columns)
+        if missing:
+            raise ValueError(f"RBP metadata is missing columns: {sorted(missing)}")
+        motif_rows = metadata.dropna(subset=["Matrix_id", "Gene_name"]).copy()
+        motif_rows["Matrix_id"] = motif_rows["Matrix_id"].astype(str).str.strip()
+        motif_rows["Gene_name"] = motif_rows["Gene_name"].astype(str)
+        if target_set is not None:
+            motif_rows = motif_rows[motif_rows["Gene_name"].isin(target_set)]
+        for matrix_id, rbp_name in motif_rows[["Matrix_id", "Gene_name"]].itertuples(
+            index=False, name=None
+        ):
+            rbp_names_by_matrix[matrix_id].add(rbp_name)
+        relevant_matrix_ids = list(dict.fromkeys(motif_rows["Matrix_id"]))
+
+    valid_pwms = {}
+    audit_records = []
+    for matrix_id in relevant_matrix_ids:
+        rbp_names = ";".join(sorted(rbp_names_by_matrix.get(matrix_id, [])))
+        if matrix_id not in normalized_library:
+            audit_records.append({
+                "Matrix_ID": matrix_id,
+                "RBP_Names": rbp_names,
+                "Status": "Missing",
+                "Reason": "Matrix ID is present in metadata but absent from pwm_library.",
+                "Shape": "",
+                "Nonfinite_Count": np.nan,
+                "Negative_Count": np.nan,
+                "Minimum": np.nan,
+                "Maximum": np.nan,
+            })
+            continue
+
+        raw_pwm = normalized_library[matrix_id]
+        try:
+            matrix = np.asarray(raw_pwm, dtype=float)
+            shape = str(tuple(matrix.shape))
+            finite_values = matrix[np.isfinite(matrix)]
+            nonfinite_count = int(np.size(matrix) - finite_values.size)
+            negative_count = int((finite_values < 0).sum())
+            minimum = float(finite_values.min()) if finite_values.size else np.nan
+            maximum = float(finite_values.max()) if finite_values.size else np.nan
+            valid_pwms[matrix_id] = normalize_pwm(matrix)
+            status = "Valid"
+            reason = ""
+        except (TypeError, ValueError) as error:
+            matrix = np.asarray(raw_pwm)
+            shape = str(tuple(matrix.shape))
+            try:
+                numeric = np.asarray(raw_pwm, dtype=float)
+                finite_values = numeric[np.isfinite(numeric)]
+                nonfinite_count = int(np.size(numeric) - finite_values.size)
+                negative_count = int((finite_values < 0).sum())
+                minimum = (
+                    float(finite_values.min()) if finite_values.size else np.nan
+                )
+                maximum = (
+                    float(finite_values.max()) if finite_values.size else np.nan
+                )
+            except (TypeError, ValueError):
+                nonfinite_count = np.nan
+                negative_count = np.nan
+                minimum = np.nan
+                maximum = np.nan
+            status = "Invalid"
+            reason = str(error)
+        audit_records.append({
+            "Matrix_ID": matrix_id,
+            "RBP_Names": rbp_names,
+            "Status": status,
+            "Reason": reason,
+            "Shape": shape,
+            "Nonfinite_Count": nonfinite_count,
+            "Negative_Count": negative_count,
+            "Minimum": minimum,
+            "Maximum": maximum,
+        })
+
+    audit = pd.DataFrame(audit_records)
+    if not audit.empty:
+        counts = audit["Status"].value_counts().to_dict()
+        print(
+            "PWM validation: "
+            + ", ".join(f"{key}={value}" for key, value in sorted(counts.items()))
+        )
+        rejected = audit[audit["Status"].ne("Valid")]
+        if not rejected.empty:
+            preview = ", ".join(rejected["Matrix_ID"].astype(str).head(10))
+            suffix = " ..." if len(rejected) > 10 else ""
+            print(
+                f"Skipped {len(rejected)} invalid/missing PWM matrices: "
+                f"{preview}{suffix}"
+            )
+    return valid_pwms, audit
+
+
 def pwm_consensus(pwm: np.ndarray) -> str:
     """Return the maximum-probability consensus sequence of a PWM."""
     matrix = normalize_pwm(pwm)
@@ -341,10 +461,25 @@ def collect_rbp_motif_hits(
     if motif_rows.empty:
         return pd.DataFrame()
 
-    prepared_pwms = {
-        matrix_id: normalize_pwm(normalized_library[matrix_id])
-        for matrix_id in motif_rows["Matrix_id"].unique()
-    }
+    prepared_pwms = {}
+    rejected_matrix_ids = []
+    for matrix_id in motif_rows["Matrix_id"].unique():
+        try:
+            prepared_pwms[matrix_id] = normalize_pwm(
+                normalized_library[matrix_id]
+            )
+        except (TypeError, ValueError):
+            rejected_matrix_ids.append(matrix_id)
+    if rejected_matrix_ids:
+        print(
+            f"Skipped {len(rejected_matrix_ids)} invalid PWM matrices during "
+            "motif scanning. Use validate_rbp_pwm_library() for details."
+        )
+        motif_rows = motif_rows[
+            motif_rows["Matrix_id"].isin(prepared_pwms)
+        ]
+    if motif_rows.empty:
+        return pd.DataFrame()
     motif_by_rbp = motif_rows.groupby("Gene_name", observed=True)[
         "Matrix_id"
     ].apply(list)
@@ -1195,9 +1330,14 @@ def run_rbp_translation_effect_analysis(
             "Using zero expression conditioning for sequence-focused RBP "
             "motif analysis."
         )
+    valid_pwm_library, pwm_validation = validate_rbp_pwm_library(
+        pwm_library,
+        metadata=metadata,
+        target_rbps=target_rbps,
+    )
     hits = collect_rbp_motif_hits(
         samples,
-        pwm_library,
+        valid_pwm_library,
         metadata,
         target_rbps=target_rbps,
         regions=regions,
@@ -1213,7 +1353,7 @@ def run_rbp_translation_effect_analysis(
     else:
         evaluator = RBPMotifMutagenesisEvaluator(
             model,
-            pwm_library,
+            valid_pwm_library,
             prediction_scale=prediction_scale,
         )
         effects = evaluator.evaluate_hits(
@@ -1271,6 +1411,7 @@ def run_rbp_translation_effect_analysis(
         )
 
     outputs = {
+        "rbp_pwm_validation.csv": pwm_validation,
         "rbp_motif_hits.csv": hits,
         "rbp_motif_hit_effects.csv": effects,
         "rbp_motif_effect_summary.csv": summary,
@@ -1288,6 +1429,7 @@ def run_rbp_translation_effect_analysis(
         json.dump(alignments, handle, indent=2)
     return {
         "samples": samples,
+        "pwm_validation": pwm_validation,
         "hits": hits,
         "hit_effects": effects,
         "summary": summary,

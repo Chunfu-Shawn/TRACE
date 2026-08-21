@@ -16,6 +16,7 @@ from eval.rbp_translation_effect import (
     run_rbp_translation_effect_analysis,
     scan_pwm_hits,
     summarize_rbp_motif_effects,
+    validate_rbp_pwm_library,
 )
 from plot.rbp_scan import (
     plot_rbp_metagene_heatmap,
