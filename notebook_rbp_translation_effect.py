@@ -10,6 +10,7 @@ import pandas as pd
 
 from eval.rbp_translation_effect import run_rbp_translation_effect_analysis
 from plot.rbp_scan import (
+    plot_motif_position_preference_heatmap,
     plot_rbp_translation_effect_summary,
     plot_rbp_nucleotide_contribution_cases,
     plot_de_novo_translation_motif_logos,
@@ -61,6 +62,10 @@ results = run_rbp_translation_effect_analysis(
     de_novo_source="signed_attribution",
     de_novo_num_transcripts=500,
     de_novo_peaks_per_direction=1,
+    position_bin_size=20,
+    position_utr5_length=300,
+    position_cds_length=600,
+    position_utr3_length=300,
     random_state=42,
 )
 
@@ -102,4 +107,32 @@ plot_de_novo_translation_motif_logos(
     out_path=os.path.join(out_dir, "de_novo_translation_motif_logos.pdf"),
     top_n_per_direction=4,
 )
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 7: Plot known-RBP and de novo positional preferences    ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+for profile_key, filename in [
+    (
+        "known_rbp_position_profiles",
+        "known_rbp_position_preference_heatmap.pdf",
+    ),
+    (
+        "de_novo_position_profiles",
+        "de_novo_position_preference_heatmap.pdf",
+    ),
+]:
+    profile_df = results[profile_key]
+    if profile_df.empty:
+        continue
+    plot_motif_position_preference_heatmap(
+        profile_df,
+        out_path=os.path.join(out_dir, filename),
+        cluster_mode="regions",  # Use "full" or "none" as alternatives.
+        min_total_hits=10,
+        max_features=80,
+        width=7.2,
+        row_height=0.22,
+    )
 """

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
+from matplotlib.colors import LinearSegmentedColormap
 
 
 mpl.rcParams.update({
@@ -83,7 +84,7 @@ def plot_motif_position_preference_heatmap(
         cluster_mode='regions',
         min_total_hits=10,
         max_features=80,
-        value_col='Log2_Positional_Enrichment',
+        value_col='Spatial_Probability',
         width=7.2,
         row_height=0.22,
         color_limit=None,
@@ -98,8 +99,9 @@ def plot_motif_position_preference_heatmap(
     from scipy.cluster.hierarchy import leaves_list, linkage
 
     required = {
-        'Feature', 'Region', 'Region_Bin', 'Global_Bin', 'Total_Hits',
-        value_col,
+        'Feature', 'Region', 'Region_Bin', 'Global_Bin',
+        'Metagene_Position', 'Total_Hits', 'Fixed_5UTR_Length',
+        'Fixed_CDS_Length', 'Fixed_3UTR_Length', value_col,
     }
     missing = required.difference(profile_df.columns)
     if missing:
@@ -149,7 +151,7 @@ def plot_motif_position_preference_heatmap(
         if cluster_mode == 'regions':
             cluster_features = (
                 working.groupby(['Feature', 'Region'], observed=True)[value_col]
-                .mean()
+                .sum()
                 .unstack('Region')
                 .reindex(index=matrix.index, columns=['5UTR', 'CDS', '3UTR'])
                 .fillna(0.0)
@@ -182,10 +184,10 @@ def plot_motif_position_preference_heatmap(
 
     values = matrix.to_numpy(float)
     if color_limit is None:
-        finite_abs = np.abs(values[np.isfinite(values)])
+        finite_values = values[np.isfinite(values)]
         color_limit = (
-            max(float(np.quantile(finite_abs, 0.98)), 0.5)
-            if finite_abs.size else 1.0
+            max(float(finite_values.max()), 1e-6)
+            if finite_values.size else 1.0
         )
     color_limit = float(color_limit)
     if color_limit <= 0:
@@ -194,12 +196,16 @@ def plot_motif_position_preference_heatmap(
     n_features, n_bins = matrix.shape
     height = min(max(3.2, 1.5 + row_height * n_features), 20.0)
     fig, ax = plt.subplots(figsize=(width, height))
+    spatial_blue_cmap = LinearSegmentedColormap.from_list(
+        'spatial_probability_blue',
+        ['#EFF3FF', '#C6DBEF', '#9ECAE1', '#6BAED6', '#3182BD', '#08306B'],
+    )
     image = ax.imshow(
         values,
         aspect='auto',
         interpolation='nearest',
-        cmap='RdBu_r',
-        vmin=-color_limit,
+        cmap=spatial_blue_cmap,
+        vmin=0,
         vmax=color_limit,
         rasterized=True,
     )
@@ -211,30 +217,64 @@ def plot_motif_position_preference_heatmap(
     ]
     ax.set_yticks(np.arange(n_features))
     ax.set_yticklabels(labels, fontsize=max(5.0, min(7.0, 180 / n_features)))
-    bins_per_region = n_bins // 3
-    centers = [
-        bins_per_region / 2 - 0.5,
-        1.5 * bins_per_region - 0.5,
-        2.5 * bins_per_region - 0.5,
-    ]
-    ax.set_xticks(centers)
-    ax.set_xticklabels(["5′UTR", "CDS", "3′UTR"])
-    for boundary in (bins_per_region - 0.5, 2 * bins_per_region - 0.5):
-        ax.axvline(boundary, color='#333333', linewidth=0.8, linestyle='--')
-    ax.set_xlabel("Normalized transcript position (5′ → 3′)")
-    ax.set_ylabel("RBP / motif")
-    title_prefix = str(working['Feature_Type'].iloc[0]) if 'Feature_Type' in working else 'Motif'
+    region_bin_counts = (
+        working[['Region', 'Region_Bin']]
+        .drop_duplicates()
+        .groupby('Region', observed=True)
+        .size()
+        .to_dict()
+    )
+    n_utr5 = int(region_bin_counts.get('5UTR', 0))
+    n_cds = int(region_bin_counts.get('CDS', 0))
+    n_utr3 = int(region_bin_counts.get('3UTR', 0))
+    utr5_length = int(working['Fixed_5UTR_Length'].iloc[0])
+    fixed_cds_length = int(working['Fixed_CDS_Length'].iloc[0])
+    utr3_length = int(working['Fixed_3UTR_Length'].iloc[0])
+    tis_boundary = n_utr5 - 0.5
+    tts_boundary = n_utr5 + n_cds - 0.5
+    for boundary in (tis_boundary, tts_boundary):
+        ax.axvline(boundary, color='#E41A1C', linewidth=0.9, linestyle='--')
+    ax.set_xticks([-0.5, tis_boundary, tts_boundary, n_bins - 0.5])
+    ax.set_xticklabels([
+        str(-utr5_length), '0', str(fixed_cds_length),
+        str(fixed_cds_length + utr3_length),
+    ])
+    region_centers = {
+        "5′UTR": (n_utr5 - 1) / 2,
+        "CDS": n_utr5 + (n_cds - 1) / 2,
+        "3′UTR": n_utr5 + n_cds + (n_utr3 - 1) / 2,
+    }
+    for label, center in region_centers.items():
+        ax.text(
+            center, 1.01, label,
+            transform=ax.get_xaxis_transform(),
+            ha='center', va='bottom', fontsize=7,
+        )
+    ax.set_xlabel("Metagene position (nt)")
+    feature_type = (
+        str(working['Feature_Type'].iloc[0])
+        if 'Feature_Type' in working else 'Motif'
+    )
+    ax.set_ylabel(
+        "RNA-binding proteins"
+        if feature_type == 'Known RBP' else "De novo motifs"
+    )
     cluster_label = {
         'regions': 'clustered by regional enrichment',
         'full': 'clustered by full positional profile',
         'none': 'ordered by peak position',
     }[cluster_mode]
-    ax.set_title(f"{title_prefix} positional preference ({cluster_label})", pad=8)
+    title_prefix = (
+        "RBP spatial distribution"
+        if feature_type == 'Known RBP'
+        else "De novo motif spatial distribution"
+    )
+    ax.set_title(f"{title_prefix} ({cluster_label})", pad=13)
     ax.tick_params(axis='both', length=0)
     for spine in ax.spines.values():
         spine.set_visible(False)
     colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
-    colorbar.set_label(r'$log_2$ positional enrichment')
+    colorbar.set_label('Spatial probability')
     fig.tight_layout()
     pdf_path = _as_pdf_path(out_path)
     fig.savefig(pdf_path, bbox_inches='tight')

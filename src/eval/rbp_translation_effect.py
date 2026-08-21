@@ -541,18 +541,39 @@ def collect_rbp_motif_hits(
     return hits
 
 
-def _normalized_position_bin(
+def _fixed_metagene_position_bin(
     position: float,
     region_start: int,
     region_end: int,
-    bins_per_region: int,
-) -> Optional[int]:
-    """Map one transcript position to a normalized within-region bin."""
+    region: str,
+    bin_size: int,
+    utr5_length: int,
+    cds_length: int,
+    utr3_length: int,
+) -> Tuple[Optional[int], Optional[float]]:
+    """Map one position using exact UTR distance and scaled CDS distance."""
     region_length = int(region_end) - int(region_start)
     if region_length <= 0:
-        return None
-    relative = (float(position) - float(region_start)) / region_length
-    return min(max(int(np.floor(relative * bins_per_region)), 0), bins_per_region - 1)
+        return None, None
+    if region == "5UTR":
+        metagene_position = float(position) - float(region_end)
+        if metagene_position < -utr5_length or metagene_position >= 0:
+            return None, None
+        local_bin = int((metagene_position + utr5_length) // bin_size)
+        return local_bin, metagene_position
+    if region == "CDS":
+        relative = (float(position) - float(region_start)) / region_length
+        metagene_position = min(max(relative * cds_length, 0.0), cds_length - 1e-9)
+        local_bin = int(metagene_position // bin_size)
+        return local_bin, metagene_position
+    if region == "3UTR":
+        distance_from_tts = float(position) - float(region_start)
+        if distance_from_tts < 0 or distance_from_tts >= utr3_length:
+            return None, None
+        metagene_position = cds_length + distance_from_tts
+        local_bin = int(distance_from_tts // bin_size)
+        return local_bin, metagene_position
+    raise ValueError(f"Unknown transcript region '{region}'.")
 
 
 def _overlapping_exact_matches(sequence: str, motif: str) -> Iterable[int]:
@@ -570,29 +591,62 @@ def build_motif_position_profiles(
     samples: Mapping[str, Mapping],
     known_hits: Optional[pd.DataFrame] = None,
     de_novo_motifs: Optional[pd.DataFrame] = None,
-    bins_per_region: int = 20,
+    bin_size: int = 20,
+    utr5_length: int = 300,
+    cds_length: int = 600,
+    utr3_length: int = 300,
+    bins_per_region: Optional[int] = None,
     known_rbp_names: Optional[Iterable[str]] = None,
     pseudocount: float = 0.5,
 ) -> Dict[str, pd.DataFrame]:
-    """Build exposure-adjusted metagene profiles for known and de novo motifs.
+    """Build fixed-coordinate metagene profiles for known and de novo motifs.
 
-    Each 5UTR, CDS, and 3UTR is independently scaled to ``bins_per_region``
-    bins. Values are log2 hit-density enrichment relative to the motif's
-    transcript-wide background. Known-RBP positions use retained PWM hits;
-    de novo k-mers are rescanned as exact matches across all sampled
-    transcripts so their spatial preference is evaluated independently of the
-    attribution windows used for discovery.
+    UTR coordinates retain exact nucleotide distance from the TIS/TTS and are
+    cropped to user-defined windows. CDS coordinates are proportionally scaled
+    to ``cds_length``. ``Spatial_Probability`` is the fraction of a feature's
+    displayed hits in each bin. An exposure-adjusted log2 enrichment is
+    retained as an auxiliary metric. Known-RBP positions use retained PWM
+    hits; de novo k-mers are rescanned across all sampled transcripts.
     """
-    if bins_per_region < 3:
-        raise ValueError("bins_per_region must be at least 3.")
+    if bin_size < 1:
+        raise ValueError("bin_size must be positive.")
+    if bins_per_region is not None:
+        if bins_per_region < 3:
+            raise ValueError("bins_per_region must be at least 3.")
+        utr5_length = bins_per_region * bin_size
+        cds_length = bins_per_region * bin_size
+        utr3_length = bins_per_region * bin_size
+    fixed_lengths = {
+        "5UTR": int(utr5_length),
+        "CDS": int(cds_length),
+        "3UTR": int(utr3_length),
+    }
+    for region, length in fixed_lengths.items():
+        if length < bin_size or length % bin_size != 0:
+            raise ValueError(
+                f"{region} fixed length ({length}) must be a positive "
+                f"multiple of bin_size ({bin_size})."
+            )
     if pseudocount <= 0 or not np.isfinite(pseudocount):
         raise ValueError("pseudocount must be positive and finite.")
 
     regions = ("5UTR", "CDS", "3UTR")
-    region_offsets = {
-        region: index * bins_per_region
-        for index, region in enumerate(regions)
+    region_bin_counts = {
+        region: fixed_lengths[region] // bin_size for region in regions
     }
+    region_offsets = {
+        "5UTR": 0,
+        "CDS": region_bin_counts["5UTR"],
+        "3UTR": region_bin_counts["5UTR"] + region_bin_counts["CDS"],
+    }
+    total_bins = sum(region_bin_counts.values())
+
+    def metagene_position(region: str, bin_index: int) -> float:
+        if region == "5UTR":
+            return -fixed_lengths["5UTR"] + (bin_index + 0.5) * bin_size
+        if region == "CDS":
+            return (bin_index + 0.5) * bin_size
+        return fixed_lengths["CDS"] + (bin_index + 0.5) * bin_size
     allowed_rbps = (
         None
         if known_rbp_names is None
@@ -611,6 +665,42 @@ def build_motif_position_profiles(
         }
 
     sample_region_lengths = region_lengths()
+    opportunity_cache = {}
+
+    def opportunity_by_bin(motif_length: int, region: str) -> np.ndarray:
+        """Count scannable motif starts in each fixed metagene bin."""
+        cache_key = (int(motif_length), region)
+        if cache_key in opportunity_cache:
+            return opportunity_cache[cache_key]
+        number_of_bins = region_bin_counts[region]
+        opportunities = np.zeros(number_of_bins, dtype=float)
+        length_frequencies = Counter(sample_region_lengths[region].tolist())
+        for region_length, frequency in length_frequencies.items():
+            number_of_starts = max(int(region_length) - motif_length + 1, 0)
+            if number_of_starts == 0:
+                continue
+            centers = np.arange(number_of_starts, dtype=float) + motif_length / 2
+            if region == "5UTR":
+                positions = centers - region_length
+                valid = positions >= -fixed_lengths["5UTR"]
+                local_bins = np.floor(
+                    (positions[valid] + fixed_lengths["5UTR"]) / bin_size
+                ).astype(int)
+            elif region == "CDS":
+                positions = centers / region_length * fixed_lengths["CDS"]
+                local_bins = np.floor(positions / bin_size).astype(int)
+            else:
+                positions = centers
+                valid = positions < fixed_lengths["3UTR"]
+                local_bins = np.floor(positions[valid] / bin_size).astype(int)
+            local_bins = local_bins[
+                (local_bins >= 0) & (local_bins < number_of_bins)
+            ]
+            opportunities += np.bincount(
+                local_bins, minlength=number_of_bins
+            ) * frequency
+        opportunity_cache[cache_key] = opportunities
+        return opportunities
 
     def assemble_profile(
         feature_type: str,
@@ -625,25 +715,27 @@ def build_motif_position_profiles(
             total_hits = sum(
                 counts.get((feature, region, bin_index), 0)
                 for region in regions
-                for bin_index in range(bins_per_region)
+                for bin_index in range(region_bin_counts[region])
             )
+            feature_opportunities = {
+                region: opportunity_by_bin(motif_length, region)
+                for region in regions
+            }
             total_opportunity = sum(
-                np.maximum(lengths - motif_length + 1, 0).sum()
-                for lengths in sample_region_lengths.values()
+                values.sum() for values in feature_opportunities.values()
             )
             smoothed_global_rate = (
-                total_hits + pseudocount * len(regions) * bins_per_region
+                total_hits + pseudocount * total_bins
             ) / (
-                total_opportunity + len(regions) * bins_per_region
+                total_opportunity + total_bins
             )
             for region in regions:
-                region_opportunity = float(np.maximum(
-                    sample_region_lengths[region] - motif_length + 1,
-                    0,
-                ).sum())
-                bin_opportunity = region_opportunity / bins_per_region
-                for bin_index in range(bins_per_region):
+                number_of_bins = region_bin_counts[region]
+                for bin_index in range(number_of_bins):
                     hits = int(counts.get((feature, region, bin_index), 0))
+                    bin_opportunity = float(
+                        feature_opportunities[region][bin_index]
+                    )
                     smoothed_bin_rate = (
                         (hits + pseudocount) / (bin_opportunity + 1.0)
                     )
@@ -657,10 +749,20 @@ def build_motif_position_profiles(
                         "Region_Bin": bin_index,
                         "Region_Relative_Position": (
                             bin_index + 0.5
-                        ) / bins_per_region,
+                        ) / number_of_bins,
                         "Global_Bin": region_offsets[region] + bin_index,
+                        "Metagene_Position": metagene_position(
+                            region, bin_index
+                        ),
+                        "Bin_Size": bin_size,
+                        "Fixed_5UTR_Length": fixed_lengths["5UTR"],
+                        "Fixed_CDS_Length": fixed_lengths["CDS"],
+                        "Fixed_3UTR_Length": fixed_lengths["3UTR"],
                         "Hits": hits,
                         "Total_Hits": total_hits,
+                        "Spatial_Probability": (
+                            hits / total_hits if total_hits > 0 else 0.0
+                        ),
                         "Motif_Length": motif_length,
                         "Opportunity": bin_opportunity,
                         "Hit_Rate_Per_Kb": (
@@ -669,7 +771,7 @@ def build_motif_position_profiles(
                         ),
                         "Log2_Positional_Enrichment": float(enrichment),
                         "Normalization": (
-                            "region-scaled bins; nucleotide-opportunity adjusted"
+                            "fixed metagene coordinates; row hit probability"
                         ),
                     }
                     record.update(annotations.get(feature, {}))
@@ -708,11 +810,15 @@ def build_motif_position_profiles(
                 continue
             region_start, region_end = _region_bounds(samples[tid], region)
             center = (float(hit.Start) + float(hit.End)) / 2
-            bin_index = _normalized_position_bin(
+            bin_index, _ = _fixed_metagene_position_bin(
                 center,
                 region_start,
                 region_end,
-                bins_per_region,
+                region,
+                bin_size,
+                fixed_lengths["5UTR"],
+                fixed_lengths["CDS"],
+                fixed_lengths["3UTR"],
             )
             if bin_index is not None:
                 known_counts[(str(hit.RBP_Name), region, bin_index)] += 1
@@ -756,11 +862,15 @@ def build_motif_position_profiles(
                         region_sequence, kmer
                     ):
                         center = region_start + local_start + len(kmer) / 2
-                        bin_index = _normalized_position_bin(
+                        bin_index, _ = _fixed_metagene_position_bin(
                             center,
                             region_start,
                             region_end,
-                            bins_per_region,
+                            region,
+                            bin_size,
+                            fixed_lengths["5UTR"],
+                            fixed_lengths["CDS"],
+                            fixed_lengths["3UTR"],
                         )
                         if bin_index is not None:
                             de_novo_counts[(feature, region, bin_index)] += 1
@@ -1553,7 +1663,11 @@ def run_rbp_translation_effect_analysis(
     de_novo_source: str = "signed_attribution",
     de_novo_num_transcripts: Optional[int] = 500,
     de_novo_peaks_per_direction: int = 1,
-    position_bins_per_region: int = 20,
+    position_bin_size: int = 20,
+    position_utr5_length: int = 300,
+    position_cds_length: int = 600,
+    position_utr3_length: int = 300,
+    position_bins_per_region: Optional[int] = None,
     position_known_rbp_scope: str = "summary",
     position_pseudocount: float = 0.5,
     random_state: int = 42,
@@ -1664,6 +1778,10 @@ def run_rbp_translation_effect_analysis(
         samples,
         known_hits=hits,
         de_novo_motifs=de_novo,
+        bin_size=position_bin_size,
+        utr5_length=position_utr5_length,
+        cds_length=position_cds_length,
+        utr3_length=position_utr3_length,
         bins_per_region=position_bins_per_region,
         known_rbp_names=known_rbp_names,
         pseudocount=position_pseudocount,

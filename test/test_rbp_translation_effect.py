@@ -140,9 +140,44 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertEqual(len(known), 15)
         self.assertEqual(known["Total_Hits"].max(), 1)
         self.assertGreater(discovered["Total_Hits"].max(), 0)
+        self.assertAlmostEqual(known["Spatial_Probability"].sum(), 1.0)
+        self.assertEqual(known["Bin_Size"].unique().tolist(), [20])
+        self.assertEqual(known["Fixed_CDS_Length"].unique().tolist(), [100])
         self.assertTrue(np.isfinite(
             known["Log2_Positional_Enrichment"]
         ).all())
+
+    def test_position_profiles_accept_fixed_lengths_and_bin_width(self):
+        sequence = "A" * 60
+        samples = {
+            "T1": {
+                "Sequence": sequence,
+                "CDS_Start_0based": 10,
+                "CDS_End_exclusive": 50,
+                "Transcript_Length": len(sequence),
+            }
+        }
+        hits = pd.DataFrame([{
+            "Tid": "T1",
+            "RBP_Name": "RBP1",
+            "Start": 20,
+            "End": 24,
+            "Region": "CDS",
+            "PWM_Length": 4,
+        }])
+
+        profile = build_motif_position_profiles(
+            samples,
+            known_hits=hits,
+            bin_size=10,
+            utr5_length=20,
+            cds_length=40,
+            utr3_length=20,
+        )["known_rbp"]
+
+        self.assertEqual(len(profile), 8)
+        self.assertEqual(profile["Metagene_Position"].min(), -15)
+        self.assertEqual(profile["Metagene_Position"].max(), 55)
 
     def test_unique_sample_collection_ignores_repeated_cell_types(self):
         sequence = np.eye(4, dtype=np.float32)[[0, 1, 2, 3, 0, 1, 2, 3, 0]]

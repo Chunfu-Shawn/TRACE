@@ -396,7 +396,16 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["regions", "full", "none"],
         default="regions",
     )
-    plotting.add_argument("--position-bins-per-region", type=int, default=20)
+    plotting.add_argument("--position-bin-size", type=int, default=20)
+    plotting.add_argument("--position-utr5-length", type=int, default=300)
+    plotting.add_argument("--position-cds-length", type=int, default=600)
+    plotting.add_argument("--position-utr3-length", type=int, default=300)
+    plotting.add_argument(
+        "--position-bins-per-region",
+        type=int,
+        default=None,
+        help="Legacy equal-region bin count; overrides the three fixed lengths.",
+    )
     plotting.add_argument("--position-min-hits", type=int, default=10)
     plotting.add_argument(
         "--position-max-features",
@@ -776,6 +785,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     positions_signature = cache.stage_signature(
         "positions",
         {
+            "bin_size": args.position_bin_size,
+            "utr5_length": args.position_utr5_length,
+            "cds_length": args.position_cds_length,
+            "utr3_length": args.position_utr3_length,
             "bins_per_region": args.position_bins_per_region,
             "rbp_scope": args.position_rbp_scope,
             "pseudocount": args.position_pseudocount,
@@ -793,6 +806,10 @@ def main(argv: Optional[list[str]] = None) -> int:
             samples,
             known_hits=hits,
             de_novo_motifs=de_novo,
+            bin_size=args.position_bin_size,
+            utr5_length=args.position_utr5_length,
+            cds_length=args.position_cds_length,
+            utr3_length=args.position_utr3_length,
             bins_per_region=args.position_bins_per_region,
             known_rbp_names=known_rbp_names,
             pseudocount=args.position_pseudocount,
