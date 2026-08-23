@@ -73,6 +73,7 @@ results = run_rbp_translation_effect_analysis(
     position_utr5_length=300,
     position_cds_length=600,
     position_utr3_length=300,
+    position_known_rbp_scope="all",
     random_state=42,
 )
 
@@ -89,7 +90,7 @@ display(results["de_novo_motifs"].head(20))
 plot_rbp_translation_effect_summary(
     results["summary"],
     out_path=os.path.join(out_dir, "rbp_translation_effect_summary.pdf"),
-    top_n_per_direction=12,
+    top_n_per_direction=30,
     fdr_threshold=0.10,
 )
 """
@@ -139,9 +140,10 @@ for profile_key, filename in [
         profile_df,
         out_path=os.path.join(out_dir, filename),
         cluster_mode="regions",  # Use "full" or "none" as alternatives.
-        min_total_hits=10,
-        max_features=80,
+        min_total_hits=1,
+        max_features=0,
+        value_col="Log2_Positional_Enrichment",
         width=7.2,
-        row_height=0.22,
+        row_height=0.07,
     )
 """

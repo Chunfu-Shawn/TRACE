@@ -420,7 +420,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     plotting = parser.add_argument_group("PDF plotting")
     plotting.add_argument("--skip-plots", action="store_true")
-    plotting.add_argument("--plot-top-n-per-direction", type=int, default=12)
+    plotting.add_argument("--plot-top-n-per-direction", type=int, default=30)
     plotting.add_argument("--plot-fdr-threshold", type=float)
     plotting.add_argument("--plot-max-cases", type=int, default=6)
     plotting.add_argument("--plot-logo-top-n", type=int, default=4)
@@ -439,22 +439,22 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Legacy equal-region bin count; overrides the three fixed lengths.",
     )
-    plotting.add_argument("--position-min-hits", type=int, default=10)
+    plotting.add_argument("--position-min-hits", type=int, default=1)
     plotting.add_argument(
         "--position-max-features",
         type=int,
-        default=80,
+        default=0,
         help="Maximum heatmap rows; use 0 to show every retained feature.",
     )
     plotting.add_argument(
         "--position-rbp-scope",
         choices=["summary", "all"],
-        default="summary",
+        default="all",
         help="Use statistically summarized RBPs or every scanned RBP.",
     )
     plotting.add_argument("--position-pseudocount", type=float, default=0.5)
     plotting.add_argument("--position-heatmap-width", type=float, default=7.2)
-    plotting.add_argument("--position-row-height", type=float, default=0.22)
+    plotting.add_argument("--position-row-height", type=float, default=0.07)
 
     resume = parser.add_argument_group("checkpoint control")
     resume.add_argument("--no-resume", action="store_true")
@@ -648,7 +648,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     }
     effects_signature = cache.stage_signature(
         "effects",
-        {**model_signature, "batch_size": args.batch_size},
+        {
+            **model_signature,
+            "batch_size": args.batch_size,
+            "cds_signal_aggregation": "full_cds_nucleotide_mean_v2",
+        },
         dependencies=("hits", "samples", "validate_pwms"),
     )
     if cache.reusable("effects", effects_signature):
@@ -859,6 +863,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             "bins_per_region": args.position_bins_per_region,
             "rbp_scope": args.position_rbp_scope,
             "pseudocount": args.position_pseudocount,
+            "position_normalization": "full_transcript_opportunity_v2",
         },
         dependencies=("samples", "hits", "summary", "de_novo"),
     )
@@ -918,6 +923,9 @@ def main(argv: Optional[list[str]] = None) -> int:
             "position_max_features": args.position_max_features,
             "position_heatmap_width": args.position_heatmap_width,
             "position_row_height": args.position_row_height,
+            "position_value_col": "Log2_Positional_Enrichment",
+            "regional_multipage_layout": True,
+            "plot_schema_version": 2,
             "format": "pdf_only",
         },
         dependencies=("summary", "cases", "de_novo", "positions"),
@@ -980,6 +988,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                         cluster_mode=args.position_cluster_mode,
                         min_total_hits=args.position_min_hits,
                         max_features=args.position_max_features,
+                        value_col="Log2_Positional_Enrichment",
                         width=args.position_heatmap_width,
                         row_height=args.position_row_height,
                     ))
@@ -995,6 +1004,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                         cluster_mode=args.position_cluster_mode,
                         min_total_hits=args.position_min_hits,
                         max_features=args.position_max_features,
+                        value_col="Log2_Positional_Enrichment",
                         width=args.position_heatmap_width,
                         row_height=args.position_row_height,
                     ))

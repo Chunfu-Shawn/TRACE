@@ -16,7 +16,11 @@ import multiprocessing as mp
 import os
 import pickle
 from collections import Counter, defaultdict
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from concurrent.futures import (
+    ProcessPoolExecutor,
+    ThreadPoolExecutor,
+    as_completed,
+)
 from typing import Dict, Iterable, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
@@ -681,13 +685,19 @@ def collect_rbp_motif_hits(
                 context_flank,
             ),
         ) as executor:
-            iterator = executor.map(_scan_rbp_transcript_chunk, sample_chunks)
-            for chunk_records in tqdm(
-                iterator,
+            futures = {
+                executor.submit(_scan_rbp_transcript_chunk, sample_chunk): index
+                for index, sample_chunk in enumerate(sample_chunks)
+            }
+            completed_chunks = {}
+            for future in tqdm(
+                as_completed(futures),
                 total=len(sample_chunks),
                 desc="Scan known RBP motif chunks",
             ):
-                records.extend(chunk_records)
+                completed_chunks[futures[future]] = future.result()
+            for index in range(len(sample_chunks)):
+                records.extend(completed_chunks[index])
     hits = pd.DataFrame(records)
     if hits.empty:
         return hits
@@ -894,9 +904,10 @@ def build_motif_position_profiles(
     UTR coordinates retain exact nucleotide distance from the TIS/TTS and are
     cropped to user-defined windows. CDS coordinates are proportionally scaled
     to ``cds_length``. ``Spatial_Probability`` is the fraction of a feature's
-    displayed hits in each bin. An exposure-adjusted log2 enrichment is
-    retained as an auxiliary metric. Known-RBP positions use retained PWM
-    hits; de novo k-mers are rescanned across all sampled transcripts.
+    displayed hits in each bin. ``Log2_Positional_Enrichment`` compares the
+    opportunity-adjusted bin hit rate against the full-transcript background
+    hit rate. Known-RBP positions use retained PWM hits; de novo k-mers are
+    rescanned across all sampled transcripts.
     """
     if bin_size < 1:
         raise ValueError("bin_size must be positive.")
@@ -929,8 +940,6 @@ def build_motif_position_profiles(
         "CDS": region_bin_counts["5UTR"],
         "3UTR": region_bin_counts["5UTR"] + region_bin_counts["CDS"],
     }
-    total_bins = sum(region_bin_counts.values())
-
     def metagene_position(region: str, bin_index: int) -> float:
         if region == "5UTR":
             return -fixed_lengths["5UTR"] + (bin_index + 0.5) * bin_size
@@ -996,31 +1005,40 @@ def build_motif_position_profiles(
         feature_type: str,
         feature_lengths: Mapping[str, int],
         counts: Mapping[Tuple[str, str, int], int],
+        background_hit_totals: Optional[Mapping[str, int]] = None,
         annotations: Optional[Mapping[str, Mapping[str, object]]] = None,
     ) -> pd.DataFrame:
         records = []
         annotations = annotations or {}
+        background_hit_totals = background_hit_totals or {}
         for feature, motif_length_value in feature_lengths.items():
             motif_length = max(int(motif_length_value), 1)
-            total_hits = sum(
+            displayed_hits = sum(
                 counts.get((feature, region, bin_index), 0)
                 for region in regions
                 for bin_index in range(region_bin_counts[region])
             )
+            total_hits = int(background_hit_totals.get(
+                feature, displayed_hits
+            ))
             feature_opportunities = {
                 region: opportunity_by_bin(motif_length, region)
                 for region in regions
             }
-            total_opportunity = sum(
-                values.sum() for values in feature_opportunities.values()
-            )
+            full_transcript_opportunity = float(sum(
+                np.maximum(lengths - motif_length + 1, 0).sum()
+                for lengths in sample_region_lengths.values()
+            ))
             smoothed_global_rate = (
-                total_hits + pseudocount * total_bins
-            ) / (
-                total_opportunity + total_bins
+                (total_hits + pseudocount)
+                / (full_transcript_opportunity + 1.0)
             )
             for region in regions:
                 number_of_bins = region_bin_counts[region]
+                region_hits = sum(
+                    counts.get((feature, region, index), 0)
+                    for index in range(number_of_bins)
+                )
                 for bin_index in range(number_of_bins):
                     hits = int(counts.get((feature, region, bin_index), 0))
                     bin_opportunity = float(
@@ -1049,9 +1067,12 @@ def build_motif_position_profiles(
                         "Fixed_CDS_Length": fixed_lengths["CDS"],
                         "Fixed_3UTR_Length": fixed_lengths["3UTR"],
                         "Hits": hits,
+                        "Region_Hits": region_hits,
                         "Total_Hits": total_hits,
+                        "Displayed_Hits": displayed_hits,
                         "Spatial_Probability": (
-                            hits / total_hits if total_hits > 0 else 0.0
+                            hits / displayed_hits
+                            if displayed_hits > 0 else 0.0
                         ),
                         "Motif_Length": motif_length,
                         "Opportunity": bin_opportunity,
@@ -1059,9 +1080,17 @@ def build_motif_position_profiles(
                             1000.0 * hits / bin_opportunity
                             if bin_opportunity > 0 else np.nan
                         ),
+                        "Full_Transcript_Opportunity": (
+                            full_transcript_opportunity
+                        ),
+                        "Full_Transcript_Hit_Rate_Per_Kb": (
+                            1000.0 * total_hits / full_transcript_opportunity
+                            if full_transcript_opportunity > 0 else np.nan
+                        ),
                         "Log2_Positional_Enrichment": float(enrichment),
                         "Normalization": (
-                            "fixed metagene coordinates; row hit probability"
+                            "opportunity-adjusted bin hit rate relative to "
+                            "the full-transcript background hit rate"
                         ),
                     }
                     record.update(annotations.get(feature, {}))
@@ -1069,6 +1098,7 @@ def build_motif_position_profiles(
         return pd.DataFrame(records)
 
     known_counts: Counter = Counter()
+    known_background_counts: Counter = Counter()
     known_lengths = {}
     known_annotations = {}
     if known_hits is not None and not known_hits.empty:
@@ -1098,6 +1128,7 @@ def build_motif_position_profiles(
             region = str(hit.Region)
             if tid not in samples or region not in region_offsets:
                 continue
+            known_background_counts[str(hit.RBP_Name)] += 1
             region_start, region_end = _region_bounds(samples[tid], region)
             center = (float(hit.Start) + float(hit.End)) / 2
             bin_index, _ = _fixed_metagene_position_bin(
@@ -1114,6 +1145,7 @@ def build_motif_position_profiles(
                 known_counts[(str(hit.RBP_Name), region, bin_index)] += 1
 
     de_novo_counts: Counter = Counter()
+    de_novo_background_counts: Counter = Counter()
     de_novo_lengths = {}
     de_novo_annotations = {}
     if de_novo_motifs is not None and not de_novo_motifs.empty:
@@ -1151,6 +1183,7 @@ def build_motif_position_profiles(
                     for local_start in _overlapping_exact_matches(
                         region_sequence, kmer
                     ):
+                        de_novo_background_counts[feature] += 1
                         center = region_start + local_start + len(kmer) / 2
                         bin_index, _ = _fixed_metagene_position_bin(
                             center,
@@ -1170,12 +1203,14 @@ def build_motif_position_profiles(
             "Known RBP",
             known_lengths,
             known_counts,
+            known_background_counts,
             known_annotations,
         ),
         "de_novo": assemble_profile(
             "De novo",
             de_novo_lengths,
             de_novo_counts,
+            de_novo_background_counts,
             de_novo_annotations,
         ),
     }
@@ -1217,17 +1252,18 @@ def _mean_cds_signal(
     profile: np.ndarray,
     cds_start: int,
     cds_end: int,
-    skip_codons: int = 5,
+    skip_codons: int = 0,
 ) -> float:
+    """Return the mean predicted signal across every retained CDS nucleotide."""
     start = int(cds_start) + 3 * int(skip_codons)
     end = min(int(cds_end), len(profile))
     if start >= end:
         return np.nan
-    values = np.asarray(profile[start:end:3], dtype=float)
+    values = np.asarray(profile[start:end], dtype=float)
     values = values[np.isfinite(values)]
     if values.size == 0:
         return np.nan
-    return float(np.maximum(values, 0).mean())
+    return float(values.mean())
 
 
 def _benjamini_hochberg(p_values: Sequence[float]) -> np.ndarray:
@@ -1336,7 +1372,7 @@ class RBPMotifMutagenesisEvaluator:
         hits: pd.DataFrame,
         samples: Mapping[str, Mapping],
         batch_size: int = 32,
-        cds_skip_codons: int = 5,
+        cds_skip_codons: int = 0,
         eps: float = 1e-8,
     ) -> pd.DataFrame:
         """Disrupt every hit and calculate paired CDS translation effects."""
@@ -1411,6 +1447,7 @@ class RBPMotifMutagenesisEvaluator:
                 "Transcript_Length": sample["Transcript_Length"],
                 "Mutation_Count": mutation_counts[hit.Hit_ID],
                 "Disruption_Strategy": "least_preferred_all_positions",
+                "CDS_Signal_Aggregation": "full_cds_nucleotide_mean",
                 "WT_CDS_Mean_Signal": wt_signal,
                 "Disrupted_CDS_Mean_Signal": disrupted_signal,
                 "Delta_Log2_TE": effect,
@@ -1433,7 +1470,7 @@ class RBPMotifMutagenesisEvaluator:
         min_case_transcripts: int = 5,
         context_flank: int = 12,
         batch_size: int = 64,
-        cds_skip_codons: int = 5,
+        cds_skip_codons: int = 0,
         eps: float = 1e-8,
     ) -> pd.DataFrame:
         """Run saturation mutagenesis around representative signed motif hits."""
@@ -1963,7 +2000,7 @@ def run_rbp_translation_effect_analysis(
     position_cds_length: int = 600,
     position_utr3_length: int = 300,
     position_bins_per_region: Optional[int] = None,
-    position_known_rbp_scope: str = "summary",
+    position_known_rbp_scope: str = "all",
     position_pseudocount: float = 0.5,
     random_state: int = 42,
 ) -> Dict[str, object]:

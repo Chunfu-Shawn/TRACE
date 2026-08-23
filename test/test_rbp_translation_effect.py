@@ -33,6 +33,7 @@ except ModuleNotFoundError:
 
 from eval.rbp_translation_effect import (
     RBPMotifMutagenesisEvaluator,
+    _mean_cds_signal,
     build_motif_position_profiles,
     collect_rbp_motif_hits,
     collect_unique_transcript_samples,
@@ -221,6 +222,12 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertAlmostEqual(known["Spatial_Probability"].sum(), 1.0)
         self.assertEqual(known["Bin_Size"].unique().tolist(), [20])
         self.assertEqual(known["Fixed_CDS_Length"].unique().tolist(), [100])
+        self.assertEqual(
+            known.loc[
+                known["Region"] == "5UTR", "Region_Hits"
+            ].max(),
+            1,
+        )
         self.assertTrue(np.isfinite(
             known["Log2_Positional_Enrichment"]
         ).all())
@@ -256,6 +263,24 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertEqual(len(profile), 8)
         self.assertEqual(profile["Metagene_Position"].min(), -15)
         self.assertEqual(profile["Metagene_Position"].max(), 55)
+        self.assertEqual(
+            profile["Full_Transcript_Opportunity"].unique().tolist(),
+            [51.0],
+        )
+
+    def test_mean_cds_signal_uses_every_nucleotide(self):
+        profile = np.arange(1, 10, dtype=float)
+
+        full_mean = _mean_cds_signal(profile, cds_start=0, cds_end=6)
+        skipped_mean = _mean_cds_signal(
+            profile,
+            cds_start=0,
+            cds_end=9,
+            skip_codons=1,
+        )
+
+        self.assertAlmostEqual(full_mean, 3.5)
+        self.assertAlmostEqual(skipped_mean, 6.5)
 
     def test_unique_sample_collection_ignores_repeated_cell_types(self):
         sequence = np.eye(4, dtype=np.float32)[[0, 1, 2, 3, 0, 1, 2, 3, 0]]

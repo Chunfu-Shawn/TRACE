@@ -6,6 +6,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.lines import Line2D
 from matplotlib.colors import LinearSegmentedColormap
 
@@ -82,25 +83,25 @@ def plot_motif_position_preference_heatmap(
         profile_df,
         out_path,
         cluster_mode='regions',
-        min_total_hits=10,
-        max_features=80,
-        value_col='Spatial_Probability',
+        min_total_hits=1,
+        max_features=0,
+        value_col='Log2_Positional_Enrichment',
         width=7.2,
-        row_height=0.22,
+        row_height=0.07,
         color_limit=None,
         show_hit_counts=True):
-    """Plot normalized transcript-position preferences with row clustering.
+    """Plot one opportunity-adjusted position heatmap page per RNA region.
 
-    ``cluster_mode='regions'`` clusters features using their mean 5UTR, CDS,
-    and 3UTR enrichment. ``cluster_mode='full'`` uses every positional bin.
-    Columns are never clustered because their biological 5'-to-3' order must
-    be retained.
+    Every retained feature is screened independently in 5UTR, CDS, and 3UTR.
+    Values are log2 bin hit-rate enrichment relative to the feature's full-
+    transcript background rate. Both clustering modes use the full within-
+    region profile because regions are displayed on separate PDF pages.
     """
     from scipy.cluster.hierarchy import leaves_list, linkage
 
     required = {
         'Feature', 'Region', 'Region_Bin', 'Global_Bin',
-        'Metagene_Position', 'Total_Hits', 'Fixed_5UTR_Length',
+        'Metagene_Position', 'Hits', 'Total_Hits', 'Fixed_5UTR_Length',
         'Fixed_CDS_Length', 'Fixed_3UTR_Length', value_col,
     }
     missing = required.difference(profile_df.columns)
@@ -113,172 +114,165 @@ def plot_motif_position_preference_heatmap(
     if min_total_hits < 1:
         raise ValueError("min_total_hits must be positive.")
 
-    input_features = profile_df['Feature'].nunique()
     working = profile_df.replace([np.inf, -np.inf], np.nan).dropna(
         subset=[value_col]
     ).copy()
-    feature_hits = working.groupby('Feature', observed=True)['Total_Hits'].max()
-    retained = feature_hits[feature_hits >= min_total_hits].sort_values(
-        ascending=False
-    )
-    low_count_removed = input_features - len(retained)
-    if max_features is not None and int(max_features) > 0:
-        retained = retained.head(int(max_features))
-    display_removed = max(input_features - low_count_removed - len(retained), 0)
-    working = working[working['Feature'].isin(retained.index)]
     if working.empty:
-        raise ValueError(
-            "No motif has enough positional hits for the requested heatmap."
-        )
-    print(
-        f"Position heatmap features: input={input_features}, "
-        f"low_count_removed={low_count_removed}, "
-        f"display_limit_removed={display_removed}, displayed={len(retained)}."
-    )
+        raise ValueError("Position-profile table has no finite plotting values.")
 
-    all_bins = sorted(working['Global_Bin'].astype(int).unique())
-    matrix = (
-        working.pivot_table(
-            index='Feature',
-            columns='Global_Bin',
-            values=value_col,
-            aggfunc='mean',
-        )
-        .reindex(index=retained.index, columns=all_bins)
-        .fillna(0.0)
-    )
-    if len(matrix) > 1 and cluster_mode != 'none':
-        if cluster_mode == 'regions':
-            cluster_features = (
-                working.groupby(['Feature', 'Region'], observed=True)[value_col]
-                .sum()
-                .unstack('Region')
-                .reindex(index=matrix.index, columns=['5UTR', 'CDS', '3UTR'])
-                .fillna(0.0)
-                .to_numpy(float)
-            )
-        else:
-            cluster_features = matrix.to_numpy(float)
-        centered = cluster_features - cluster_features.mean(axis=1, keepdims=True)
-        scale = centered.std(axis=1, keepdims=True)
-        standardized = np.divide(
-            centered,
-            scale,
-            out=np.zeros_like(centered),
-            where=scale > 0,
-        )
-        order = leaves_list(
-            linkage(standardized, method='average', metric='euclidean')
-        )
-        matrix = matrix.iloc[order]
-    elif cluster_mode == 'none':
-        dominant = working.loc[
-            working.groupby('Feature', observed=True)[value_col].idxmax(),
-            ['Feature', 'Global_Bin'],
-        ].set_index('Feature')['Global_Bin']
-        matrix = matrix.loc[
-            sorted(matrix.index, key=lambda feature: (
-                dominant.get(feature, np.inf), feature
-            ))
-        ]
-
-    values = matrix.to_numpy(float)
-    if color_limit is None:
-        finite_values = values[np.isfinite(values)]
-        color_limit = (
-            max(float(finite_values.max()), 1e-6)
-            if finite_values.size else 1.0
-        )
-    color_limit = float(color_limit)
-    if color_limit <= 0:
-        raise ValueError("color_limit must be positive.")
-
-    n_features, n_bins = matrix.shape
-    height = min(max(3.2, 1.5 + row_height * n_features), 20.0)
-    fig, ax = plt.subplots(figsize=(width, height))
-    spatial_blue_cmap = LinearSegmentedColormap.from_list(
-        'spatial_probability_blue',
-        ['#EFF3FF', '#C6DBEF', '#9ECAE1', '#6BAED6', '#3182BD', '#08306B'],
-    )
-    image = ax.imshow(
-        values,
-        aspect='auto',
-        interpolation='nearest',
-        cmap=spatial_blue_cmap,
-        vmin=0,
-        vmax=color_limit,
-        rasterized=True,
-    )
-    hit_lookup = feature_hits.to_dict()
-    labels = [
-        f"{feature}  (n={int(hit_lookup.get(feature, 0))})"
-        if show_hit_counts else str(feature)
-        for feature in matrix.index
-    ]
-    ax.set_yticks(np.arange(n_features))
-    ax.set_yticklabels(labels, fontsize=max(5.0, min(7.0, 180 / n_features)))
-    region_bin_counts = (
-        working[['Region', 'Region_Bin']]
-        .drop_duplicates()
-        .groupby('Region', observed=True)
-        .size()
-        .to_dict()
-    )
-    n_utr5 = int(region_bin_counts.get('5UTR', 0))
-    n_cds = int(region_bin_counts.get('CDS', 0))
-    n_utr3 = int(region_bin_counts.get('3UTR', 0))
-    utr5_length = int(working['Fixed_5UTR_Length'].iloc[0])
-    fixed_cds_length = int(working['Fixed_CDS_Length'].iloc[0])
-    utr3_length = int(working['Fixed_3UTR_Length'].iloc[0])
-    tis_boundary = n_utr5 - 0.5
-    tts_boundary = n_utr5 + n_cds - 0.5
-    for boundary in (tis_boundary, tts_boundary):
-        ax.axvline(boundary, color='#E41A1C', linewidth=0.9, linestyle='--')
-    ax.set_xticks([-0.5, tis_boundary, tts_boundary, n_bins - 0.5])
-    ax.set_xticklabels([
-        str(-utr5_length), '0', str(fixed_cds_length),
-        str(fixed_cds_length + utr3_length),
-    ])
-    region_centers = {
-        "5′UTR": (n_utr5 - 1) / 2,
-        "CDS": n_utr5 + (n_cds - 1) / 2,
-        "3′UTR": n_utr5 + n_cds + (n_utr3 - 1) / 2,
-    }
-    for label, center in region_centers.items():
-        ax.text(
-            center, 1.01, label,
-            transform=ax.get_xaxis_transform(),
-            ha='center', va='bottom', fontsize=7,
-        )
-    ax.set_xlabel("Metagene position (nt)")
+    regions = ('5UTR', 'CDS', '3UTR')
+    region_labels = {'5UTR': "5′UTR", 'CDS': 'CDS', '3UTR': "3′UTR"}
     feature_type = (
         str(working['Feature_Type'].iloc[0])
         if 'Feature_Type' in working else 'Motif'
     )
-    ax.set_ylabel(
-        "RNA-binding proteins"
-        if feature_type == 'Known RBP' else "De novo motifs"
+    ylabel = (
+        'RNA-binding proteins' if feature_type == 'Known RBP'
+        else 'De novo motifs'
     )
-    cluster_label = {
-        'regions': 'clustered by regional enrichment',
-        'full': 'clustered by full positional profile',
-        'none': 'ordered by peak position',
-    }[cluster_mode]
-    title_prefix = (
-        "RBP spatial distribution"
-        if feature_type == 'Known RBP'
-        else "De novo motif spatial distribution"
+    finite_values = working[value_col].to_numpy(float)
+    finite_values = finite_values[np.isfinite(finite_values)]
+    if color_limit is None:
+        color_min = min(float(np.quantile(finite_values, 0.01)), 0.0)
+        color_max = max(float(np.quantile(finite_values, 0.99)), 0.0)
+    elif np.isscalar(color_limit):
+        color_min = -abs(float(color_limit))
+        color_max = abs(float(color_limit))
+    else:
+        color_min, color_max = map(float, color_limit)
+    if color_max <= color_min:
+        color_max = color_min + 1.0
+    spatial_blue_cmap = LinearSegmentedColormap.from_list(
+        'positional_enrichment_blue',
+        ['#F7FBFF', '#DEEBF7', '#9ECAE1', '#4292C6', '#084594'],
     )
-    ax.set_title(f"{title_prefix} ({cluster_label})", pad=13)
-    ax.tick_params(axis='both', length=0)
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
-    colorbar.set_label('Spatial probability')
-    fig.tight_layout()
     pdf_path = _as_pdf_path(out_path)
-    fig.savefig(pdf_path, bbox_inches='tight')
-    plt.close(fig)
+    pages_written = 0
+    with PdfPages(pdf_path) as pdf:
+        for region in regions:
+            region_df = working[working['Region'] == region].copy()
+            if region_df.empty:
+                continue
+            input_features = region_df['Feature'].nunique()
+            region_hits = region_df.groupby(
+                'Feature', observed=True
+            )['Hits'].sum().sort_values(ascending=False)
+            retained = region_hits[region_hits >= min_total_hits]
+            if max_features is not None and int(max_features) > 0:
+                retained = retained.head(int(max_features))
+            region_df = region_df[region_df['Feature'].isin(retained.index)]
+            if region_df.empty:
+                continue
+            bins = sorted(region_df['Region_Bin'].astype(int).unique())
+            matrix = (
+                region_df.pivot_table(
+                    index='Feature', columns='Region_Bin', values=value_col,
+                    aggfunc='mean',
+                )
+                .reindex(index=retained.index, columns=bins)
+                .fillna(0.0)
+            )
+            if len(matrix) > 1 and cluster_mode != 'none':
+                cluster_features = matrix.to_numpy(float)
+                centered = cluster_features - cluster_features.mean(
+                    axis=1, keepdims=True
+                )
+                scale = centered.std(axis=1, keepdims=True)
+                standardized = np.divide(
+                    centered,
+                    scale,
+                    out=np.zeros_like(centered),
+                    where=scale > 0,
+                )
+                order = leaves_list(
+                    linkage(standardized, method='average', metric='euclidean')
+                )
+                matrix = matrix.iloc[order]
+            elif cluster_mode == 'none':
+                dominant = matrix.idxmax(axis=1)
+                matrix = matrix.loc[sorted(
+                    matrix.index,
+                    key=lambda feature: (dominant.get(feature, np.inf), feature),
+                )]
+
+            n_features, n_bins = matrix.shape
+            height = min(max(3.2, 1.4 + row_height * n_features), 24.0)
+            fig, ax = plt.subplots(figsize=(width, height))
+            image = ax.imshow(
+                matrix.to_numpy(float),
+                aspect='auto',
+                interpolation='nearest',
+                cmap=spatial_blue_cmap,
+                vmin=color_min,
+                vmax=color_max,
+                rasterized=True,
+            )
+            labels = [
+                f"{feature}  (n={int(region_hits.get(feature, 0))})"
+                if show_hit_counts else str(feature)
+                for feature in matrix.index
+            ]
+            ax.set_yticks(np.arange(n_features))
+            ax.set_yticklabels(
+                labels,
+                fontsize=max(3.5, min(6.5, 150 / max(n_features, 1))),
+            )
+            tick_indices = np.unique(np.linspace(
+                0, max(n_bins - 1, 0), min(5, n_bins), dtype=int
+            ))
+            bin_size = int(region_df['Bin_Size'].iloc[0])
+            fixed_length = int(region_df[
+                {
+                    '5UTR': 'Fixed_5UTR_Length',
+                    'CDS': 'Fixed_CDS_Length',
+                    '3UTR': 'Fixed_3UTR_Length',
+                }[region]
+            ].iloc[0])
+            if region == '5UTR':
+                tick_values = -fixed_length + (tick_indices + 0.5) * bin_size
+            else:
+                tick_values = (tick_indices + 0.5) * bin_size
+            ax.set_xticks(tick_indices)
+            ax.set_xticklabels([f"{value:g}" for value in tick_values])
+            ax.set_xlabel(
+                'Position relative to TIS (nt)' if region == '5UTR'
+                else 'Scaled CDS position (nt)' if region == 'CDS'
+                else 'Position relative to CDS end (nt)'
+            )
+            ax.set_ylabel(ylabel)
+            cluster_label = (
+                'ordered by peak position' if cluster_mode == 'none'
+                else 'clustered by within-region positional enrichment'
+            )
+            title_prefix = (
+                'RBP spatial distribution' if feature_type == 'Known RBP'
+                else 'De novo motif spatial distribution'
+            )
+            ax.set_title(
+                f"{title_prefix}: {region_labels[region]} ({cluster_label})",
+                pad=8,
+            )
+            ax.tick_params(axis='both', length=0)
+            for spine in ax.spines.values():
+                spine.set_visible(False)
+            colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
+            colorbar.set_label(
+                r'$\log_2$ positional enrichment vs. full transcript'
+            )
+            fig.subplots_adjust(
+                left=0.32, right=0.90, bottom=0.07, top=0.96
+            )
+            pdf.savefig(fig)
+            plt.close(fig)
+            pages_written += 1
+            print(
+                f"Position heatmap {region}: input="
+                f"{input_features}, displayed={n_features}."
+            )
+    if pages_written == 0:
+        raise ValueError(
+            "No motif has enough regional hits for the requested heatmap."
+        )
     print(f"Motif position-preference heatmap saved to {pdf_path}")
     return pdf_path
 
@@ -370,11 +364,11 @@ def plot_rbp_regulatory_bubble(rbp_landscape_df, out_path,
 def plot_rbp_translation_effect_summary(
         summary_df,
         out_path="rbp_translation_effect_summary.pdf",
-        top_n_per_direction=12,
+        top_n_per_direction=30,
         fdr_threshold=None,
         width=6.2,
-        row_height=0.28):
-    """Plot top positive and negative matched RBP-motif effects."""
+        row_height=0.20):
+    """Plot region-specific top positive and negative RBP-motif effects."""
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
         'CI_Lower', 'CI_Upper', 'FDR_BH', 'Direction',
@@ -398,68 +392,70 @@ def plot_rbp_translation_effect_summary(
         f"nonfinite_removed={nonfinite_removed}, "
         f"fdr_removed={fdr_removed}."
     )
-    positive = working[working['Median_Delta_Log2_TE'] > 0].nlargest(
-        top_n_per_direction, 'Median_Delta_Log2_TE'
-    )
-    negative = working[working['Median_Delta_Log2_TE'] < 0].nsmallest(
-        top_n_per_direction, 'Median_Delta_Log2_TE'
-    )
-    plot_df = pd.concat([negative, positive], ignore_index=True).sort_values(
-        'Median_Delta_Log2_TE'
-    )
-    if plot_df.empty:
-        raise ValueError("No RBP effects remain after filtering.")
-
-    labels = (
-        plot_df['RBP_Name'].astype(str)
-        + '  (' + plot_df['Region'].astype(str)
-        + '; n=' + plot_df['N_Transcripts'].astype(int).astype(str) + ')'
-    )
-    positions = np.arange(len(plot_df))
-    values = plot_df['Median_Delta_Log2_TE'].to_numpy(float)
-    lower = values - plot_df['CI_Lower'].to_numpy(float)
-    upper = plot_df['CI_Upper'].to_numpy(float) - values
-    colors = np.where(values >= 0, '#C44E52', '#3B6FB6')
-    sizes = 18 + 9 * np.sqrt(plot_df['N_Transcripts'].to_numpy(float))
-
-    height = max(3.2, 1.5 + row_height * len(plot_df))
-    fig, ax = plt.subplots(figsize=(width, height))
-    for position, value, low, high, color in zip(
-        positions, values, lower, upper, colors
-    ):
-        ax.errorbar(
-            value, position, xerr=np.array([[low], [high]]),
-            fmt='none', ecolor=color, elinewidth=1.1, capsize=2.2,
-            alpha=0.9, zorder=1,
-        )
-    ax.scatter(
-        values, positions, s=sizes, c=colors, edgecolor='white',
-        linewidth=0.6, zorder=2,
-    )
-    ax.axvline(0, color='#555555', linewidth=0.8, linestyle='--')
-    ax.set_yticks(positions)
-    ax.set_yticklabels(labels)
-    ax.set_xlabel(
-        r'Motif contribution to predicted CDS translation, '
-        r'$\Delta\log_2(TE)$'
-    )
-    ax.set_ylabel('')
-    ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
-    ax.set_axisbelow(True)
-    ax.text(
-        0.01, 1.015, 'Translation-suppressive motif',
-        transform=ax.transAxes, ha='left', va='bottom', color='#3B6FB6',
-        fontsize=8,
-    )
-    ax.text(
-        0.99, 1.015, 'Translation-supportive motif',
-        transform=ax.transAxes, ha='right', va='bottom', color='#C44E52',
-        fontsize=8,
-    )
-    fig.tight_layout()
     pdf_path = _as_pdf_path(out_path)
-    fig.savefig(pdf_path, bbox_inches='tight')
-    plt.close(fig)
+    pages_written = 0
+    region_labels = {'5UTR': "5′UTR", 'CDS': 'CDS', '3UTR': "3′UTR"}
+    with PdfPages(pdf_path) as pdf:
+        for region in ('5UTR', 'CDS', '3UTR'):
+            region_df = working[working['Region'] == region]
+            positive = region_df[
+                region_df['Median_Delta_Log2_TE'] > 0
+            ].nlargest(top_n_per_direction, 'Median_Delta_Log2_TE')
+            negative = region_df[
+                region_df['Median_Delta_Log2_TE'] < 0
+            ].nsmallest(top_n_per_direction, 'Median_Delta_Log2_TE')
+            plot_df = pd.concat(
+                [negative, positive], ignore_index=True
+            ).sort_values('Median_Delta_Log2_TE')
+            if plot_df.empty:
+                continue
+            labels = (
+                plot_df['RBP_Name'].astype(str)
+                + '  (n=' + plot_df['N_Transcripts'].astype(int).astype(str)
+                + ')'
+            )
+            positions = np.arange(len(plot_df))
+            values = plot_df['Median_Delta_Log2_TE'].to_numpy(float)
+            lower = values - plot_df['CI_Lower'].to_numpy(float)
+            upper = plot_df['CI_Upper'].to_numpy(float) - values
+            colors = np.where(values >= 0, '#C44E52', '#3B6FB6')
+            sizes = 10 + 4 * np.sqrt(
+                plot_df['N_Transcripts'].to_numpy(float)
+            )
+            height = max(3.2, 1.4 + row_height * len(plot_df))
+            fig, ax = plt.subplots(figsize=(width, height))
+            for position, value, low, high, color in zip(
+                positions, values, lower, upper, colors
+            ):
+                ax.errorbar(
+                    value, position, xerr=np.array([[low], [high]]),
+                    fmt='none', ecolor=color, elinewidth=1.0, capsize=1.8,
+                    alpha=0.9, zorder=1,
+                )
+            ax.scatter(
+                values, positions, s=sizes, c=colors, edgecolor='white',
+                linewidth=0.5, zorder=2,
+            )
+            ax.axvline(0, color='#555555', linewidth=0.8, linestyle='--')
+            ax.set_yticks(positions)
+            ax.set_yticklabels(labels, fontsize=6)
+            ax.set_xlabel(
+                r'Motif contribution to full-CDS mean signal, '
+                r'$\Delta\log_2(TE)$'
+            )
+            ax.set_ylabel('')
+            ax.set_title(
+                f"RBP translation effects: {region_labels[region]} "
+                f"(top {top_n_per_direction} per direction)"
+            )
+            ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
+            ax.set_axisbelow(True)
+            fig.tight_layout()
+            pdf.savefig(fig, bbox_inches='tight')
+            plt.close(fig)
+            pages_written += 1
+    if pages_written == 0:
+        raise ValueError("No RBP effects remain after regional filtering.")
     print(f"RBP translation-effect summary saved to {pdf_path}")
     return pdf_path
 
