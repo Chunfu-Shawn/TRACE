@@ -320,22 +320,31 @@ def _collate_kozak_variants(batch: Sequence[Dict]) -> Dict:
     }
 
 
-def _mean_frame_signal(
+def _p_site_intensity(
     profile: np.ndarray,
     start: int,
-    end: int,
-    skip_codons: int = 0,
-    eps: float = 1e-8,
-) -> float:
-    first_position = start + 3 * skip_codons
-    valid_end = min(int(end), len(profile))
-    if first_position >= valid_end:
-        return np.nan
-    values = np.asarray(profile[first_position:valid_end:3], dtype=float)
-    finite = values[np.isfinite(values)]
-    if finite.size == 0:
-        return np.nan
-    return float(np.mean(finite) + eps)
+    global_mean_epsilon: float = 1e-6,
+) -> Tuple[float, float, float, float]:
+    """Calculate normalized initiation-site P-site intensity.
+
+    The definition matches ``start_codon_Kozak_motif.py``:
+    ``profile[start] / (sum(profile[start-3:start+3]) + global_mean)``, where
+    ``global_mean`` is the transcript-wide mean plus a small epsilon.
+    """
+    values = np.asarray(profile, dtype=float).reshape(-1)
+    if start < 3 or start + 3 > len(values) or values.size == 0:
+        return np.nan, np.nan, np.nan, np.nan
+    if not np.all(np.isfinite(values)):
+        return np.nan, np.nan, np.nan, np.nan
+
+    p_site_signal = float(values[start])
+    local_signal = float(np.sum(values[start - 3:start + 3]))
+    global_mean = float(np.mean(values) + global_mean_epsilon)
+    denominator = local_signal + global_mean
+    if not np.isfinite(denominator) or denominator <= 0:
+        return np.nan, p_site_signal, local_signal, global_mean
+    intensity = p_site_signal / denominator
+    return float(intensity), p_site_signal, local_signal, global_mean
 
 
 class KozakMutagenesisEvaluator:
@@ -432,7 +441,11 @@ class KozakMutagenesisEvaluator:
         suffix: str = "",
         save_csv: bool = True,
     ) -> pd.DataFrame:
-        """Predict all matched variants and quantify downstream CDS effects."""
+        """Predict variants and quantify normalized initiation-site intensity.
+
+        ``cds_skip_codons`` and ``start_window_codons`` are retained only so
+        existing notebook calls remain valid. They no longer affect the metric.
+        """
         if batch_size < 1:
             raise ValueError("batch_size must be at least 1.")
         if cds_skip_codons < 0 or start_window_codons < 1:
@@ -461,21 +474,14 @@ class KozakMutagenesisEvaluator:
             )
             for index, record in enumerate(batch_records):
                 profile = profiles[index, :batch["lengths"][index]]
-                cds_signal = _mean_frame_signal(
+                (
+                    p_site_intensity,
+                    p_site_signal,
+                    local_signal,
+                    global_mean,
+                ) = _p_site_intensity(
                     profile,
                     record["cds_start"],
-                    record["cds_end"],
-                    skip_codons=cds_skip_codons,
-                )
-                proximal_end = min(
-                    record["cds_end"],
-                    record["cds_start"] + 3 * start_window_codons,
-                )
-                proximal_signal = _mean_frame_signal(
-                    profile,
-                    record["cds_start"],
-                    proximal_end,
-                    skip_codons=0,
                 )
                 rows.append({
                     "Sample_ID": record["sample_id"],
@@ -488,31 +494,27 @@ class KozakMutagenesisEvaluator:
                     "Is_WT": record["is_wt"],
                     "CDS_Start_0based": record["cds_start"],
                     "CDS_End_exclusive": record["cds_end"],
-                    "CDS_Skip_Codons": cds_skip_codons,
-                    "CDS_Mean_Signal": cds_signal,
-                    "Start_Proximal_Mean_Signal": proximal_signal,
+                    "P_Site_Signal": p_site_signal,
+                    "P_Site_Local_Sum_m3_to_p2": local_signal,
+                    "Transcript_Global_Mean": global_mean,
+                    "P_Site_Intensity": p_site_intensity,
                 })
 
         results = pd.DataFrame(rows)
         wt = results.loc[
             results["Is_WT"],
-            ["Sample_ID", "CDS_Mean_Signal", "Start_Proximal_Mean_Signal"],
+            ["Sample_ID", "P_Site_Intensity"],
         ].rename(columns={
-            "CDS_Mean_Signal": "WT_CDS_Mean_Signal",
-            "Start_Proximal_Mean_Signal": "WT_Start_Proximal_Mean_Signal",
+            "P_Site_Intensity": "WT_P_Site_Intensity",
         })
         if wt["Sample_ID"].duplicated().any():
             raise RuntimeError("Each sample must have exactly one strong-ATG WT row.")
         results = results.merge(wt, on="Sample_ID", how="left", validate="many_to_one")
-        results["Relative_CDS_Translation"] = (
-            results["CDS_Mean_Signal"] / results["WT_CDS_Mean_Signal"]
+        results["Relative_Initiation_Efficiency"] = (
+            results["P_Site_Intensity"] / results["WT_P_Site_Intensity"]
         )
-        results["Relative_Start_Proximal_Translation"] = (
-            results["Start_Proximal_Mean_Signal"]
-            / results["WT_Start_Proximal_Mean_Signal"]
-        )
-        results["Log2_Relative_CDS_Translation"] = np.log2(
-            results["Relative_CDS_Translation"].clip(lower=1e-12)
+        results["Log2_Relative_Initiation_Efficiency"] = np.log2(
+            results["Relative_Initiation_Efficiency"].clip(lower=1e-12)
         )
         results["Variant"] = (
             results["Start_Codon"].astype(str)
@@ -556,7 +558,8 @@ def summarize_kozak_mutagenesis(results: pd.DataFrame) -> pd.DataFrame:
     """Summarize each designed variant without discarding transcript rows."""
     required = {
         "Start_Codon", "Kozak_Class", "Designed_Kozak_Score",
-        "Relative_CDS_Translation", "Log2_Relative_CDS_Translation",
+        "P_Site_Intensity", "Relative_Initiation_Efficiency",
+        "Log2_Relative_Initiation_Efficiency",
     }
     missing = required.difference(results.columns)
     if missing:
@@ -568,10 +571,20 @@ def summarize_kozak_mutagenesis(results: pd.DataFrame) -> pd.DataFrame:
         )
         .agg(
             N=("Sample_ID", "nunique"),
-            Mean_Relative_CDS_Translation=("Relative_CDS_Translation", "mean"),
-            Median_Relative_CDS_Translation=("Relative_CDS_Translation", "median"),
-            Mean_Log2_Fold_Change=("Log2_Relative_CDS_Translation", "mean"),
-            SD_Log2_Fold_Change=("Log2_Relative_CDS_Translation", "std"),
+            Mean_P_Site_Intensity=("P_Site_Intensity", "mean"),
+            Median_P_Site_Intensity=("P_Site_Intensity", "median"),
+            Mean_Relative_Initiation_Efficiency=(
+                "Relative_Initiation_Efficiency", "mean"
+            ),
+            Median_Relative_Initiation_Efficiency=(
+                "Relative_Initiation_Efficiency", "median"
+            ),
+            Mean_Log2_Fold_Change=(
+                "Log2_Relative_Initiation_Efficiency", "mean"
+            ),
+            SD_Log2_Fold_Change=(
+                "Log2_Relative_Initiation_Efficiency", "std"
+            ),
         )
         .reset_index()
     )
@@ -580,14 +593,17 @@ def summarize_kozak_mutagenesis(results: pd.DataFrame) -> pd.DataFrame:
 
 def calculate_paired_variant_statistics(results: pd.DataFrame) -> pd.DataFrame:
     """Compare every variant with its matched strong-ATG reference."""
-    required = {"Sample_ID", "Variant", "Is_WT", "Log2_Relative_CDS_Translation"}
+    required = {
+        "Sample_ID", "Variant", "Is_WT",
+        "Log2_Relative_Initiation_Efficiency",
+    }
     missing = required.difference(results.columns)
     if missing:
         raise ValueError(f"Missing result columns: {sorted(missing)}")
 
     rows = []
     for variant, group in results.groupby("Variant", observed=True):
-        values = group["Log2_Relative_CDS_Translation"].replace(
+        values = group["Log2_Relative_Initiation_Efficiency"].replace(
             [np.inf, -np.inf], np.nan
         ).dropna()
         is_wt = bool(group["Is_WT"].all())
@@ -648,13 +664,10 @@ def _suffix_tag(suffix: str) -> str:
 
 def _effect_axis_label(effect_col: str) -> str:
     labels = {
-        "Relative_CDS_Translation": "Relative downstream CDS translation",
-        "Relative_Start_Proximal_Translation": (
-            "Relative start-proximal CDS translation"
-        ),
-        "CDS_Mean_Signal": "Predicted downstream CDS translation",
-        "Start_Proximal_Mean_Signal": (
-            "Predicted start-proximal CDS translation"
+        "P_Site_Intensity": "Normalized initiation-site P-site intensity",
+        "Relative_Initiation_Efficiency": "Relative initiation efficiency",
+        "Log2_Relative_Initiation_Efficiency": (
+            "Log2 relative initiation efficiency"
         ),
     }
     return labels.get(effect_col, effect_col.replace("_", " "))
@@ -664,7 +677,7 @@ def plot_kozak_mutagenesis_boxplot(
     results: pd.DataFrame,
     out_dir: str,
     suffix: str = "",
-    effect_col: str = "Relative_CDS_Translation",
+    effect_col: str = "P_Site_Intensity",
     y_label: Optional[str] = None,
     width: float = 5.5,
     height: float = 5.0,
@@ -737,7 +750,8 @@ def plot_kozak_mutagenesis_boxplot(
         f"P = {pooled_p:.2e}"
     )
     ax.text(0.02, 0.03, label, transform=ax.transAxes, ha="left", va="bottom")
-    ax.axhline(1.0, color="#808080", linestyle=":", linewidth=0.9)
+    if effect_col == "Relative_Initiation_Efficiency":
+        ax.axhline(1.0, color="#808080", linestyle=":", linewidth=0.9)
     ax.set_xticks(base_positions)
     ax.set_xticklabels(START_CODON_ORDER)
     ax.set_xlabel("Start codon")
@@ -811,7 +825,7 @@ def plot_kozak_mutagenesis_score_scatter(
     results: pd.DataFrame,
     out_dir: str,
     suffix: str = "",
-    effect_col: str = "Relative_CDS_Translation",
+    effect_col: str = "P_Site_Intensity",
     width: float = 12.0,
     height: float = 3.3,
 ) -> str:
@@ -840,7 +854,7 @@ def plot_global_kozak_mutagenesis_correlation(
     results: pd.DataFrame,
     out_dir: str,
     suffix: str = "",
-    effect_col: str = "Relative_CDS_Translation",
+    effect_col: str = "P_Site_Intensity",
     width: float = 5.5,
     height: float = 4.8,
 ) -> str:
@@ -862,7 +876,8 @@ def plot_global_kozak_mutagenesis_correlation(
         ha="right",
         va="bottom",
     )
-    ax.axhline(1.0, color="#808080", linestyle=":", linewidth=0.9)
+    if effect_col == "Relative_Initiation_Efficiency":
+        ax.axhline(1.0, color="#808080", linestyle=":", linewidth=0.9)
     ax.set_xlabel("Designed Kozak score (start codon + positions -3 and +4)")
     ax.set_ylabel(_effect_axis_label(effect_col))
     fig.tight_layout()
@@ -878,7 +893,7 @@ def plot_kozak_mutagenesis_results(
     results: Union[pd.DataFrame, str, os.PathLike],
     out_dir: str,
     suffix: str = "",
-    effect_col: str = "Relative_CDS_Translation",
+    effect_col: str = "P_Site_Intensity",
     y_limits: Optional[Tuple[float, float]] = None,
 ) -> Dict[str, str]:
     """Create all PDF panels from a result table or its CSV path."""

@@ -33,6 +33,7 @@ except ModuleNotFoundError:
 from eval.start_codon_kozak_mutagenesis import (
     KOZAK_CONTEXT_ORDER,
     KozakMutagenesisEvaluator,
+    _p_site_intensity,
     collect_kozak_mutagenesis_samples,
     mutate_cds_start_context,
     plot_kozak_mutagenesis_results,
@@ -69,6 +70,23 @@ def _make_dataset():
 
 
 class KozakMutagenesisTests(unittest.TestCase):
+    def test_p_site_intensity_matches_motif_definition(self):
+        profile = np.arange(1, 13, dtype=np.float32)
+        intensity, p_site, local_sum, global_mean = _p_site_intensity(
+            profile,
+            start=6,
+        )
+        expected_global_mean = np.mean(profile) + 1e-6
+        expected_local_sum = np.sum(profile[3:9])
+        expected_intensity = profile[6] / (
+            expected_local_sum + expected_global_mean
+        )
+
+        self.assertAlmostEqual(p_site, float(profile[6]))
+        self.assertAlmostEqual(local_sum, float(expected_local_sum))
+        self.assertAlmostEqual(global_mean, float(expected_global_mean))
+        self.assertAlmostEqual(intensity, float(expected_intensity))
+
     def test_translation_model_uses_zero_count_when_omitted(self):
         model = TranslationBaseModel(
             d_seq=4,
@@ -181,7 +199,10 @@ class KozakMutagenesisTests(unittest.TestCase):
 
         self.assertEqual(len(results), 4 * len(KOZAK_CONTEXT_ORDER))
         self.assertEqual(results["Is_WT"].sum(), 1)
-        np.testing.assert_allclose(results["Relative_CDS_Translation"], 1.0)
+        np.testing.assert_allclose(
+            results["Relative_Initiation_Efficiency"],
+            1.0,
+        )
 
     def test_plotting_writes_pdf_only(self):
         samples = collect_kozak_mutagenesis_samples(_make_dataset())
