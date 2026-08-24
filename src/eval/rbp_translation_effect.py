@@ -1149,27 +1149,36 @@ def build_motif_position_profiles(
     de_novo_lengths = {}
     de_novo_annotations = {}
     if de_novo_motifs is not None and not de_novo_motifs.empty:
-        required = {"Direction", "Kmer"}
+        required = {"Direction", "Kmer", "Region"}
         missing = required.difference(de_novo_motifs.columns)
         if missing:
             raise ValueError(
                 f"De novo motif table is missing columns: {sorted(missing)}"
             )
         motif_records = []
-        for row in de_novo_motifs.drop_duplicates(
-            ["Direction", "Kmer"]
+        motif_table = de_novo_motifs.copy()
+        if "Is_Cluster_Representative" in motif_table.columns:
+            motif_table = motif_table[
+                motif_table["Is_Cluster_Representative"].astype(bool)
+            ]
+        for row in motif_table.drop_duplicates(
+            ["Region", "Direction", "Kmer"]
         ).itertuples(index=False):
+            discovery_region = str(row.Region)
             direction = str(row.Direction)
             kmer = str(row.Kmer).upper().replace("U", "T")
             if not kmer or not set(kmer).issubset(BASE_TO_INDEX):
                 continue
-            feature = f"{kmer} ({direction.lower()})"
+            feature = (
+                f"{kmer} ({discovery_region}, {direction.lower()})"
+            )
             de_novo_lengths[feature] = len(kmer)
             de_novo_annotations[feature] = {
+                "Discovery_Region": discovery_region,
                 "Direction": direction,
                 "Kmer": kmer,
             }
-            motif_records.append((feature, kmer))
+            motif_records.append((feature, kmer, discovery_region))
         for sample in tqdm(
             samples.values(), desc="Scan de novo motif positions"
         ):
@@ -1179,7 +1188,9 @@ def build_motif_position_profiles(
                 region_sequence = sequence[region_start:region_end]
                 if not region_sequence:
                     continue
-                for feature, kmer in motif_records:
+                for feature, kmer, discovery_region in motif_records:
+                    if region != discovery_region:
+                        continue
                     for local_start in _overlapping_exact_matches(
                         region_sequence, kmer
                     ):
@@ -1471,9 +1482,10 @@ class RBPMotifMutagenesisEvaluator:
         context_flank: int = 12,
         batch_size: int = 64,
         cds_skip_codons: int = 0,
+        case_regions: Sequence[str] = ("5UTR", "3UTR"),
         eps: float = 1e-8,
     ) -> pd.DataFrame:
-        """Run saturation mutagenesis around representative signed motif hits."""
+        """Run saturation mutagenesis around representative UTR motif hits."""
         if hit_effects.empty:
             return pd.DataFrame()
         if (
@@ -1482,6 +1494,19 @@ class RBPMotifMutagenesisEvaluator:
             or context_flank < 0
         ):
             raise ValueError("Invalid case count or context flank.")
+        allowed_regions = tuple(str(region) for region in case_regions)
+        invalid_regions = set(allowed_regions).difference(
+            {"5UTR", "CDS", "3UTR"}
+        )
+        if not allowed_regions or invalid_regions:
+            raise ValueError(
+                "case_regions must contain one or more of 5UTR, CDS, 3UTR."
+            )
+        hit_effects = hit_effects[
+            hit_effects["Region"].astype(str).isin(allowed_regions)
+        ].copy()
+        if hit_effects.empty:
+            return pd.DataFrame()
         group_summary = (
             hit_effects.groupby(["RBP_Name", "Region"], observed=True)
             .agg(
@@ -1692,12 +1717,18 @@ def summarize_rbp_motif_effects(
     ).reset_index(drop=True)
 
 
-def _window_kmers(sequence: str, k: int) -> set:
+def _peak_overlapping_kmers(sequence: str, k: int, peak_offset: int) -> set:
+    """Return valid k-mers whose span contains the nominated peak base."""
     sequence = str(sequence).upper().replace("U", "T")
+    peak_offset = int(peak_offset)
+    first_start = max(0, peak_offset - k + 1)
+    last_start = min(peak_offset, len(sequence) - k)
+    if first_start > last_start:
+        return set()
     return {
-        sequence[index:index + k]
-        for index in range(len(sequence) - k + 1)
-        if set(sequence[index:index + k]).issubset(BASE_TO_INDEX)
+        sequence[start:start + k]
+        for start in range(first_start, last_start + 1)
+        if set(sequence[start:start + k]).issubset(BASE_TO_INDEX)
     }
 
 
@@ -1744,16 +1775,17 @@ def extract_signed_translation_attribution_windows(
     num_transcripts: Optional[int] = 500,
     peaks_per_direction: int = 1,
     window_radius: int = 10,
-    cds_skip_codons: int = 5,
+    target_regions: Sequence[str] = ("5UTR", "3UTR"),
+    cds_skip_codons: int = 0,
     random_state: int = 42,
     eps: float = 1e-8,
 ) -> pd.DataFrame:
-    """Extract signed input-gradient peaks for predicted CDS translation.
+    """Extract signed UTR input-gradient peaks for predicted CDS translation.
 
-    The target is log mean frame-0 CDS signal. Positive native-base gradients
-    nominate sequence positions that locally support the target; negative
-    gradients nominate positions that locally suppress it. This first-order
-    attribution is intended for de novo candidate generation, not causal proof.
+    The target is the log full-nucleotide CDS mean. Positive native-base
+    gradients nominate sequence positions that locally support the target;
+    negative gradients nominate positions that locally suppress it. This
+    first-order attribution is intended for candidate generation, not proof.
     """
     base_model = unwrap_model(model)
     if not isinstance(base_model, BaseModel):
@@ -1764,6 +1796,14 @@ def extract_signed_translation_attribution_windows(
         raise ValueError("prediction_scale must be 'log1p' or 'linear'.")
     if peaks_per_direction < 1 or window_radius < 1 or cds_skip_codons < 0:
         raise ValueError("Invalid attribution-window parameters.")
+    target_regions = tuple(str(region) for region in target_regions)
+    invalid_regions = set(target_regions).difference(
+        {"5UTR", "CDS", "3UTR"}
+    )
+    if not target_regions or invalid_regions:
+        raise ValueError(
+            "target_regions must contain one or more of 5UTR, CDS, 3UTR."
+        )
     device = _model_device(base_model)
     rng = np.random.default_rng(random_state)
     tids = np.asarray(list(samples), dtype=object)
@@ -1807,8 +1847,7 @@ def extract_signed_translation_attribution_windows(
             if cds_start >= cds_end:
                 continue
             target = torch.log(
-                torch.clamp(profile[cds_start:cds_end:3], min=0).mean()
-                + eps
+                torch.clamp(profile[cds_start:cds_end], min=0).mean() + eps
             )
             base_model.zero_grad(set_to_none=True)
             target.backward()
@@ -1817,13 +1856,21 @@ def extract_signed_translation_attribution_windows(
         native_scores = gradient[
             np.arange(len(native_indices)), native_indices
         ]
-        valid = np.asarray([
-            position
-            for position in range(window_radius, len(sequence) - window_radius)
-            if "N" not in sequence[
-                position - window_radius:position + window_radius + 1
-            ]
-        ], dtype=int)
+        valid_positions = []
+        for region in target_regions:
+            region_start, region_end = _region_bounds(sample, region)
+            first = max(region_start + window_radius, window_radius)
+            last = min(
+                region_end - window_radius,
+                len(sequence) - window_radius,
+            )
+            for position in range(first, last):
+                context = sequence[
+                    position - window_radius:position + window_radius + 1
+                ]
+                if "N" not in context:
+                    valid_positions.append(position)
+        valid = np.asarray(sorted(set(valid_positions)), dtype=int)
         for direction in ("Positive", "Negative"):
             peak_positions = _select_signed_peaks(
                 native_scores,
@@ -1845,13 +1892,14 @@ def extract_signed_translation_attribution_windows(
                     "Context_Start": context_start,
                     "Context_End": context_end,
                     "Context_Sequence": sequence[context_start:context_end],
+                    "Peak_Offset": position - context_start,
                     "Native_Base": sequence[position],
                 })
         sequence_tensor.grad = None
     return pd.DataFrame(records, columns=[
         "Tid", "Cell_Type", "Region", "Absolute_Position",
         "Attribution_Direction", "Signed_Attribution", "Context_Start",
-        "Context_End", "Context_Sequence", "Native_Base",
+        "Context_End", "Context_Sequence", "Peak_Offset", "Native_Base",
     ])
 
 
@@ -1860,15 +1908,25 @@ def discover_de_novo_translation_motifs(
     sequence_col: str = "Context_Sequence",
     effect_col: str = "Delta_Log2_TE",
     unit_col: str = "Tid",
+    region_col: str = "Region",
+    peak_offset_col: str = "Peak_Offset",
+    discovery_regions: Sequence[str] = ("5UTR", "3UTR"),
     k_values: Sequence[int] = (5, 6, 7, 8),
     extreme_quantile: float = 0.75,
     neutral_quantile: float = 0.40,
     min_foreground_occurrences: int = 5,
     top_n_per_direction: int = 10,
-    logo_flank: int = 3,
+    logo_flank: int = 10,
 ) -> Tuple[pd.DataFrame, Dict[str, Sequence[str]]]:
-    """Discover k-mers enriched in signed-effect contexts versus neutral ones."""
-    required = {sequence_col, effect_col, unit_col}
+    """Discover non-redundant UTR motifs against region-matched backgrounds.
+
+    Positive and negative foregrounds are contrasted only with neutral windows
+    from the same RNA region. Nested exact k-mers are connected into clusters;
+    one statistically strongest representative per cluster is retained. Logo
+    alignments remain centered on the attribution peak rather than on the first
+    occurrence of the representative k-mer.
+    """
+    required = {sequence_col, effect_col, unit_col, region_col}
     missing = required.difference(sequence_effects.columns)
     if missing:
         raise ValueError(
@@ -1878,94 +1936,211 @@ def discover_de_novo_translation_motifs(
         raise ValueError("extreme_quantile must be within [0.5, 1).")
     if not 0 < neutral_quantile < 1:
         raise ValueError("neutral_quantile must be within (0, 1).")
-    working = sequence_effects[[unit_col, sequence_col, effect_col]].copy()
+    if logo_flank < 1:
+        raise ValueError("logo_flank must be positive.")
+    discovery_regions = tuple(str(region) for region in discovery_regions)
+    invalid_regions = set(discovery_regions).difference(
+        {"5UTR", "CDS", "3UTR"}
+    )
+    if not discovery_regions or invalid_regions:
+        raise ValueError(
+            "discovery_regions must contain one or more of 5UTR, CDS, 3UTR."
+        )
+    selected_columns = [unit_col, sequence_col, effect_col, region_col]
+    if peak_offset_col in sequence_effects.columns:
+        selected_columns.append(peak_offset_col)
+    working = sequence_effects[selected_columns].copy()
     working = working.replace([np.inf, -np.inf], np.nan).dropna()
+    working = working[
+        working[region_col].astype(str).isin(discovery_regions)
+    ].copy()
     working = working.loc[
-        working.groupby(unit_col, observed=True)[effect_col]
+        working.groupby([region_col, unit_col], observed=True)[effect_col]
         .transform(lambda values: values.abs() == values.abs().max())
-    ].drop_duplicates(unit_col)
+    ].drop_duplicates([region_col, unit_col])
     if len(working) < 2 * min_foreground_occurrences:
-        return pd.DataFrame(), {}
-    positive_values = working.loc[working[effect_col] > 0, effect_col]
-    negative_values = working.loc[working[effect_col] < 0, effect_col]
-    neutral_cutoff = working[effect_col].abs().quantile(neutral_quantile)
-    background = working[working[effect_col].abs() <= neutral_cutoff]
-    direction_sets = {}
-    if len(positive_values) >= min_foreground_occurrences:
-        cutoff = positive_values.quantile(extreme_quantile)
-        direction_sets["Positive"] = working[working[effect_col] >= cutoff]
-    if len(negative_values) >= min_foreground_occurrences:
-        cutoff = negative_values.quantile(1 - extreme_quantile)
-        direction_sets["Negative"] = working[working[effect_col] <= cutoff]
-    if len(background) < min_foreground_occurrences or not direction_sets:
         return pd.DataFrame(), {}
 
     records = []
-    foreground_sequences = {}
-    for direction, foreground in direction_sets.items():
-        foreground_sequences[direction] = foreground[sequence_col].astype(str).tolist()
-        for k in k_values:
-            if k < 3:
-                raise ValueError("All k-mer lengths must be at least 3.")
-            fg_sets = [_window_kmers(sequence, k) for sequence in foreground_sequences[direction]]
-            bg_sets = [
-                _window_kmers(sequence, k)
-                for sequence in background[sequence_col].astype(str)
+    foreground_tables = {}
+    for region, region_df in working.groupby(region_col, observed=True):
+        neutral_cutoff = region_df[effect_col].abs().quantile(neutral_quantile)
+        background = region_df[region_df[effect_col].abs() <= neutral_cutoff]
+        if len(background) < min_foreground_occurrences:
+            continue
+        direction_sets = {}
+        positive_values = region_df.loc[region_df[effect_col] > 0, effect_col]
+        negative_values = region_df.loc[region_df[effect_col] < 0, effect_col]
+        if len(positive_values) >= min_foreground_occurrences:
+            cutoff = positive_values.quantile(extreme_quantile)
+            direction_sets["Positive"] = region_df[
+                region_df[effect_col] >= cutoff
             ]
-            candidates = set().union(*fg_sets) if fg_sets else set()
-            for kmer in candidates:
-                fg_hit = sum(kmer in values for values in fg_sets)
-                if fg_hit < min_foreground_occurrences:
-                    continue
-                bg_hit = sum(kmer in values for values in bg_sets)
-                table = [
-                    [fg_hit, len(fg_sets) - fg_hit],
-                    [bg_hit, len(bg_sets) - bg_hit],
+        if len(negative_values) >= min_foreground_occurrences:
+            cutoff = negative_values.quantile(1 - extreme_quantile)
+            direction_sets["Negative"] = region_df[
+                region_df[effect_col] <= cutoff
+            ]
+        for direction, foreground in direction_sets.items():
+            foreground_tables[(str(region), direction)] = foreground.copy()
+            for k in k_values:
+                if k < 3:
+                    raise ValueError("All k-mer lengths must be at least 3.")
+                fg_sets = [
+                    _peak_overlapping_kmers(
+                        row[sequence_col],
+                        k,
+                        row.get(
+                            peak_offset_col,
+                            len(str(row[sequence_col])) // 2,
+                        ),
+                    )
+                    for _, row in foreground.iterrows()
                 ]
-                odds_ratio, p_value = fisher_exact(table, alternative="greater")
-                fg_rate = fg_hit / len(fg_sets)
-                bg_rate = bg_hit / len(bg_sets)
-                records.append({
-                    "Direction": direction,
-                    "Kmer": kmer,
-                    "K": k,
-                    "Foreground_Hits": fg_hit,
-                    "Foreground_N": len(fg_sets),
-                    "Background_Hits": bg_hit,
-                    "Background_N": len(bg_sets),
-                    "Foreground_Rate": fg_rate,
-                    "Background_Rate": bg_rate,
-                    "Log2_Enrichment": float(np.log2(
-                        (fg_rate + 0.5 / len(fg_sets))
-                        / (bg_rate + 0.5 / len(bg_sets))
-                    )),
-                    "Odds_Ratio": float(odds_ratio),
-                    "P_Value": float(p_value),
-                })
+                bg_sets = [
+                    _peak_overlapping_kmers(
+                        row[sequence_col],
+                        k,
+                        row.get(
+                            peak_offset_col,
+                            len(str(row[sequence_col])) // 2,
+                        ),
+                    )
+                    for _, row in background.iterrows()
+                ]
+                candidates = set().union(*fg_sets) if fg_sets else set()
+                for kmer in candidates:
+                    fg_hit = sum(kmer in values for values in fg_sets)
+                    if fg_hit < min_foreground_occurrences:
+                        continue
+                    bg_hit = sum(kmer in values for values in bg_sets)
+                    table = [
+                        [fg_hit, len(fg_sets) - fg_hit],
+                        [bg_hit, len(bg_sets) - bg_hit],
+                    ]
+                    odds_ratio, p_value = fisher_exact(
+                        table, alternative="greater"
+                    )
+                    fg_rate = fg_hit / len(fg_sets)
+                    bg_rate = bg_hit / len(bg_sets)
+                    records.append({
+                        "Region": str(region),
+                        "Direction": direction,
+                        "Kmer": kmer,
+                        "K": k,
+                        "Foreground_Hits": fg_hit,
+                        "Foreground_N": len(fg_sets),
+                        "Background_Hits": bg_hit,
+                        "Background_N": len(bg_sets),
+                        "Foreground_Rate": fg_rate,
+                        "Background_Rate": bg_rate,
+                        "Log2_Enrichment": float(np.log2(
+                            (fg_rate + 0.5 / len(fg_sets))
+                            / (bg_rate + 0.5 / len(bg_sets))
+                        )),
+                        "Odds_Ratio": float(odds_ratio),
+                        "P_Value": float(p_value),
+                        "Background_Matching": "same_region_neutral_windows",
+                    })
     results = pd.DataFrame(records)
     if results.empty:
         return results, {}
-    results["FDR_BH"] = _benjamini_hochberg(results["P_Value"])
+    results["FDR_BH"] = results.groupby(
+        ["Region", "Direction"], observed=True
+    )["P_Value"].transform(_benjamini_hochberg)
+
+    cluster_ids = pd.Series(index=results.index, dtype=object)
+    cluster_sizes = pd.Series(index=results.index, dtype=int)
+    representative_flags = pd.Series(False, index=results.index, dtype=bool)
+    parent_motifs = pd.Series(index=results.index, dtype=object)
+    cluster_members = pd.Series(index=results.index, dtype=object)
+    next_cluster = 1
+    for (region, direction), group in results.groupby(
+        ["Region", "Direction"], observed=True
+    ):
+        indices = list(group.index)
+        parents = {index: index for index in indices}
+
+        def find(index):
+            while parents[index] != index:
+                parents[index] = parents[parents[index]]
+                index = parents[index]
+            return index
+
+        def union(left, right):
+            left_root, right_root = find(left), find(right)
+            if left_root != right_root:
+                parents[right_root] = left_root
+
+        for left_pos, left_index in enumerate(indices):
+            left_kmer = str(results.at[left_index, "Kmer"])
+            for right_index in indices[left_pos + 1:]:
+                right_kmer = str(results.at[right_index, "Kmer"])
+                if left_kmer in right_kmer or right_kmer in left_kmer:
+                    union(left_index, right_index)
+        components = defaultdict(list)
+        for index in indices:
+            components[find(index)].append(index)
+        for component in components.values():
+            ranked = results.loc[component].sort_values(
+                ["FDR_BH", "Log2_Enrichment", "Foreground_Hits", "K"],
+                ascending=[True, False, False, False],
+            )
+            representative = ranked.index[0]
+            cluster_label = f"M{next_cluster:04d}"
+            next_cluster += 1
+            cluster_ids.loc[component] = cluster_label
+            cluster_sizes.loc[component] = len(component)
+            representative_flags.loc[representative] = True
+            parent_motifs.loc[component] = results.at[representative, "Kmer"]
+            member_text = ",".join(sorted(
+                results.loc[component, "Kmer"].astype(str).unique(),
+                key=lambda value: (len(value), value),
+            ))
+            cluster_members.loc[component] = member_text
+    results["Motif_Cluster"] = cluster_ids
+    results["Cluster_Size"] = cluster_sizes.astype(int)
+    results["Is_Cluster_Representative"] = representative_flags
+    results["Cluster_Representative_Kmer"] = parent_motifs
+    results["Cluster_Members"] = cluster_members
     results = results.sort_values(
-        ["Direction", "FDR_BH", "Log2_Enrichment"],
-        ascending=[True, True, False],
+        ["Region", "Direction", "FDR_BH", "Log2_Enrichment"],
+        ascending=[True, True, True, False],
     )
-    results = results.groupby("Direction", observed=True).head(
-        top_n_per_direction
-    ).reset_index(drop=True)
+    results = results[results["Is_Cluster_Representative"]].groupby(
+        ["Region", "Direction"], observed=True
+    ).head(top_n_per_direction).reset_index(drop=True)
 
     alignments: Dict[str, Sequence[str]] = {}
     for row in results.itertuples(index=False):
         aligned = []
-        for sequence in foreground_sequences[row.Direction]:
-            position = sequence.find(row.Kmer)
-            if position < logo_flank:
+        foreground = foreground_tables[(row.Region, row.Direction)]
+        for foreground_row in foreground.itertuples(index=False):
+            sequence = str(getattr(foreground_row, sequence_col))
+            if row.Kmer not in sequence:
                 continue
-            end = position + len(row.Kmer) + logo_flank
-            if end > len(sequence):
-                continue
-            aligned.append(sequence[position - logo_flank:end])
-        alignments[f"{row.Direction}|{row.Kmer}"] = aligned
+            peak_offset = (
+                int(getattr(foreground_row, peak_offset_col))
+                if peak_offset_col in foreground.columns
+                else len(sequence) // 2
+            )
+            start = max(0, peak_offset - logo_flank)
+            end = min(len(sequence), peak_offset + logo_flank + 1)
+            if end - start == 2 * logo_flank + 1:
+                aligned.append(sequence[start:end])
+        alignments[f"{row.Region}|{row.Direction}|{row.Kmer}"] = aligned
+        results.loc[
+            (results["Region"] == row.Region)
+            & (results["Direction"] == row.Direction)
+            & (results["Kmer"] == row.Kmer),
+            "Logo_Center_Offset",
+        ] = logo_flank
+        results.loc[
+            (results["Region"] == row.Region)
+            & (results["Direction"] == row.Direction)
+            & (results["Kmer"] == row.Kmer),
+            "Logo_Alignment",
+        ] = "attribution_peak_centered"
     return results, alignments
 
 
@@ -1992,9 +2167,11 @@ def run_rbp_translation_effect_analysis(
     batch_size: int = 32,
     min_transcripts: int = 5,
     n_cases_per_direction: int = 3,
+    case_regions: Sequence[str] = ("5UTR", "3UTR"),
     de_novo_source: str = "signed_attribution",
     de_novo_num_transcripts: Optional[int] = 500,
     de_novo_peaks_per_direction: int = 1,
+    de_novo_regions: Sequence[str] = ("5UTR", "3UTR"),
     position_bin_size: int = 20,
     position_utr5_length: int = 300,
     position_cds_length: int = 600,
@@ -2107,6 +2284,7 @@ def run_rbp_translation_effect_analysis(
             min_case_transcripts=min_transcripts,
             context_flank=context_flank,
             batch_size=batch_size,
+            case_regions=case_regions,
         )
     if de_novo_source == "signed_attribution":
         attribution_windows = extract_signed_translation_attribution_windows(
@@ -2116,6 +2294,7 @@ def run_rbp_translation_effect_analysis(
             num_transcripts=de_novo_num_transcripts,
             peaks_per_direction=de_novo_peaks_per_direction,
             window_radius=context_flank,
+            target_regions=de_novo_regions,
             random_state=random_state,
         )
         de_novo, alignments = discover_de_novo_translation_motifs(
@@ -2123,6 +2302,9 @@ def run_rbp_translation_effect_analysis(
             sequence_col="Context_Sequence",
             effect_col="Signed_Attribution",
             unit_col="Tid",
+            region_col="Region",
+            peak_offset_col="Peak_Offset",
+            discovery_regions=de_novo_regions,
         )
     elif de_novo_source == "known_hit_context":
         attribution_windows = pd.DataFrame()
@@ -2134,6 +2316,8 @@ def run_rbp_translation_effect_analysis(
                 sequence_col="Context_Sequence",
                 effect_col="Delta_Log2_TE",
                 unit_col="Tid",
+                region_col="Region",
+                discovery_regions=de_novo_regions,
             )
     else:
         raise ValueError(

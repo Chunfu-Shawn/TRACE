@@ -203,6 +203,7 @@ class RBPTranslationEffectTests(unittest.TestCase):
             "PWM_Length": 3,
         }])
         de_novo = pd.DataFrame([{
+            "Region": "5UTR",
             "Direction": "Positive",
             "Kmer": "AAA",
         }])
@@ -403,14 +404,18 @@ class RBPTranslationEffectTests(unittest.TestCase):
         for index in range(8):
             rows.append({
                 "Tid": f"P{index}",
+                "Region": "5UTR",
                 "Context_Sequence": f"CCCAAAT{index % 4}".replace("0", "A")
                 .replace("1", "C").replace("2", "G").replace("3", "T"),
+                "Peak_Offset": 3,
                 "Delta_Log2_TE": 0.8,
             })
         for index in range(10):
             rows.append({
                 "Tid": f"B{index}",
+                "Region": "5UTR",
                 "Context_Sequence": "CCCGGGT",
+                "Peak_Offset": 3,
                 "Delta_Log2_TE": 0.01,
             })
         results, alignments = discover_de_novo_translation_motifs(
@@ -422,7 +427,8 @@ class RBPTranslationEffectTests(unittest.TestCase):
         )
 
         self.assertIn("AAA", set(results["Kmer"]))
-        self.assertIn("Positive|AAA", alignments)
+        self.assertIn("5UTR|Positive|AAA", alignments)
+        self.assertTrue(results["Is_Cluster_Representative"].all())
 
 
 if __name__ == "__main__":

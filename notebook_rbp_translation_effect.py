@@ -66,9 +66,11 @@ results = run_rbp_translation_effect_analysis(
     batch_size=32,
     min_transcripts=5,
     n_cases_per_direction=3,
+    case_regions=("5UTR", "3UTR"),
     de_novo_source="signed_attribution",
     de_novo_num_transcripts=500,
     de_novo_peaks_per_direction=1,
+    de_novo_regions=("5UTR", "3UTR"),
     position_bin_size=20,
     position_utr5_length=300,
     position_cds_length=600,
@@ -145,5 +147,9 @@ for profile_key, filename in [
         value_col="Log2_Positional_Enrichment",
         width=7.2,
         row_height=0.07,
+        layout=(
+            "combined" if profile_key == "known_rbp_position_profiles"
+            else "regional_pages"
+        ),
     )
 """

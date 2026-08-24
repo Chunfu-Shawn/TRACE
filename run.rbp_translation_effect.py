@@ -405,6 +405,13 @@ def build_parser() -> argparse.ArgumentParser:
     statistics.add_argument("--confidence-level", type=float, default=0.95)
     statistics.add_argument("--n-cases-per-direction", type=int, default=3)
     statistics.add_argument(
+        "--case-regions",
+        nargs="+",
+        choices=["5UTR", "CDS", "3UTR"],
+        default=["5UTR", "3UTR"],
+        help="Regions eligible for representative nucleotide-contribution cases.",
+    )
+    statistics.add_argument(
         "--de-novo-source",
         choices=["signed_attribution", "known_hit_context"],
         default="signed_attribution",
@@ -416,7 +423,14 @@ def build_parser() -> argparse.ArgumentParser:
     statistics.add_argument("--de-novo-neutral-quantile", type=float, default=0.40)
     statistics.add_argument("--de-novo-min-occurrences", type=int, default=5)
     statistics.add_argument("--de-novo-top-n-per-direction", type=int, default=10)
-    statistics.add_argument("--de-novo-logo-flank", type=int, default=3)
+    statistics.add_argument("--de-novo-logo-flank", type=int, default=10)
+    statistics.add_argument(
+        "--de-novo-regions",
+        nargs="+",
+        choices=["5UTR", "CDS", "3UTR"],
+        default=["5UTR", "3UTR"],
+        help="Regions used for attribution peaks and region-matched discovery.",
+    )
 
     plotting = parser.add_argument_group("PDF plotting")
     plotting.add_argument("--skip-plots", action="store_true")
@@ -466,6 +480,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Optional[list[str]] = None) -> int:
     """Execute all requested stages with resumable checkpoints."""
     args = build_parser().parse_args(argv)
+    if args.de_novo_logo_flank < 1:
+        raise ValueError("--de-novo-logo-flank must be positive.")
+    if args.de_novo_logo_flank > args.context_flank:
+        raise ValueError(
+            "--de-novo-logo-flank cannot exceed --context-flank for "
+            "peak-centered logos."
+        )
     out_dir = Path(args.out_dir).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     cache = StageCache(
@@ -722,6 +743,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             "min_transcripts": args.min_transcripts,
             "context_flank": args.context_flank,
             "batch_size": args.batch_size,
+            "case_regions": args.case_regions,
         },
         dependencies=("effects", "samples", "validate_pwms"),
     )
@@ -744,6 +766,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 min_case_transcripts=args.min_transcripts,
                 context_flank=args.context_flank,
                 batch_size=args.batch_size,
+                case_regions=args.case_regions,
             )
         cache.save("cases", cases_signature, contributions)
         _atomic_csv(
@@ -763,6 +786,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             "num_transcripts": args.de_novo_num_transcripts,
             "peaks_per_direction": args.de_novo_peaks_per_direction,
             "window_radius": args.context_flank,
+            "target_regions": args.de_novo_regions,
+            "target_signal": "full_cds_nucleotide_mean_v2",
             "random_state": args.random_state,
         },
         dependencies=("samples",),
@@ -779,6 +804,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 num_transcripts=args.de_novo_num_transcripts,
                 peaks_per_direction=args.de_novo_peaks_per_direction,
                 window_radius=args.context_flank,
+                target_regions=args.de_novo_regions,
                 random_state=args.random_state,
             )
         else:
@@ -809,6 +835,10 @@ def main(argv: Optional[list[str]] = None) -> int:
             "min_occurrences": args.de_novo_min_occurrences,
             "top_n": args.de_novo_top_n_per_direction,
             "logo_flank": args.de_novo_logo_flank,
+            "discovery_regions": args.de_novo_regions,
+            "background_matching": "same_region_neutral_windows_v2",
+            "nested_motif_clustering": "exact_containment_v1",
+            "logo_alignment": "attribution_peak_centered_v1",
         },
         dependencies=(de_novo_dependency,),
     )
@@ -833,6 +863,9 @@ def main(argv: Optional[list[str]] = None) -> int:
                     else "Delta_Log2_TE"
                 ),
                 unit_col="Tid",
+                region_col="Region",
+                peak_offset_col="Peak_Offset",
+                discovery_regions=args.de_novo_regions,
                 k_values=args.de_novo_k,
                 extreme_quantile=args.de_novo_extreme_quantile,
                 neutral_quantile=args.de_novo_neutral_quantile,
@@ -864,6 +897,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             "rbp_scope": args.position_rbp_scope,
             "pseudocount": args.position_pseudocount,
             "position_normalization": "full_transcript_opportunity_v2",
+            "de_novo_utr_only": args.de_novo_regions,
         },
         dependencies=("samples", "hits", "summary", "de_novo"),
     )
@@ -925,7 +959,9 @@ def main(argv: Optional[list[str]] = None) -> int:
             "position_row_height": args.position_row_height,
             "position_value_col": "Log2_Positional_Enrichment",
             "regional_multipage_layout": True,
-            "plot_schema_version": 2,
+            "known_rbp_layout": "combined_all_regions_per_rbp",
+            "de_novo_logo_layout": "peak_centered_region_matched",
+            "plot_schema_version": 3,
             "format": "pdf_only",
         },
         dependencies=("summary", "cases", "de_novo", "positions"),
@@ -991,6 +1027,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                         value_col="Log2_Positional_Enrichment",
                         width=args.position_heatmap_width,
                         row_height=args.position_row_height,
+                        layout="combined",
                     ))
                 except ValueError as error:
                     plot_notes.append(f"Known-RBP position heatmap skipped: {error}")
@@ -1007,6 +1044,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                         value_col="Log2_Positional_Enrichment",
                         width=args.position_heatmap_width,
                         row_height=args.position_row_height,
+                        layout="regional_pages",
                     ))
                 except ValueError as error:
                     plot_notes.append(f"De novo position heatmap skipped: {error}")

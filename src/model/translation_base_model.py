@@ -373,6 +373,15 @@ class TranslationBaseModel(nn.Module):
         if dtype is not None:
             tensor = tensor.type(dtype)
         return tensor
+
+    def _make_zero_count_batch(self, seq_batch: torch.Tensor) -> torch.Tensor:
+        """Create the internal zero RPF channel used by sequence-only inference."""
+        if seq_batch.dim() < 2:
+            raise ValueError(
+                "seq_batch must include sequence and feature dimensions before "
+                "creating the zero count channel"
+            )
+        return seq_batch.new_zeros((*seq_batch.shape[:-1], self.d_count))
     
     def _normalize_model_inputs(
         self,
@@ -399,14 +408,7 @@ class TranslationBaseModel(nn.Module):
 
         # Generate a zero RPF channel for sequence-only inference.
         if count_batch is None:
-            shape = list(seq_batch.shape)
-            d_count = getattr(self, 'd_count', 1)
-            shape[-1] = d_count
-            count_batch = torch.zeros(
-                shape,
-                dtype=seq_batch.dtype,
-                device=seq_batch.device,
-            )
+            count_batch = self._make_zero_count_batch(seq_batch)
 
         # if count_batch is not None
         if not isinstance(count_batch, torch.Tensor):
@@ -588,9 +590,7 @@ class TranslationBaseModel(nn.Module):
         if seq_batch.dim() != 3:
             raise ValueError(f"seq_batch must have dim==3 (bs, seq_len, d_seq). Got shape {tuple(seq_batch.shape)}")
         if count_batch is None:
-            count_batch = seq_batch.new_zeros(
-                (seq_batch.shape[0], seq_batch.shape[1], self.d_count)
-            )
+            count_batch = self._make_zero_count_batch(seq_batch)
         elif not isinstance(count_batch, torch.Tensor):
             raise TypeError("forward() expects count_batch as torch.Tensor when provided. Use predict() for flexible inputs.")
         if count_batch.dim() != 3:

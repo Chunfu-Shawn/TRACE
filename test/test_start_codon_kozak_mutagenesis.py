@@ -37,24 +37,14 @@ from eval.start_codon_kozak_mutagenesis import (
     mutate_cds_start_context,
     plot_kozak_mutagenesis_results,
 )
-from model.base_model import BaseModel
+from model.prediction_heads import PsiteDensityHead
+from model.translation_base_model import TranslationBaseModel
 
 
-class SequenceSensitiveBaseModel(BaseModel):
+class SequenceSensitiveModel(torch.nn.Module):
     def __init__(self):
-        super().__init__(
-            d_seq=4,
-            d_model=8,
-            d_expr=3,
-            d_cell_env=4,
-            all_species=["human"],
-            d_species=2,
-            n_heads=2,
-            number_of_layers=1,
-            d_ff=16,
-            adaptive_dim=4,
-            p_drop=0.0,
-        )
+        super().__init__()
+        self.anchor = torch.nn.Parameter(torch.zeros(()))
 
     def predict(self, **kwargs):
         sequence = kwargs["seq_batch"]
@@ -79,6 +69,80 @@ def _make_dataset():
 
 
 class KozakMutagenesisTests(unittest.TestCase):
+    def test_translation_model_uses_zero_count_when_omitted(self):
+        model = TranslationBaseModel(
+            d_seq=4,
+            d_count=1,
+            d_model=8,
+            d_expr=3,
+            d_cell_env=4,
+            all_species=["human"],
+            d_species=2,
+            n_heads=2,
+            number_of_layers=1,
+            d_ff=16,
+            adaptive_dim=4,
+            p_drop=0.0,
+        ).eval()
+        sequence = torch.nn.functional.one_hot(
+            torch.arange(18).reshape(2, 9) % 4,
+            num_classes=4,
+        ).float()
+        expression = torch.zeros(2, 3)
+        mask = torch.ones(2, 9, dtype=torch.bool)
+
+        implicit = model(
+            seq_batch=sequence,
+            expr_vector=expression,
+            species=["human", "human"],
+            src_mask=mask,
+        )
+        explicit = model(
+            seq_batch=sequence,
+            count_batch=torch.zeros(2, 9, 1),
+            expr_vector=expression,
+            species=["human", "human"],
+            src_mask=mask,
+        )
+
+        torch.testing.assert_close(implicit, explicit)
+
+    def test_evaluator_accepts_translation_model_without_count_input(self):
+        model = TranslationBaseModel(
+            d_seq=4,
+            d_count=1,
+            d_model=8,
+            d_expr=3,
+            d_cell_env=4,
+            all_species=["human"],
+            d_species=2,
+            n_heads=2,
+            number_of_layers=1,
+            d_ff=16,
+            adaptive_dim=4,
+            p_drop=0.0,
+        )
+        model.add_head(
+            "count",
+            PsiteDensityHead.create_from_model(
+                model,
+                d_count=1,
+                d_pred_h=8,
+                p_drop=0.0,
+            ),
+            overwrite=True,
+            move_to_model_device=False,
+        )
+        samples = collect_kozak_mutagenesis_samples(_make_dataset())
+        evaluator = KozakMutagenesisEvaluator(
+            model,
+            prediction_scale="linear",
+        )
+
+        results = evaluator.evaluate(samples, batch_size=16, save_csv=False)
+
+        self.assertEqual(len(results), 4 * len(KOZAK_CONTEXT_ORDER))
+
     def test_mutation_changes_only_codon_and_critical_context(self):
         original = np.zeros((60, 4), dtype=np.float32)
         original[:, 0] = 1.0
@@ -107,7 +171,7 @@ class KozakMutagenesisTests(unittest.TestCase):
 
     def test_evaluator_builds_complete_matched_design(self):
         samples = collect_kozak_mutagenesis_samples(_make_dataset())
-        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveBaseModel())
+        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveModel())
         results = evaluator.evaluate(
             samples,
             batch_size=8,
@@ -121,7 +185,7 @@ class KozakMutagenesisTests(unittest.TestCase):
 
     def test_plotting_writes_pdf_only(self):
         samples = collect_kozak_mutagenesis_samples(_make_dataset())
-        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveBaseModel())
+        evaluator = KozakMutagenesisEvaluator(SequenceSensitiveModel())
         results = evaluator.evaluate(samples, batch_size=16, save_csv=False)
 
         with TemporaryDirectory() as temporary_directory:

@@ -29,7 +29,6 @@ from eval.save_prediction_results import (
     _extract_head_tensor,
     _model_device,
 )
-from model.base_model import BaseModel
 from utils import unwrap_model
 
 
@@ -340,7 +339,7 @@ def _mean_frame_signal(
 
 
 class KozakMutagenesisEvaluator:
-    """Run matched Kozak/start-codon perturbations with a TRACE BaseModel."""
+    """Run matched Kozak/start-codon perturbations with a compatible model."""
 
     def __init__(
         self,
@@ -348,16 +347,16 @@ class KozakMutagenesisEvaluator:
         out_dir: str = ".",
         prediction_scale: str = "log1p",
     ):
-        base_model = unwrap_model(model)
-        if not isinstance(base_model, BaseModel):
+        prediction_model = unwrap_model(model)
+        if not callable(getattr(prediction_model, "predict", None)):
             raise TypeError(
-                "KozakMutagenesisEvaluator requires model.base_model.BaseModel "
-                "or one of its subclasses."
+                "KozakMutagenesisEvaluator requires a model with a callable "
+                "predict() method."
             )
         if prediction_scale not in {"log1p", "linear"}:
             raise ValueError("prediction_scale must be 'log1p' or 'linear'.")
-        self.model = base_model
-        self.device = _model_device(base_model)
+        self.model = prediction_model
+        self.device = _model_device(prediction_model)
         self.out_dir = out_dir
         self.prediction_scale = prediction_scale
 
@@ -387,7 +386,7 @@ class KozakMutagenesisEvaluator:
             profile = _extract_head_tensor(output, "count")
         if profile.ndim != 3 or profile.shape[-1] != 1:
             raise ValueError(
-                "The BaseModel count head must return (batch, length, 1), "
+                "The model count head must return (batch, length, 1), "
                 f"got {tuple(profile.shape)}."
             )
         profile = profile.squeeze(-1).float()

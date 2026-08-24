@@ -89,10 +89,13 @@ def plot_motif_position_preference_heatmap(
         width=7.2,
         row_height=0.07,
         color_limit=None,
-        show_hit_counts=True):
-    """Plot one opportunity-adjusted position heatmap page per RNA region.
+        show_hit_counts=True,
+        layout='regional_pages'):
+    """Plot opportunity-adjusted motif position preferences.
 
-    Every retained feature is screened independently in 5UTR, CDS, and 3UTR.
+    ``combined`` keeps every retained feature on one row and concatenates its
+    5UTR, CDS, and 3UTR preferences. ``regional_pages`` writes one page per
+    region and applies regional hit screening independently.
     Values are log2 bin hit-rate enrichment relative to the feature's full-
     transcript background rate. Both clustering modes use the full within-
     region profile because regions are displayed on separate PDF pages.
@@ -111,6 +114,8 @@ def plot_motif_position_preference_heatmap(
         )
     if cluster_mode not in {'regions', 'full', 'none'}:
         raise ValueError("cluster_mode must be 'regions', 'full', or 'none'.")
+    if layout not in {'combined', 'regional_pages'}:
+        raise ValueError("layout must be 'combined' or 'regional_pages'.")
     if min_total_hits < 1:
         raise ValueError("min_total_hits must be positive.")
 
@@ -147,6 +152,125 @@ def plot_motif_position_preference_heatmap(
         ['#F7FBFF', '#DEEBF7', '#9ECAE1', '#4292C6', '#084594'],
     )
     pdf_path = _as_pdf_path(out_path)
+    if layout == 'combined':
+        total_hits = working.groupby('Feature', observed=True)['Hits'].sum()
+        retained = total_hits[total_hits >= min_total_hits].sort_values(
+            ascending=False
+        )
+        if max_features is not None and int(max_features) > 0:
+            retained = retained.head(int(max_features))
+        combined = working[working['Feature'].isin(retained.index)].copy()
+        if combined.empty:
+            raise ValueError(
+                "No motif has enough total hits for the combined heatmap."
+            )
+        bins = sorted(combined['Global_Bin'].astype(int).unique())
+        matrix = (
+            combined.pivot_table(
+                index='Feature', columns='Global_Bin', values=value_col,
+                aggfunc='mean',
+            )
+            .reindex(index=retained.index, columns=bins)
+            .fillna(0.0)
+        )
+        if len(matrix) > 1 and cluster_mode != 'none':
+            cluster_features = matrix.to_numpy(float)
+            if cluster_mode == 'regions':
+                blocks = []
+                for region in regions:
+                    region_bins = sorted(combined.loc[
+                        combined['Region'] == region, 'Global_Bin'
+                    ].astype(int).unique())
+                    block = matrix.reindex(columns=region_bins).to_numpy(float)
+                    block = block - block.mean(axis=1, keepdims=True)
+                    scale = block.std(axis=1, keepdims=True)
+                    blocks.append(np.divide(
+                        block, scale, out=np.zeros_like(block), where=scale > 0
+                    ))
+                cluster_features = np.concatenate(blocks, axis=1)
+            else:
+                cluster_features = cluster_features - cluster_features.mean(
+                    axis=1, keepdims=True
+                )
+                scale = cluster_features.std(axis=1, keepdims=True)
+                cluster_features = np.divide(
+                    cluster_features,
+                    scale,
+                    out=np.zeros_like(cluster_features),
+                    where=scale > 0,
+                )
+            order = leaves_list(
+                linkage(cluster_features, method='average', metric='euclidean')
+            )
+            matrix = matrix.iloc[order]
+        elif cluster_mode == 'none':
+            dominant = matrix.idxmax(axis=1)
+            matrix = matrix.loc[sorted(
+                matrix.index,
+                key=lambda feature: (dominant.get(feature, np.inf), feature),
+            )]
+
+        n_features, n_bins = matrix.shape
+        height = min(max(3.2, 1.4 + row_height * n_features), 24.0)
+        fig, ax = plt.subplots(figsize=(width, height))
+        image = ax.imshow(
+            matrix.to_numpy(float), aspect='auto', interpolation='nearest',
+            cmap=spatial_blue_cmap, vmin=color_min, vmax=color_max,
+            rasterized=True,
+        )
+        labels = [
+            f"{feature}  (n={int(total_hits.get(feature, 0))})"
+            if show_hit_counts else str(feature)
+            for feature in matrix.index
+        ]
+        ax.set_yticks(np.arange(n_features))
+        ax.set_yticklabels(
+            labels, fontsize=max(3.5, min(6.5, 150 / max(n_features, 1)))
+        )
+        region_ranges = {}
+        for region in regions:
+            region_bins = sorted(combined.loc[
+                combined['Region'] == region, 'Global_Bin'
+            ].astype(int).unique())
+            if region_bins:
+                indices = [bins.index(value) for value in region_bins]
+                region_ranges[region] = (min(indices), max(indices))
+        tick_positions = []
+        tick_labels = []
+        for region in regions:
+            if region not in region_ranges:
+                continue
+            start, end = region_ranges[region]
+            tick_positions.append((start + end) / 2)
+            tick_labels.append(region_labels[region])
+            if region != regions[-1]:
+                ax.axvline(end + 0.5, color='#D62728', linestyle='--', lw=0.8)
+        ax.set_xticks(tick_positions)
+        ax.set_xticklabels(tick_labels)
+        ax.set_xlabel('Metagene region')
+        ax.set_ylabel(ylabel)
+        ax.set_title(
+            'RBP spatial distribution: all regions per RBP'
+            if feature_type == 'Known RBP'
+            else 'De novo motif spatial distribution: all regions per motif',
+            pad=8,
+        )
+        ax.tick_params(axis='both', length=0)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
+        colorbar.set_label(
+            r'$\log_2$ positional enrichment vs. full transcript'
+        )
+        fig.subplots_adjust(left=0.32, right=0.90, bottom=0.07, top=0.96)
+        fig.savefig(pdf_path, bbox_inches='tight')
+        plt.close(fig)
+        print(
+            f"Combined position heatmap: input={working['Feature'].nunique()}, "
+            f"displayed={n_features}."
+        )
+        return pdf_path
+
     pages_written = 0
     with PdfPages(pdf_path) as pdf:
         for region in regions:
@@ -368,7 +492,7 @@ def plot_rbp_translation_effect_summary(
         fdr_threshold=None,
         width=6.2,
         row_height=0.20):
-    """Plot region-specific top positive and negative RBP-motif effects."""
+    """Plot independently mutated regional RBP-motif effects and rankings."""
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
         'CI_Lower', 'CI_Upper', 'FDR_BH', 'Direction',
@@ -445,7 +569,7 @@ def plot_rbp_translation_effect_summary(
             )
             ax.set_ylabel('')
             ax.set_title(
-                f"RBP translation effects: {region_labels[region]} "
+                f"Independently mutated RBP motifs: {region_labels[region]} "
                 f"(top {top_n_per_direction} per direction)"
             )
             ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
@@ -599,7 +723,7 @@ def plot_de_novo_translation_motif_logos(
     import logomaker
 
     required = {
-        'Direction', 'Kmer', 'Foreground_Hits', 'Foreground_N',
+        'Region', 'Direction', 'Kmer', 'Foreground_Hits', 'Foreground_N',
         'Log2_Enrichment', 'FDR_BH',
     }
     missing = required.difference(discovery_df.columns)
@@ -607,18 +731,25 @@ def plot_de_novo_translation_motif_logos(
         raise ValueError(
             f"Discovery table is missing columns: {sorted(missing)}"
         )
+    working = discovery_df.copy()
+    if 'Is_Cluster_Representative' in working.columns:
+        working = working[working['Is_Cluster_Representative'].astype(bool)]
     selected_parts = []
-    for direction in ('Positive', 'Negative'):
-        part = discovery_df[discovery_df['Direction'] == direction]
-        part = part.sort_values(
-            ['FDR_BH', 'Log2_Enrichment'], ascending=[True, False]
-        ).head(top_n_per_direction)
-        selected_parts.append(part)
+    for region in ('5UTR', '3UTR'):
+        for direction in ('Positive', 'Negative'):
+            part = working[
+                (working['Region'] == region)
+                & (working['Direction'] == direction)
+            ]
+            part = part.sort_values(
+                ['FDR_BH', 'Log2_Enrichment'], ascending=[True, False]
+            ).head(top_n_per_direction)
+            selected_parts.append(part)
     selected = pd.concat(selected_parts, ignore_index=True)
     selected = selected[
         selected.apply(
             lambda row: len(alignments.get(
-                f"{row['Direction']}|{row['Kmer']}", []
+                f"{row['Region']}|{row['Direction']}|{row['Kmer']}", []
             )) >= 2,
             axis=1,
         )
@@ -627,27 +758,35 @@ def plot_de_novo_translation_motif_logos(
         raise ValueError("No de novo motif has enough aligned sequences.")
 
     n_columns = min(top_n_per_direction, max(
-        selected.groupby('Direction', observed=True).size()
+        selected.groupby(['Region', 'Direction'], observed=True).size()
     ))
-    directions = [
-        direction for direction in ('Positive', 'Negative')
-        if direction in set(selected['Direction'])
+    panel_groups = [
+        (region, direction)
+        for region in ('5UTR', '3UTR')
+        for direction in ('Positive', 'Negative')
+        if not selected[
+            (selected['Region'] == region)
+            & (selected['Direction'] == direction)
+        ].empty
     ]
     fig, axes = plt.subplots(
-        len(directions), n_columns,
-        figsize=(panel_width * n_columns, panel_height * len(directions)),
+        len(panel_groups), n_columns,
+        figsize=(panel_width * n_columns, panel_height * len(panel_groups)),
         squeeze=False,
     )
     direction_colors = {'Positive': '#C44E52', 'Negative': '#3B6FB6'}
-    for row_index, direction in enumerate(directions):
-        subset = selected[selected['Direction'] == direction].reset_index(drop=True)
+    for row_index, (region, direction) in enumerate(panel_groups):
+        subset = selected[
+            (selected['Region'] == region)
+            & (selected['Direction'] == direction)
+        ].reset_index(drop=True)
         for column_index in range(n_columns):
             ax = axes[row_index, column_index]
             if column_index >= len(subset):
                 ax.axis('off')
                 continue
             record = subset.iloc[column_index]
-            key = f"{direction}|{record['Kmer']}"
+            key = f"{region}|{direction}|{record['Kmer']}"
             sequences = list(alignments[key])
             matrix = logomaker.alignment_to_matrix(
                 sequences=sequences,
@@ -658,16 +797,30 @@ def plot_de_novo_translation_motif_logos(
             )
             logo.style_spines(visible=False)
             logo.style_spines(spines=['left', 'bottom'], visible=True)
+            center = (
+                int(record['Logo_Center_Offset'])
+                if 'Logo_Center_Offset' in record and pd.notna(
+                    record['Logo_Center_Offset']
+                ) else (matrix.shape[0] - 1) // 2
+            )
+            ax.axvline(center, color='#555555', linestyle='--', linewidth=0.7)
+            ax.set_xticks(np.arange(matrix.shape[0]))
+            ax.set_xticklabels(
+                np.arange(matrix.shape[0]) - center, fontsize=6
+            )
             ax.set_title(
-                f"{record['Kmer']} | log2 enrich. "
+                f"{region} | {record['Kmer']} | log2 enrich. "
                 f"{record['Log2_Enrichment']:.2f}\n"
-                f"FDR={record['FDR_BH']:.2g}, n={len(sequences)}",
+                f"FDR={record['FDR_BH']:.2g}, n={len(sequences)}, "
+                f"cluster={record.get('Cluster_Size', 1):g}",
                 fontsize=8,
                 color=direction_colors[direction],
             )
-            ax.set_xlabel('Aligned position')
+            ax.set_xlabel('Position relative to attribution peak (nt)')
             if column_index == 0:
-                ax.set_ylabel(f"{direction}\nInformation (bits)")
+                ax.set_ylabel(
+                    f"{region} {direction}\nInformation (bits)"
+                )
             else:
                 ax.set_ylabel('')
     fig.tight_layout()
