@@ -860,6 +860,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                     width=args.position_heatmap_width,
                     row_height=args.position_row_height,
                     layout="combined",
+                    vector_cells=True,
                 ))
             except ValueError as error:
                 plot_notes.append(

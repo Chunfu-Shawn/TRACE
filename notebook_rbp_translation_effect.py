@@ -185,5 +185,6 @@ for profile_key, filename in [
             "combined" if profile_key == "known_rbp_position_profiles"
             else "regional_pages"
         ),
+        vector_cells=(profile_key == "known_rbp_position_profiles"),
     )
 """

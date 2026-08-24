@@ -90,7 +90,8 @@ def plot_motif_position_preference_heatmap(
         row_height=0.07,
         color_limit=None,
         show_hit_counts=True,
-        layout='regional_pages'):
+        layout='regional_pages',
+        vector_cells=False):
     """Plot opportunity-adjusted motif position preferences.
 
     ``combined`` keeps every retained feature on one row and concatenates its
@@ -99,6 +100,7 @@ def plot_motif_position_preference_heatmap(
     Values are log2 bin hit-rate enrichment relative to the feature's full-
     transcript background rate. Both clustering modes use the full within-
     region profile because regions are displayed on separate PDF pages.
+    Set ``vector_cells=True`` to draw every heatmap cell as a PDF vector path.
     """
     from scipy.cluster.hierarchy import leaves_list, linkage
 
@@ -151,6 +153,36 @@ def plot_motif_position_preference_heatmap(
         'positional_enrichment_blue',
         ['#F7FBFF', '#DEEBF7', '#9ECAE1', '#4292C6', '#084594'],
     )
+
+    def draw_heatmap(ax, values):
+        """Draw vector cells or a compact raster image with identical bounds."""
+        if vector_cells:
+            n_rows, n_columns = values.shape
+            image = ax.pcolormesh(
+                np.arange(n_columns + 1) - 0.5,
+                np.arange(n_rows + 1) - 0.5,
+                values,
+                shading='flat',
+                cmap=spatial_blue_cmap,
+                vmin=color_min,
+                vmax=color_max,
+                linewidth=0,
+                antialiased=False,
+                rasterized=False,
+            )
+            ax.set_xlim(-0.5, n_columns - 0.5)
+            ax.set_ylim(n_rows - 0.5, -0.5)
+            return image
+        return ax.imshow(
+            values,
+            aspect='auto',
+            interpolation='nearest',
+            cmap=spatial_blue_cmap,
+            vmin=color_min,
+            vmax=color_max,
+            rasterized=True,
+        )
+
     pdf_path = _as_pdf_path(out_path)
     if layout == 'combined':
         total_hits = working.groupby('Feature', observed=True)['Hits'].sum()
@@ -213,11 +245,7 @@ def plot_motif_position_preference_heatmap(
         n_features, n_bins = matrix.shape
         height = min(max(3.2, 1.4 + row_height * n_features), 24.0)
         fig, ax = plt.subplots(figsize=(width, height))
-        image = ax.imshow(
-            matrix.to_numpy(float), aspect='auto', interpolation='nearest',
-            cmap=spatial_blue_cmap, vmin=color_min, vmax=color_max,
-            rasterized=True,
-        )
+        image = draw_heatmap(ax, matrix.to_numpy(float))
         labels = [
             f"{feature}  (n={int(total_hits.get(feature, 0))})"
             if show_hit_counts else str(feature)
@@ -322,15 +350,7 @@ def plot_motif_position_preference_heatmap(
             n_features, n_bins = matrix.shape
             height = min(max(3.2, 1.4 + row_height * n_features), 24.0)
             fig, ax = plt.subplots(figsize=(width, height))
-            image = ax.imshow(
-                matrix.to_numpy(float),
-                aspect='auto',
-                interpolation='nearest',
-                cmap=spatial_blue_cmap,
-                vmin=color_min,
-                vmax=color_max,
-                rasterized=True,
-            )
+            image = draw_heatmap(ax, matrix.to_numpy(float))
             labels = [
                 f"{feature}  (n={int(region_hits.get(feature, 0))})"
                 if show_hit_counts else str(feature)
