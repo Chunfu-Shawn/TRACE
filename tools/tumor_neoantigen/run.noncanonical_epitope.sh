@@ -121,7 +121,7 @@ TRANSCRIPTS_FASTA=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/tran
 DENOVO_TRANSCRIPTS_FASTA=/home/user/data3/rbase/small_peptide/denovo_genes/fasta/denovo_gene_transcripts.fasta
 CONFIG_DIR=/home/user/data3/rbase/translation_model/models/src/config
 WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/train
-TRACE_MODE="short"
+TRACE_MODE=${TRACE_MODE:-balanced}
 
 run_cohort_trace() {
     python "${SCRIPT_DIR}/run_trace_cohort_prediction.py" \
@@ -198,6 +198,8 @@ do
     # Create patient-specific TRACE and HLA output directories.
     PATIENT_TRACE_DIR=${WORK_DIR}/translation/${patient_safe}
     PATIENT_MHC_DIR=${WORK_DIR}/HLA_affinity/${patient_safe}
+    NETMHCPAN_LOG=${PATIENT_MHC_DIR}/netMHCpan.${TRACE_MODE}.log
+    NETMHCPAN_XLS=${PATIENT_MHC_DIR}/netMHCpan_results.${TRACE_MODE}.xls
     mkdir -p "$PATIENT_TRACE_DIR"
     mkdir -p "$PATIENT_MHC_DIR"
 
@@ -241,14 +243,14 @@ do
     echo "=> HLA affinity prediction by netMHCpan"
     echo "--------------------------------------------"
 
-    if [ -s "${PATIENT_MHC_DIR}/netMHCpan.log" ]; then
+    if [ -s "${NETMHCPAN_LOG}" ]; then
         echo "[Skip] HLA-affinity already generated for $patient"
     else
         netMHCpan -s -BA -t 10 \
             -a "$UNIQUE_HLAS" \
-            -xls -xlsfile ${PATIENT_MHC_DIR}/netMHCpan_results.xls \
+            -xls -xlsfile ${NETMHCPAN_XLS} \
             -f ${PATIENT_TRACE_DIR}/high_confidence_proteins.${patient_safe}.${TRACE_MODE}_mode.fasta \
-            1> ${PATIENT_MHC_DIR}/netMHCpan.log 2>&1
+            1> ${NETMHCPAN_LOG} 2>&1
     fi
 
     echo -e "\n"
@@ -258,7 +260,7 @@ do
 
     python ${SCRIPT_DIR}/neoantigen_prioritization_report.py \
         --step2_csv ${FINAL_TARGET_CSV} \
-        --netmhcpan_log ${PATIENT_MHC_DIR}/netMHCpan.log \
+        --netmhcpan_log ${NETMHCPAN_LOG} \
         --fasta_file ${PATIENT_TRACE_DIR}/high_confidence_proteins.${patient_safe}.${TRACE_MODE}_mode.fasta \
         --translation_csv ${PATIENT_TRACE_DIR}/high_confidence_orfs.${patient_safe}.${TRACE_MODE}_mode.csv \
         --patient_id ${patient_safe} \
@@ -319,10 +321,6 @@ do
 done
 
 echo -e "\n"
-
-echo -e "\n"
-
-echo -e "\n"
 echo "----------------------------------------------"
 echo "=> Filter against patient normal proteome (TRACE)"
 echo "----------------------------------------------"
@@ -344,10 +342,8 @@ echo "---------------------------"
 echo "=> Canonical proteome filtering and antigen classification"
 echo "---------------------------"
 
-echo "---------------------------"
-
 TAA_REPORT_DIR=${WORK_DIR}/patient_tumor_associated_antigen_reports
-[ -d ${TAA_REPORT_DIR} ] || python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
+python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
     --input_dir ${NORMAL_FILTERED_DIR} \
     --fasta /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa \
     --output_dir ${TAA_REPORT_DIR}

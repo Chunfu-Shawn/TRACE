@@ -12,9 +12,8 @@ from model.translation_predictor import TranslationProfilePredictor
 from model.prediction_heads import TranslationProfileHead, PsiteDensityHead
 from model.generate_cell_env_expr_array import generate_cell_env_expr_dict
 from model.orf_caller import TranslationSignalORFCaller
+from neoantigen_orf_config import build_neoantigen_orf_kwargs
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
 
@@ -147,16 +146,7 @@ def main():
 
     df_orfs = orf_caller.run(
         out_dir=args.out_dir,
-        start_codons=['ATG', 'CTG', 'GTG', 'TTG', 'ACG'],
-        min_len=30,
-        mode=args.mode,
-        use_mane_filter=False,
-        plot_density=False,
-        hard_thresh_intensity=0,
-        hard_thresh_periodicity=0.5,
-        hard_thresh_uniformity=0.3,
-        hard_thresh_step_up=0.51,
-        hard_thresh_drop_off=0.51
+        **build_neoantigen_orf_kwargs(mode=args.mode),
     )
     
     if temp_tpm_path and os.path.exists(temp_tpm_path):

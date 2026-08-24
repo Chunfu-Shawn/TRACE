@@ -1485,7 +1485,7 @@ def plot_combined_vs_single_signature_performance(
 
     overall_matrix = selected_df.set_index('Score_Label')[metric_columns]
     figure_height = max(4.0, 0.36 * len(overall_matrix) + 1.8)
-    figure_width = max(9.0, 1.25 * len(metric_columns) + 4.0)
+    figure_width = max(9.0, 0.7 * len(metric_columns) + 3.0)
     fig, ax = plt.subplots(figsize=(figure_width, figure_height))
     sns.heatmap(
         overall_matrix,

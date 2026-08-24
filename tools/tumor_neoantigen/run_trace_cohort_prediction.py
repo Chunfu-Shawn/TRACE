@@ -11,6 +11,8 @@ from typing import Optional
 
 import pandas as pd
 
+from neoantigen_orf_config import build_neoantigen_orf_kwargs
+
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
@@ -33,7 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tx2gene_mapping")
     parser.add_argument("--tpm_csv")
     parser.add_argument("--tpm_level", choices=("transcript", "gene"), default="transcript")
-    parser.add_argument("--mode", default="short")
+    parser.add_argument("--mode", default="balanced")
     parser.add_argument("--batch_size", type=int, default=5)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--min_len", type=int, default=200)
@@ -194,8 +196,8 @@ def main() -> int:
         patient_dir.mkdir(parents=True, exist_ok=True)
         protein_path = patient_dir / f"high_confidence_proteins.{patient}.{args.mode}_mode.fasta"
         orf_path = patient_dir / f"high_confidence_orfs.{patient}.{args.mode}_mode.csv"
-        # The versioned marker prevents reuse of outputs produced before FASTA-ID normalization.
-        complete_marker = patient_dir / f".trace_complete.id_normalization_v2.{args.mode}"
+        # The versioned marker prevents reuse of outputs produced with older ORF settings.
+        complete_marker = patient_dir / f".trace_complete.orf_config_v3.{args.mode}"
 
         if not args.overwrite and complete_marker.exists():
             print(f"[Skip] Completed TRACE output: {patient}")
@@ -300,16 +302,7 @@ def main() -> int:
             )
         orfs = caller.run(
             out_dir=str(patient_dir),
-            start_codons=["ATG", "CTG", "GTG", "TTG", "ACG"],
-            min_len=30,
-            mode=args.mode,
-            use_mane_filter=False,
-            plot_density=False,
-            hard_thresh_intensity=0,
-            hard_thresh_periodicity=0.5,
-            hard_thresh_uniformity=0.3,
-            hard_thresh_step_up=0.51,
-            hard_thresh_drop_off=0.51,
+            **build_neoantigen_orf_kwargs(mode=args.mode),
         )
         status_rows.append(
             {

@@ -46,11 +46,11 @@ mpl.rcParams.update({
 
 
 BASE_TO_INDEX = {"A": 0, "C": 1, "G": 2, "T": 3}
-START_CODON_ORDER = ["ATG", "CTG", "GTG", "TTG"]
+START_CODON_ORDER = ["ATG", "GTG", "CTG", "TTG"]
 START_CODON_WEIGHTS = {
     "ATG": 1.0,
-    "CTG": 0.3,
-    "GTG": 0.2,
+    "GTG": 0.3,
+    "CTG": 0.2,
     "TTG": 0.05,
 }
 
@@ -679,7 +679,7 @@ def plot_kozak_mutagenesis_boxplot(
     suffix: str = "",
     effect_col: str = "P_Site_Intensity",
     y_label: Optional[str] = None,
-    width: float = 4.2,
+    width: float = 3.5,
     height: float = 3.8,
     y_limits: Optional[Tuple[float, float]] = None,
 ) -> str:
@@ -688,9 +688,9 @@ def plot_kozak_mutagenesis_boxplot(
         raise ValueError(f"effect_col '{effect_col}' is not present in results.")
     os.makedirs(out_dir, exist_ok=True)
     fig, ax = plt.subplots(figsize=(width, height))
-    base_positions = np.arange(len(START_CODON_ORDER), dtype=float) * 0.78
-    offsets = np.linspace(-0.18, 0.18, len(KOZAK_CONTEXT_ORDER))
-    box_width = 0.115
+    base_positions = np.arange(len(START_CODON_ORDER), dtype=float)
+    offsets = np.linspace(-0.25, 0.25, len(KOZAK_CONTEXT_ORDER))
+    box_width = 0.15
 
     for context_index, context in enumerate(KOZAK_CONTEXT_ORDER):
         data = []
@@ -887,8 +887,8 @@ def plot_global_kozak_mutagenesis_correlation(
     out_dir: str,
     suffix: str = "",
     effect_col: str = "P_Site_Intensity",
-    width: float = 5.5,
-    height: float = 4.8,
+    width: float = 6,
+    height: float = 3,
 ) -> str:
     """Draw the global designed-strength versus matched-effect relationship."""
     os.makedirs(out_dir, exist_ok=True)

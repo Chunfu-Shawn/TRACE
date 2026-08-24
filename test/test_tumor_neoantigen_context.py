@@ -31,6 +31,7 @@ from cohort_annotation_utils import (
 )
 from select_shared_vaccine_peptides import largest_remainder_quotas, parse_netmhcpan_log
 from run_trace_cohort_prediction import build_clean_sequence_dict, clean_id
+from neoantigen_orf_config import build_neoantigen_orf_kwargs
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
@@ -40,6 +41,24 @@ from model.translation_utils import normalize_initiator_codon
 
 
 class MetadataContextTests(unittest.TestCase):
+    def test_neoantigen_orf_configuration_matches_coding_orf_profile(self):
+        config = build_neoantigen_orf_kwargs()
+        self.assertEqual(config["start_codons"], ["ATG", "CTG", "GTG", "TTG"])
+        self.assertEqual(config["mode"], "balanced")
+        self.assertFalse(config["long_mode_length_only"])
+        self.assertEqual(config["hard_thresh_intensity"], 0.01)
+        self.assertEqual(config["hard_thresh_periodicity"], 0.5)
+        self.assertEqual(config["hard_thresh_uniformity"], 0.8)
+        self.assertEqual(config["hard_thresh_step_up"], 0.5)
+        self.assertEqual(config["hard_thresh_drop_off"], 0.8)
+        self.assertEqual(config["ranking_strategy"], "occupancy_expression")
+        self.assertEqual(config["score_features"], ["step_up_contrast", "drop_off"])
+        self.assertEqual(config["tpm_exponent"], 1.0)
+        self.assertEqual(config["collapse_boundary_weight"], 0.5)
+        self.assertEqual(config["start_codon_prior_strength"], 0.25)
+        self.assertEqual(config["nms_iou_threshold"], 0.7)
+        self.assertFalse(config["nms_respect_frame"])
+
     def test_common_normal_labels_are_not_classified_as_tumor(self):
         normal_labels = [
             "normal",

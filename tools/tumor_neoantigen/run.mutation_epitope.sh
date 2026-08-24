@@ -15,7 +15,7 @@ DENOVO_TRANSCRIPTS_FASTA=/home/user/data3/rbase/small_peptide/denovo_genes/nucl_
 CANONICAL_PROTEOME=/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa
 CONFIG_DIR=/home/user/data3/rbase/translation_model/models/src/config
 WEIGHT_DIR=/home/user/data3/rbase/translation_model/models/checkpoint/pretrain
-TRACE_MODE="short"
+TRACE_MODE=${TRACE_MODE:-balanced}
 HLA_CSV=${WORK_DIR}/patient_hla_typing.csv
 TPM_MATRIX=${WORK_DIR}/featureCounts_tumor/transcript_true_tpm_matrix.csv
 GENE_COUNTS_MATRIX=${WORK_DIR}/featureCounts_tumor/gene_counts.complete_gtf.multioverlap.txt
@@ -138,14 +138,15 @@ do
     # ---------------------------------------------------------------
     # Step 3: Add TRACE ORFs to GTF
     # ---------------------------------------------------------------
-    ENHANCED_GTF=${ANNOTATION_DIR}/${patient_safe}_enhanced.gtf
+    ENHANCED_GTF=${ANNOTATION_DIR}/${patient_safe}_${TRACE_MODE}_enhanced.gtf
     if [ -f "$ENHANCED_GTF" ]; then
         echo "[Skip] Enhanced GTF already exists"
     elif [ -s "$TRACE_ORF_CSV" ]; then
         echo "-> [3/7] Adding TRACE ORFs to GTF"
         python ${SCRIPT_DIR}/add_trace_orfs_to_gtf.py \
             --trace_orf_csv ${TRACE_ORF_CSV} \
-            --extra_gtf ${WORK_DIR}/assembly/final_filtered_novel_transcripts_enhanced.gtf \            --ref_gtf ${GTF_FILE} \
+            --extra_gtf ${WORK_DIR}/assembly/final_filtered_novel_transcripts_enhanced.gtf \
+            --ref_gtf ${GTF_FILE} \
             --output_gtf ${ENHANCED_GTF}
     else
         echo "[Skip] No TRACE ORFs; using reference GTF"
@@ -155,7 +156,7 @@ do
     # ---------------------------------------------------------------
     # Step 4: Annotate variants against enhanced GTF
     # ---------------------------------------------------------------
-    ANNOTATED_CSV=${ANNOTATION_DIR}/${patient_safe}_annotated_variants.csv
+    ANNOTATED_CSV=${ANNOTATION_DIR}/${patient_safe}_${TRACE_MODE}_annotated_variants.csv
     if [ -f "$ANNOTATED_CSV" ]; then
         echo "[Skip] Variants already annotated"
     else
@@ -171,8 +172,10 @@ do
     # ---------------------------------------------------------------
     PATIENT_PEP_DIR=${MUT_PEPTIDE_DIR}/${patient_safe}
     mkdir -p ${PATIENT_PEP_DIR}
-    MUT_PEP_FASTA=${PATIENT_PEP_DIR}/mutant_peptides.fasta
-    MUT_PEP_CSV=${PATIENT_PEP_DIR}/mutant_peptide_map.csv
+    MUT_PEP_FASTA=${PATIENT_PEP_DIR}/mutant_peptides.${TRACE_MODE}.fasta
+    MUT_PEP_CSV=${PATIENT_PEP_DIR}/mutant_peptide_map.${TRACE_MODE}.csv
+    NETMHCPAN_LOG=${PATIENT_PEP_DIR}/netMHCpan.${TRACE_MODE}.log
+    NETMHCPAN_XLS=${PATIENT_PEP_DIR}/netMHCpan_results.${TRACE_MODE}.xls
 
     if [ -f "$MUT_PEP_FASTA" ]; then
         echo "[Skip] Mutant peptides already generated"
@@ -201,15 +204,15 @@ do
     done
     UNIQUE_HLAS=$(echo "$formatted_hlas" | tr ',' '\n' | sort -u | grep -v "^$" | paste -sd, -)
 
-    if [ -s "${PATIENT_PEP_DIR}/netMHCpan.log" ]; then
+    if [ -s "${NETMHCPAN_LOG}" ]; then
         echo "[Skip] netMHCpan already done"
     elif [ -s "$MUT_PEP_FASTA" ]; then
         echo "-> [6/7] netMHCpan prediction (HLA: $UNIQUE_HLAS)"
         netMHCpan -s -BA -t 10 \
             -a "$UNIQUE_HLAS" \
-            -xls -xlsfile ${PATIENT_PEP_DIR}/netMHCpan_results.xls \
+            -xls -xlsfile ${NETMHCPAN_XLS} \
             -f ${MUT_PEP_FASTA} \
-            1> ${PATIENT_PEP_DIR}/netMHCpan.log 2>&1
+            1> ${NETMHCPAN_LOG} 2>&1
     else
         echo "[Skip] No mutant peptides for netMHCpan"
     fi
@@ -217,16 +220,16 @@ do
     # ---------------------------------------------------------------
     # Step 7: Integration report
     # ---------------------------------------------------------------
-    PATIENT_REPORT=${MUT_REPORT_DIR}/${patient_safe}.csv
+    PATIENT_REPORT=${MUT_REPORT_DIR}/${patient_safe}.${TRACE_MODE}.csv
     if [ -f "$PATIENT_REPORT" ]; then
         echo "[Skip] Report already exists"
-    elif [ -s "${PATIENT_PEP_DIR}/netMHCpan.log" ] && [ -s "$TRACE_ORF_CSV" ]; then
+    elif [ -s "${NETMHCPAN_LOG}" ] && [ -s "$TRACE_ORF_CSV" ]; then
         echo "-> [7/7] Generating neoantigen report"
         python ${SCRIPT_DIR}/mutation_neoantigen_report.py \
             --mutation_csv ${ANNOTATED_CSV} \
             --peptide_csv ${MUT_PEP_CSV} \
             --trace_csv ${TRACE_ORF_CSV} \
-            --netmhcpan_log ${PATIENT_PEP_DIR}/netMHCpan.log \
+            --netmhcpan_log ${NETMHCPAN_LOG} \
             --tpm_csv ${TPM_MATRIX} \
             --patient_id ${patient_safe} \
             --tumor_run_id ${TUMOR_RUN} \
