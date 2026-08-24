@@ -679,18 +679,18 @@ def plot_kozak_mutagenesis_boxplot(
     suffix: str = "",
     effect_col: str = "P_Site_Intensity",
     y_label: Optional[str] = None,
-    width: float = 5.5,
-    height: float = 5.0,
+    width: float = 4.2,
+    height: float = 3.8,
     y_limits: Optional[Tuple[float, float]] = None,
 ) -> str:
-    """Draw the codon-by-context comparison corresponding to the motif plot."""
+    """Draw a compact grouped boxplot with a foreground linear trend."""
     if effect_col not in results:
         raise ValueError(f"effect_col '{effect_col}' is not present in results.")
     os.makedirs(out_dir, exist_ok=True)
     fig, ax = plt.subplots(figsize=(width, height))
-    base_positions = np.arange(len(START_CODON_ORDER), dtype=float)
-    offsets = np.linspace(-0.27, 0.27, len(KOZAK_CONTEXT_ORDER))
-    box_width = 0.15
+    base_positions = np.arange(len(START_CODON_ORDER), dtype=float) * 0.78
+    offsets = np.linspace(-0.18, 0.18, len(KOZAK_CONTEXT_ORDER))
+    box_width = 0.115
 
     for context_index, context in enumerate(KOZAK_CONTEXT_ORDER):
         data = []
@@ -713,14 +713,31 @@ def plot_kozak_mutagenesis_boxplot(
             patch_artist=True,
             showfliers=False,
             manage_ticks=False,
-            medianprops={"color": KOZAK_CONTEXT_COLORS[context], "linewidth": 1.2},
-            whiskerprops={"color": KOZAK_CONTEXT_COLORS[context], "linewidth": 0.8},
-            capprops={"color": KOZAK_CONTEXT_COLORS[context], "linewidth": 0.8},
-            boxprops={"color": KOZAK_CONTEXT_COLORS[context], "linewidth": 1.0},
+            medianprops={
+                "color": KOZAK_CONTEXT_COLORS[context],
+                "linewidth": 1.6,
+                "zorder": 4,
+            },
+            whiskerprops={
+                "color": KOZAK_CONTEXT_COLORS[context],
+                "linewidth": 0.9,
+                "zorder": 3,
+            },
+            capprops={
+                "color": KOZAK_CONTEXT_COLORS[context],
+                "linewidth": 0.9,
+                "zorder": 3,
+            },
+            boxprops={
+                "color": KOZAK_CONTEXT_COLORS[context],
+                "linewidth": 1.1,
+                "zorder": 3,
+            },
+            zorder=3,
         )
         for patch in box["boxes"]:
             patch.set_facecolor("white")
-        ax.plot([], [], color=KOZAK_CONTEXT_COLORS[context], lw=2, label=context)
+        ax.plot([], [], color=KOZAK_CONTEXT_COLORS[context], lw=1.8, label=context)
 
     medians = (
         results.groupby("Start_Codon", observed=True)[effect_col]
@@ -729,40 +746,55 @@ def plot_kozak_mutagenesis_boxplot(
     )
     valid_trend = medians.dropna()
     if len(valid_trend) >= 2:
-        trend_x = [START_CODON_ORDER.index(codon) for codon in valid_trend.index]
+        trend_x = np.asarray([
+            base_positions[START_CODON_ORDER.index(codon)]
+            for codon in valid_trend.index
+        ])
+        trend_y = valid_trend.to_numpy(dtype=float)
+        slope, intercept = np.polyfit(trend_x, trend_y, deg=1)
+        line_x = np.linspace(base_positions[0], base_positions[-1], 100)
         ax.plot(
-            trend_x,
-            valid_trend.to_numpy(),
-            color="#E64B35",
+            line_x,
+            slope * line_x + intercept,
+            color="#FF3B00",
             linestyle="--",
-            linewidth=1.4,
-            marker="o",
-            markersize=3,
-            zorder=0,
+            linewidth=2.0,
+            zorder=20,
         )
 
-    pooled_r, pooled_p, median_within, n_within = _correlation_summary(
+    pooled_r, pooled_p, _, _ = _correlation_summary(
         results, effect_col
     )
-    label = (
-        f"Pooled Spearman ρ = {pooled_r:.3f}\n"
-        f"Median within-transcript ρ = {median_within:.3f} (n={n_within})\n"
-        f"P = {pooled_p:.2e}"
+    label = f"Spearman $R$ = {pooled_r:.3f}\n$P$ = {pooled_p:.1e}"
+    ax.text(
+        0.98,
+        0.97,
+        label,
+        transform=ax.transAxes,
+        ha="right",
+        va="top",
+        fontsize=9,
+        zorder=30,
     )
-    ax.text(0.02, 0.03, label, transform=ax.transAxes, ha="left", va="bottom")
     if effect_col == "Relative_Initiation_Efficiency":
         ax.axhline(1.0, color="#808080", linestyle=":", linewidth=0.9)
     ax.set_xticks(base_positions)
     ax.set_xticklabels(START_CODON_ORDER)
     ax.set_xlabel("Start codon")
     ax.set_ylabel(y_label or _effect_axis_label(effect_col))
+    ax.set_xlim(base_positions[0] - 0.42, base_positions[-1] + 0.42)
+    ax.tick_params(axis="both", width=0.8, length=3, pad=2)
     if y_limits is not None:
         ax.set_ylim(*y_limits)
     ax.legend(
         loc="lower center",
-        bbox_to_anchor=(0.5, 1.02),
+        bbox_to_anchor=(0.5, 1.0),
         ncol=2,
-        fontsize=7,
+        fontsize=6.2,
+        handlelength=1.3,
+        handletextpad=0.4,
+        columnspacing=0.8,
+        borderaxespad=0.2,
     )
     fig.tight_layout()
     path = os.path.join(
