@@ -3,6 +3,7 @@
 import sys
 import types
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -35,6 +36,7 @@ from eval.start_codon_kozak_mutagenesis import (
     KozakMutagenesisEvaluator,
     _p_site_intensity,
     collect_kozak_mutagenesis_samples,
+    evaluate_start_codon_kozak_mutagenesis,
     mutate_cds_start_context,
     plot_kozak_mutagenesis_results,
 )
@@ -70,6 +72,35 @@ def _make_dataset():
 
 
 class KozakMutagenesisTests(unittest.TestCase):
+    def test_top_level_reuses_raw_csv_without_model_or_dataset(self):
+        cached = pd.DataFrame({"P_Site_Intensity": [0.25]})
+        expected_paths = {
+            "boxplot": "boxplot.pdf",
+            "per_codon_scatter": "per_codon.pdf",
+            "global_scatter": "global.pdf",
+        }
+        with TemporaryDirectory() as temporary_directory:
+            raw_path = (
+                Path(temporary_directory)
+                / "kozak_mutagenesis_raw.cached.csv"
+            )
+            cached.to_csv(raw_path, index=False)
+            with patch(
+                "eval.start_codon_kozak_mutagenesis."
+                "plot_kozak_mutagenesis_results",
+                return_value=expected_paths,
+            ) as plot_mock:
+                results, paths = evaluate_start_codon_kozak_mutagenesis(
+                    model=object(),
+                    dataset=object(),
+                    out_dir=temporary_directory,
+                    suffix="cached",
+                )
+
+        pd.testing.assert_frame_equal(results, cached)
+        self.assertEqual(paths, expected_paths)
+        plot_mock.assert_called_once()
+
     def test_p_site_intensity_matches_motif_definition(self):
         profile = np.arange(1, 13, dtype=np.float32)
         intensity, p_site, local_sum, global_mean = _p_site_intensity(

@@ -969,7 +969,31 @@ def evaluate_start_codon_kozak_mutagenesis(
     suffix: str = "",
     y_limits: Optional[Tuple[float, float]] = None,
 ) -> Tuple[pd.DataFrame, Dict[str, str]]:
-    """Collect samples, evaluate all variants, and create the three PDF plots."""
+    """Reuse an existing raw CSV or run mutagenesis, then create PDF plots.
+
+    The raw result CSV is the only cache marker. Delete it to force a new
+    mutagenesis run; no checkpoint or manifest validation is performed here.
+    """
+    os.makedirs(out_dir, exist_ok=True)
+    raw_path = os.path.join(
+        out_dir,
+        f"kozak_mutagenesis_raw{_suffix_tag(suffix)}.csv",
+    )
+    if os.path.isfile(raw_path):
+        print(f"Reusing existing mutagenesis results: {raw_path}")
+        results = pd.read_csv(raw_path)
+        if results.empty:
+            raise ValueError(
+                f"Existing mutagenesis result CSV is empty: {raw_path}"
+            )
+        paths = plot_kozak_mutagenesis_results(
+            results=results,
+            out_dir=out_dir,
+            suffix=suffix,
+            y_limits=y_limits,
+        )
+        return results, paths
+
     samples = collect_kozak_mutagenesis_samples(
         dataset=dataset,
         target_cell_type=target_cell_type,
