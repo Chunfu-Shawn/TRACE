@@ -4,6 +4,7 @@ import sys
 import tempfile
 import types
 import unittest
+import pickle
 from pathlib import Path
 
 import numpy as np
@@ -40,13 +41,13 @@ from eval.rbp_translation_effect import (
     discover_de_novo_translation_motifs,
     disrupt_pwm_hit,
     extract_signed_translation_attribution_windows,
-    load_known_motif_scan_cache,
-    save_known_motif_scan_cache,
+    run_rbp_translation_effect_analysis,
     scan_pwm_hits,
     summarize_rbp_motif_effects,
     validate_rbp_pwm_library,
 )
 from model.base_model import BaseModel
+from plot.rbp_scan import select_rbp_nucleotide_contribution_cases
 
 
 class TestCountHead(nn.Module):
@@ -161,28 +162,6 @@ class RBPTranslationEffectTests(unittest.TestCase):
 
         pd.testing.assert_frame_equal(sequential, parallel)
         pd.testing.assert_frame_equal(sequential, process_parallel)
-
-    def test_known_motif_scan_cache_is_signature_aware(self):
-        hits = pd.DataFrame({
-            "Tid": ["TX1"],
-            "Start": [3],
-            "End": [9],
-        })
-        with tempfile.TemporaryDirectory() as directory:
-            cache_path = str(Path(directory) / "known_rbp_motif_hits.pkl")
-            save_known_motif_scan_cache(hits, cache_path, "signature-a")
-
-            restored = load_known_motif_scan_cache(
-                cache_path,
-                expected_signature="signature-a",
-            )
-            stale = load_known_motif_scan_cache(
-                cache_path,
-                expected_signature="signature-b",
-            )
-
-        pd.testing.assert_frame_equal(restored, hits)
-        self.assertIsNone(stale)
 
     def test_position_profiles_cover_known_and_de_novo_motifs(self):
         sequence = "AAACCCGGGTTTAAACCCGGGTTT"
@@ -369,6 +348,15 @@ class RBPTranslationEffectTests(unittest.TestCase):
 
         self.assertEqual(len(result), 1)
         self.assertTrue(np.isfinite(result.loc[0, "Delta_Log2_TE"]))
+        contributions = evaluator.compute_nucleotide_contributions(
+            result,
+            samples,
+            min_case_transcripts=2,
+            context_flank=0,
+            batch_size=16,
+            target_hit_ids="H1",
+        )
+        self.assertEqual(contributions["Hit_ID"].unique().tolist(), ["H1"])
 
     def test_signed_attribution_returns_window_schema(self):
         sequence = np.eye(4, dtype=np.float32)[
@@ -429,6 +417,71 @@ class RBPTranslationEffectTests(unittest.TestCase):
         self.assertIn("AAA", set(results["Kmer"]))
         self.assertIn("5UTR|Positive|AAA", alignments)
         self.assertTrue(results["Is_Cluster_Representative"].all())
+
+    def test_case_selection_matches_summary_and_supports_exact_hits(self):
+        contributions = pd.DataFrame({
+            "Hit_ID": ["H1", "H2", "H3", "H4"],
+            "Tid": ["T1", "T2", "T3", "T4"],
+            "RBP_Name": ["RBP1", "RBP1", "RBP1", "RBP2"],
+            "Region": ["5UTR", "5UTR", "3UTR", "5UTR"],
+            "Motif_Start": [10, 20, 30, 40],
+            "Motif_Delta_Log2_TE": [0.4, -0.9, -0.7, 0.2],
+            "Group_Median_Delta_Log2_TE": [0.2, 0.2, -0.3, 0.1],
+        })
+        summary = pd.DataFrame({
+            "RBP_Name": ["RBP1", "RBP1", "RBP2"],
+            "Region": ["5UTR", "3UTR", "5UTR"],
+            "Median_Delta_Log2_TE": [0.2, -0.3, 0.1],
+        })
+
+        selected = select_rbp_nucleotide_contribution_cases(
+            contributions,
+            summary_df=summary,
+            cases_per_rbp=2,
+        )
+        self.assertEqual(set(selected["Hit_ID"]), {"H1", "H3", "H4"})
+
+        exact = select_rbp_nucleotide_contribution_cases(
+            contributions,
+            summary_df=summary,
+            target_hit_ids=["H2"],
+        )
+        self.assertEqual(exact["Hit_ID"].tolist(), ["H2"])
+
+    def test_analysis_reuses_canonical_results_without_model_or_dataset(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory)
+            with (output / "unique_transcript_samples.pkl").open("wb") as handle:
+                pickle.dump({}, handle)
+            with (output / "validated_rbp_pwms.pkl").open("wb") as handle:
+                pickle.dump({}, handle)
+            csv_files = [
+                "rbp_pwm_validation.csv",
+                "rbp_motif_hits.csv",
+                "rbp_motif_hit_effects.csv",
+                "rbp_motif_effect_summary.csv",
+                "rbp_nucleotide_contributions.csv",
+                "signed_translation_attribution_windows.csv",
+                "de_novo_translation_motifs.csv",
+                "known_rbp_position_profiles.csv",
+                "de_novo_motif_position_profiles.csv",
+            ]
+            for filename in csv_files:
+                (output / filename).write_text("", encoding="utf-8")
+            (output / "de_novo_motif_alignments.json").write_text(
+                "{}", encoding="utf-8"
+            )
+
+            results = run_rbp_translation_effect_analysis(
+                model=None,
+                dataset=None,
+                pwm_library={},
+                metadata=pd.DataFrame(),
+                out_dir=str(output),
+            )
+
+            self.assertEqual(results["result_directory"], str(output))
+            self.assertTrue(results["hits"].empty)
 
 
 if __name__ == "__main__":

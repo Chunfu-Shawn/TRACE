@@ -9,7 +9,6 @@ biological causality without orthogonal RBP-binding and perturbation evidence.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import math
 import multiprocessing as mp
@@ -41,9 +40,6 @@ from utils import unwrap_model
 
 BASES = np.asarray(list("ACGT"))
 BASE_TO_INDEX = {base: index for index, base in enumerate(BASES)}
-KNOWN_MOTIF_SCAN_CACHE_VERSION = 1
-
-
 def _normalize_tid(value: object) -> str:
     tid = str(value)
     if tid.startswith("ENST"):
@@ -709,138 +705,6 @@ def collect_rbp_motif_hits(
     return hits
 
 
-def compute_known_motif_scan_signature(
-    samples: Mapping[str, Mapping],
-    pwm_library: Mapping[str, np.ndarray],
-    metadata: pd.DataFrame,
-    target_rbps: Optional[Iterable[str]],
-    regions: Sequence[str],
-    score_threshold: float,
-    max_hits_per_rbp_transcript_region: int,
-    context_flank: int,
-) -> str:
-    """Fingerprint every scientific input affecting known-motif positions."""
-    digest = hashlib.sha256()
-    target_values = (
-        None if target_rbps is None
-        else sorted({str(value) for value in target_rbps})
-    )
-    parameters = {
-        "cache_version": KNOWN_MOTIF_SCAN_CACHE_VERSION,
-        "target_rbps": target_values,
-        "regions": list(regions),
-        "score_threshold": float(score_threshold),
-        "max_hits_per_rbp_transcript_region": int(
-            max_hits_per_rbp_transcript_region
-        ),
-        "context_flank": int(context_flank),
-    }
-    digest.update(json.dumps(parameters, sort_keys=True).encode("utf-8"))
-    for tid in sorted(samples):
-        sample = samples[tid]
-        digest.update(str(tid).encode("utf-8"))
-        digest.update(str(sample["Sequence"]).encode("ascii", errors="replace"))
-        digest.update(str(int(sample["CDS_Start_0based"])).encode("ascii"))
-        digest.update(str(int(sample["CDS_End_exclusive"])).encode("ascii"))
-    target_set = None if target_values is None else set(target_values)
-    relevant_metadata = metadata.dropna(
-        subset=["Matrix_id", "Gene_name"]
-    ).copy()
-    relevant_metadata["Matrix_id"] = (
-        relevant_metadata["Matrix_id"].astype(str)
-    )
-    relevant_metadata["Gene_name"] = (
-        relevant_metadata["Gene_name"].astype(str)
-    )
-    normalized_library = {
-        str(matrix_id): pwm for matrix_id, pwm in pwm_library.items()
-    }
-    relevant_metadata = relevant_metadata[
-        relevant_metadata["Matrix_id"].isin(
-            set(normalized_library)
-        )
-    ]
-    if target_set is not None:
-        relevant_metadata = relevant_metadata[
-            relevant_metadata["Gene_name"].isin(target_set)
-        ]
-    relevant_matrix_ids = set(relevant_metadata["Matrix_id"])
-    for matrix_id in sorted(relevant_matrix_ids):
-        matrix = np.ascontiguousarray(
-            np.asarray(normalized_library[matrix_id], dtype=np.float32)
-        )
-        digest.update(str(matrix_id).encode("utf-8"))
-        digest.update(str(matrix.shape).encode("ascii"))
-        digest.update(matrix.tobytes())
-    metadata_columns = ["Matrix_id", "Gene_name"]
-    if not relevant_metadata.empty:
-        metadata_text = (
-            relevant_metadata[metadata_columns]
-            .fillna("")
-            .astype(str)
-            .drop_duplicates()
-            .sort_values(metadata_columns)
-            .to_csv(index=False)
-        )
-        digest.update(metadata_text.encode("utf-8"))
-    return digest.hexdigest()
-
-
-def load_known_motif_scan_cache(
-    cache_path: str,
-    expected_signature: str,
-) -> Optional[pd.DataFrame]:
-    """Load a completed known-motif positional scan when its signature matches."""
-    pickle_path = os.path.abspath(os.path.expanduser(cache_path))
-    manifest_path = f"{pickle_path}.manifest.json"
-    if not os.path.isfile(pickle_path) or not os.path.isfile(manifest_path):
-        return None
-    try:
-        with open(manifest_path, "r", encoding="utf-8") as handle:
-            manifest = json.load(handle)
-        if manifest.get("signature") != expected_signature:
-            print("Known-RBP scan cache is stale; rescanning motifs.")
-            return None
-        with open(pickle_path, "rb") as handle:
-            hits = pickle.load(handle)
-        if not isinstance(hits, pd.DataFrame):
-            raise TypeError("Cached known-RBP hits are not a pandas DataFrame.")
-        print(f"Loaded {len(hits):,} known-RBP motif hits from {pickle_path}")
-        return hits
-    except (OSError, ValueError, TypeError, pickle.UnpicklingError) as error:
-        print(f"Known-RBP scan cache could not be loaded ({error}); rescanning.")
-        return None
-
-
-def save_known_motif_scan_cache(
-    hits: pd.DataFrame,
-    cache_path: str,
-    signature: str,
-) -> None:
-    """Atomically save known-motif positions and their cache manifest."""
-    pickle_path = os.path.abspath(os.path.expanduser(cache_path))
-    manifest_path = f"{pickle_path}.manifest.json"
-    os.makedirs(os.path.dirname(pickle_path) or ".", exist_ok=True)
-    pickle_tmp = f"{pickle_path}.tmp"
-    manifest_tmp = f"{manifest_path}.tmp"
-    with open(pickle_tmp, "wb") as handle:
-        pickle.dump(hits, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    with open(manifest_tmp, "w", encoding="utf-8") as handle:
-        json.dump(
-            {
-                "cache_version": KNOWN_MOTIF_SCAN_CACHE_VERSION,
-                "signature": signature,
-                "n_hits": int(len(hits)),
-                "columns": list(hits.columns),
-            },
-            handle,
-            indent=2,
-        )
-    os.replace(pickle_tmp, pickle_path)
-    os.replace(manifest_tmp, manifest_path)
-    print(f"Saved {len(hits):,} known-RBP motif hits to {pickle_path}")
-
-
 def _fixed_metagene_position_bin(
     position: float,
     region_start: int,
@@ -1483,6 +1347,13 @@ class RBPMotifMutagenesisEvaluator:
         batch_size: int = 64,
         cds_skip_codons: int = 0,
         case_regions: Sequence[str] = ("5UTR", "3UTR"),
+        target_rbps: Optional[Iterable[str]] = None,
+        target_regions: Optional[Iterable[str]] = None,
+        target_hit_ids: Optional[Iterable[str]] = None,
+        target_transcript_ids: Optional[Iterable[str]] = None,
+        target_motif_starts: Optional[Iterable[int]] = None,
+        targeted_cases_per_rbp: int = 3,
+        selection_mode: str = "global",
         eps: float = 1e-8,
     ) -> pd.DataFrame:
         """Run saturation mutagenesis around representative UTR motif hits."""
@@ -1502,9 +1373,49 @@ class RBPMotifMutagenesisEvaluator:
             raise ValueError(
                 "case_regions must contain one or more of 5UTR, CDS, 3UTR."
             )
-        hit_effects = hit_effects[
-            hit_effects["Region"].astype(str).isin(allowed_regions)
-        ].copy()
+        target_rbps = (
+            None if target_rbps is None
+            else {str(target_rbps)} if isinstance(target_rbps, str)
+            else {str(value) for value in target_rbps}
+        )
+        target_regions = (
+            None if target_regions is None
+            else {str(target_regions)} if isinstance(target_regions, str)
+            else {str(value) for value in target_regions}
+        )
+        if target_regions is not None and target_regions.difference(
+            {"5UTR", "CDS", "3UTR"}
+        ):
+            raise ValueError(
+                "target_regions must contain only 5UTR, CDS, or 3UTR."
+            )
+        target_hit_ids = (
+            None if target_hit_ids is None
+            else [str(target_hit_ids)] if isinstance(target_hit_ids, str)
+            else [str(value) for value in target_hit_ids]
+        )
+        target_transcript_ids = (
+            None if target_transcript_ids is None
+            else {str(target_transcript_ids)}
+            if isinstance(target_transcript_ids, str)
+            else {str(value) for value in target_transcript_ids}
+        )
+        target_motif_starts = (
+            None if target_motif_starts is None
+            else {int(target_motif_starts)}
+            if np.isscalar(target_motif_starts)
+            else {int(value) for value in target_motif_starts}
+        )
+        region_filter = (
+            target_regions
+            if target_regions is not None
+            else None if target_hit_ids is not None
+            else set(allowed_regions)
+        )
+        if region_filter is not None:
+            hit_effects = hit_effects[
+                hit_effects["Region"].astype(str).isin(region_filter)
+            ].copy()
         if hit_effects.empty:
             return pd.DataFrame()
         group_summary = (
@@ -1515,6 +1426,7 @@ class RBPMotifMutagenesisEvaluator:
             )
             .reset_index()
         )
+        all_group_summary = group_summary.copy()
         group_summary = group_summary[
             group_summary["Group_N_Transcripts"] >= min_case_transcripts
         ]
@@ -1527,30 +1439,110 @@ class RBPMotifMutagenesisEvaluator:
                 "Neutral",
             ),
         )
-        selected_rows = []
-        for direction, ascending in (("Positive", False), ("Negative", True)):
-            groups = group_summary[group_summary["Direction"] == direction]
-            groups = groups.sort_values(
-                "Group_Median_Delta_Log2_TE", ascending=ascending
-            ).drop_duplicates("RBP_Name").head(n_cases_per_direction)
-            for group in groups.itertuples(index=False):
-                candidates = hit_effects[
-                    (hit_effects["RBP_Name"] == group.RBP_Name)
-                    & (hit_effects["Region"] == group.Region)
+        if selection_mode not in {"global", "per_rbp"}:
+            raise ValueError("selection_mode must be 'global' or 'per_rbp'.")
+        targeted = selection_mode == "per_rbp" or any(
+            value is not None for value in (
+                target_rbps,
+                target_regions,
+                target_hit_ids,
+                target_transcript_ids,
+                target_motif_starts,
+            )
+        )
+        if targeted_cases_per_rbp < 1:
+            raise ValueError("targeted_cases_per_rbp must be positive.")
+
+        if targeted:
+            candidates = hit_effects.copy()
+            if target_rbps is not None:
+                candidates = candidates[
+                    candidates["RBP_Name"].astype(str).isin(target_rbps)
+                ]
+            if target_regions is not None:
+                candidates = candidates[
+                    candidates["Region"].astype(str).isin(target_regions)
+                ]
+            if target_transcript_ids is not None:
+                candidates = candidates[
+                    candidates["Tid"].astype(str).isin(target_transcript_ids)
+                ]
+            if target_motif_starts is not None:
+                candidates = candidates[
+                    candidates["Start"].astype(int).isin(target_motif_starts)
+                ]
+            candidates = candidates.merge(
+                all_group_summary[
+                    [
+                        "RBP_Name", "Region", "Group_Median_Delta_Log2_TE",
+                        "Group_N_Transcripts",
+                    ]
+                ],
+                on=["RBP_Name", "Region"],
+                how="left",
+            )
+            if target_hit_ids is not None:
+                order = {
+                    hit_id: index
+                    for index, hit_id in enumerate(target_hit_ids)
+                }
+                candidates = candidates[
+                    candidates["Hit_ID"].astype(str).isin(order)
                 ].copy()
-                distance = (
-                    candidates["Delta_Log2_TE"]
-                    - group.Group_Median_Delta_Log2_TE
-                ).abs()
-                representative = candidates.loc[distance.idxmin()].to_dict()
-                representative.update({
-                    "Group_Median_Delta_Log2_TE": (
-                        group.Group_Median_Delta_Log2_TE
-                    ),
-                    "Group_N_Transcripts": group.Group_N_Transcripts,
-                })
-                selected_rows.append(representative)
-        selected = pd.DataFrame(selected_rows)
+                candidates["_Selection_Order"] = candidates[
+                    "Hit_ID"
+                ].astype(str).map(order)
+                selected = candidates.sort_values("_Selection_Order")
+            else:
+                effect_sign = np.sign(candidates["Delta_Log2_TE"])
+                group_sign = np.sign(
+                    candidates["Group_Median_Delta_Log2_TE"]
+                )
+                candidates = candidates[
+                    (effect_sign == group_sign) | (group_sign == 0)
+                ].copy()
+                candidates["_Absolute_Effect"] = candidates[
+                    "Delta_Log2_TE"
+                ].abs()
+                selected = (
+                    candidates.sort_values(
+                        ["RBP_Name", "_Absolute_Effect", "Hit_ID"],
+                        ascending=[True, False, True],
+                    )
+                    .groupby("RBP_Name", observed=True, group_keys=False)
+                    .head(int(targeted_cases_per_rbp))
+                )
+        else:
+            selected_rows = []
+            for direction, ascending in (
+                ("Positive", False), ("Negative", True)
+            ):
+                groups = group_summary[
+                    group_summary["Direction"] == direction
+                ]
+                groups = groups.sort_values(
+                    "Group_Median_Delta_Log2_TE", ascending=ascending
+                ).drop_duplicates("RBP_Name").head(n_cases_per_direction)
+                for group in groups.itertuples(index=False):
+                    candidates = hit_effects[
+                        (hit_effects["RBP_Name"] == group.RBP_Name)
+                        & (hit_effects["Region"] == group.Region)
+                    ].copy()
+                    distance = (
+                        candidates["Delta_Log2_TE"]
+                        - group.Group_Median_Delta_Log2_TE
+                    ).abs()
+                    representative = candidates.loc[
+                        distance.idxmin()
+                    ].to_dict()
+                    representative.update({
+                        "Group_Median_Delta_Log2_TE": (
+                            group.Group_Median_Delta_Log2_TE
+                        ),
+                        "Group_N_Transcripts": group.Group_N_Transcripts,
+                    })
+                    selected_rows.append(representative)
+            selected = pd.DataFrame(selected_rows)
         if selected.empty:
             return pd.DataFrame()
 
@@ -2160,14 +2152,19 @@ def run_rbp_translation_effect_analysis(
     known_motif_scan_workers: int = 1,
     scan_backend: str = "thread",
     scan_chunk_size: Optional[int] = None,
-    reuse_known_motif_scan: bool = True,
-    known_motif_scan_cache_path: Optional[str] = None,
     prediction_scale: str = "log1p",
     force_zero_expression: bool = True,
     batch_size: int = 32,
     min_transcripts: int = 5,
     n_cases_per_direction: int = 3,
     case_regions: Sequence[str] = ("5UTR", "3UTR"),
+    case_target_rbps: Optional[Iterable[str]] = None,
+    case_target_regions: Optional[Iterable[str]] = None,
+    case_target_hit_ids: Optional[Iterable[str]] = None,
+    case_target_transcript_ids: Optional[Iterable[str]] = None,
+    case_target_motif_starts: Optional[Iterable[int]] = None,
+    targeted_cases_per_rbp: int = 3,
+    case_selection_mode: str = "global",
     de_novo_source: str = "signed_attribution",
     de_novo_num_transcripts: Optional[int] = 500,
     de_novo_peaks_per_direction: int = 1,
@@ -2181,53 +2178,85 @@ def run_rbp_translation_effect_analysis(
     position_pseudocount: float = 0.5,
     random_state: int = 42,
 ) -> Dict[str, object]:
-    """Run known-PWM perturbation, case attribution, and de novo discovery."""
+    """Run the analysis while treating canonical result files as complete."""
     os.makedirs(out_dir, exist_ok=True)
+    out_dir = os.path.abspath(os.path.expanduser(out_dir))
+
+    def result_path(filename: str) -> str:
+        return os.path.join(out_dir, filename)
+
+    def load_csv_result(filename: str, stage: str) -> pd.DataFrame:
+        path = result_path(filename)
+        try:
+            table = pd.read_csv(path)
+        except pd.errors.EmptyDataError:
+            table = pd.DataFrame()
+        print(f"[SKIP] {stage}: loaded {filename}")
+        return table
+
+    def save_csv_result(table: pd.DataFrame, filename: str, stage: str) -> None:
+        table.to_csv(result_path(filename), index=False)
+        print(f"[DONE] {stage}: {filename} saved")
+
     target_rbps = (
         None if target_rbps is None
         else tuple(str(value) for value in target_rbps)
     )
     regions = tuple(str(region) for region in regions)
-    samples = collect_unique_transcript_samples(
-        dataset,
-        target_transcript_ids=target_transcript_ids,
-        num_transcripts=num_transcripts,
-        random_state=random_state,
-    )
-    if force_zero_expression:
-        for sample in samples.values():
-            sample["Expr_Vector"] = np.zeros_like(sample["Expr_Vector"])
-        print(
-            "Using zero expression conditioning for sequence-focused RBP "
-            "motif analysis."
+
+    samples_path = result_path("unique_transcript_samples.pkl")
+    if os.path.isfile(samples_path):
+        with open(samples_path, "rb") as handle:
+            samples = pickle.load(handle)
+        print("[SKIP] samples: loaded unique_transcript_samples.pkl")
+    else:
+        samples = collect_unique_transcript_samples(
+            dataset,
+            target_transcript_ids=target_transcript_ids,
+            num_transcripts=num_transcripts,
+            random_state=random_state,
         )
-    valid_pwm_library, pwm_validation = validate_rbp_pwm_library(
-        pwm_library,
-        metadata=metadata,
-        target_rbps=target_rbps,
-    )
-    scan_cache_path = known_motif_scan_cache_path or os.path.join(
-        out_dir, "known_rbp_motif_hits.pkl"
-    )
-    scan_signature = compute_known_motif_scan_signature(
-        samples,
-        valid_pwm_library,
-        metadata,
-        target_rbps=target_rbps,
-        regions=regions,
-        score_threshold=score_threshold,
-        max_hits_per_rbp_transcript_region=(
-            max_hits_per_rbp_transcript_region
-        ),
-        context_flank=context_flank,
-    )
-    hits = None
-    if reuse_known_motif_scan:
-        hits = load_known_motif_scan_cache(
-            scan_cache_path,
-            expected_signature=scan_signature,
+        if force_zero_expression:
+            for sample in samples.values():
+                sample["Expr_Vector"] = np.zeros_like(sample["Expr_Vector"])
+            print(
+                "Using zero expression conditioning for sequence-focused RBP "
+                "motif analysis."
+            )
+        with open(samples_path, "wb") as handle:
+            pickle.dump(samples, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        print("[DONE] samples: unique_transcript_samples.pkl saved")
+
+    pwm_validation_path = result_path("rbp_pwm_validation.csv")
+    valid_pwms_path = result_path("validated_rbp_pwms.pkl")
+    if os.path.isfile(pwm_validation_path) and os.path.isfile(valid_pwms_path):
+        pwm_validation = load_csv_result(
+            "rbp_pwm_validation.csv", "validate_pwms"
         )
-    if hits is None:
+        with open(valid_pwms_path, "rb") as handle:
+            valid_pwm_library = pickle.load(handle)
+        print("[SKIP] validate_pwms: loaded validated_rbp_pwms.pkl")
+    else:
+        valid_pwm_library, pwm_validation = validate_rbp_pwm_library(
+            pwm_library,
+            metadata=metadata,
+            target_rbps=target_rbps,
+        )
+        save_csv_result(
+            pwm_validation, "rbp_pwm_validation.csv", "validate_pwms"
+        )
+        with open(valid_pwms_path, "wb") as handle:
+            pickle.dump(
+                valid_pwm_library,
+                handle,
+                protocol=pickle.HIGHEST_PROTOCOL,
+            )
+        print("[DONE] validate_pwms: validated_rbp_pwms.pkl saved")
+
+    hits_path = result_path("rbp_motif_hits.csv")
+    if os.path.isfile(hits_path):
+        hits = load_csv_result("rbp_motif_hits.csv", "hits")
+    else:
         hits = collect_rbp_motif_hits(
             samples,
             valid_pwm_library,
@@ -2243,39 +2272,60 @@ def run_rbp_translation_effect_analysis(
             scan_backend=scan_backend,
             scan_chunk_size=scan_chunk_size,
         )
-        save_known_motif_scan_cache(
-            hits,
-            scan_cache_path,
-            signature=scan_signature,
+        save_csv_result(hits, "rbp_motif_hits.csv", "hits")
+
+    effects_path = result_path("rbp_motif_hit_effects.csv")
+    if os.path.isfile(effects_path):
+        effects = load_csv_result("rbp_motif_hit_effects.csv", "effects")
+    else:
+        if hits.empty:
+            effects = pd.DataFrame()
+        else:
+            evaluator = RBPMotifMutagenesisEvaluator(
+                model,
+                valid_pwm_library,
+                prediction_scale=prediction_scale,
+            )
+            effects = evaluator.evaluate_hits(
+                hits,
+                samples,
+                batch_size=batch_size,
+            )
+            effects["Expression_Conditioning"] = (
+                "zero" if force_zero_expression else "dataset"
+            )
+        save_csv_result(effects, "rbp_motif_hit_effects.csv", "effects")
+
+    summary_path = result_path("rbp_motif_effect_summary.csv")
+    if os.path.isfile(summary_path):
+        summary = load_csv_result("rbp_motif_effect_summary.csv", "summary")
+    else:
+        summary = (
+            pd.DataFrame()
+            if effects.empty
+            else summarize_rbp_motif_effects(
+                effects,
+                min_transcripts=min_transcripts,
+                random_state=random_state,
+            )
         )
-        # Save positions immediately so downstream failures do not lose a scan.
-        hits.to_csv(
-            os.path.join(out_dir, "rbp_motif_hits.csv"),
-            index=False,
+        save_csv_result(summary, "rbp_motif_effect_summary.csv", "summary")
+
+    contributions_path = result_path("rbp_nucleotide_contributions.csv")
+    if os.path.isfile(contributions_path):
+        contributions = load_csv_result(
+            "rbp_nucleotide_contributions.csv", "cases"
         )
-    if hits.empty:
-        print("No known RBP motif hits passed the requested filters.")
-        effects = pd.DataFrame()
-        summary = pd.DataFrame()
+    elif effects.empty:
         contributions = pd.DataFrame()
+        save_csv_result(
+            contributions, "rbp_nucleotide_contributions.csv", "cases"
+        )
     else:
         evaluator = RBPMotifMutagenesisEvaluator(
             model,
             valid_pwm_library,
             prediction_scale=prediction_scale,
-        )
-        effects = evaluator.evaluate_hits(
-            hits,
-            samples,
-            batch_size=batch_size,
-        )
-        effects["Expression_Conditioning"] = (
-            "zero" if force_zero_expression else "dataset"
-        )
-        summary = summarize_rbp_motif_effects(
-            effects,
-            min_transcripts=min_transcripts,
-            random_state=random_state,
         )
         contributions = evaluator.compute_nucleotide_contributions(
             effects,
@@ -2285,8 +2335,26 @@ def run_rbp_translation_effect_analysis(
             context_flank=context_flank,
             batch_size=batch_size,
             case_regions=case_regions,
+            target_rbps=case_target_rbps,
+            target_regions=case_target_regions,
+            target_hit_ids=case_target_hit_ids,
+            target_transcript_ids=case_target_transcript_ids,
+            target_motif_starts=case_target_motif_starts,
+            targeted_cases_per_rbp=targeted_cases_per_rbp,
+            selection_mode=case_selection_mode,
         )
-    if de_novo_source == "signed_attribution":
+        save_csv_result(
+            contributions, "rbp_nucleotide_contributions.csv", "cases"
+        )
+
+    attribution_path = result_path(
+        "signed_translation_attribution_windows.csv"
+    )
+    if os.path.isfile(attribution_path):
+        attribution_windows = load_csv_result(
+            "signed_translation_attribution_windows.csv", "attribution"
+        )
+    elif de_novo_source == "signed_attribution":
         attribution_windows = extract_signed_translation_attribution_windows(
             model,
             samples,
@@ -2297,73 +2365,106 @@ def run_rbp_translation_effect_analysis(
             target_regions=de_novo_regions,
             random_state=random_state,
         )
-        de_novo, alignments = discover_de_novo_translation_motifs(
+        save_csv_result(
             attribution_windows,
-            sequence_col="Context_Sequence",
-            effect_col="Signed_Attribution",
-            unit_col="Tid",
-            region_col="Region",
-            peak_offset_col="Peak_Offset",
-            discovery_regions=de_novo_regions,
+            "signed_translation_attribution_windows.csv",
+            "attribution",
         )
-    elif de_novo_source == "known_hit_context":
+    else:
         attribution_windows = pd.DataFrame()
-        if effects.empty:
+        save_csv_result(
+            attribution_windows,
+            "signed_translation_attribution_windows.csv",
+            "attribution",
+        )
+
+    de_novo_path = result_path("de_novo_translation_motifs.csv")
+    alignments_path = result_path("de_novo_motif_alignments.json")
+    if os.path.isfile(de_novo_path) and os.path.isfile(alignments_path):
+        de_novo = load_csv_result(
+            "de_novo_translation_motifs.csv", "de_novo"
+        )
+        with open(alignments_path, "r", encoding="utf-8") as handle:
+            alignments = json.load(handle)
+        print("[SKIP] de_novo: loaded de_novo_motif_alignments.json")
+    else:
+        if de_novo_source == "signed_attribution":
+            source_table = attribution_windows
+            effect_column = "Signed_Attribution"
+        elif de_novo_source == "known_hit_context":
+            source_table = effects
+            effect_column = "Delta_Log2_TE"
+        else:
+            raise ValueError(
+                "de_novo_source must be 'signed_attribution' or "
+                "'known_hit_context'."
+            )
+        if source_table.empty:
             de_novo, alignments = pd.DataFrame(), {}
         else:
             de_novo, alignments = discover_de_novo_translation_motifs(
-                effects,
+                source_table,
                 sequence_col="Context_Sequence",
-                effect_col="Delta_Log2_TE",
+                effect_col=effect_column,
                 unit_col="Tid",
                 region_col="Region",
+                peak_offset_col="Peak_Offset",
                 discovery_regions=de_novo_regions,
             )
-    else:
-        raise ValueError(
-            "de_novo_source must be 'signed_attribution' or "
-            "'known_hit_context'."
+        save_csv_result(
+            de_novo, "de_novo_translation_motifs.csv", "de_novo"
         )
+        with open(alignments_path, "w", encoding="utf-8") as handle:
+            json.dump(alignments, handle, indent=2)
+        print("[DONE] de_novo: de_novo_motif_alignments.json saved")
 
     if position_known_rbp_scope not in {"summary", "all"}:
         raise ValueError(
             "position_known_rbp_scope must be 'summary' or 'all'."
         )
-    known_rbp_names = None
-    if position_known_rbp_scope == "summary" and not summary.empty:
-        known_rbp_names = summary["RBP_Name"].dropna().astype(str).unique()
-    position_profiles = build_motif_position_profiles(
-        samples,
-        known_hits=hits,
-        de_novo_motifs=de_novo,
-        bin_size=position_bin_size,
-        utr5_length=position_utr5_length,
-        cds_length=position_cds_length,
-        utr3_length=position_utr3_length,
-        bins_per_region=position_bins_per_region,
-        known_rbp_names=known_rbp_names,
-        pseudocount=position_pseudocount,
+    known_positions_path = result_path("known_rbp_position_profiles.csv")
+    de_novo_positions_path = result_path(
+        "de_novo_motif_position_profiles.csv"
     )
-
-    outputs = {
-        "rbp_pwm_validation.csv": pwm_validation,
-        "rbp_motif_hits.csv": hits,
-        "rbp_motif_hit_effects.csv": effects,
-        "rbp_motif_effect_summary.csv": summary,
-        "rbp_nucleotide_contributions.csv": contributions,
-        "signed_translation_attribution_windows.csv": attribution_windows,
-        "de_novo_translation_motifs.csv": de_novo,
-        "known_rbp_position_profiles.csv": position_profiles["known_rbp"],
-        "de_novo_motif_position_profiles.csv": position_profiles["de_novo"],
-    }
-    for filename, table in outputs.items():
-        table.to_csv(os.path.join(out_dir, filename), index=False)
-    with open(
-        os.path.join(out_dir, "de_novo_motif_alignments.json"),
-        "w",
-        encoding="utf-8",
-    ) as handle:
-        json.dump(alignments, handle, indent=2)
+    if os.path.isfile(known_positions_path) and os.path.isfile(
+        de_novo_positions_path
+    ):
+        known_position_profiles = load_csv_result(
+            "known_rbp_position_profiles.csv", "positions"
+        )
+        de_novo_position_profiles = load_csv_result(
+            "de_novo_motif_position_profiles.csv", "positions"
+        )
+    else:
+        known_rbp_names = None
+        if position_known_rbp_scope == "summary" and not summary.empty:
+            known_rbp_names = summary[
+                "RBP_Name"
+            ].dropna().astype(str).unique()
+        position_profiles = build_motif_position_profiles(
+            samples,
+            known_hits=hits,
+            de_novo_motifs=de_novo,
+            bin_size=position_bin_size,
+            utr5_length=position_utr5_length,
+            cds_length=position_cds_length,
+            utr3_length=position_utr3_length,
+            bins_per_region=position_bins_per_region,
+            known_rbp_names=known_rbp_names,
+            pseudocount=position_pseudocount,
+        )
+        known_position_profiles = position_profiles["known_rbp"]
+        de_novo_position_profiles = position_profiles["de_novo"]
+        save_csv_result(
+            known_position_profiles,
+            "known_rbp_position_profiles.csv",
+            "positions",
+        )
+        save_csv_result(
+            de_novo_position_profiles,
+            "de_novo_motif_position_profiles.csv",
+            "positions",
+        )
     return {
         "samples": samples,
         "pwm_validation": pwm_validation,
@@ -2374,9 +2475,7 @@ def run_rbp_translation_effect_analysis(
         "signed_attribution_windows": attribution_windows,
         "de_novo_motifs": de_novo,
         "de_novo_alignments": alignments,
-        "known_rbp_position_profiles": position_profiles["known_rbp"],
-        "de_novo_position_profiles": position_profiles["de_novo"],
-        "known_motif_scan_cache_path": os.path.abspath(
-            os.path.expanduser(scan_cache_path)
-        ),
+        "known_rbp_position_profiles": known_position_profiles,
+        "de_novo_position_profiles": de_novo_position_profiles,
+        "result_directory": out_dir,
     }

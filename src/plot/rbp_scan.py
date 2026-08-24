@@ -596,14 +596,160 @@ def _native_contribution_matrix(case_df):
     return matrix
 
 
+def _case_filter_values(values):
+    """Normalize a scalar or iterable case filter to a string list."""
+    if values is None:
+        return None
+    if isinstance(values, str):
+        return [values]
+    return [str(value) for value in values]
+
+
+def select_rbp_nucleotide_contribution_cases(
+        contribution_df,
+        summary_df=None,
+        cases_per_rbp=3,
+        target_rbps=None,
+        target_regions=None,
+        target_hit_ids=None,
+        target_transcript_ids=None,
+        target_motif_starts=None,
+        require_summary_direction=True,
+        max_cases=None):
+    """Select significant or explicitly requested RBP-motif contribution hits.
+
+    Explicit ``target_hit_ids`` take precedence over automatic ranking. The
+    default path ranks hits within each RBP by absolute motif perturbation and
+    retains only effects whose sign agrees with the RBP-region summary.
+    """
+    required = {
+        'Hit_ID', 'Tid', 'RBP_Name', 'Region', 'Motif_Start',
+        'Motif_Delta_Log2_TE', 'Group_Median_Delta_Log2_TE',
+    }
+    missing = required.difference(contribution_df.columns)
+    if missing:
+        raise ValueError(
+            f"Contribution table is missing selection columns: {sorted(missing)}"
+        )
+    if cases_per_rbp is not None and int(cases_per_rbp) < 1:
+        raise ValueError("cases_per_rbp must be positive or None.")
+    if max_cases is not None and int(max_cases) < 1:
+        raise ValueError("max_cases must be positive or None.")
+
+    hit_table = contribution_df.drop_duplicates('Hit_ID').copy()
+    rbps = _case_filter_values(target_rbps)
+    regions = _case_filter_values(target_regions)
+    hit_ids = _case_filter_values(target_hit_ids)
+    transcript_ids = _case_filter_values(target_transcript_ids)
+    motif_starts = (
+        None if target_motif_starts is None
+        else {int(value) for value in (
+            [target_motif_starts]
+            if np.isscalar(target_motif_starts)
+            else target_motif_starts
+        )}
+    )
+    if rbps is not None:
+        hit_table = hit_table[
+            hit_table['RBP_Name'].astype(str).isin(rbps)
+        ]
+    if regions is not None:
+        hit_table = hit_table[
+            hit_table['Region'].astype(str).isin(regions)
+        ]
+    if transcript_ids is not None:
+        hit_table = hit_table[
+            hit_table['Tid'].astype(str).isin(transcript_ids)
+        ]
+    if motif_starts is not None:
+        hit_table = hit_table[
+            hit_table['Motif_Start'].astype(int).isin(motif_starts)
+        ]
+
+    explicit_hit_selection = hit_ids is not None
+    if explicit_hit_selection:
+        available = set(hit_table['Hit_ID'].astype(str))
+        missing_hits = [hit_id for hit_id in hit_ids if hit_id not in available]
+        if missing_hits:
+            print(
+                "Requested Hit_ID values absent after filtering: "
+                + ", ".join(missing_hits)
+            )
+        order = {hit_id: index for index, hit_id in enumerate(hit_ids)}
+        hit_table = hit_table[
+            hit_table['Hit_ID'].astype(str).isin(order)
+        ].copy()
+        hit_table['_Selection_Order'] = hit_table['Hit_ID'].astype(str).map(order)
+        hit_table = hit_table.sort_values('_Selection_Order')
+    else:
+        if summary_df is not None:
+            summary_required = {
+                'RBP_Name', 'Region', 'Median_Delta_Log2_TE'
+            }
+            summary_missing = summary_required.difference(summary_df.columns)
+            if summary_missing:
+                raise ValueError(
+                    "Summary table is missing columns: "
+                    f"{sorted(summary_missing)}"
+                )
+            summary_lookup = (
+                summary_df.drop_duplicates(['RBP_Name', 'Region'])
+                .set_index(['RBP_Name', 'Region'])['Median_Delta_Log2_TE']
+            )
+            keys = pd.MultiIndex.from_frame(
+                hit_table[['RBP_Name', 'Region']]
+            )
+            hit_table['_Expected_Effect'] = summary_lookup.reindex(keys).to_numpy()
+        else:
+            hit_table['_Expected_Effect'] = hit_table[
+                'Group_Median_Delta_Log2_TE'
+            ].to_numpy(float)
+        effect = hit_table['Motif_Delta_Log2_TE'].to_numpy(float)
+        expected = hit_table['_Expected_Effect'].to_numpy(float)
+        direction_match = (
+            np.sign(effect) == np.sign(expected)
+        ) | (np.sign(expected) == 0)
+        hit_table['_Direction_Match'] = direction_match
+        if require_summary_direction:
+            hit_table = hit_table[hit_table['_Direction_Match']].copy()
+        hit_table['_Absolute_Effect'] = hit_table[
+            'Motif_Delta_Log2_TE'
+        ].abs()
+        hit_table = hit_table.sort_values(
+            ['RBP_Name', '_Absolute_Effect', 'Hit_ID'],
+            ascending=[True, False, True],
+        )
+        if cases_per_rbp is not None:
+            hit_table = hit_table.groupby(
+                'RBP_Name', observed=True, group_keys=False
+            ).head(int(cases_per_rbp))
+        hit_table = hit_table.sort_values(
+            ['_Absolute_Effect', 'RBP_Name'], ascending=[False, True]
+        )
+        if max_cases is not None:
+            hit_table = hit_table.head(int(max_cases))
+    if hit_table.empty:
+        raise ValueError("No contribution hit satisfies the requested filters.")
+    return hit_table.reset_index(drop=True)
+
+
 def plot_rbp_nucleotide_contribution_cases(
         contribution_df,
         out_dir,
         max_cases=None,
+        cases_per_rbp=3,
+        summary_df=None,
+        target_rbps=None,
+        target_regions=None,
+        target_hit_ids=None,
+        target_transcript_ids=None,
+        target_motif_starts=None,
+        require_summary_direction=True,
+        return_selected_hits=False,
         width=8.0,
         height=3.4,
         motif_color='#F3E7A6'):
-    """Plot transcript context and signed per-base contributions for each case."""
+    """Plot ranked or explicitly selected signed per-base contribution cases."""
     import logomaker
 
     required = {
@@ -619,15 +765,27 @@ def plot_rbp_nucleotide_contribution_cases(
             f"Contribution table is missing columns: {sorted(missing)}"
         )
     if contribution_df.empty:
+        if return_selected_hits:
+            return [], pd.DataFrame()
         return []
     os.makedirs(out_dir, exist_ok=True)
-    hit_ids = contribution_df['Hit_ID'].drop_duplicates().tolist()
-    if max_cases is not None:
-        hit_ids = hit_ids[:int(max_cases)]
+    selected_hits = select_rbp_nucleotide_contribution_cases(
+        contribution_df,
+        summary_df=summary_df,
+        cases_per_rbp=cases_per_rbp,
+        target_rbps=target_rbps,
+        target_regions=target_regions,
+        target_hit_ids=target_hit_ids,
+        target_transcript_ids=target_transcript_ids,
+        target_motif_starts=target_motif_starts,
+        require_summary_direction=require_summary_direction,
+        max_cases=max_cases,
+    )
+    hit_ids = selected_hits['Hit_ID'].astype(str).tolist()
     output_paths = []
     for hit_id in hit_ids:
         case = contribution_df[
-            contribution_df['Hit_ID'] == hit_id
+            contribution_df['Hit_ID'].astype(str) == str(hit_id)
         ].sort_values('Relative_Position')
         first = case.iloc[0]
         fig, (architecture_ax, logo_ax) = plt.subplots(
@@ -653,7 +811,8 @@ def plot_rbp_nucleotide_contribution_cases(
             solid_capstyle='butt',
         )
         architecture_ax.text(
-            motif_start, 0.22, f"{first['RBP_Name']} motif",
+            (motif_start + motif_end) / 2, 0.22,
+            f"{first['RBP_Name']} motif",
             color='#B85C00', ha='center', va='bottom', fontsize=8,
         )
         architecture_ax.text(
@@ -692,7 +851,8 @@ def plot_rbp_nucleotide_contribution_cases(
         logo_ax.set_ylabel(r'Base contribution to $\Delta\log_2(TE)$')
         logo_ax.set_title(
             f"{first['Tid']} | {first['RBP_Name']} | {first['Region']} | "
-            f"representative hit = {first['Motif_Delta_Log2_TE']:+.3f}\n"
+            f"{hit_id} | motif={motif_start}:{motif_end}\n"
+            f"hit effect = {first['Motif_Delta_Log2_TE']:+.3f}, "
             f"group median = {first['Group_Median_Delta_Log2_TE']:+.3f}, "
             f"n={int(first['Group_N_Transcripts'])} transcripts",
             loc='left', fontsize=9, pad=7,
@@ -709,6 +869,8 @@ def plot_rbp_nucleotide_contribution_cases(
         plt.close(fig)
         output_paths.append(pdf_path)
     print(f"Saved {len(output_paths)} RBP nucleotide-contribution cases.")
+    if return_selected_hits:
+        return output_paths, selected_hits
     return output_paths
 
 

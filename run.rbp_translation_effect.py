@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""Run the resumable TRACE RBP translation-effect and de novo motif pipeline."""
+"""Run the file-resumable TRACE RBP translation-effect motif pipeline."""
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import pickle
 import sys
-import time
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Optional
+from typing import Any, Mapping, Optional
 
 import numpy as np
 import pandas as pd
@@ -30,11 +28,8 @@ from eval.rbp_translation_effect import (
     build_motif_position_profiles,
     collect_rbp_motif_hits,
     collect_unique_transcript_samples,
-    compute_known_motif_scan_signature,
     discover_de_novo_translation_motifs,
     extract_signed_translation_attribution_windows,
-    load_known_motif_scan_cache,
-    save_known_motif_scan_cache,
     summarize_rbp_motif_effects,
     validate_rbp_pwm_library,
 )
@@ -67,34 +62,8 @@ def _json_default(value: Any):
     raise TypeError(f"Cannot serialize {type(value).__name__} to JSON.")
 
 
-def _digest(payload: Any) -> str:
-    """Create a stable SHA256 digest for a stage configuration."""
-    encoded = json.dumps(
-        payload,
-        sort_keys=True,
-        separators=(",", ":"),
-        default=_json_default,
-    ).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
-
-
-def _file_signature(path: Optional[str]) -> Optional[dict]:
-    """Describe a file without hashing a potentially large model or dataset."""
-    if path is None:
-        return None
-    resolved = Path(path).expanduser().resolve()
-    if not resolved.is_file():
-        raise FileNotFoundError(f"Input file was not found: {resolved}")
-    stat = resolved.stat()
-    return {
-        "path": str(resolved),
-        "size": stat.st_size,
-        "mtime_ns": stat.st_mtime_ns,
-    }
-
-
 def _atomic_pickle(value: Any, path: Path) -> None:
-    """Atomically serialize a Python checkpoint."""
+    """Atomically serialize a public binary result."""
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     with temporary.open("wb") as handle:
@@ -103,7 +72,7 @@ def _atomic_pickle(value: Any, path: Path) -> None:
 
 
 def _atomic_json(value: Any, path: Path) -> None:
-    """Atomically serialize a JSON checkpoint or manifest."""
+    """Atomically serialize a public JSON result or manifest."""
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     with temporary.open("w", encoding="utf-8") as handle:
@@ -119,78 +88,29 @@ def _atomic_csv(table: pd.DataFrame, path: Path) -> None:
     os.replace(temporary, path)
 
 
-class StageCache:
-    """Manage stage checkpoints with parameter-aware completion markers."""
+def _load_result_csv(path: Path, stage: str) -> pd.DataFrame:
+    """Load a canonical CSV result, including a valid zero-row result."""
+    try:
+        table = pd.read_csv(path)
+    except pd.errors.EmptyDataError:
+        table = pd.DataFrame()
+    print(f"[SKIP] {stage}: loaded {path.name}")
+    return table
 
-    def __init__(
-        self,
-        out_dir: Path,
-        resume: bool,
-        force_from: Optional[str],
-    ):
-        self.root = out_dir / "checkpoints"
-        self.root.mkdir(parents=True, exist_ok=True)
-        self.resume = bool(resume)
-        self.force_index = (
-            len(STAGES) if force_from is None else STAGES.index(force_from)
-        )
-        self.stage_digests = {}
 
-    def checkpoint_path(self, stage: str) -> Path:
-        return self.root / f"{stage}.pkl"
+def _load_result_pickle(path: Path, stage: str):
+    """Load a canonical pickle result."""
+    with path.open("rb") as handle:
+        value = pickle.load(handle)
+    print(f"[SKIP] {stage}: loaded {path.name}")
+    return value
 
-    def marker_path(self, stage: str) -> Path:
-        return self.root / f"{stage}.done.json"
 
-    def stage_signature(
-        self,
-        stage: str,
-        parameters: Mapping[str, Any],
-        dependencies: Iterable[str] = (),
-    ) -> str:
-        payload = {
-            "stage": stage,
-            "parameters": dict(parameters),
-            "dependencies": {
-                dependency: self.stage_digests[dependency]
-                for dependency in dependencies
-            },
-        }
-        signature = _digest(payload)
-        self.stage_digests[stage] = signature
-        return signature
-
-    def reusable(self, stage: str, signature: str) -> bool:
-        if not self.resume or STAGES.index(stage) >= self.force_index:
-            return False
-        marker_path = self.marker_path(stage)
-        checkpoint_path = self.checkpoint_path(stage)
-        if not marker_path.is_file() or not checkpoint_path.is_file():
-            return False
-        try:
-            marker = json.loads(marker_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            return False
-        return marker.get("signature") == signature
-
-    def load(self, stage: str):
-        with self.checkpoint_path(stage).open("rb") as handle:
-            value = pickle.load(handle)
-        print(f"[SKIP] {stage}: loaded completed checkpoint")
-        return value
-
-    def save(self, stage: str, signature: str, value: Any) -> None:
-        _atomic_pickle(value, self.checkpoint_path(stage))
-        _atomic_json(
-            {
-                "stage": stage,
-                "signature": signature,
-                "completed_at": time.strftime("%Y-%m-%d %H:%M:%S"),
-                "checkpoint": str(self.checkpoint_path(stage)),
-            },
-            self.marker_path(stage),
-        )
-        print(f"[DONE] {stage}: checkpoint saved")
+def _load_result_json(path: Path, stage: str):
+    """Load a canonical JSON result."""
+    value = json.loads(path.read_text(encoding="utf-8"))
+    print(f"[SKIP] {stage}: loaded {path.name}")
+    return value
 
 
 def _load_dataset(paths: list[str]):
@@ -333,17 +253,33 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the cluster-friendly command-line interface."""
     parser = argparse.ArgumentParser(
         description=(
-            "Resumable known-RBP perturbation and de novo translation motif "
-            "analysis for TRACE BaseModel checkpoints."
+            "File-resumable known-RBP perturbation and de novo translation "
+            "motif analysis for TRACE BaseModel checkpoints."
         ),
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    required = parser.add_argument_group("required inputs")
-    required.add_argument("--model-config", required=True)
-    required.add_argument("--checkpoint", required=True)
-    required.add_argument("--dataset", action="append", required=True)
-    required.add_argument("--pwm-pkl", required=True)
-    required.add_argument("--metadata-tsv", required=True)
+    required = parser.add_argument_group("input paths")
+    required.add_argument(
+        "--model-config",
+        help="Required only when a missing stage needs model inference.",
+    )
+    required.add_argument(
+        "--checkpoint",
+        help="Required only when a missing stage needs model inference.",
+    )
+    required.add_argument(
+        "--dataset",
+        action="append",
+        help="Required only when unique_transcript_samples.pkl is missing.",
+    )
+    required.add_argument(
+        "--pwm-pkl",
+        help="Required only when validated_rbp_pwms.pkl is missing.",
+    )
+    required.add_argument(
+        "--metadata-tsv",
+        help="Required only when validation or motif scanning must run.",
+    )
     required.add_argument("--out-dir", required=True)
 
     model_group = parser.add_argument_group("model and inference")
@@ -390,13 +326,6 @@ def build_parser() -> argparse.ArgumentParser:
             "calculated to create approximately four chunks per worker."
         ),
     )
-    selection.add_argument(
-        "--known-motif-scan-cache-path",
-        help=(
-            "Portable known-RBP hit cache path; defaults to "
-            "OUT_DIR/known_rbp_motif_hits.pkl."
-        ),
-    )
     selection.add_argument("--random-state", type=int, default=42)
 
     statistics = parser.add_argument_group("statistics and discovery")
@@ -404,6 +333,15 @@ def build_parser() -> argparse.ArgumentParser:
     statistics.add_argument("--bootstrap-iterations", type=int, default=2000)
     statistics.add_argument("--confidence-level", type=float, default=0.95)
     statistics.add_argument("--n-cases-per-direction", type=int, default=3)
+    statistics.add_argument(
+        "--case-selection-mode",
+        choices=["global", "per_rbp"],
+        default="global",
+        help=(
+            "Use the legacy global representative selection or calculate "
+            "the strongest cases independently for every eligible RBP."
+        ),
+    )
     statistics.add_argument(
         "--case-regions",
         nargs="+",
@@ -436,7 +374,17 @@ def build_parser() -> argparse.ArgumentParser:
     plotting.add_argument("--skip-plots", action="store_true")
     plotting.add_argument("--plot-top-n-per-direction", type=int, default=30)
     plotting.add_argument("--plot-fdr-threshold", type=float)
-    plotting.add_argument("--plot-max-cases", type=int, default=6)
+    plotting.add_argument("--plot-max-cases", type=int)
+    plotting.add_argument("--plot-cases-per-rbp", type=int, default=3)
+    plotting.add_argument("--plot-case-rbp", action="append")
+    plotting.add_argument(
+        "--plot-case-region",
+        action="append",
+        choices=["5UTR", "CDS", "3UTR"],
+    )
+    plotting.add_argument("--plot-case-hit-id", action="append")
+    plotting.add_argument("--plot-case-transcript-id", action="append")
+    plotting.add_argument("--plot-case-motif-start", action="append", type=int)
     plotting.add_argument("--plot-logo-top-n", type=int, default=4)
     plotting.add_argument(
         "--position-cluster-mode",
@@ -470,15 +418,13 @@ def build_parser() -> argparse.ArgumentParser:
     plotting.add_argument("--position-heatmap-width", type=float, default=7.2)
     plotting.add_argument("--position-row-height", type=float, default=0.07)
 
-    resume = parser.add_argument_group("checkpoint control")
-    resume.add_argument("--no-resume", action="store_true")
-    resume.add_argument("--force-from", choices=STAGES)
-    resume.add_argument("--stop-after", choices=STAGES)
+    execution = parser.add_argument_group("execution control")
+    execution.add_argument("--stop-after", choices=STAGES)
     return parser
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    """Execute all requested stages with resumable checkpoints."""
+    """Execute stages, reusing canonical result files when they exist."""
     args = build_parser().parse_args(argv)
     if args.de_novo_logo_flank < 1:
         raise ValueError("--de-novo-logo-flank must be positive.")
@@ -489,153 +435,133 @@ def main(argv: Optional[list[str]] = None) -> int:
         )
     out_dir = Path(args.out_dir).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-    cache = StageCache(
-        out_dir,
-        resume=not args.no_resume,
-        force_from=args.force_from,
-    )
     device = _device_from_argument(args.device)
 
-    target_rbps = _parse_csv_values(args.target_rbp)
-    rbps_from_file = _load_id_collection(args.target_rbp_file)
-    if rbps_from_file:
-        target_rbps = list(dict.fromkeys((target_rbps or []) + rbps_from_file))
-    target_transcripts = _load_id_collection(args.target_transcript_file)
-
-    input_signatures = {
-        "model_config": _file_signature(args.model_config),
-        "checkpoint": _file_signature(args.checkpoint),
-        "datasets": [_file_signature(path) for path in args.dataset],
-        "pwm_pkl": _file_signature(args.pwm_pkl),
-        "metadata_tsv": _file_signature(args.metadata_tsv),
-        "target_rbp_file": _file_signature(args.target_rbp_file),
-        "target_transcript_file": _file_signature(args.target_transcript_file),
-    }
     _atomic_json(
         {
             "arguments": vars(args),
-            "input_signatures": input_signatures,
             "stages": list(STAGES),
+            "reuse_policy": (
+                "Canonical output files are authoritative. Delete a stage's "
+                "output files to rerun that stage."
+            ),
         },
         out_dir / "rbp_pipeline_run_manifest.json",
     )
 
-    pwm_library = _load_pickle(args.pwm_pkl)
-    if not isinstance(pwm_library, dict):
-        raise TypeError("--pwm-pkl must contain a dictionary keyed by Matrix_id.")
-    metadata = pd.read_csv(args.metadata_tsv, sep="\t", dtype={"Matrix_id": str})
-
     model_holder = {}
     dataset_holder = {}
+    input_holder = {}
+    selection_holder = {}
+
+    def require_input(value, option: str, stage: str):
+        if value is None or value == []:
+            raise ValueError(
+                f"{option} is required because the '{stage}' result is missing."
+            )
+        return value
+
+    def get_pwm_library():
+        if "pwm_library" not in input_holder:
+            pwm_path = require_input(
+                args.pwm_pkl, "--pwm-pkl", "validate_pwms"
+            )
+            value = _load_pickle(pwm_path)
+            if not isinstance(value, dict):
+                raise TypeError(
+                    "--pwm-pkl must contain a dictionary keyed by Matrix_id."
+                )
+            input_holder["pwm_library"] = value
+        return input_holder["pwm_library"]
+
+    def get_metadata():
+        if "metadata" not in input_holder:
+            metadata_path = require_input(
+                args.metadata_tsv, "--metadata-tsv", "hits"
+            )
+            input_holder["metadata"] = pd.read_csv(
+                metadata_path,
+                sep="\t",
+                dtype={"Matrix_id": str},
+            )
+        return input_holder["metadata"]
+
+    def get_target_rbps():
+        if "target_rbps" not in selection_holder:
+            values = _parse_csv_values(args.target_rbp)
+            from_file = _load_id_collection(args.target_rbp_file)
+            if from_file:
+                values = list(dict.fromkeys((values or []) + from_file))
+            selection_holder["target_rbps"] = values
+        return selection_holder["target_rbps"]
+
+    def get_target_transcripts():
+        if "target_transcripts" not in selection_holder:
+            selection_holder["target_transcripts"] = _load_id_collection(
+                args.target_transcript_file
+            )
+        return selection_holder["target_transcripts"]
 
     def get_model():
         if "model" not in model_holder:
+            require_input(args.model_config, "--model-config", "inference")
+            require_input(args.checkpoint, "--checkpoint", "inference")
             model_holder["model"] = _load_model(args, device)
         return model_holder["model"]
 
     def get_dataset():
         if "dataset" not in dataset_holder:
-            dataset_holder["dataset"] = _load_dataset(args.dataset)
+            dataset_paths = require_input(args.dataset, "--dataset", "samples")
+            dataset_holder["dataset"] = _load_dataset(dataset_paths)
         return dataset_holder["dataset"]
 
-    validation_signature = cache.stage_signature(
-        "validate_pwms",
-        {
-            "pwm": input_signatures["pwm_pkl"],
-            "metadata": input_signatures["metadata_tsv"],
-            "target_rbps": target_rbps,
-        },
-    )
-    if cache.reusable("validate_pwms", validation_signature):
-        validation_result = cache.load("validate_pwms")
+    pwm_audit_path = out_dir / "rbp_pwm_validation.csv"
+    valid_pwms_path = out_dir / "validated_rbp_pwms.pkl"
+    if pwm_audit_path.is_file() and valid_pwms_path.is_file():
+        pwm_audit = _load_result_csv(pwm_audit_path, "validate_pwms")
+        valid_pwms = _load_result_pickle(valid_pwms_path, "validate_pwms")
     else:
         print("[RUN] validate_pwms")
         valid_pwms, pwm_audit = validate_rbp_pwm_library(
-            pwm_library,
-            metadata=metadata,
-            target_rbps=target_rbps,
+            get_pwm_library(),
+            metadata=get_metadata(),
+            target_rbps=get_target_rbps(),
         )
-        validation_result = {"valid_pwms": valid_pwms, "audit": pwm_audit}
-        cache.save("validate_pwms", validation_signature, validation_result)
-        _atomic_csv(pwm_audit, out_dir / "rbp_pwm_validation.csv")
-    valid_pwms = validation_result["valid_pwms"]
-    pwm_audit = validation_result["audit"]
-    if not (out_dir / "rbp_pwm_validation.csv").is_file():
-        _atomic_csv(pwm_audit, out_dir / "rbp_pwm_validation.csv")
+        _atomic_csv(pwm_audit, pwm_audit_path)
+        _atomic_pickle(valid_pwms, valid_pwms_path)
+        print("[DONE] validate_pwms: canonical results saved")
     if _should_stop("validate_pwms", args.stop_after):
         return 0
 
-    samples_signature = cache.stage_signature(
-        "samples",
-        {
-            "datasets": input_signatures["datasets"],
-            "target_transcripts": target_transcripts,
-            "num_transcripts": args.num_transcripts,
-            "random_state": args.random_state,
-            "zero_expression": not args.use_dataset_expression,
-        },
-    )
-    if cache.reusable("samples", samples_signature):
-        samples = cache.load("samples")
+    samples_path = out_dir / "unique_transcript_samples.pkl"
+    if samples_path.is_file():
+        samples = _load_result_pickle(samples_path, "samples")
     else:
         print("[RUN] samples")
         samples = collect_unique_transcript_samples(
             get_dataset(),
-            target_transcript_ids=target_transcripts,
+            target_transcript_ids=get_target_transcripts(),
             num_transcripts=args.num_transcripts,
             random_state=args.random_state,
         )
         if not args.use_dataset_expression:
             for sample in samples.values():
                 sample["Expr_Vector"] = np.zeros_like(sample["Expr_Vector"])
-        cache.save("samples", samples_signature, samples)
+        _atomic_pickle(samples, samples_path)
+        print("[DONE] samples: unique_transcript_samples.pkl saved")
     if _should_stop("samples", args.stop_after):
         return 0
 
-    portable_hits_path = (
-        Path(args.known_motif_scan_cache_path).expanduser().resolve()
-        if args.known_motif_scan_cache_path
-        else out_dir / "known_rbp_motif_hits.pkl"
-    )
-    portable_hits_signature = compute_known_motif_scan_signature(
-        samples,
-        valid_pwms,
-        metadata,
-        target_rbps=target_rbps,
-        regions=args.regions,
-        score_threshold=args.score_threshold,
-        max_hits_per_rbp_transcript_region=(
-            args.max_hits_per_rbp_transcript_region
-        ),
-        context_flank=args.context_flank,
-    )
-    hits_signature = cache.stage_signature(
-        "hits",
-        {
-            "portable_scan_signature": portable_hits_signature,
-        },
-        dependencies=("validate_pwms", "samples"),
-    )
-    can_reuse_hits = (
-        not args.no_resume
-        and (
-            args.force_from is None
-            or STAGES.index("hits") < STAGES.index(args.force_from)
-        )
-    )
-    hits = None
-    if can_reuse_hits:
-        hits = load_known_motif_scan_cache(
-            str(portable_hits_path),
-            expected_signature=portable_hits_signature,
-        )
-    if hits is None:
+    hits_path = out_dir / "rbp_motif_hits.csv"
+    if hits_path.is_file():
+        hits = _load_result_csv(hits_path, "hits")
+    else:
         print("[RUN] hits")
         hits = collect_rbp_motif_hits(
             samples,
             valid_pwms,
-            metadata,
-            target_rbps=target_rbps,
+            get_metadata(),
+            target_rbps=get_target_rbps(),
             regions=args.regions,
             score_threshold=args.score_threshold,
             max_hits_per_rbp_transcript_region=(
@@ -646,38 +572,14 @@ def main(argv: Optional[list[str]] = None) -> int:
             scan_backend=args.scan_backend,
             scan_chunk_size=args.scan_chunk_size,
         )
-        save_known_motif_scan_cache(
-            hits,
-            str(portable_hits_path),
-            signature=portable_hits_signature,
-        )
-        _atomic_csv(hits, out_dir / "rbp_motif_hits.csv")
-        print("[DONE] hits: portable motif-position cache saved")
-    else:
-        print("[SKIP] hits: loaded portable motif-position cache")
-    if not (out_dir / "rbp_motif_hits.csv").is_file():
-        _atomic_csv(hits, out_dir / "rbp_motif_hits.csv")
+        _atomic_csv(hits, hits_path)
+        print("[DONE] hits: rbp_motif_hits.csv saved")
     if _should_stop("hits", args.stop_after):
         return 0
 
-    model_signature = {
-        "model_config": input_signatures["model_config"],
-        "checkpoint": input_signatures["checkpoint"],
-        "head_hidden_dim": args.head_hidden_dim,
-        "prediction_scale": args.prediction_scale,
-        "non_strict": args.non_strict,
-    }
-    effects_signature = cache.stage_signature(
-        "effects",
-        {
-            **model_signature,
-            "batch_size": args.batch_size,
-            "cds_signal_aggregation": "full_cds_nucleotide_mean_v2",
-        },
-        dependencies=("hits", "samples", "validate_pwms"),
-    )
-    if cache.reusable("effects", effects_signature):
-        effects = cache.load("effects")
+    effects_path = out_dir / "rbp_motif_hit_effects.csv"
+    if effects_path.is_file():
+        effects = _load_result_csv(effects_path, "effects")
     else:
         print("[RUN] effects")
         if hits.empty:
@@ -696,25 +598,14 @@ def main(argv: Optional[list[str]] = None) -> int:
             effects["Expression_Conditioning"] = (
                 "dataset" if args.use_dataset_expression else "zero"
             )
-        cache.save("effects", effects_signature, effects)
-        _atomic_csv(effects, out_dir / "rbp_motif_hit_effects.csv")
-    if not (out_dir / "rbp_motif_hit_effects.csv").is_file():
-        _atomic_csv(effects, out_dir / "rbp_motif_hit_effects.csv")
+        _atomic_csv(effects, effects_path)
+        print("[DONE] effects: rbp_motif_hit_effects.csv saved")
     if _should_stop("effects", args.stop_after):
         return 0
 
-    summary_signature = cache.stage_signature(
-        "summary",
-        {
-            "min_transcripts": args.min_transcripts,
-            "bootstrap_iterations": args.bootstrap_iterations,
-            "confidence_level": args.confidence_level,
-            "random_state": args.random_state,
-        },
-        dependencies=("effects",),
-    )
-    if cache.reusable("summary", summary_signature):
-        summary = cache.load("summary")
+    summary_path = out_dir / "rbp_motif_effect_summary.csv"
+    if summary_path.is_file():
+        summary = _load_result_csv(summary_path, "summary")
     else:
         print("[RUN] summary")
         summary = (
@@ -728,27 +619,14 @@ def main(argv: Optional[list[str]] = None) -> int:
                 random_state=args.random_state,
             )
         )
-        cache.save("summary", summary_signature, summary)
-        _atomic_csv(summary, out_dir / "rbp_motif_effect_summary.csv")
-    if not (out_dir / "rbp_motif_effect_summary.csv").is_file():
-        _atomic_csv(summary, out_dir / "rbp_motif_effect_summary.csv")
+        _atomic_csv(summary, summary_path)
+        print("[DONE] summary: rbp_motif_effect_summary.csv saved")
     if _should_stop("summary", args.stop_after):
         return 0
 
-    cases_signature = cache.stage_signature(
-        "cases",
-        {
-            **model_signature,
-            "n_cases_per_direction": args.n_cases_per_direction,
-            "min_transcripts": args.min_transcripts,
-            "context_flank": args.context_flank,
-            "batch_size": args.batch_size,
-            "case_regions": args.case_regions,
-        },
-        dependencies=("effects", "samples", "validate_pwms"),
-    )
-    if cache.reusable("cases", cases_signature):
-        contributions = cache.load("cases")
+    contributions_path = out_dir / "rbp_nucleotide_contributions.csv"
+    if contributions_path.is_file():
+        contributions = _load_result_csv(contributions_path, "cases")
     else:
         print("[RUN] cases")
         if effects.empty:
@@ -767,33 +645,24 @@ def main(argv: Optional[list[str]] = None) -> int:
                 context_flank=args.context_flank,
                 batch_size=args.batch_size,
                 case_regions=args.case_regions,
+                target_rbps=args.plot_case_rbp,
+                target_regions=args.plot_case_region,
+                target_hit_ids=args.plot_case_hit_id,
+                target_transcript_ids=args.plot_case_transcript_id,
+                target_motif_starts=args.plot_case_motif_start,
+                targeted_cases_per_rbp=args.plot_cases_per_rbp,
+                selection_mode=args.case_selection_mode,
             )
-        cache.save("cases", cases_signature, contributions)
-        _atomic_csv(
-            contributions,
-            out_dir / "rbp_nucleotide_contributions.csv",
-        )
-    if not (out_dir / "rbp_nucleotide_contributions.csv").is_file():
-        _atomic_csv(contributions, out_dir / "rbp_nucleotide_contributions.csv")
+        _atomic_csv(contributions, contributions_path)
+        print("[DONE] cases: rbp_nucleotide_contributions.csv saved")
     if _should_stop("cases", args.stop_after):
         return 0
 
-    attribution_signature = cache.stage_signature(
-        "attribution",
-        {
-            **model_signature,
-            "enabled": args.de_novo_source == "signed_attribution",
-            "num_transcripts": args.de_novo_num_transcripts,
-            "peaks_per_direction": args.de_novo_peaks_per_direction,
-            "window_radius": args.context_flank,
-            "target_regions": args.de_novo_regions,
-            "target_signal": "full_cds_nucleotide_mean_v2",
-            "random_state": args.random_state,
-        },
-        dependencies=("samples",),
-    )
-    if cache.reusable("attribution", attribution_signature):
-        attribution_windows = cache.load("attribution")
+    attribution_path = out_dir / "signed_translation_attribution_windows.csv"
+    if attribution_path.is_file():
+        attribution_windows = _load_result_csv(
+            attribution_path, "attribution"
+        )
     else:
         print("[RUN] attribution")
         if args.de_novo_source == "signed_attribution":
@@ -809,41 +678,19 @@ def main(argv: Optional[list[str]] = None) -> int:
             )
         else:
             attribution_windows = pd.DataFrame()
-        cache.save("attribution", attribution_signature, attribution_windows)
-        _atomic_csv(
-            attribution_windows,
-            out_dir / "signed_translation_attribution_windows.csv",
-        )
-    if not (out_dir / "signed_translation_attribution_windows.csv").is_file():
-        _atomic_csv(
-            attribution_windows,
-            out_dir / "signed_translation_attribution_windows.csv",
+        _atomic_csv(attribution_windows, attribution_path)
+        print(
+            "[DONE] attribution: "
+            "signed_translation_attribution_windows.csv saved"
         )
     if _should_stop("attribution", args.stop_after):
         return 0
 
-    de_novo_dependency = (
-        "attribution" if args.de_novo_source == "signed_attribution" else "effects"
-    )
-    de_novo_signature = cache.stage_signature(
-        "de_novo",
-        {
-            "source": args.de_novo_source,
-            "k_values": args.de_novo_k,
-            "extreme_quantile": args.de_novo_extreme_quantile,
-            "neutral_quantile": args.de_novo_neutral_quantile,
-            "min_occurrences": args.de_novo_min_occurrences,
-            "top_n": args.de_novo_top_n_per_direction,
-            "logo_flank": args.de_novo_logo_flank,
-            "discovery_regions": args.de_novo_regions,
-            "background_matching": "same_region_neutral_windows_v2",
-            "nested_motif_clustering": "exact_containment_v1",
-            "logo_alignment": "attribution_peak_centered_v1",
-        },
-        dependencies=(de_novo_dependency,),
-    )
-    if cache.reusable("de_novo", de_novo_signature):
-        de_novo_result = cache.load("de_novo")
+    de_novo_path = out_dir / "de_novo_translation_motifs.csv"
+    alignments_path = out_dir / "de_novo_motif_alignments.json"
+    if de_novo_path.is_file() and alignments_path.is_file():
+        de_novo = _load_result_csv(de_novo_path, "de_novo")
+        alignments = _load_result_json(alignments_path, "de_novo")
     else:
         print("[RUN] de_novo")
         source_table = (
@@ -873,36 +720,21 @@ def main(argv: Optional[list[str]] = None) -> int:
                 top_n_per_direction=args.de_novo_top_n_per_direction,
                 logo_flank=args.de_novo_logo_flank,
             )
-        de_novo_result = {"table": de_novo, "alignments": alignments}
-        cache.save("de_novo", de_novo_signature, de_novo_result)
-        _atomic_csv(de_novo, out_dir / "de_novo_translation_motifs.csv")
-        _atomic_json(alignments, out_dir / "de_novo_motif_alignments.json")
-    de_novo = de_novo_result["table"]
-    alignments = de_novo_result["alignments"]
-    if not (out_dir / "de_novo_translation_motifs.csv").is_file():
-        _atomic_csv(de_novo, out_dir / "de_novo_translation_motifs.csv")
-    if not (out_dir / "de_novo_motif_alignments.json").is_file():
-        _atomic_json(alignments, out_dir / "de_novo_motif_alignments.json")
+        _atomic_csv(de_novo, de_novo_path)
+        _atomic_json(alignments, alignments_path)
+        print("[DONE] de_novo: canonical CSV and JSON results saved")
     if _should_stop("de_novo", args.stop_after):
         return 0
 
-    positions_signature = cache.stage_signature(
-        "positions",
-        {
-            "bin_size": args.position_bin_size,
-            "utr5_length": args.position_utr5_length,
-            "cds_length": args.position_cds_length,
-            "utr3_length": args.position_utr3_length,
-            "bins_per_region": args.position_bins_per_region,
-            "rbp_scope": args.position_rbp_scope,
-            "pseudocount": args.position_pseudocount,
-            "position_normalization": "full_transcript_opportunity_v2",
-            "de_novo_utr_only": args.de_novo_regions,
-        },
-        dependencies=("samples", "hits", "summary", "de_novo"),
-    )
-    if cache.reusable("positions", positions_signature):
-        position_profiles = cache.load("positions")
+    known_positions_path = out_dir / "known_rbp_position_profiles.csv"
+    de_novo_positions_path = out_dir / "de_novo_motif_position_profiles.csv"
+    if known_positions_path.is_file() and de_novo_positions_path.is_file():
+        known_position_profiles = _load_result_csv(
+            known_positions_path, "positions"
+        )
+        de_novo_position_profiles = _load_result_csv(
+            de_novo_positions_path, "positions"
+        )
     else:
         print("[RUN] positions")
         known_rbp_names = None
@@ -920,142 +752,148 @@ def main(argv: Optional[list[str]] = None) -> int:
             known_rbp_names=known_rbp_names,
             pseudocount=args.position_pseudocount,
         )
-        cache.save("positions", positions_signature, position_profiles)
-        _atomic_csv(
-            position_profiles["known_rbp"],
-            out_dir / "known_rbp_position_profiles.csv",
-        )
-        _atomic_csv(
-            position_profiles["de_novo"],
-            out_dir / "de_novo_motif_position_profiles.csv",
-        )
-    known_position_profiles = position_profiles["known_rbp"]
-    de_novo_position_profiles = position_profiles["de_novo"]
-    if not (out_dir / "known_rbp_position_profiles.csv").is_file():
-        _atomic_csv(
-            known_position_profiles,
-            out_dir / "known_rbp_position_profiles.csv",
-        )
-    if not (out_dir / "de_novo_motif_position_profiles.csv").is_file():
-        _atomic_csv(
-            de_novo_position_profiles,
-            out_dir / "de_novo_motif_position_profiles.csv",
-        )
+        known_position_profiles = position_profiles["known_rbp"]
+        de_novo_position_profiles = position_profiles["de_novo"]
+        _atomic_csv(known_position_profiles, known_positions_path)
+        _atomic_csv(de_novo_position_profiles, de_novo_positions_path)
+        print("[DONE] positions: canonical position-profile CSVs saved")
     if _should_stop("positions", args.stop_after):
         return 0
 
-    plots_signature = cache.stage_signature(
-        "plots",
-        {
-            "skip": args.skip_plots,
-            "top_n": args.plot_top_n_per_direction,
-            "fdr_threshold": args.plot_fdr_threshold,
-            "max_cases": args.plot_max_cases,
-            "logo_top_n": args.plot_logo_top_n,
-            "position_cluster_mode": args.position_cluster_mode,
-            "position_min_hits": args.position_min_hits,
-            "position_max_features": args.position_max_features,
-            "position_heatmap_width": args.position_heatmap_width,
-            "position_row_height": args.position_row_height,
-            "position_value_col": "Log2_Positional_Enrichment",
-            "regional_multipage_layout": True,
-            "known_rbp_layout": "combined_all_regions_per_rbp",
-            "de_novo_logo_layout": "peak_centered_region_matched",
-            "plot_schema_version": 3,
-            "format": "pdf_only",
-        },
-        dependencies=("summary", "cases", "de_novo", "positions"),
-    )
-    reuse_plots = cache.reusable("plots", plots_signature)
-    if reuse_plots:
-        plot_result = cache.load("plots")
-        existing_paths = [Path(path) for path in plot_result.get("paths", [])]
-        if not all(path.is_file() for path in existing_paths):
-            print("[RERUN] plots: one or more recorded PDFs are missing")
-            reuse_plots = False
-    if not reuse_plots:
-        print("[RUN] plots")
-        plot_paths = []
-        plot_notes = []
-        if not args.skip_plots:
-            # Import plotting dependencies only when PDF generation is requested.
-            from plot.rbp_scan import (
-                plot_de_novo_translation_motif_logos,
-                plot_motif_position_preference_heatmap,
-                plot_rbp_nucleotide_contribution_cases,
-                plot_rbp_translation_effect_summary,
-            )
+    print("[RUN] plots: checking canonical PDF outputs")
+    plot_paths = []
+    plot_notes = []
+    if not args.skip_plots:
+        from plot.rbp_scan import (
+            plot_de_novo_translation_motif_logos,
+            plot_motif_position_preference_heatmap,
+            plot_rbp_nucleotide_contribution_cases,
+            plot_rbp_translation_effect_summary,
+            select_rbp_nucleotide_contribution_cases,
+        )
 
-            if not summary.empty:
-                try:
-                    plot_paths.append(plot_rbp_translation_effect_summary(
-                        summary,
-                        out_path=str(out_dir / "rbp_translation_effect_summary.pdf"),
-                        top_n_per_direction=args.plot_top_n_per_direction,
-                        fdr_threshold=args.plot_fdr_threshold,
-                    ))
-                except ValueError as error:
-                    plot_notes.append(f"RBP summary plot skipped: {error}")
-            if not contributions.empty:
-                plot_paths.extend(plot_rbp_nucleotide_contribution_cases(
-                    contributions,
-                    out_dir=str(out_dir / "cases"),
-                    max_cases=args.plot_max_cases,
+        summary_pdf = out_dir / "rbp_translation_effect_summary.pdf"
+        if summary_pdf.is_file():
+            print(f"[SKIP] plot: loaded {summary_pdf.name}")
+            plot_paths.append(str(summary_pdf))
+        elif not summary.empty:
+            try:
+                plot_paths.append(plot_rbp_translation_effect_summary(
+                    summary,
+                    out_path=str(summary_pdf),
+                    top_n_per_direction=args.plot_top_n_per_direction,
+                    fdr_threshold=args.plot_fdr_threshold,
                 ))
-            if not de_novo.empty and alignments:
-                try:
-                    plot_paths.append(plot_de_novo_translation_motif_logos(
-                        de_novo,
-                        alignments,
-                        out_path=str(
-                            out_dir / "de_novo_translation_motif_logos.pdf"
-                        ),
-                        top_n_per_direction=args.plot_logo_top_n,
-                    ))
-                except ValueError as error:
-                    plot_notes.append(f"De novo logo plot skipped: {error}")
-            if not known_position_profiles.empty:
-                try:
-                    plot_paths.append(plot_motif_position_preference_heatmap(
-                        known_position_profiles,
-                        out_path=str(
-                            out_dir / "known_rbp_position_preference_heatmap.pdf"
-                        ),
-                        cluster_mode=args.position_cluster_mode,
-                        min_total_hits=args.position_min_hits,
-                        max_features=args.position_max_features,
-                        value_col="Log2_Positional_Enrichment",
-                        width=args.position_heatmap_width,
-                        row_height=args.position_row_height,
-                        layout="combined",
-                    ))
-                except ValueError as error:
-                    plot_notes.append(f"Known-RBP position heatmap skipped: {error}")
-            if not de_novo_position_profiles.empty:
-                try:
-                    plot_paths.append(plot_motif_position_preference_heatmap(
-                        de_novo_position_profiles,
-                        out_path=str(
-                            out_dir / "de_novo_position_preference_heatmap.pdf"
-                        ),
-                        cluster_mode=args.position_cluster_mode,
-                        min_total_hits=args.position_min_hits,
-                        max_features=args.position_max_features,
-                        value_col="Log2_Positional_Enrichment",
-                        width=args.position_heatmap_width,
-                        row_height=args.position_row_height,
-                        layout="regional_pages",
-                    ))
-                except ValueError as error:
-                    plot_notes.append(f"De novo position heatmap skipped: {error}")
-        else:
-            plot_notes.append("Plotting disabled by --skip-plots.")
-        plot_result = {
-            "paths": [str(Path(path).resolve()) for path in plot_paths],
-            "notes": plot_notes,
-        }
-        cache.save("plots", plots_signature, plot_result)
-        _atomic_json(plot_result, out_dir / "rbp_pipeline_plot_manifest.json")
+            except ValueError as error:
+                plot_notes.append(f"RBP summary plot skipped: {error}")
+
+        if not contributions.empty:
+            try:
+                selected_cases = select_rbp_nucleotide_contribution_cases(
+                    contributions,
+                    summary_df=summary,
+                    cases_per_rbp=args.plot_cases_per_rbp,
+                    target_rbps=args.plot_case_rbp,
+                    target_regions=args.plot_case_region,
+                    target_hit_ids=args.plot_case_hit_id,
+                    target_transcript_ids=args.plot_case_transcript_id,
+                    target_motif_starts=args.plot_case_motif_start,
+                    max_cases=args.plot_max_cases,
+                )
+                cases_dir = out_dir / "cases"
+                expected_case_paths = {}
+                for row in selected_cases.itertuples(index=False):
+                    expected = cases_dir / (
+                        f"rbp_base_contribution.{row.RBP_Name}."
+                        f"{row.Tid}.{row.Hit_ID}.pdf"
+                    )
+                    expected_case_paths[str(row.Hit_ID)] = expected
+                missing_case_ids = [
+                    hit_id for hit_id, path in expected_case_paths.items()
+                    if not path.is_file()
+                ]
+                if missing_case_ids:
+                    plot_rbp_nucleotide_contribution_cases(
+                        contributions,
+                        out_dir=str(cases_dir),
+                        target_hit_ids=missing_case_ids,
+                    )
+                else:
+                    print("[SKIP] plot: all selected case PDFs exist")
+                plot_paths.extend(
+                    str(path) for path in expected_case_paths.values()
+                    if path.is_file()
+                )
+            except ValueError as error:
+                plot_notes.append(f"RBP case plots skipped: {error}")
+
+        logo_pdf = out_dir / "de_novo_translation_motif_logos.pdf"
+        if logo_pdf.is_file():
+            print(f"[SKIP] plot: loaded {logo_pdf.name}")
+            plot_paths.append(str(logo_pdf))
+        elif not de_novo.empty and alignments:
+            try:
+                plot_paths.append(plot_de_novo_translation_motif_logos(
+                    de_novo,
+                    alignments,
+                    out_path=str(logo_pdf),
+                    top_n_per_direction=args.plot_logo_top_n,
+                ))
+            except ValueError as error:
+                plot_notes.append(f"De novo logo plot skipped: {error}")
+
+        known_heatmap_pdf = (
+            out_dir / "known_rbp_position_preference_heatmap.pdf"
+        )
+        if known_heatmap_pdf.is_file():
+            print(f"[SKIP] plot: loaded {known_heatmap_pdf.name}")
+            plot_paths.append(str(known_heatmap_pdf))
+        elif not known_position_profiles.empty:
+            try:
+                plot_paths.append(plot_motif_position_preference_heatmap(
+                    known_position_profiles,
+                    out_path=str(known_heatmap_pdf),
+                    cluster_mode=args.position_cluster_mode,
+                    min_total_hits=args.position_min_hits,
+                    max_features=args.position_max_features,
+                    value_col="Log2_Positional_Enrichment",
+                    width=args.position_heatmap_width,
+                    row_height=args.position_row_height,
+                    layout="combined",
+                ))
+            except ValueError as error:
+                plot_notes.append(
+                    f"Known-RBP position heatmap skipped: {error}"
+                )
+
+        de_novo_heatmap_pdf = out_dir / "de_novo_position_preference_heatmap.pdf"
+        if de_novo_heatmap_pdf.is_file():
+            print(f"[SKIP] plot: loaded {de_novo_heatmap_pdf.name}")
+            plot_paths.append(str(de_novo_heatmap_pdf))
+        elif not de_novo_position_profiles.empty:
+            try:
+                plot_paths.append(plot_motif_position_preference_heatmap(
+                    de_novo_position_profiles,
+                    out_path=str(de_novo_heatmap_pdf),
+                    cluster_mode=args.position_cluster_mode,
+                    min_total_hits=args.position_min_hits,
+                    max_features=args.position_max_features,
+                    value_col="Log2_Positional_Enrichment",
+                    width=args.position_heatmap_width,
+                    row_height=args.position_row_height,
+                    layout="regional_pages",
+                ))
+            except ValueError as error:
+                plot_notes.append(
+                    f"De novo position heatmap skipped: {error}"
+                )
+    else:
+        plot_notes.append("Plotting disabled by --skip-plots.")
+    plot_result = {
+        "paths": [str(Path(path).resolve()) for path in plot_paths],
+        "notes": plot_notes,
+    }
+    _atomic_json(plot_result, out_dir / "rbp_pipeline_plot_manifest.json")
     if _should_stop("plots", args.stop_after):
         return 0
 

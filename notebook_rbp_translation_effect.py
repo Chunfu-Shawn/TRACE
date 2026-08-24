@@ -57,15 +57,12 @@ results = run_rbp_translation_effect_analysis(
     known_motif_scan_workers=8,
     scan_backend="process",
     scan_chunk_size=None,
-    reuse_known_motif_scan=True,
-    known_motif_scan_cache_path=os.path.join(
-        out_dir, "known_rbp_motif_hits.pkl"
-    ),
     prediction_scale="log1p",
     force_zero_expression=True,
     batch_size=32,
     min_transcripts=5,
     n_cases_per_direction=3,
+    case_selection_mode="global",
     case_regions=("5UTR", "3UTR"),
     de_novo_source="signed_attribution",
     de_novo_num_transcripts=500,
@@ -79,10 +76,25 @@ results = run_rbp_translation_effect_analysis(
     random_state=42,
 )
 
-# Move both the PKL and its .manifest.json sidecar between servers.
-print(results["known_motif_scan_cache_path"])
+# Copy the canonical result files in out_dir between servers.
+print(results["result_directory"])
 display(results["summary"].head(20))
 display(results["de_novo_motifs"].head(20))
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 3b: Reuse copied results on a plotting-only server       ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+# This requires all canonical raw-result files to already exist in out_dir.
+# Model, dataset, and PWM inputs are not accessed when every stage is complete.
+results = run_rbp_translation_effect_analysis(
+    model=None,
+    dataset=None,
+    pwm_library=None,
+    metadata=None,
+    out_dir=out_dir,
+)
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -104,8 +116,30 @@ plot_rbp_translation_effect_summary(
 case_paths = plot_rbp_nucleotide_contribution_cases(
     results["nucleotide_contributions"],
     out_dir=os.path.join(out_dir, "cases"),
-    max_cases=6,
+    summary_df=results["summary"],
+    cases_per_rbp=3,
+    max_cases=None,
 )
+case_paths
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 5b: Plot exact RBP, region, transcript, or hit cases    ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+case_paths, selected_hits = plot_rbp_nucleotide_contribution_cases(
+    results["nucleotide_contributions"],
+    out_dir=os.path.join(out_dir, "cases_selected"),
+    summary_df=results["summary"],
+    target_rbps=["HNRNPA1"],
+    target_regions=["5UTR"],
+    target_hit_ids=None,  # For example: ["RBP_HIT_0000123"]
+    target_transcript_ids=None,
+    target_motif_starts=None,
+    cases_per_rbp=3,
+    return_selected_hits=True,
+)
+display(selected_hits)
 case_paths
 """
 
