@@ -91,7 +91,8 @@ def plot_motif_position_preference_heatmap(
         color_limit=None,
         show_hit_counts=True,
         layout='regional_pages',
-        vector_cells=False):
+        vector_cells=False,
+        target_features=None):
     """Plot opportunity-adjusted motif position preferences.
 
     ``combined`` keeps every retained feature on one row and concatenates its
@@ -100,7 +101,9 @@ def plot_motif_position_preference_heatmap(
     Values are log2 bin hit-rate enrichment relative to the feature's full-
     transcript background rate. Both clustering modes use the full within-
     region profile because regions are displayed on separate PDF pages.
-    Set ``vector_cells=True`` to draw every heatmap cell as a PDF vector path.
+    ``target_features`` optionally restricts the rows to selected RBP names or
+    de novo motif identifiers. Set ``vector_cells=True`` to draw every heatmap
+    cell as a PDF vector path.
     """
     from scipy.cluster.hierarchy import leaves_list, linkage
 
@@ -126,6 +129,34 @@ def plot_motif_position_preference_heatmap(
     ).copy()
     if working.empty:
         raise ValueError("Position-profile table has no finite plotting values.")
+    working['Feature'] = working['Feature'].astype(str)
+    if target_features is not None:
+        if isinstance(target_features, str):
+            requested_features = [target_features]
+        else:
+            requested_features = list(dict.fromkeys(
+                str(feature) for feature in target_features
+            ))
+        if not requested_features:
+            raise ValueError("target_features cannot be empty when provided.")
+        available_features = set(working['Feature'])
+        missing_features = [
+            feature for feature in requested_features
+            if feature not in available_features
+        ]
+        if missing_features:
+            print(
+                "Requested position-profile features not found: "
+                + ", ".join(missing_features)
+            )
+        working = working[
+            working['Feature'].isin(requested_features)
+        ].copy()
+        if working.empty:
+            raise ValueError(
+                "None of the requested target_features are present in the "
+                "position-profile table."
+            )
 
     regions = ('5UTR', 'CDS', '3UTR')
     region_labels = {'5UTR': "5′UTR", 'CDS': 'CDS', '3UTR': "3′UTR"}
@@ -287,6 +318,8 @@ def plot_motif_position_preference_heatmap(
         for spine in ax.spines.values():
             spine.set_visible(False)
         colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
+        if vector_cells and colorbar.solids is not None:
+            colorbar.solids.set_rasterized(False)
         colorbar.set_label(
             r'$\log_2$ positional enrichment vs. full transcript'
         )
@@ -400,6 +433,8 @@ def plot_motif_position_preference_heatmap(
             for spine in ax.spines.values():
                 spine.set_visible(False)
             colorbar = fig.colorbar(image, ax=ax, fraction=0.025, pad=0.02)
+            if vector_cells and colorbar.solids is not None:
+                colorbar.solids.set_rasterized(False)
             colorbar.set_label(
                 r'$\log_2$ positional enrichment vs. full transcript'
             )
@@ -511,8 +546,10 @@ def plot_rbp_translation_effect_summary(
         top_n_per_direction=30,
         fdr_threshold=None,
         width=6.2,
-        row_height=0.20):
-    """Plot independently mutated regional RBP-motif effects and rankings."""
+        row_height=0.20,
+        target_rbps=None,
+        target_regions=None):
+    """Plot selected regional RBP-motif effects with optional FDR filtering."""
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
         'CI_Lower', 'CI_Upper', 'FDR_BH', 'Direction',
@@ -524,8 +561,60 @@ def plot_rbp_translation_effect_summary(
     working = summary_df.replace([np.inf, -np.inf], np.nan).dropna(
         subset=['Median_Delta_Log2_TE', 'CI_Lower', 'CI_Upper']
     ).copy()
+    working['RBP_Name'] = working['RBP_Name'].astype(str)
+    working['Region'] = working['Region'].astype(str)
     nonfinite_removed = input_count - len(working)
+    if target_rbps is not None:
+        if isinstance(target_rbps, str):
+            requested_rbps = [target_rbps]
+        else:
+            requested_rbps = list(dict.fromkeys(
+                str(rbp) for rbp in target_rbps
+            ))
+        if not requested_rbps:
+            raise ValueError("target_rbps cannot be empty when provided.")
+        available_rbps = set(working['RBP_Name'])
+        missing_rbps = [
+            rbp for rbp in requested_rbps if rbp not in available_rbps
+        ]
+        if missing_rbps:
+            print(
+                "Requested RBP effects not found: " + ", ".join(missing_rbps)
+            )
+        working = working[working['RBP_Name'].isin(requested_rbps)].copy()
+        if working.empty:
+            raise ValueError(
+                "None of the requested target_rbps are present in the "
+                "summary table."
+            )
+    else:
+        requested_rbps = None
+
+    valid_regions = ('5UTR', 'CDS', '3UTR')
+    if target_regions is not None:
+        if isinstance(target_regions, str):
+            requested_regions = [target_regions]
+        else:
+            requested_regions = list(dict.fromkeys(
+                str(region) for region in target_regions
+            ))
+        invalid_regions = [
+            region for region in requested_regions if region not in valid_regions
+        ]
+        if invalid_regions:
+            raise ValueError(
+                "target_regions contains unsupported values: "
+                + ", ".join(invalid_regions)
+            )
+        if not requested_regions:
+            raise ValueError("target_regions cannot be empty when provided.")
+        working = working[working['Region'].isin(requested_regions)].copy()
+    else:
+        requested_regions = list(valid_regions)
+
     if fdr_threshold is not None:
+        if not 0 <= float(fdr_threshold) <= 1:
+            raise ValueError("fdr_threshold must be between 0 and 1.")
         before_fdr = len(working)
         working = working[working['FDR_BH'] <= fdr_threshold]
         fdr_removed = before_fdr - len(working)
@@ -540,14 +629,19 @@ def plot_rbp_translation_effect_summary(
     pages_written = 0
     region_labels = {'5UTR': "5′UTR", 'CDS': 'CDS', '3UTR': "3′UTR"}
     with PdfPages(pdf_path) as pdf:
-        for region in ('5UTR', 'CDS', '3UTR'):
+        for region in requested_regions:
             region_df = working[working['Region'] == region]
-            positive = region_df[
-                region_df['Median_Delta_Log2_TE'] > 0
-            ].nlargest(top_n_per_direction, 'Median_Delta_Log2_TE')
-            negative = region_df[
-                region_df['Median_Delta_Log2_TE'] < 0
-            ].nsmallest(top_n_per_direction, 'Median_Delta_Log2_TE')
+            positive = region_df[region_df['Median_Delta_Log2_TE'] > 0]
+            negative = region_df[region_df['Median_Delta_Log2_TE'] < 0]
+            if requested_rbps is None and top_n_per_direction is not None:
+                if int(top_n_per_direction) < 1:
+                    raise ValueError("top_n_per_direction must be positive.")
+                positive = positive.nlargest(
+                    int(top_n_per_direction), 'Median_Delta_Log2_TE'
+                )
+                negative = negative.nsmallest(
+                    int(top_n_per_direction), 'Median_Delta_Log2_TE'
+                )
             plot_df = pd.concat(
                 [negative, positive], ignore_index=True
             ).sort_values('Median_Delta_Log2_TE')
@@ -588,9 +682,19 @@ def plot_rbp_translation_effect_summary(
                 r'$\Delta\log_2(TE)$'
             )
             ax.set_ylabel('')
+            if requested_rbps is not None:
+                selection_label = f"{plot_df['RBP_Name'].nunique()} selected RBPs"
+            elif top_n_per_direction is None:
+                selection_label = "all effects"
+            else:
+                selection_label = f"top {top_n_per_direction} per direction"
+            significance_label = (
+                "" if fdr_threshold is None
+                else f", FDR ≤ {float(fdr_threshold):g}"
+            )
             ax.set_title(
                 f"Independently mutated RBP motifs: {region_labels[region]} "
-                f"(top {top_n_per_direction} per direction)"
+                f"({selection_label}{significance_label})"
             )
             ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
             ax.set_axisbelow(True)

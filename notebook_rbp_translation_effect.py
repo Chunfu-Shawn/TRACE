@@ -110,6 +110,54 @@ plot_rbp_translation_effect_summary(
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 4b: Plot selected RBP translation effects               ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+# Load the canonical summary directly; no model inference is required.
+rbp_effect_summary = pd.read_csv(
+    os.path.join(out_dir, "rbp_motif_effect_summary.csv")
+)
+
+selected_rbps = [
+    "HNRNPA1",
+    "ELAVL1",
+    "PUM1",
+    "PUM2",
+]
+
+plot_rbp_translation_effect_summary(
+    rbp_effect_summary,
+    out_path=os.path.join(
+        out_dir,
+        "rbp_translation_effect_summary.selected.pdf",
+    ),
+    target_rbps=selected_rbps,
+    target_regions=("5UTR", "CDS", "3UTR"),
+    fdr_threshold=None,
+    width=6.2,
+    row_height=0.30,
+)
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 4c: Plot significant effects for selected RBPs           ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+plot_rbp_translation_effect_summary(
+    rbp_effect_summary,
+    out_path=os.path.join(
+        out_dir,
+        "rbp_translation_effect_significant.selected.pdf",
+    ),
+    target_rbps=selected_rbps,
+    target_regions=("5UTR", "3UTR"),
+    fdr_threshold=0.10,
+    width=6.2,
+    row_height=0.30,
+)
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
 # ║ Cell 5: Plot signed nucleotide-contribution cases            ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
@@ -187,4 +235,41 @@ for profile_key, filename in [
         ),
         vector_cells=(profile_key == "known_rbp_position_profiles"),
     )
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 7b: Plot selected known RBPs from canonical results      ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+# Load the reusable raw result directly; no model or motif scan is required.
+known_position_path = os.path.join(
+    out_dir,
+    "known_rbp_position_profiles.csv",
+)
+known_position_profiles = pd.read_csv(known_position_path)
+
+selected_rbps = [
+    "HNRNPA1",
+    "ELAVL1",
+    "PUM1",
+    "PUM2",
+]
+
+selected_heatmap_path = plot_motif_position_preference_heatmap(
+    known_position_profiles,
+    out_path=os.path.join(
+        out_dir,
+        "known_rbp_position_preference_heatmap.pdf",
+    ),
+    target_features=selected_rbps,
+    cluster_mode="regions",  # Use "full" or "none" as alternatives.
+    min_total_hits=1,
+    max_features=0,
+    value_col="Log2_Positional_Enrichment",
+    width=7.2,
+    row_height=0.22,
+    layout="combined",
+    vector_cells=True,
+)
+selected_heatmap_path
 """
