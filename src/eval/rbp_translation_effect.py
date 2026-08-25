@@ -396,6 +396,71 @@ def collect_unique_transcript_samples(
     return representatives
 
 
+def _collect_selected_hit_samples(
+    dataset,
+    selected_hits: pd.DataFrame,
+) -> Dict[str, Dict]:
+    """Collect dataset samples matching selected transcript and cell pairs."""
+    requested_cells = defaultdict(set)
+    has_cell_type = "Cell_Type" in selected_hits.columns
+    for row in selected_hits.itertuples(index=False):
+        tid = _normalize_tid(row.Tid)
+        if has_cell_type and pd.notna(row.Cell_Type):
+            requested_cells[tid].add(str(row.Cell_Type))
+        else:
+            requested_cells[tid]
+
+    representatives: Dict[str, Dict] = {}
+    for dataset_index in tqdm(
+        range(len(dataset)), desc="Collect missing targeted samples"
+    ):
+        try:
+            item = dataset[dataset_index]
+            if len(item) < 6:
+                continue
+            uuid, species, cell_type, expr_vector, meta_info, seq_emb = item[:6]
+            tid = _extract_tid(uuid, meta_info)
+            if tid not in requested_cells:
+                continue
+            required_cells = requested_cells[tid]
+            if required_cells and str(cell_type) not in required_cells:
+                continue
+            sequence_embedding = _as_sequence_embedding(seq_emb)
+            transcript_length = len(sequence_embedding)
+            cds_start = int(_meta_value(
+                meta_info,
+                ("cds_start_pos", "CDS_Start", "cds_start"),
+                -1,
+            )) - 1
+            cds_end = int(_meta_value(
+                meta_info,
+                ("cds_end_pos", "CDS_End", "cds_end"),
+                -1,
+            ))
+            cds_end = min(cds_end, transcript_length)
+            if cds_start < 0 or cds_end <= cds_start:
+                continue
+            representatives[tid] = {
+                "Sample_ID": tid,
+                "Dataset_Index": dataset_index,
+                "UUID": str(uuid),
+                "Tid": tid,
+                "Species": species,
+                "Cell_Type": str(cell_type),
+                "Expr_Vector": _as_expression_vector(expr_vector),
+                "Seq_Emb": np.array(sequence_embedding, copy=True),
+                "Sequence": _embedding_to_sequence(sequence_embedding),
+                "Transcript_Length": transcript_length,
+                "CDS_Start_0based": cds_start,
+                "CDS_End_exclusive": cds_end,
+            }
+            if len(representatives) == len(requested_cells):
+                break
+        except (TypeError, ValueError, IndexError):
+            continue
+    return representatives
+
+
 def _region_bounds(sample: Mapping, region: str) -> Tuple[int, int]:
     start = int(sample["CDS_Start_0based"])
     end = int(sample["CDS_End_exclusive"])
@@ -1418,8 +1483,17 @@ class RBPMotifMutagenesisEvaluator:
             ].copy()
         if hit_effects.empty:
             return pd.DataFrame()
+        transcript_group_effects = (
+            hit_effects.groupby(
+                ["RBP_Name", "Region", "Tid"], observed=True
+            )["Delta_Log2_TE"]
+            .median()
+            .reset_index()
+        )
         group_summary = (
-            hit_effects.groupby(["RBP_Name", "Region"], observed=True)
+            transcript_group_effects.groupby(
+                ["RBP_Name", "Region"], observed=True
+            )
             .agg(
                 Group_Median_Delta_Log2_TE=("Delta_Log2_TE", "median"),
                 Group_N_Transcripts=("Tid", "nunique"),
@@ -1548,6 +1622,7 @@ class RBPMotifMutagenesisEvaluator:
 
         variant_records = []
         position_variants = defaultdict(list)
+        alternative_variants = {}
         for hit in selected.itertuples(index=False):
             sample = samples[hit.Tid]
             sequence = sample["Sequence"]
@@ -1573,6 +1648,9 @@ class RBPMotifMutagenesisEvaluator:
                         "Species": sample["Species"],
                     })
                     position_variants[(hit.Hit_ID, position)].append(variant_id)
+                    alternative_variants[
+                        (hit.Hit_ID, position, str(alternative))
+                    ] = variant_id
         predictions = self._predict_records(
             variant_records,
             batch_size=batch_size,
@@ -1602,7 +1680,35 @@ class RBPMotifMutagenesisEvaluator:
                 mean_log_mutant = np.mean(np.log2(
                     np.asarray(mutant_signals, dtype=float) + eps
                 ))
-                contribution = np.log2(wt_signal + eps) - mean_log_mutant
+                mean_alternative_contribution = (
+                    np.log2(wt_signal + eps) - mean_log_mutant
+                )
+                is_motif = int(hit.Start) <= position < int(hit.End)
+                least_preferred_base = None
+                least_preferred_contribution = np.nan
+                if is_motif:
+                    matrix_id = str(hit.Matrix_ID)
+                    if matrix_id not in self.pwm_library:
+                        raise KeyError(f"PWM '{matrix_id}' is unavailable.")
+                    motif_offset = position - int(hit.Start)
+                    native_index = BASE_TO_INDEX[sample["Sequence"][position]]
+                    least_preferred_index = _least_preferred_alternative(
+                        self.pwm_library[matrix_id][motif_offset],
+                        native_index,
+                    )
+                    least_preferred_base = str(BASES[least_preferred_index])
+                    least_variant_id = alternative_variants[
+                        (hit.Hit_ID, position, least_preferred_base)
+                    ]
+                    least_signal = _mean_cds_signal(
+                        predictions[least_variant_id],
+                        sample["CDS_Start_0based"],
+                        sample["CDS_End_exclusive"],
+                        skip_codons=cds_skip_codons,
+                    )
+                    least_preferred_contribution = np.log2(
+                        (wt_signal + eps) / (least_signal + eps)
+                    )
                 rows.append({
                     "Hit_ID": hit.Hit_ID,
                     "Tid": hit.Tid,
@@ -1614,8 +1720,17 @@ class RBPMotifMutagenesisEvaluator:
                     "Absolute_Position": position,
                     "Relative_Position": position - int(hit.Start),
                     "Base": sample["Sequence"][position],
-                    "Is_Motif": int(hit.Start) <= position < int(hit.End),
-                    "Base_Contribution_Log2_TE": contribution,
+                    "Is_Motif": is_motif,
+                    "Base_Contribution_Log2_TE": (
+                        mean_alternative_contribution
+                    ),
+                    "Base_Contribution_Mean_Alternatives_Log2_TE": (
+                        mean_alternative_contribution
+                    ),
+                    "Base_Contribution_PWM_Least_Preferred_Log2_TE": (
+                        least_preferred_contribution
+                    ),
+                    "PWM_Least_Preferred_Alternative": least_preferred_base,
                     "Motif_Delta_Log2_TE": float(hit.Delta_Log2_TE),
                     "Group_Median_Delta_Log2_TE": float(
                         hit.Group_Median_Delta_Log2_TE
@@ -1645,13 +1760,19 @@ def run_targeted_rbp_saturation_mutagenesis(
     batch_size: int = 64,
     cds_skip_codons: int = 0,
     max_hits: Optional[int] = None,
+    hit_chunk_size: Optional[int] = 8,
+    force_zero_expression: Optional[bool] = None,
+    dataset=None,
 ) -> pd.DataFrame:
     """Run standalone saturation mutagenesis for explicitly selected hits.
 
-    Existing ``output_csv`` files are authoritative and loaded directly. Every
-    selected position is substituted with each of the three non-native bases.
-    The reported native-base contribution is the WT log2 CDS-mean signal minus
-    the mean log2 CDS-mean signal across those three substitutions.
+    Existing ``output_csv`` files are authoritative and loaded directly. If
+    selected transcripts are absent from ``samples``, ``dataset`` can recover
+    the matching transcript/cell-type rows. Hits are processed in bounded
+    chunks to control memory. Every selected position is substituted with each
+    of the three non-native bases. The reported native-base contribution is the
+    WT log2 CDS-mean signal minus the mean log2 CDS-mean signal across those
+    three substitutions.
     """
     if output_csv is not None:
         output_csv = os.path.abspath(os.path.expanduser(output_csv))
@@ -1710,6 +1831,7 @@ def run_targeted_rbp_saturation_mutagenesis(
             )
 
     selected = hit_effects.copy()
+    selected["Tid"] = selected["Tid"].astype(str)
     if hit_ids is not None:
         hit_order = {hit_id: index for index, hit_id in enumerate(hit_ids)}
         selected = selected[
@@ -1724,7 +1846,10 @@ def run_targeted_rbp_saturation_mutagenesis(
     if regions is not None:
         selected = selected[selected["Region"].astype(str).isin(regions)]
     if transcript_ids is not None:
-        selected = selected[selected["Tid"].astype(str).isin(transcript_ids)]
+        normalized_targets = {_normalize_tid(tid) for tid in transcript_ids}
+        selected = selected[
+            selected["Tid"].map(_normalize_tid).isin(normalized_targets)
+        ]
     if motif_starts is not None:
         selected = selected[selected["Start"].astype(int).isin(motif_starts)]
     selected = selected.drop_duplicates("Hit_ID")
@@ -1732,31 +1857,115 @@ def run_targeted_rbp_saturation_mutagenesis(
         selected = selected.head(int(max_hits))
     if selected.empty:
         raise ValueError("No hit-effect row satisfies the requested filters.")
+    if hit_chunk_size is not None and int(hit_chunk_size) < 1:
+        raise ValueError("hit_chunk_size must be positive or None.")
 
-    missing_samples = sorted(set(selected["Tid"]) - set(samples))
+    normalized_samples = {}
+    for sample_key, sample in samples.items():
+        aliases = {
+            _normalize_tid(sample_key),
+            _normalize_tid(sample.get("Tid", sample_key)),
+            _normalize_tid(sample.get("Sample_ID", sample_key)),
+        }
+        for alias in aliases:
+            normalized_samples.setdefault(alias, sample)
+
+    resolved_samples = {}
+    for tid in selected["Tid"].drop_duplicates():
+        if tid in samples:
+            resolved_samples[tid] = samples[tid]
+        elif _normalize_tid(tid) in normalized_samples:
+            resolved_samples[tid] = normalized_samples[_normalize_tid(tid)]
+
+    missing_samples = sorted(set(selected["Tid"]) - set(resolved_samples))
+    if missing_samples and dataset is not None:
+        missing_hits = selected[selected["Tid"].isin(missing_samples)]
+        supplemented = _collect_selected_hit_samples(dataset, missing_hits)
+        for tid in missing_samples:
+            sample = supplemented.get(_normalize_tid(tid))
+            if sample is not None:
+                resolved_samples[tid] = sample
+        recovered = len(missing_samples) - len(
+            set(missing_samples) - set(resolved_samples)
+        )
+        print(
+            f"Recovered {recovered}/{len(missing_samples)} missing targeted "
+            "transcripts from dataset."
+        )
+        missing_samples = sorted(
+            set(selected["Tid"]) - set(resolved_samples)
+        )
     if missing_samples:
         preview = ", ".join(map(str, missing_samples[:5]))
+        dataset_hint = (
+            " The supplied dataset does not contain matching transcript/cell "
+            "pairs."
+            if dataset is not None
+            else " Pass dataset=<original dataset> to recover them."
+        )
         raise ValueError(
             f"Samples are missing {len(missing_samples)} selected transcripts: "
-            f"{preview}"
+            f"{preview}.{dataset_hint}"
         )
+
+    if force_zero_expression is None:
+        expression_vectors = [
+            _as_expression_vector(sample.get("Expr_Vector"))
+            for sample in resolved_samples.values()
+        ]
+        force_zero_expression = bool(expression_vectors) and all(
+            vector.size == 0 or np.allclose(vector, 0)
+            for vector in expression_vectors
+        )
+    if force_zero_expression:
+        resolved_samples = {
+            tid: {
+                **sample,
+                "Expr_Vector": np.zeros_like(
+                    _as_expression_vector(sample.get("Expr_Vector"))
+                ),
+            }
+            for tid, sample in resolved_samples.items()
+        }
+        print("Using zero expression conditioning for targeted saturation.")
+
     evaluator = RBPMotifMutagenesisEvaluator(
         model,
         pwm_library,
         prediction_scale=prediction_scale,
     )
-    contributions = evaluator.compute_nucleotide_contributions(
-        selected,
-        samples,
-        n_cases_per_direction=1,
-        min_case_transcripts=2,
-        context_flank=context_flank,
-        batch_size=batch_size,
-        cds_skip_codons=cds_skip_codons,
-        case_regions=("5UTR", "CDS", "3UTR"),
-        target_hit_ids=selected["Hit_ID"].astype(str).tolist(),
-        targeted_cases_per_rbp=max(len(selected), 1),
-        selection_mode="per_rbp",
+    selected_hit_ids = selected["Hit_ID"].astype(str).tolist()
+    chunk_size = len(selected_hit_ids) if hit_chunk_size is None else int(
+        hit_chunk_size
+    )
+    contribution_chunks = []
+    total_chunks = math.ceil(len(selected_hit_ids) / chunk_size)
+    for chunk_index, start in enumerate(
+        range(0, len(selected_hit_ids), chunk_size), start=1
+    ):
+        chunk_hit_ids = selected_hit_ids[start:start + chunk_size]
+        print(
+            f"[RUN] targeted saturation chunk {chunk_index}/{total_chunks}: "
+            f"{len(chunk_hit_ids)} hits"
+        )
+        chunk = evaluator.compute_nucleotide_contributions(
+            hit_effects,
+            resolved_samples,
+            n_cases_per_direction=1,
+            min_case_transcripts=2,
+            context_flank=context_flank,
+            batch_size=batch_size,
+            cds_skip_codons=cds_skip_codons,
+            case_regions=("5UTR", "CDS", "3UTR"),
+            target_hit_ids=chunk_hit_ids,
+            targeted_cases_per_rbp=max(len(chunk_hit_ids), 1),
+            selection_mode="per_rbp",
+        )
+        if not chunk.empty:
+            contribution_chunks.append(chunk)
+    contributions = (
+        pd.concat(contribution_chunks, ignore_index=True)
+        if contribution_chunks else pd.DataFrame()
     )
     if contributions.empty:
         raise ValueError("Targeted saturation mutagenesis produced no rows.")
@@ -1766,7 +1975,9 @@ def run_targeted_rbp_saturation_mutagenesis(
     )
     if output_csv is not None:
         os.makedirs(os.path.dirname(output_csv) or ".", exist_ok=True)
-        contributions.to_csv(output_csv, index=False)
+        temporary_csv = f"{output_csv}.tmp.{os.getpid()}"
+        contributions.to_csv(temporary_csv, index=False)
+        os.replace(temporary_csv, output_csv)
         print(f"[DONE] targeted saturation: saved {output_csv}")
     return contributions
 

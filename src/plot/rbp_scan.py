@@ -102,8 +102,9 @@ def plot_motif_position_preference_heatmap(
     transcript background rate. Both clustering modes use the full within-
     region profile because regions are displayed on separate PDF pages.
     ``target_features`` optionally restricts the rows to selected RBP names or
-    de novo motif identifiers. Set ``vector_cells=True`` to draw every heatmap
-    cell as a PDF vector path.
+    de novo motif identifiers. With ``cluster_mode='none'``, their supplied
+    order is preserved exactly after hit-count filtering. Set
+    ``vector_cells=True`` to draw every heatmap cell as a PDF vector path.
     """
     from scipy.cluster.hierarchy import leaves_list, linkage
 
@@ -130,6 +131,7 @@ def plot_motif_position_preference_heatmap(
     if working.empty:
         raise ValueError("Position-profile table has no finite plotting values.")
     working['Feature'] = working['Feature'].astype(str)
+    requested_features = None
     if target_features is not None:
         if isinstance(target_features, str):
             requested_features = [target_features]
@@ -217,12 +219,23 @@ def plot_motif_position_preference_heatmap(
     pdf_path = _as_pdf_path(out_path)
     if layout == 'combined':
         total_hits = working.groupby('Feature', observed=True)['Hits'].sum()
-        retained = total_hits[total_hits >= min_total_hits].sort_values(
-            ascending=False
+        eligible_features = set(
+            total_hits[total_hits >= min_total_hits].index.astype(str)
         )
+        if requested_features is not None and cluster_mode == 'none':
+            retained_features = [
+                feature for feature in requested_features
+                if feature in eligible_features
+            ]
+        else:
+            retained_features = total_hits[
+                total_hits >= min_total_hits
+            ].sort_values(ascending=False).index.astype(str).tolist()
         if max_features is not None and int(max_features) > 0:
-            retained = retained.head(int(max_features))
-        combined = working[working['Feature'].isin(retained.index)].copy()
+            retained_features = retained_features[:int(max_features)]
+        combined = working[
+            working['Feature'].isin(retained_features)
+        ].copy()
         if combined.empty:
             raise ValueError(
                 "No motif has enough total hits for the combined heatmap."
@@ -233,7 +246,7 @@ def plot_motif_position_preference_heatmap(
                 index='Feature', columns='Global_Bin', values=value_col,
                 aggfunc='mean',
             )
-            .reindex(index=retained.index, columns=bins)
+            .reindex(index=retained_features, columns=bins)
             .fillna(0.0)
         )
         if len(matrix) > 1 and cluster_mode != 'none':
@@ -266,7 +279,7 @@ def plot_motif_position_preference_heatmap(
                 linkage(cluster_features, method='average', metric='euclidean')
             )
             matrix = matrix.iloc[order]
-        elif cluster_mode == 'none':
+        elif cluster_mode == 'none' and requested_features is None:
             dominant = matrix.idxmax(axis=1)
             matrix = matrix.loc[sorted(
                 matrix.index,
@@ -342,10 +355,23 @@ def plot_motif_position_preference_heatmap(
             region_hits = region_df.groupby(
                 'Feature', observed=True
             )['Hits'].sum().sort_values(ascending=False)
-            retained = region_hits[region_hits >= min_total_hits]
+            eligible_features = set(
+                region_hits[region_hits >= min_total_hits].index.astype(str)
+            )
+            if requested_features is not None and cluster_mode == 'none':
+                retained_features = [
+                    feature for feature in requested_features
+                    if feature in eligible_features
+                ]
+            else:
+                retained_features = region_hits[
+                    region_hits >= min_total_hits
+                ].index.astype(str).tolist()
             if max_features is not None and int(max_features) > 0:
-                retained = retained.head(int(max_features))
-            region_df = region_df[region_df['Feature'].isin(retained.index)]
+                retained_features = retained_features[:int(max_features)]
+            region_df = region_df[
+                region_df['Feature'].isin(retained_features)
+            ]
             if region_df.empty:
                 continue
             bins = sorted(region_df['Region_Bin'].astype(int).unique())
@@ -354,7 +380,7 @@ def plot_motif_position_preference_heatmap(
                     index='Feature', columns='Region_Bin', values=value_col,
                     aggfunc='mean',
                 )
-                .reindex(index=retained.index, columns=bins)
+                .reindex(index=retained_features, columns=bins)
                 .fillna(0.0)
             )
             if len(matrix) > 1 and cluster_mode != 'none':
@@ -373,7 +399,7 @@ def plot_motif_position_preference_heatmap(
                     linkage(standardized, method='average', metric='euclidean')
                 )
                 matrix = matrix.iloc[order]
-            elif cluster_mode == 'none':
+            elif cluster_mode == 'none' and requested_features is None:
                 dominant = matrix.idxmax(axis=1)
                 matrix = matrix.loc[sorted(
                     matrix.index,
@@ -418,7 +444,9 @@ def plot_motif_position_preference_heatmap(
             )
             ax.set_ylabel(ylabel)
             cluster_label = (
-                'ordered by peak position' if cluster_mode == 'none'
+                'ordered as requested'
+                if cluster_mode == 'none' and requested_features is not None
+                else 'ordered by peak position' if cluster_mode == 'none'
                 else 'clustered by within-region positional enrichment'
             )
             title_prefix = (
@@ -548,8 +576,17 @@ def plot_rbp_translation_effect_summary(
         width=6.2,
         row_height=0.20,
         target_rbps=None,
-        target_regions=None):
-    """Plot selected regional RBP-motif effects with optional FDR filtering."""
+        target_regions=None,
+        combine_regions=False,
+        region_offset=0.20,
+        point_size_range=(20.0, 90.0)):
+    """Plot regional RBP-motif effects with uncertainty and sample sizes.
+
+    When ``combine_regions=True``, all requested regions share one RBP axis.
+    Region is encoded by marker shape and points are vertically offset. Point
+    area encodes the number of transcripts. If ``fdr_threshold`` is provided,
+    non-significant effects remain visible in gray rather than being removed.
+    """
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
         'CI_Lower', 'CI_Upper', 'FDR_BH', 'Direction',
@@ -558,9 +595,10 @@ def plot_rbp_translation_effect_summary(
     if missing:
         raise ValueError(f"Summary table is missing columns: {sorted(missing)}")
     input_count = len(summary_df)
-    working = summary_df.replace([np.inf, -np.inf], np.nan).dropna(
-        subset=['Median_Delta_Log2_TE', 'CI_Lower', 'CI_Upper']
-    ).copy()
+    working = summary_df.replace([np.inf, -np.inf], np.nan).dropna(subset=[
+        'Median_Delta_Log2_TE', 'CI_Lower', 'CI_Upper', 'N_Transcripts',
+    ]).copy()
+    working = working[working['N_Transcripts'] > 0].copy()
     working['RBP_Name'] = working['RBP_Name'].astype(str)
     working['Region'] = working['Region'].astype(str)
     nonfinite_removed = input_count - len(working)
@@ -615,108 +653,304 @@ def plot_rbp_translation_effect_summary(
     if fdr_threshold is not None:
         if not 0 <= float(fdr_threshold) <= 1:
             raise ValueError("fdr_threshold must be between 0 and 1.")
-        before_fdr = len(working)
-        working = working[working['FDR_BH'] <= fdr_threshold]
-        fdr_removed = before_fdr - len(working)
+        working['Significant'] = (
+            working['FDR_BH'].notna()
+            & (working['FDR_BH'] <= float(fdr_threshold))
+        )
     else:
-        fdr_removed = 0
+        working['Significant'] = True
+    nonsignificant_count = int((~working['Significant']).sum())
     print(
         f"RBP summary rows: input={input_count}, "
         f"nonfinite_removed={nonfinite_removed}, "
-        f"fdr_removed={fdr_removed}."
+        f"nonsignificant_gray={nonsignificant_count}."
     )
+    if working.empty:
+        raise ValueError("No RBP effects remain after regional filtering.")
+    if float(region_offset) < 0 or float(region_offset) >= 0.5:
+        raise ValueError("region_offset must be within [0, 0.5).")
+    if len(point_size_range) != 2:
+        raise ValueError("point_size_range must contain two values.")
+    size_min, size_max = map(float, point_size_range)
+    if size_min <= 0 or size_max < size_min:
+        raise ValueError("point_size_range must be positive and increasing.")
+
     pdf_path = _as_pdf_path(out_path)
     pages_written = 0
     region_labels = {'5UTR': "5′UTR", 'CDS': 'CDS', '3UTR': "3′UTR"}
+    region_markers = {'5UTR': 'o', 'CDS': 's', '3UTR': '^'}
+    positive_color = '#C44E52'
+    negative_color = '#3B6FB6'
+    nonsignificant_color = '#B8B8B8'
+
+    def point_sizes(counts):
+        """Map transcript counts to a bounded scatter-point area."""
+        values = np.asarray(counts, dtype=float)
+        transformed = np.sqrt(values)
+        lower = float(transformed.min())
+        upper = float(transformed.max())
+        if upper <= lower:
+            return np.full(len(values), (size_min + size_max) / 2)
+        scaled = (transformed - lower) / (upper - lower)
+        return size_min + scaled * (size_max - size_min)
+
+    def point_colors(plot_df):
+        """Color significant effects by direction and retain gray nulls."""
+        directional = np.where(
+            plot_df['Median_Delta_Log2_TE'].to_numpy(float) >= 0,
+            positive_color,
+            negative_color,
+        )
+        return np.where(
+            plot_df['Significant'].to_numpy(bool),
+            directional,
+            nonsignificant_color,
+        )
+
+    def size_legend_handles(plot_df):
+        """Build three representative point-size legend entries."""
+        counts = plot_df['N_Transcripts'].to_numpy(float)
+        references = np.unique(np.rint(np.quantile(
+            counts, [0.0, 0.5, 1.0]
+        )).astype(int))
+        reference_sizes = point_sizes(references)
+        return [
+            Line2D(
+                [0], [0], marker='o', linestyle='none',
+                markerfacecolor='#777777', markeredgecolor='white',
+                markeredgewidth=0.5, markersize=np.sqrt(size),
+                label=f'{int(count):,}',
+            )
+            for count, size in zip(references, reference_sizes)
+        ]
+
+    def effect_legend_handles():
+        """Build effect-direction and optional non-significance entries."""
+        handles = [
+            Line2D(
+                [0], [0], marker='o', linestyle='none',
+                markerfacecolor=positive_color, markeredgecolor='white',
+                label='Positive effect',
+            ),
+            Line2D(
+                [0], [0], marker='o', linestyle='none',
+                markerfacecolor=negative_color, markeredgecolor='white',
+                label='Negative effect',
+            ),
+        ]
+        if fdr_threshold is not None:
+            handles.append(Line2D(
+                [0], [0], marker='o', linestyle='none',
+                markerfacecolor=nonsignificant_color,
+                markeredgecolor='white',
+                label=f'FDR > {float(fdr_threshold):g}',
+            ))
+        return handles
+
+    def add_effect_and_size_legends(ax, plot_df, effect_anchor, size_anchor):
+        """Add separate color and transcript-count legends."""
+        effect_legend = ax.legend(
+            handles=effect_legend_handles(), title='Motif effect',
+            loc='upper left', bbox_to_anchor=effect_anchor,
+            borderaxespad=0, fontsize=6, title_fontsize=7,
+        )
+        ax.add_artist(effect_legend)
+        ax.legend(
+            handles=size_legend_handles(plot_df), title='No. transcripts',
+            loc='upper left', bbox_to_anchor=size_anchor,
+            borderaxespad=0, fontsize=6, title_fontsize=7,
+        )
+
+    def select_top_rbps(frame):
+        """Select RBP names from the strongest positive and negative rows."""
+        if requested_rbps is not None or top_n_per_direction is None:
+            return frame
+        if int(top_n_per_direction) < 1:
+            raise ValueError("top_n_per_direction must be positive.")
+        positive = frame[frame['Median_Delta_Log2_TE'] > 0].nlargest(
+            int(top_n_per_direction), 'Median_Delta_Log2_TE'
+        )
+        negative = frame[frame['Median_Delta_Log2_TE'] < 0].nsmallest(
+            int(top_n_per_direction), 'Median_Delta_Log2_TE'
+        )
+        selected_rbp_names = set(pd.concat(
+            [negative, positive], ignore_index=True
+        )['RBP_Name'])
+        return frame[frame['RBP_Name'].isin(selected_rbp_names)].copy()
+
     with PdfPages(pdf_path) as pdf:
-        for region in requested_regions:
-            region_df = working[working['Region'] == region]
-            positive = region_df[region_df['Median_Delta_Log2_TE'] > 0]
-            negative = region_df[region_df['Median_Delta_Log2_TE'] < 0]
-            if requested_rbps is None and top_n_per_direction is not None:
-                if int(top_n_per_direction) < 1:
-                    raise ValueError("top_n_per_direction must be positive.")
-                positive = positive.nlargest(
-                    int(top_n_per_direction), 'Median_Delta_Log2_TE'
-                )
-                negative = negative.nsmallest(
-                    int(top_n_per_direction), 'Median_Delta_Log2_TE'
-                )
-            plot_df = pd.concat(
-                [negative, positive], ignore_index=True
-            ).sort_values('Median_Delta_Log2_TE')
+        if combine_regions:
+            plot_df = select_top_rbps(working)
             if plot_df.empty:
-                continue
-            labels = (
-                plot_df['RBP_Name'].astype(str)
-                + '  (n=' + plot_df['N_Transcripts'].astype(int).astype(str)
-                + ')'
+                raise ValueError("No RBP effects remain for the combined plot.")
+            if requested_rbps is not None:
+                rbp_order = [
+                    rbp for rbp in requested_rbps
+                    if rbp in set(plot_df['RBP_Name'])
+                ]
+            else:
+                rbp_order = (
+                    plot_df.groupby('RBP_Name', observed=True)[
+                        'Median_Delta_Log2_TE'
+                    ].median().sort_values(ascending=False).index.tolist()
+                )
+            rbp_positions = {
+                rbp: index for index, rbp in enumerate(rbp_order)
+            }
+            region_offsets = {
+                region: (index - (len(requested_regions) - 1) / 2)
+                * float(region_offset)
+                for index, region in enumerate(requested_regions)
+            }
+            plot_df = plot_df.assign(
+                Y_Position=[
+                    rbp_positions[rbp] + region_offsets[region]
+                    for rbp, region in zip(
+                        plot_df['RBP_Name'], plot_df['Region']
+                    )
+                ]
             )
-            positions = np.arange(len(plot_df))
             values = plot_df['Median_Delta_Log2_TE'].to_numpy(float)
-            lower = values - plot_df['CI_Lower'].to_numpy(float)
-            upper = plot_df['CI_Upper'].to_numpy(float) - values
-            colors = np.where(values >= 0, '#C44E52', '#3B6FB6')
-            sizes = 10 + 4 * np.sqrt(
-                plot_df['N_Transcripts'].to_numpy(float)
+            lower = np.maximum(
+                values - plot_df['CI_Lower'].to_numpy(float), 0
             )
-            height = max(3.2, 1.4 + row_height * len(plot_df))
+            upper = np.maximum(
+                plot_df['CI_Upper'].to_numpy(float) - values, 0
+            )
+            colors = point_colors(plot_df)
+            sizes = point_sizes(plot_df['N_Transcripts'])
+            height = max(3.4, 1.4 + row_height * len(rbp_order))
             fig, ax = plt.subplots(figsize=(width, height))
             for position, value, low, high, color in zip(
-                positions, values, lower, upper, colors
+                plot_df['Y_Position'], values, lower, upper, colors
             ):
                 ax.errorbar(
                     value, position, xerr=np.array([[low], [high]]),
                     fmt='none', ecolor=color, elinewidth=1.0, capsize=1.8,
                     alpha=0.9, zorder=1,
                 )
-            ax.scatter(
-                values, positions, s=sizes, c=colors, edgecolor='white',
-                linewidth=0.5, zorder=2,
-            )
+            for region in requested_regions:
+                mask = plot_df['Region'].eq(region).to_numpy()
+                if not mask.any():
+                    continue
+                ax.scatter(
+                    values[mask], plot_df.loc[mask, 'Y_Position'],
+                    s=sizes[mask], c=colors[mask],
+                    marker=region_markers[region], edgecolor='white',
+                    linewidth=0.5, zorder=2,
+                )
             ax.axvline(0, color='#555555', linewidth=0.8, linestyle='--')
-            ax.set_yticks(positions)
-            ax.set_yticklabels(labels, fontsize=6)
+            ax.set_yticks(np.arange(len(rbp_order)))
+            ax.set_yticklabels(rbp_order, fontsize=6)
+            ax.invert_yaxis()
             ax.set_xlabel(
                 r'Motif contribution to full-CDS mean signal, '
                 r'$\Delta\log_2(TE)$'
             )
             ax.set_ylabel('')
-            if requested_rbps is not None:
-                selection_label = f"{plot_df['RBP_Name'].nunique()} selected RBPs"
-            elif top_n_per_direction is None:
-                selection_label = "all effects"
-            else:
-                selection_label = f"top {top_n_per_direction} per direction"
-            significance_label = (
-                "" if fdr_threshold is None
-                else f", FDR ≤ {float(fdr_threshold):g}"
-            )
             ax.set_title(
-                f"Independently mutated RBP motifs: {region_labels[region]} "
-                f"({selection_label}{significance_label})"
+                'Independently mutated RBP motifs across transcript regions'
+            )
+            region_handles = [
+                Line2D(
+                    [0], [0], marker=region_markers[region],
+                    linestyle='none', markerfacecolor='#555555',
+                    markeredgecolor='white', label=region_labels[region],
+                )
+                for region in requested_regions
+                if region in set(plot_df['Region'])
+            ]
+            region_legend = ax.legend(
+                handles=region_handles, title='Motif region',
+                loc='upper left', bbox_to_anchor=(1.01, 1.00),
+                borderaxespad=0, fontsize=6, title_fontsize=7,
+            )
+            ax.add_artist(region_legend)
+            add_effect_and_size_legends(
+                ax, plot_df, (1.01, 0.66), (1.01, 0.29)
             )
             ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
             ax.set_axisbelow(True)
-            fig.tight_layout()
+            fig.subplots_adjust(left=0.22, right=0.74, bottom=0.10, top=0.94)
             pdf.savefig(fig, bbox_inches='tight')
             plt.close(fig)
             pages_written += 1
+        else:
+            for region in requested_regions:
+                region_df = working[working['Region'] == region]
+                plot_df = select_top_rbps(region_df).sort_values(
+                    'Median_Delta_Log2_TE'
+                )
+                if plot_df.empty:
+                    continue
+                labels = plot_df['RBP_Name'].astype(str)
+                positions = np.arange(len(plot_df))
+                values = plot_df['Median_Delta_Log2_TE'].to_numpy(float)
+                lower = np.maximum(
+                    values - plot_df['CI_Lower'].to_numpy(float), 0
+                )
+                upper = np.maximum(
+                    plot_df['CI_Upper'].to_numpy(float) - values, 0
+                )
+                colors = point_colors(plot_df)
+                sizes = point_sizes(plot_df['N_Transcripts'])
+                height = max(3.2, 1.4 + row_height * len(plot_df))
+                fig, ax = plt.subplots(figsize=(width, height))
+                for position, value, low, high, color in zip(
+                    positions, values, lower, upper, colors
+                ):
+                    ax.errorbar(
+                        value, position, xerr=np.array([[low], [high]]),
+                        fmt='none', ecolor=color, elinewidth=1.0,
+                        capsize=1.8, alpha=0.9, zorder=1,
+                    )
+                ax.scatter(
+                    values, positions, s=sizes, c=colors,
+                    marker=region_markers[region], edgecolor='white',
+                    linewidth=0.5, zorder=2,
+                )
+                ax.axvline(
+                    0, color='#555555', linewidth=0.8, linestyle='--'
+                )
+                ax.set_yticks(positions)
+                ax.set_yticklabels(labels, fontsize=6)
+                ax.set_xlabel(
+                    r'Motif contribution to full-CDS mean signal, '
+                    r'$\Delta\log_2(TE)$'
+                )
+                ax.set_ylabel('')
+                ax.set_title(
+                    'Independently mutated RBP motifs: '
+                    f"{region_labels[region]}"
+                )
+                add_effect_and_size_legends(
+                    ax, plot_df, (1.01, 1.00), (1.01, 0.55)
+                )
+                ax.grid(axis='x', color='#E6E6E6', linewidth=0.6)
+                ax.set_axisbelow(True)
+                fig.subplots_adjust(
+                    left=0.25, right=0.76, bottom=0.10, top=0.94
+                )
+                pdf.savefig(fig, bbox_inches='tight')
+                plt.close(fig)
+                pages_written += 1
     if pages_written == 0:
         raise ValueError("No RBP effects remain after regional filtering.")
     print(f"RBP translation-effect summary saved to {pdf_path}")
     return pdf_path
 
 
-def _native_contribution_matrix(case_df):
+def _native_contribution_matrix(
+        case_df,
+        contribution_col='Base_Contribution_Log2_TE'):
     positions = case_df['Relative_Position'].astype(int).to_numpy()
     index = np.arange(positions.min(), positions.max() + 1)
     matrix = pd.DataFrame(0.0, index=index, columns=list('ACGT'))
     for row in case_df.itertuples(index=False):
         if row.Base in matrix.columns:
-            matrix.loc[int(row.Relative_Position), row.Base] = float(
-                row.Base_Contribution_Log2_TE
-            )
+            value = getattr(row, contribution_col)
+            if pd.notna(value):
+                matrix.loc[int(row.Relative_Position), row.Base] = float(value)
     return matrix
 
 
@@ -872,14 +1106,35 @@ def plot_rbp_nucleotide_contribution_cases(
         return_selected_hits=False,
         width=8.0,
         height=3.4,
-        motif_color='#F3E7A6'):
+        motif_color='#F3E7A6',
+        contribution_score='mean_alternatives'):
     """Plot ranked or explicitly selected signed per-base contribution cases."""
     import logomaker
 
+    score_columns = {
+        'mean_alternatives': (
+            'Base_Contribution_Mean_Alternatives_Log2_TE'
+        ),
+        'pwm_least_preferred': (
+            'Base_Contribution_PWM_Least_Preferred_Log2_TE'
+        ),
+    }
+    if contribution_score not in score_columns:
+        raise ValueError(
+            "contribution_score must be 'mean_alternatives' or "
+            "'pwm_least_preferred'."
+        )
+    contribution_col = score_columns[contribution_score]
+    if (
+        contribution_score == 'mean_alternatives'
+        and contribution_col not in contribution_df.columns
+        and 'Base_Contribution_Log2_TE' in contribution_df.columns
+    ):
+        contribution_col = 'Base_Contribution_Log2_TE'
     required = {
         'Hit_ID', 'Tid', 'RBP_Name', 'Region', 'Motif_Start', 'Motif_End',
         'Absolute_Position', 'Relative_Position', 'Base', 'Is_Motif',
-        'Base_Contribution_Log2_TE', 'Motif_Delta_Log2_TE',
+        contribution_col, 'Motif_Delta_Log2_TE',
         'Group_Median_Delta_Log2_TE', 'Group_N_Transcripts',
         'CDS_Start_0based', 'CDS_End_exclusive', 'Transcript_Length',
     }
@@ -947,7 +1202,10 @@ def plot_rbp_nucleotide_contribution_cases(
         architecture_ax.set_ylim(-0.45, 0.5)
         architecture_ax.axis('off')
 
-        matrix = _native_contribution_matrix(case)
+        matrix = _native_contribution_matrix(
+            case,
+            contribution_col=contribution_col,
+        )
         logo = logomaker.Logo(
             matrix,
             ax=logo_ax,
@@ -972,21 +1230,30 @@ def plot_rbp_nucleotide_contribution_cases(
         )
         logo_ax.axhline(0, color='#555555', linewidth=0.7)
         logo_ax.set_xlabel('Position relative to RBP motif start (nt)')
+        score_labels = {
+            'mean_alternatives': 'mean of 3 alternatives',
+            'pwm_least_preferred': 'PWM least-preferred alternative',
+        }
         logo_ax.set_ylabel(r'Base contribution to $\Delta\log_2(TE)$')
         logo_ax.set_title(
             f"{first['Tid']} | {first['RBP_Name']} | {first['Region']} | "
             f"{hit_id} | motif={motif_start}:{motif_end}\n"
             f"hit effect = {first['Motif_Delta_Log2_TE']:+.3f}, "
             f"group median = {first['Group_Median_Delta_Log2_TE']:+.3f}, "
-            f"n={int(first['Group_N_Transcripts'])} transcripts",
+            f"n={int(first['Group_N_Transcripts'])} transcripts\n"
+            f"single-base score = {score_labels[contribution_score]}",
             loc='left', fontsize=9, pad=7,
         )
         logo_ax.grid(axis='y', color='#ECECEC', linewidth=0.5)
         logo_ax.set_axisbelow(True)
         fig.tight_layout()
+        score_suffix = (
+            '' if contribution_score == 'mean_alternatives'
+            else '.pwm_least_preferred'
+        )
         filename = (
             f"rbp_base_contribution.{first['RBP_Name']}."
-            f"{first['Tid']}.{hit_id}.pdf"
+            f"{first['Tid']}.{hit_id}{score_suffix}.pdf"
         )
         pdf_path = os.path.join(out_dir, filename)
         fig.savefig(pdf_path, bbox_inches='tight')

@@ -359,11 +359,23 @@ class RBPTranslationEffectTests(unittest.TestCase):
             target_hit_ids="H1",
         )
         self.assertEqual(contributions["Hit_ID"].unique().tolist(), ["H1"])
+        second_effect = result.copy()
+        second_effect["Hit_ID"] = "H2"
+        second_effect["Tid"] = "ENST2"
+        second_effect["Delta_Log2_TE"] = (
+            second_effect["Delta_Log2_TE"] + 0.4
+        )
+        reference_effects = pd.concat(
+            [result, second_effect], ignore_index=True
+        )
+        expected_group_median = float(
+            reference_effects["Delta_Log2_TE"].median()
+        )
         with tempfile.TemporaryDirectory() as directory:
             output_csv = str(Path(directory) / "targeted_saturation.csv")
             targeted = run_targeted_rbp_saturation_mutagenesis(
                 model=model,
-                hit_effects=result,
+                hit_effects=reference_effects,
                 samples=samples,
                 pwm_library={"M1": pwm},
                 output_csv=output_csv,
@@ -380,10 +392,50 @@ class RBPTranslationEffectTests(unittest.TestCase):
                 pwm_library={},
                 output_csv=output_csv,
             )
+        recovery_dataset = [(
+            "ENST2-brain-0",
+            "human",
+            "brain",
+            np.ones(2, dtype=np.float32),
+            {"cds_start_pos": 4, "cds_end_pos": 12},
+            sequence,
+        )]
+        recovered = run_targeted_rbp_saturation_mutagenesis(
+            model=model,
+            hit_effects=reference_effects,
+            samples=samples,
+            pwm_library={"M1": pwm},
+            target_hit_ids=["H2"],
+            context_flank=0,
+            prediction_scale="linear",
+            batch_size=16,
+            hit_chunk_size=1,
+            force_zero_expression=True,
+            dataset=recovery_dataset,
+        )
         self.assertEqual(targeted["Hit_ID"].unique().tolist(), ["H1"])
+        self.assertEqual(recovered["Hit_ID"].unique().tolist(), ["H2"])
         self.assertTrue(
             (targeted["Alternative_Mutations_Per_Position"] == 3).all()
         )
+        self.assertTrue(
+            np.allclose(
+                targeted["Base_Contribution_Log2_TE"],
+                targeted["Base_Contribution_Mean_Alternatives_Log2_TE"],
+            )
+        )
+        self.assertTrue(
+            targeted[
+                "Base_Contribution_PWM_Least_Preferred_Log2_TE"
+            ].notna().all()
+        )
+        self.assertTrue(
+            np.allclose(
+                targeted["Group_Median_Delta_Log2_TE"],
+                expected_group_median,
+            )
+        )
+        self.assertTrue((targeted["Group_N_Transcripts"] == 2).all())
         pd.testing.assert_frame_equal(targeted, reused)
 
     def test_signed_attribution_returns_window_schema(self):

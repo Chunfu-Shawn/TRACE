@@ -136,14 +136,17 @@ plot_rbp_translation_effect_summary(
     ),
     target_rbps=selected_rbps,
     target_regions=("5UTR", "CDS", "3UTR"),
-    fdr_threshold=None,
-    width=6.2,
-    row_height=0.30,
+    combine_regions=True,
+    region_offset=0.20,
+    point_size_range=(20, 90),
+    fdr_threshold=0.10,
+    width=7.0,
+    row_height=0.34,
 )
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
-# ║ Cell 4c: Plot significant effects for selected RBPs           ║
+# ║ Cell 4c: Plot separate regional pages with FDR gray points    ║
 # ╚══════════════════════════════════════════════════════════════╝
 """
 plot_rbp_translation_effect_summary(
@@ -154,6 +157,7 @@ plot_rbp_translation_effect_summary(
     ),
     target_rbps=selected_rbps,
     target_regions=("5UTR", "3UTR"),
+    combine_regions=False,
     fdr_threshold=0.10,
     width=6.2,
     row_height=0.30,
@@ -296,11 +300,21 @@ rbp_hit_effects = pd.read_csv(
     os.path.join(out_dir, "rbp_motif_hit_effects.csv")
 )
 
-with open(
+sample_candidates = [
     os.path.join(out_dir, "unique_transcript_samples.pkl"),
-    "rb",
-) as handle:
+    os.path.join(out_dir, "checkpoints", "samples.pkl"),
+]
+sample_path = next(
+    (path for path in sample_candidates if os.path.isfile(path)),
+    None,
+)
+if sample_path is None:
+    raise FileNotFoundError(
+        "No canonical or legacy transcript-sample result was found."
+    )
+with open(sample_path, "rb") as handle:
     transcript_samples = pickle.load(handle)
+print(f"Loaded transcript samples from: {sample_path}")
 
 with open(
     os.path.join(out_dir, "validated_rbp_pwms.pkl"),
@@ -352,16 +366,17 @@ display(candidate_effects[effect_columns].head(20))
 if candidate_effects.empty:
     raise ValueError("No hit matches the requested RBP/transcript/position.")
 
-# Select exact rows after reviewing the candidate table.
-selected_effect_hits = candidate_effects.head(1)
+# Select every candidate row after reviewing the candidate table.
+selected_effect_hits = candidate_effects.copy()
 selected_effect_hit_ids = selected_effect_hits["Hit_ID"].astype(str).tolist()
 selected_hit = selected_effect_hits.iloc[0]
 
 targeted_saturation_csv = os.path.join(
     out_dir,
+    "cases_targeted_saturation",
     (
         f"targeted_saturation.{selected_hit['RBP_Name']}."
-        f"{selected_hit['Tid']}.{selected_hit['Hit_ID']}.csv"
+        f"{selected_hit['Region']}.all_candidates.csv"
     ),
 )
 
@@ -370,11 +385,14 @@ targeted_contributions = run_targeted_rbp_saturation_mutagenesis(
     hit_effects=rbp_hit_effects,
     samples=transcript_samples,
     pwm_library=validated_rbp_pwms,
+    dataset=test_dataset,
     output_csv=targeted_saturation_csv,
     target_hit_ids=selected_effect_hit_ids,
-    context_flank=20,
+    context_flank=30,
     prediction_scale="log1p",
     batch_size=64,
+    hit_chunk_size=8,
+    force_zero_expression=True,
 )
 
 display(targeted_contributions.head(20))
@@ -391,12 +409,29 @@ targeted_case_paths, targeted_hits = (
         target_hit_ids=selected_effect_hit_ids,
         return_selected_hits=True,
         width=8.0,
-        height=3.4,
+        height=3.8,
+        contribution_score="mean_alternatives",
     )
 )
 
 display(targeted_hits[candidate_columns])
 targeted_case_paths
+"""
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║ Cell 5h: Plot the PWM least-preferred single-base score      ║
+# ╚══════════════════════════════════════════════════════════════╝
+"""
+least_preferred_case_paths = plot_rbp_nucleotide_contribution_cases(
+    contribution_df=targeted_contributions,
+    out_dir=os.path.join(out_dir, "cases_targeted_saturation"),
+    target_hit_ids=selected_effect_hit_ids,
+    contribution_score="pwm_least_preferred",
+    width=8.0,
+    height=3.8,
+)
+
+least_preferred_case_paths
 """
 
 # ╔══════════════════════════════════════════════════════════════╗
@@ -470,7 +505,8 @@ selected_heatmap_path = plot_motif_position_preference_heatmap(
         "known_rbp_position_preference_heatmap.pdf",
     ),
     target_features=selected_rbps,
-    cluster_mode="regions",  # Use "full" or "none" as alternatives.
+    # Preserve the exact order in selected_rbps.
+    cluster_mode="none",
     min_total_hits=1,
     max_features=0,
     value_col="Log2_Positional_Enrichment",
