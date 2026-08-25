@@ -1629,6 +1629,148 @@ class RBPMotifMutagenesisEvaluator:
         return pd.DataFrame(rows)
 
 
+def run_targeted_rbp_saturation_mutagenesis(
+    model,
+    hit_effects: pd.DataFrame,
+    samples: Mapping[str, Mapping],
+    pwm_library: Mapping[str, np.ndarray],
+    output_csv: Optional[str] = None,
+    target_hit_ids: Optional[Iterable[str]] = None,
+    target_rbps: Optional[Iterable[str]] = None,
+    target_regions: Optional[Iterable[str]] = None,
+    target_transcript_ids: Optional[Iterable[str]] = None,
+    target_motif_starts: Optional[Iterable[int]] = None,
+    context_flank: int = 12,
+    prediction_scale: str = "log1p",
+    batch_size: int = 64,
+    cds_skip_codons: int = 0,
+    max_hits: Optional[int] = None,
+) -> pd.DataFrame:
+    """Run standalone saturation mutagenesis for explicitly selected hits.
+
+    Existing ``output_csv`` files are authoritative and loaded directly. Every
+    selected position is substituted with each of the three non-native bases.
+    The reported native-base contribution is the WT log2 CDS-mean signal minus
+    the mean log2 CDS-mean signal across those three substitutions.
+    """
+    if output_csv is not None:
+        output_csv = os.path.abspath(os.path.expanduser(output_csv))
+        if os.path.isfile(output_csv):
+            try:
+                cached = pd.read_csv(output_csv)
+            except pd.errors.EmptyDataError:
+                cached = pd.DataFrame()
+            print(f"[SKIP] targeted saturation: loaded {output_csv}")
+            return cached
+    if context_flank < 0:
+        raise ValueError("context_flank must be non-negative.")
+    if max_hits is not None and int(max_hits) < 1:
+        raise ValueError("max_hits must be positive or None.")
+
+    required = {
+        "Hit_ID", "Tid", "RBP_Name", "Region", "Start", "End",
+        "Matrix_ID", "WT_CDS_Mean_Signal", "Delta_Log2_TE", "PWM_Score",
+    }
+    missing = required.difference(hit_effects.columns)
+    if missing:
+        raise ValueError(
+            f"Hit-effect table is missing columns: {sorted(missing)}"
+        )
+
+    def normalize_strings(values):
+        if values is None:
+            return None
+        if isinstance(values, str):
+            return [values]
+        return list(dict.fromkeys(str(value) for value in values))
+
+    hit_ids = normalize_strings(target_hit_ids)
+    rbps = normalize_strings(target_rbps)
+    regions = normalize_strings(target_regions)
+    transcript_ids = normalize_strings(target_transcript_ids)
+    motif_starts = (
+        None if target_motif_starts is None
+        else {int(target_motif_starts)}
+        if np.isscalar(target_motif_starts)
+        else {int(value) for value in target_motif_starts}
+    )
+    if all(
+        value is None
+        for value in (hit_ids, rbps, regions, transcript_ids, motif_starts)
+    ):
+        raise ValueError(
+            "Specify at least one hit, RBP, region, transcript, or motif start."
+        )
+    if regions is not None:
+        invalid_regions = set(regions).difference({"5UTR", "CDS", "3UTR"})
+        if invalid_regions:
+            raise ValueError(
+                "target_regions contains unsupported values: "
+                + ", ".join(sorted(invalid_regions))
+            )
+
+    selected = hit_effects.copy()
+    if hit_ids is not None:
+        hit_order = {hit_id: index for index, hit_id in enumerate(hit_ids)}
+        selected = selected[
+            selected["Hit_ID"].astype(str).isin(hit_order)
+        ].copy()
+        selected["_Selection_Order"] = selected["Hit_ID"].astype(str).map(
+            hit_order
+        )
+        selected = selected.sort_values("_Selection_Order")
+    if rbps is not None:
+        selected = selected[selected["RBP_Name"].astype(str).isin(rbps)]
+    if regions is not None:
+        selected = selected[selected["Region"].astype(str).isin(regions)]
+    if transcript_ids is not None:
+        selected = selected[selected["Tid"].astype(str).isin(transcript_ids)]
+    if motif_starts is not None:
+        selected = selected[selected["Start"].astype(int).isin(motif_starts)]
+    selected = selected.drop_duplicates("Hit_ID")
+    if max_hits is not None:
+        selected = selected.head(int(max_hits))
+    if selected.empty:
+        raise ValueError("No hit-effect row satisfies the requested filters.")
+
+    missing_samples = sorted(set(selected["Tid"]) - set(samples))
+    if missing_samples:
+        preview = ", ".join(map(str, missing_samples[:5]))
+        raise ValueError(
+            f"Samples are missing {len(missing_samples)} selected transcripts: "
+            f"{preview}"
+        )
+    evaluator = RBPMotifMutagenesisEvaluator(
+        model,
+        pwm_library,
+        prediction_scale=prediction_scale,
+    )
+    contributions = evaluator.compute_nucleotide_contributions(
+        selected,
+        samples,
+        n_cases_per_direction=1,
+        min_case_transcripts=2,
+        context_flank=context_flank,
+        batch_size=batch_size,
+        cds_skip_codons=cds_skip_codons,
+        case_regions=("5UTR", "CDS", "3UTR"),
+        target_hit_ids=selected["Hit_ID"].astype(str).tolist(),
+        targeted_cases_per_rbp=max(len(selected), 1),
+        selection_mode="per_rbp",
+    )
+    if contributions.empty:
+        raise ValueError("Targeted saturation mutagenesis produced no rows.")
+    contributions["Alternative_Mutations_Per_Position"] = 3
+    contributions["Contribution_Definition"] = (
+        "log2(WT_CDS_mean)-mean(log2(single_base_mutant_CDS_mean))"
+    )
+    if output_csv is not None:
+        os.makedirs(os.path.dirname(output_csv) or ".", exist_ok=True)
+        contributions.to_csv(output_csv, index=False)
+        print(f"[DONE] targeted saturation: saved {output_csv}")
+    return contributions
+
+
 def summarize_rbp_motif_effects(
     hit_effects: pd.DataFrame,
     min_transcripts: int = 5,

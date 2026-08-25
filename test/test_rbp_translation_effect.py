@@ -42,6 +42,7 @@ from eval.rbp_translation_effect import (
     disrupt_pwm_hit,
     extract_signed_translation_attribution_windows,
     run_rbp_translation_effect_analysis,
+    run_targeted_rbp_saturation_mutagenesis,
     scan_pwm_hits,
     summarize_rbp_motif_effects,
     validate_rbp_pwm_library,
@@ -334,8 +335,9 @@ class RBPTranslationEffectTests(unittest.TestCase):
             "Context_Sequence": "ACGACG",
         }])
         pwm = np.eye(4, dtype=float)[[0, 1, 2]]
+        model = self._build_model()
         evaluator = RBPMotifMutagenesisEvaluator(
-            self._build_model(),
+            model,
             {"M1": pwm},
             prediction_scale="linear",
         )
@@ -357,6 +359,32 @@ class RBPTranslationEffectTests(unittest.TestCase):
             target_hit_ids="H1",
         )
         self.assertEqual(contributions["Hit_ID"].unique().tolist(), ["H1"])
+        with tempfile.TemporaryDirectory() as directory:
+            output_csv = str(Path(directory) / "targeted_saturation.csv")
+            targeted = run_targeted_rbp_saturation_mutagenesis(
+                model=model,
+                hit_effects=result,
+                samples=samples,
+                pwm_library={"M1": pwm},
+                output_csv=output_csv,
+                target_transcript_ids=["ENST1"],
+                target_motif_starts=[0],
+                context_flank=0,
+                prediction_scale="linear",
+                batch_size=16,
+            )
+            reused = run_targeted_rbp_saturation_mutagenesis(
+                model=None,
+                hit_effects=pd.DataFrame(),
+                samples={},
+                pwm_library={},
+                output_csv=output_csv,
+            )
+        self.assertEqual(targeted["Hit_ID"].unique().tolist(), ["H1"])
+        self.assertTrue(
+            (targeted["Alternative_Mutations_Per_Position"] == 3).all()
+        )
+        pd.testing.assert_frame_equal(targeted, reused)
 
     def test_signed_attribution_returns_window_schema(self):
         sequence = np.eye(4, dtype=np.float32)[
