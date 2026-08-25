@@ -579,13 +579,16 @@ def plot_rbp_translation_effect_summary(
         target_regions=None,
         combine_regions=False,
         region_offset=0.20,
-        point_size_range=(20.0, 90.0)):
+        point_size_range=(20.0, 90.0),
+        alternate_rbp_background=True,
+        alternate_rbp_color='#F3F3F3'):
     """Plot regional RBP-motif effects with uncertainty and sample sizes.
 
     When ``combine_regions=True``, all requested regions share one RBP axis.
     Region is encoded by marker shape and points are vertically offset. Point
     area encodes the number of transcripts. If ``fdr_threshold`` is provided,
     non-significant effects remain visible in gray rather than being removed.
+    Alternating row backgrounds visually bind regional points to each RBP.
     """
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
@@ -674,6 +677,8 @@ def plot_rbp_translation_effect_summary(
     size_min, size_max = map(float, point_size_range)
     if size_min <= 0 or size_max < size_min:
         raise ValueError("point_size_range must be positive and increasing.")
+    if not mpl.colors.is_color_like(alternate_rbp_color):
+        raise ValueError("alternate_rbp_color is not a valid color.")
 
     pdf_path = _as_pdf_path(out_path)
     pages_written = 0
@@ -693,6 +698,20 @@ def plot_rbp_translation_effect_summary(
             return np.full(len(values), (size_min + size_max) / 2)
         scaled = (transformed - lower) / (upper - lower)
         return size_min + scaled * (size_max - size_min)
+
+    def add_alternating_row_backgrounds(ax, n_rows):
+        """Shade alternating RBP rows without obscuring plotted intervals."""
+        if not alternate_rbp_background:
+            return
+        for row_index in range(n_rows):
+            if row_index % 2 == 1:
+                ax.axhspan(
+                    row_index - 0.5,
+                    row_index + 0.5,
+                    color=alternate_rbp_color,
+                    linewidth=0,
+                    zorder=0,
+                )
 
     def point_colors(plot_df):
         """Color significant effects by direction and retain gray nulls."""
@@ -821,6 +840,7 @@ def plot_rbp_translation_effect_summary(
             sizes = point_sizes(plot_df['N_Transcripts'])
             height = max(3.4, 1.4 + row_height * len(rbp_order))
             fig, ax = plt.subplots(figsize=(width, height))
+            add_alternating_row_backgrounds(ax, len(rbp_order))
             for position, value, low, high, color in zip(
                 plot_df['Y_Position'], values, lower, upper, colors
             ):
@@ -896,6 +916,7 @@ def plot_rbp_translation_effect_summary(
                 sizes = point_sizes(plot_df['N_Transcripts'])
                 height = max(3.2, 1.4 + row_height * len(plot_df))
                 fig, ax = plt.subplots(figsize=(width, height))
+                add_alternating_row_backgrounds(ax, len(plot_df))
                 for position, value, low, high, color in zip(
                     positions, values, lower, upper, colors
                 ):

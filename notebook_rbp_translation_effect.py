@@ -139,6 +139,8 @@ plot_rbp_translation_effect_summary(
     combine_regions=True,
     region_offset=0.20,
     point_size_range=(20, 90),
+    alternate_rbp_background=True,
+    alternate_rbp_color="#F3F3F3",
     fdr_threshold=0.10,
     width=7.0,
     row_height=0.34,
