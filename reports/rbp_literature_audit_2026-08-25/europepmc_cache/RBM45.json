@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RBM45 Preferential Binding to m&lt;sup&gt;6&lt;/sup&gt;A: Simulations Suggest Synergy of RRM3 and Other Domains.",
+    "doi": "10.1021/acs.jpcb.6c01856",
+    "pmid": "42136125",
+    "authors": [
+      "Park R, Contreras LM, Tamamis P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-14",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RNA-binding motif protein 45 (RBM45) is an RNA-binding protein crucial for brain development and plays a key role in RNA metabolism and disease. Its RNA recognition motif (RRM) domains can recognize GAC-containing motifs, with or without N6-methyladenosine (m<sup>6</sup>A) modification. While its RRM domains individually do not preferentially recognize m<sup>6</sup>A, RBM45 preferentially recognizes m<sup>6</sup>A motifs over unmodified motifs. In this study, we used molecular dynamics (MD) simulations to investigate the binding of a series of RNAs in complex with different RRM domains individually and in complex with RRM3 in the context of the full-length protein. Our study complies with previous experiments and provides in-depth biophysical insights into the binding of unmodified and m<sup>6</sup>A-modified GACG, GACU, and GACA RNA motifs in complex with all RRMs individually. While GACA and GACU bind unfavorably to the individual RRM3 domain, we suggest that they bind favorably to RRM3 in the context of the full-length protein. Importantly, in the context of the entire protein, we present for the first time how RRM3, in combination with additional residues in different RRM domains and linker domains, can synergistically cooperate for m<sup>6</sup>A preferential binding over adenine in the context of GACA and GACU motifs, uncovering the preferential binding of full-length RBM45 for m<sup>6</sup>A observed in previous experiments. The presence of the m<sup>6</sup>A methyl group provides further stability to the RNA, as well as strengthens the particular interactions between RNA and protein, while contributing to additional stabilization of the C-terminal domain with the linker domain between RRM2 and homo-oligomer assembly (HOA). Our simulations highlight the role of various other domains beyond RRMs (i.e., the C-terminal, HOA, and linkers between different RRMs) in the interaction of RBM45 with RNA, particularly m<sup>6</sup>A-modified RNA. Overall, our study elucidated how an RRM class of proteins can preferentially bind m<sup>6</sup>A in the context of its common motif written by methyltransferases. We consider that our study presents the first mechanistic insights into how an RRM domain binds directly and preferentially recognizes m<sup>6</sup>A over adenine in synergy with other domains, which include intrinsically disordered regions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural basis for RNA recognition by the C-terminal RRM domain of human RBM45.",
+    "doi": "10.1016/j.jbc.2024.107640",
+    "pmid": "39122006",
+    "authors": [
+      "Chen X, Wei Q, Yang Z, Chen X, Guo S, Jiang M, Wang M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-08",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "RBM45 is an RNA-binding protein with roles in neural development by regulating RNA splicing. Its dysfunction and aggregation are associated with neurodegenerative diseases such as amyotrophic lateral sclerosis (ALS) and frontotemporal lobar dementia (FTLD). RBM45 harbors three RRM domains that potentially bind RNA. While the recognitions of RNA by its N-terminal tandem RRM domains (RRM1 and RRM2) have been well understood, the RNA-binding property of its C-terminal RRM (RRM3) remains unclear. In this work, we identified that the RRM3 of the RBM45 sequence specifically binds RNA with a GACG sequence, similar but not identical to those recognized by the RRM1 and RRM2. Further, we determined the crystal structure of RBM45<sup>RRM3</sup> in complex with a GACG sequence-containing single-stranded DNA. Our structural results, together with the RNA-binding assays of mutants at key amino acid residues, revealed the molecular mechanism by which RBM45<sup>RRM3</sup> recognizes an RNA sequence. Our finding on the RNA-binding property of the individual RRM module of RBM45 provides the foundation for unraveling the RNA-binding characteristics of full-length RBM45 and for understanding the biological functions of RBM45.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA polymerase II-associated proteins reveal pathways affected in VCP-related amyotrophic lateral sclerosis.",
+    "doi": "10.1093/brain/awad046",
+    "pmid": "36789492",
+    "authors": [
+      "Rafiee MR, Rohban S, Davey K, Ule J, Luscombe NM."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-01",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Valosin-containing protein (VCP) is a hexameric ATPase associated with diverse cellular activities. Genetic mutations in VCP are associated with several forms of muscular and neuronal degeneration, including amyotrophic lateral sclerosis (ALS). Moreover, VCP mediates UV-induced proteolysis of RNA polymerase II (RNAPII), but little is known about the effects of VCP mutations on the transcriptional machinery. Here, we used silica particle-assisted chromatin enrichment and mass spectrometry to study proteins co-localized with RNAPII in precursor neurons differentiated from VCP-mutant or control induced pluripotent stem cells. Remarkably, we observed diminished RNAPII binding of proteins involved in transcription elongation and mRNA splicing in mutant cells. One of these is SART3, a recycling factor of the splicing machinery, whose knockdown leads to perturbed intron retention in several ALS-associated genes. Additional reduced proteins are RBM45, EIF5A and RNF220, mutations in which are associated with various neurodegenerative disorders and are linked to TDP-43 aggregation. Conversely, we observed increased RNAPII binding of heat shock proteins such as HSPB1. Together, these findings shed light on how transcription and splicing machinery are impaired by VCP mutations, which might contribute to aberrant alternative splicing and proteinopathy in neurodegeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM45 is an m<sup>6</sup>A-binding protein that affects neuronal differentiation and the splicing of a subset of mRNAs.",
+    "doi": "10.1016/j.celrep.2022.111293",
+    "pmid": "36044854",
+    "authors": [
+      "Choi SH, Flamand MN, Liu B, Zhu H, Hu M, Wang M, Sewell J, Holley CL, Al-Hashimi HM, Meyer KD."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-01",
+    "cited_by_count": 29,
+    "journal": "",
+    "abstract": "N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) is deposited co-transcriptionally on thousands of cellular mRNAs and plays important roles in mRNA processing and cellular function. m<sup>6</sup>A is particularly abundant within the brain and is critical for neurodevelopment. However, the mechanisms through which m<sup>6</sup>A contributes to brain development are incompletely understood. RBM45 acts as an m<sup>6</sup>A-binding protein that is highly expressed during neurodevelopment. We find that RBM45 binds to thousands of cellular RNAs, predominantly within intronic regions. Rbm45 depletion disrupts the constitutive splicing of a subset of target pre-mRNAs, leading to altered mRNA and protein levels through both m<sup>6</sup>A-dependent and m<sup>6</sup>A-independent mechanisms. Finally, we find that RBM45 is necessary for neuroblastoma cell differentiation and that its depletion impacts the expression of genes involved in several neurodevelopmental signaling pathways. Altogether, our findings show a role for RBM45 in controlling mRNA processing and neuronal differentiation, mediated in part by the recognition of methylated RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of RBM45 inhibits breast cancer progression by reducing the SUMOylation of IRF7 to promote IFNB1 transcription.",
+    "doi": "10.1016/j.canlet.2024.216988",
+    "pmid": "38797234",
+    "authors": [
+      "Lv Y, Sun S, Zhang J, Wang C, Chen C, Zhang Q, Zhao J, Qi Y, Zhang W, Wang Y, Li M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-24",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Type I interferons exhibit anti-proliferative and anti-cancer activities, but their detailed regulatory mechanisms in cancer have not been fully elucidated yet. RNA binding proteins are master orchestrators of gene regulation, which are closely related to tumor progression. Here we show that the upregulated RNA binding protein RBM45 correlates with poor prognosis in breast cancer. Depletion of RBM45 suppresses breast cancer progression both in cultured cells and xenograft mouse models. Mechanistically, RBM45 ablation inhibits breast cancer progression through regulating type I interferon signaling, particularly by elevating IFN-β production. Importantly, RBM45 recruits TRIM28 to IRF7 and stimulates its SUMOylation, thereby repressing IFNB1 transcription. Loss of RBM45 reduced the SUMOylation of IRF7 by reducing the interaction between TRIM28 and IRF7 to promote IFNB1 transcription, leading to the inhibition of breast cancer progression. Taken together, our finding uncovers a vital role of RBM45 in modulating type I interferon signaling and cancer aggressive progression, implicating RBM45 as a potential therapeutic target in breast cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circ0515 reprogramming mitochondrial succinate metabolism and promotes lung adenocarcinoma progression through regulating SDHB.",
+    "doi": "10.1038/s41419-025-07830-7",
+    "pmid": "40617805",
+    "authors": [
+      "Yuan Y, Wu Y, Li C, Huang Z, Peng D, Wu Z, Jiang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-05",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "Non-small cell lung cancer (NSCLC) is one of the leading causes of cancer-related mortality worldwide. Its high incidence and poor prognosis are closely associated with complex molecular mechanisms. Circular RNAs (circRNAs), a class of non-coding RNAs, play significant regulatory roles in tumorigenesis and progression. However, their specific functions and mechanisms in lung cancer remain largely unclear. This study aims to elucidate the expression pattern and molecular mechanisms of circ0515 in lung cancer, particularly its roles in tumor proliferation, migration, and metabolism. The study revealed that circ0515 is significantly upregulated in lung cancer tissues and cell lines, specific knockdown of circ0515 using short hairpin RNA (shRNA) or antisense oligonucleotide (ASO) significantly inhibits lung cancer cell proliferation, migration, and xenograft tumor formation. On one hand, circ0515 acts as a molecular sponge for miRNA-328-3p, upregulating its downstream target gene YWHAZ, thereby activating the AKT signaling pathway and significantly promoting lung cancer cell proliferation and migration. On the other hand, circ0515 recruited RNA binding motif protein 45 (RBM45) to stabilize SDHB mRNA, promoting SDHB expression and mitochondrial oxidative phosphorylation and succinate metabolism, leading to increased cisplatin resistance in lung cancer cells. These findings not only advance our understanding of the functional roles of circ0515 in lung cancer but also provide a theoretical basis for considering circ0515 as a potential therapeutic target for NSCLC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive bioinformatics analysis of a RBM family-based prognostic signature with experiment validation in hepatocellular carcinoma.",
+    "doi": "10.1007/s00432-023-05084-4",
+    "pmid": "37410140",
+    "authors": [
+      "Wu Z, Guo L, Wan L, Xu K, Luo L, Wen Z."
+    ],
+    "year": "2023",
+    "publication_date": "2023-07-06",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Although some RBM proteins family members play important roles in hepatocellular carcinoma (HCC) development, their value of prognosis and tumor treatment is not clear. To reveal the expression patterns and clinical significance of RBM family members in HCC, we constructed a RBM family-based prognosis signature.<h4>Method</h4>We collected the data of HCC patients from TCGA and ICGC database. The prognostic signature was constructed in TCGA and verified using ICGC cohort. Based on this model, risk score was calculated and patients were divided into high- and low-risk group. Comparison of immune cell infiltration, the response to immunotherapy, and IC50 of chemotherapeutic drugs were employed between different risk subgroups. Besides, CCK-8 and EdU assays were performed to investigate the role of RBM45 in HCC.<h4>Result</h4>Among 19 differential expression RBM protein family genes, 7 prognostic genes were picked out. Through LASSO Cox regression, a 4-gene prognostic model was successfully constructed, which included RBM8A, RBM19, RBM28 and RBM45. Results of validation and estimation suggested this model could be applied for prognostic prediction in HCC patients with a well predictive value. Risk score was shown to be an independent predictor and high-risk patients had poor prognosis. High-risk patients had an immunosuppressive tumor microenvironment while patients with low risk could benefit more from ICI therapy and sorafenib treatment. In addition, knockdown of RBM45 inhibited the proliferation of HCC.<h4>Conclusion</h4>This prognostic signature based on RBM family had a great value for predicting OS of HCC patients. Low-risk patients were more suitable for receiving immunotherapy and sorafenib treatment. The RBM family members made of the prognostic model might promote the progression of HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oncogenic KRAS alters splicing factor phosphorylation and alternative splicing in lung cancer.",
+    "doi": "10.1186/s12885-022-10311-1",
+    "pmid": "36522653",
+    "authors": [
+      "Lo A, McSharry M, Berger AH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-12-16",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Alternative RNA splicing is widely dysregulated in cancers including lung adenocarcinoma, where aberrant splicing events are frequently caused by somatic splice site mutations or somatic mutations of splicing factor genes. However, the majority of mis-splicing in cancers is unexplained by these known mechanisms. We hypothesize that the aberrant Ras signaling characteristic of lung cancers plays a role in promoting the alternative splicing observed in tumors.<h4>Methods</h4>We recently performed transcriptome and proteome profiling of human lung epithelial cells ectopically expressing oncogenic KRAS and another cancer-associated Ras GTPase, RIT1. Unbiased analysis of phosphoproteome data identified altered splicing factor phosphorylation in KRAS-mutant cells, so we performed differential alternative splicing analysis using rMATS to identify significantly altered isoforms in lung epithelial cells. To determine whether these isoforms were uniquely regulated by KRAS, we performed a large-scale splicing screen in which we generated over 300 unique RNA sequencing profiles of isogenic A549 lung adenocarcinoma cells ectopically expressing 75 different wild-type or variant alleles across 28 genes implicated in lung cancer.<h4>Results</h4>Mass spectrometry data showed widespread downregulation of splicing factor phosphorylation in lung epithelial cells expressing mutant KRAS compared to cells expressing wild-type KRAS. We observed alternative splicing in the same cells, with 2196 and 2416 skipped exon events in KRAS<sup>G12V</sup> and KRAS<sup>Q61H</sup> cells, respectively, 997 of which were shared (p < 0.001 by hypergeometric test). In the high-throughput splicing screen, mutant KRAS induced the greatest number of differential alternative splicing events, second only to the RNA binding protein RBM45 and its variant RBM45<sup>M126I</sup>. We identified ten high confidence cassette exon events across multiple KRAS variants and cell lines. These included differential splicing of the Myc Associated Zinc Finger (MAZ). As MAZ regulates expression of KRAS, this splice variant may be a mechanism for the cell to modulate wild-type KRAS levels in the presence of oncogenic KRAS.<h4>Conclusion</h4>Proteomic and transcriptomic profiling of lung epithelial cells uncovered splicing factor phosphorylation and mRNA splicing events regulated by oncogenic KRAS. These data suggest that in addition to widespread transcriptional changes, the Ras signaling pathway can promote post-transcriptional splicing changes that may contribute to oncogenic processes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Binding Motif Protein RBM45 Regulates Expression of the 11-Kilodalton Protein of Parvovirus B19 through Binding to Novel Intron Splicing Enhancers.",
+    "doi": "10.1128/mbio.00192-20",
+    "pmid": "32156816",
+    "authors": [
+      "Wang J, Ganaie SS, Cheng F, Xu P, Ning K, Wang X, Kleiboeker S, Cheng S, Qiu J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-10",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "During infection of human parvovirus B19 (B19V), one viral precursor mRNA (pre-mRNA) is transcribed by a single promoter and is alternatively spliced and alternatively polyadenylated. Here, we identified a novel <i>cis</i>-acting sequence (5'-GUA AAG CUA CGG GAC GGU-3'), intronic splicing enhancer 3 (ISE3), which lies 72 nucleotides upstream of the second splice acceptor (A2-2) site of the second intron that defines the exon of the mRNA encoding the 11-kDa viral nonstructural protein. RNA binding motif protein 45 (RBM45) specifically binds to ISE3 with high affinity (equilibrium dissociation constant [<i>K<sub>D</sub></i> ] = 33 nM) mediated by its RNA recognition domain and 2-homo-oligomer assembly domain (RRM2-HOA). Knockdown of RBM45 expression or ectopic overexpression of RRM2-HOA in human erythroid progenitor cells (EPCs) expanded <i>ex vivo</i> significantly decreased the level of viral mRNA spliced at the A2-2 acceptor but not that of the mRNA spliced at A2-1 that encodes VP2. Moreover, silent mutations of ISE3 in an infectious DNA of B19V significantly reduced 11-kDa expression. Notably, RBM45 also specifically interacts <i>in vitro</i> with ISE2, which shares the octanucleotide (GGGACGGU) with ISE3. Taken together, our results suggest that RBM45, through binding to both ISE2 and ISE3, is an essential host factor for maturation of 11-kDa-encoding mRNA.<b>IMPORTANCE</b> Human parvovirus B19 (B19V) is a human pathogen that causes severe hematological disorders in immunocompromised individuals. B19V infection has a remarkable tropism with respect to human erythroid progenitor cells (EPCs) in human bone marrow and fetal liver. During B19V infection, only one viral precursor mRNA (pre-mRNA) is transcribed by a single promoter of the viral genome and is alternatively spliced and alternatively polyadenylated, a process which plays a key role in expression of viral proteins. Our studies revealed that a cellular RNA binding protein, RBM45, binds to two intron splicing enhancers and is essential for the maturation of the small nonstructural protein 11-kDa-encoding mRNA. The 11-kDa protein plays an important role not only in B19V infection-induced apoptosis but also in viral DNA replication. Thus, the identification of the RBM45 protein and its cognate binding site in B19V pre-mRNA provides a novel target for antiviral development to combat B19V infection-caused severe hematological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Family-based exome sequencing identifies RBM45 as a possible candidate gene for frontotemporal dementia and amyotrophic lateral sclerosis.",
+    "doi": "10.1016/j.nbd.2021.105421",
+    "pmid": "34118419",
+    "authors": [
+      "van der Zee J, Dillen L, Baradaran-Heravi Y, Gossye H, Koçoğlu C, Cuyt I, Dermaut B, Sieben A, Baets J, De Jonghe P, Vandenberghe R, De Deyn P, Cras P, Engelborghs S, Van Broeckhoven C, BELNEU Consortium."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-09",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Neurodegenerative disorders like frontotemporal dementia (FTD) and amyotrophic lateral sclerosis (ALS) are pathologically characterized by toxic protein deposition in the cytoplasm or nucleus of affected neurons and glial cells. Many of these aggregated proteins belong to the class of RNA binding proteins (RBP), and, when mutated, account for a significant subset of familial ALS and FTD cases. Here, we present first genetic evidence for the RBP gene RBM45 in the FTD-ALS spectrum. RBM45 shows many parallels with other FTD-ALS associated genes and proteins. Multiple lines of evidence have demonstrated that RBM45 is an RBP that, upon mutation, redistributes to the cytoplasm where it co-aggregates with other RBPs into cytoplasmic stress granules (SG), evolving to persistent toxic TDP-43 immunoreactive inclusions. Exome sequencing in two affected first cousins of a heavily affected early-onset dementia family listed a number of candidate genes. The gene with the highest pathogenicity score was the RBP gene RBM45. In the family, the RBM45 Arg183* nonsense mutation co-segregated in both affected cousins. Validation in an unrelated patient (n = 548) / control (n = 734) cohort identified an additional RBM45 Arg183* carrier with bvFTD on a shared 4 Mb haplotype. Transcript and protein expression analysis demonstrated loss of nuclear RBM45, suggestive of a loss-of-function disease mechanism. Further, two more ultra-rare VUS, one in the nuclear localization signal (NLS, p.Lys456Arg) in an ALS patient and one in the intrinsically disordered homo-oligomer assembly (HOA) domain (p.Arg314Gln) in a patient with nfvPPA were detected. Our findings suggest that the pathomechanisms linking RBM45 with FTD and ALS may be related to its loss of nuclear function as a mediator of mRNA splicing, cytoplasmic retention or its inability to form homo-oligomers, leading to aggregate formation with trapping of other RBPs including TDP-43, which may accumulate into persisted TDP-43 inclusions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulation of the Splicing Machinery Is Associated to the Development of Nonalcoholic Fatty Liver Disease.",
+    "doi": "10.1210/jc.2019-00021",
+    "pmid": "30901032",
+    "authors": [
+      "Del Río-Moreno M, Alors-Pérez E, González-Rubio S, Ferrín G, Reyes O, Rodríguez-Perálvarez M, Sánchez-Frías ME, Sánchez-Sánchez R, Ventura S, López-Miranda J, Kineman RD, de la Mata M, Castaño JP, Gahete MD, Luque RM."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-01",
+    "cited_by_count": 63,
+    "journal": "",
+    "abstract": "<h4>Context</h4>Nonalcoholic fatty liver disease (NAFLD) is a common obesity-associated pathology characterized by hepatic fat accumulation, which can progress to fibrosis, cirrhosis, and hepatocellular carcinoma. Obesity is associated with profound changes in gene-expression patterns of the liver, which could contribute to the onset of comorbidities.<h4>Objective</h4>As these alterations might be linked to a dysregulation of the splicing process, we aimed to determine whether the dysregulation in the expression of splicing machinery components could be associated with NAFLD.<h4>Participants</h4>We collected 41 liver biopsies from nonalcoholic individuals with obesity, with or without hepatic steatosis, who underwent bariatric surgery.<h4>Interventions</h4>The expression pattern of splicing machinery components was determined using a microfluidic quantitative PCR-based array. An in vitro approximation to determine lipid accumulation using HepG2 cells was also implemented.<h4>Results</h4>The liver of patients with obesity and steatosis exhibited a severe dysregulation of certain splicing machinery components compared with patients with obesity without steatosis. Nonsupervised clustering analysis allowed the identification of three molecular phenotypes of NAFLD with a unique fingerprint of alterations in splicing machinery components, which also presented distinctive hepatic and clinical-metabolic alterations and a differential response to bariatric surgery after 1 year. In addition, in vitro silencing of certain splicing machinery components (i.e., PTBP1, RBM45, SND1) reduced fat accumulation and modulated the expression of key de novo lipogenesis enzymes, whereas conversely, fat accumulation did not alter spliceosome components expression.<h4>Conclusion</h4>There is a close relationship between splicing machinery dysregulation and NAFLD development, which should be further investigated to identify alternative therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Immunoprecipitation and mass spectrometry defines an extensive RBM45 protein-protein interaction network.",
+    "doi": "10.1016/j.brainres.2016.02.047",
+    "pmid": "26979993",
+    "authors": [
+      "Li Y, Collins M, An J, Geiser R, Tegeler T, Tsantilas K, Garcia K, Pirrotte P, Bowser R."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-12",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "The pathological accumulation of RNA-binding proteins (RBPs) within inclusion bodies is a hallmark of amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD). RBP aggregation results in both toxic gain and loss of normal function. Determining the protein binding partners and normal functions of disease-associated RBPs is necessary to fully understand molecular mechanisms of RBPs in disease. Herein, we characterized the protein-protein interactions (PPIs) of RBM45, a RBP that localizes to inclusions in ALS/FTLD. Using immunoprecipitation coupled to mass spectrometry (IP-MS), we identified 132 proteins that specifically interact with RBM45 within HEK293 cells. Select PPIs were validated by immunoblot and immunocytochemistry, demonstrating that RBM45 associates with a number of other RBPs primarily via RNA-dependent interactions in the nucleus. Analysis of the biological processes and pathways associated with RBM45-interacting proteins indicates enrichment for nuclear RNA processing/splicing via association with hnRNP proteins and cytoplasmic RNA translation via eiF2 and eiF4 pathways. Moreover, several other ALS-linked RBPs, including TDP-43, FUS, Matrin-3, and hnRNP-A1, interact with RBM45, consistent with prior observations of these proteins within intracellular inclusions in ALS/FTLD. Taken together, our results define a PPI network for RBM45, suggest novel functions for this protein, and provide new insights into the contributions of RBM45 to neurodegeneration in ALS/FTLD. This article is part of a Special Issue entitled SI:RNA Metabolism in Disease.",
+    "openalex_id": ""
+  }
+]

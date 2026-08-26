@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Human METTL16 is a <i>N</i><sup>6</sup>-methyladenosine (m<sup>6</sup>A) methyltransferase that targets pre-mRNAs and various non-coding RNAs.",
+    "doi": "10.15252/embr.201744940",
+    "pmid": "29051200",
+    "authors": [
+      "Warda AS, Kretschmer J, Hackert P, Lenz C, Urlaub H, Höbartner C, Sloan KE, Bohnsack MT, Bohnsack MT."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-19",
+    "cited_by_count": 571,
+    "journal": "",
+    "abstract": "<i>N</i><sup>6</sup>-methyladenosine (m<sup>6</sup>A) is a highly dynamic RNA modification that has recently emerged as a key regulator of gene expression. While many m<sup>6</sup>A modifications are installed by the METTL3-METTL14 complex, others appear to be introduced independently, implying that additional human m<sup>6</sup>A methyltransferases remain to be identified. Using crosslinking and analysis of cDNA (CRAC), we reveal that the putative human m<sup>6</sup>A \"writer\" protein METTL16 binds to the U6 snRNA and other ncRNAs as well as numerous lncRNAs and pre-mRNAs. We demonstrate that METTL16 is responsible for <i>N</i><sup>6</sup>-methylation of A43 of the U6 snRNA and identify the early U6 biogenesis factors La, LARP7 and the methylphosphate capping enzyme MEPCE as METTL16 interaction partners. Interestingly, A43 lies within an essential ACAGAGA box of U6 that base pairs with 5' splice sites of pre-mRNAs during splicing, suggesting that METTL16-mediated modification of this site plays an important role in splicing regulation. The identification of METTL16 as an active m<sup>6</sup>A methyltransferase in human cells expands our understanding of the mechanisms by which the m<sup>6</sup>A landscape is installed on cellular RNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CDK9: a signaling hub for transcriptional control.",
+    "doi": "10.1080/21541264.2018.1523668",
+    "pmid": "30227759",
+    "authors": [
+      "Bacon CW, D'Orso I."
+    ],
+    "year": "2019",
+    "publication_date": "2018-10-11",
+    "cited_by_count": 173,
+    "journal": "",
+    "abstract": "Cyclin-dependent kinase 9 (CDK9) is critical for RNA Polymerase II (Pol II) transcription initiation, elongation, and termination in several key biological processes including development, differentiation, and cell fate responses. A broad range of diseases are characterized by CDK9 malfunction, illustrating its importance in maintaining transcriptional homeostasis in basal- and signal-regulated conditions. Here we provide a historical recount of CDK9 discovery and the current models suggesting CDK9 is a central hub necessary for proper execution of different steps in the transcription cycle. Finally, we discuss the current therapeutic strategies to treat CDK9 malfunction in several disease states. Abbreviations: CDK: Cyclin-dependent kinase; Pol II: RNA Polymerase II; PIC: Pre-initiation Complex; TFIIH: Transcription Factor-II H; snoRNA: small nucleolar RNA; CycT: CyclinT1/T2; P-TEFb: Positive Transcription Elongation Factor Complex; snRNP: small nuclear ribonucleo-protein; HEXIM: Hexamethylene Bis-acetamide-inducible Protein 1/2; LARP7: La-related Protein 7; MePCE: Methylphosphate Capping Enzyme; HIV: human immunodeficiency virus; TAT: trans-activator of transcription; TAR: Trans-activation response element; Hsp70: Heat Shock Protein 70; Hsp90/Cdc37: Hsp90- Hsp90 co-chaperone Cdc37; DSIF: DRB Sensitivity Inducing Factor; NELF: Negative Elongation Factor; CPSF: cleavage and polyadenylation-specific factor; CSTF: cleavage-stimulatory factor; eRNA: enhancer RNA; BRD4: Bromodomain-containing protein 4; JMJD6: Jumonji C-domain-containing protein 6; SEC: Super Elongation Complex; ELL: eleven-nineteen Lys-rich leukemia; ENL: eleven-nineteen leukemia; MLL: mixed lineage leukemia; BEC: BRD4-containing Elongation Complex; SEC-L2/L3: SEC-like complexes; KAP1: Kruppel-associated box-protein 1; KEC: KAP1-7SK Elongation Complex; DRB: Dichloro-1-ß-D-Ribofuranosylbenzimidazole; H2Bub1: H2B mono-ubiquitination; KM: KM05382; PP1: Protein Phosphatase 1; CDK9i: CDK9 inhibitor; SHAPE: Selective 2'-hydroxyl acylation analyzed by primer extension; TE: Typical enhancer; SE : Super enhancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The La-related protein LARP7 is a component of the 7SK ribonucleoprotein and affects transcription of cellular and viral polymerase II genes.",
+    "doi": "10.1038/embor.2008.72",
+    "pmid": "18483487",
+    "authors": [
+      "Markert A, Grimm M, Martinez J, Wiesner J, Meyerhans A, Meyuhas O, Sickmann A, Fischer U."
+    ],
+    "year": "2008",
+    "publication_date": "2008-05-16",
+    "cited_by_count": 156,
+    "journal": "",
+    "abstract": "The positive transcription elongation factor b (P-TEFb) is a heterodimeric complex composed of cyclin-dependent kinase 9 and its regulator cyclin T1/2. It stimulates transcription elongation by phosphorylation of serine 2 residues in the carboxy-terminal domain of polymerase II. 7SK RNA and HEXIM proteins can antagonize transcriptional stimulation by sequestering P-TEFb in a catalytically inactive ribonucleoprotein (RNP). Here, we show that the previously uncharacterized La-related protein 7 (LARP7) has a role in 7SK-mediated regulation of transcription. LARP7 binds to the highly conserved 3'-terminal U-rich stretch of 7SK RNA and is an integral part of the 7SK RNP. On stimulation, LARP7 remains associated with 7SK RNA, whereas P-TEFb is released. Interestingly, reduction of LARP7 by RNA interference enhances transcription from cellular polymerase II promoters, as well as a TAT-dependent HIV-1 promoter. Thus, LARP7 is a negative transcriptional regulator of polymerase II genes, acting by means of the 7SK RNP system.",
+    "openalex_id": ""
+  },
+  {
+    "title": "7SK snRNA: a noncoding RNA that plays a major role in regulating eukaryotic transcription.",
+    "doi": "10.1002/wrna.106",
+    "pmid": "21853533",
+    "authors": [
+      "Peterlin BM, Brogie JE, Price DH."
+    ],
+    "year": "2012",
+    "publication_date": "2011-08-18",
+    "cited_by_count": 154,
+    "journal": "",
+    "abstract": "The human 7SK small nuclear RNA (snRNA) is an abundant noncoding RNA whose function has been conserved in evolution from invertebrates to humans. It is transcribed by RNA polymerase III (RNAPIII) and is located in the nucleus. Together with associated cellular proteins, 7SK snRNA regulates the activity of the positive transcription elongation factor b (P-TEFb). In humans, this regulation is accomplished by the recruitment of P-TEFb by the 7SK snRNA-binding proteins, hexamethylene bisacetamide (HMBA)-induced mRNA 1/2 (HEXIM1 or HEXIM2), which inhibit the kinase activity of P-TEFb. P-TEFb regulates the transition of promoter proximally paused RNA polymerase II (RNAPII) into productive elongation, thereby, allowing efficient mRNA production. The protein composition of the 7SK small nuclear ribonucleoprotein (snRNP) is regulated dynamically. While the Lupus antigen (La)-related protein 7 (LARP7) is a constitutive component, the methylphosphate capping enzyme (MePCE) associates secondarily to phosphorylate the 5' end of 7SK snRNA. The release of active P-TEFb is closely followed by release of HEXIM proteins and both are replaced by heterogeneous nuclear ribonucleoproteins (hnRNPs). The released P-TEFb activates the expression of most cellular and viral genes. Regulated release of P-TEFb determines the expression pattern of many of the genes that respond to environmental stimuli and regulate growth, proliferation, and differentiation of cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "7SK snRNP/P-TEFb couples transcription elongation with alternative splicing and is essential for vertebrate development.",
+    "doi": "10.1073/pnas.0903188106",
+    "pmid": "19416841",
+    "authors": [
+      "Barboric M, Lenasi T, Chen H, Johansen EB, Guo S, Peterlin BM."
+    ],
+    "year": "2009",
+    "publication_date": "2009-04-27",
+    "cited_by_count": 135,
+    "journal": "",
+    "abstract": "Eukaryotic gene expression is commonly controlled at the level of RNA polymerase II (RNAPII) pausing subsequent to transcription initiation. Transcription elongation is stimulated by the positive transcription elongation factor b (P-TEFb) kinase, which is suppressed within the 7SK small nuclear ribonucleoprotein (7SK snRNP). However, the biogenesis and functional significance of 7SK snRNP remain poorly understood. Here, we report that LARP7, BCDIN3, and the noncoding 7SK small nuclear RNA (7SK) are vital for the formation and stability of a cell stress-resistant core 7SK snRNP. Our functional studies demonstrate that 7SK snRNP is not only critical for controlling transcription elongation, but also for regulating alternative splicing of pre-mRNAs. Using a transient expression splicing assay, we find that 7SK snRNP disintegration promotes inclusion of an alternative exon via the increased occupancy of P-TEFb, Ser2-phosphorylated (Ser2-P) RNAPII, and the splicing factor SF2/ASF at the minigene. Importantly, knockdown of larp7 or bcdin3 orthologues in zebrafish embryos destabilizes 7SK and causes severe developmental defects and aberrant splicing of analyzed transcripts. These findings reveal a key role for P-TEFb in coupling transcription elongation with alternative splicing, and suggest that maintaining core 7SK snRNP is essential for vertebrate development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The La and related RNA-binding proteins (LARPs): structures, functions, and evolving perspectives.",
+    "doi": "10.1002/wrna.1430",
+    "pmid": "28782243",
+    "authors": [
+      "Maraia RJ, Mattijssen S, Cruz-Gallardo I, Conte MR."
+    ],
+    "year": "2017",
+    "publication_date": "2017-08-07",
+    "cited_by_count": 122,
+    "journal": "",
+    "abstract": "La was first identified as a polypeptide component of ribonucleic protein complexes targeted by antibodies in autoimmune patients and is now known to be a eukaryote cell-ubiquitous protein. Structure and function studies have shown that La binds to a common terminal motif, UUU-3'-OH, of nascent RNA polymerase III (RNAP III) transcripts and protects them from exonucleolytic decay. For precursor-tRNAs, the most diverse and abundant of these transcripts, La also functions as an RNA chaperone that helps to prevent their misfolding. Related to this, we review evidence that suggests that La and its link to RNAP III were significant in the great expansions of the tRNAomes that occurred in eukaryotes. Four families of La-related proteins (LARPs) emerged during eukaryotic evolution with specialized functions. We provide an overview of the high-resolution structural biology of La and LARPs. LARP7 family members most closely resemble La but function with a single RNAP III nuclear transcript, 7SK, or telomerase RNA. A cytoplasmic isoform of La protein as well as LARPs 6, 4, and 1 function in mRNA metabolism and translation in distinct but similar ways, sometimes with the poly(A)-binding protein, and in some cases by direct binding to poly(A)-RNA. New structures of LARP domains, some complexed with RNA, provide novel insights into the functional versatility of these proteins. We also consider LARPs in relation to ancestral La protein and potential retention of links to specific RNA-related pathways. One such link may be tRNA surveillance and codon usage by LARP-associated mRNAs. WIREs RNA 2017, 8:e1430. doi: 10.1002/wrna.1430 For further resources related to this article, please visit the WIREs website.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A capping-independent function of MePCE in stabilizing 7SK snRNA and facilitating the assembly of 7SK snRNP.",
+    "doi": "10.1093/nar/gkp977",
+    "pmid": "19906723",
+    "authors": [
+      "Xue Y, Yang Z, Chen R, Zhou Q."
+    ],
+    "year": "2010",
+    "publication_date": "2009-11-11",
+    "cited_by_count": 117,
+    "journal": "",
+    "abstract": "The 7SK snRNP represents a major reservoir of activity where P-TEFb, a general transcription factor key for RNA polymerase II elongation, can be withdrawn to promote gene expression, cell growth and development. Within this complex, 7SK snRNA is a central scaffold that coordinates key protein-protein interactions and maintains P-TEFb in an inactive state. Although the stability of 7SK directly affects the amount of active P-TEFb in vivo, relatively little is known about how it is maintained and how the 7SK methylphosphate capping enzyme MePCE and LARP7, a La-related protein associated with the 3'-poly(U) of 7SK, contribute to this process. Here, we show that 7SK is capped by the LARP7-free MePCE and in probably a co-transcriptional manner prior to its sequestration into 7SK snRNP. However, upon interacting with LARP7 within 7SK snRNP, MePCE loses its capping activity, probably due to the occlusion of its catalytic center by LARP7. Despite its lack of capping activity in 7SK snRNP, MePCE displays a capping-independent function to promote the LARP7-7SK interaction, which in turn stabilizes 7SK and facilitates the assembly of a stable MePCE-LARP7-7SK subcomplex. Our data indicate that MePCE and LARP7 act cooperatively to stabilize 7SK and maintain the integrity of 7SK snRNP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LARP7 Protects Against Heart Failure by Enhancing Mitochondrial Biogenesis.",
+    "doi": "10.1161/circulationaha.120.050812",
+    "pmid": "33663221",
+    "authors": [
+      "Yu H, Zhang F, Yan P, Zhang S, Lou Y, Geng Z, Li Z, Zhang Y, Xu Y, Lu Y, Chen C, Wang D, Zhu W, Hu X, Wang J, Zhuang T, Zhang Y, Wu G, Liu J, Zeng C, Pu WT, Sun K, Zhang B."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-05",
+    "cited_by_count": 111,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Heart failure (HF) is among the leading causes of morbidity and mortality, and its prevalence continues to rise. LARP7 (La ribonucleoprotein domain family member 7) is a master regulator that governs the DNA damage response and RNAPII (RNA polymerase II) pausing pathway, but its role in HF pathogenesis is incompletely understood.<h4>Methods</h4>We assessed LARP7 expression in human HF and in nonhuman primate and mouse HF models. To study the function of LARP7 in heart, we generated global and cardiac-specific <i>LARP7</i> knockout mice. We acutely abolished LARP7 in mature cardiomyocytes by Cas9-mediated <i>LARP7</i> somatic knockout. We overexpressed LARP7 in cardiomyocytes using adeno-associated virus serotype 9 and ATM (ataxia telangiectasia mutated protein) inhibitor. The therapeutic potential of LARP7-regulated pathways in HF was tested in a mouse myocardial infarction model.<h4>Results</h4>LARP7 was profoundly downregulated in failing human hearts and in nonhuman primate and murine hearts after myocardial infarction. Low LARP7 levels in failing hearts were linked to elevated reactive oxygen species, which activated the ATM-mediated DNA damage response pathway and promoted LARP7 ubiquitination and degradation. Constitutive <i>LARP7</i> knockout in mouse resulted in impaired mitochondrial biogenesis, myocardial hypoplasia, and midgestational lethality. Cardiac-specific inactivation resulted in defective mitochondrial biogenesis, impaired oxidative phosphorylation, elevated oxidative stress, and HF by 4 months of age. These abnormalities were accompanied by reduced SIRT1 (silent mating type information regulation 2 homolog 1) stability and deacetylase activity that impaired SIRT1-mediated transcription of genes for oxidative phosphorylation and energy metabolism and dampened cardiac function. Restoring LARP7 expression after myocardial infarction by either adeno-associated virus-mediated LARP7 expression or small molecule ATM inhibitor substantially improved the function of injured heart.<h4>Conclusions</h4>LARP7 is essential for mitochondrial biogenesis, energy production, and cardiac function by modulating SIRT1 homeostasis and activity. Reduction of LARP7 in diseased hearts owing to activation of the ATM pathway contributes to HF pathogenesis and restoring LARP7 in the injured heart confers myocardial protection. These results identify the ATM-LARP7-SIRT1 pathway as a target for therapeutic intervention in HF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The La-Related Proteins, a Family with Connections to Cancer.",
+    "doi": "10.3390/biom5042701",
+    "pmid": "26501340",
+    "authors": [
+      "Stavraka C, Blagden S."
+    ],
+    "year": "2015",
+    "publication_date": "2015-10-16",
+    "cited_by_count": 106,
+    "journal": "",
+    "abstract": "The evolutionarily-conserved La-related protein (LARP) family currently comprises Genuine La, LARP1, LARP1b, LARP4, LARP4b, LARP6 and LARP7. Emerging evidence suggests each LARP has a distinct role in transcription and/or mRNA translation that is attributable to subtle sequence variations within their La modules and specific C-terminal domains. As emerging research uncovers the function of each LARP, it is evident that La, LARP1, LARP6, LARP7 and possibly LARP4a and 4b are dysregulated in cancer. Of these, LARP1 is the first to be demonstrated to drive oncogenesis. Here, we review the role of each LARP and the evidence linking it to malignancy. We discuss a future strategy of targeting members of this protein family as cancer therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The mechanism of release of P-TEFb and HEXIM1 from the 7SK snRNP by viral and cellular activators includes a conformational change in 7SK.",
+    "doi": "10.1371/journal.pone.0012335",
+    "pmid": "20808803",
+    "authors": [
+      "Krueger BJ, Varzavand K, Cooper JJ, Price DH."
+    ],
+    "year": "2010",
+    "publication_date": "2010-08-23",
+    "cited_by_count": 102,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The positive transcription elongation factor, P-TEFb, is required for the production of mRNAs, however the majority of the factor is present in the 7SK snRNP where it is inactivated by HEXIM1. Expression of HIV-1 Tat leads to release of P-TEFb and HEXIM1 from the 7SK snRNP in vivo, but the release mechanisms are unclear.<h4>Methodology/principal findings</h4>We developed an in vitro P-TEFb release assay in which the 7SK snRNP immunoprecipitated from HeLa cell lysates using antibodies to LARP7 was incubated with potential release factors. We found that P-TEFb was directly released from the 7SK snRNP by HIV-1 Tat or the P-TEFb binding region of the cellular activator Brd4. Glycerol gradient sedimentation analysis was used to demonstrate that the same Brd4 protein transfected into HeLa cells caused the release of P-TEFb and HEXIM1 from the 7SK snRNP in vivo. Although HEXIM1 binds tightly to 7SK RNA in vitro, release of P-TEFb from the 7SK snRNP is accompanied by the loss of HEXIM1. Using a chemical modification method, we determined that concomitant with the release of HEXIM1, 7SK underwent a major conformational change that blocks re-association of HEXIM1.<h4>Conclusions/significance</h4>Given that promoter proximally paused polymerases are present on most human genes, understanding how activators recruit P-TEFb to those genes is critical. Our findings reveal that the two tested activators can extract P-TEFb from the 7SK snRNP. Importantly, we found that after P-TEFb is extracted a dramatic conformational change occurred in 7SK concomitant with the ejection of HEXIM1. Based on our findings, we hypothesize that reincorporation of HEXIM1 into the 7SK snRNP is likely the regulated step of reassembly of the 7SK snRNP containing P-TEFb.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural basis for telomerase RNA recognition and RNP assembly by the holoenzyme La family protein p65.",
+    "doi": "10.1016/j.molcel.2012.05.018",
+    "pmid": "22705372",
+    "authors": [
+      "Singh M, Wang Z, Koo BK, Patel A, Cascio D, Collins K, Feigon J."
+    ],
+    "year": "2012",
+    "publication_date": "2012-06-14",
+    "cited_by_count": 95,
+    "journal": "",
+    "abstract": "Telomerase is a ribonucleoprotein complex essential for maintenance of telomere DNA at linear chromosome ends. The catalytic core of Tetrahymena telomerase comprises a ternary complex of telomerase RNA (TER), telomerase reverse transcriptase (TERT), and the essential La family protein p65. NMR and crystal structures of p65 C-terminal domain and its complex with stem IV of TER reveal that RNA recognition is achieved by a combination of single- and double-stranded RNA binding, which induces a 105° bend in TER. The domain is a cryptic, atypical RNA recognition motif with a disordered C-terminal extension that forms an α helix in the complex necessary for hierarchical assembly of TERT with p65-TER. This work provides the first structural insight into biogenesis and assembly of TER with a telomerase-specific protein. Additionally, our studies define a structurally homologous domain (xRRM) in genuine La and LARP7 proteins and suggest a general mode of RNA binding for biogenesis of their diverse RNA targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LARP7 ameliorates cellular senescence and aging by allosterically enhancing SIRT1 deacetylase activity.",
+    "doi": "10.1016/j.celrep.2021.110038",
+    "pmid": "34818543",
+    "authors": [
+      "Yan P, Li Z, Xiong J, Geng Z, Wei W, Zhang Y, Wu G, Zhuang T, Tian X, Liu Z, Liu J, Sun K, Chen F, Zhang Y, Zeng C, Huang Y, Zhang B."
+    ],
+    "year": "2021",
+    "publication_date": "2021-11-01",
+    "cited_by_count": 90,
+    "journal": "",
+    "abstract": "Cellular senescence is associated with pleiotropic physiopathological processes, including aging and age-related diseases. The persistent DNA damage is a major stress leading to senescence, but the underlying molecular link remains elusive. Here, we identify La Ribonucleoprotein 7 (LARP7), a 7SK RNA binding protein, as an aging antagonist. DNA damage-mediated Ataxia Telangiectasia Mutated (ATM) activation triggers the extracellular shuttling and downregulation of LARP7, which dampens SIRT1 deacetylase activity, enhances p53 and NF-κB (p65) transcriptional activity by augmenting their acetylation, and thereby accelerates cellular senescence. Deletion of LARP7 leads to senescent cell accumulation and premature aging in rodent model. Furthermore, we show this ATM-LARP7-SIRT1-p53/p65 senescence axis is active in vascular senescence and atherogenesis, and preventing its activation substantially alleviates senescence and atherogenesis. Together, this study identifies LARP7 as a gatekeeper of senescence, and the altered ATM-LARP7-SIRT1-p53/p65 pathway plays an important role in DNA damage response (DDR)-mediated cellular senescence and atherosclerosis.",
+    "openalex_id": ""
+  }
+]

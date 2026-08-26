@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RNA-binding motif proteins as context-dependent regulators of tumor-immune crosstalk, genome stability, and therapeutic vulnerabilities in cancer.",
+    "doi": "10.3389/fimmu.2026.1797535",
+    "pmid": "42051539",
+    "authors": [
+      "Zhang J, Li Y, Han H, Zhang B."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-13",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Cancer progression relies on dynamic post-transcriptional RNA regulation to enable phenotypic plasticity, immune evasion, and therapeutic resistance. RNA-binding motif (RBM) proteins emerge as pivotal orchestrators of these processes, modulating splicing, mRNA stability, and translation in a context-dependent manner across malignancies. This article provides a narrative mechanistic synthesis of published evidence and does not report original cohort construction or predictive-model development. Here, we review how RBM-driven RNA programs promote proliferative advantages through splicing rewiring, transcript stabilization via m6A modifications, and dual oncogenic/tumor-suppressive roles. We highlight RBM contributions to epithelial-mesenchymal transitions (EMT) and metastatic niche adaptation, including isoform-specific regulation of EMT effectors and metabolic reprogramming. Furthermore, RBMs shape tumor-immune dynamics by triggering innate immune activation through RNA misprocessing, suppressing adaptive immunity through PD-L1 upregulation, and remodeling the immunosuppressive microenvironment via cytokine and metabolic circuits. RBMs also integrate RNA processing with the choice of DNA repair pathways and genotoxic stress responses, underpinning resistance to chemotherapy and radiotherapy. Finally, pharmacological targeting of RBMs, such as RBM39 degradation via molecular glues like indisulam, exploits splicing dependencies to collapse oncogenic states and overcome resistance. These insights position RBMs as therapeutic nodes for precision immuno-oncology, with implications for biomarker-driven strategies in splicing-addicted tumors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Spliceosome induction is a druggable dependency of RAS-driven senescence and cancer.",
+    "doi": "10.1038/s41467-026-71564-z",
+    "pmid": "41986348",
+    "authors": [
+      "Wagner V, Bousset L, Ascensão-Ferreira M, Sun B, Barragan Avila JE, Kaizeler A, Martins-Silva R, Rahbari M, Fernández-Vaquero M, Haston S, Tinti M, Pombo J, Khadayate S, Roth S, Schürch CM, Martínez-Barbera JP, Bahat A, Wee KB, Morton JP, Malek N, Innes AJ, Vernia S, Barbosa-Morais NL, Gallage S, Heikenwalder M, Gil J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-15",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RAS family proteins, including HRAS, NRAS, and KRAS, are frequently mutated in cancer. Although there has been recent success in designing inhibitors that target oncogenic RAS, they elicit resistance and treating RAS-driven cancer remains difficult. Here, employing a proteomic analysis, we find that multiple spliceosome components are upregulated in the nuclei of cells undergoing RAS-induced senescence. This upregulation depends on RAS signalling and occurs in both senescent preneoplastic and fully transformed cancer cells. Spliceosome components are also highly expressed in preneoplastic and cancerous lesions in human and murine lung, liver, colorectal, and pancreatic cancers. Using siRNA screens, we identify six spliceosome components, including SF3B1 and RBM39, that are essential in cells expressing oncogenic RAS. We find that SF3B1 is required in these cells for maintaining splicing fidelity. By combining transcriptome and splicing analyses with functional screens, we identify the RNA Pol II-associated factor SPT5 as a key mediator of the SF3B1 effects. Importantly, using mouse models of liver cancer, we show that RBM39 and SF3B1 inhibitors are effective in targeting both preneoplastic lesions and aggressive tumours expressing oncogenic RAS. In summary, our study highlights the spliceosome as a promising target for RAS-driven cancers capable of inhibiting both cancer initiation and progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM39 modulates UPR signaling through alternative splicing of IRE1α/&lt;i&gt;ERN1&lt;/i&gt;.",
+    "doi": "10.1101/gad.353632.126",
+    "pmid": "42567675",
+    "authors": [
+      "Kim JJ, Behera AK, Damodaran AP, Kordale S, Gonatopoulos-Pournatzis T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-07",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The unfolded protein response (UPR) preserves endoplasmic reticulum proteostasis through coordinated signaling pathways, including the IRE1α-XBP1 axis, which promotes adaptive transcriptional programs via noncanonical XBP1 mRNA splicing. However, upstream mechanisms regulating this pathway remain incompletely defined. Here, we apply CRASP-seq, a scalable RNA-coupled CRISPR screening platform, to systematically identify regulators of XBP1 splicing. We uncovered the U2 snRNP auxiliary factor RBM39 as a critical positive regulator of this process. Perturbation of RBM39 or U2 snRNP components induces alternative splicing of <i>ERN1</i>, leading to exon-18 skipping and the production of an unstable transcript subject to nonsense-mediated decay, as well as a truncated IRE1α isoform that acts in a dominant-negative manner to suppress XBP1 splicing. Mechanistically, we show that heat shock reduces RBM39 functional activity and promotes <i>ERN1</i> exon-18 skipping, thereby attenuating IRE1α-XBP1 signaling. Functionally, hyperactivation of this pathway is detrimental under proteotoxic stress, suggesting that exon-18 skipping serves as a stress-adaptive mechanism to limit UPR output. Together, our findings reveal a previously unrecognized regulatory axis linking the canonical splicing machinery to UPR signaling and establish alternative splicing of <i>ERN1</i> as a key modulator of cellular stress responses.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Discovery and characterization of YSA64, a RBM39 degrader with in vivo efficacy and potent cellular activity in pediatric Ewing sarcoma A673.",
+    "doi": "10.1016/j.ejmech.2026.118921",
+    "pmid": "42085934",
+    "authors": [
+      "Lyu X, Wang Z, Shen Y, Wang X, Wang Y, Yu S, Yang B, Yan Z, Zhang S, Lu Y, Huang H, Chen Y, Zhao Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-02",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Depletion of the splicing factor RBM39 disrupts spliceosome function and induces widespread RNA splicing defects, leading to antiproliferative effects in susceptible cancer cells. Here, we report the discovery and characterization of a new series of biphenyl-containing RBM39 degraders. The lead compound 42 promotes RBM39 degradation through formation of a ternary complex with RBM39 and DCAF15/DDB1 in a Cullin-RING E3 ligase- and proteasome-dependent manner, consistent with a molecular glue mechanism. Transcriptomic analyses in HCT-116 and K562 cells revealed extensive alternative splicing alterations and suppression of cell-cycle-associated pathways, resulting in G2/M-phase arrest without apoptosis. Comparative cellular profiling identified 41 (YSA64) as a potent analog in acute myeloid leukemia MV4-11 cells and Ewing sarcoma A673 cells, disease contexts that have been minimally explored for RBM39 degraders. Notably, 41 exhibited favorable oral pharmacokinetics and significant antitumor efficacy in MV4-11 xenograft models. Collectively, this work expands the chemical space of RBM39 degraders and supports their continued development as RNA splicing-targeted anticancer agents.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphorylation of RBM39 by CDK13 stabilizes RAD50 mRNA to drive cisplatin resistance in endometrial cancer.",
+    "doi": "10.1016/j.jbc.2026.111447",
+    "pmid": "41997449",
+    "authors": [
+      "Yang C, Zheng X, Sun H, Du J, Luo Y, Wang C, Wu Y, Qu L, Yuan F, Yang Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-15",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Platinum-resistant is a major therapeutic challenge in advanced endometrial cancer (EC), often driven by enhanced DNA damage repair, yet the underlying molecular mechanisms remain incompletely understood. Here, we report that cyclin-dependent kinase 13 (CDK13) is significantly overexpressed in EC tissues, where its high expression correlates with poor patient survival and clinical resistance to platinum-based chemotherapy. Functionally, CDK13 overexpression promoted EC cell proliferation and conferred cisplatin resistance both in vitro and in vivo, whereas its knockdown potentiated cisplatin-induced apoptosis and DNA damage. Mechanistically, through phosphoproteomic analysis, we identified the RNA-binding protein RNA-binding motif protein 39 (RBM39) as a critical downstream target of CDK13. We demonstrate that CDK13 directly phosphorylates RBM39 at serine 117, and this phosphorylation is essential for CDK13-mediated resistance. Crucially, phosphorylation at Ser117 enhanced the ability of RBM39 to bind and stabilize the mRNA of RAD50, a key DNA repair gene. Post-transcriptional regulation led to an increase in RAD50 protein, which facilitated the repair of DNA damage caused by cisplatin, promoting the survival of cells. The therapeutic relevance of this axis was confirmed in vivo, where dual knockdown of RBM39 and RAD50 synergistically sensitized EC xenografts to cisplatin. Our study first unveils a novel CDK13/RBM39/RAD50 signaling axis that drives platinum resistance in EC by enhancing DNA damage repair via mRNA stabilization, revealing promising therapeutic targets for overcoming chemoresistance in this malignancy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Recent Advances in Targeting RNA Splicing Factors with Small Molecules.",
+    "doi": "10.1021/acs.jmedchem.6c00234",
+    "pmid": "42361256",
+    "authors": [
+      "Yuan X, Yang CY."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Pre-mRNA splicing is a process of removing introns from precursor RNA and joining exons to form mature RNA for protein translation. The processes are classified into constitutive and alternative splicing, with which multiple mRNA transcripts are generated from a single coding gene to expand protein diversity. Frequent mutations or abnormal expressions of some splicing factors dysregulate splicing in a subset of transcripts, leading to aberrant gene expression patterns. Notable splicing factors, including SF3B1, U2AF1, SRSF2, and RBM39, are considered potential drug targets for various cancers. Advancement in the discovery and development of small molecules targeting specific splicing factors has become a new treatment modality for cancer therapy. Here, we review recurrent mutations and dysregulated expressions of splicing factors in cancers and provide our perspective on recent developments of small-molecule compounds targeting splicing factors and the functional assays that facilitate hit/lead discovery for development to treat cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein RBM39 scaffolds an m⁶A-dependent RNA decay complex that destabilizes Tat transcripts and restricts HIV-1 reactivation.",
+    "doi": "10.1371/journal.pbio.3003486",
+    "pmid": "41218081",
+    "authors": [
+      "Deng X, Xie S, Zhou M, Yuan Q, Wu S, Huang P, Chen M, Zeng J, Guo P, Qin J, Chen C, Liu J, Liu B, He X, Sun L, Zhang H, Li L, Pan T."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-11",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The persistence of latent HIV-1 reservoirs remains a critical barrier to functional curing AIDS, as current latency-reversing agents (LRAs) exhibit limited clinical efficacy. While RNA modifications like N⁶-methyladenosine (m⁶A) regulate viral replication, their role in maintaining HIV-1 latency is poorly defined. Here, we identify the RNA-binding protein RBM39 as a scaffold organizing an m⁶A-dependent silencing complex that enforces viral latency. Through proteomic and functional analyses, we demonstrate that RBM39 recruits the m⁶A reader YTHDC1 and the RNA helicase DDX5, forming a tripartite complex that accelerates Tat RNA decay and enforces viral quiescence. Genetic or pharmacological degradation of RBM39 (using the clinically explored molecular glue indisulam) potently reactivates latent HIV-1 in J-Lat cell models, primary CD4⁺ T cells from people living with HIV-1 (PLWH), and synergizes with established LRAs (Bryostatin-1, JQ-1, SAHA) to broadly activate proviral reservoirs. Our work reveals a previously unrecognized host pathway in which RBM39-organized RNA decay complexes silence HIV-1 through epitranscriptomic regulation of Tat. In addition to establishing RBM39 as a promising therapeutic target for addressing the limitations of current \"shock and kill\" strategies, our findings establish a novel mechanistic framework for m⁶A-dependent regulation of viral gene expression. This framework may serve as a valuable reference for investigating similar regulatory mechanisms in other latent viral infections or oncogenic processes where RNA methylation plays a pivotal role.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bioinformatic Screening of Key Regulatory Molecules and Mechanisms in Osteoporosis Based on Tryptophan Metabolism-Related Genes.",
+    "doi": "10.2147/ijgm.s578987",
+    "pmid": "41737536",
+    "authors": [
+      "Ji J, Qin Y, Li C, Fu Y, Cui J, Cao Q."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background and objective</h4>Osteoporosis (OP) is a metabolic disease characterized by reduced bone mass and increased fracture risk. Tryptophan metabolism may play a crucial role in its pathogenesis, although the underlying mechanisms remain unclear. This study aimed to identify key regulatory genes and elucidate molecular mechanisms through integrated transcriptomic analysis.<h4>Methods</h4>OP-related datasets from Gene Expression Omnibus were analyzed using differential expression analysis, weighted gene co-expression network analysis, and tryptophan metabolism gene sets. Machine learning algorithms were applied to screen key genes and construct diagnostic models. Regulatory networks including protein-protein interaction, competing endogenous RNA, and transcriptional regulation were established. Key findings were validated through independent datasets, Mendelian Randomization, single-cell analysis, and RT-qPCR.<h4>Results</h4>Two key genes were identified: DVL1 (significantly downregulated) and RBM39 (significantly upregulated) in OP patients. DVL1 negatively correlated with resting memory CD4+ T cells and eosinophils, while RBM39 positively correlated with memory B cells and M2 macrophages. DVL1 (AUC = 0.75) and RBM39 (AUC = 0.91) demonstrated consistent expression patterns and excellent diagnostic performance. Functional enrichment revealed significant involvement in apoptosis, autophagy, and signaling pathways. Transcription factor YY1 was identified as a key regulator in the molecular network.<h4>Conclusion</h4>This bioinformatic study reveals the potential role of tryptophan metabolism in OP pathogenesis and identifies DVL1 and RBM39 as candidate diagnostic biomarkers and therapeutic targets through computational analysis. These findings are inferential based on transcriptomic data mining and require further validation through experimental approaches. Future studies should include functional characterization in cellular and animal models, prospective clinical cohort validation, and mechanistic investigations to confirm the diagnostic and therapeutic value of these candidates. If validated, these findings could provide a molecular foundation for developing non-invasive diagnostic tools and precision medicine approaches in OP management, potentially improving early detection and personalized treatment strategies for patients at risk of osteoporotic fractures.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM39 upregulation promotes ostium re-obstruction after endoscopic endonasal dacryocystorhinostomy (En-DCR).",
+    "doi": "10.1186/s12860-026-00596-6",
+    "pmid": "42265597",
+    "authors": [
+      "Liu J, Zhao J, Zhu X, Liu X, Zhu L, Lin T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-09",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Chronic dacryocystitis, characterized by epiphora, is primarily treated with dacryocystorhinostomy (DCR), yet postoperative anastomotic re-obstruction remains a significant cause of failure. This study aimed to identify the key molecular mechanisms driving this recurrence.<h4>Methods</h4>Nasal mucosal tissues were collected from 30 post-DCR patients: 15 with re-obstruction (proliferation group) and 15 with successful outcomes (non-proliferation group). Proteomic analysis based on LC-MS/MS was conducted, with differentially expressed proteins (DEPs) defined by a fold change ≥ 1.5 and p < 0.05. Western blot and immunohistochemistry were used for validation and localization. The role of RBM39 in vascular endothelial cell proliferation was assessed via functional experiments, and its associated pathway was analyzed.<h4>Results</h4>Proteomics identified RBM39 as significantly upregulated in re-obstruction tissues, confirmed to be expressed in the vascular endothelium. In vitro, RBM39 overexpression enhanced HMEC-1 proliferation, while its knockdown suppressed it. KEGG pathway analysis suggested the Focal Adhesion pathway may be involved as a potential downstream mechanism.<h4>Conclusion</h4>This study observes that RBM39 is upregulated at the anastomotic site and correlates with enhanced vascular endothelial cell proliferation. The Focal Adhesion pathway may be implicated in this process, suggesting RBM39 as a candidate target for mitigating postoperative ostium re-obstruction after En-DCR. However, further mechanistic studies are needed to establish a direct causal relationship and evaluate its therapeutic potential.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding motif protein RBM39 enhances the proliferation of gastric cancer cells by facilitating an oncogenic splicing switch in MRPL33.",
+    "doi": "10.1038/s41401-024-01431-4",
+    "pmid": "39753980",
+    "authors": [
+      "Lu CP, Li JB, Li DB, Wang YH, Jiang XG, Ma JJ, Xu G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-03",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Gastric cancer is a malignant gastrointestinal disease characterized by high morbidity and mortality rates worldwide. The occurrence and progression of gastric cancer are influenced by various factors, including the abnormal alternative splicing of key genes. Recently, RBM39 has emerged as a tumor biomarker that regulates alternative splicing in several types of cancer. However, the specific functions and key alternative splicing events modulated by RBM39 in gastric cancer are still unclear. In this work, bioinformatic analysis of The Cancer Genome Atlas (TCGA) database and immunoblotting of patient tissue samples revealed that RBM39 was highly expressed in gastric cancer tissues and that its elevated expression significantly reduced overall patient survival. Cell-line-based and tumor xenograft experiments demonstrated that RBM39 knockdown attenuated the growth of gastric cancer cells both in vitro and in vivo. Mechanistically, through RNA-seq, minigene, and RT‒PCR, we discovered and further validated that RBM39 inhibited exon 3 skipping, thereby modulating the splicing of MRPL33. The long isoform MRPL33-L, which includes exon 3, but not the short isoform MRPL33-S, which lacks exon 3, significantly promoted the proliferation and colony formation of gastric cancer cells. Furthermore, we observed an increased percent-splice-in (PSI) of MRPL33 in gastric cancer tissues. Genetic manipulation and pharmacological treatment with the RBM39 degrader indisulam demonstrated that RBM39 regulated cell proliferation by influencing the splicing switch of MRPL33 in gastric cancer cells and a xenograft mouse model. Our findings indicate that RBM39 regulates the oncogenic splicing of MRPL33 and suggest that it may serve as a potential therapeutic target for gastric cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Defective microhomology-mediated end joining in &lt;i&gt;SMARCB1&lt;/i&gt;-deficient tumors.",
+    "doi": "10.1126/sciadv.aed7743",
+    "pmid": "42600026",
+    "authors": [
+      "Zhu G, Asada S, Nguyen H, Hirohashi Y, Sun L, Saravanapavan A, Rahmani E, Hrynashka M, Mukkavalli S, Batish M, Shapiro GI, D'Andrea AD."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-14",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Rhabdoid tumors (RTs) are highly aggressive cancers driven by biallelic mutation of <i>SMARCB1</i>, a core subunit of the BAF (SWI/SNF) complex. We found that <i>SMARCB1</i>-deficient tumors have a defect in the microhomology-mediated end joining (MMEJ) pathway, and SMARCB1 is essential for maintaining the protein level of the core MMEJ protein, DNA Polymerase theta (PolΘ). Mechanistically, SMARCB1 facilitates the nuclear export of the <i>POLQ</i> mRNA through its interaction with the nuclear pore complex. Interestingly, loss of MMEJ in RT cells leads to a compensatory activation of, and a hyper-dependence on, the Fanconi Anemia (FA)/BRCA pathway. Notably, degraders of RBM39, a splicing modulator, show strong antitumor efficacy in RT models in vitro and in vivo by disrupting FA/BRCA pathway. SMARCB1 and other cBAF/pBAF components are important for maintenance of MMEJ activity and PolΘ protein level, suggesting that BAF-deficient cancers more broadly may be treated by targeted inhibition of the FA/BRCA pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing patterns in genetic subtypes of diffuse large B-cell lymphoma.",
+    "doi": "10.1186/s12885-025-14967-3",
+    "pmid": "41466441",
+    "authors": [
+      "An S, Hong J, Shin DY, Byun JM, Koh Y, Yoon SS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Diffuse large B-cell lymphoma (DLBCL) is a heterogeneous disease with distinct genetic subtypes, each exhibiting unique molecular characteristics. Alternative splicing (AS) plays a critical role in hematologic malignancies, but its role in DLBCL progression remains less understood. Recent studies have focused extensively on genetic variants, but systematic exploration of AS in DLBCL is limited. METHODS: We analyzed whole-exome and RNA sequencing data from 620 DLBCL patient samples obtained from the European Genome-phenome Archive. RNA-seq data were aligned using STAR and quantified with RSEM to calculate TPM-normalized expression values. Subtype classification was performed using the LymphGen framework, integrating somatic variants identified with GATK Mutect2, annotated with Annovar, and copy number variations, as well as BCL2 and BCL6 fusion events detected using Arriba and validated with FISH. Alternative splicing events were identified with rMATS, and isoform-level differences were analyzed using DRIMSeq. Splicing-related pathway activity was assessed using MSigDB gene sets, and splicing factor expression was evaluated across subtypes. RESULTS: The BN2 and MCD subtypes demonstrated higher activity in AS-related pathways, including spliceosome assembly and mRNA splice site recognition, accompanied by a significant increase in non-canonical isoforms. In the BN2 subtype, differential splicing was observed, especially in genes like ACTG1, RPLP0, CD74, and ACTB. These genes showed significant changes in their isoforms, suggesting that alternative splicing may play a role in driving the aggressive behavior associated with this subtype. Notably, these genes include essential housekeeping components, suggesting that targeting their splicing variants could disrupt critical cellular processes in cancer cells while sparing normal tissues. In addition, splicing factor analysis identified RBM39 as significantly downregulated in MCD, suggesting its role in aberrant splicing regulation. RBM39, an RNA-binding protein involved in the regulation of splicing, may contribute to DLBCL pathogenesis through its reduced expression, potentially leading to abnormal splicing patterns that promote malignancy in the MCD subtype. CONCLUSIONS: Integrated analysis using rMATS and DRIMSeq consistently identified subtype-specific AS patterns, consolidating our findings. Future research should focus on validating the functional impact of these splicing alterations and assessing their potential as biomarkers for more tailored therapeutic approaches in DLBCL.",
+    "openalex_id": ""
+  }
+]

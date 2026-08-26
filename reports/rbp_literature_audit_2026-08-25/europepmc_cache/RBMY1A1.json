@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Breast cancer-derived exosomal miR-105-5p facilitates the transformation of NFs into CAFs through LATS2-NF-κB signaling.",
+    "doi": "10.3724/abbs.2025017",
+    "pmid": "40151143",
+    "authors": [
+      "Ding X, Sheng Z, Cui J, Cui M, Zhang L, Feng R, Wang Y, Sun W, Zhang X, Shi L, Zhang B."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Studies of cell-to-cell activities in the tumor microenvironment (TME) have identified multiple potential targets for oncotherapy. The interplay between tumor cells and neighboring cancer-associated fibroblasts (CAFs) persists in all stages of tumor progression. In this study, we reveal that exosomes from breast cancer cells can be endocytosed into fibroblasts and transform normal fibroblasts (NFs) into CAFs and that the ability of exosomes from highly metastatic breast cancer cells is greater than that of those from poorly metastatic breast cancer cells. Further investigation reveals that exosomes from highly metastatic breast cancer cells contain much more miR-105-5p than those from poorly metastatic breast cells do and that exosomal miR-105-5p facilitates the transformation of NFs to CAFs. A detailed study reveals that RBMY1A1-dependent sorting of miR-105-5p into fibroblasts and subsequent internalization of miR-105-5p promote the transformation of NFs to CAFs by downregulating LATS2 expression and activating NF-κB signaling, which concurrently facilitates the EMT of breast cancer cells. Thus, our results indicate that exosomal miR-105-5p may be a potential target for novel therapeutic strategies to prevent the coevolution of breast cancer cells and CAFs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of maternal Trim28 causes male-predominant early embryonic lethality.",
+    "doi": "10.1101/gad.291195.116",
+    "pmid": "28115466",
+    "authors": [
+      "Sampath Kumar A, Seah MK, Ling KY, Wang Y, Tan JH, Nitsch S, Lim SL, Lorthongpanich C, Wollmann H, Low DH, Guccione E, Messerschmidt DM."
+    ],
+    "year": "2017",
+    "publication_date": "2017-01-23",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "Global DNA demethylation is a hallmark of embryonic epigenetic reprogramming. However, embryos engage noncanonical DNA methylation maintenance mechanisms to ensure inheritance of exceptional epigenetic germline features to the soma. Besides the paradigmatic genomic imprints, these exceptions remain ill-defined, and the mechanisms ensuring demethylation resistance in the light of global reprogramming remain poorly understood. Here we show that the Y-linked gene Rbmy1a1 is highly methylated in mature sperm and resists DNA demethylation post-fertilization. Aberrant hypomethylation of the Rbmy1a1 promoter results in its ectopic activation, causing male-specific peri-implantation lethality. Rbmy1a1 is a novel target of the TRIM28 complex, which is required to protect its repressive epigenetic state during embryonic epigenetic reprogramming.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic dissection of the AZF regions of the human Y chromosome: thriller or filler for male (in)fertility?",
+    "doi": "10.1155/2010/936569",
+    "pmid": "20671934",
+    "authors": [
+      "Navarro-Costa P, Plancha CE, Gonçalves J."
+    ],
+    "year": "2010",
+    "publication_date": "2010-06-30",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "The azoospermia factor (AZF) regions consist of three genetic domains in the long arm of the human Y chromosome referred to as AZFa, AZFb and AZFc. These are of importance for male fertility since they are home to genes required for spermatogenesis. In this paper a comprehensive analysis of AZF structure and gene content will be undertaken. Particular care will be given to the molecular mechanisms underlying the spermatogenic impairment phenotypes associated to AZF deletions. Analysis of the 14 different AZF genes or gene families argues for the existence of functional asymmetries between the determinants; while some are prominent players in spermatogenesis, others seem to modulate more subtly the program. In this regard, evidence supporting the notion that DDX3Y, KDM5D, RBMY1A1, DAZ, and CDY represent key AZF spermatogenic determinants will be discussed.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hypermethylation of genes in testicular embryonal carcinomas.",
+    "doi": "10.1038/bjc.2015.408",
+    "pmid": "26625006",
+    "authors": [
+      "Cheung HH, Yang Y, Lee TL, Rennert O, Chan WY."
+    ],
+    "year": "2016",
+    "publication_date": "2015-12-01",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Testicular embryonal carcinoma (EC) is a major subtype of non-seminomatous germ cell tumours in males. Embryonal carcinomas are pluripotent, undifferentiated germ cell tumours believed to originate from primordial germ cells. Epigenetic changes during testicular EC tumorigenesis require better elucidation.<h4>Methods</h4>To identify epigenetic changes during testicular neoplastic transformation, we profiled DNA methylation of six ECs. These samples represent different stages (stage I and stage III) of divergent invasiveness. Non-cancerous testicular tissues were included. Expression of a number of hypermethylated genes were examined by quantitative RT-PCR and immunohistochemistry (IHC).<h4>Results</h4>A total of 1167 tumour-hypermethylated differentially methylated regions (DMRs) were identified across the genome. Among them, 40 genes/ncRNAs were found to have hypermethylated promoters. Quantitative RT-PCR confirmed downregulation of 8 out of 9 of the genes. Among the confirmed genes, five were sex-linked genes, including X-linked genes STAG2, SPANXD/E and MIR1184, and Y-linked genes RBMY1A1/1B/1D and FAM197Y2P. RBMY1A is a testis-specific gene for spermatogenesis. RNF168 and USP13 are potential tumour suppressors. Expression of RBMY1A was lost in EC and seminoma as documented in the Protein Atlas. We confirmed downregulation of USP13 in EC by IHC.<h4>Conclusions</h4>Our genome-wide analysis of testicular EC identified methylation changes in several previously unknown genes. This may provide insight of crosstalk between normal germ cell development and carcinogenesis.",
+    "openalex_id": ""
+  }
+]

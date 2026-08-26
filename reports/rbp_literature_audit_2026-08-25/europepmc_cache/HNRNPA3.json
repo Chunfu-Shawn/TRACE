@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ENDOU-1-induced cytoplasmic HnRNPA3 recognizes m6A methylation on the upstream reading frame of human CHOP transcripts to achieve maximal CHOP translation.",
+    "doi": "10.1007/s00018-026-06180-7",
+    "pmid": "41902934",
+    "authors": [
+      "Lee HC, Huang YH, Hsieh CC, Ke YN, Tsai HJ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-28",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Translation of the coding sequence for human C/EBP homologous protein (CHOP) is highly regulated by its upstream open reading frame (uORFchop). ENDOU-1 was shown to play positive roles in mediating CHOP translation through suppressing uORFchop-mediated translational inhibition (uORFchop-MTI) during ER stress. However, when we screened for other RNA-binding proteins putatively engaged in the same inhibitory activity, we found that HnRNPA3 associated with zebrafish Endouc and its mammalian orthologue ENDOU-1 and could also be involved in uORFchop-MTI in a p-eIF2α-independent manner. A time course experiment showed that the dynamic patterns of ENDOU-1, HnRNPA3 and CHOP were similarly fluctuant and positively correlated during ER stress. Moreover, overexpression of ENDOU-1 induced the increase of HnRNPA3 expression and caused a shift of HnRNPA3 from the nucleus to the cytoplasm. The resultant cytoplasmic HnRNPA3 served as a reader protein to recognize the N6-methyladenosine site on human uORFchop cassette methylated by Wilms’ tumor 1-associating protein. Collectively, we suggest that HnRNPA3 is a positive effector of ENDOU-1 in an m6A-dependent manner, allowing it to reach maximal CHOP translation during ER stress.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exploring the Role of &lt;i&gt;HNRNPA3&lt;/i&gt; in Breast Cancer Progression, Immune Microenvironment, and Therapeutic Sensitivity: A Multiomics and Functional Prediction Study.",
+    "doi": "10.1155/humu/5519745",
+    "pmid": "42087895",
+    "authors": [
+      "Gong L, Xu Y, Guo W, Cai X, Zhang F, Ma J, Tao H, Feng W."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Breast invasive carcinoma (BRCA) remains a leading cause of female cancer mortality, necessitating novel biomarkers and therapeutic targets. Heterogeneous nuclear ribonucleoprotein A3 (HNRNPA3) emerges as a potential regulator in tumor progression and immune modulation, yet its comprehensive role in BRCA remains uncharacterized.<h4>Methods</h4>We conducted an integrated multiomics analysis of HNRNPA3 in BRCA using data from TCGA, GEO datasets, single-cell RNA sequencing, and spatial transcriptomics. Bioinformatics approaches included differential expression analysis, survival analysis, functional enrichment, immune microenvironment characterization, and drug sensitivity prediction.<h4>Results</h4>HNRNPA3 was significantly upregulated in BRCA tissues and correlated with advanced tumor grade, metastasis, and poor prognosis across multiple cohorts. Functional enrichment revealed HNRNPA3's involvement in cell cycle regulation and immune-related pathways. Immune profiling demonstrated that high HNRNPA3 expression was associated with altered immune cell distribution, particularly CD4+ T cells, and reduced immunotherapy response. Spatial transcriptomics confirmed predominant HNRNPA3 expression in malignant regions. Drug sensitivity analysis identified potential therapeutic agents (CD-437 and talazoparib) targeting HNRNPA3-associated pathways.<h4>Conclusion</h4>HNRNPA3 functions as a critical oncogenic regulator in BRCA by promoting tumor progression through cell cycle dysregulation and immune microenvironment remodeling. Its strong association with therapy resistance positions HNRNPA3 as both a prognostic biomarker and promising therapeutic target for breast cancer intervention strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hnrnpa1 is essential for early zebrafish development and lipid metabolism: insights from a novel zebrafish knockout model.",
+    "doi": "10.3389/fcell.2026.1789605",
+    "pmid": "42306302",
+    "authors": [
+      "Jansen LU, Burhan ÖP, Hruscha A, Tokarz J, Prehn C, Cecil A, Adamski J, Haass C, Sun T, Bonn S, Schmid B."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA binding proteins have multiple diverse cellular functions and are often mis-regulated in disease. Despite their many cellular functions and implications in disease, very little is known about their physiological functions. Here we describe a novel zebrafish knockout model of the RNA binding proteins Hnrnpa1 and Hnrnpa3. Loss of Hnrnpa3 in zebrafish has no obvious morphological phenotype. Similarly, single mutants of the duplicated zebrafish <i>hnrnpa1</i> genes, <i>hnrnpa1a</i> and <i>hnrnpa1b</i>, have no discernible phenotype, whereas the <i>hnrnpa1a</i>; <i>hnrnpa1b</i> double mutants are embryonic lethal. They display muscle, vascular and developmental defects with a reduced volume of the yolk extension. Metabolic profiling revealed severe changes in lipid metabolism in the <i>hnrnpa1a; hnrnpa1b</i> double mutants. Our analysis identified the involvement of Hnrnpa1 in many cellular pathways including the regulation of lipid metabolism and opens the door for future therapeutic studies in HNRNPA-associated diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epigenetic-modification associated hnRNPA3 acts as a prognostic biomarker and promotes malignant progression of HCC.",
+    "doi": "10.1186/s12885-025-14028-9",
+    "pmid": "40211173",
+    "authors": [
+      "Cai X, Guo W, Wu F, Xu W, Ding T, Diao Y, Wang L, Qian Z, Song G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-10",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>hnRNPA3 is highly expressed in numerous malignancies, including hepatocellular carcinoma (HCC), but its function and mechanism has not been elucidated. In this study, we performed a comprehensive bioinformatics analysis of hnRNPA3 in the TCGA-LIHC dataset and several experiments in vitro to investigate the function and potential mechanisms of hnRNPA3 in HCC.<h4>Methods</h4>Pan-cancer expression including hnRNPA3 levels as well as DNA methylation, associated ceRNA, immune infiltration, and immune checkpoint genes of hnRNPA3 in TCGA-LIHC dataset were assessed. Logistic regression, receiver operating characteristic curve (ROC), Kaplan-Meier analysis, and nomogram modeling were used to evaluate prognostic values of hnRNPA3 in HCC. hnRNPA3 level in cell subtypes in HCC tumor microenvironment was analysed through spatial transcriptomic. \"pRRophetic\" package was used to predict potential chemotherapeutic drugs sensitivity. hnRNPA3 level in HCC patients and cell lines were detected by qRT-PCR or WB. hnRNPA3's impact on proliferation, migration were studied in SNU449 and HuH7 cell lines. RNA-seq showed hnRNPA3 controled different important singaling passways in HCC.<h4>Results</h4>hnRNPA3 was significantly elevated in HCC tumors compared to controls. hnRNPA3 levels correlated with Age, HCC stage, histologic grade, and tumor status, and may independently predict the overall and disease-specific survival. Significant associations were found between hnRNPA3 levels and DNA methylation. hsa-miR-22-3p may act as a regulatory factor for hnRNPA3 and form a ceRNA network with multiple lncRNAs.Analysis of immune infiltration and immune checkpoint genes revealed a correlation between hnRNPA3 expression and macrophages. The similar conclusion also occurred in the spatial transcriptomic detection. 5-Fluorouracil, Doxorubicin, Etoposide, et al., may be potential sensitive drugs in therapy of high-hnRNPA3 HCC patients. Silencing hnRNPA3 expression in SNU449 and HuH7 cells resulted in reducing proliferation and migration. RNA-seq showed hnRNPA3 played an important regulatory role in the malignant progression of HCC.<h4>Conclusion</h4>hnRNPA3 was found to represent a promising biomarker within HCC diagnosis and prognosis and maybe a potential drug-target in HCC therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SARS-CoV-2 N protein-induced Dicer, XPO5, SRSF3, and hnRNPA3 downregulation causes pneumonia.",
+    "doi": "10.1038/s41467-024-51192-1",
+    "pmid": "39138195",
+    "authors": [
+      "Luo YW, Zhou JP, Ji H, Xu D, Zheng A, Wang X, Dai Z, Luo Z, Cao F, Wang XY, Bai Y, Chen D, Chen Y, Wang Q, Yang Y, Zhang X, Chiu S, Peng X, Huang AL, Tang KF."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-13",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Though RNAi and RNA-splicing machineries are involved in regulating severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) replication, their precise roles in coronavirus disease 2019 (COVID-19) pathogenesis remain unclear. Herein, we show that decreased RNAi component (Dicer and XPO5) and splicing factor (SRSF3 and hnRNPA3) expression correlate with increased COVID-19 severity. SARS-CoV-2 N protein induces the autophagic degradation of Dicer, XPO5, SRSF3, and hnRNPA3, inhibiting miRNA biogenesis and RNA splicing and triggering DNA damage, proteotoxic stress, and pneumonia. Dicer, XPO5, SRSF3, and hnRNPA3 knockdown increases, while their overexpression decreases, N protein-induced pneumonia's severity. Older mice show lower expression of Dicer, XPO5, SRSF3, and hnRNPA3 in their lung tissues and exhibit more severe N protein-induced pneumonia than younger mice. PJ34, a poly(ADP-ribose) polymerase inhibitor, or anastrozole, an aromatase inhibitor, ameliorates N protein- or SARS-CoV-2-induced pneumonia by restoring Dicer, XPO5, SRSF3, and hnRNPA3 expression. These findings will aid in developing improved treatments for SARS-CoV-2-associated pneumonia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved mammalian mecciRNA, mecciATP6, regulates mitochondrial homeostasis through interaction with HNRNPA3.",
+    "doi": "10.1016/j.ncrna.2026.03.002",
+    "pmid": "41909761",
+    "authors": [
+      "Cao X, Sui J, Shan G, Liu X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Circular RNAs (circRNAs) are covalently closed, single-stranded RNA molecules generated from both nuclear and mitochondrial genomes. Several nuclear-encoded circRNAs have been reported to be conserved in sequence and function across animals. However, the evolutionary conservation and physiological significance of mitochondria-encoded circRNAs (mecciRNAs) remain largely unexplored. Here, by analyzing mitochondrial RNA sequencing data from human and mouse cells, we identify a conserved mecciRNA derived from the <i>MT-ATP6</i> locus, termed mecciATP6. We show that mecciATP6 modulates mitochondrial homeostasis by binding and regulating the protein abundance of an evolutionarily conserved RNA-binding protein (RBP) HNRNPA3. Our data provide a conceptual framework for defining mecciRNA conservation across mammals and uncover a conserved mecciRNA-protein regulatory mechanism linked to mitochondrial homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "METTL3-dependent m&lt;sup&gt;6&lt;/sup&gt;A modification of GHR mRNA regulates mitochondrial function through mitochondrial biogenesis during myoblast differentiation.",
+    "doi": "10.1016/j.psj.2025.105216",
+    "pmid": "40344709",
+    "authors": [
+      "Zhao C, Hu B, Wang Z, Zhang Z, Luo W, Li H, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-25",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "N6-methyl-adenosine (m<sup>6</sup>A) methylation has recently been shown to play a critical role in muscle development. We recently revealed that local GHR knockdown impairs mitochondrial function by inhibiting mitochondrial biogenesis, thereby repressing myoblast differentiation. And we identified m<sup>6</sup>A modification peaks in the GHR mRNA of chicken muscle tissue. However, whether m<sup>6</sup>A modification may regulate GHR mRNA expression to impinge on mitochondrial function through mitochondrial biogenesis during myoblast differentiation is lagging. We first predicted three potential m<sup>6</sup>A modification sites (GHR-139, GHR-203, GHR-385) on GHR mRNA through SRAMP online prediction website. We then confirmed that GHR-139 is the METTL3-dependent m<sup>6</sup>A modification site. Further, METTL3-dependent m<sup>6</sup>A modification down-regulated the GHR mRNA and protein expression, and blunted the GHR mediated GH-GHR-IGFs axis signal transduction during myoblast differentiation. We next revealed that METTL3-dependent m<sup>6</sup>A modification down-regulated GHR mRNA to inhibit mitochondrial biogenesis and impair mitochondrial function during myoblast differentiation. On the other hand, overexpression of METTL3 alone also proved to inhibit the expression of GHR gene, while suppressing mitochondrial biogenesis and mitochondrial function. In terms of the m<sup>6</sup>A reader protein, we uncovered that m<sup>6</sup>A modification might regulate the GHR mRNA expression through three m<sup>6</sup>A reader proteins hnRNPR, hnRNPA3 and hnRNPM. In conclusion, our data corroborate that METTL3-dependent m<sup>6</sup>A modification down-regulates GHR mRNA expression to impair mitochondrial function by inhibiting mitochondrial biogenesis during myoblast differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Altered mRNA transport and local translation in i3Neurons with RNA-binding protein knockdown.",
+    "doi": "10.1093/nar/gkaf709",
+    "pmid": "40737092",
+    "authors": [
+      "Dargan R, Mikheenko A, Johnson NL, Packer BE, Li Z, Craig EJ, Como CN, Sarbanes SL, Bereda C, Hao Y, Mehta PR, Keuss M, Nalls MA, Qi YA, Weller CA, Fratta P, Fratta P, Ryan VH."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Neurons rely on messenger RNA (mRNA) transport and local translation to facilitate rapid protein synthesis in processes far from the cell body. These processes allow precise spatial and temporal control of translation and are mediated by RNA-binding proteins (RBPs), including those associated with neurodegenerative diseases. Here, we use proteomics, transcriptomics, and microscopy to investigate the impact of RBP depletion on mRNA transport and local translation in induced pluripotent stem cell-derived neurons. We find thousands of transcripts enriched in neurites and that many of these transcripts are locally translated, possibly due to the shorter length of transcripts in neurites. Loss of frontotemporal dementia/amyotrophic lateral sclerosis (FTD/ALS)-associated RBPs TDP-43 and hnRNPA1 induce distinct alterations in the neuritic proteome and transcriptome. TDP-43 knockdown (KD) leads to slightly increased neuritic mRNA and translation, while hnRNPA1 loss has more moderate effects on local mRNA profiles, possibly due to compensation by hnRNPA3. These results highlight the crucial role of FTD/ALS-associated RBPs in mRNA transport and local translation in neurons and the importance of these processes in neuron health and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Putrescine modulates alternative splicing of gonadotropin hormone-releasing hormone (GnRH) through differential regulation of splicing factors.",
+    "doi": "10.1016/j.bbrc.2025.151795",
+    "pmid": "40239543",
+    "authors": [
+      "Gautam P, Srivastava V, Bammidi S, Ghosh S, Babu VS, Banerjee A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Gonadotropin-releasing hormone (GnRH) plays a critical role in reproductive function, with its activity influenced by differential splicing that generates functionally distinct isoforms. However, the molecular mechanisms regulating GnRH pre-mRNA processing remain poorly understood. In this study, we investigated the effects of putrescine, a biogenic polyamine, on GnRH splicing and the expression of splicing regulatory factors. Transcriptome analysis revealed that putrescine treatment induces significant changes in the expression of splicing-related genes. Notably, putrescine enhanced the expression of both the full-length GnRH isoform (GnRH V1) and an exon-skipped variant (GnRH V2), with the latter exhibiting higher expression levels. Further analysis showed putrescine significantly upregulated key alternative splicing regulators, including SR proteins (SRSF11, SRSF12), RNA helicases (DDX26B, DDX6, DDX25), and Pre-mRNA processing factor (PRPF8), Splicing factor 3b (SF3B2). Conversely, HnRNPA3 and SF3B1 were downregulated. These findings suggest putrescine influences GnRH isoform expression through a dual mechanism: enhancing factors that promote alternative splicing while simultaneously attenuating components of the canonical splicing machinery. Our results provide novel insights into the molecular regulation of GnRH splicing and highlight putrescine as a potential modulator of reproductive function through alternative splicing mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Neratinib impairs function of m6A recognition on AML1-ETO pre-mRNA and induces differentiation of t (8;21) AML cells by targeting HNRNPA3.",
+    "doi": "10.1016/j.canlet.2024.216980",
+    "pmid": "38797229",
+    "authors": [
+      "Liu Y, Zheng L, Li Y, Ma L, Zheng N, Liu X, Zhao Y, Yu L, Liu N, Liu S, Zhang K, Zhou J, Wei M, Yang C, Yang G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-24",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "Acute myeloid leukemia (AML) is frequently linked to genetic abnormalities, with the t (8; 21) translocation, resulting in the production of a fusion oncoprotein AML1-ETO (AE), being a prevalent occurrence. This protein plays a pivotal role in t (8; 21) AML's onset, advancement, and recurrence, making it a therapeutic target. However, the development of drug molecules targeting AML1-ETO are markedly insufficient, especially used in clinical treatment. In this study, it was uncovered that Neratinib could significantly downregulate AML1-ETO protein level, subsequently promoting differentiation of t (8; 21) AML cells. Based on \"differentiated active\" probes, Neratinib was identified as a functional inhibitor against HNRNPA3 through covalent binding. The further studies demonstrated that HNRNPA3 function as a putative m6A reader responsible for recognizing and regulating the alternative splicing of AML-ETO pre-mRNA. These findings not only contribute to a novel insight to the mechanism governing post-transcriptional modification of AML1-ETO transcript, but also suggest that Neratinib would be promising therapeutic potential for t (8; 21) AML treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization and functional analysis of chicken hnRNP protein.",
+    "doi": "10.1016/j.psj.2025.104859",
+    "pmid": "39893919",
+    "authors": [
+      "Wang K, Huang M, Zeng Q, Wu H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-28",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "While the role of hnRNP proteins in modulating interferon signaling and virus replication in mammals has been extensively studied, the impact of chicken hnRNPs on innate immune response and Infectious Bursal Disease Virus (IBDV) replication remains largely unexplored. In this study, multiple chicken hnRNPs were identified to interact with genomic dsRNA. Initially, these hnRNPs were found to be exclusively localized in the nucleus before IBDV infection. However, post-infection, they translocated into the cytoplasm to co-localize with the viral dsRNA. Furthermore, the effects of various chicken hnRNPs on IFN-β activation, induced by the chicken MDA5-MAVS-TBK1 and STING-IRF7 pathway, were analyzed. Among these hnRNPs, hnRNPA3 demonstrated the most significant reduction in inhibiting IFN-β activation at the MAVS step. Additionally, overexpression of chicken hnRNPA3 was found to markedly enhance IBDV replication. Conversely, silencing chicken hnRNPA3 via siRNA significantly increased IFN-β production, thereby substantially suppressing IBDV replication. In summary, our findings reveal for the first time that multiple chicken hnRNPs interact with viral dsRNA, modulate IFN-β production, and specifically, that chicken hnRNPA3 promotes IBDV replication. These insights into the role of chicken hnRNPs in viral replication and immune response could pave the way for new therapeutic strategies against IBDV.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Combining affinity purification and mass spectrometry to define the network of the nuclear proteins interacting with the N-terminal region of FMRP.",
+    "doi": "10.3389/fmolb.2022.954087",
+    "pmid": "36237573",
+    "authors": [
+      "Kieffer F, Hilal F, Gay AS, Debayle D, Pronot M, Poupon G, Lacagne I, Bardoni B, Martin S, Gwizdek C."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-27",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Fragile X-Syndrome (FXS) represents the most common inherited form of intellectual disability and the leading monogenic cause of Autism Spectrum Disorders. In most cases, this disease results from the absence of expression of the protein FMRP encoded by the <i>FMR1</i> gene (Fragile X messenger ribonucleoprotein 1). FMRP is mainly defined as a cytoplasmic RNA-binding protein regulating the local translation of thousands of target mRNAs. Interestingly, FMRP is also able to shuttle between the nucleus and the cytoplasm. However, to date, its roles in the nucleus of mammalian neurons are just emerging. To broaden our insight into the contribution of nuclear FMRP in mammalian neuronal physiology, we identified here a nuclear interactome of the protein by combining subcellular fractionation of rat forebrains with pull- down affinity purification and mass spectrometry analysis. By this approach, we listed 55 candidate nuclear partners. This interactome includes known nuclear FMRP-binding proteins as Adar or Rbm14 as well as several novel candidates, notably Ddx41, Poldip3, or Hnrnpa3 that we further validated by target-specific approaches. Through our approach, we identified factors involved in different steps of mRNA biogenesis, as transcription, splicing, editing or nuclear export, revealing a potential central regulatory function of FMRP in the biogenesis of its target mRNAs. Therefore, our work considerably enlarges the nuclear proteins interaction network of FMRP in mammalian neurons and lays the basis for exciting future mechanistic studies deepening the roles of nuclear FMRP in neuronal physiology and the etiology of the FXS.",
+    "openalex_id": ""
+  }
+]

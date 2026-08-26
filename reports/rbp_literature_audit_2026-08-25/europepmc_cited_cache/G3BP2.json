@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Matrix stiffness drives epithelial-mesenchymal transition and tumour metastasis through a TWIST1-G3BP2 mechanotransduction pathway.",
+    "doi": "10.1038/ncb3157",
+    "pmid": "25893917",
+    "authors": [
+      "Wei SC, Fattet L, Tsai JH, Guo Y, Pai VH, Majeski HE, Chen AC, Sah RL, Taylor SS, Engler AJ, Yang J."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-20",
+    "cited_by_count": 780,
+    "journal": "",
+    "abstract": "Matrix stiffness potently regulates cellular behaviour in various biological contexts. In breast tumours, the presence of dense clusters of collagen fibrils indicates increased matrix stiffness and correlates with poor survival. It is unclear how mechanical inputs are transduced into transcriptional outputs to drive tumour progression. Here we report that TWIST1 is an essential mechanomediator that promotes epithelial-mesenchymal transition (EMT) in response to increasing matrix stiffness. High matrix stiffness promotes nuclear translocation of TWIST1 by releasing TWIST1 from its cytoplasmic binding partner G3BP2. Loss of G3BP2 leads to constitutive TWIST1 nuclear localization and synergizes with increasing matrix stiffness to induce EMT and promote tumour invasion and metastasis. In human breast tumours, collagen fibre alignment, a marker of increasing matrix stiffness, and reduced expression of G3BP2 together predict poor survival. Our findings reveal a TWIST1-G3BP2 mechanotransduction pathway that responds to biomechanical signals from the tumour microenvironment to drive EMT, invasion and metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP-Caprin1-USP10 complexes mediate stress granule condensation and associate with 40S subunits.",
+    "doi": "10.1083/jcb.201508028",
+    "pmid": "27022092",
+    "authors": [
+      "Kedersha N, Panas MD, Achorn CA, Lyons S, Tisdale S, Hickman T, Thomas M, Lieberman J, McInerney GM, Ivanov P, Anderson P."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-01",
+    "cited_by_count": 612,
+    "journal": "",
+    "abstract": "Mammalian stress granules (SGs) contain stalled translation preinitiation complexes that are assembled into discrete granules by specific RNA-binding proteins such as G3BP. We now show that cells lacking both G3BP1 and G3BP2 cannot form SGs in response to eukaryotic initiation factor 2α phosphorylation or eIF4A inhibition, but are still SG-competent when challenged with severe heat or osmotic stress. Rescue experiments using G3BP1 mutants show that phosphomimetic G3BP1-S149E fails to rescue SG formation, whereas G3BP1-F33W, a mutant unable to bind G3BP partner proteins Caprin1 or USP10, rescues SG formation. Caprin1/USP10 binding to G3BP is mutually exclusive: Caprin binding promotes, but USP10 binding inhibits, SG formation. G3BP interacts with 40S ribosomal subunits through its RGG motif, which is also required for G3BP-mediated SG formation. We propose that G3BP mediates the condensation of SGs by shifting between two different states that are controlled by the phosphorylation of S149 and by binding to Caprin1 or USP10.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Both G3BP1 and G3BP2 contribute to stress granule formation.",
+    "doi": "10.1111/gtc.12023",
+    "pmid": "23279204",
+    "authors": [
+      "Matsuki H, Takahashi M, Higuchi M, Makokha GN, Oie M, Fujii M."
+    ],
+    "year": "2013",
+    "publication_date": "2012-12-26",
+    "cited_by_count": 269,
+    "journal": "",
+    "abstract": "Upon exposure to various environmental stresses such as arsenite, hypoxia, and heat shock, cells inhibit their translation and apoptosis and then repair stress-induced alterations, such as DNA damage and the accumulation of misfolded proteins. These types of stresses induce the formation of cytoplasmic RNA granules called stress granules (SGs). SGs are storage sites for the many mRNAs released from disassembled polysomes under these stress conditions and are essential for the selective translation of stress-inducible genes. Ras-GTPase-activating protein SH3 domain-binding protein 1 (G3BP1) is a component of SGs that initiates the assembly of SGs by forming a multimer. In this study, we examined the role of G3BP2, a close relative of G3BP1, in SG formation. Although single knockdown of either G3BP1 or G3BP2 in 293T cells partially reduced the number of SG-positive cells induced by arsenite, the knockdowns of both genes significantly reduced the number. G3BP2 formed a homo-multimer and a hetero-multimer with G3BP1. Moreover, like G3BP1, the overexpression of G3BP2 induced SGs even without stress stimuli. Collectively, these results suggest that both G3BP1 and G3BP2 play a role in the formation of SGs in various human cells and thereby recovery from these cellular stresses.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP1, G3BP2 and CAPRIN1 are required for translation of interferon stimulated mRNAs and are targeted by a dengue virus non-coding RNA.",
+    "doi": "10.1371/journal.ppat.1004242",
+    "pmid": "24992036",
+    "authors": [
+      "Bidet K, Dadlani D, Garcia-Blanco MA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-07-03",
+    "cited_by_count": 249,
+    "journal": "",
+    "abstract": "Viral RNA-host protein interactions are critical for replication of flaviviruses, a genus of positive-strand RNA viruses comprising major vector-borne human pathogens including dengue viruses (DENV). We examined three conserved host RNA-binding proteins (RBPs) G3BP1, G3BP2 and CAPRIN1 in dengue virus (DENV-2) infection and found them to be novel regulators of the interferon (IFN) response against DENV-2. The three RBPs were required for the accumulation of the protein products of several interferon stimulated genes (ISGs), and for efficient translation of PKR and IFITM2 mRNAs. This identifies G3BP1, G3BP2 and CAPRIN1 as novel regulators of the antiviral state. Their antiviral activity was antagonized by the abundant DENV-2 non-coding subgenomic flaviviral RNA (sfRNA), which bound to G3BP1, G3BP2 and CAPRIN1, inhibited their activity and lead to profound inhibition of ISG mRNA translation. This work describes a new and unexpected level of regulation for interferon stimulated gene expression and presents the first mechanism of action for an sfRNA as a molecular sponge of anti-viral effectors in human cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Matrix Rigidity Controls Epithelial-Mesenchymal Plasticity and Tumor Metastasis via a Mechanoresponsive EPHA2/LYN Complex.",
+    "doi": "10.1016/j.devcel.2020.05.031",
+    "pmid": "32574556",
+    "authors": [
+      "Fattet L, Jung HY, Matsumoto MW, Aubol BE, Kumar A, Adams JA, Chen AC, Sah RL, Engler AJ, Pasquale EB, Yang J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-06-22",
+    "cited_by_count": 220,
+    "journal": "",
+    "abstract": "Mechanical cues from the extracellular matrix (ECM) regulate various cellular processes via distinct mechanotransduction pathways. In breast cancer, increased ECM stiffness promotes epithelial-to-mesenchymal transition (EMT), cell invasion, and metastasis. Here, we identify a mechanosensitive EPHA2/LYN protein complex regulating EMT and metastasis in response to increasing ECM stiffness during tumor progression. High ECM stiffness leads to ligand-independent phosphorylation of ephrin receptor EPHA2, which recruits and activates the LYN kinase. LYN phosphorylates the EMT transcription factor TWIST1 to release TWIST1 from its cytoplasmic anchor G3BP2 to enter the nucleus, thus triggering EMT and invasion. Genetic and pharmacological inhibition of this pathway prevents breast tumor invasion and metastasis in vivo. In human breast cancer samples, activation of this pathway correlates with collagen fiber alignment, a marker of increasing ECM stiffness. Our findings reveal an EPHA2/LYN/TWIST1 mechanotransduction pathway that responds to mechanical signals from the tumor microenvironment to drive EMT, invasion, and metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Quantitative mass spectrometry of DENV-2 RNA-interacting proteins reveals that the DEAD-box RNA helicase DDX6 binds the DB1 and DB2 3' UTR structures.",
+    "doi": "10.4161/rna.8.6.17836",
+    "pmid": "21957497",
+    "authors": [
+      "Ward AM, Bidet K, Yinglin A, Ler SG, Hogue K, Blackstock W, Gunaratne J, Garcia-Blanco MA."
+    ],
+    "year": "2011",
+    "publication_date": "2011-11-01",
+    "cited_by_count": 160,
+    "journal": "",
+    "abstract": "Dengue virus (DENV) is a rapidly re-emerging flavivirus that causes dengue fever (DF), dengue hemorrhagic fever (DHF) and dengue shock syndrome (DSS), diseases for which there are no available therapies or vaccines.  The DENV-2 positive-strand RNA genome contains 5' and 3' untranslated regions (UTRs) that have been shown to form secondary structures required for virus replication and interaction with host cell proteins.  In order to comprehensively identify host cell factors that bind the DENV-2 UTRs, we performed RNA chromatography, using the DENV-2 5' and 3' UTRs as \"bait\", combined with quantitative mass spectrometry.  We identified several proteins, including DDX6, G3BP1, G3BP2, Caprin1, and USP10, implicated in P body (PB) and stress granule (SG) function, and not previously known to bind DENV RNAs.  Indirect immunofluorescence microscopy showed these proteins to colocalize with the DENV replication complex.  Moreover, DDX6 knockdown resulted in reduced amounts of infectious particles and viral RNA in tissue culture supernatants following DENV infection. DDX6 interacted with DENV RNA in vivo during infection and in vitro this interaction was mediated by the DB1 and DB2 structures in the 3' UTR, possibly by formation of a pseudoknot structure.  Additional experiments demonstrate that, in contrast to DDX6, the SG proteins G3BP1, G3BP2, Caprin1 and USP10 bind to the variable region (VR) in the 3' UTR.  These results suggest that the DENV-2 3' UTR is a site for assembly of PB and SG proteins and, for DDX6, assembly on the 3' UTR is required for DENV replication.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress granule components G3BP1 and G3BP2 play a proviral role early in Chikungunya virus replication.",
+    "doi": "10.1128/jvi.03612-14",
+    "pmid": "25653451",
+    "authors": [
+      "Scholte FE, Tas A, Albulescu IC, Žusinaite E, Merits A, Snijder EJ, van Hemert MJ."
+    ],
+    "year": "2015",
+    "publication_date": "2015-02-04",
+    "cited_by_count": 149,
+    "journal": "",
+    "abstract": "<h4>Unlabelled</h4>Stress granules (SGs) are protein-mRNA aggregates that are formed in response to environmental stresses, resulting in translational inhibition. SGs are generally believed to play an antiviral role and are manipulated by many viruses, including various alphaviruses. GTPase-activating protein (SH3 domain)-binding protein 1 (G3BP1) is a key component and commonly used marker of SGs. Its homolog G3BP2 is a less extensively studied SG component. Here, we demonstrate that Chikungunya virus (CHIKV) infection induces cytoplasmic G3BP1- and G3BP2-containing granules that differ from bona fide SGs in terms of morphology, composition, and behavior. For several Old World alphaviruses it has been shown that nonstructural protein 3 (nsP3) interacts with G3BPs, presumably to inhibit SG formation, and we have confirmed this interaction in CHIKV-infected cells. Surprisingly, CHIKV also relied on G3BPs for efficient replication, as simultaneous depletion of G3BP1 and G3BP2 reduced viral RNA levels, CHIKV protein expression, and viral progeny titers. The G3BPs colocalized with CHIKV nsP2 and nsP3 in cytoplasmic foci, but no colocalization with nsP1, nsP4, or dsRNA was observed. Furthermore, G3BPs could not be detected in a cellular fraction enriched for CHIKV replication/transcription complexes, suggesting that they are not directly involved in CHIKV RNA synthesis. Depletion of G3BPs did not affect viral entry, translation of incoming genomes, or nonstructural polyprotein processing but resulted in severely reduced levels of negative-stranded (and consequently also positive-stranded) RNA. This suggests a role for the G3BPs in the switch from translation to genome amplification, although the exact mechanism by which they act remains to be explored.<h4>Importance</h4>Chikungunya virus (CHIKV) causes a severe polyarthritis that has affected millions of people since its reemergence in 2004. The lack of approved vaccines or therapeutic options and the ongoing explosive outbreak in the Caribbean underline the importance of better understanding CHIKV replication. Stress granules (SGs) are cytoplasmic protein-mRNA aggregates formed in response to various stresses, including viral infection. The RNA-binding proteins G3BP1 and G3BP2 are essential SG components. SG formation and the resulting translational inhibition are generally considered an antiviral response, and many viruses manipulate or block this process. Late in infection, we and others have observed CHIKV nonstructural protein 3 in cytoplasmic G3BP1- and G3BP2-containing granules. These virally induced foci differed from true SGs and did not appear to represent replication complexes. Surprisingly, we found that G3BP1 and G3BP2 were also needed for efficient CHIKV replication, likely by facilitating the switch from translation to genome amplification early in infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Invasion-related circular RNA circFNDC3B inhibits bladder cancer progression through the miR-1178-3p/G3BP2/SRC/FAK axis.",
+    "doi": "10.1186/s12943-018-0908-8",
+    "pmid": "30458784",
+    "authors": [
+      "Liu H, Bi J, Dong W, Yang M, Shi J, Jiang N, Lin T, Huang J."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-20",
+    "cited_by_count": 134,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Increasing evidence has revealed that circular RNAs (circRNAs) play crucial roles in cancer biology. However, the role and underlying regulatory mechanisms of circFNDC3B in bladder cancer (BC) remain unknown.<h4>Methods</h4>A cell invasion model was established by repeated transwell assays, and invasion-related circRNAs in BC were identified through an invasion model. The expression of circFNDC3B was detected in 82 BC tissues and cell lines by quantitative real-time PCR. Functional assays were performed to evaluate the effects of circFNDC3B on proliferation, migration and invasion in vitro-, and on tumorigenesis and metastasis in vivo. The relationship between circFNDC3B and miR-1178-3p was confirmed by fluorescence in situ hybridization, pull-down assay and luciferase reporter assay.<h4>Results</h4>In the present study, we identified a novel circRNA (circFNDC3B) through our established BC cell invasion model. We found that circFNDC3B was dramatically downregulated in BC tissues and correlated with pathological T stage, grade, lymphatic invasion and patients' overall survival rate. Functionally, overexpression of circFNDC3B significantly inhibited proliferation, migration and invasion both in vitro and in vivo. Mechanistically, circFNDC3B could directly bind to miR-1178-3p, which targeted the 5'UTR of the oncogene G3BP2. Moreover, circFNDC3B acted as a miR-1178-3p sponge to suppress G3BP2, thereby inhibiting the downstream SRC/FAK signaling pathway.<h4>Conclusions</h4>CircFNDC3B may serve as a novel tumor suppressive factor and potential target for new therapies in human BC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Different types of nsP3-containing protein complexes in Sindbis virus-infected cells.",
+    "doi": "10.1128/jvi.01011-08",
+    "pmid": "18684830",
+    "authors": [
+      "Gorchakov R, Garmashova N, Frolova E, Frolov I."
+    ],
+    "year": "2008",
+    "publication_date": "2008-08-06",
+    "cited_by_count": 133,
+    "journal": "",
+    "abstract": "Alphaviruses represent a serious public health threat and cause a wide variety of diseases, ranging from severe encephalitis, which can result in death or neurological sequelae, to mild infection, characterized by fever, skin rashes, and arthritis. In the infected cells, alphaviruses express only four nonstructural proteins, which function in the synthesis of virus-specific RNAs and in modification of the intracellular environment. The results of our study suggest that Sindbis virus (SINV) infection in BHK-21 cells leads to the formation of at least two types of nsP3-containing complexes, one of which was found in association with the plasma membrane and endosome-like vesicles, while the second was coisolated with cell nuclei. The latter complexes could be solubilized only with the cytoskeleton-destabilizing detergent. Besides viral nsPs, in the mammalian cells, both complexes contained G3BP1 and G3BP2 (which were found in different ratios), YBX1, and HSC70. Rasputin, an insect cell-specific homolog of G3BP1, was found in the nsP3-containing complexes isolated from mosquito cells, which was suggestive of a high conservation of the complexes in the cells of both vertebrate and invertebrate origin. The endosome- and plasma membrane-associated complexes contained a high concentration of double-stranded RNAs (dsRNAs), which is indicative of their function in viral-RNA synthesis. The dsRNA synthesis is likely to efficiently proceed on the plasma membrane, and at least some of the protein-RNA complexes would then be transported into the cytosol in association with the endosome-like vesicular organelles. These findings provide new insight into the mechanism of SINV replication and virus-host cell interactions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BPs tether the TSC complex to lysosomes and suppress mTORC1 signaling.",
+    "doi": "10.1016/j.cell.2020.12.024",
+    "pmid": "33497611",
+    "authors": [
+      "Prentzell MT, Rehbein U, Cadena Sandoval M, De Meulemeester AS, Baumeister R, Brohée L, Berdel B, Bockwoldt M, Carroll B, Chowdhury SR, von Deimling A, Demetriades C, Figlia G, Genomics England Research Consortium, de Araujo MEG, Heberle AM, Heiland I, Holzwarth B, Huber LA, Jaworski J, Kedra M, Kern K, Kopach A, Korolchuk VI, van 't Land-Kuper I, Macias M, Nellist M, Palm W, Pusch S, Ramos Pittol JM, Reil M, Reintjes A, Reuter F, Sampson JR, Scheldeman C, Siekierska A, Stefan E, Teleman AA, Thomas LE, Torres-Quesada O, Trump S, West HD, de Witte P, Woltering S, Yordanov TE, Zmorzynska J, Opitz CA, Thedieck K."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-25",
+    "cited_by_count": 131,
+    "journal": "",
+    "abstract": "Ras GTPase-activating protein-binding proteins 1 and 2 (G3BP1 and G3BP2, respectively) are widely recognized as core components of stress granules (SGs). We report that G3BPs reside at the cytoplasmic surface of lysosomes. They act in a non-redundant manner to anchor the tuberous sclerosis complex (TSC) protein complex to lysosomes and suppress activation of the metabolic master regulator mechanistic target of rapamycin complex 1 (mTORC1) by amino acids and insulin. Like the TSC complex, G3BP1 deficiency elicits phenotypes related to mTORC1 hyperactivity. In the context of tumors, low G3BP1 levels enhance mTORC1-driven breast cancer cell motility and correlate with adverse outcomes in patients. Furthermore, G3bp1 inhibition in zebrafish disturbs neuronal development and function, leading to white matter heterotopia and neuronal hyperactivity. Thus, G3BPs are not only core components of SGs but also a key element of lysosomal TSC-mTORC1 signaling.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SARS-CoV-2 nucleocapsid protein binds host mRNAs and attenuates stress granules to impair host stress response.",
+    "doi": "10.1016/j.isci.2021.103562",
+    "pmid": "34901782",
+    "authors": [
+      "Nabeel-Shah S, Lee H, Ahmed N, Burke GL, Farhangmehr S, Ashraf K, Pu S, Braunschweig U, Zhong G, Wei H, Tang H, Yang J, Marcon E, Blencowe BJ, Zhang Z, Greenblatt JF."
+    ],
+    "year": "2022",
+    "publication_date": "2021-12-04",
+    "cited_by_count": 112,
+    "journal": "",
+    "abstract": "Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) nucleocapsid (N) protein is essential for viral replication, making it a promising target for antiviral drug and vaccine development. SARS-CoV-2 infected patients exhibit an uncoordinated immune response; however, the underlying mechanistic details of this imbalance remain obscure. Here, starting from a functional proteomics workflow, we cataloged the protein-protein interactions of SARS-CoV-2 proteins, including an evolutionarily conserved specific interaction of N with the stress granule resident proteins G3BP1 and G3BP2. N localizes to stress granules and sequesters G3BPs away from their typical interaction partners, thus attenuating stress granule formation. We found that N binds directly to host mRNAs in cells, with a preference for 3' UTRs, and modulates target mRNA stability. We show that the N protein rewires the G3BP1 mRNA-binding profile and suppresses the physiological stress response of host cells, which may explain the imbalanced immune response observed in SARS-CoV-2 infected patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Host factors associated with the Sindbis virus RNA-dependent RNA polymerase: role for G3BP1 and G3BP2 in virus replication.",
+    "doi": "10.1128/jvi.01983-09",
+    "pmid": "20392851",
+    "authors": [
+      "Cristea IM, Rozjabek H, Molloy KR, Karki S, White LL, Rice CM, Rout MP, Chait BT, MacDonald MR."
+    ],
+    "year": "2010",
+    "publication_date": "2010-04-14",
+    "cited_by_count": 105,
+    "journal": "",
+    "abstract": "Sindbis virus (SINV) is the prototype member of the Alphavirus genus, whose members cause severe human diseases for which there is no specific treatment. To ascertain host factors important in the replication of the SINV RNA genome, we generated a SINV expressing nsP4, the viral RNA-dependent RNA polymerase, with an in-frame 3xFlag epitope tag. Proteomic analysis of nsP4-containing complexes isolated from cells infected with the tagged virus revealed 29 associated host proteins. Of these, 10 proteins were associated only at a later time of infection (12 h), 14 were associated both early and late, and five were isolated only at the earlier time (6 h postinfection). These results demonstrate the dynamic nature of the virus-host interaction that occurs over the course of infection and suggest that different host proteins may be required for the multiple functions carried out by nsP4. Two related proteins found in association with nsP4 at both times of infection, GTPase-activating protein (SH3 domain) binding protein 1 (G3BP1) and G3BP2 were also previously identified as associated with SINV nsP2 and nsP3. We demonstrate a likely overlapping role for these host factors in limiting SINV replication events. The present study also identifies 10 host factors associated with nsP4 6 h after infection that were not found to be associated with nsP2 or nsP3. These factors are candidates for playing important roles in the RNA replication process. Identifying host factors essential for replication should lead to new strategies to interrupt alphavirus replication.",
+    "openalex_id": ""
+  }
+]

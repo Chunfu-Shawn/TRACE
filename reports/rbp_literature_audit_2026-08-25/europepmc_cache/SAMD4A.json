@@ -1,0 +1,170 @@
+[
+  {
+    "title": "SAMD4 represses VGLL4 mRNA to activate TEAD and promote cancer progression.",
+    "doi": "10.1038/s41388-026-03778-w",
+    "pmid": "42014888",
+    "authors": [
+      "Otani J, Nishio M, Tokita R, Hikasa H, Nishimori M, Dan S, Naguro I, Ichijo H, Miyanishi M, Sasaki T, Nishina H, Mak TW, Maehama T, Suzuki A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The transcriptional cofactors YAP1 and TAZ regulate target gene expression by binding to the transcription factor TEAD. Due to their roles in cancer initiation, progression, and drug resistance, YAP1 and TAZ are promising targets for cancer therapy. SAMD4A/B are RNA-binding proteins that are broadly expressed across human tissues, but few of their molecular targets and biological functions have been identified. In Drosophila, the SAMD4A/B homolog Smaug participates in early embryonic development by disrupting the stability and translation of maternal mRNA. To discover targets inhibiting the YAP1/TAZ-TEAD oncogenic transcription program, we screened a whole-genome siRNA library and identified siSAMD4B as potently suppressing TEAD activity in human cancer cells. We showed that SAMD4A/B increased TEAD activity by destabilizing and repressing the translation of VGLL4 mRNA, promoting cancer progression in vitro. Conversely, inhibiting either SAMD4A or SAMD4B elevated VGLL4 mRNA, which suppressed TEAD activity and inhibited cancer progression. Notably, transgenic mice expressing liver-specific SAMD4B exhibited accelerated development of intrahepatic cholangiocarcinomas in an Nf2-deficient background. These tumors appeared in the mutants at one week of age and caused death due to hepatic failure by 100 days. Thus, SAMD4A/B may be a promising target for anticancer drugs designed to inhibit TEAD activation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic mRNA Stability Buffer Transcriptional Activation During Neuronal Differentiation and Is Regulated by SAMD4A.",
+    "doi": "10.1002/jcp.31477",
+    "pmid": "39513231",
+    "authors": [
+      "Zhou Y, Rashad S, Ando D, Kobayashi Y, Tominaga T, Niizuma K."
+    ],
+    "year": "2025",
+    "publication_date": "2024-11-08",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Neurons are exceptionally sensitive to oxidative stress, which is the basis for many neurodegenerative disease pathophysiologies. The posttranscriptional basis for neuronal differentiation and behavior is not well characterized. The steady-state levels of mRNA are outcomes of an interplay between RNA transcription and decay. However, the correlation between mRNA transcription, translation, and stability remains elusive. We utilized a SH-SY5Y-based neural differentiation model that is widely used to study neurodegenerative diseases. After neuronal differentiation, we observed enhanced sensitivity of mature neurons to mitochondrial stresses and ferroptosis induction. We employed a newly developed simplified mRNA stability profiling technique to explore the role of mRNA stability in SH-SY5Y neuronal differentiation model. Transcriptome-wide mRNA stability analysis revealed neural-specific RNA stability kinetics. Our analysis revealed that mRNA stability could either exert the buffering effect on gene products or change in the same direction as transcription. Importantly, we observed that changes in mRNA stability corrected over or under transcription of mRNAs to maintain mRNA translation dynamics. Furthermore, we conducted integrative analysis of our mRNA stability data set, and a published CRISPR-i screen focused on neuronal oxidative stress responses. Our analysis unveiled novel neuronal stress response genes that were not evident at the transcriptional or translational levels. SEPHS2 emerged as an important neuronal stress regulator based on this integrative analysis. Motif analysis unveiled SAMD4A as a major regulator of the dynamic changes in mRNA stability observed during differentiation. Knockdown of SAMD4A impaired neuronal differentiation and influenced the response to oxidative stress. Mechanistically, SAMD4A was found to alter the stability of several mRNAs. The novel insights into the interplay between mRNA stability and cellular behaviors provide a foundation for understanding neurodevelopmental processes and neurodegenerative disorders and highlight dynamic mRNA stability as an important layer of gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding protein SAMD4A targets FGF2 to regulate cardiomyocyte lineage specification from human embryonic stem cells.",
+    "doi": "10.1186/s13287-025-04269-7",
+    "pmid": "40102919",
+    "authors": [
+      "Yi N, Wang HR, Zhu YP, Xiao T, Lin Q, Liu H, Meng YL, Sun YZ, Lin F, Hu SY, Cao HM, Zhang JF, Peng LY, Li L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-18",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>RNA-binding proteins (RBPs) are essential in cardiac development. However, a large of them have not been characterized during the process.<h4>Methods</h4>We applied the human embryonic stem cells (hESCs) differentiated into cardiomyocytes model and constructed SAMD4A-knockdown/overexpression hESCs to investigate the role of SAMD4A in cardiomyocyte lineage specification.<h4>Results</h4>SAMD4A, an RBP, exhibits increased expression during early heart development. Suppression of SAMD4A inhibits the proliferation of hESCs, impedes cardiac mesoderm differentiation, and impairs the function of hESC-derived cardiomyocytes. Correspondingly, forced expression of SAMD4A enhances proliferation and promotes cardiomyogenesis. Mechanistically, SAMD4A specifically binds to FGF2 via a specific CNGG/CNGGN motif, stabilizing its mRNA and enhancing translation, thereby upregulating FGF2 expression, which subsequently modulates the AKT signaling pathway and regulates cardiomyocyte lineage differentiation. Additionally, supplementation of FGF2 can rescue the proliferation defect of hESCs in the absence of SAMD4A.<h4>Conclusions</h4>Our study demonstrates that SAMD4A orchestrates cardiomyocyte lineage commitment through the post-transcriptional regulation of FGF2 and modulation of AKT signaling. These findings not only underscore the essential role of SAMD4A in cardiac organogenesis, but also provide critical insights into the molecular mechanisms underlying heart development, thereby informing potential therapeutic strategies for congenital heart disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative analysis of miRNA-RBP-splicing interactions during respiratory syncytial virus infection.",
+    "doi": "10.3855/jidc.22201",
+    "pmid": "42566339",
+    "authors": [
+      "Cheng M, Xu H, Yuan F, Li S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-31",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Respiratory syncytial virus (RSV) is a major cause of severe acute lower respiratory tract infections (ALRI), with incomplete elucidation of its pathogenesis and intricate host-virus crosstalk constraining the development of effective therapies. The post-transcriptional interplay among microRNAs (miRNAs), RNA-binding proteins (RBPs), and alternative splicing (AS) is a critical, yet underexplored host response layer.<h4>Methodology</h4>We integrated and analyzed three public datasets (GSE231784, GSE231788, and GSE155151) of RSV-infected A549 cells, screened differentially expressed miRNAs, identified conserved differentially expressed RBPs, used SUVA to detect AS events, and constructed a miRNA-RBP-AS network to find core axis. This integrated bioinformatics approach enabled systematic dissection of multi-layered post-transcriptional regulation during RSV infection.<h4>Results</h4>Our analysis revealed that RSV infection substantially alters host post-transcriptional regulation, with 86 conserved differentially expressed RBPs and 94 conserved AS events identified. A potential miRNA-RBP-AS axis was uncovered via regulatory network construction. Crucially, this axis suggests that the downregulation of let-7 family miRNAs (e.g., let-7f-2-3p, let-7a-3p) is strongly associated with the upregulation of the RBP genes SAMD4A and ENOX1. The expression of these RBPs, in turn, correlates with the AS of host genes that are implicated in viral replication and immunity, such as TNIP1 and NR5A2.<h4>Conclusions</h4>These findings propose that RSV may exploit this post-transcriptional crosstalk to modulate host immunity and facilitate viral replication. Through bioinformatics analysis, this study provides a novel, system-level map of RSV-host interactions and identifies the let-7-SAMD4A/ENOX1-TNIP1/NR5A2 axis as a promising new target for future antiviral strategies, though this requires further experimental validation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SAMD4A inhibits abdominal aortic aneurysm development and VSMC phenotypic transformation through targeting KDM2B.",
+    "doi": "10.1016/j.jare.2025.03.018",
+    "pmid": "40081568",
+    "authors": [
+      "Chen Q, Liu S, Zhou H, Wang J, Xiao X, Chen G, Du J, Zhong L, Song H, Huang X."
+    ],
+    "year": "2026",
+    "publication_date": "2025-03-11",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Abdominal aortic aneurysm (AAA) is a fatal vascular disease without effective drug treatments. Pathological vascular smooth muscle cell (VSMC) phenotypic transformation is the underlying cause of AAA. However, the underlying mechanism has not been fully elucidated.<h4>Objective</h4>We aimed to determine whether the RNA binding protein SAMD4A suppresses VSMC phenotype transformation and inhibits AAA formation.<h4>Methods</h4>Single-cell RNA sequencing (scRNA-seq) was conducted to reveal smooth muscle cell phenotypic heterogeneity and RNA-binding protein dysregulation during AAA formation. A pancreatic elastase (PPE)-induced mouse AAA model was generated to confirm the function of SAMD4A in vivo. RNA-seq combined with RNA immunoprecipitation (RIP) sequencing and chromatin immunoprecipitation (ChIP)-qPCR was used for mechanistic exploration.<h4>Results</h4>We identified 3 smooth muscle cell subtypes, and demonstrated their transformation from contractile to inflammatory-like VSMCs during AAA formation. SAMD4A expression was increased in contractile VSMCs and significantly reduced in AAAs. The results of functional experiments revealed that VSMC-specific knockout of SAMD4A exacerbated PPE-induced AAA formation, whereas VSMC knock-in attenuated AAA formation. SAMD4A regulated VSMC contraction by binding to KDM2B. Further in vivo studies revealed that overexpression of KDM2B abolished the protective effect of SAMD4A in AAA. ChIP-qPCR demonstrated that KDM2B suppressed the transcription of VSMC contractile markers by binding to their promoters and reducing H3K4me3 and H3K36me2 levels.<h4>Conclusions</h4>SAMD4A inhibits AAA development and VSMC phenotypic transformation by targeting KDM2B. This work highlights the potential of SAMD4A as a new therapeutic option to prevent AAA formation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/β-Catenin Pathway.",
+    "doi": "10.3390/biom15101423",
+    "pmid": "41154652",
+    "authors": [
+      "Li JH, Wang XY, Song HX, Nie XF, Zhang LN."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-07",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The Sterile alpha motif domain-containing protein 4 (SAMD4) family consists of two evolutionarily conserved and highly homologous RNA-binding proteins, SAMD4A and SAMD4B. Previous studies have established SAMD4A as a tumor suppressor that is downregulated in breast cancer, while the function of SAMD4B in tumorigenesis remains poorly defined. In this study, we observed that SAMD4B expression is upregulated in breast cancer. Functional assays demonstrated that SAMD4B facilitated breast cancer cell proliferation, migration, and invasion by inducing epithelial-mesenchymal transition (EMT). Furthermore, SAMD4B accelerated G1-to-S phase cell cycle progression by modulating p53 expression, collectively supporting an oncogenic function of SAMD4B in breast cancer. Mechanistically, we found that SAMD4B enhanced TCF/LEF transcriptional activity and upregulated the expression of β-catenin, Cyclin D1, c-Myc, and Axin2. Further investigations confirmed that SAMD4B activated the Wnt/β-catenin pathway by stabilizing <i>β-catenin</i> mRNA and increasing β-catenin protein expression level. Importantly, treatment with XAV-939, a specific Wnt/β-catenin pathway inhibitor, abrogated the pro-oncogenic effects of SAMD4B overexpression, including Wnt/β-catenin pathway activation, enhanced proliferation, and increased metastatic capacity. These results confirm that SAMD4B promotes the malignant phenotypes of breast cancer cells in a manner dependent on the Wnt/β-catenin pathway. In summary, our findings clarify that SAMD4B exerts an oncogenic role in breast cancer progression by activating the Wnt/β-catenin pathway. These data identify SAMD4B as a potential therapeutic target in breast cancer, although further in vivo investigations are required to validate its clinical relevance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LSM12 promotes the lung squamous cell carcinoma progression through mediating alternative splicing of ARRB1.",
+    "doi": "10.1038/s42003-025-08193-7",
+    "pmid": "40425760",
+    "authors": [
+      "Wu L, Zhang F, Chen H, Zhao G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-27",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Like-Smith protein 12 (LSM12), an RNA-binding protein, is highly expressed in tumor tissues of patients with lung squamous cell carcinoma (LUSC). However, the role of LSM12 in LUSC is unclear. In this study, overexpression of LSM12 promotes the proliferation, migration, and invasion and prevents the apoptosis of LUSC cells. In vivo, LSM12 accelerates the tumor growth and metastasis of LUSC cells using male BALB/c nude mice. Furthermore, we find that the Sterile alpha motif domain containing 4A (SAMD4A) is directly bound to the mRNA of LSM12 and accelerates the mRNA degradation. High-throughput omics analysis is performed to identify the potential target genes of LSM12 in LUSC cells. LSM12 regulates alternative splicing events and increases exon 13 skipped splicing of ARRB1 and mRNA expression. Our findings may provide fundamental research for the investigation of the development of LUSC and the potential role of LSM12 in LUSC cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The non-canonical Smoothened-AMPK axis regulates Smaug1 biomolecular condensates.",
+    "doi": "10.1242/jcs.263433",
+    "pmid": "39925132",
+    "authors": [
+      "Thomas MG, Fernández-Alvarez AJ, Giménez M, Corvetto Aristarain F, Cozza LH, Pimentel J, Pessoa J, Pascual ML, Boscaglia L, Habif M, Corbat A, La Spina PE, Peters T, Bustos DM, Carmo-Fonseca M, Grecco HE, Boccaccio GL."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-14",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Biomolecular condensates (BMCs) emerge as important players in RNA regulation. The RNA-binding protein Smaug forms cytosolic BMCs in mammals, insects and yeasts and affects mitochondrial function and/or responses to nutrient deprivation. Here, we found that the non-canonical activation of the Smoothened (SMO)-AMPK pathway, which is known to affect energy metabolism, triggers the immediate disassembly of BMCs formed by a number of human and rodent Smaug orthologs, whereas processing bodies remain rather unaltered. A non-phosphorylatable SMO mutant abrogated the effect, involving SMO phosphorylation in human (h)Smaug1 (also known as SAMD4A) BMCs regulation. Three mechanistically different SMO ligands, namely SAG, GSA-10 and cyclopamine, elicited a similar response, which was blocked upon AMPK pharmacological inhibition. Polysome disassembly by puromycin halted Smaug1 BMC dissolution, thus suggesting that unbound transcripts became translationally active. Single-molecule fluorescent in situ hybridization illustrated the release of UQCRC1 mRNA. Finally, Smaug1 is a phosphoprotein bound by 14-3-3 proteins, and the competitive inhibitor difopein blocked the response to non-canonical SMO stimulation. We propose that the regulated condensation and dispersion of Smaug1 BMCs generate translational changes that contribute to metabolic regulation downstream of the non-canonical SMO-AMPK axis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel testis-enriched gene, <i>Samd4a</i>, regulates spermatogenesis as a spermatid-specific factor.",
+    "doi": "10.3389/fcell.2022.978343",
+    "pmid": "36274854",
+    "authors": [
+      "Ahn J, Kim DH, Park MR, Suh Y, Lee H, Hwang S, Mamuad LL, Lee SS, Lee K."
+    ],
+    "year": "2022",
+    "publication_date": "2022-10-05",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Spermatogenesis is the highly orchestrated process involving expression of a series of testicular genes. Testis-enriched genes are critical for cellular processes during spermatogenesis whose disruption leads to impaired spermatogenesis and male infertility. Nevertheless, among poorly investigated testicular genes are the mouse <i>Samd4a</i> and human <i>SAMD4A</i> which were identified in the current study as novel testis-enriched genes through transcriptomic analyses. In particular, as orthologous alternative splicing isoforms, mouse <i>Samd4a</i> E-form and human <i>SAMD4A</i>C-form containing the SAM domain were specific to testes. Western blot analyses revealed that the murine <i>SAMD4A</i>E-form was predominantly found in the testis. Analyses on GEO2R and single-cell RNA-seq datasets revealed that the <i>Samd4a</i>/<i>SAMD4A</i> expression was enriched in spermatids among various types of cells in adult testes. To investigate <i>in vivo</i> functions of <i>Samd4a</i>, <i>Samd4a</i> knockout mice were generated using the CRISPR/Cas9 system. The <i>Samd4a</i> deficiency resulted in lower testis weight, absence of elongated spermatids, and an increased number of apoptotic cells. Profiling of gene expression in human testis samples revealed that the <i>SAMD4A</i> expression was comparable between obstructive azoospermia patients and normal controls, but significantly lowered in nonobstructive azoospermia (NOA) patients. Among three subgroups of NOA, pre-meiotic arrest (NOA-pre), meiotic arrest (NOA-mei), and post-meiotic arrest (NOA-post), expression level of <i>SAMD4A</i> was higher in the NOA-post than the NOA-mei, but there was no difference between the NOA-pre and NOA-mei. The current studies demonstrated spermatid stage-specific expression of <i>Samd4a</i>/<i>SAMD4A</i>, and impairment of the late stages of spermatogenesis by disruption of the mouse <i>Samd4a</i> gene. These data suggest that <i>Samd4a</i>/<i>SAMD4A</i> plays an essential role in normal spermatogenesis, and SAMD4A, as a spermatid specific marker, can be used for subcategorizing NOA patients. Further understanding the molecular role of SAMD4A will advance our knowledge on genetic regulations in male infertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding protein SAMD4: current knowledge and future perspectives.",
+    "doi": "10.1186/s13578-023-00968-x",
+    "pmid": "36732864",
+    "authors": [
+      "Wang XY, Zhang LN."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-02",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "SAMD4 protein family is a class of novel RNA-binding proteins that can mediate post-transcriptional regulation and translation repression in eukaryotes, which are highly conserved from yeast to humans during evolution. In mammalian cells, SAMD4 protein family consists of two members including SAMD4A/Smaug1 and SAMD4B/Smaug2, both of which contain common SAM domain that can specifically bind to different target mRNAs through stem-loop structures, also known as Smaug recognition elements (SREs), and regulate the mRNA stability, degradation and translation. In addition, SAMD4 can form the cytoplasmic mRNA silencing foci and regulate the translation of SRE-containing mRNAs in neurons. SAMD4 also can form the cytosolic membrane-less organelles (MLOs), termed as Smaug1 bodies, and regulate mitochondrial function. Importantly, many studies have identified that SAMD4 family members are involved in various pathological processes including myopathy, bone development, neural development, and cancer occurrence and progression. In this review, we mainly summarize the structural characteristics, biological functions and molecular regulatory mechanisms of SAMD4 protein family members, which will provide a basis for further research and clinical application of SAMD4 protein family.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YAP/TAZ enhances P-body formation to promote tumorigenesis.",
+    "doi": "10.7554/elife.88573",
+    "pmid": "39046443",
+    "authors": [
+      "Shen X, Peng X, Guo Y, Dai Z, Cui L, Yu W, Liu Y, Liu CY."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-24",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "The role of processing bodies (P-bodies) in tumorigenesis and tumor progression is not well understood. Here, we showed that the oncogenes YAP/TAZ promote P-body formation in a series of cancer cell lines. Mechanistically, both transcriptional activation of the P-body-related genes <i>SAMD4A, AJUBA</i>, and <i>WTIP</i> and transcriptional suppression of the tumor suppressor gene <i>PNRC1</i> are involved in enhancing the effects of YAP/TAZ on P-body formation in colorectal cancer (CRC) cells. By reexpression of PNRC1 or knockdown of P-body core genes (<i>DDX6, DCP1A,</i> and <i>LSM14A</i>), we determined that disruption of P-bodies attenuates cell proliferation, cell migration, and tumor growth induced by overexpression of YAP<sup>5SA</sup> in CRC. Analysis of a pancancer CRISPR screen database (DepMap) revealed co-dependencies between YAP/TEAD and the P-body core genes and correlations between the mRNA levels of <i>SAMD4A, AJUBA, WTIP, PNRC1,</i> and YAP target genes. Our study suggests that the P-body is a new downstream effector of YAP/TAZ, which implies that reexpression of PNRC1 or disruption of P-bodies is a potential therapeutic strategy for tumors with active YAP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exploration of prognostic genes and risk signature in breast cancer patients based on RNA binding proteins associated with ferroptosis.",
+    "doi": "10.3389/fgene.2023.1025163",
+    "pmid": "36911389",
+    "authors": [
+      "Chen X, Yang C, Wang W, He X, Sun H, Lyu W, Zou K, Fang S, Dai Z, Dong H."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-24",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<b>Background:</b> Breast cancer (BRCA) is a life-threatening malignancy in women with an unsatisfactory prognosis. The purpose of this study was to explore the prognostic biomarkers and a risk signature based on ferroptosis-related RNA-binding proteins (FR-RBPs). <b>Methods:</b> FR-RBPs were identified using Spearman correlation analysis. Differentially expressed genes (DEGs) were identified by the \"limma\" R package. The univariate Cox and multivariate Cox analyses were executed to determine the prognostic genes. The risk signature was constructed and verified with the training set, testing set, and validation set. Mutation analysis, immune checkpoint expression analysis in high- and low-risk groups, and correlation between risk signature and chemotherapeutic agents were conducted using the \"maftools\" package, \"ggplot2\" package, and the CellMiner database respectively. The Human Protein Atlas (HPA) database was employed to confirm protein expression trends of prognostic genes in BRCA and normal tissues. The expression of prognostic genes in cell lines was verified by Real-time quantitative polymerase chain reaction (RT-qPCR). Kaplan-meier (KM) plotter database analysis was applied to predict the correlation between the expression levels of signature genes and survival statuses. <b>Results:</b> Five prognostic genes (GSPT2, RNASE1, TIPARP, TSEN54, and SAMD4A) to construct an FR-RBPs-related risk signature were identified and the risk signature was validated by the International Cancer Genome Consortium (ICGC) cohort. Univariate and multivariate Cox regression analysis demonstrated the risk score was a robust independent prognostic factor in overall survival prediction. The Tumor Mutational Burden (TMB) analysis implied that the high- and low-risk groups responded differently to immunotherapy. Drug sensitivity analysis suggested that the risk signature may serve as a chemosensitivity predictor. The results of GSEA suggested that five prognostic genes might be related to DNA replication and the immune-related pathways. RT-qPCR results demonstrated that the expression trends of prognostic genes in cell lines were consistent with the results from public databases. KM plotter database analysis suggested that high expression levels of GSPT2, RNASE1, and SAMD4A contributed to poor prognoses. <b>Conclusion:</b> In conclusion, this study identified the FR-RBPs-related prognostic genes and developed an FR-RBPs-related risk signature for the prognosis of BRCA, which will be of great significance in developing new therapeutic targets and prognostic molecular biomarkers for BRCA.",
+    "openalex_id": ""
+  }
+]

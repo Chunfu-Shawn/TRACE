@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A genome-wide homologous recombination screen identifies the RNA-binding protein RBMX as a component of the DNA-damage response.",
+    "doi": "10.1038/ncb2426",
+    "pmid": "22344029",
+    "authors": [
+      "Adamson B, Smogorzewska A, Sigoillot FD, King RW, Elledge SJ."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-19",
+    "cited_by_count": 380,
+    "journal": "",
+    "abstract": "Repair of DNA double-strand breaks is critical to genomic stability and the prevention of developmental disorders and cancer. A central pathway for this repair is homologous recombination (HR). Most knowledge of HR is derived from work in prokaryotic and eukaryotic model organisms. We carried out a genome-wide siRNA-based screen in human cells. Among positive regulators of HR we identified networks of DNA-damage-response and pre-mRNA-processing proteins, and among negative regulators we identified a phosphatase network. Three candidate proteins localized to DNA lesions, including RBMX, a heterogeneous nuclear ribonucleoprotein that has a role in alternative splicing. RBMX accumulated at DNA lesions through multiple domains in a poly(ADP-ribose) polymerase 1-dependent manner and promoted HR by facilitating proper BRCA2 expression. Our screen also revealed that off-target depletion of RAD51 is a common source of RNAi false positives, raising a cautionary note for siRNA screens and RNAi-based studies of HR.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The NORAD lncRNA assembles a topoisomerase complex critical for genome stability.",
+    "doi": "10.1038/s41586-018-0453-z",
+    "pmid": "30150775",
+    "authors": [
+      "Munschauer M, Nguyen CT, Sirokman K, Hartigan CR, Hogstrom L, Engreitz JM, Ulirsch JC, Fulco CP, Subramanian V, Chen J, Schenone M, Guttman M, Carr SA, Lander ES."
+    ],
+    "year": "2018",
+    "publication_date": "2018-08-27",
+    "cited_by_count": 306,
+    "journal": "",
+    "abstract": "The human genome contains thousands of long non-coding RNAs<sup>1</sup>, but specific biological functions and biochemical mechanisms have been discovered for only about a dozen<sup>2-7</sup>. A specific long non-coding RNA-non-coding RNA activated by DNA damage (NORAD)-has recently been shown to be required for maintaining genomic stability<sup>8</sup>, but its molecular mechanism is unknown. Here we combine RNA antisense purification and quantitative mass spectrometry to identify proteins that directly interact with NORAD in living cells. We show that NORAD interacts with proteins involved in DNA replication and repair in steady-state cells and localizes to the nucleus upon stimulation with replication stress or DNA damage. In particular, NORAD interacts with RBMX, a component of the DNA-damage response, and contains the strongest RBMX-binding site in the transcriptome. We demonstrate that NORAD controls the ability of RBMX to assemble a ribonucleoprotein complex-which we term NORAD-activated ribonucleoprotein complex 1 (NARC1)-that contains the known suppressors of genomic instability topoisomerase I (TOP1), ALYREF and the PRPF19-CDC5L complex. Cells depleted for NORAD or RBMX display an increased frequency of chromosome segregation defects, reduced replication-fork velocity and altered cell-cycle progression-which represent phenotypes that are mechanistically linked to TOP1 and PRPF19-CDC5L function. Expression of NORAD in trans can rescue defects caused by NORAD depletion, but rescue is significantly impaired when the RBMX-binding site in NORAD is deleted. Our results demonstrate that the interaction between NORAD and RBMX is important for NORAD function, and that NORAD is required for the assembly of the previously unknown topoisomerase complex NARC1, which contributes to maintaining genomic stability. In addition, we uncover a previously unknown function for long non-coding RNAs in modulating the ability of an RNA-binding protein to assemble a higher-order ribonucleoprotein complex.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genomic and Proteomic Resolution of Heterochromatin and Its Restriction of Alternate Fate Genes.",
+    "doi": "10.1016/j.molcel.2017.11.030",
+    "pmid": "29272703",
+    "authors": [
+      "Becker JS, McCarthy RL, Sidoli S, Donahue G, Kaeding KE, He Z, Lin S, Garcia BA, Zaret KS."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-01",
+    "cited_by_count": 186,
+    "journal": "",
+    "abstract": "Heterochromatin is integral to cell identity maintenance by impeding the activation of genes for alternate cell fates. Heterochromatic regions are associated with histone 3 lysine 9 trimethylation (H3K9me3) or H3K27me3, but these modifications are also found in euchromatic regions that permit transcription. We discovered that resistance to sonication is a reliable indicator of the heterochromatin state, and we developed a biophysical method (gradient-seq) to discriminate subtypes of H3K9me3 and H3K27me3 domains in sonication-resistant heterochromatin (srHC) versus euchromatin. These classifications are more accurate than the histone marks alone in predicting transcriptional silence and resistance of alternate fate genes to activation during direct cell conversion. Our proteomics of H3K9me3-marked srHC and functional screens revealed diverse proteins, including RBMX and RBMXL1, that impede gene induction during cellular reprogramming. Isolation of srHC with gradient-seq provides a genome-wide map of chromatin structure, elucidating subtypes of repressed domains that are uniquely predictive of diverse other chromatin properties.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tumor-derived exosomal miR-19b-3p facilitates M2 macrophage polarization and exosomal LINC00273 secretion to promote lung adenocarcinoma metastasis via Hippo pathway.",
+    "doi": "10.1002/ctm2.478",
+    "pmid": "34586722",
+    "authors": [
+      "Chen J, Zhang K, Zhi Y, Wu Y, Chen B, Bai J, Wang X."
+    ],
+    "year": "2021",
+    "publication_date": "2021-09-01",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "Numerous reports have elucidated the important participation of exosomes in the communication between tumor cells and other cancer-related cells including tumor-associated macrophages (TAMs) in microenvironment. However, the interchange of exosomes between tumor cells and TAMs in the progression of lung adenocarcinoma (LUAD) remains largely enigmatic. Herein, we discovered that LUAD cells induced the M2 polarization of TAMs and the M2-polarized macrophages facilitated LUAD cell invasion and migration and tumor metastasis in vivo. In detail, LUAD cells secreted exosomes to transport miR-19b-3p into TAMs so that miR-19b-3p targeted PTPRD and inhibited the PTPRD-mediated dephosphorylation of STAT3 in TAMs, leading to STAT3 activation and M2 polarization. Also, the activated STAT3 transcriptionally induced LINC00273 in M2 macrophages and exosomal LINC00273 was transferred into LUAD cells. In LUAD cells, LINC00273 recruited NEDD4 to facilitate LATS2 ubiquitination and degradation, so that the Hippo pathway was inactivated and YAP induced the transcription of RBMX. RBMX bound to miR-19b-3p to facilitate the packaging of miR-19b-3p into LUAD cell-derived exosomes. Collectively, our results revealed the mechanism underlying the interactive communication between LUAD cells and TAMs through elucidating the exchange of exosomal miR-19b-3p and LINC00273 and proved the prometastatic effect of the interchange between two cells. These discoveries opened a new vision for developing LUAD treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long non-coding RNAs harboring miRNA seed regions are enriched in prostate cancer exosomes.",
+    "doi": "10.1038/srep24922",
+    "pmid": "27102850",
+    "authors": [
+      "Ahadi A, Brennan S, Kennedy PJ, Hutvagner G, Tran N."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-22",
+    "cited_by_count": 141,
+    "journal": "",
+    "abstract": "Long non-coding RNAs (lncRNAs) form the largest transcript class in the human transcriptome. These lncRNA are expressed not only in the cells, but they are also present in the cell-derived extracellular vesicles such as exosomes. The function of these lncRNAs in cancer biology is not entirely clear, but they appear to be modulators of gene expression. In this study, we characterize the expression of lncRNAs in several prostate cancer exosomes and their parental cell lines. We show that certain lncRNAs are enriched in cancer exosomes with the overall expression signatures varying across cell lines. These exosomal lncRNAs are themselves enriched for miRNA seeds with a preference for let-7 family members as well as miR-17, miR-18a, miR-20a, miR-93 and miR-106b. The enrichment of miRNA seed regions in exosomal lncRNAs is matched with a concomitant high expression of the same miRNA. In addition, the exosomal lncRNAs also showed an over representation of RNA binding protein binding motifs. The two most common motifs belonged to ELAVL1 and RBMX. Given the enrichment of miRNA and RBP sites on exosomal lncRNAs, their interplay may suggest a possible function in prostate cancer carcinogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMY, a probable human spermatogenesis factor, and other hnRNP G proteins interact with Tra2beta and affect splicing.",
+    "doi": "10.1093/hmg/9.5.685",
+    "pmid": "10749975",
+    "authors": [
+      "Venables JP, Elliott DJ, Makarova OV, Makarov EM, Cooke HJ, Eperon IC."
+    ],
+    "year": "2000",
+    "publication_date": "2000-03-01",
+    "cited_by_count": 90,
+    "journal": "",
+    "abstract": "The RBMY gene family is found on the Y chromosome of all mammals, and microdeletions are strongly associated with infertility in men. RBMY expresses RBM only in the nuclei of germ cells, whereas its X chromosome homologue, RBMX, expresses hnRNP G ubiquitously. We show here that RBM, hnRNP G and a novel testis-specific relative, termed hnRNP G-T, interact with Tra2beta, an activator of pre-mRNA splicing that is ubiquitous but highly expressed in testis. Endogenous hnRNP G and Tra2beta proteins are associated in HeLa nuclear extracts. RBM and Tra2beta co-localize in two major domains in human spermatocyte nuclei. Phosphorylation enhanced the interaction and reduced competing RNA binding to the interaction domains. Incubation with the protein interaction domain of RBM inhibited splicing in vitro of a specific pre-mRNA substrate containing an essential enhancer bound by Tra2beta. The RNA-binding domain of RBM affected 5' splice site selection. We conclude that the hnRNP G family of proteins is involved in pre-mRNA splicing and infer that RBM may be involved in Tra2beta-dependent splicing in spermatocytes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMX suppresses tumorigenicity and progression of bladder cancer by interacting with the hnRNP A1 protein to regulate PKM alternative splicing.",
+    "doi": "10.1038/s41388-021-01666-z",
+    "pmid": "33564070",
+    "authors": [
+      "Yan Q, Zeng P, Zhou X, Zhao X, Chen R, Qiao J, Feng L, Zhu Z, Zhang G, Chen C."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-09",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "The prognosis for patients with metastatic bladder cancer (BCa) is poor, and it is not improved by current treatments. RNA-binding motif protein X-linked (RBMX) are involved in the regulation of the malignant progression of various tumors. However, the role of RBMX in BCa tumorigenicity and progression remains unclear. In this study, we found that RBMX was significantly downregulated in BCa tissues, especially in muscle-invasive BCa tissues. RBMX expression was negatively correlated with tumor stage, histological grade and poor patient prognosis. Functional assays demonstrated that RBMX inhibited BCa cell proliferation, colony formation, migration, and invasion in vitro and suppressed tumor growth and metastasis in vivo. Mechanistic investigations revealed that hnRNP A1 was an RBMX-binding protein. RBMX competitively inhibited the combination of the RGG motif in hnRNP A1 and the sequences flanking PKM exon 9, leading to the formation of lower PKM2 and higher PKM1 levels, which attenuated the tumorigenicity and progression of BCa. Moreover, RBMX inhibited aerobic glycolysis through hnRNP A1-dependent PKM alternative splicing and counteracted the PKM2 overexpression-induced aggressive phenotype of the BCa cells. In conclusion, our findings indicate that RBMX suppresses BCa tumorigenicity and progression via an hnRNP A1-mediated PKM alternative splicing mechanism. RBMX may serve as a novel prognostic biomarker for clinical intervention in BCa.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The role of potential splicing factors including RBMY, RBMX, hnRNPG-T and STAR proteins in spermatogenesis.",
+    "doi": "10.1111/j.1365-2605.2004.00496.x",
+    "pmid": "15595951",
+    "authors": [
+      "Elliott DJ."
+    ],
+    "year": "2004",
+    "publication_date": "2004-12-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Investigations into the RBM gene family are uncovering networks of protein interactions which regulate RNA processing, and which might operate downstream of signal transduction pathways. Similar pathways likely operate in germ cells and somatic cells, with RBMY, hnRNPGT and T-STAR proteins providing germ cell-specific components. These pathways may be important for normal germ cell development, and might be compromised in men with Y chromosome deletions affecting RBMY gene expression. The STAR proteins have multiple functions in pre-mRNA splicing, signalling and cell cycle control. These processes might have to be very finely regulated during germ cell development, which involves both two sequential meiotic divisions (meiosis I and II) as well as mitotic (spermatogonial) cell divisions, and which is controlled by paracrine signalling within the testis from Sertoli cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PUMILIO, but not RBMX, binding is required for regulation of genomic stability by noncoding RNA <i>NORAD</i>.",
+    "doi": "10.7554/elife.48625",
+    "pmid": "31343408",
+    "authors": [
+      "Elguindy MM, Kopp F, Goodarzi M, Rehfeld F, Thomas A, Chang TC, Mendell JT."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-25",
+    "cited_by_count": 60,
+    "journal": "",
+    "abstract": "<i>NORAD</i> is a conserved long noncoding RNA (lncRNA) that is required for genome stability in mammals. <i>NORAD</i> acts as a negative regulator of PUMILIO (PUM) proteins in the cytoplasm, and we previously showed that loss of <i>NORAD</i> or PUM hyperactivity results in genome instability and premature aging in mice (Kopp et al., 2019). Recently, however, it was reported that <i>NORAD</i> regulates genome stability through an interaction with the RNA binding protein RBMX in the nucleus. Here, we addressed the contributions of <i>NORAD</i>:PUM and <i>NORAD</i>:RBMX interactions to genome maintenance by this lncRNA in human cells. Extensive RNA FISH and fractionation experiments established that <i>NORAD</i> localizes predominantly to the cytoplasm with or without DNA damage. Moreover, genetic rescue experiments demonstrated that PUM binding is required for maintenance of genomic stability by <i>NORAD</i> whereas binding of RBMX is dispensable for this function. These data provide an important foundation for further mechanistic dissection of the <i>NORAD</i>-PUMILIO axis in genome maintenance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "m6A-Modified circTET2 Interacting with HNRNPC Regulates Fatty Acid Oxidation to Promote the Proliferation of Chronic Lymphocytic Leukemia.",
+    "doi": "10.1002/advs.202304895",
+    "pmid": "37821382",
+    "authors": [
+      "Wu Z, Zuo X, Zhang W, Li Y, Gui R, Leng J, Shen H, Pan B, Fan L, Li J, Jin H."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-11",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "Chronic lymphocytic leukemia (CLL) is a hematological malignancy with high metabolic heterogeneity. N6-methyladenosine (m6A) modification plays an important role in metabolism through regulating circular RNAs (circRNAs). However, the underlying mechanism is not yet fully understood in CLL. Herein, an m6A scoring system and an m6A-related circRNA prognostic signature are established, and circTET2 as a potential prognostic biomarker for CLL is identified. The level of m6A modification is found to affect the transport of circTET2 out of the nucleus. By interacting with the RNA-binding protein (RBP) heterogeneous nuclear ribonucleoprotein C (HNRNPC), circTET2 regulates the stability of CPT1A and participates in the lipid metabolism and proliferation of CLL cells through mTORC1 signaling pathway. The mTOR inhibitor dactolisib and FAO inhibitor perhexiline exert a synergistic effect on CLL cells. In addition, the biogenesis of circTET2 can be affected by the splicing process and the RBPs RBMX and YTHDC1. CP028, a splicing inhibitor, modulates the expression of circTET2 and shows pronounced inhibitory effects. In summary, circTET2 plays an important role in the modulation of lipid metabolism and cell proliferation in CLL. This study demonstrates the clinical value of circTET2 as a prognostic indicator as well as provides novel insights in targeting treatment for CLL.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMX family proteins connect the fields of nuclear RNA processing, disease and sex chromosome biology.",
+    "doi": "10.1016/j.biocel.2018.12.014",
+    "pmid": "30593955",
+    "authors": [
+      "Elliott DJ, Dalgliesh C, Hysenaj G, Ehrmann I."
+    ],
+    "year": "2019",
+    "publication_date": "2018-12-26",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "RBMX is a ubiquitously expressed nuclear RNA binding protein that is encoded by a gene on the X chromosome. RBMX belongs to a small protein family with additional members encoded by paralogs on the mammalian Y chromosome and other chromosomes. These RNA binding proteins are important for normal development, and also implicated in cancer and viral infection. At the molecular level RBMX family proteins contribute to splicing control, transcription and genome integrity. Establishing what endogenous genes and pathways are controlled by RBMX and its paralogs will have important implications for understanding chromosome biology, DNA repair and mammalian development. Here we review what is known about this family of RNA binding proteins, and identify important current questions about their functions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Expression and conservation of processed copies of the RBMX gene.",
+    "doi": "10.1007/s00335001-0003-z",
+    "pmid": "11420617",
+    "authors": [
+      "Lingenfelter PA, Delbridge ML, Thomas S, Hoekstra HE, Mitchell MJ, Graves JA, Disteche CM."
+    ],
+    "year": "2001",
+    "publication_date": "2001-07-01",
+    "cited_by_count": 48,
+    "journal": "",
+    "abstract": "RBMX and RBMY are members of an ancient pair of genes located on the sex chromosomes that encode RNA-binding proteins involved in splicing. These genes have differentiated and evolved separately on the X and Y Chromosomes. RBMY has acquired a testis-specific function, whereas, as shown here, RBMX is ubiquitously expressed and is subject to X inactivation. We have also found that multiple processed copies of RBMX are present in the human genome. RBMX-like sequences (RBMXLs) located on human Chrs 1, 4, 6, 9 (9p13 and 9p24), 11, 20, and X lack introns and thus probably result from retroposition events. We found RBMXLs to be conserved in primates and great apes at corresponding chromosomal locations, indicating that they arose prior to the divergence of human. Some of the RBMXLs show insertions, deletions, and stop codons, which would probably result in nonfunctional proteins. The RBMXL on Chr 20 is deleted in some individuals. Two of the largely intact RBMXLs, located on Chrs 1 and 9p13, are expressed in different tissues and may encode novel proteins involved in splicing in a tissue-specific manner. The RBMXL located at 9p13 is specifically expressed in testis, and to a lesser extent in brain, and may therefore play a role in testis function. This autosomal, testis-specific copy of RBMX could potentially compensate for RBMX that is presumably inactivated in male germ cells, in a manner analogous to autosomal retroposed copies of other X-linked genes.",
+    "openalex_id": ""
+  }
+]

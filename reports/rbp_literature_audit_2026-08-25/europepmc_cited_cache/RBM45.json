@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The RNA-binding motif 45 (RBM45) protein accumulates in inclusion bodies in amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration with TDP-43 inclusions (FTLD-TDP) patients.",
+    "doi": "10.1007/s00401-012-1045-x",
+    "pmid": "22993125",
+    "authors": [
+      "Collins M, Riascos D, Kovalik T, An J, Krupa K, Krupa K, Hood BL, Conrads TP, Renton AE, Traynor BJ, Bowser R."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-21",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "RNA-binding protein pathology now represents one of the best characterized pathologic features of amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration patients with TDP-43 or FUS pathology (FTLD-TDP and FTLD-FUS). Using liquid chromatography tandem mass spectrometry, we identified altered levels of the RNA-binding motif 45 (RBM45) protein in the cerebrospinal fluid (CSF) of ALS patients. This protein contains sequence similarities to TAR DNA-binding protein 43 (TDP-43) and fused-in-sarcoma (FUS) that are contained in cytoplasmic inclusions of ALS and FTLD-TDP or FTLD-FUS patients. To further characterize RBM45, we first verified the presence of RBM45 in CSF and spinal cord tissue extracts of ALS patients by immunoblot. We next used immunohistochemistry to examine the subcellular distribution of RBM45 and observed in a punctate staining pattern within nuclei of neurons and glia in the brain and spinal cord. We also detected RBM45 cytoplasmic inclusions in 91 % of ALS, 100 % of FTLD-TDP and 75 % of Alzheimer's disease (AD) cases. The most extensive RBM45 pathology was observed in patients that harbor the C9ORF72 hexanucleotide repeat expansion. These RBM45 inclusions were observed in spinal cord motor neurons, glia and neurons of the dentate gyrus. By confocal microscopy, RBM45 co-localizes with ubiquitin and TDP-43 in inclusion bodies. In neurons containing RBM45 cytoplasmic inclusions we often detected the protein in a punctate pattern within the nucleus that lacked either TDP-43 or ubiquitin. We identified RBM45 using a proteomic screen of CSF from ALS and control subjects for candidate biomarkers, and link this RNA-binding protein to inclusion pathology in ALS, FTLD-TDP and AD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulation of the Splicing Machinery Is Associated to the Development of Nonalcoholic Fatty Liver Disease.",
+    "doi": "10.1210/jc.2019-00021",
+    "pmid": "30901032",
+    "authors": [
+      "Del Río-Moreno M, Alors-Pérez E, González-Rubio S, Ferrín G, Reyes O, Rodríguez-Perálvarez M, Sánchez-Frías ME, Sánchez-Sánchez R, Ventura S, López-Miranda J, Kineman RD, de la Mata M, Castaño JP, Gahete MD, Luque RM."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-01",
+    "cited_by_count": 63,
+    "journal": "",
+    "abstract": "<h4>Context</h4>Nonalcoholic fatty liver disease (NAFLD) is a common obesity-associated pathology characterized by hepatic fat accumulation, which can progress to fibrosis, cirrhosis, and hepatocellular carcinoma. Obesity is associated with profound changes in gene-expression patterns of the liver, which could contribute to the onset of comorbidities.<h4>Objective</h4>As these alterations might be linked to a dysregulation of the splicing process, we aimed to determine whether the dysregulation in the expression of splicing machinery components could be associated with NAFLD.<h4>Participants</h4>We collected 41 liver biopsies from nonalcoholic individuals with obesity, with or without hepatic steatosis, who underwent bariatric surgery.<h4>Interventions</h4>The expression pattern of splicing machinery components was determined using a microfluidic quantitative PCR-based array. An in vitro approximation to determine lipid accumulation using HepG2 cells was also implemented.<h4>Results</h4>The liver of patients with obesity and steatosis exhibited a severe dysregulation of certain splicing machinery components compared with patients with obesity without steatosis. Nonsupervised clustering analysis allowed the identification of three molecular phenotypes of NAFLD with a unique fingerprint of alterations in splicing machinery components, which also presented distinctive hepatic and clinical-metabolic alterations and a differential response to bariatric surgery after 1 year. In addition, in vitro silencing of certain splicing machinery components (i.e., PTBP1, RBM45, SND1) reduced fat accumulation and modulated the expression of key de novo lipogenesis enzymes, whereas conversely, fat accumulation did not alter spliceosome components expression.<h4>Conclusion</h4>There is a close relationship between splicing machinery dysregulation and NAFLD development, which should be further investigated to identify alternative therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The roles of intrinsic disorder-based liquid-liquid phase transitions in the \"Dr. Jekyll-Mr. Hyde\" behavior of proteins involved in amyotrophic lateral sclerosis and frontotemporal lobar degeneration.",
+    "doi": "10.1080/15548627.2017.1384889",
+    "pmid": "28980860",
+    "authors": [
+      "Uversky VN."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-17",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "Pathological developments leading to amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD) are associated with misbehavior of several key proteins, such as SOD1 (superoxide dismutase 1), TARDBP/TDP-43, FUS, C9orf72, and dipeptide repeat proteins generated as a result of the translation of the intronic hexanucleotide expansions in the C9orf72 gene, PFN1 (profilin 1), GLE1 (GLE1, RNA export mediator), PURA (purine rich element binding protein A), FLCN (folliculin), RBM45 (RNA binding motif protein 45), SS18L1/CREST, HNRNPA1 (heterogeneous nuclear ribonucleoprotein A1), HNRNPA2B1 (heterogeneous nuclear ribonucleoprotein A2/B1), ATXN2 (ataxin 2), MAPT (microtubule associated protein tau), and TIA1 (TIA1 cytotoxic granule associated RNA binding protein). Although these proteins are structurally and functionally different and have rather different pathological functions, they all possess some levels of intrinsic disorder and are either directly engaged in or are at least related to the physiological liquid-liquid phase transitions (LLPTs) leading to the formation of various proteinaceous membrane-less organelles (PMLOs), both normal and pathological. This review describes the normal and pathological functions of these ALS- and FTLD-related proteins, describes their major structural properties, glances at their intrinsic disorder status, and analyzes the involvement of these proteins in the formation of normal and pathological PMLOs, with the ultimate goal of better understanding the roles of LLPTs and intrinsic disorder in the \"Dr. Jekyll-Mr. Hyde\" behavior of those proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA recognition motifs of disease-linked RNA-binding proteins contribute to amyloid formation.",
+    "doi": "10.1038/s41598-019-42367-8",
+    "pmid": "30992467",
+    "authors": [
+      "Agrawal S, Kuo PH, Chu LY, Golzarroshan B, Jain M, Yuan HS."
+    ],
+    "year": "2019",
+    "publication_date": "2019-04-16",
+    "cited_by_count": 48,
+    "journal": "",
+    "abstract": "Aberrant expression, dysfunction and particularly aggregation of a group of RNA-binding proteins, including TDP-43, FUS and RBM45, are associated with neurological disorders. These three disease-linked RNA-binding proteins all contain at least one RNA recognition motif (RRM). However, it is not clear if these RRMs contribute to their aggregation-prone character. Here, we compare the biophysical and fibril formation properties of five RRMs from disease-linked RNA-binding proteins and five RRMs from non-disease-associated proteins to determine if disease-linked RRMs share specific features making them prone to self-assembly. We found that most of the disease-linked RRMs exhibit reversible thermal unfolding and refolding, and have a slightly lower average thermal melting point compared to that of normal RRMs. The full domain of TDP-43 RRM1 and FUS RRM, as well as the β-peptides from these two RRMs, could self-assemble into fibril-like aggregates which are amyloids of parallel β-sheets as verified by X-ray diffraction and FT-IR spectroscopy. Our results suggest that some disease-linked RRMs indeed play important roles in amyloid formation and shed light on why RNA-binding proteins with RRMs are frequently identified in the cellular inclusions of neurodegenerative diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Immunoprecipitation and mass spectrometry defines an extensive RBM45 protein-protein interaction network.",
+    "doi": "10.1016/j.brainres.2016.02.047",
+    "pmid": "26979993",
+    "authors": [
+      "Li Y, Collins M, An J, Geiser R, Tegeler T, Tsantilas K, Garcia K, Pirrotte P, Bowser R."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-12",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "The pathological accumulation of RNA-binding proteins (RBPs) within inclusion bodies is a hallmark of amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD). RBP aggregation results in both toxic gain and loss of normal function. Determining the protein binding partners and normal functions of disease-associated RBPs is necessary to fully understand molecular mechanisms of RBPs in disease. Herein, we characterized the protein-protein interactions (PPIs) of RBM45, a RBP that localizes to inclusions in ALS/FTLD. Using immunoprecipitation coupled to mass spectrometry (IP-MS), we identified 132 proteins that specifically interact with RBM45 within HEK293 cells. Select PPIs were validated by immunoblot and immunocytochemistry, demonstrating that RBM45 associates with a number of other RBPs primarily via RNA-dependent interactions in the nucleus. Analysis of the biological processes and pathways associated with RBM45-interacting proteins indicates enrichment for nuclear RNA processing/splicing via association with hnRNP proteins and cytoplasmic RNA translation via eiF2 and eiF4 pathways. Moreover, several other ALS-linked RBPs, including TDP-43, FUS, Matrin-3, and hnRNP-A1, interact with RBM45, consistent with prior observations of these proteins within intracellular inclusions in ALS/FTLD. Taken together, our results define a PPI network for RBM45, suggest novel functions for this protein, and provide new insights into the contributions of RBM45 to neurodegeneration in ALS/FTLD. This article is part of a Special Issue entitled SI:RNA Metabolism in Disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM45 competes with HDAC1 for binding to FUS in response to DNA damage.",
+    "doi": "10.1093/nar/gkx1102",
+    "pmid": "29140459",
+    "authors": [
+      "Gong J, Huang M, Wang F, Ma X, Liu H, Tu Y, Xing L, Zhu X, Zheng H, Fang J, Li X, Wang Q, Wang J, Sun Z, Wang X, Wang Y, Guo C, Tang TS."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-01",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "DNA damage response (DDR) is essential for genome stability and human health. Recently, several RNA binding proteins (RBPs), including fused-in-sarcoma (FUS), have been found unexpectedly to modulate this process. The role of FUS in DDR is closely linked to the pathogenesis of amyotrophic lateral sclerosis (ALS), a progressive neurodegenerative disease that affects nerve cells in the brain and the spinal cord. Given that RBM45 is also an ALS-associated RBP, we wondered whether RBM45 plays any function during this process. Here, we report that RBM45 can be recruited to laser microirradiation-induced DNA damage sites in a PAR- and FUS-dependent manner, but in a RNA-independent fashion. Depletion of RBM45 leads to abnormal DDR signaling and decreased efficiency in DNA double-stranded break repair. Interestingly, RBM45 is found to compete with histone deacetylase 1 (HDAC1) for binding to FUS, thereby regulating the recruitment of HDAC1 to DNA damage sites. A common familial ALS-associated FUS mutation (FUS-R521C) is revealed to prefer to cooperate with RBM45 than HDAC1. Our findings suggest that RBM45 is a key regulator in FUS-related DDR signaling whose dysfunction may contribute to the pathogenesis of ALS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM45 is an m<sup>6</sup>A-binding protein that affects neuronal differentiation and the splicing of a subset of mRNAs.",
+    "doi": "10.1016/j.celrep.2022.111293",
+    "pmid": "36044854",
+    "authors": [
+      "Choi SH, Flamand MN, Liu B, Zhu H, Hu M, Wang M, Sewell J, Holley CL, Al-Hashimi HM, Meyer KD."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-01",
+    "cited_by_count": 29,
+    "journal": "",
+    "abstract": "N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) is deposited co-transcriptionally on thousands of cellular mRNAs and plays important roles in mRNA processing and cellular function. m<sup>6</sup>A is particularly abundant within the brain and is critical for neurodevelopment. However, the mechanisms through which m<sup>6</sup>A contributes to brain development are incompletely understood. RBM45 acts as an m<sup>6</sup>A-binding protein that is highly expressed during neurodevelopment. We find that RBM45 binds to thousands of cellular RNAs, predominantly within intronic regions. Rbm45 depletion disrupts the constitutive splicing of a subset of target pre-mRNAs, leading to altered mRNA and protein levels through both m<sup>6</sup>A-dependent and m<sup>6</sup>A-independent mechanisms. Finally, we find that RBM45 is necessary for neuroblastoma cell differentiation and that its depletion impacts the expression of genes involved in several neurodevelopmental signaling pathways. Altogether, our findings show a role for RBM45 in controlling mRNA processing and neuronal differentiation, mediated in part by the recognition of methylated RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM45 homo-oligomerization mediates association with ALS-linked proteins and stress granules.",
+    "doi": "10.1038/srep14262",
+    "pmid": "26391765",
+    "authors": [
+      "Li Y, Collins M, Geiser R, Bakkar N, Riascos D, Bowser R."
+    ],
+    "year": "2015",
+    "publication_date": "2015-09-22",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "The aggregation of RNA-binding proteins is a pathological hallmark of amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD). RBM45 is an RNA-binding protein that forms cytoplasmic inclusions in neurons and glia in ALS and FTLD. To explore the role of RBM45 in ALS and FTLD, we examined the contribution of the protein's domains to its function, subcellular localization, and interaction with itself and ALS-linked proteins. We find that RBM45 forms homo-oligomers and physically associates with the ALS-linked proteins TDP-43 and FUS in the nucleus. Nuclear localization of RBM45 is mediated by a bipartite nuclear-localization sequence (NLS) located at the C-terminus. RBM45 mutants that lack a functional NLS accumulate in the cytoplasm and form TDP-43 positive stress granules. Moreover, we identify a novel structural element, termed the homo-oligomer assembly (HOA) domain, that is highly conserved across species and promote homo-oligomerization of RBM45. RBM45 mutants that fail to form homo-oligomers exhibit significantly reduced association with ALS-linked proteins and inclusion into stress granules. These results show that RMB45 may function as a homo-oligomer and that its oligomerization contributes to ALS/FTLD RNA-binding protein aggregation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Influence of Obesity in the miRNome: miR-4454, a Key Regulator of Insulin Response Via Splicing Modulation in Prostate.",
+    "doi": "10.1210/clinem/dgaa580",
+    "pmid": "32841353",
+    "authors": [
+      "Herrero-Aguayo V, Jiménez-Vacas JM, Sáez-Martínez P, Gómez-Gómez E, López-Cánovas JL, Garrido-Sánchez L, Herrera-Martínez AD, García-Bermejo L, Macías-González M, López-Miranda J, Castaño JP, Gahete MD, Luque RM."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-01",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "<h4>Context</h4>Obesity is a major health problem associated with severe comorbidities, including type 2 diabetes and cancer, wherein microRNAs (miRNAs) might be useful as diagnostic/prognostic tools or therapeutic targets.<h4>Objective</h4>To explore the differential expression pattern of miRNAs in obesity and their putative role in obesity-related comorbidities such as insulin resistance.<h4>Methods</h4>An Affymetrix-miRNA array was performed in plasma samples from normoweight (n = 4/body mass index < 25) and obese subjects (n = 4/body mass index > 30). The main changes were validated in 2 independent cohorts (n = 221/n = 18). Additionally, in silico approaches were performed and in vitro assays applied in tissue samples and prostate (RWPE-1) and liver (HepG2) cell-lines.<h4>Results</h4>A total of 26 microRNAs were altered (P < 0.01) in plasma of obese subjects compared to controls using the Affymetrix-miRNA array. Validation in ampler cohorts revealed that miR-4454 levels were consistently higher in obesity, associated with insulin-resistance (Homeostatic Model Assessment of Insulin Resistance/insulin) and modulated by medical (metformin/statins) and surgical (bariatric surgery) strategies. miR-4454 was highly expressed in prostate and liver tissues and its expression was increased in prostate and liver cells by insulin. In vitro, overexpression of miR-4454 in prostate cells resulted in decreased expression levels of INSR, GLUT4, and phosphorylation of AMPK/AKT/ERK, as well as in altered expression of key spliceosome components (ESRP1/ESRP2/RBM45/RNU2) and insulin-receptor splicing variants.<h4>Conclusions</h4>Obesity was associated to an alteration of the plasmatic miRNA landscape, wherein miR-4454 levels were higher, associated with insulin-resistance and modulated by obesity-controlling interventions. Insulin regulated miR-4454, which, in turn may impair the cellular response to insulin, in a cell type-dependent manner (i.e., prostate gland), by modulating the splicing process.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Binding Motif Protein RBM45 Regulates Expression of the 11-Kilodalton Protein of Parvovirus B19 through Binding to Novel Intron Splicing Enhancers.",
+    "doi": "10.1128/mbio.00192-20",
+    "pmid": "32156816",
+    "authors": [
+      "Wang J, Ganaie SS, Cheng F, Xu P, Ning K, Wang X, Kleiboeker S, Cheng S, Qiu J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-10",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "During infection of human parvovirus B19 (B19V), one viral precursor mRNA (pre-mRNA) is transcribed by a single promoter and is alternatively spliced and alternatively polyadenylated. Here, we identified a novel <i>cis</i>-acting sequence (5'-GUA AAG CUA CGG GAC GGU-3'), intronic splicing enhancer 3 (ISE3), which lies 72 nucleotides upstream of the second splice acceptor (A2-2) site of the second intron that defines the exon of the mRNA encoding the 11-kDa viral nonstructural protein. RNA binding motif protein 45 (RBM45) specifically binds to ISE3 with high affinity (equilibrium dissociation constant [<i>K<sub>D</sub></i> ] = 33 nM) mediated by its RNA recognition domain and 2-homo-oligomer assembly domain (RRM2-HOA). Knockdown of RBM45 expression or ectopic overexpression of RRM2-HOA in human erythroid progenitor cells (EPCs) expanded <i>ex vivo</i> significantly decreased the level of viral mRNA spliced at the A2-2 acceptor but not that of the mRNA spliced at A2-1 that encodes VP2. Moreover, silent mutations of ISE3 in an infectious DNA of B19V significantly reduced 11-kDa expression. Notably, RBM45 also specifically interacts <i>in vitro</i> with ISE2, which shares the octanucleotide (GGGACGGU) with ISE3. Taken together, our results suggest that RBM45, through binding to both ISE2 and ISE3, is an essential host factor for maturation of 11-kDa-encoding mRNA.<b>IMPORTANCE</b> Human parvovirus B19 (B19V) is a human pathogen that causes severe hematological disorders in immunocompromised individuals. B19V infection has a remarkable tropism with respect to human erythroid progenitor cells (EPCs) in human bone marrow and fetal liver. During B19V infection, only one viral precursor mRNA (pre-mRNA) is transcribed by a single promoter of the viral genome and is alternatively spliced and alternatively polyadenylated, a process which plays a key role in expression of viral proteins. Our studies revealed that a cellular RNA binding protein, RBM45, binds to two intron splicing enhancers and is essential for the maturation of the small nonstructural protein 11-kDa-encoding mRNA. The 11-kDa protein plays an important role not only in B19V infection-induced apoptosis but also in viral DNA replication. Thus, the identification of the RBM45 protein and its cognate binding site in B19V pre-mRNA provides a novel target for antiviral development to combat B19V infection-caused severe hematological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Developmentally Regulated RNA-binding Protein 1 (Drb1)/RNA-binding Motif Protein 45 (RBM45), a Nuclear-Cytoplasmic Trafficking Protein, Forms TAR DNA-binding Protein 43 (TDP-43)-mediated Cytoplasmic Aggregates.",
+    "doi": "10.1074/jbc.m115.712232",
+    "pmid": "27226551",
+    "authors": [
+      "Mashiko T, Sakashita E, Kasashima K, Tominaga K, Kuroiwa K, Nozaki Y, Matsuura T, Hamamoto T, Endo H."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-12",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Cytoplasmic protein aggregates are one of the pathological hallmarks of neurodegenerative disorders, including amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD). Several RNA-binding proteins have been identified as components of inclusion bodies. Developmentally regulated RNA-binding protein 1 (Drb1)/RNA-binding motif protein 45 is an RNA-binding protein that was recently described as a component in ALS- and FTLD-related inclusion bodies. However, the molecular mechanism underlying cytoplasmic Drb1 aggregation remains unclear. Here, using an in vitro cellular model, we demonstrated that Drb1 co-localizes with cytoplasmic aggregates mediated by TAR DNA-binding protein 43, a major component of ALS and FTLD-related inclusion bodies. We also defined the domains involved in the subcellular localization of Drb1 to clarify the role of Drb1 in the formation of cytoplasmic aggregates in ALS and FTLD. Drb1 predominantly localized in the nucleus via a classical nuclear localization signal in its carboxyl terminus and is a shuttling protein between the nucleus and cytoplasm. Furthermore, we identify a double leucine motif serving as a nuclear export signal. The Drb1 mutant, presenting mutations in both nuclear localization signal and nuclear export signal, is prone to aggregate in the cytoplasm. The mutant Drb1-induced cytoplasmic aggregates not only recruit TAR DNA-binding protein 43 but also decrease the mitochondrial membrane potential. Taken together, these results indicate that perturbation of Drb1 nuclear-cytoplasmic trafficking induces toxic cytoplasmic aggregates, suggesting that mislocalization of Drb1 is involved in the cause of cytotoxicity in neuronal cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM45 associates with nuclear stress bodies and forms nuclear inclusions during chronic cellular stress and in neurodegenerative diseases.",
+    "doi": "10.1186/s40478-020-00965-y",
+    "pmid": "32586379",
+    "authors": [
+      "Collins M, Li Y, Bowser R."
+    ],
+    "year": "2020",
+    "publication_date": "2020-06-26",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "The RNA binding protein (RBP) RBM45 forms nuclear and cytoplasmic inclusions in neurons and glia in amyotrophic lateral sclerosis (ALS), frontotemporal lobar degeneration with TDP-43 proteinopathy (FTLD-TDP), and Alzheimer's disease (AD). The normal functions of RBM45 are poorly understood, as are the mechanisms by which it forms inclusions in disease. To better understand the normal and pathological functions of RBM45, we evaluated whether the protein functions via association with several membraneless organelles and whether such an association could promote the formation of nuclear RBM45 inclusions. Under basal conditions, RBM45 is diffusely distributed throughout the nucleus and does not localize to membraneless organelles, including nuclear speckles, Cajal bodies, or nuclear gems. During cellular stress, however, nuclear RBM45 undergoes a reversible, RNA-binding dependent incorporation into nuclear stress bodies (NSBs). Chronic stress leads to the persistent association of RBM45 with NSBs and the irreversible accumulation of nuclear RBM45 inclusions. We also quantified the cell type- and disease-specific patterns of RBM45 pathology in ALS, FTLD-TDP, and AD. RBM45 nuclear and cytoplasmic inclusions are found in both neurons and glia in ALS, FTLD-TDP, and AD but are absent in non-neurologic disease controls. Across neurodegenerative diseases, RBM45 nuclear inclusion pathology occurs more frequently than cytoplasmic RBM45 inclusion pathology and exhibits cell type-specific variation. Collectively, our results define new stress-associated functions of RBM45, a mechanism for nuclear RBM45 inclusion formation, a role for NSBs in the pathogenesis of ALS, FTLD-TDP, and AD, and further underscore the importance of protein self-association to both the normal and pathological functions of RBPs in these diseases.",
+    "openalex_id": ""
+  }
+]

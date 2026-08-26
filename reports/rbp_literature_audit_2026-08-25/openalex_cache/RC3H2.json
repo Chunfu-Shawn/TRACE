@@ -1,0 +1,60 @@
+[
+  {
+    "title": "The RNA Splicing Response to DNA Damage",
+    "doi": "10.3390/biom5042935",
+    "authors": [
+      "Lulzim Shkreta",
+      "Benoı̂t Chabot"
+    ],
+    "year": 2015,
+    "publication_date": "2015-10-29",
+    "cited_by_count": 157,
+    "journal": "Biomolecules",
+    "abstract": "The number of factors known to participate in the DNA damage response (DDR) has expanded considerably in recent years to include splicing and alternative splicing factors. While the binding of splicing proteins and ribonucleoprotein complexes to nascent transcripts prevents genomic instability by deterring the formation of RNA/DNA duplexes, splicing factors are also recruited to, or removed from, sites of DNA damage. The first steps of the DDR promote the post-translational modification of splic",
+    "openalex_id": "https://openalex.org/W1890648625",
+    "relevance_score": 68.58682
+  },
+  {
+    "title": "Uncovering the Role of RNA-Binding Proteins in Gene Expression in the Immune System",
+    "doi": "10.3389/fimmu.2018.01094",
+    "authors": [
+      "Manuel D. Díaz‐Muñoz",
+      "Martin Turner"
+    ],
+    "year": 2018,
+    "publication_date": "2018-05-23",
+    "cited_by_count": 88,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Fighting external pathogens requires an ever-changing immune system that relies on tight regulation of gene expression. Transcriptional control is the first step to build efficient responses while preventing immunodeficiencies and autoimmunity. Post-transcriptional regulation of RNA editing, location, stability, and translation are the other key steps for final gene expression, and they are all controlled by RNA-binding proteins (RBPs). Nowadays we have a deep understanding of how transcription ",
+    "openalex_id": "https://openalex.org/W2804378101",
+    "relevance_score": 55.75158
+  },
+  {
+    "title": "Identification of regulatory RNA elements based on structural conservation",
+    "doi": "10.26083/tuprints-00008827",
+    "authors": [
+      "Johannes Braun"
+    ],
+    "year": 2019,
+    "publication_date": "2019-01-01",
+    "cited_by_count": 0,
+    "journal": "TUbilio (Technical University of Darmstadt)",
+    "abstract": "The posttranscriptional regulation of gene expression determines the amount of a protein produced from a specific mRNA. All stages of the mRNA life cycle are posttranscriptionally regulated. The untranslated regions (UTRs) of mRNA play an important role in this process. UTRs encode cis-regulatory elements that interact with trans-acting factors such as RNA binding proteins or non-coding RNAs. These interactions are based on the specific recognition of sequence or structured motifs. Similar to th",
+    "openalex_id": "https://openalex.org/W2970069352",
+    "relevance_score": 2.6154222
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.1746643
+  }
+]

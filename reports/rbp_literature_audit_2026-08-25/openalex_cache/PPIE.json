@@ -1,0 +1,86 @@
+[
+  {
+    "title": "Gene regulation by long non-coding RNAs and its biological functions",
+    "doi": "10.1038/s41580-020-00315-9",
+    "authors": [
+      "Luisa Statello",
+      "Chunjie Guo",
+      "Ling‐Ling Chen",
+      "Maite Huarte"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-22",
+    "cited_by_count": 5215,
+    "journal": "Nature Reviews Molecular Cell Biology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W3115880421",
+    "relevance_score": 402.4943
+  },
+  {
+    "title": "Role of noncoding RNAs in liver fibrosis",
+    "doi": "10.3748/wjg.v29.i9.1446",
+    "authors": [
+      "Qingyuan Li",
+      "Tao Gong",
+      "Yike Huang",
+      "Lan Kang",
+      "Charlotte A. Warner"
+    ],
+    "year": 2023,
+    "publication_date": "2023-03-07",
+    "cited_by_count": 20,
+    "journal": "World Journal of Gastroenterology",
+    "abstract": "Liver fibrosis is a wound-healing response following chronic liver injury caused by hepatitis virus infection, obesity, or excessive alcohol. It is a dynamic and reversible process characterized by the activation of hepatic stellate cells and excess accumulation of extracellular matrix. Advanced fibrosis could lead to cirrhosis and even liver cancer, which has become a significant health burden worldwide. Many studies have revealed that noncoding RNAs (ncRNAs), including microRNAs, long noncodin",
+    "openalex_id": "https://openalex.org/W4323358615",
+    "relevance_score": 29.99888
+  },
+  {
+    "title": "Regulation and intervention of stem cell differentiation by long non-coding RNAs: Mechanisms and therapeutic potential",
+    "doi": "10.4252/wjsc.v17.i7.107688",
+    "authors": [
+      "Yehua Li",
+      "Yi-Ning Yao",
+      "Shen-Ao Zhou",
+      "Yang Wang"
+    ],
+    "year": 2025,
+    "publication_date": "2025-07-24",
+    "cited_by_count": 4,
+    "journal": "World Journal of Stem Cells",
+    "abstract": "Long non-coding RNAs (lncRNAs) play pivotal roles in the regulation of gene expression, particularly in maintaining pluripotency and directing stem cell. By orchestrating stem cell fate decisions and lineage commitment through epigenetic, transcriptional, and post-transcriptional mechanisms, lncRNAs have emerged as key modulators in developmental biology. Their therapeutic potential has garnered increasing interest, especially in the contexts of regenerative medicine, disease modeling, targeted ",
+    "openalex_id": "https://openalex.org/W4412639939",
+    "relevance_score": 16.416307
+  },
+  {
+    "title": "Long non-coding RNA GAS5 promotes neuronal apoptosis in spinal cord injury via the miR-21/PTEN axis",
+    "doi": "10.5312/wjo.v16.i5.106183",
+    "authors": [
+      "Yingjie Wang",
+      "Zhongzheng Zhi",
+      "Tao Liu",
+      "Jian Kang",
+      "Guanghui Xu"
+    ],
+    "year": 2025,
+    "publication_date": "2025-05-16",
+    "cited_by_count": 1,
+    "journal": "World Journal of Orthopedics",
+    "abstract": "BACKGROUND Spinal cord injury (SCI) is a severe and permanent trauma that often leads to significant motor, sensory, and autonomic dysfunction. Neuronal apoptosis is a major pathomechanism underlying secondary injury in SCI. Long non-coding RNAs (lncRNAs) have emerged as key regulators of gene expression and cellular processes, including apoptosis. However, the role of lncRNA growth arrest-specific transcript 5 (GAS5) in SCI-induced neuronal apoptosis remains unclear. AIM To investigate the role",
+    "openalex_id": "https://openalex.org/W4410386259",
+    "relevance_score": 11.094686
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.1578
+  }
+]

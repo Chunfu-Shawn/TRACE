@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Identification of a ubiquitin-protein ligase subunit within the CCR4-NOT transcription repressor complex.",
+    "doi": "10.1093/emboj/21.3.355",
+    "pmid": "11823428",
+    "authors": [
+      "Albert TK, Hanzawa H, Legtenberg YI, de Ruwe MJ, van den Heuvel FA, Collart MA, Boelens R, Timmers HT."
+    ],
+    "year": "2002",
+    "publication_date": "2002-02-01",
+    "cited_by_count": 187,
+    "journal": "",
+    "abstract": "The RING finger protein CNOT4 is a component of the CCR4-NOT complex. This complex is implicated in repression of RNA polymerase II transcription. Here we demonstrate that CNOT4 functions as a ubiquitin-protein ligase (E3). We show that the unique C4C4 RING domain of CNOT4 interacts with a subset of ubiquitin-conjugating enzymes (E2s). Using NMR spectroscopy, we detail the interaction of CNOT4 with UbcH5B and characterize RING residues that are critical for this interaction. CNOT4 acts as a potent E3 ligase in vitro. Mutations that destabilize the E2-E3 interface abolish this activity. Based on these results, we present a model of how E3 ligase function within the CCR4-NOT complex relates to transcriptional regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human Ccr4-Not complexes contain variable deadenylase subunits.",
+    "doi": "10.1042/bj20090500",
+    "pmid": "19558367",
+    "authors": [
+      "Lau NC, Kolkman A, van Schaik FM, Mulder KW, Pijnappel WW, Heck AJ, Timmers HT."
+    ],
+    "year": "2009",
+    "publication_date": "2009-08-27",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "The Ccr4-Not complex is evolutionarily conserved and important for regulation of mRNA synthesis and decay. The composition of the yeast complex has been well described. Orthologues of the yeast Ccr4-Not components have been identified in human cells including multiple subunits with mRNA deadenylase activity. In the present study, we examine the composition of the human Ccr4-Not complex in an in-depth proteomic approach using stable cell lines expressing tagged CNOT proteins. We find at least four different variants of the human complex, consisting of seven stable core proteins and mutually exclusive associated mRNA deadenylase subunits. Interestingly, human CNOT4 is in a separate approximately 200 kDa complex. Furthermore, analyses of associated proteins indicate involvement of Ccr4-Not complexes in splicing, transport and localization of RNA molecules. Taken together, human Ccr4-Not complexes are heterogeneous in composition owing to differences in their deadenylase subunits, which may reflect the multi-functionality of these complexes in cellular processes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cross-talk between PRMT1-mediated methylation and ubiquitylation on RBM15 controls RNA splicing.",
+    "doi": "10.7554/elife.07938",
+    "pmid": "26575292",
+    "authors": [
+      "Zhang L, Tran NT, Su H, Wang R, Lu Y, Tang H, Aoyagi S, Guo A, Khodadadi-Jamayran A, Zhou D, Qian K, Hricik T, Côté J, Han X, Zhou W, Laha S, Abdel-Wahab O, Levine RL, Raffel G, Liu Y, Chen D, Li H, Townes T, Wang H, Deng H, Zheng YG, Leslie C, Luo M, Zhao X."
+    ],
+    "year": "2015",
+    "publication_date": "2015-11-17",
+    "cited_by_count": 159,
+    "journal": "",
+    "abstract": "RBM15, an RNA binding protein, determines cell-fate specification of many tissues including blood. We demonstrate that RBM15 is methylated by protein arginine methyltransferase 1 (PRMT1) at residue R578, leading to its degradation via ubiquitylation by an E3 ligase (CNOT4). Overexpression of PRMT1 in acute megakaryocytic leukemia cell lines blocks megakaryocyte terminal differentiation by downregulation of RBM15 protein level. Restoring RBM15 protein level rescues megakaryocyte terminal differentiation blocked by PRMT1 overexpression. At the molecular level, RBM15 binds to pre-messenger RNA intronic regions of genes important for megakaryopoiesis such as GATA1, RUNX1, TAL1 and c-MPL. Furthermore, preferential binding of RBM15 to specific intronic regions recruits the splicing factor SF3B1 to the same sites for alternative splicing. Therefore, PRMT1 regulates alternative RNA splicing via reducing RBM15 protein concentration. Targeting PRMT1 may be a curative therapy to restore megakaryocyte differentiation for acute megakaryocytic leukemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The DDX6-4E-T interaction mediates translational repression and P-body assembly.",
+    "doi": "10.1093/nar/gkw565",
+    "pmid": "27342281",
+    "authors": [
+      "Kamenska A, Simpson C, Vindry C, Broomhead H, Bénard M, Ernoult-Lange M, Lee BP, Harries LW, Weil D, Standart N."
+    ],
+    "year": "2016",
+    "publication_date": "2016-06-24",
+    "cited_by_count": 125,
+    "journal": "",
+    "abstract": "4E-Transporter binds eIF4E via its consensus sequence YXXXXLΦ, shared with eIF4G, and is a nucleocytoplasmic shuttling protein found enriched in P-(rocessing) bodies. 4E-T inhibits general protein synthesis by reducing available eIF4E levels. Recently, we showed that 4E-T bound to mRNA however represses its translation in an eIF4E-independent manner, and contributes to silencing of mRNAs targeted by miRNAs. Here, we address further the mechanism of translational repression by 4E-T by first identifying and delineating the interacting sites of its major partners by mass spectrometry and western blotting, including DDX6, UNR, unrip, PAT1B, LSM14A and CNOT4. Furthermore, we document novel binding between 4E-T partners including UNR-CNOT4 and unrip-LSM14A, altogether suggesting 4E-T nucleates a complex network of RNA-binding protein interactions. In functional assays, we demonstrate that joint deletion of two short conserved motifs that bind UNR and DDX6 relieves repression of 4E-T-bound mRNA, in part reliant on the 4E-T-DDX6-CNOT1 axis. We also show that the DDX6-4E-T interaction mediates miRNA-dependent translational repression and de novo P-body assembly, implying that translational repression and formation of new P-bodies are coupled processes. Altogether these findings considerably extend our understanding of the role of 4E-T in gene regulation, important in development and neurogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Specific recognition and ubiquitination of translating ribosomes by mammalian CCR4-NOT.",
+    "doi": "10.1038/s41594-023-01075-8",
+    "pmid": "37653243",
+    "authors": [
+      "Absmeier E, Chandrasekaran V, O'Reilly FJ, Stowell JAW, Rappsilber J, Passmore LA."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-31",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "Translation affects messenger RNA stability and, in yeast, this is mediated by the Ccr4-Not deadenylation complex. The details of this process in mammals remain unclear. Here, we use cryogenic electron microscopy (cryo-EM) and crosslinking mass spectrometry to show that mammalian CCR4-NOT specifically recognizes ribosomes that are stalled during translation elongation in an in vitro reconstituted system with rabbit and human components. Similar to yeast, mammalian CCR4-NOT inserts a helical bundle of its CNOT3 subunit into the empty E site of the ribosome. Our cryo-EM structure shows that CNOT3 also locks the L1 stalk in an open conformation to inhibit further translation. CCR4-NOT is required for stable association of the nonconstitutive subunit CNOT4, which ubiquitinates the ribosome, likely to signal stalled translation elongation. Overall, our work shows that human CCR4-NOT not only detects but also enforces ribosomal stalling to couple translation and mRNA decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Modulation of Ubc4p/Ubc5p-mediated stress responses by the RING-finger-dependent ubiquitin-protein ligase Not4p in Saccharomyces cerevisiae.",
+    "doi": "10.1534/genetics.106.060640",
+    "pmid": "17513889",
+    "authors": [
+      "Mulder KW, Inagaki A, Cameroni E, Mousson F, Winkler GS, De Virgilio C, Collart MA, Timmers HT."
+    ],
+    "year": "2007",
+    "publication_date": "2007-05-01",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "The Ccr4-Not complex consists of nine subunits and acts as a regulator of mRNA biogenesis in Saccharomyces cerevisiae. The human ortholog of yeast NOT4, CNOT4, displays UbcH5B-dependent ubiquitin-protein ligase (E3 ligase) activity in a reconstituted in vitro system. However, an in vivo role for this enzymatic activity has not been identified. Site-directed mutagenesis of the RING finger of yeast Not4p identified residues required for interaction with Ubc4p and Ubc5p, the yeast orthologs of UbcH5B. Subsequent in vitro assays with purified Ccr4-Not complexes showed Not4p-mediated E3 ligase activity, which was dependent on the interaction with Ubc4p. To investigate the in vivo relevance of this activity, we performed synthetic genetic array (SGA) analyses using not4Delta and not4L35A alleles. This indicates involvement of the RING finger of Not4p in transcription, ubiquitylation, and DNA damage responses. In addition, we found a phenotypic overlap between deletions of UBC4 and mutants encoding single-amino-acid substitutions of the RING finger of Not4p. Together, our results show that Not4p functions as an E3 ligase by modulating Ubc4p/Ubc5p-mediated stress responses in vivo.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CNOT4-Mediated Ubiquitination of Influenza A Virus Nucleoprotein Promotes Viral RNA Replication.",
+    "doi": "10.1128/mbio.00597-17",
+    "pmid": "28536288",
+    "authors": [
+      "Lin YC, Jeng KS, Lai MMC."
+    ],
+    "year": "2017",
+    "publication_date": "2017-05-23",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Influenza A virus (IAV) RNA segments are individually packaged with viral nucleoprotein (NP) and RNA polymerases to form a viral ribonucleoprotein (vRNP) complex. We previously reported that NP is a monoubiquitinated protein which can be deubiquitinated by a cellular ubiquitin protease, USP11. In this study, we identified an E3 ubiquitin ligase, CNOT4 (Ccr4-Not transcription complex subunit 4), which can ubiquitinate NP. We found that the levels of viral RNA, protein, viral particles, and RNA polymerase activity in CNOT4 knockdown cells were lower than those in the control cells upon IAV infection. Conversely, overexpression of CNOT4 rescued viral RNP activity. In addition, CNOT4 interacted with the NP in the cell. An <i>in vitro</i> ubiquitination assay also showed that NP could be ubiquitinated by <i>in vitro</i>-translated CNOT4, but ubiquitination did not affect the protein stability of NP. Significantly, CNOT4 increased NP ubiquitination, whereas USP11 decreased it. Mass spectrometry analysis of ubiquitinated NP revealed multiple ubiquitination sites on the various lysine residues of NP. Three of these, K184, K227, and K273, are located on the RNA-binding groove of NP. Mutations of these sites to arginine reduced viral RNA replication. These results indicate that CNOT4 is a ubiquitin ligase of NP, and ubiquitination of NP plays a positive role in viral RNA replication.<b>IMPORTANCE</b> Influenza virus, particularly influenza A virus, causes severe and frequent outbreaks among human and avian species. Finding potential target sites for antiviral agents is of utmost importance from the public health point of view. We previously found that viral nucleoprotein (NP) is ubiquitinated, and ubiquitination enhances viral RNA replication. In this study, we found a cellular ubiquitin ligase, CNOT4, capable of ubiquitinating NP. The ubiquitination sites are scattered on the surface of the NP molecule, which is critical for RNA replication. CNOT4 and a ubiquitin protease, USP11, together regulate the extent of NP ubiquitination and thereby the efficiency of RNA replication. This study thus identifies a potential antiviral target site and reveals a novel posttranslational mechanism for regulating viral replication. This represents a novel finding in the literature of influenza virus research.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of new reference genes with stable expression patterns for gene expression studies using human cancer and normal cell lines.",
+    "doi": "10.1038/s41598-021-98869-x",
+    "pmid": "34593877",
+    "authors": [
+      "Rácz GA, Nagy N, Tóvári J, Apáti Á, Vértessy BG."
+    ],
+    "year": "2021",
+    "publication_date": "2021-09-30",
+    "cited_by_count": 40,
+    "journal": "",
+    "abstract": "Reverse transcription-quantitative real-time PCR (RT-qPCR) is a ubiquitously used method in biological research, however, finding appropriate reference genes for normalization is challenging. We aimed to identify genes characterized with low expression variability among human cancer and normal cell lines. For this purpose, we investigated the expression of 12 candidate reference genes in 13 widely used human cancer cell lines (HeLa, MCF-7, A-549, K-562, HL-60(TB), HT-29, MDA-MB-231, HCT 116, U-937, SH-SY5Y, U-251MG, MOLT-4 and RPMI-8226) and, in addition, 7 normal cell lines (HEK293, MRC-5, HUVEC/TERT2, HMEC, HFF-1, HUES 9, XCL-1). In our set of genes, we included SNW1 and CNOT4 as novel candidate reference genes based on the RNA HPA cell line gene data from The Human Protein Atlas. HNRNPL and PCBP1 were also included along with the \"classical\" reference genes ACTB, GAPDH, IPO8, PPIA, PUM1, RPL30, TBP and UBC. Results were evaluated using GeNorm, NormFiner, BestKeeper and the Comparative ΔCt methods. In conclusion, we propose IPO8, PUM1, HNRNPL, SNW1 and CNOT4 as stable reference genes for comparing gene expression between different cell lines. CNOT4 was also the most stable gene upon serum starvation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Extracellular vesicle-packaged lncRNA from cancer-associated fibroblasts promotes immune evasion by downregulating HLA-A in pancreatic cancer.",
+    "doi": "10.1002/jev2.12484",
+    "pmid": "39041344",
+    "authors": [
+      "Yao H, Huang C, Zou J, Liang W, Zhao Y, Yang K, Zhong Z, Zhou S, Li J, Li Y, Xu L, Huang K, Lian G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-01",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "Pancreatic ductal adenocarcinoma (PDAC) is characterised by immune evasion that contribute to poor prognosis. Cancer-associated fibroblasts (CAFs) play a pivotal role in orchestrating the PDAC tumour microenvironment. We investigated the role of CAF-derived extracellular vesicle (EV)-packaged long non-coding RNAs (lncRNAs) in immune evasion and explored gene therapy using engineered EVs loading small interfering RNAs (siRNAs) as a potential therapeutic strategy. Our findings highlight the significance of EV-packaged lncRNA RP11-161H23.5 from CAF in promoting PDAC immune evasion by downregulating HLA-A expression, a key component of antigen presentation. Mechanistically, RP11-161H23.5 forms a complex with CNOT4, a subunit of the mRNA deadenylase CCR4-NOT complex, enhancing the degradation of HLA-A mRNA by shortening its poly(A) tail. This immune evasion mechanism compromises the anti-tumour immune response. To combat this, we propose an innovative approach utilising engineered EVs as natural and biocompatible nanocarriers for siRNA-based gene therapy and this strategy holds promise for enhancing the effectiveness of immunotherapy in PDAC. Overall, our study sheds light on the critical role of CAF-derived EV-packaged lncRNA RP11-161H23.5/CNOT4/HLA-A axis in PDAC immune evasion and presents a novel avenue for therapeutic intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The CNOT4 Subunit of the CCR4-NOT Complex is Involved in mRNA Degradation, Efficient DNA Damage Repair, and XY Chromosome Crossover during Male Germ Cell Meiosis.",
+    "doi": "10.1002/advs.202003636",
+    "pmid": "34026442",
+    "authors": [
+      "Dai XX, Jiang Y, Gu JH, Jiang ZY, Wu YW, Yu C, Yin H, Zhang J, Shi QH, Shen L, Sha QQ, Fan HY."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-16",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "The CCR4-NOT complex is a major mRNA deadenylase in eukaryotes, comprising the catalytic subunits CNOT6/6L and CNOT7/8, as well as CNOT4, a regulatory subunit with previously undetermined functions. These subunits have been hypothesized to play synergistic biochemical functions during development. <i>Cnot7</i> knockout male mice have been reported to be infertile. In this study, viable <i>Cnot6</i>/<i>6l</i> double knockout mice are constructed, and the males are fertile. These results indicate that CNOT7 has CNOT6/6L-independent functions in vivo. It is also demonstrated that CNOT4 is required for post-implantation embryo development and meiosis progression during spermatogenesis. Conditional knockout of <i>Cnot4</i> in male germ cells leads to defective DNA damage repair and homologous crossover between X and Y chromosomes. CNOT4 functions as a previously unrecognized mRNA adaptor of CCR4-NOT by targeting mRNAs to CNOT7 for deadenylation of poly(A) tails, thereby mediating the degradation of a subset of transcripts from the zygotene to pachytene stage. The mRNA removal promoted by the CNOT4-regulated CCR4-NOT complex during the zygotene-to-pachytene transition is crucial for the appropriate expression of genes involved in the subsequent events of spermatogenesis, normal DNA double-strand break repair during meiosis, efficient crossover between X and Y chromosomes, and ultimately, male fertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Silencing of CCR4-NOT complex subunits affects heart structure and function.",
+    "doi": "10.1242/dmm.044727",
+    "pmid": "32471864",
+    "authors": [
+      "Elmén L, Volpato CB, Kervadec A, Pineda S, Kalvakuri S, Alayari NN, Foco L, Pramstaller PP, Ocorr K, Rossini A, Cammarato A, Colas AR, Hicks AA, Bodmer R."
+    ],
+    "year": "2020",
+    "publication_date": "2020-07-20",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "The identification of genetic variants that predispose individuals to cardiovascular disease and a better understanding of their targets would be highly advantageous. Genome-wide association studies have identified variants that associate with QT-interval length (a measure of myocardial repolarization). Three of the strongest associating variants (single-nucleotide polymorphisms) are located in the putative promotor region of <i>CNOT1</i>, a gene encoding the central CNOT1 subunit of CCR4-NOT: a multifunctional, conserved complex regulating gene expression and mRNA stability and turnover. We isolated the minimum fragment of the <i>CNOT1</i> promoter containing all three variants from individuals homozygous for the QT risk alleles and demonstrated that the haplotype associating with longer QT interval caused reduced reporter expression in a cardiac cell line, suggesting that reduced <i>CNOT1</i> expression might contribute to abnormal QT intervals. Systematic siRNA-mediated knockdown of CCR4-NOT components in human induced pluripotent stem cell-derived cardiomyocytes (hiPSC-CMs) revealed that silencing <i>CNOT1</i> and other CCR4-NOT genes reduced their proliferative capacity. Silencing <i>CNOT7</i> also shortened action potential duration. Furthermore, the cardiac-specific knockdown of <i>Drosophila</i> orthologs of CCR4-NOT genes <i>in vivo</i> (<i>CNOT1/N</i><i>ot1</i> and <i>CNOT7/8/Pop2</i>) was either lethal or resulted in dilated cardiomyopathy, reduced contractility or a propensity for arrhythmia. Silencing <i>CNOT2/Not2</i>, <i>CNOT4/</i><i>N</i><i>ot4</i> and <i>CNOT6/6L/twin</i> also affected cardiac chamber size and contractility. Developmental studies suggested that <i>CNOT1/Not1</i> and <i>CNOT7/8/Pop2</i> are required during cardiac remodeling from larval to adult stages. To summarize, we have demonstrated how disease-associated genes identified by GWAS can be investigated by combining human cardiomyocyte cell-based and whole-organism <i>in vivo</i> heart models. Our results also suggest a potential link of <i>CNOT1</i> and <i>CNOT7/8</i> to QT alterations and further establish a crucial role of the CCR4-NOT complex in heart development and function.This article has an associated First Person interview with the first author of the paper.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of miRNA-mRNA-TFs Regulatory Network and Crucial Pathways Involved in Tetralogy of Fallot.",
+    "doi": "10.3389/fgene.2020.00552",
+    "pmid": "32595699",
+    "authors": [
+      "You G, Zu B, Wang B, Fu Q, Li F."
+    ],
+    "year": "2020",
+    "publication_date": "2020-06-12",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Tetralogy of Fallot (TOF) is the most common cyanotic congenital heart disease. However, its pathogenesis remains unknown. To explore key regulatory connections and crucial pathways underlying the TOF, gene or microRNA expression profile datasets of human TOF were obtained from the National Center for Biotechnology Information (NCBI) Gene Expression Omnibus (GEO) database. The differentially expressed mRNAs (DEmRNAs) and microRNAs (DEmiRs) between TOF and healthy groups were identified after data preprocessing, followed by Gene Ontology (GO) analysis and Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway enrichment analysis. Then, we further constructed protein-protein interaction (PPI) network and subnetwork of modules. Ultimately, to investigate the regulatory network underlying TOF, a global triple network including miRNAs, mRNAs, and transcription factors (TFs) was constructed based on the integrated data. In the present study, a total of 529 DEmRNAs, including 115 downregulated and 414 upregulated DEmRNAs, and 7 significantly upregulated DemiRs, including miR-499, miR-23b, miR-222, miR-1275, miR-93, miR-155, and miR-187, were found between TOF and control groups. Furthermore, 22 hub genes ranked by top 5% genes with high connectivity and six TFs, including SRF, CNOT4, SIX6, SRRM3, NELFA, and ONECUT3, were identified and might play crucial roles in the molecular pathogenesis of TOF. Additionally, an miRNA-mRNA-TF co-regulatory network was established and indicated ubiquitin-mediated proteolysis, energy metabolism associated pathways, neurodevelopmental disorder associated pathways, and ribosomes might be involved in the pathogenesis of TOF. The current research provides a comprehensive perspective of regulatory mechanism networks underlying TOF and also identifies potential molecule targets of genetic counseling and prenatal diagnosis for TOF.",
+    "openalex_id": ""
+  }
+]

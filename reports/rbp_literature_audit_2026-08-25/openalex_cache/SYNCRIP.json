@@ -1,0 +1,202 @@
+[
+  {
+    "title": "Uncovering the Role of RNA-Binding Proteins in Gene Expression in the Immune System",
+    "doi": "10.3389/fimmu.2018.01094",
+    "authors": [
+      "Manuel D. Díaz‐Muñoz",
+      "Martin Turner"
+    ],
+    "year": 2018,
+    "publication_date": "2018-05-23",
+    "cited_by_count": 88,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Fighting external pathogens requires an ever-changing immune system that relies on tight regulation of gene expression. Transcriptional control is the first step to build efficient responses while preventing immunodeficiencies and autoimmunity. Post-transcriptional regulation of RNA editing, location, stability, and translation are the other key steps for final gene expression, and they are all controlled by RNA-binding proteins (RBPs). Nowadays we have a deep understanding of how transcription ",
+    "openalex_id": "https://openalex.org/W2804378101",
+    "relevance_score": 55.27288
+  },
+  {
+    "title": "Long Non-Coding RNA-Ribonucleoprotein Networks in the Post-Transcriptional Control of Gene Expression",
+    "doi": "10.3390/ncrna6030040",
+    "authors": [
+      "Paola Briata",
+      "Roberto Gherzi"
+    ],
+    "year": 2020,
+    "publication_date": "2020-09-17",
+    "cited_by_count": 58,
+    "journal": "Non-Coding RNA",
+    "abstract": "Although mammals possess roughly the same number of protein-coding genes as worms, it is evident that the non-coding transcriptome content has become far broader and more sophisticated during evolution. Indeed, the vital regulatory importance of both short and long non-coding RNAs (lncRNAs) has been demonstrated during the last two decades. RNA binding proteins (RBPs) represent approximately 7.5% of all proteins and regulate the fate and function of a huge number of transcripts thus contributing",
+    "openalex_id": "https://openalex.org/W3085928758",
+    "relevance_score": 51.672653
+  },
+  {
+    "title": "The Activation-Induced Assembly of an RNA/Protein Interactome Centered on the Splicing Factor U2AF2 Regulates Gene Expression in Human CD4 T Cells",
+    "doi": "10.1371/journal.pone.0144409",
+    "authors": [
+      "Thomas Whisenant",
+      "Eigen Peralta",
+      "Lauren D. Aarreberg",
+      "Nina J. Gao",
+      "Steven R. Head"
+    ],
+    "year": 2015,
+    "publication_date": "2015-12-07",
+    "cited_by_count": 20,
+    "journal": "PLoS ONE",
+    "abstract": "Activation of CD4 T cells is a reaction to challenges such as microbial pathogens, cancer and toxins that defines adaptive immune responses. The roles of T cell receptor crosslinking, intracellular signaling, and transcription factor activation are well described, but the importance of post-transcriptional regulation by RNA-binding proteins (RBPs) has not been considered in depth. We describe a new model expanding and activating primary human CD4 T cells and applied this to characterizing activa",
+    "openalex_id": "https://openalex.org/W2189773839",
+    "relevance_score": 50.30035
+  },
+  {
+    "title": "Non-canonical functions of spliceosome components in cancer progression",
+    "doi": "10.1038/s41419-022-05470-9",
+    "authors": [
+      "O.M. Ivanova",
+      "Ksenia S. Anufrieva",
+      "Anastasia N. Kazakova",
+      "Irina K. Malyants",
+      "Polina V. Shnaider"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-02",
+    "cited_by_count": 42,
+    "journal": "Cell Death and Disease",
+    "abstract": "Dysregulation of pre-mRNA splicing is a common hallmark of cancer cells and it is associated with altered expression, localization, and mutations of the components of the splicing machinery. In the last few years, it has been elucidated that spliceosome components can also influence cellular processes in a splicing-independent manner. Here, we analyze open source data to understand the effect of the knockdown of splicing factors in human cells on the expression and splicing of genes relevant to ",
+    "openalex_id": "https://openalex.org/W4319036458",
+    "relevance_score": 45.864365
+  },
+  {
+    "title": "Biological and RNA regulatory function of MOV10 in mammalian germ cells",
+    "doi": "10.1186/s12915-019-0659-z",
+    "authors": [
+      "Kaiqiang Fu",
+      "Suwen Tian",
+      "Huanhuan Tan",
+      "Cai-Feng Wang",
+      "Hanben Wang"
+    ],
+    "year": 2019,
+    "publication_date": "2019-05-14",
+    "cited_by_count": 38,
+    "journal": "BMC Biology",
+    "abstract": "BACKGROUND: RNA regulation by RNA-binding proteins (RBPs) involve extremely complicated mechanisms. MOV10 and MOV10L1 are two homologous RNA helicases implicated in distinct intracellular pathways. MOV10L1 participates specifically in Piwi-interacting RNA (piRNA) biogenesis and protects mouse male fertility. In contrast, the functional complexity of MOV10 remains incompletely understood, and its role in the mammalian germline is unknown. Here, we report a study of the biological and molecular fu",
+    "openalex_id": "https://openalex.org/W2947973501",
+    "relevance_score": 38.92342
+  },
+  {
+    "title": "Comprehensive in vivo identification of the c-Myc mRNA protein interactome using HyPR-MS",
+    "doi": "10.1261/rna.072157.119",
+    "authors": [
+      "Michele Spiniello",
+      "Maisie I. Steinbrink",
+      "Anthony J. Cesnik",
+      "Rachel Miller",
+      "Mark Scalf"
+    ],
+    "year": 2019,
+    "publication_date": "2019-07-11",
+    "cited_by_count": 39,
+    "journal": "RNA",
+    "abstract": "Proteins bind mRNA through their entire life cycle from transcription to degradation. We analyzed c-Myc mRNA protein interactors in vivo using the HyPR-MS method to capture the crosslinked mRNA by hybridization and then analyzed the bound proteins using mass spectrometry proteomics. Using HyPR-MS, 229 c-Myc mRNA-binding proteins were identified, confirming previously proposed interactors, suggesting new interactors, and providing information related to the roles and pathways known to involve c-M",
+    "openalex_id": "https://openalex.org/W2957983068",
+    "relevance_score": 38.80399
+  },
+  {
+    "title": "HIV-1 and two avian retroviral 5′ untranslated regions bind orthologous human and chicken RNA binding proteins",
+    "doi": "10.1016/j.virol.2015.06.001",
+    "authors": [
+      "Matthew S. Stake",
+      "Deepali Singh",
+      "Gatikrushna Singh",
+      "J. Marcela Hernandez",
+      "Rebecca J. Kaddis Maldonado"
+    ],
+    "year": 2015,
+    "publication_date": "2015-11-13",
+    "cited_by_count": 28,
+    "journal": "Virology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W2173915105",
+    "relevance_score": 38.034412
+  },
+  {
+    "title": "Circular RNAs in neurological conditions – computational identification, functional validation, and potential clinical applications",
+    "doi": "10.1038/s41380-025-02925-1",
+    "authors": [
+      "Oak Hatzimanolis",
+      "Alex M. Sykes",
+      "Alexandre S. Cristino"
+    ],
+    "year": 2025,
+    "publication_date": "2025-02-17",
+    "cited_by_count": 36,
+    "journal": "Molecular Psychiatry",
+    "abstract": "Non-coding RNAs (ncRNAs) have gained significant attention in recent years due to advancements in biotechnology, particularly high-throughput total RNA sequencing. These developments have led to new understandings of non-coding biology, revealing that approximately 80% of non-coding regions in the genome possesses biochemical functionality. Among ncRNAs, circular RNAs (circRNAs), first identified in 1976, have emerged as a prominent research field. CircRNAs are abundant in most human cell types,",
+    "openalex_id": "https://openalex.org/W4407704161",
+    "relevance_score": 37.38163
+  },
+  {
+    "title": "The Pol III transcriptome: Basic features, recurrent patterns, and emerging roles in cancer",
+    "doi": "10.1002/wrna.1782",
+    "authors": [
+      "Sihang Zhou",
+      "Kevin Van Bortle"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-08",
+    "cited_by_count": 37,
+    "journal": "Wiley Interdisciplinary Reviews - RNA",
+    "abstract": "The RNA polymerase III (Pol III) transcriptome is universally comprised of short, highly structured noncoding RNA (ncRNA). Through RNA-protein interactions, the Pol III transcriptome actuates functional activities ranging from nuclear gene regulation (7SK), splicing (U6, U6atac), and RNA maturation and stability (RMRP, RPPH1, Y RNA), to cytoplasmic protein targeting (7SL) and translation (tRNA, 5S rRNA). In higher eukaryotes, the Pol III transcriptome has expanded to include additional, recently",
+    "openalex_id": "https://openalex.org/W4319656340",
+    "relevance_score": 34.784126
+  },
+  {
+    "title": "hnRNPs: roles in neurodevelopment and implication for brain disorders",
+    "doi": "10.3389/fnmol.2024.1411639",
+    "authors": [
+      "Pierre Tilliole",
+      "Simon Fix",
+      "Juliette D. Godin"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-17",
+    "cited_by_count": 22,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "Heterogeneous nuclear ribonucleoproteins (hnRNPs) constitute a family of multifunctional RNA-binding proteins able to process nuclear pre-mRNAs into mature mRNAs and regulate gene expression in multiple ways. They comprise at least 20 different members in mammals, named from A ( HNRNP A1 ) to U ( HNRNP U ). Many of these proteins are components of the spliceosome complex and can modulate alternative splicing in a tissue-specific manner. Notably, while genes encoding hnRNPs exhibit ubiquitous exp",
+    "openalex_id": "https://openalex.org/W4400745471",
+    "relevance_score": 29.606089
+  },
+  {
+    "title": "Regulation of HNRNP family by post-translational modifications in cancer",
+    "doi": "10.1038/s41420-024-02198-7",
+    "authors": [
+      "B Li",
+      "Mingxin Wen",
+      "Fei Gao",
+      "Yunshan Wang",
+      "Guangwei Wei"
+    ],
+    "year": 2024,
+    "publication_date": "2024-10-04",
+    "cited_by_count": 22,
+    "journal": "Cell Death Discovery",
+    "abstract": "Heterogeneous nuclear ribonucleoproteins (HNRNPs) represent a large family of RNA-binding proteins consisting of more than 20 members and have attracted great attention with their distinctive roles in cancer progression by regulating RNA splicing, transcription, and translation. Nevertheless, the cancer-specific modulation of HNRNPs has not been fully elucidated. The research of LC-MS/MS technology has documented that HNRNPs were widely and significantly targeted by different post-translational ",
+    "openalex_id": "https://openalex.org/W4403130368",
+    "relevance_score": 29.343739
+  },
+  {
+    "title": "Diverse roles of heterogeneous nuclear ribonucleoproteins in viral life cycle",
+    "doi": "10.3389/fviro.2022.1044652",
+    "authors": [
+      "Krishna Bhattarai",
+      "Martin Holčı́k"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-22",
+    "cited_by_count": 16,
+    "journal": "Frontiers in Virology",
+    "abstract": "Understanding the host-virus interactions helps to decipher the viral replication strategies and pathogenesis. Viruses have limited genetic content and rely significantly on their host cell to establish a successful infection. Viruses depend on the host for a broad spectrum of cellular RNA-binding proteins (RBPs) throughout their life cycle. One of the major RBP families is the heterogeneous nuclear ribonucleoproteins (hnRNPs) family. hnRNPs are typically localized in the nucleus, where they are",
+    "openalex_id": "https://openalex.org/W4312186366",
+    "relevance_score": 29.16864
+  }
+]

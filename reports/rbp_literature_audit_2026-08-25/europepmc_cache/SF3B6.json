@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Structural basis of the regulation by CDK11 kinase of early spliceosome activation and evidence for its proofreading by DHX15 helicase.",
+    "doi": "10.1038/s41467-026-75109-2",
+    "pmid": "42399621",
+    "authors": [
+      "Zhang Z, Kumar V, Panta S, Zhong J, Dybkov O, Dong H, Kastner B, Urlaub H, Stark H, Lührmann R."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Formation of the activated human spliceosome (B<sup>act</sup>) involves major structural rearrangements, leading to the catalytically active U2/U6 RNA core. This process involves at least two intermediates, pre-B<sup>act-1</sup> and pre-B<sup>act-2</sup>, and is regulated by CDK11-mediated phosphorylation of the U2 snRNP protein SF3B1. However, the mechanisms of this essential step are poorly understood. Here we present the cryo-EM structure of a spliceosome stalled - by the CDK11 inhibitor OTS964 - in a previously undescribed early-activated state, termed pre-B<sup>act-OTS</sup>, shortly after dissociation of U4 snRNP. In pre-B<sup>act-OTS</sup>, the U2-SF3B6 protein is retained in a C-terminal region of the super-helical U2-SF3B1 HEAT domain (SF3B1<sup>HEAT</sup>) that clamps the U2/branch-site helix. In contrast, in pre-B<sup>act-1</sup>, SF3B6 is repositioned to SF3B1's N-terminal HEAT repeats, thereby preventing a steric clash of SF3B6 with PRP8 during the pre-B<sup>act-OTS</sup>-to-pre-B<sup>act-1</sup> transition. We infer that the CDK11-mediated phosphorylation of SF3B1 drives the relocation of SF3B6, gating progression to B<sup>act</sup> formation. In pre-B<sup>act-OTS</sup>, we also located the RNA helicase DHX15 at the N-terminal region of SF3B1<sup>HEAT</sup>, assisted by the SR140/SPF45/CHERP/SUGP1 protein complex. These results suggest the involvement of DHX15 in kinase-mediated proofreading of the early-activated spliceosome, by competing with CDK11's phosphorylation of SF3B1, and thus with relocation of SF3B6 at SF3B1<sup>HEAT</sup>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SF3B6 promotes the oncogenic phenotypes of MDA-MB-231 cells by extensively interacting with and regulating transcripts expression and alternative splicing.",
+    "doi": "10.1038/s41598-025-23477-y",
+    "pmid": "41233405",
+    "authors": [
+      "Yuan C, Gao Y, Huang Y, Zhao Y, Li X, Wang N, Wang S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-13",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "SF3B6 functions as a splicing factor, and is closely associated with the malignant progression of multiple cancer types, including breast cancer. However, its underlying mechanism is largely unknown in breast tumor cells. In this study, we investigated the molecular mechanism and downstream targets of SF3B6 by transfecting the siRNA of SF3B6 (siSF3B6) into MDA-MB-231 cells and combining with high-throughput transcriptome sequencing (RNA-seq) and improved RNA immunoprecipitation sequencing (iRIP-seq) technology. We found siSF3B6 significantly repressed cellular proliferation and migration levels, but increased apoptosis levels of MDA-MB-231 cells. Downstream RNA-seq analysis revealed that SF3B6 silencing resulted in widespread changes in differentially expressed genes (DEGs) and regulatory alternative splicing events (RASEs) that were involved in inflammatory response and immune regulatory pathways, such as the NF-κB signaling pathway. The iRIP-seq analysis indicated that SF3B6 can regulate the gene expression and alternative splicing profile by directly interacting with its targeting mRNAs. Further analysis showed that SF3B6 potentially contributes to the malignant properties of TNBC by regulating the expression and splicing of key oncogenes, including PPM1F and FASN, and tumor suppressor genes, including RLF and RECQL4, which were validated by RT-qPCR experiment. In summary, this study highlights the crucial molecular role of SF3B6 in breast cancer cells, providing new insights into its potential as a biomarker or valuable target in breast cancer diagnosis and treatment in future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bioinformatics analysis across pan-cancer and experimental validation in hepatocellular carcinoma revealed the oncogenic role of SF3B6.",
+    "doi": "10.3389/fphar.2025.1516534",
+    "pmid": "40356980",
+    "authors": [
+      "Tu L, Luo J, Yin Y, Yu H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-28",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Splicing factor 3b subunit 6(SF3B6), a subunit of the SF3B complex, regulates the process of RNA splicing by recognizing the branch point adenosine in pre-mRNA and facilitating the interaction between U2 snRNA and the branch point sequence. Currently, there is no systematic multi-omics study exploring the diagnostic, prognostic, and immunotherapy predictive value of SF3B6 in pan-cancer, nor is its role in hepatocellular carcinoma (HCC) clear.<h4>Methods</h4>We utilized various databases to systematically examine the expression and genetic variation of SF3B6 across multiple cancer types, assessing its relationship with diagnosis, prognosis, immune infiltration, immunotherapy response, and associated signaling pathways. Additionally, we investigated the correlation between SF3B6 and prognosis, clinicopathological features, and treatment responses in HCC, as well as the roles of its related alternative splicing isoforms. Finally, we conducted <i>in vitro</i> experiments to validate the effects of SF3B6 on the proliferation, migration, invasion, apoptosis, and cell cycle progression of liver cancer cells.<h4>Results</h4>Results indicate that SF3B6 was highly expressed in various cancers and regulated by copy number variations and DNA methylation. The elevated expression of SF3B6 demonstrated predictive value for cancer diagnosis, prognosis, and responses to immunotherapy. Functional enrichment analysis suggests that SF3B6 was closely associated with pathways related to tumor immunity, tumor metabolism, and cell cycle. Additionally, high SF3B6 expression was an independent risk factor for overall survival and correlated with poor alpha-fetoprotein levels, pathological grading, clinical staging, and reduced responses to sorafenib and transarterial chemoembolization treatment in HCC. Interestingly, SF3B6 was associated with variant splicing isotypes of genes involved in the G2M checkpoint and DNA repair pathways, including NEIL3, NEK2, KIF4A, TROAP, and FANCD2. Moreover, SF3B6 was highly expressed in liver cancer cells, promoting the proliferation, migration, and invasion of cancer cells, inhibiting apoptosis, and regulating the transition from the S phase to the G2M phase of the cell cycle.<h4>Conclusion</h4>We emphasize that SF3B6 has the potential to serve as a biomarker for predicting cancer diagnosis, prognosis, and immunotherapy responses, especially in HCC. SF3B6 and its related alternative splicing isoforms promote the occurrence and progression of HCC and may serve as potential therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RUNX2 influences alternative splicing of genes associated with gastric cancer progression by regulating SF3B6 expression in HGC-27 cells.",
+    "doi": "10.1007/s00438-026-02459-3",
+    "pmid": "42371149",
+    "authors": [
+      "Han C, Liu J, Shi H, Zhang C, Zhao Q, Song Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Gastric cancer (GC) is a highly malignant tumor with significant morbidity and mortality rates globally. Recent studies have shown that RUNX2, a member of the RUNX family known for its role in osteoblast differentiation and bone morphogenesis, is associated with the pathogenesis and progression of GC, while the underlying mechanisms of the pathogenesis and progression of GC are largely unknown. In this study, we investigated the role of RUNX2 in GC progression by analyzing its effects on gene expression and alternative splicing (AS) in HGC-27 cells. We silenced RUNX2 by small interfering RNA (siRUNX2), and then analyzed the globally regulated transcriptome profile by sequencing method (RNA-seq) to identify the differentially expressed genes (DEGs) and alternative splicing (AS) genes. The downstream targets of RUNX2 were identified by performing CUT&Tag and sequencing experiment in HGC-27 cells. Using RNA-seq, we identified 314 DEGs and 1120 regulated AS events (RASEs) in HGC-27 cells upon RUNX2 knockdown. The DEGs were enriched in pathways related to cell cycle regulation and apoptosis, while the RASEs were predominantly involved in cell cycle processes. These findings suggest that RUNX2 not only modulates gene expression but also extensively influences AS, which is crucial for cellular processes such as proliferation and survival. Notably, we found that RUNX2 regulates the expression of the splicing factor SF3B6 by binding to its promoter region. Our results showed that SF3B6 expression was significantly decreased in siRUNX2 samples, and its downregulation was associated with altered AS profiles of genes involved in the cell cycle. Our findings demonstrate that RUNX2 modulates the transcriptome and AS profile in GC cells, with a particular focus on its regulation of SF3B6. This study highlights the multifaceted role of RUNX2 in GC progression and suggests that targeting the RUNX2-SF3B6 axis could be a promising therapeutic strategy for GC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cryo-EM analyses of dimerized spliceosomes provide new insights into the functions of B complex proteins.",
+    "doi": "10.1038/s44318-024-00052-1",
+    "pmid": "38383864",
+    "authors": [
+      "Zhang Z, Kumar V, Dybkov O, Will CL, Urlaub H, Stark H, Lührmann R."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-21",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "The B complex is a key intermediate stage of spliceosome assembly. To improve the structural resolution of monomeric, human spliceosomal B (hB) complexes and thereby generate a more comprehensive hB molecular model, we determined the cryo-EM structure of B complex dimers formed in the presence of ATP γ S. The enhanced resolution of these complexes allows a finer molecular dissection of how the 5' splice site (5'ss) is recognized in hB, and new insights into molecular interactions of FBP21, SNU23 and PRP38 with the U6/5'ss helix and with each other. It also reveals that SMU1 and RED are present as a heterotetrameric complex and are located at the interface of the B dimer protomers. We further show that MFAP1 and UBL5 form a 5' exon binding channel in hB, and elucidate the molecular contacts stabilizing the 5' exon at this stage. Our studies thus yield more accurate models of protein and RNA components of hB complexes. They further allow the localization of additional proteins and protein domains (such as SF3B6, BUD31 and TCERG1) whose position was not previously known, thereby uncovering new functions for B-specific and other hB proteins during pre-mRNA splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rewards of divergence in sequences, 3-D structures and dynamics of yeast and human spliceosome SF3b complexes.",
+    "doi": "10.1016/j.crstbi.2021.05.003",
+    "pmid": "35028595",
+    "authors": [
+      "Yazhini A, Sandhya S, Srinivasan N."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-15",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "The evolution of homologous and functionally equivalent multiprotein assemblies is intriguing considering sequence divergence of constituent proteins. Here, we studied the implications of protein sequence divergence on the structure, dynamics and function of homologous yeast and human SF3b spliceosomal subcomplexes. Human and yeast SF3b comprise of 7 and 6 proteins respectively, with all yeast proteins homologous to their human counterparts at moderate sequence identity. SF3b6, an additional component in the human SF3b, interacts with the N-terminal extension of SF3b1 while the yeast homologue Hsh155 lacks the equivalent region. Through detailed homology studies, we show that SF3b6 is absent not only in yeast but in multiple lineages of eukaryotes implying that it is critical in specific organisms. We probed for the potential role of SF3b6 in the spliceosome assembled form through structural and flexibility analyses. By analysing normal modes derived from anisotropic network models of SF3b1, we demonstrate that when SF3b1 is bound to SF3b6, similarities in the magnitude of residue motions (0.86) and inter-residue correlated motions (0.94) with Hsh155 are significantly higher than when SF3b1 is considered in isolation (0.21 and 0.89 respectively). We observed that SF3b6 promotes functionally relevant 'open-to-close' transition in SF3b1 by enhancing concerted residue motions. Such motions are found to occur in the Hsh155 without SF3b6. The presence of SF3b6 influences motions of 16 residues that interact with U2 snRNA/branchpoint duplex and supports the participation of its interface residues in long-range communication in the SF3b1. These results advocate that SF3b6 potentially acts as an allosteric regulator of SF3b1 for BPS selection and might play a role in alternative splicing. Furthermore, we observe variability in the relative orientation of SF3b4 and in the local structure of three β-propeller domains of SF3b3 with reference to their yeast counterparts. Such differences influence the inter-protein interactions of SF3b between these two organisms. Together, our findings highlight features of SF3b evolution and suggests that the human SF3b may have evolved sophisticated mechanisms to fine tune its molecular function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The long non-coding RNA DKFZp434J0226 regulates the alternative splicing process through phosphorylation of SF3B6 in PDAC.",
+    "doi": "10.1186/s10020-021-00347-7",
+    "pmid": "34470609",
+    "authors": [
+      "Li J, Tong H, Li D, Jiang Q, Zhang Y, Tang W, Jin D, Chen S, Qin X, Zhang S, Xue R."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-28",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Long noncoding RNAs (lncRNAs), a type of pervasive genes that regulates various biological processes, are differentially expressed in different types of malignant tumors. The role of lncRNAs in the carcinogenesis of pancreatic ductal adenocarcinoma (PDAC) remains unclear. Here, we investigated the role of the lncRNA DKFZp434J0226 in PDAC.<h4>Methods</h4>Aberrantly expressed mRNAs and lncRNAs among six PDAC and paired non-tumorous tissues were profiled using microarray analysis. Quantitative real-time polymerase chain reaction was used to evaluate DKFZp434J0226 expression in PDAC tissues. CCK-8 assay, wound-healing assay, soft agar colony formation assay, and transwell assay were performed to assess the invasiveness and proliferation of PDAC cells. Furthermore, RNA pull-down, immunofluorescence, RNA immunoprecipitation, and western blotting assays were performed to investigate the association between DKFZp434J0226 and SF3B6. Tumor xenografts in mice were used to test for tumor formation in vivo.<h4>Results</h4>In our study, 222 mRNAs and 128 lncRNAs were aberrantly expressed (≥ twofold change). Of these, 66 mRNAs and 53 lncRNAs were upregulated, while 75 lncRNAs and 156 mRNAs were downregulated. KEGG pathway analysis and the Gene ontology category indicated that these genes were associated with the regulation of mRNA alternative splicing and metabolic balance. Clinical analyses revealed that overexpression of DKFZp434J0226 was associated with worse tumor grading, frequent perineural invasion, advanced tumor-node-metastasis stage, and decreased overall survival and time to progression. Functional assays demonstrated that DKFZp434J0226 promoted PDAC cell migration, invasion, and growth in vitro and accelerated tumor proliferation in vivo. Mechanistically, DKFZp434J0226 interacted with the splicing factor SF3B6 and promoted its phosphorylation, which further regulated the alternative splicing of pre-mRNA.<h4>Conclusions</h4>This study indicates that DKFZp434J0226 regulates alternative splicing through phosphorylation of SF3B6 in PDAC and leads to an oncogenic phenotype in PDAC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A UHM-ULM interface with unusual structural features contributes to U2AF2 and SF3B1 association for pre-mRNA splicing.",
+    "doi": "10.1016/j.jbc.2022.102224",
+    "pmid": "35780835",
+    "authors": [
+      "Galardi JW, Bela VN, Jeffery N, He X, Glasser E, Loerch S, Jenkins JL, Pulvino MJ, Boutz PL, Kielkopf CL."
+    ],
+    "year": "2022",
+    "publication_date": "2022-07-01",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "During spliceosome assembly, the 3' splice site is recognized by sequential U2AF2 complexes, first with Splicing Factor 1 (SF1) and second by the SF3B1 subunit of the U2 small nuclear ribonuclear protein particle. The U2AF2-SF1 interface is well characterized, comprising a U2AF homology motif (UHM) of U2AF2 bound to a U2AF ligand motif (ULM) of SF1. However, the structure of the U2AF2-SF3B1 interface and its importance for pre-mRNA splicing are unknown. To address this knowledge gap, we determined the crystal structure of the U2AF2 UHM bound to a SF3B1 ULM site at 1.8-Å resolution. We discovered a distinctive trajectory of the SF3B1 ULM across the U2AF2 UHM surface, which differs from prior UHM/ULM structures and is expected to modulate the orientations of the full-length proteins. We established that the binding affinity of the U2AF2 UHM for the cocrystallized SF3B1 ULM rivals that of a nearly full-length U2AF2 protein for an N-terminal SF3B1 region. An additional SF3B6 subunit had no detectable effect on the U2AF2-SF3B1 binding affinities. We further showed that key residues at the U2AF2 UHM-SF3B1 ULM interface contribute to coimmunoprecipitation of the splicing factors. Moreover, disrupting the U2AF2-SF3B1 interface changed splicing of representative human transcripts. From analysis of genome-wide data, we found that many of the splice sites coregulated by U2AF2 and SF3B1 differ from those coregulated by U2AF2 and SF1. Taken together, these findings support distinct structural and functional roles for the U2AF2-SF1 and U2AF2-SF3B1 complexes during the pre-mRNA splicing process.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural basis of branch site recognition by the human spliceosome.",
+    "doi": "10.1126/science.abm4245",
+    "pmid": "34822310",
+    "authors": [
+      "Tholen J, Razew M, Weis F, Galej WP."
+    ],
+    "year": "2022",
+    "publication_date": "2021-11-25",
+    "cited_by_count": 65,
+    "journal": "",
+    "abstract": "Recognition of the intron branch site (BS) by the U2 small nuclear ribonucleoprotein (snRNP) is a critical event during spliceosome assembly. In mammals, BS sequences are poorly conserved, and unambiguous intron recognition cannot be achieved solely through a base-pairing mechanism. We isolated human 17<i>S</i> U2 snRNP and reconstituted in vitro its adenosine 5´-triphosphate (ATP)–dependent remodeling and binding to the pre–messenger RNA substrate. We determined a series of high-resolution (2.0 to 2.2 angstrom) structures providing snapshots of the BS selection process. The substrate-bound U2 snRNP shows that SF3B6 stabilizes the BS:U2 snRNA duplex, which could aid binding of introns with poor sequence complementarity. ATP-dependent remodeling uncoupled from substrate binding captures U2 snRNA in a conformation that competes with BS recognition, providing a selection mechanism based on branch helix stability.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Sequence Divergence and Functional Specializations of the Ancient Spliceosomal SF3b: Implications in Flexibility and Adaptations of the Multi-Protein Complex.",
+    "doi": "10.3389/fgene.2021.747344",
+    "pmid": "35082828",
+    "authors": [
+      "Yazhini A, Srinivasan N, Sandhya S."
+    ],
+    "year": "2021",
+    "publication_date": "2022-01-10",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Multi-protein assemblies are complex molecular systems that perform highly sophisticated biochemical functions in an orchestrated manner. They are subject to changes that are governed by the evolution of individual components. We performed a comparative analysis of the ancient and functionally conserved spliceosomal SF3b complex, to recognize molecular signatures that contribute to sequence divergence and functional specializations. For this, we recognized homologous sequences of individual SF3b proteins distributed across 10 supergroups of eukaryotes and identified all seven protein components of the complex in 578 eukaryotic species. Using sequence and structural analysis, we establish that proteins occurring on the surface of the SF3b complex harbor more sequence variation than the proteins that lie in the core. Further, we show through protein interface conservation patterns that the extent of conservation varies considerably between interacting partners. When we analyze phylogenetic distributions of individual components of the complex, we find that protein partners that are known to form independent subcomplexes are observed to share similar profiles, reaffirming the link between differential conservation of interface regions and their inter-dependence. When we extend our analysis to individual protein components of the complex, we find taxa-specific variability in molecular signatures of the proteins. These trends are discussed in the context of proline-rich motifs of SF3b4, functional and drug binding sites of SF3b1. Further, we report key protein-protein interactions between SF3b1 and SF3b6 whose presence is observed to be lineage-specific across eukaryotes. Together, our studies show the association of protein location within the complex and subcomplex formation patterns with the sequence conservation of SF3b proteins. In addition, our study underscores evolutionarily flexible elements that appear to confer adaptive features in individual components of the multi-protein SF3b complexes and may contribute to its functional adaptability.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Reference gene selection for real-time qPCR in European flounder (Platichthys flesus) using organ-specific RNA-seq data.",
+    "doi": "10.1007/s11033-024-10105-7",
+    "pmid": "39570445",
+    "authors": [
+      "Pomianowski K, Burzyński A."
+    ],
+    "year": "2024",
+    "publication_date": "2024-11-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The European flounder is readily chosen as an experimental subject and model in physiological and ecotoxicological studies mostly because of its adaptability to laboratory conditions. Many studies utilise a quantitative PCR (qPCR) approach to ascertain the expression of target genes under experimental conditions. Such an approach relies heavily on the selection of reference genes with stable expression. Yet certain housekeeping genes are commonly used in this role, often without due consideration of their overall expression patterns. Therefore, new approaches should be developed to identify stable reference genes for a given species and to expand the general pool of genes suitable for the reference in qPCR analysis.<h4>Methods and results</h4>Here RNA-seq data of nine flounder organs led to identify four candidate genes of the most stable expression. It was achieved by differential expression analysis and tritoconstrictor script. Specific primers were designed for the complete ORF as well as for qPCR analysis. RT-qPCR efficiencies were tested on ORF amplicon templates. Most of the genes tested showed good amplification in a wide range of template dilutions (10<sup>7</sup>-10<sup>1</sup>), with a correlation coefficient (R<sup>2</sup>) ranging from 0.991 to 0.998 and a consistent efficiency (E) (Sybr Green I staining and TaqMan molecular probe).<h4>Conclusions</h4>The proposed approach based on differential expression analysis and a new bioinformatic tool is an appropriate selection method of candidates for reference genes in qPCR. The proposed approach, combining differential expression analysis with a new bioinformatics tool, provides an effective method for selecting reference gene candidates for qPCR. As a result, we can propose four genes (polr2f, yif1a, sf3b6, uba52), each with a set of validated primers, as suitable for consideration as reference genes in qPCR analysis in European flounder, an emerging model species.",
+    "openalex_id": ""
+  },
+  {
+    "title": "De novo PHF5A variants are associated with craniofacial abnormalities, developmental delay, and hypospadias.",
+    "doi": "10.1016/j.gim.2023.100927",
+    "pmid": "37422718",
+    "authors": [
+      "Harms FL, Dingemans AJM, Hempel M, Pfundt R, Bierhals T, Casar C, Müller C, Niermeijer JF, Fischer J, Jahn A, Hübner C, Majore S, Agolini E, Novelli A, van der Smagt J, Ernst R, van Binsbergen E, Mancini GMS, van Slegtenhorst M, Barakat TS, Wakeling EL, Kamath A, Downie L, Pais L, White SM, de Vries BBA, Kutsche K."
+    ],
+    "year": "2023",
+    "publication_date": "2023-07-06",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>The SF3B splicing complex is composed of SF3B1-6 and PHF5A. We report a developmental disorder caused by de novo variants in PHF5A.<h4>Methods</h4>Clinical, genomic, and functional studies using subject-derived fibroblasts and a heterologous cellular system were performed.<h4>Results</h4>We studied 9 subjects with congenital malformations, including preauricular tags and hypospadias, growth abnormalities, and developmental delay who had de novo heterozygous PHF5A variants, including 4 loss-of-function (LOF), 3 missense, 1 splice, and 1 start-loss variant. In subject-derived fibroblasts with PHF5A LOF variants, wild-type and variant PHF5A mRNAs had a 1:1 ratio, and PHF5A mRNA levels were normal. Transcriptome sequencing revealed alternative promoter use and downregulated genes involved in cell-cycle regulation. Subject and control fibroblasts had similar amounts of PHF5A with the predicted wild-type molecular weight and of SF3B1-3 and SF3B6. SF3B complex formation was unaffected in 2 subject cell lines.<h4>Conclusion</h4>Our data suggest the existence of feedback mechanisms in fibroblasts with PHF5A LOF variants to maintain normal levels of SF3B components. These compensatory mechanisms in subject fibroblasts with PHF5A or SF3B4 LOF variants suggest disturbed autoregulation of mutated splicing factor genes in specific cell types, that is, neural crest cells, during embryonic development rather than haploinsufficiency as pathomechanism.",
+    "openalex_id": ""
+  }
+]

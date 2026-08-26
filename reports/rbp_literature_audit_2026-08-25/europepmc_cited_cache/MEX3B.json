@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Scaffold function of long non-coding RNA HOTAIR in protein ubiquitination.",
+    "doi": "10.1038/ncomms3939",
+    "pmid": "24326307",
+    "authors": [
+      "Yoon JH, Abdelmohsen K, Kim J, Yang X, Martindale JL, Tominaga-Yamanaka K, White EJ, Orjalo AV, Rinn JL, Kreft SG, Wilson GM, Gorospe M."
+    ],
+    "year": "2013",
+    "publication_date": "2013-01-01",
+    "cited_by_count": 370,
+    "journal": "",
+    "abstract": "Although mammalian long non-coding (lnc)RNAs are best known for modulating transcription, their post-transcriptional influence on mRNA splicing, stability and translation is emerging. Here we report a post-translational function for the lncRNA HOTAIR as an inducer of ubiquitin-mediated proteolysis. HOTAIR associates with E3 ubiquitin ligases bearing RNA-binding domains, Dzip3 and Mex3b, as well as with their respective ubiquitination substrates, Ataxin-1 and Snurportin-1. In this manner, HOTAIR facilitates the ubiquitination of Ataxin-1 by Dzip3 and Snurportin-1 by Mex3b in cells and in vitro, and accelerates their degradation. HOTAIR levels are highly upregulated in senescent cells, causing rapid decay of targets Ataxin-1 and Snurportin-1, and preventing premature senescence. These results uncover a role for a lncRNA, HOTAIR, as a platform for protein ubiquitination.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding Protein MEX3B Mediates Resistance to Cancer Immunotherapy by Downregulating HLA-A Expression.",
+    "doi": "10.1158/1078-0432.ccr-17-2483",
+    "pmid": "29496759",
+    "authors": [
+      "Huang L, Malu S, McKenzie JA, Andrews MC, Talukder AH, Tieu T, Karpinets T, Haymaker C, Forget MA, Williams LJ, Wang Z, Mbofung RM, Wang ZQ, Davis RE, Lo RS, Wargo JA, Davies MA, Bernatchez C, Heffernan T, Amaria RN, Korkut A, Peng W, Roszik J, Lizée G, Woodman SE, Hwu P."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-01",
+    "cited_by_count": 84,
+    "journal": "",
+    "abstract": "<b>Purpose:</b> Cancer immunotherapy has shown promising clinical outcomes in many patients. However, some patients still fail to respond, and new strategies are needed to overcome resistance. The purpose of this study was to identify novel genes and understand the mechanisms that confer resistance to cancer immunotherapy.<b>Experimental Design:</b> To identify genes mediating resistance to T-cell killing, we performed an open reading frame (ORF) screen of a kinome library to study whether overexpression of a gene in patient-derived melanoma cells could inhibit their susceptibility to killing by autologous tumor-infiltrating lymphocytes (TIL).<b>Results:</b> The RNA-binding protein MEX3B was identified as a top candidate that decreased the susceptibility of melanoma cells to killing by TILs. Further analyses of anti-PD-1-treated melanoma patient tumor samples suggested that higher <i>MEX3B</i> expression is associated with resistance to PD-1 blockade. In addition, significantly decreased levels of IFNγ were secreted from TILs incubated with MEX3B-overexpressing tumor cells. Interestingly, this phenotype was rescued upon overexpression of exogenous HLA-A2. Consistent with this, we observed decreased HLA-A expression in MEX3B-overexpressing tumor cells. Finally, luciferase reporter assays and RNA-binding protein immunoprecipitation assays suggest that this is due to MEX3B binding to the 3' untranslated region (UTR) of <i>HLA-A</i> to destabilize the mRNA.<b>Conclusions:</b> MEX3B mediates resistance to cancer immunotherapy by binding to the 3' UTR of <i>HLA-A</i> to destabilize the <i>HLA-A</i> mRNA and thus downregulate HLA-A expression on the surface of tumor cells, thereby making the tumor cells unable to be recognized and killed by T cells. <i>Clin Cancer Res; 24(14); 3366-76. ©2018 AACR</i><i>See related commentary by Kalbasi and Ribas, p. 3239</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Mex3B is a coreceptor of Toll-like receptor 3 in innate antiviral response.",
+    "doi": "10.1038/cr.2016.16",
+    "pmid": "26823206",
+    "authors": [
+      "Yang Y, Wang SY, Huang ZF, Zou HM, Yan BR, Luo WW, Wang YY."
+    ],
+    "year": "2016",
+    "publication_date": "2016-01-29",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "Recognition of viral dsRNA by Toll-like receptor 3 (TLR3) leads to induction of interferons (IFNs) and proinflammatory cytokines, and innate antiviral response. Here we identified the RNA-binding protein Mex3B as a positive regulator of TLR3-mediated signaling by expression cloning screens. Cells from Mex3b(-/-) mice exhibited reduced production of IFN-β in response to the dsRNA analog poly(I:C) but not infection with RNA viruses. Mex3b(-/-) mice injected with poly(I:C) was more resistant to poly(I:C)-induced death. Mex3B was associated with TLR3 in the endosomes. It bound to dsRNA and increased the dsRNA-binding activity of TLR3. Mex3B also promoted the proteolytic processing of TLR3, which is critical for its activation. Mutants of Mex3B lacking its RNA-binding activity inhibited TLR3-mediated IFN-β induction. These findings suggest that Mex3B acts as a coreceptor of TLR3 in innate antiviral response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A peripheral blood transcriptomic signature predicts autoantibody development in infants at risk of type 1 diabetes.",
+    "doi": "10.1172/jci.insight.98212",
+    "pmid": "29515040",
+    "authors": [
+      "Mehdi AM, Hamilton-Williams EE, Cristino A, Ziegler A, Bonifacio E, Le Cao KA, Harris M, Thomas R."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-08",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "Autoimmune-mediated destruction of pancreatic islet β cells results in type 1 diabetes (T1D). Serum islet autoantibodies usually develop in genetically susceptible individuals in early childhood before T1D onset, with multiple islet autoantibodies predicting diabetes development. However, most at-risk children remain islet-antibody negative, and no test currently identifies those likely to seroconvert. We sought a genomic signature predicting seroconversion risk by integrating longitudinal peripheral blood gene expression profiles collected in high-risk children included in the BABYDIET and DIPP cohorts, of whom 50 seroconverted. Subjects were followed for 10 years to determine time of seroconversion. Any cohort effect and the time of seroconversion were corrected to uncover genes differentially expressed (DE) in seroconverting children. Gene expression signatures associated with seroconversion were evident during the first year of life, with 67 DE genes identified in seroconverting children relative to those remaining antibody negative. These genes contribute to T cell-, DC-, and B cell-related immune responses. Near-birth expression of ADCY9, PTCH1, MEX3B, IL15RA, ZNF714, TENM1, and PLEKHA5, along with HLA risk score predicted seroconversion (AUC 0.85). The ubiquitin-proteasome pathway linked DE genes and T1D susceptibility genes. Therefore, a gene expression signature in infancy predicts risk of seroconversion. Ubiquitination may play a mechanistic role in diabetes progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Mex3b has a fine-tuning system for mRNA regulation in early Xenopus development.",
+    "doi": "10.1242/dev.029165",
+    "pmid": "19542354",
+    "authors": [
+      "Takada H, Kawana T, Ito Y, Kikuno RF, Mamada H, Araki T, Koga H, Asashima M, Taira M."
+    ],
+    "year": "2009",
+    "publication_date": "2009-07-01",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Post-transcriptional control by RNA-binding proteins is a precise way to assure appropriate levels of gene expression. Here, we identify a novel mRNA regulatory system involving Mex3b (RKHD3) and demonstrate its role in FGF signaling. mex3b mRNA has a 3' long conserved UTR, named 3'LCU, which contains multiple elements for both mRNA destabilization and translational enhancement. Notably, Mex3b promotes destabilization of its own mRNA by binding to the 3'LCU, thereby forming a negative autoregulatory loop. The combination of positive regulation and negative autoregulation constitutes a fine-tuning system for post-transcriptional control. In early embryogenesis, Mex3b is involved in anteroposterior patterning of the neural plate. Consistent with this, Mex3b can attenuate FGF signaling and destabilize mRNAs for the FGF signaling components Syndecan 2 and Ets1b through their 3' UTRs. These data suggest that the 3'LCU-mediated fine-tuning system determines the appropriate level of mex3b expression, which in turn contributes to neural patterning through regulating FGF signaling.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Body temperature-dependent microRNA expression analysis in rats: rno-miR-374-5p regulates apoptosis in skeletal muscle cells via Mex3B under hypothermia.",
+    "doi": "10.1038/s41598-020-71931-w",
+    "pmid": "32963265",
+    "authors": [
+      "Umehara T, Kagawa S, Tomida A, Murase T, Abe Y, Shingu K, Ikematsu K."
+    ],
+    "year": "2020",
+    "publication_date": "2020-09-22",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "Forensic diagnosis of fatal hypothermia is considered difficult because there are no specific findings. Accordingly, exploration of novel fatal hypothermia-specific findings is important. To elucidate the molecular mechanism of homeostasis in hypothermia and identify novel molecular markers to inform the diagnosis of fatal hypothermia, we focused on microRNA expression in skeletal muscle, which plays a role in cold-induced thermogenesis in mammals. We generated rat models of mild, moderate, and severe hypothermia, and performed body temperature-dependent microRNA expression analysis of the iliopsoas muscle using microarray and quantitative real-time PCR (qRT-PCR). The results show that rno-miR-374-5p expression was significantly induced only by severe hypothermia. Luciferase reporter assay and qRT-PCR results indicated that Mex3B expression was regulated by rno-miR-374-5p and decreased with decreasing body temperature. Gene ontology analysis indicated the involvement of Mex3B in positive regulation of GTPase activity. siRNA analysis showed that Mex3B directly or indirectly regulated Kras expression in vitro, and significantly changed the expression of apoptosis-related genes and proteins. Collectively, these results indicate that rno-miR-374-5p was activated by a decrease in body temperature, whereby it contributed to cell survival by suppressing Mex3B and activating or inactivating Kras. Thus, rno-miR-374-5p is a potential supporting marker for the diagnosis of fatal hypothermia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3B inhibits collagen production in eosinophilic nasal polyps by downregulating epithelial cell TGFBR3 mRNA stability.",
+    "doi": "10.1172/jci.insight.159058",
+    "pmid": "36976645",
+    "authors": [
+      "Liu JX, Chen AN, Yu Q, Shi KT, Liu YB, Guo CL, Wang ZZ, Yao Y, Pan L, Lu X, Xu K, Wang H, Zeng M, Liu C, Schleimer RP, Wu N, Liao B, Liu Z."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-08",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Although the expression of Mex3 RNA-binding family member B (MEX3B) is upregulated in human nasal epithelial cells (HNECs) predominately in the eosinophilic chronic rhinosinusitis (CRS) with nasal polyps (CRSwNP) subtype, its functions as an RNA binding protein in airway epithelial cells remain unknown. Here, we revealed the role of MEX3B based on different subtypes of CRS and demonstrated that MEX3B decreased the TGF-β receptor III (TGFBR3) mRNA level by binding to its 3' UTR and reducing its stability in HNECs. TGF-βR3 was found to be a TGF-β2-specific coreceptor in HNECs. Knocking down or overexpressing MEX3B promoted or inhibited TGF-β2-induced phosphorylation of SMAD2 in HNECs, respectively. TGF-βR3 and phosphorylated SMAD2 levels were downregulated in CRSwNP compared with controls and CRS without nasal polyps with a more prominent downregulation in the eosinophilic CRSwNP. TGF-β2 promoted collagen production in HNECs. Collagen abundance decreased and edema scores increased in CRSwNP compared with control, again more prominently in the eosinophilic type. Collagen expression in eosinophilic CRSwNP was negatively correlated with MEX3B but positively correlated with TGF-βR3. These results suggest that MEX3B inhibits tissue fibrosis in eosinophilic CRSwNP by downregulating epithelial cell TGFBR3 expression; consequently, MEX3B might be a valuable therapeutic target against eosinophilic CRSwNP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Investigation of the Potential Correlation Between RNA-Binding Proteins in the Evolutionarily Conserved MEX3 Family and Non-small-Cell Lung Cancer.",
+    "doi": "10.1007/s12033-022-00638-2",
+    "pmid": "36507941",
+    "authors": [
+      "Zhang M, Cao L, Hou G, Lv X, Deng J."
+    ],
+    "year": "2023",
+    "publication_date": "2022-12-12",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Members of the MEX3 (muscle excess 3) family, uniquely characterised as mRNA binding proteins, play emerging roles in the post-transcriptional regulation of programmed biological processes, including tumour cell death and immune mechanisms, and have been shown to be involved in a variety of diseases. However, the role of MEX3 in non-small cell lung cancer (NSCLC) has not been fully elucidated. In this study, we found no significant changes in the sequence and copy number of the MEX3 gene through analysis using the COSMIC database, revealing its stability during malignancy development. Its expression in NSCLC was examined using the Oncomine™ database, and the prognosis of each member gene was analysed by Kaplan-Meier. The results showed that overexpression of MEX3A, MEX3B, MEX3C and MEX3D was associated with significantly worse OS in patients with LUAD, while overexpression of MEX3D was also associated with significantly worse OS in patients with LUSC. Afterwards, we applied the Tumour Immunology Estimation Resource (TIMER) tool to assess the correlation between different MEX3 and infiltrative immune cell infiltration. Ultimately, we found that most MEX3 members were highly expressed in NSCLC, with high expression suggesting poor prognosis and correlating with immune cell infiltration. The complexity and heterogeneity of NSCLC was understood through MEX3, setting the framework for the prognostic impact of MEX3 in NSCLC patients and the development of new targeted therapeutic strategies in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A prognostic model based on DNA methylation-related gene expression for predicting overall survival in hepatocellular carcinoma.",
+    "doi": "10.3389/fonc.2023.1171932",
+    "pmid": "38304027",
+    "authors": [
+      "Luo J, Zhu WC, Chen QX, Yang CF, Huang BJ, Zhang SJ."
+    ],
+    "year": "2023",
+    "publication_date": "2024-01-18",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Hepatocellular carcinoma (HCC) continues to increase in morbidity and mortality among all types of cancer. DNA methylation, an important epigenetic modification, is associated with cancer occurrence and progression. The objective of this study was to establish a model based on DNA methylation risk scores for identifying new potential therapeutic targets in HCC and preventing cancer progression.<h4>Methods</h4>Transcriptomic, clinical, and DNA methylation data on 374 tumor tissues and 50 adjacent normal tissues were downloaded from The Cancer Genome Atlas-Liver Hepatocellular Carcinoma database. The gene expression profiles of the GSE54236 liver cancer dataset, which contains data on 161 liver tissue samples, were obtained from the Gene Expression Omnibus database. We analyzed the relationship between DNA methylation and gene expression levels after identifying the differentially methylated and expressed genes. Then, we developed and validated a risk score model based on the DNA methylation-driven genes. A tissue array consisting of 30 human hepatocellular carcinoma samples and adjacent normal tissues was used to assess the protein and mRNA expression levels of the marker genes by immunohistochemistry and qRT-PCR, respectively.<h4>Results</h4>Three methylation-related differential genes were identified in our study: GLS, MEX3B, and GNA14. The results revealed that their DNA methylation levels were negatively correlated with local gene expression regulation. The gene methylation levels correlated strongly with the prognosis of patients with liver cancer. This was confirmed by qRT-PCR and immunohistochemical verification of the expression of these genes or proteins in tumors and adjacent tissues. These results revealed the relationship between the level of relevant gene methylation and the prognosis of patients with liver cancer as well as the underlying cellular and biological mechanisms. This allows our gene signature to provide more accurate and appropriate predictions for clinical applications.<h4>Conclusion</h4>Through bioinformatics analysis and experimental validation, we obtained three DNA methylation marker: GLS, MEX3B, and GNA14. This helps to predict the prognosis and may be a potential therapeutic target for HCC patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive bioinformatics analysis of MEX3 family genes in hepatocellular carcinoma.",
+    "doi": "10.1038/s41598-025-02057-0",
+    "pmid": "40374855",
+    "authors": [
+      "Zhang X, Sun P, Chu T, Feng Y, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-15",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is a highly lethal malignancy associated with poor prognosis due to late-stage diagnosis and high recurrence rates. The MEX3 family genes has been implicated in various cancers; however, their roles in HCC remain largely unexplored. This study aims to systematically analyze the expression patterns, prognostic significance, and immune-related functions of MEX3A, MEX3B, MEX3C, and MEX3D in HCC using comprehensive bioinformatics approaches. We conducted a multi-level bioinformatics analysis to investigate the expression, prognostic significance, clinicopathological correlations, genetic alterations, immune associations, and functional mechanisms of MEX3 family members in HCC. Transcriptomic data from TCGA and GEO databases, along with experimental validation via qRT-PCR and Western blotting, were used to assess expression profiles. Kaplan-Meier, ROC curve, and Cox regression analyses were employed for prognostic evaluation. Co-expression, enrichment, and immune infiltration analyses further elucidated the functional and immunological relevance of MEX3 family genes. A prognostic model based on co-expressed genes was constructed and validated using LASSO and time-dependent ROC analyses. MEX3A, MEX3B, MEX3C, and MEX3D were significantly upregulated in HCC tissues compared to normal liver tissues (P < 0.05). ROC curve analysis demonstrated high diagnostic accuracy, particularly for MEX3A (AUC = 0.915). Kaplan-Meier survival analysis indicated that elevated MEX3A and MEX3C expression was associated with poorer overall survival (OS) and disease-specific survival (DSS) (P < 0.05). Mutation analysis revealed that MEX3A exhibited the highest alteration frequency (11%), primarily through gene amplifications. Immune infiltration analysis demonstrated significant correlations between MEX3 expression and multiple immune cell populations, including regulatory T cells (Tregs), cytotoxic T cells, and macrophages. Moreover, MEX3B, MEX3C, and MEX3D expression correlated with key immune checkpoint genes, including PDCD1, CD274, and CTLA4. Functional enrichment analysis revealed that MEX3 co-expressed genes were significantly involved in RNA metabolism, immune response regulation, and oncogenic signaling pathways. A 17-gene MEX3 co-expression-based prognostic model stratified patients into high- and low-risk groups with significantly different survival outcomes (AUC = 0.791 at 1 year). This study highlights the oncogenic potential of MEX3 family members in HCC and their associations with immune regulation. The findings suggest that MEX3 family genes could serve as potential biomarkers for HCC prognosis and immunotherapy responsiveness. Further experimental validation is warranted to elucidate the mechanistic roles of MEX3 family genes in HCC progression and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular mechanism of specific HLA-A mRNA recognition by the RNA-binding-protein hMEX3B to promote tumor immune escape.",
+    "doi": "10.1038/s42003-024-05845-y",
+    "pmid": "38326406",
+    "authors": [
+      "Yang K, Chen G, Yu F, Fang X, Zhang J, Zhang Z, Shi Y, Zhang L."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-07",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Immunotherapy, including immune checkpoint inhibitors and adoptive cell transfer, has obtained great progress, but their efficiencies vary among patients due to the genetic and epigenetic differences. Human MEX3B (hMEX3B) protein is an RNA-binding protein that contains two KH domains at the N-terminus and a RING domain at its C-terminus, which has the activity of E3 ubiquitin ligase and is essential for RNA degradation. Current evidence suggests that hMEX3B is involved in many important biological processes, including tumor immune evasion and HLA-A regulation, but the sequence of substrate RNA recognized by hMEX3B and the functional molecular mechanisms are unclear. Here, we first screened the optimized hMEX3B binding sequence on the HLA-A mRNA and reported that the two tandem KH domains can bind with their substrate one hundred times more than the individual KH domains. We systematically investigated the binding characteristics between the two KH domains and their RNA substrates by nuclear magnetic resonance (NMR). Based on this information and the small-angle X-ray scattering (SAXS) data, we used molecular dynamics simulations to obtain structural models of KH domains in complex with their corresponding RNAs. By analyzing the models, we noticed that on the KH domains' variable loops, there were two pairs of threonines and arginines that can disrupt the recognition of the RNA completely, and this influence had also been verified both in vitro and in vivo. Finally, we presented a functional model of the hMEX3B protein, which indicated that hMEX3B regulated the degradation of its substrate mRNAs in many biological processes. Taken together, our research illustrated how the hMEX3B protein played a key role in translation inhibition during the immune response to tumor cells and provided an idea and a lead for the study of the molecular mechanism and function of other MEX3 family proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative bioinformatic and experimental analysis reveals prognostic and immunological roles of MEX3 family genes in glioma.",
+    "doi": "10.3389/fimmu.2025.1654036",
+    "pmid": "41613120",
+    "authors": [
+      "Zhang X, Shang H, Chu T, Sha K."
+    ],
+    "year": "2025",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is a highly heterogeneous and aggressive malignancy of the central nervous system, and reliable molecular biomarkers are urgently needed to improve prognostic stratification and guide therapeutic decision-making. The MEX3 family of RNA-binding proteins has been implicated in tumorigenesis and post-transcriptional regulation; however, their comprehensive roles in glioma remain poorly understood.<h4>Methods</h4>Integrated bioinformatic analyses were performed using transcriptomic and clinical data from TCGA, CGGA, and GEO cohorts to evaluate the expression profiles, diagnostic and prognostic value, genetic alterations, molecular interactions, immune infiltration characteristics, and functional pathways associated with MEX3A, MEX3B, MEX3C, and MEX3D. Protein-protein interaction networks, gene set enrichment, and co-expression analyses were conducted to explore potential biological mechanisms. A MEX3-related prognostic risk model was constructed and validated in independent datasets. Drug sensitivity correlations were analyzed using public pharmacogenomic resources. In addition, <i>in vitro</i> experiments, including qRT-PCR, western blotting, proliferation, migration, and invasion assays, were performed in U251 and LN229 glioma cell lines to functionally validate the bioinformatic findings.<h4>Results</h4>All four MEX3 family members were significantly upregulated in glioma tissues compared with normal controls and demonstrated strong diagnostic performance. Distinct prognostic patterns were observed, with MEX3D consistently identified as an independent predictor of poor overall, disease-specific, and progression-free survival. MEX3 genes were associated with diverse genetic alterations and were enriched in pathways related to RNA processing, cell cycle regulation, and cancer-associated signaling. Immune analyses revealed significant correlations between MEX3 expression and multiple immune cell populations as well as immune checkpoint molecules, suggesting potential roles in shaping the glioma immune microenvironment. A MEX3-related co-expression-based prognostic model showed robust survival-predictive ability and remained effective in external validation cohorts. Functional assays confirmed that silencing individual MEX3 genes significantly inhibited glioma cell proliferation, migration, and invasion <i>in vitro</i>.<h4>Conclusions</h4>This study provides a comprehensive characterization of the MEX3 family in glioma, demonstrating their dysregulation, prognostic relevance, immune associations, and functional contributions to malignant phenotypes. Among them, MEX3D emerges as a particularly promising prognostic biomarker. These findings establish a foundation for future mechanistic and translational studies exploring MEX3 family members as potential biomarkers or therapeutic targets in glioma.",
+    "openalex_id": ""
+  }
+]

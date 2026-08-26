@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ESRP2-dependent CD44 isoform switching is functionally linked to epithelial-mesenchymal plasticity in bladder cancer. ",
+    "doi": "10.1016/j.bbagrm.2026.195180",
+    "pmid": "42636968",
+    "authors": [
+      "Bajdak-Rusinek K, Wierzbinka M, Sundararajan V, Sieroń L, Stępień KL, Diak N, Jankowska K, Salamon M, Wójtowicz W, Dziedzic-Kowalska A, Dutczak R, Hałacińska K, Machnik G."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT) drives phenotypic plasticity in bladder cancer and contributes to tumor progression, therapeutic resistance, and recurrence. While epithelial splicing regulatory proteins (ESRPs) are established modulators of EMT-associated splicing programs, the downstream mechanisms through which they influence tumor cell state remain incompletely understood. Here, we identify CD44 isoform switching as a functionally relevant component of ESRP2-dependent control of epithelial plasticity. Using epithelial (RT4) and mesenchymal (UM-UC-3) bladder cancer models, we show that distinct cellular states are characterized by different CD44 isoform landscapes, with epithelial cells enriched in CD44 variant isoforms and mesenchymal cells dominated by the standard isoform CD44s. Functional perturbation studies revealed that ESRP2 exerts a stronger effect than ESRP1 on CD44 isoform composition, promoting epithelial-associated CD44 variant isoforms while suppressing CD44s. Induction of EMT in RT4 cells was accompanied by downregulation of ESRP1/2 and a shift toward CD44s enrichment. Conversely, depletion of CD44s attenuated EMT-associated transcriptional and morphological changes and partially reversed the effects of ESRP2 loss on EMT marker expression. In mesenchymal UM-UC-3 cells, CD44s depletion reduced migratory capacity and impaired spheroid growth, further supporting a functional contribution of CD44 isoform balance to mesenchymal behavior. Collectively, our findings indicate that ESRP2-dependent regulation of CD44 isoform composition is closely linked to epithelial-mesenchymal plasticity in bladder cancer. These findings provide insight into splicing-associated regulation of tumor cell state and underscore the importance of isoform-resolved analyses for understanding cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP2 constrains EMT plasticity associated with ZEB1 expression in bladder cancer.",
+    "doi": "10.3389/fonc.2026.1764850",
+    "pmid": "41982240",
+    "authors": [
+      "Bajdak-Rusinek K, Jankowska K, Sundararajan V, Sieroń Ł, Diak N, Wójtowicz W, Stępień KL, Fus-Kujawa A, Gutmajster E, Wierzbinka M, Zorychta K."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-30",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Epithelial-to-mesenchymal transition (EMT)-driven phenotypic plasticity promotes bladder cancer (BC) progression and therapy resistance. While EMT has been primarily associated with transcriptional reprogramming, the contribution of post-transcriptional mechanisms, particularly alternative splicing regulation, remains insufficiently explored. This study aimed to investigate the clinical significance and mechanistic role of epithelial splicing regulatory protein 2 (ESRP2) in BC.<h4>Methods</h4>Integrative analyses of publicly available transcriptomic datasets (TCGA and GEO) were performed to evaluate the prognostic value of ESRP2 and its association with epithelial and mesenchymal phenotypes in BC cell lines. Functional assays, including ESRP2 knockdown and overexpression, were conducted to assess its impact on EMT marker expression, cellular behavior, and stemness-related features such as clonogenicity, spheroid formation, and cell surface marker expression.<h4>Results</h4>High ESRP2 expression correlated with improved patient survival and an epithelial-like phenotype in BC models. ESRP2 loss induced mesenchymal marker expression and increased cell motility, whereas ESRP2 overexpression restored epithelial morphology, reduced migration, and suppressed anchorage-independent growth. Flow cytometry revealed no significant changes in CD44 expression but showed a moderate increase in CD133+ cells following ESRP2 overexpression, suggesting a qualitative shift in stem-like subpopulations rather than a global suppression of cancer stemness.<h4>Discussion</h4>These findings identify ESRP2 as a key post-transcriptional regulator that constrains EMT-associated transcriptional programs linked to ZEB1 expression, thereby stabilizing epithelial identity in bladder cancer. Targeting alternative splicing may represent a promising therapeutic strategy to limit tumor aggressiveness and overcome treatment resistance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Downregulation of ESRP2 Promotes Breast Cancer Cell Migration by Activating EMT Transcription Program Through Modulation of ENAH Variable Splicing.",
+    "doi": "10.1002/mc.70093",
+    "pmid": "41664958",
+    "authors": [
+      "Chen Y, Feng H, Zhao C, Huang L, Liao Z, Chen W, Zou J, Zhang S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial splicing regulatory protein 2 (ESRP2) is a splicing regulator specific to epithelial cell types. Multiple studies have found that its expression is abnormal in various tumors, influencing their occurrence, development, or prognosis. Our previous research indicated that down-regulating ESRP2 can suppress the proliferation of breast cancer (BC) cells, specifically the MCF-7 line. To delve deeper into the role of ESRP2 in BC cells, we investigated its impact on the migration of BC cells in vitro and the underlying molecular mechanisms. The outcomes of the in vitro scratch assay and Transwell assay initially confirmed that ESRP2 hinders the migration of both MCF-7 and MDA-MB-231 cells, and that reducing ESRP2 expression enhances their migratory capacity. We demonstrated that the down-regulation of ESRP2 can boost the migration ability of MCF-7 cells, and increase the mRNA expression of epithelial-mesenchymal transition (EMT) transcription factor ZEB2 and related markers N-cadherin and Vimentin. This suggests that ESRP2 plays a potential regulatory role in inhibiting EMT transcription program. Additionally, results from RNA sequencing and agarose electrophoresis gel experiments predict that down-regulating ESRP2 may promote exon skipping of the ENAH gene by modulating the alternative splicing of genes associated with cell migration, driving the shift of MCF-7 cells from an epithelial to a mesenchymal phenotype. Our research reveals a novel mechanism by which ESRP2 affects BC metastasis through post-transcriptional regulation. ESRP2 may present as a promising biomarker in combating BC cell migration by targeting EMT.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Esrp1 and Esrp2 Regulate the Stability of &lt;i&gt;tmc1&lt;/i&gt;/&lt;i&gt;2a&lt;/i&gt; mRNAs in Zebrafish Sensory Hair Cells.",
+    "doi": "10.1523/jneurosci.0837-24.2025",
+    "pmid": "40086870",
+    "authors": [
+      "Yao X, Zhang Y, Hong X, Xing Y, Xu Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-23",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are important for posttranscriptional RNA processing, including pre-mRNA alternative splicing, mRNA stability, and translation. Several RBPs have been shown to play pivotal roles in the inner ear, whose dysfunction leads to auditory and/or balance impairments. Epithelial splicing-regulatory protein 1 (ESRP1) regulates alternative splicing and mRNA stability, and mutations in <i>ESRP1</i> gene have been associated with sensorineural hearing loss in humans. In <i>Esrp1</i> knock-out mouse embryos, alternative splicing of its target genes such as <i>Fgfr2</i> is impaired, which eventually result in cochlear development deficits. However, <i>Esrp1</i> knock-out mice die soon after birth because of complications from cleft-lip and palate defects, impeding further investigations at later postnatal ages. In the present study, we explored the role of ESRP1 in hearing using zebrafish as a model. We showed that <i>esrp1</i> and its paralog <i>esrp2</i> are expressed in the inner ear and certain anterior lateral line (ALL) neuromasts. Furthermore, our data suggested that Esrp1 and Esrp2 are required for the mechano-electrical transduction (MET) function of hair cells. RNA sequencing results indicated a significant decrease in the levels of several mRNAs in <i>esrp1/2</i> double knock-out larvae. Among the dysregulated genes are <i>tmc1</i> and <i>tmc2a</i>, which encode essential subunits of the MET complex. Further investigations demonstrated that Esrp1/2 could directly bind to <i>tmc1</i> and <i>tmc2a</i> mRNAs and affect their stability. Taken together, we showed here that Esrp1 and Esrp2 regulate the MET function of zebrafish sensory hair cells by modulating the stability of <i>tmc1</i> and <i>tmc2a</i> mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulated RNA splicing impairs regeneration in alcohol-associated liver disease.",
+    "doi": "10.1038/s41467-025-63251-2",
+    "pmid": "40931030",
+    "authors": [
+      "Chembazhi UV, Bangru S, Dutta RK, Das D, Peiffer B, Natua S, Toohill K, Leona A, Purwar I, Bhowmik A, Goyal Y, Sun Z, Diehl AM, Kalsotra A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-10",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Individuals with progressive liver failure risk dying without liver transplantation. However, our understanding of why regenerative responses are disrupted in failing livers is limited. Here, we perform multiomic profiling of healthy and diseased human livers using bulk and single-nucleus RNA- and ATAC-seq. We report that in alcohol-associated liver disease, alterations in the hepatic immune milieu prevent hepatocytes from transitioning to proliferative progenitors. We also find differences in RNA binding protein expression, particularly of the ESRP, PTBP, and SR families, leading to misregulation of developmentally controlled RNA splicing. Our data pinpoint ESRP2 as a disease-sensitive splicing factor and support a causal role for its deficiency in the pathogenesis of severe alcoholic hepatitis. Notably, splicing defects in Tcf4 and Slk, two ESPR2 targets, alter their nuclear localization and activities, disrupting WNT and Hippo signaling pathways that are critical for normal liver regeneration. We further demonstrate that changes in stromal cell populations enrich failing livers with TGF-β, which suppresses the ESRP2-driven epithelial splicing program and replaces functional parenchyma with quasi-progenitor-like cells lacking liver-specific functions. Taken together, these findings indicate that misspliced RNAs are effective biomarkers for alcohol-associated liver disease, and targeting them could improve recovery in affected individuals.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP2-microRNA-122 axis promotes the postnatal onset of liver polyploidization and maturation.",
+    "doi": "10.1101/gad.352129.124",
+    "pmid": "39794125",
+    "authors": [
+      "Bangru S, Chen J, Baker N, Das D, Chembazhi UV, Derham JM, Chorghade S, Arif W, Alencastro F, Duncan AW, Carstens RP, Kalsotra A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-03",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hepatocyte polyploidy and maturity are critical to acquiring specialized liver functions. Multiple intracellular and extracellular factors influence ploidy, but how they cooperate temporally to steer liver polyploidization and maturation or how post-transcriptional mechanisms integrate into these paradigms is unknown. Here, we identified an important regulatory hierarchy in which postnatal activation of epithelial splicing regulatory protein 2 (ESRP2) stimulates processing of liver-specific microRNA (<i>miR-122</i>) to facilitate polyploidization, maturation, and functional competence of hepatocytes. By determining transcriptome-wide protein-RNA interactions in vivo and integrating them with single-cell and bulk hepatocyte RNA-seq data sets, we delineated an ESRP2-driven RNA processing program that drives sequential replacement of fetal-to-adult transcript isoforms. Specifically, ESRP2 binds the primary <i>miR-122</i> host gene transcript to promote its processing/biogenesis. Combining constitutive and inducible ESRP2 gain- and loss-of-function mouse models with <i>miR-122</i> rescue experiments, we demonstrated that timed activation of ESRP2 augments the <i>miR-122</i>-driven program of cytokinesis failure, ensuring the proper onset and extent of hepatocyte polyploidization.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular Basis of UG-Rich Element Recognition by ESRP2 RRM3.",
+    "doi": "10.1002/mrc.70034",
+    "pmid": "40908720",
+    "authors": [
+      "Kumari P, Yadav P, Bhavesh NS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial splicing regulatory protein 2 (ESRP2) plays a pivotal role in alternative splicing regulation, particularly in maintaining epithelial cell identity and suppressing epithelial-to-mesenchymal transition (EMT). Despite its biological significance, the structural basis for its RNA-binding specificity remains poorly understood. In this study, we report the solution structure and RNA-binding properties of the RNA Recognition Motif (RRM3) of human ESRP2 using an integrative approach combining nuclear magnetic resonance (NMR) spectroscopy, ITC, molecular docking, and MD simulations. Our structural analysis revealed that ESRP2-RRM3 adopts a canonical RRM fold (βαββαβ), featuring a positively charged β-sheet surface conducive to RNA interaction. ITC assays demonstrated that RRM3 binds UG-rich RNA sequences with moderate affinity, and NMR titrations identified key interacting residues within the conserved RNP motifs, particularly F522 and R480. RNA docking and MD simulations further corroborated these interactions, revealing π-π stacking and hydrogen bonding at the protein-RNA interface. These findings represent the first atomic-level characterization of ESRP2's interaction with its RNA targets and provide mechanistic insight into how it may guide alternative splicing events in vivo. This work lays the groundwork for understanding the modular RNA recognition by ESRP2's multiple RRMs and its broader role in splicing regulation, development, and cancer suppression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Novel identified micropeptide LEAO reshapes plasticity of adipose tissue to improve metabolic homeostasis.",
+    "doi": "10.1007/s40618-026-02813-7",
+    "pmid": "41591734",
+    "authors": [
+      "Liu S, Song B, Hu L, Zhao Z, Li J, Li X, Qian B, Cai Y, Lin J, Wu Q, Sun X, Yang Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Adipose tissue exhibits remarkable plasticity, defined as its capability of adapting to various environments and energy demands by undergoing shifts in phenotypic, metabolic characteristics, and structure. However, obesity often results in diminished adipose tissue plasticity. Long non-coding RNA (lncRNA) is a class of RNA defined as being more than 200 nucleotides long and lacking protein-coding capability. With advancements in ribosome profiling, mass spectrometry, and other research technologies, an increasing number of studies have confirmed that short open reading frames (less than 300 nucleotides) within lncRNAs have the capacity to encode functional micropeptides. In our study, we initially identified a biologically active micropeptide, lncRNA Esrp2-as-ORF1(LEAO), encoded by lncRNA Esrp2-as in mice. In diet-induced obesity (DIO)mice, this micropeptide demonstrates the ability to induce fat browning, enhance adipose tissue plasticity, and subsequently improve metabolic homeostasis. Additionally, we observed that the micropeptide LEAO exerts its effects on adipocytes by stimulating IL6 secretion in adipose tissue macrophages. In summary, LEAO may have therapeutic potential for obesity-related metabolic diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic requirement for Esrp1 and Esrp2 in vertebrate pituitary morphogenesis.",
+    "doi": "10.1242/dev.204636",
+    "pmid": "41111330",
+    "authors": [
+      "Carroll SH, Schafer S, Richman AS, Wang P, Ahsan MU, Tsay L, Wang K, Liao EC."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-30",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The pituitary gland produces several hormones that regulate growth, metabolism, stress response, reproduction and homeostasis. Congenital hypopituitarism is a deficiency in one or more pituitary hormones and encompasses a spectrum of clinical conditions. The pituitary has a complex embryonic origin, with the oral ectoderm contributing the anterior lobe, and the neural ectoderm generating the posterior lobe. Pituitary abnormalities and growth deficiencies are associated with cleft palate; however, the developmental genetic connection between pituitary and orofacial cleft malformations remains to be determined. The epithelial RNA splicing regulators Esrp1 and Esrp2 (Esrp1/2) are required for orofacial development in zebrafish, mice and humans, and loss of function of these genes results in a cleft palate. Here, we present a detailed developmental analysis of the genetic requirement for Esrp1/2 in pituitary morphogenesis in mouse and zebrafish. Further, we describe an individual with cleft palate and hypopituitarism who harbors a nucleotide variant in the RNA-binding domain of ESRP2. The discovery of this key function for Esrp1/2 in pituitary formation has significant fundamental and clinical implications for understanding congenital hypopituitarism and craniofacial anomalies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Down-regulation of ESRP2 inhibits breast cancer cell proliferation via inhibiting cyclinD1.",
+    "doi": "10.1038/s41598-024-77980-9",
+    "pmid": "39557898",
+    "authors": [
+      "He C, Chen Y, Zhang X, Feng H, Rao Y, Ji T, Wang W."
+    ],
+    "year": "2024",
+    "publication_date": "2024-11-18",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Epithelial splicing regulatory protein 2 (ESRP2),an important alternative splicing protein of mRNA, is reported to have a dual role in tumors, which can promote or inhibit the occurrence and development of tumors. However, the function and mechanism of ESRP2 in breast cancer (BC) remain unclear. The distribution of ESRP2 expression in breast cancer and the correlation between ESRP2 expression and the overall survival rate were detected by The Cancer Genome Atlas (TCGA) database. Gene Ontology(GO)analysis, containing biological process, cellular components, and molecular function, was utilized to evaluate the potential mechanism of ESRP2 in breast cancer. The ESRP2 expression in breast cancer cell lines was detected by real-time quantitative PCR analysis (RT-qPCR) and western blotting. Cell clone was performed to examine the proliferation of ESRP2 knockdown in MCF-7 cells. The cell cycle was measured by flow cytometry assays. The role of ESRP2 knockdown in synergistic effect with chemotherapeutic agents was also determined by MTT assay. Bioinformatics analysis demonstrated that the ESRP2 gene was elevated in breast cancer cells and its overexpression was strongly correlated with shorter overall survival. GO analysis revealed that ESRP2 expression was related to cell proliferation. ESRP2 mRNA and protein expression were elevated in breast cancer cell lines, compared to the normal human breast cell line MCF-10 A. Dwon-regulation of ESRP2 inhibited cell proliferation and promoted the sensitivity of chemotherapy drug, Cisplatin(DDP) and Paclitaxel (TAXOL), in MCF-7 cells.Additionally, ESRP2 knockdown obstructed the cell cycle at the G1 phase and caused a decrease in cyclinD1 protein expression. These findings reveal that ESRP2 is highly expressed in breast cancer and is correlated with poor prognosis in breast cancer patients. ESRP2 knockdown can inhibit MCF-7 cell proliferation by arresting the cell cycle at the G1 phase and promoting the sensitivity of chemotherapy drugs (DDP and TAXOL)in MCF-7 cells. ESRP2 may be required for the regulation of breast cancer progression, as well as a critical target for the clinical treatment of breast cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epithelial specific splicing regulator proteins as emerging oncogenes in aggressive prostate cancer.",
+    "doi": "10.1038/s41388-023-02838-9",
+    "pmid": "37752235",
+    "authors": [
+      "Advani R, Luzzi S, Scott E, Dalgliesh C, Weischenfeldt J, Munkley J, Elliott DJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-26",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Prostate cancer progression is connected to the activity of conventional oncogenes and tumour suppressors and driven by circulating steroid hormones. A key issue has been how to identify and care for aggressively developing prostate tumours. Here we discuss how expression of the splicing regulators ESRP1 and ESRP2, and how their role as \"masterminds\" of epithelial splicing patterns, have been identified as markers of aggressively proliferating prostate primary tumours. We suggest that the origin of prostate cancer within epithelial cells, and the subsequent association of ESRP1 and ESRP2 expression with more aggressive disease progression, identify ESRP1 and ESRP2 as lineage survival oncogenes. To move this field on in the future it will be important to identify the gene expression targets controlled by ESRP1/2 that regulate prostate cancer proliferation. Potential future therapies could be designed to target ESRP1 and ESRP2 protein activity or their regulated splice isoforms in aggressive prostate tumours. Design of these therapies is potentially complicated by the risk of producing a more mesenchymal splicing environment that might promote tumour metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of ESRP2 Activates TAK1-MAPK Signaling through the Fetal RNA-Splicing Program to Promote Hepatocellular Carcinoma Progression.",
+    "doi": "10.1002/advs.202305653",
+    "pmid": "37985644",
+    "authors": [
+      "Yan Q, Fang X, Liu X, Guo S, Chen S, Luo M, Lan P, Guan XY."
+    ],
+    "year": "2024",
+    "publication_date": "2023-11-20",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "Tumors usually display fetal-like characteristics, and many oncofetal proteins have been identified. However, fetal-like reprogramming of RNA splicing in hepatocellular carcinoma (HCC) is poorly understood. Here, it is demonstrated that the expression of epithelial splicing regulatory protein 2 (ESRP2), an RNA splicing factor, is suppressed in fetal hepatocytes and HCC, in parallel with tumor progression. By combining RNA-Seq with splicing analysis, it is identified that ESRP2 controls the fetal-to-adult switch of multiple splice isoforms in HCC. Functionally, ESRP2 suppressed cell proliferation and migration by specifically switching the alternative splicing (AS) of the TAK1 gene and restraining the expression of the fetal and oncogenic isoform, TAK1_ΔE12. Notably, aberrant TAK1 splicing led to the activation of p38MAPK signaling and predicted poor prognosis in HCC patients. Further investigation revealed that TAK1_ΔE12 protein interacted closely with TAB3 and formed liquid condensation in HCC cells, resulting in p38MAPK activation, enhanced cell migration, and accelerated tumorigenesis. Loss of ESRP2 sensitized HCC cells to TAK1 kinase inhibitor (TAK1i), promoting pyroptotic cell death and CD8+ T cell infiltration. Combining TAK1i with immune checkpoint therapy achieved potent tumor regression in mice. Overall, the findings reveal a previously unexplored onco-fetal reprogramming of RNA splicing and provide novel therapeutic avenues for HCC.",
+    "openalex_id": ""
+  }
+]

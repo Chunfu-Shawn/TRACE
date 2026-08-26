@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Comprehensive pan-cancer analysis of MEX3C in human tumors.",
+    "doi": "10.1007/s12672-026-05367-5",
+    "pmid": "42250018",
+    "authors": [
+      "Zhang X, Chen W, Wang Y, Guo C, Gao M, Chu T, Zhang X, Liu T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "MEX3C, an RNA-binding protein implicated in cancer progression, was analyzed for its expression, genetic alterations, prognostic value, immune associations, and pathway enrichment across various cancers. Using TCGA and GTEx datasets, MEX3C expression was found elevated in multiple cancers, including BRCA, HNSC, and LUSC, while reduced in ACC and TGCT. High MEX3C expression correlated with poor overall survival (OS) in LIHC and MESO, and disease-specific survival (DSS) in PAAD and MESO, highlighting its prognostic potential. Genetic analysis revealed frequent \"deep deletions\" and missense mutations, particularly in PAAD and STAD. Strong associations between MEX3C and RNA modification-related genes (e.g., YTHDF3, DNMT3A) suggest its regulation via RNA modifications. Immune infiltration analysis demonstrated MEX3C's correlation with cancer-associated fibroblasts (CAFs) and immune checkpoints such as CD276 and VEGFA, indicating its role in immune modulation. Additionally, MEX3C expression showed cancer-type-specific correlations with tumor mutational burden (TMB) and microsatellite instability (MSI), linking it to genomic instability. Enrichment analysis identified pathways such as RNA transport, spliceosome function, and endocytosis as significantly associated with MEX3C-related genes. These findings establish MEX3C as a pivotal biomarker and potential therapeutic target, warranting further investigation into its mechanistic roles in cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative bioinformatic and experimental analysis reveals prognostic and immunological roles of MEX3 family genes in glioma.",
+    "doi": "10.3389/fimmu.2025.1654036",
+    "pmid": "41613120",
+    "authors": [
+      "Zhang X, Shang H, Chu T, Sha K."
+    ],
+    "year": "2025",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is a highly heterogeneous and aggressive malignancy of the central nervous system, and reliable molecular biomarkers are urgently needed to improve prognostic stratification and guide therapeutic decision-making. The MEX3 family of RNA-binding proteins has been implicated in tumorigenesis and post-transcriptional regulation; however, their comprehensive roles in glioma remain poorly understood.<h4>Methods</h4>Integrated bioinformatic analyses were performed using transcriptomic and clinical data from TCGA, CGGA, and GEO cohorts to evaluate the expression profiles, diagnostic and prognostic value, genetic alterations, molecular interactions, immune infiltration characteristics, and functional pathways associated with MEX3A, MEX3B, MEX3C, and MEX3D. Protein-protein interaction networks, gene set enrichment, and co-expression analyses were conducted to explore potential biological mechanisms. A MEX3-related prognostic risk model was constructed and validated in independent datasets. Drug sensitivity correlations were analyzed using public pharmacogenomic resources. In addition, <i>in vitro</i> experiments, including qRT-PCR, western blotting, proliferation, migration, and invasion assays, were performed in U251 and LN229 glioma cell lines to functionally validate the bioinformatic findings.<h4>Results</h4>All four MEX3 family members were significantly upregulated in glioma tissues compared with normal controls and demonstrated strong diagnostic performance. Distinct prognostic patterns were observed, with MEX3D consistently identified as an independent predictor of poor overall, disease-specific, and progression-free survival. MEX3 genes were associated with diverse genetic alterations and were enriched in pathways related to RNA processing, cell cycle regulation, and cancer-associated signaling. Immune analyses revealed significant correlations between MEX3 expression and multiple immune cell populations as well as immune checkpoint molecules, suggesting potential roles in shaping the glioma immune microenvironment. A MEX3-related co-expression-based prognostic model showed robust survival-predictive ability and remained effective in external validation cohorts. Functional assays confirmed that silencing individual MEX3 genes significantly inhibited glioma cell proliferation, migration, and invasion <i>in vitro</i>.<h4>Conclusions</h4>This study provides a comprehensive characterization of the MEX3 family in glioma, demonstrating their dysregulation, prognostic relevance, immune associations, and functional contributions to malignant phenotypes. Among them, MEX3D emerges as a particularly promising prognostic biomarker. These findings establish a foundation for future mechanistic and translational studies exploring MEX3 family members as potential biomarkers or therapeutic targets in glioma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A DNA Aptamer as a Chemical Tool to Modulate MEX3C-Mediated mRNA Destabilization.",
+    "doi": "10.1021/acsabm.5c02157",
+    "pmid": "41518674",
+    "authors": [
+      "Li T, Qin J, Huang Z, Guo L, Liu X, Zhang W, Zhang Y, Wei J, Yang K, Chen W, Liu B, Wang Z, Pan Y, Wang H, Wei Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-10",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Targeting RNA-binding proteins (RBPs) that control mRNA turnover presents a promising avenue for modulating gene expression and accessing otherwise \"undruggable\" intracellular targets. MEX3C is a tumor- and tissue-specific RBP that facilitates transcript destabilization by recruiting the CCR4-NOT deadenylation complex; however, selective tools to perturb MEX3C are lacking. Here, we report the development of a high-affinity and specific DNA aptamer through iterative Blocker-SELEX selection and sequence optimization. The resulting aptamer, MRiApt, binds the KH1 domain of MEX3C with nanomolar affinity and competitively inhibits RNA binding while sparing the homologous KH2 domain. A chemically stabilized derivative, MRiApt-PT-stem, exhibits enhanced stability and efficient intracellular uptake and effectively antagonizes the MEX3C-dependent repression of HLA-A2 transcripts, restoring HLA-A2 expression and thereby improving tumor cell recognition by T cells. Analysis of TCGA data revealed that high-MEX3C expression was significantly associated with poor prognosis in liver hepatocellular carcinoma (LIHC), underscoring the clinical relevance of perturbing MEX3C. Together, these findings establish MRiApt-PT-stem as a chemical probe to dissect and modulate MEX3C-mediated post-transcriptional regulation, providing a foundation for future approaches in transcriptome modulation and therapeutic targeting of RBPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive bioinformatics analysis of MEX3 family genes in hepatocellular carcinoma.",
+    "doi": "10.1038/s41598-025-02057-0",
+    "pmid": "40374855",
+    "authors": [
+      "Zhang X, Sun P, Chu T, Feng Y, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-15",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is a highly lethal malignancy associated with poor prognosis due to late-stage diagnosis and high recurrence rates. The MEX3 family genes has been implicated in various cancers; however, their roles in HCC remain largely unexplored. This study aims to systematically analyze the expression patterns, prognostic significance, and immune-related functions of MEX3A, MEX3B, MEX3C, and MEX3D in HCC using comprehensive bioinformatics approaches. We conducted a multi-level bioinformatics analysis to investigate the expression, prognostic significance, clinicopathological correlations, genetic alterations, immune associations, and functional mechanisms of MEX3 family members in HCC. Transcriptomic data from TCGA and GEO databases, along with experimental validation via qRT-PCR and Western blotting, were used to assess expression profiles. Kaplan-Meier, ROC curve, and Cox regression analyses were employed for prognostic evaluation. Co-expression, enrichment, and immune infiltration analyses further elucidated the functional and immunological relevance of MEX3 family genes. A prognostic model based on co-expressed genes was constructed and validated using LASSO and time-dependent ROC analyses. MEX3A, MEX3B, MEX3C, and MEX3D were significantly upregulated in HCC tissues compared to normal liver tissues (P < 0.05). ROC curve analysis demonstrated high diagnostic accuracy, particularly for MEX3A (AUC = 0.915). Kaplan-Meier survival analysis indicated that elevated MEX3A and MEX3C expression was associated with poorer overall survival (OS) and disease-specific survival (DSS) (P < 0.05). Mutation analysis revealed that MEX3A exhibited the highest alteration frequency (11%), primarily through gene amplifications. Immune infiltration analysis demonstrated significant correlations between MEX3 expression and multiple immune cell populations, including regulatory T cells (Tregs), cytotoxic T cells, and macrophages. Moreover, MEX3B, MEX3C, and MEX3D expression correlated with key immune checkpoint genes, including PDCD1, CD274, and CTLA4. Functional enrichment analysis revealed that MEX3 co-expressed genes were significantly involved in RNA metabolism, immune response regulation, and oncogenic signaling pathways. A 17-gene MEX3 co-expression-based prognostic model stratified patients into high- and low-risk groups with significantly different survival outcomes (AUC = 0.791 at 1 year). This study highlights the oncogenic potential of MEX3 family members in HCC and their associations with immune regulation. The findings suggest that MEX3 family genes could serve as potential biomarkers for HCC prognosis and immunotherapy responsiveness. Further experimental validation is warranted to elucidate the mechanistic roles of MEX3 family genes in HCC progression and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ubiquitylation of RUNX3 by RNA-binding ubiquitin ligase MEX3C promotes tumorigenesis in lung adenocarcinoma.",
+    "doi": "10.1186/s12967-023-04700-8",
+    "pmid": "38424632",
+    "authors": [
+      "He Z, Zhang H, Xiao H, Zhang X, Xu H, Sun R, Li S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-29",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Lung adenocarcinoma (LUAD) is the most common pathological type of lung cancer, but the early diagnosis rate is low. The RNA-binding ubiquitin ligase MEX3C promotes tumorigenesis in several cancers but its mechanism of action in LUAD is unclear. In this study, the biological activity of MEX3C was assessed in LUAD. MEX3C and RUNX3 mRNA levels in the tissues of LUAD patients were determined using reverse transcription‑quantitative PCR. The involvement of MEX3C in the growth and metastasis of LUAD cells was measured by EdU assay, CCK-8, colony formation, Transwell assay, TUNEL, and flow cytometry. Expression of apoptosis and epithelial-mesenchymal transition related proteins were determined using western blotting analysis. LUAD cells transfected with si-MEX3C were administered to mice subcutaneously to monitor tumor progression and metastasis. We found that MEX3C is strongly upregulated in LUAD tissue sections, and involved in proliferation and migration. A549 and H1299 cells had significantly higher levels of MEX3C expression compared to control HBE cells. Knockdown of MEX3C dramatically decreased cell proliferation, migration, and invasion, and accelerated apoptosis. Mechanistically, we demonstrate MEX3C induces ubiquitylation and degradation of tumor suppressor RUNX3. Moreover, RUNX3 transcriptionally represses Suv39H1, as revealed by RNA pull-down and chromatin immunoprecipitation assays. The in vivo mice model demonstrated that knockdown of MEX3C reduced LUAD growth and metastasis significantly. Collectively, we reveal a novel MEX3C-RUNX3-Suv39H1 signaling axis driving LUAD pathogenesis. Targeting MEX3C may represent a promising therapeutic strategy against LUAD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ctenopharyngodon idellus Mex3C activates the innate immune by promoting the K63-linked ubiquitination of RIG-I.",
+    "doi": "10.1016/j.fsi.2025.110519",
+    "pmid": "40582531",
+    "authors": [
+      "Yu T, Wu C, Li D, Xu X, Li M, Zhang Q, Guo C, Chen Y, Hu C, Jiang Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The cytoplasmic RNA sensor RIG-I-like receptors (RLRs) play a pivotal role in initiating antiviral innate immunity. In this study, we identified the grass carp (Ctenopharyngodon idellus) Mex3C gene, named CiMex3C which encodes a protein with a RING domain and two heterogeneous nuclear ribonucleoprotein K homology (KH) domains. Our study revealed that CiMex3C responded to multiple stimuli including GCRV, poly(I:C), B-DNA, Z-DNA, characterized by the heightened sensitivity to GCRV stimulation. Notably, CiMex3C co-localized with RIG-I in the cytoplasm of C.idellus kidney (CIK) cells following viral challenge. Further investigation revealed that CiMex3C overexpression significantly enhanced K63-linked ubiquitination of RIG-I. CiMex3C exhibited E3 ubiquitin ligase activity through its conserved RING domain. It directly catalyzed the K63-linked ubiquitin chains on RIG-I. Conversely, siRNA-mediated knockdown of CiMex3C in CIK cells markedly attenuated the RIG-I ubiquitination and suppressed IFN I production. These findings provided the empirical evidences that CiMex3C functions as a post-translational modulator of RIG-I activation, establishing its essential role in antiviral innate immune response in teleosts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mex3c mutation affects lactation through impairing milk ejection in female mice.",
+    "doi": "10.1042/bsr20201285",
+    "pmid": "33180120",
+    "authors": [
+      "Du Y, Sun D, Li Y."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Mouse Mex3c encodes RNA-binding proteins of variant length through alternative splicing. Its mutation results in multiple defects including growth retardation, perturbed energy balance, and defective antiviral innate immunity. Here we report that Mex3c mutation affects mammary gland development and lactation in female mice. Pups of Mex3c mutant dams die of starvation soon after birth. Milk contents are present in the alveoli but deficient in the ducts of the mammary glands in mutant mice. Mutant mice do not show prolactin or oxytocin deficiency. They also develop myoepithelial cells in the mammary glands. Mex3c is expressed in the mammary gland epithelium. Our data suggest that functional defects in mammary gland epithelium or myoepithelial cells could cause lactation defects.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of the MEX3 family as potential biomarkers of hepatocellular carcinoma based on bioinformatics and experiments.",
+    "doi": "10.21037/tcr-24-2095",
+    "pmid": "40530133",
+    "authors": [
+      "Xian J, Jin A, Zhou M, Shao W, Zhu J, Pan B, Wang B, Guo W, Yang W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-27",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Members of the MEX3 RNA-binding protein family have been widely recognized as critical in the development and progression of cancer. However, the specific role of MEX3 in liver hepatocellular carcinoma (LIHC) remains largely unexplored. This study aims to exploring the potential functions and mechanisms of MEX3 family genes in LIHC.<h4>Methods</h4>To address this gap, we performed a comprehensive bioinformatics analysis using various tools and databases, including the The Cancer Genome Atlas (TCGA) dataset, R software, Kaplan-Meier Plotter, cBioPortal, LinkedOmics, Metascape, TIMER, receiver operating characteristic (ROC) curve, and nomogram. Furthermore, the protein levels of MEX3 family were assessed by Western blot and the Human Protein Atlas.<h4>Results</h4>Our analyses revealed that MEX3 family genes were significantly overexpressed in multiple types of tumor tissues, particularly in LIHC. Specifically, MEX3A was highly expressed in Asian populations, while MEX3B/C/D showed increased expression in tumors of higher grades and advanced clinical stages. High expression of MEX3A correlated with poor survival outcomes; MEX3C/D showed partial associations with poor survival, whereas MEX3B indicated a favorable trend. Mutations in the <i>MEX3A</i> gene were frequently observed and were strongly associated with hypoxic conditions, increased incidence of adverse clinical symptoms, and a poorer prognosis. The enrichment analysis of co-expressed genes within the MEX3 family revealed involvement in cell cycle regulation, transcriptional control, and various oncogenic pathways. Additionally, correlations were observed between the expression levels of MEX3 family genes and key driver genes such as <i>MMP14</i>, <i>TET3</i>, <i>SENP1</i>, <i>GTSE1</i>, and <i>KIF18A</i>. Furthermore, upregulation of MEX3 family gene expression was associated with increased T helper cells, Th2 cells, and other infiltrating immune lymphocytes. The ROC curve indicated that MEX3A had optimal predictive value for LIHC. Moreover, there were differences in the expression levels of MEX3 family genes and proteins, suggesting that post-translational modifications may play a crucial role in regulating their protein levels.<h4>Conclusions</h4>Our findings suggest that the MEX3 family is associated with the prognosis of hepatocellular carcinoma patients and contributes to disease progression by modulating the cell cycle and protein post-transcriptional modifications. Furthermore, this family is related to the tumor microenvironment, particularly in hypoxia and immune responses, which holds significant value for predicting liver cancer outcomes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3C-Mediated Decay of SOCS3 mRNA Promotes JAK2/STAT3 Signaling to Facilitate Metastasis in Hepatocellular Carcinoma.",
+    "doi": "10.1158/0008-5472.can-22-1203",
+    "pmid": "36112698",
+    "authors": [
+      "Xiao Y, Li Y, Shi D, Wang X, Dai S, Yang M, Kong L, Chen B, Huang X, Lin C, Liao W, Xu B, Chen X, Wang L, Chen X, Ouyang Y, Liu G, Liu G, Li H, Song L."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-01",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "Tumor metastasis is one of the major causes of high mortality in patients with hepatocellular carcinoma (HCC). Sustained activation of STAT3 signaling plays a critical role in HCC metastasis. RNA binding protein (RBP)-mediated posttranscriptional regulation is involved in the precise control of signal transduction, including STAT3 signaling. In this study, we investigated whether RBPs are important regulators of HCC metastasis. The RBP MEX3C was found to be significantly upregulated in highly metastatic HCC and correlated with poor prognosis in HCC. Mechanistically, MEX3C increased JAK2/STAT3 pathway activity by downregulating SOCS3, a major negative regulator of JAK2/STAT3 signaling. MEX3C interacted with the 3'UTR of SOCS3 and recruited CNOT7 to ubiquitinate and accelerate decay of SOCS3 mRNA. Treatment with MEX3C-specific antisense oligonucleotide significantly inhibited JAK2/STAT3 pathway activation, suppressing HCC migration in vitro and metastasis in vivo. These findings highlight a novel mRNA decay-mediated mechanism for the disruption of SOCS3-driven negative regulation of JAK2/STAT3 signaling, suggesting MEX3C may be a potential prognostic biomarker and promising therapeutic target in HCC.<h4>Significance</h4>This study reveals that RNA-binding protein MEX3C induces SOCS3 mRNA decay to promote JAK2/STAT3 activation and tumor metastasis in hepatocellular carcinoma, identifying MEX3C targeting as a potential approach for treating metastatic disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA packaging into extracellular vesicles: An orchestra of RNA-binding proteins?",
+    "doi": "10.1002/jev2.12043",
+    "pmid": "33391635",
+    "authors": [
+      "Fabbiano F, Corsi J, Gurrieri E, Trevisan C, Notarangelo M, D'Agostino VG."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-28",
+    "cited_by_count": 248,
+    "journal": "",
+    "abstract": "Extracellular vesicles (EVs) are heterogeneous membranous particles released from the cells through different biogenetic and secretory mechanisms. We now conceive EVs as shuttles mediating cellular communication, carrying a variety of molecules resulting from intracellular homeostatic mechanisms. The RNA is a widely detected cargo and, impressively, a recognized functional intermediate that elects EVs as modulators of cancer cell phenotypes, determinants of disease spreading, cell surrogates in regenerative medicine, and a source for non-invasive molecular diagnostics. The mechanistic elucidation of the intracellular events responsible for the engagement of RNA into EVs will significantly improve the comprehension and possibly the prediction of EV \"quality\" in association with cell physiology. Interestingly, the application of multidisciplinary approaches, including biochemical as well as cell-based and computational strategies, is increasingly revealing an active RNA-packaging process implicating RNA-binding proteins (RBPs) in the sorting of coding and non-coding RNAs. In this review, we provide a comprehensive view of RBPs recently emerging as part of the EV biology, considering the scenarios where: <i>(i)</i> individual RBPs were detected in EVs along with their RNA substrates, <i>(ii)</i> RBPs were detected in EVs with inferred RNA targets, and <i>(iii)</i> EV-transcripts were found to harbour sequence motifs mirroring the activity of RBPs. Proteins so far identified are members of the hnRNP family (hnRNPA2B1, hnRNPC1, hnRNPG, hnRNPH1, hnRNPK, and hnRNPQ), as well as YBX1, HuR, AGO2, IGF2BP1, MEX3C, ANXA2, ALIX, NCL, FUS, TDP-43, MVP, LIN28, SRP9/14, QKI, and TERT. We describe the RBPs based on protein domain features, current knowledge on the association with human diseases, recognition of RNA consensus motifs, and the need to clarify the functional significance in different cellular contexts. We also summarize data on previously identified RBP inhibitor small molecules that could also be introduced in EV research as potential modulators of vesicular RNA sorting.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNA circ_0004488 Increases Cervical Cancer Paclitaxel Resistance via the miR-136/MEX3C Signaling Pathway.",
+    "doi": "10.1155/2022/5435333",
+    "pmid": "36439901",
+    "authors": [
+      "Yi H, Han Y, Li Q, Wang X, Xiong L, Li S."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Circular RNAs have been proven to play a pivotal role in cervical cancer development, progression, and treatment resistance. However, it is unclear how these RNAs influence chemoresistance in cervical cancer, particularly cancer stem cell (CSC)-like properties. In this study, we found that circRNA circ_0004488 was highly expressed in CSC-enriched subsets of cervical cancer cell lines. The expression of circ_0004488 was upregulated in cervical cancer cells that were resistant to paclitaxel. When circ_0004488 expression was high, the prognosis was poor. Specifically, we discovered that knocking down circ_0004488 greatly decreased the development of cervical cancer cells in vivo by decreasing cell proliferation, invasion, and sphere formation. By blocking cir_0004488, cervical cancer cells become more sensitive to paclitaxel. In cervical cancer cells, circ_0004488 acted as a microRNA-136 (miR-136) sponge, increasing the expression of MEX3C (a direct target gene of miR-136) using dual-luciferase reporter assays. Moreover, MEX3C downregulation significantly reduced cell proliferation, invasion, sphere formation, and paclitaxel resistance. In conclusion, circ_0004488 was shown to induce CSC-like features and paclitaxel resistance through the miR-136/MEX3C axis. Therefore, circ_0004488 might be a good therapeutic target for treating cervical cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oocyte-Specific Expression of Mouse MEX3C652AA in the Ovary and Its Potential Role in Regulating Maternal Fos mRNA.",
+    "doi": "10.1095/biolreprod.115.136630",
+    "pmid": "27053362",
+    "authors": [
+      "Li X, Li Y, Liu C, Jin M, Lu B."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-06",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Currently, the human MEX3C gene is known to encode an RNA-binding protein of 659 amino acid residues. Here we show that the MEX3C gene has alternative splicing forms giving rise to multiple MEX3C variants, and some cells express MEX3C transcripts coding for short MEX3C isoforms but not transcripts for MEX3C(659AA) MEX3C(659AA) functions as an adaptor protein for Exportin 1 (XPO1)-mediated nuclear export since it increases the cytoplasmic distribution of poly(A)(+) RNA and since addition of the nuclear export signal (NES) sequence to a short MEX3C isoform MEX3C(464AA) confers similar cytoplasmic poly(A)(+) RNA accumulation activity as MEX3C(659AA) FOS mRNA is a potential MEX3C target mRNA. One mechanism by which MEX3C(659AA) could regulate FOS mRNA is by promoting its nuclear export. Overexpressing MEX3C(659AA) significantly increased FOS mRNA expression, whereas mutating the NES of MEX3C(659AA) and treating cells with leptomycin B to inhibit XPO1-mediated nuclear export attenuated FOS upregulation. FOS mRNA is unstable in somatic cells but less so in oocytes; how it is stabilized in the oocytes is unknown. Transcripts for the mouse counterpart of human MEX3C(659AA) (MEX3C(652AA)) are specifically expressed in developing oocytes in the ovary, although total Mex3c transcripts are expressed in both granulosa cells and oocytes. The specific expression of this long MEX3C isoform in oocytes and its ability to enhance FOS mRNA nuclear export and stability all suggest that MEX3C(659AA) is an RNA-binding protein that preserves maternal FOS mRNA in oocytes.",
+    "openalex_id": ""
+  }
+]

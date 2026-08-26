@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Global analysis of H3K27me3 as an epigenetic marker in prostate cancer progression.",
+    "doi": "10.1186/s12885-017-3256-y",
+    "pmid": "28403887",
+    "authors": [
+      "Ngollo M, Lebert A, Daures M, Judes G, Rifai K, Dubois L, Kemeny JL, Penault-Llorca F, Bignon YJ, Guy L, Bernard-Gallon D."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-12",
+    "cited_by_count": 85,
+    "journal": "",
+    "abstract": "<h4>Background</h4>H3K27me3 histone marks shape the inhibition of gene transcription. In prostate cancer, the deregulation of H3K27me3 marks might play a role in prostate tumor progression.<h4>Methods</h4>We investigated genome-wide H3K27me3 histone methylation profile using chromatin immunoprecipitation (ChIP) and 2X400K promoter microarrays to identify differentially-enriched regions in biopsy samples from prostate cancer patients. H3K27me3 marks were assessed in 34 prostate tumors: 11 with Gleason score > 7 (GS > 7), 10 with Gleason score ≤ 7 (GS ≤ 7), and 13 morphologically normal prostate samples.<h4>Results</h4>Here, H3K27me3 profiling identified an average of 386 enriched-genes on promoter regions in healthy control group versus 545 genes in GS ≤ 7 and 748 genes in GS > 7 group. We then ran a factorial discriminant analysis (FDA) and compared the enriched genes in prostate-tumor biopsies and normal biopsies using ANOVA to identify significantly differentially-enriched genes. The analysis identified ALG5, EXOSC8, CBX1, GRID2, GRIN3B, ING3, MYO1D, NPHP3-AS1, MSH6, FBXO11, SND1, SPATS2, TENM4 and TRA2A genes. These genes are possibly associated with prostate cancer. Notably, the H3K27me3 histone mark emerged as a novel regulatory mechanism in poor-prognosis prostate cancer.<h4>Conclusions</h4>Our findings point to epigenetic mark H3K27me3 as an important event in prostate carcinogenesis and progression. The results reported here provide new molecular insights into the pathogenesis of prostate cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative network analysis identifies cell-specific trans regulators of m6A.",
+    "doi": "10.1093/nar/gkz1206",
+    "pmid": "31912146",
+    "authors": [
+      "An S, Huang W, Huang X, Cun Y, Cheng W, Sun X, Ren Z, Chen Y, Chen W, Wang J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-01",
+    "cited_by_count": 79,
+    "journal": "",
+    "abstract": "N6-methyladenosine (m6A) is a reversible and dynamic RNA modification in eukaryotes. However, how cells establish cell-specific m6A methylomes is still poorly understood. Here, we developed a computational framework to systematically identify cell-specific trans regulators of m6A through integrating gene expressions, binding targets and binding motifs of large number of RNA binding proteins (RBPs) with a co-methylation network constructed using large-scale m6A methylomes across diverse cell states. We applied the framework and successfully identified 32 high-confidence m6A regulators that modulated the variable m6A sites away from stop codons in a cell-specific manner. To validate them, we knocked down three regulators respectively and found two of them (TRA2A and CAPRIN1) selectively promoted the methylations of the m6A sites co-localized with their binding targets on RNAs through physical interactions with the m6A writers. Knockdown of TRA2A increased the stabilities of the RNAs with TRA2A bound near the m6A sites and decreased the viability of cells. The successful identification of m6A regulators demonstrates a powerful and widely applicable strategy to elucidate the cell-specific m6A regulators. Additionally, our discovery of pervasive trans-acting regulating of m6A provides novel insights into the mechanisms by which spatial and temporal dynamics of m6A methylomes are established.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of evolutionarily conserved exons as regulated targets for the splicing activator tra2β in development.",
+    "doi": "10.1371/journal.pgen.1002390",
+    "pmid": "22194695",
+    "authors": [
+      "Grellscheid S, Dalgliesh C, Storbeck M, Best A, Liu Y, Jakubik M, Mende Y, Ehrmann I, Curk T, Rossbach K, Bourgeois CF, Stévenin J, Grellscheid D, Jackson MS, Wirth B, Elliott DJ."
+    ],
+    "year": "2011",
+    "publication_date": "2011-12-15",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "Alternative splicing amplifies the information content of the genome, creating multiple mRNA isoforms from single genes. The evolutionarily conserved splicing activator Tra2β (Sfrs10) is essential for mouse embryogenesis and implicated in spermatogenesis. Here we find that Tra2β is up-regulated as the mitotic stem cell containing population of male germ cells differentiate into meiotic and post-meiotic cells. Using CLIP coupled to deep sequencing, we found that Tra2β binds a high frequency of exons and identified specific G/A rich motifs as frequent targets. Significantly, for the first time we have analysed the splicing effect of Sfrs10 depletion in vivo by generating a conditional neuronal-specific Sfrs10 knock-out mouse (Sfrs10(fl/fl); Nestin-Cre(tg/+)). This mouse has defects in brain development and allowed correlation of genuine physiologically Tra2β regulated exons. These belonged to a novel class which were longer than average size and importantly needed multiple cooperative Tra2β binding sites for efficient splicing activation, thus explaining the observed splicing defects in the knockout mice. Regulated exons included a cassette exon which produces a meiotic isoform of the Nasp histone chaperone that helps monitor DNA double-strand breaks. We also found a previously uncharacterised poison exon identifying a new pathway of feedback control between vertebrate Tra2 proteins. Both Nasp-T and the Tra2a poison exon are evolutionarily conserved, suggesting they might control fundamental developmental processes. Tra2β protein isoforms lacking the RRM were able to activate specific target exons indicating an additional functional role as a splicing co-activator. Significantly the N-terminal RS1 domain conserved between flies and humans was essential for the splicing activator function of Tra2β. Versions of Tra2β lacking this N-terminal RS1 domain potently repressed the same target exons activated by full-length Tra2β protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An Integrative Study of Protein-RNA Condensates Identifies Scaffolding RNAs and Reveals Players in Fragile X-Associated Tremor/Ataxia Syndrome.",
+    "doi": "10.1016/j.celrep.2018.11.076",
+    "pmid": "30566867",
+    "authors": [
+      "Cid-Samper F, Gelabert-Baldrich M, Lang B, Lorenzo-Gotor N, Ponti RD, Severijnen LWFM, Bolognesi B, Gelpi E, Hukema RK, Botta-Orfila T, Tartaglia GG."
+    ],
+    "year": "2018",
+    "publication_date": "2018-12-01",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "Recent evidence indicates that specific RNAs promote the formation of ribonucleoprotein condensates by acting as scaffolds for RNA-binding proteins (RBPs). We systematically investigated RNA-RBP interaction networks to understand ribonucleoprotein assembly. We found that highly contacted RNAs are structured, have long UTRs, and contain nucleotide repeat expansions. Among the RNAs with such properties, we identified the FMR1 3' UTR that harbors CGG expansions implicated in fragile X-associated tremor/ataxia syndrome (FXTAS). We studied FMR1 binding partners in silico and in vitro and prioritized the splicing regulator TRA2A for further characterization. In a FXTAS cellular model, we validated the TRA2A-FMR1 interaction and investigated implications of its sequestration at both transcriptomic and post-transcriptomic levels. We found that TRA2A co-aggregates with FMR1 in a FXTAS mouse model and in post-mortem human samples. Our integrative study identifies key components of ribonucleoprotein aggregates, providing links to neurodegenerative disease and allowing the discovery of therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The SINEB1 element in the long non-coding RNA Malat1 is necessary for TDP-43 proteostasis.",
+    "doi": "10.1093/nar/gkz1176",
+    "pmid": "31863590",
+    "authors": [
+      "Nguyen TM, Kabotyanski EB, Reineke LC, Shao J, Xiong F, Lee JH, Dubrulle J, Johnson H, Stossi F, Tsoi PS, Choi KJ, Ellis AG, Zhao N, Cao J, Adewunmi O, Ferreon JC, Ferreon ACM, Neilson JR, Mancini MA, Chen X, Kim J, Ma L, Li W, Rosen JM."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Transposable elements (TEs) comprise a large proportion of long non-coding RNAs (lncRNAs). Here, we employed CRISPR to delete a short interspersed nuclear element (SINE) in Malat1, a cancer-associated lncRNA, to investigate its significance in cellular physiology. We show that Malat1 with a SINE deletion forms diffuse nuclear speckles and is frequently translocated to the cytoplasm. SINE-deleted cells exhibit an activated unfolded protein response and PKR and markedly increased DNA damage and apoptosis caused by dysregulation of TDP-43 localization and formation of cytotoxic inclusions. TDP-43 binds stronger to Malat1 without the SINE and is likely 'hijacked' by cytoplasmic Malat1 to the cytoplasm, resulting in the depletion of nuclear TDP-43 and redistribution of TDP-43 binding to repetitive element transcripts and mRNAs encoding mitotic and nuclear-cytoplasmic regulators. The SINE promotes Malat1 nuclear retention by facilitating Malat1 binding to HNRNPK, a protein that drives RNA nuclear retention, potentially through direct interactions of the SINE with KHDRBS1 and TRA2A, which bind to HNRNPK. Losing these RNA-protein interactions due to the SINE deletion likely creates more available TDP-43 binding sites on Malat1 and subsequent TDP-43 aggregation. These results highlight the significance of lncRNA TEs in TDP-43 proteostasis with potential implications in both cancer and neurodegenerative diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Meta-analysis of gene expression profiles indicates genes in spliceosome pathway are up-regulated in hepatocellular carcinoma (HCC).",
+    "doi": "10.1007/s12032-014-0425-6",
+    "pmid": "25731616",
+    "authors": [
+      "Xu W, Huang H, Yu L, Cao L."
+    ],
+    "year": "2015",
+    "publication_date": "2015-03-03",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is among the commonest kind of malignant tumors, which accounts for more than 500,000 cases of newly diagnosed cancer annually. Many microarray studies for identifying differentially expressed genes (DEGs) in HCC have been conducted, but results have varied across different studies. Here, we performed a meta-analysis of publicly available microarray Gene Expression Omnibus datasets, which covers five independent studies, containing 753 HCC samples and 638 non-tumor liver samples. We identified 192 DEGs that were consistently up-regulated in HCC vs. normal liver tissue. For the 192 up-regulated genes, we performed Kyoto Encyclopedia of Genes and Genomes pathway analysis. To our surprise, besides several cell growth-related pathways, spliceosome pathway was also up-regulated in HCC. For further exploring the relationship between spliceosome pathway and HCC, we investigated the expression data of spliceosome pathway genes in 15 independent studies in Nextbio database ( https://www.nextbio.com/b/nextbioCorp.nb ). It was found that many genes of spliceosome pathway such as HSPA1A, SNRPE, SF3B2, SF3B4 and TRA2A genes which we identified to be up-regulated in our meta-analysis were generally overexpressed in HCC. At last, using real-time PCR, we also found that BUD31, SF3B2, SF3B4, SNRPE, SPINK1, TPA2A and HSPA1A genes are significantly up-regulated in clinical HCC samples when compared to the corresponding non-tumorous liver tissues. Our study for the first time indicates that many genes of spliceosome pathway are up-regulated in HCC. This finding might put new insights for people's understanding about the relationship of spliceosome pathway and HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRA2A Promoted Paclitaxel Resistance and Tumor Progression in Triple-Negative Breast Cancers via Regulating Alternative Splicing.",
+    "doi": "10.1158/1535-7163.mct-17-0026",
+    "pmid": "28416606",
+    "authors": [
+      "Liu T, Sun H, Zhu D, Dong X, Liu F, Liang X, Chen C, Shao B, Wang M, Wang Y, Sun B."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-17",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Treatment of triple-negative breast cancer (TNBC) has been challenging, and paclitaxel resistance is one of the major obstacles to the better prognosis. Deregulation of alternative splicing (AS) may contribute to tumor progression and chemotherapy resistance. Human AS factor <i>TRA2</i> has two separate gene paralogs encoding TRA2A and TRA2B proteins. TRA2B is associated with cancer cell survival and therapeutic sensitivity. However, the individual role of TRA2A in cancer progression has not been reported. Here we report that TRA2A facilitates proliferation and survival and migration and invasion of TNBC cells. In addition, TRA2A promotes paclitaxel resistance of TNBC by specifically controlling cancer-related splicing, which is independent of other splicing factors. TRA2A overexpression could promote AS of CALU, RSRC2, and PALM during paclitaxel treatment of TNBC cells. The isoform shift of RSRC2 from RSRC2s to RSRC2l leads to a decreased RSRC2 protein expression, which could contribute to TNBC paclitaxel resistance. TRA2A can regulate RSRC2 AS by specifically binding upstream intronic sequence of exon4. Strikingly, TRA2A expression is increased dramatically in patients with TNBC, and has a close relationship with decreased RSRC2 expression; both are associated with poor survival of TNBC. Collectively, our findings suggest that paclitaxel targets the TRA2A-RSRC2 splicing pathway, and deregulated TRA2A and RSRC2 expression may confer paclitaxel resistance. In addition to providing a novel molecular mechanism of cancer-related splicing dysregulation, our study demonstrates that expression of TRA2A in conjunction with RSRC2 may provide valuable molecular biomarker evidence for TNBC clinical treatment decisions and patient outcome. <i>Mol Cancer Ther; 16(7); 1377-88. ©2017 AACR</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRA2A-induced upregulation of LINC00662 regulates blood-brain barrier permeability by affecting ELK4 mRNA stability in Alzheimer's microenvironment.",
+    "doi": "10.1080/15476286.2020.1756055",
+    "pmid": "32372707",
+    "authors": [
+      "Liu Q, Zhu L, Liu X, Zheng J, Liu Y, Ruan X, Cao S, Cai H, Li Z, Xue Y."
+    ],
+    "year": "2020",
+    "publication_date": "2020-05-06",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "The blood-brain barrier (BBB) plays a pivotal role in the maintenance and regulation of the neural microenvironment. The BBB breakdown is a pathological change in early Alzheimer's disease (AD). RNA-binding proteins (RBPs) and long non-coding RNAs (lncRNAs) are involved in the regulation of BBB permeability. Our study demonstrates the role of TRA2A/LINC00662/ELK4 axis in regulating BBB permeability in AD microenvironment. In Aβ<sub>1-42</sub>-incubated microvascular endothelial cells (ECs) of the BBB model <i>in vitro</i>, TRA2A and LINC00662 were enriched. TRA2A increased the stability of LINC00662 by binding with it. The knockdown of either TRA2A or LINC00662 decreased BBB permeability due to increased expression of tight junction-related proteins. ELK4 was less expressed in the BBB model in AD microenvironment <i>in vitro</i>. LINC00662 mediated the degradation of ELK4 mRNA by SMD pathway. Downregulation of ELK4 increased BBB permeability by increasing the tight junction-related protein expression.TRA2A/LINC00662/ELK4 axis plays a crucial role in the regulation of BBB permeability in AD microenvironment, which may provide a novel target for the therapy of AD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A new metabolic gene signature in prostate cancer regulated by JMJD3 and EZH2.",
+    "doi": "10.18632/oncotarget.25182",
+    "pmid": "29805743",
+    "authors": [
+      "Daures M, Idrissou M, Judes G, Rifaï K, Penault-Llorca F, Bignon YJ, Guy L, Bernard-Gallon D."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-04",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "Histone methylation is essential for gene expression control. Trimethylated lysine 27 of histone 3 (H3K27me3) is controlled by the balance between the activities of JMJD3 demethylase and EZH2 methyltransferase. This epigenetic mark has been shown to be deregulated in prostate cancer, and evidence shows H3K27me3 enrichment on gene promoters in prostate cancer. To study the impact of this enrichment, a transcriptomic analysis with TaqMan Low Density Array (TLDA) of several genes was studied on prostate biopsies divided into three clinical grades: normal (<i>n</i> = 23) and two tumor groups that differed in their aggressiveness (Gleason score ≤ 7 (<i>n</i> = 20) and >7 (<i>n</i> = 19)). ANOVA demonstrated that expression of the gene set was upregulated in tumors and correlated with Gleason score, thus discriminating between the three clinical groups. Six genes involved in key cellular processes stood out: <i>JMJD3</i>, <i>EZH2</i>, <i>MGMT</i>, <i>TRA2A</i>, <i>U2AF1</i> and <i>RPS6KA2</i>. Chromatin immunoprecipitation demonstrated collocation of EZH2 and JMJD3 on gene promoters that was dependent on disease stage. Gene set expression was also evaluated on prostate cancer cell lines (DU 145, PC-3 and LNCaP) treated with an inhibitor of JMJD3 (GSK-J4) or EZH2 (DZNeP) to study their involvement in gene regulation. Results showed a difference in GSK-J4 sensitivity under PTEN status of cell lines and an opposite gene expression profile according to androgen status of cells. In summary, our data describe the impacts of JMJD3 and EZH2 on a new gene signature involved in prostate cancer that may help identify diagnostic and therapeutic targets in prostate cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human TRA2A determines influenza A virus host adaptation by regulating viral mRNA splicing.",
+    "doi": "10.1126/sciadv.aaz5764",
+    "pmid": "32596447",
+    "authors": [
+      "Zhu Y, Wang R, Yu L, Sun H, Tian S, Li P, Jin M, Chen H, Ma W, Zhou H."
+    ],
+    "year": "2020",
+    "publication_date": "2020-06-19",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "Several avian influenza A viruses (IAVs) have adapted to mammalian species, including humans. To date, the mechanisms enabling these host shifts remain incompletely understood. Here, we show that a host factor, human TRA2A (huTRA2A), inhibits avian IAV replication, but benefits human IAV replication by altered regulation of viral messenger RNA (mRNA) splicing. huTRA2A depresses mRNA splicing by binding to the intronic splicing silencer motif in the M mRNA of representative avian YS/H5N1 or in the NS mRNA of representative human PR8/H1N1 virus, leading to completely opposite effects on replication of the human and avian viruses in vitro and in vivo. We also confirm that the M-334 site and NS-234/236 sites are critical for TRA2A binding, mRNA splicing, viral replication, and pathogenicity. Our results reveal the underlying mechanisms of adaptation of avian influenza virus to human hosts, and suggest rational strategies to protect public health.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Whole exome sequencing reveals novel somatic alterations in neuroblastoma patients with chemotherapy.",
+    "doi": "10.1186/s12935-018-0521-3",
+    "pmid": "29467591",
+    "authors": [
+      "Duan C, Wang H, Chen Y, Chu P, Xing T, Gao C, Yue Z, Zheng J, Jin M, Gu W, Ma X."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-17",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "<h4>Background</h4>We ought to explore the acquired somatic alterations, shedding light on genetic basis of somatic alterations in NB patients with chemotherapy.<h4>Methods</h4>Marrow blood samples from NB patients were collected before treatment, after the 2nd and 4th chemotherapy for baseline research and continuous monitoring by whole exome sequencing. Plasma cell free DNA (cfDNA) was prepared for baseline research. Finger nail cells were extracted as self control. The clinical data was analyzed.<h4>Results</h4>From December 2014 to February 2016, 27 cases of children with stage IV NB were diagnosed. The follow up time ranged from 5 to 25 months, with a median follow up time of 17 months, 20 patients were stable, one patient died of pulmonary embolism during surgery, six patients died of disease progression. Marrow blood whole exome sequencing demonstrated that several novel somatic mutations were identified in all three trios comply or against the trendy of tumor size variation. Of note, six recurrent mutations in bromodomain PHD finger transcription factor (BPTF) were identified in nine NB patients under the continuous monitoring. The mutation rates variation was positively correlated to tumor size (CC = 0.428, P = 0.021), and patients with BPTF mutation may have a worse prognosis compared with wild type. Meanwhile, CGREF1, CUX2, GP1BA, SLC45A1 and TRA2A were mutated with the trendy oppose as therapeutic effects. The baseline research in three NB patients demonstrated that mutation rate of BPTF, TMCO3, GPRIN2 and C20orf96 in plasma cfDNA were in positive correlation with bone marrow genomic DNA (P = 0.001).<h4>Conclusions</h4>Our study showed that BPTF along with other mutations may function as a biomarker for evaluating to effects of chemotherapy to this refractory tumor, and patients with BPTF mutation might have a worse prognosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel class of inhibitors that target SRSF10 and promote p53-mediated cytotoxicity on human colorectal cancer cells.",
+    "doi": "10.1093/narcan/zcab019",
+    "pmid": "34316707",
+    "authors": [
+      "Sohail M, Shkreta L, Toutant J, Rabea S, Babeu JP, Huard C, Coulombe-Huntington J, Delannoy A, Placet M, Geha S, Gendron FP, Boudreau F, Tyers M, Grierson DS, Chabot B."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-25",
+    "cited_by_count": 25,
+    "journal": "",
+    "abstract": "The elevated expression of the splicing regulator SRSF10 in metastatic colorectal cancer (CRC) stimulates the production of the pro-tumorigenic <i>BCLAF1-L</i> splice variant. We discovered a group of small molecules with an aminothiazole carboxamide core (GPS167, GPS192 and others) that decrease production of <i>BCLAF1-L</i>. While additional alternative splicing events regulated by SRSF10 are affected by GPS167/192 in HCT116 cells (e.g. in <i>MDM4, WTAP, SLK1</i> and <i>CLK1</i>), other events are shifted in a SRSF10-independent manner (e.g. in <i>MDM2, NAB2</i> and <i>TRA2A</i>). GPS167/192 increased the interaction of SRSF10 with the CLK1 and CLK4 kinases, leading us to show that GPS167/192 can inhibit CLK kinases preferentially impacting the activity of SRSF10. Notably, GPS167 impairs the growth of CRC cell lines and organoids, inhibits anchorage-independent colony formation, cell migration, and promotes cytoxicity in a manner that requires SRSF10 and p53. In contrast, GPS167 only minimally affects normal colonocytes and normal colorectal organoids. Thus, GPS167 reprograms the tumorigenic activity of SRSF10 in CRC cells to elicit p53-dependent apoptosis.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "PKA/AKAP1 and PP2A/Bβ2 regulate neuronal morphogenesis via Drp1 phosphorylation and mitochondrial bioenergetics.",
+    "doi": "10.1523/jneurosci.3159-11.2011",
+    "pmid": "22049414",
+    "authors": [
+      "Dickey AS, Strack S."
+    ],
+    "year": "2011",
+    "publication_date": "2011-11-01",
+    "cited_by_count": 182,
+    "journal": "",
+    "abstract": "Mitochondrial shape is determined by fission and fusion reactions, perturbation of which can contribute to neuronal injury and disease. Mitochondrial fission is catalyzed by dynamin-related protein 1 (Drp1), a large GTPase of the dynamin family that is highly expressed in neurons and regulated by various posttranslational modifications, including phosphorylation. We report here that reversible phosphorylation of Drp1 at a conserved Ser residue by an outer mitochondrial kinase (PKA/AKAP1) and phosphatase (PP2A/Bβ2) impacts dendrite and synapse development in cultured rat hippocampal neurons. PKA/AKAP1-mediated phosphorylation of Drp1 at Ser656 increased mitochondrial length and dendrite occupancy, enhancing dendritic outgrowth but paradoxically decreasing synapse number and density. Opposing PKA/AKAP1, PP2A/Bβ2-mediated dephosphorylation of Drp1 at Ser656 fragmented and depolarized mitochondria and depleted them from dendrites, stunting dendritic outgrowth but augmenting synapse formation. Raising and lowering intracellular calcium reproduced the effects of dephospho-Drp1 and phospho-Drp1on dendrite and synapse development, respectively, while boosting mitochondrial membrane potential with l-carnitine-fostered dendrite at the expense of synapse formation without altering mitochondrial size or distribution. Thus, outer mitochondrial PKA and PP2A regulate neuronal development by inhibiting and promoting mitochondrial division, respectively. We propose that the bioenergetic state of mitochondria, rather than their localization or shape per se, is the key effector of Drp1, altering calcium homeostasis to modulate neuronal morphology and connectivity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanism of neuroprotective mitochondrial remodeling by PKA/AKAP1.",
+    "doi": "10.1371/journal.pbio.1000612",
+    "pmid": "21526220",
+    "authors": [
+      "Merrill RA, Dagda RK, Dickey AS, Cribbs JT, Green SH, Usachev YM, Strack S."
+    ],
+    "year": "2011",
+    "publication_date": "2011-04-19",
+    "cited_by_count": 177,
+    "journal": "",
+    "abstract": "Mitochondrial shape is determined by fission and fusion reactions catalyzed by large GTPases of the dynamin family, mutation of which can cause neurological dysfunction. While fission-inducing protein phosphatases have been identified, the identity of opposing kinase signaling complexes has remained elusive. We report here that in both neurons and non-neuronal cells, cAMP elevation and expression of an outer-mitochondrial membrane (OMM) targeted form of the protein kinase A (PKA) catalytic subunit reshapes mitochondria into an interconnected network. Conversely, OMM-targeting of the PKA inhibitor PKI promotes mitochondrial fragmentation upstream of neuronal death. RNAi and overexpression approaches identify mitochondria-localized A kinase anchoring protein 1 (AKAP1) as a neuroprotective and mitochondria-stabilizing factor in vitro and in vivo. According to epistasis studies with phosphorylation site-mutant dynamin-related protein 1 (Drp1), inhibition of the mitochondrial fission enzyme through a conserved PKA site is the principal mechanism by which cAMP and PKA/AKAP1 promote both mitochondrial elongation and neuronal survival. Phenocopied by a mutation that slows GTP hydrolysis, Drp1 phosphorylation inhibits the disassembly step of its catalytic cycle, accumulating large, slowly recycling Drp1 oligomers at the OMM. Unopposed fusion then promotes formation of a mitochondrial reticulum, which protects neurons from diverse insults.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitochondria \"fuel\" breast cancer metabolism: fifteen markers of mitochondrial biogenesis label epithelial cancer cells, but are excluded from adjacent stromal cells.",
+    "doi": "10.4161/cc.22777",
+    "pmid": "23172368",
+    "authors": [
+      "Sotgia F, Whitaker-Menezes D, Martinez-Outschoorn UE, Salem AF, Tsirigos A, Lamb R, Sneddon S, Hulit J, Howell A, Lisanti MP."
+    ],
+    "year": "2012",
+    "publication_date": "2012-11-21",
+    "cited_by_count": 148,
+    "journal": "",
+    "abstract": "Here, we present new genetic and morphological evidence that human tumors consist of two distinct metabolic compartments. First, re-analysis of genome-wide transcriptional profiling data revealed that > 95 gene transcripts associated with mitochondrial biogenesis and/or mitochondrial translation were significantly elevated in human breast cancer cells, as compared with adjacent stromal tissue. Remarkably, nearly 40 of these upregulated gene transcripts were mitochondrial ribosomal proteins (MRPs), functionally associated with mitochondrial translation of protein components of the OXPHOS complex. Second, during validation by immunohistochemistry, we observed that antibodies directed against 15 markers of mitochondrial biogenesis and/or mitochondrial translation (AKAP1, GOLPH3, GOLPH3L, MCT1, MRPL40, MRPS7, MRPS15, MRPS22, NRF1, NRF2, PGC1-α, POLRMT, TFAM, TIMM9 and TOMM70A) selectively labeled epithelial breast cancer cells. These same mitochondrial markers were largely absent or excluded from adjacent tumor stromal cells. Finally, markers of mitochondrial lipid synthesis (GOLPH3) and mitochondrial translation (POLRMT) were associated with poor clinical outcome in human breast cancer patients. Thus, we conclude that human breast cancers contain two distinct metabolic compartments-a glycolytic tumor stroma, which surrounds oxidative epithelial cancer cells-that are mitochondria-rich. The co-existence of these two compartments is indicative of metabolic symbiosis between epithelial cancer cells and their surrounding stroma. As such, epithelial breast cancer cells should be viewed as predatory metabolic \"parasites,\" which undergo anabolic reprogramming to amplify their mitochondrial \"power.\" This notion is consistent with the observation that the anti-malarial agent chloroquine may be an effective anticancer agent. New anticancer therapies should be developed to target mitochondrial biogenesis and/or mitochondrial translation in human cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NH2-Terminal targeting motifs direct dual specificity A-kinase-anchoring protein 1 (D-AKAP1) to either mitochondria or endoplasmic reticulum.",
+    "doi": "10.1083/jcb.145.5.951",
+    "pmid": "10352013",
+    "authors": [
+      "Huang LJ, Wang L, Ma Y, Durick K, Perkins G, Deerinck TJ, Ellisman MH, Taylor SS."
+    ],
+    "year": "1999",
+    "publication_date": "1999-05-01",
+    "cited_by_count": 128,
+    "journal": "",
+    "abstract": "Subcellular localization directed by specific targeting motifs is an emerging theme for regulating signal transduction pathways. For cAMP-dependent protein kinase (PKA), this is achieved primarily by its association with A-kinase-anchoring proteins (AKAPs). Dual specificity AKAP1, (D-AKAP1) binds to both type I and type II regulatory subunits and has two NH2-terminal (N0 and N1) and two COOH-terminal (C1 and C2) splice variants (. J. Biol. Chem. 272:8057). Here we report that the splice variants of D-AKAP1 are expressed in a tissue-specific manner with the NH2-terminal motifs serving as switches to localize D-AKAP1 at different sites. Northern blots showed that the N1 splice is expressed primarily in liver, while the C1 splice is predominant in testis. The C2 splice shows a general expression pattern. Microinjecting expression constructs of D-AKAP1(N0) epitope-tagged at either the NH2 or the COOH terminus showed their localization to the mitochondria based on immunocytochemistry. Deletion of N0(1-30) abolished mitochondrial targeting while N0(1-30)-GFP localized to mitochondria. Residues 1-30 of N0 are therefore necessary and sufficient for mitochondria targeting. Addition of the 33 residues of N1 targets D-AKAP1 to the ER and residues 1-63 fused to GFP are necessary and sufficient for ER targeting. Residues 14-33 of N1 are especially important for targeting to ER; however, residues 1-33 alone fused to GFP gave a diffuse distribution. N1(14-33) thus serves two functions: (a) it suppresses the mitochondrial-targeting motif located within residues 1-30 of N0 and (b) it exposes an ER-targeting motif that is at least partially contained within the N0(1-30) motif. This represents the first example of a differentially targeted AKAP and adds an additional level of complexity to the PKA signaling network.",
+    "openalex_id": ""
+  },
+  {
+    "title": "AKAP1 Protects from Cerebral Ischemic Stroke by Inhibiting Drp1-Dependent Mitochondrial Fission.",
+    "doi": "10.1523/jneurosci.0649-18.2018",
+    "pmid": "30093535",
+    "authors": [
+      "Flippo KH, Gnanasekaran A, Perkins GA, Ajmal A, Merrill RA, Dickey AS, Taylor SS, McKnight GS, Chauhan AK, Usachev YM, Strack S."
+    ],
+    "year": "2018",
+    "publication_date": "2018-08-09",
+    "cited_by_count": 121,
+    "journal": "",
+    "abstract": "Mitochondrial fission and fusion impact numerous cellular functions and neurons are particularly sensitive to perturbations in mitochondrial dynamics. Here we describe that male mice lacking the mitochondrial A-kinase anchoring protein 1 (AKAP1) exhibit increased sensitivity in the transient middle cerebral artery occlusion model of focal ischemia. At the ultrastructural level, AKAP1<sup>-/-</sup> mice have smaller mitochondria and increased contacts between mitochondria and the endoplasmic reticulum in the brain. Mechanistically, deletion of AKAP1 dysregulates complex II of the electron transport chain, increases superoxide production, and impairs Ca<sup>2+</sup> homeostasis in neurons subjected to excitotoxic glutamate. Ca<sup>2+</sup> deregulation in neurons lacking AKAP1 can be attributed to loss of inhibitory phosphorylation of the mitochondrial fission enzyme dynamin-related protein 1 (Drp1) at the protein kinase A (PKA) site Ser637. Our results indicate that inhibition of Drp1-dependent mitochondrial fission by the outer mitochondrial AKAP1/PKA complex protects neurons from ischemic stroke by maintaining respiratory chain activity, inhibiting superoxide production, and delaying Ca<sup>2+</sup> deregulation. They also provide the first genetic evidence that Drp1 inhibition may be of therapeutic relevance for the treatment of stroke and neurodegeneration.<b>SIGNIFICANCE STATEMENT</b> Previous work suggests that activation of dynamin-related protein 1 (Drp1) and mitochondrial fission contribute to ischemic injury in the brain. However, the specificity and efficacy of the pharmacological Drp1 inhibitor mdivi-1 that was used has now been discredited by several high-profile studies. Our report is timely and highly impactful because it provides the first evidence that genetic disinhibition of Drp1 via knock-out of the mitochondrial protein kinase A (PKA) scaffold AKAP1 exacerbates stroke injury in mice. Mechanistically, we show that electron transport deficiency, increased superoxide production, and Ca<sup>2+</sup> overload result from genetic disinhibition of Drp1. In summary, our work settles current controversies regarding the role of mitochondrial fission in neuronal injury, provides mechanisms, and suggests that fission inhibitors hold promise as future therapeutic agents.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MicroRNA-148a-3p enhances cisplatin cytotoxicity in gastric cancer through mitochondrial fission induction and cyto-protective autophagy suppression.",
+    "doi": "10.1016/j.canlet.2017.09.035",
+    "pmid": "28965855",
+    "authors": [
+      "Li B, Wang W, Li Z, Chen Z, Zhi X, Xu J, Li Q, Wang L, Huang X, Wang L, Wei S, Sun G, Zhang X, He Z, Zhang L, Zhang D, Xu H, El-Rifai W, Xu Z."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-28",
+    "cited_by_count": 121,
+    "journal": "",
+    "abstract": "Cisplatin (CDDP) resistance is a major clinical problem associated with poor prognosis in gastric cancer (GC) patients. In this study, we performed integrated analysis of TCGA data from microRNAs (miRNAs) expression matrix of GC patients who received CDDP-based chemotherapy with GEO dataset which contains differential miRNAs expression profiles in CDDP-resistant and -sensitive cell lines. We identified miR-148a-3p downregulation as a key step involved in CDDP resistance. Using a cohort consisting 105 GC patients who received CDDP-based therapy, we found that miR-148a-3p downregulation was associated with a decrease in patients' disease-free survival (DFS, P = 0.0077). A series of experiment data demonstrated that: 1) miR-148a-3p was downregulated in CDDP-resistant GC cell lines; 2) miR-148a-3p reconstitution sensitized CDDP-resistant cells to CDDP treatment through promoting mitochondrial fission and decreasing AKAP1 expression level; 3) AKAP1 played a novel role in CDDP resistance by inhibiting P53-mediated DRP1 dephosphorylation; 4) miR-148a-3p reconstitution in CDDP-resistant cells inhibits the cyto-protective autophagy by suppressing RAB12 expression and mTOR1 activation. Taken together, our study demonstrates that miR-148a-3p could be a promising prognostic marker or therapeutic candidate for overcoming CDDP resistance in GC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic anchoring of PKA is essential during oocyte maturation.",
+    "doi": "10.1016/j.cub.2005.12.031",
+    "pmid": "16461287",
+    "authors": [
+      "Newhall KJ, Criniti AR, Cheah CS, Smith KC, Kafer KE, Burkart AD, McKnight GS."
+    ],
+    "year": "2006",
+    "publication_date": "2006-02-01",
+    "cited_by_count": 91,
+    "journal": "",
+    "abstract": "In the final stages of ovarian follicular development, the mouse oocyte remains arrested in the first meiotic prophase, and cAMP-stimulated PKA plays an essential role in this arrest. After the LH surge, a decrease in cAMP and PKA activity in the oocyte initiates an irreversible maturation process that culminates in a second arrest at metaphase II prior to fertilization. A-kinase anchoring proteins (AKAPs) mediate the intracellular localization of PKA and control the specificity and kinetics of substrate phosphorylation. Several AKAPs have been identified in oocytes including one at 140 kDa that we now identify as a product of the Akap1 gene. We show that PKA interaction with AKAPs is essential for two sequential steps in the maturation process: the initial maintenance of meiotic arrest and the subsequent irreversible progression to the polar body extruded stage. A peptide inhibitor (HT31) that disrupts AKAP/PKA interactions stimulates oocyte maturation in the continued presence of high cAMP. However, during the early minutes of maturation, type II PKA moves from cytoplasmic sites to the mitochondria, where it associates with AKAP1, and this is shown to be essential for maturation to continue irreversibly.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitochondria: a kinase anchoring protein 1, a signaling platform for mitochondrial form and function.",
+    "doi": "10.1016/j.biocel.2013.12.012",
+    "pmid": "24412345",
+    "authors": [
+      "Merrill RA, Strack S."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-08",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "Mitochondria are best known for their role as cellular power plants, but they also serve as signaling hubs, regulating cellular proliferation, differentiation, and survival. A kinase anchoring protein 1 (AKAP1) is a scaffold protein that recruits protein kinase A (PKA) and other signaling proteins, as well as RNA, to the outer mitochondrial membrane. AKAP1 thereby integrates several second messenger cascades to modulate mitochondrial function and associated physiological and pathophysiological outcomes. Here, we review what is currently known about AKAP1's macromolecular interactions in health and disease states, including obesity. We also discuss dynamin-related protein 1 (Drp1), the enzyme that catalyzes mitochondrial fission, as one of the key substrates of the PKA/AKAP1 signaling complex in neurons. Recent evidence suggests that AKAP1 has critical roles in neuronal development and survival, which are mediated by inhibitory phosphorylation of Drp1 and maintenance of mitochondrial integrity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PEST motif serine and tyrosine phosphorylation controls vascular endothelial growth factor receptor 2 stability and downregulation.",
+    "doi": "10.1128/mcb.01006-10",
+    "pmid": "21402774",
+    "authors": [
+      "Meyer RD, Srinivasan S, Singh AJ, Mahoney JE, Gharahassanlou KR, Rahimi N."
+    ],
+    "year": "2011",
+    "publication_date": "2011-03-14",
+    "cited_by_count": 84,
+    "journal": "",
+    "abstract": "The internalization and degradation of vascular endothelial growth factor receptor 2 (VEGFR-2), a potent angiogenic receptor tyrosine kinase, is a central mechanism for the regulation of the coordinated action of VEGF in angiogenesis. Here, we show that VEGFR-2 is ubiquitinated in response to VEGF, and Lys 48-linked polyubiquitination controls its degradation via the 26S proteosome. The degradation and ubiquitination of VEGFR-2 is controlled by its PEST domain, and the phosphorylation of Ser1188/Ser1191 is required for the ubiquitination of VEGFR-2. F-box-containing β-Trcp1 ubiquitin E3 ligase is recruited to S1188/S1191 VEGFR-2 and mediates the ubiquitination and degradation of VEGFR-2. The PEST domain also controls the activation of p38 mitogen-activated protein kinase (MAPK) through phospho-Y1173. The activation of p38 stabilizes VEGFR-2, and its inactivation accelerates VEGFR-2 downregulation. The VEGFR-2-mediated activation of p38 is established through the protein kinase A (PKA)/MKK6 pathway. PKA is recruited to VEGFR-2 through AKAP1/AKAP149, and its phosphorylation requires Y1173 of VEGFR-2. The study has identified a unique mechanism in which VEGFR-2 stability and degradation is modulated. The PEST domain acts as a dual modulator of VEGFR-2; the phosphorylation of S1188/S1191 controls ubiquitination and degradation via β-Trcp1, where the phosphorylation of Y1173 through PKA/p38 MAPK controls the stability of VEGFR-2.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide association study in Japanese females identifies fifteen novel skin-related trait associations.",
+    "doi": "10.1038/s41598-018-27145-2",
+    "pmid": "29895819",
+    "authors": [
+      "Endo C, Johnson TA, Morino R, Nakazono K, Kamitsuji S, Akita M, Kawajiri M, Yamasaki T, Kami A, Hoshi Y, Tada A, Ishikawa K, Hine M, Kobayashi M, Kurume N, Tsunemi Y, Kamatani N, Kawashima M."
+    ],
+    "year": "2018",
+    "publication_date": "2018-06-12",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "Skin trait variation impacts quality-of-life, especially for females from the viewpoint of beauty. To investigate genetic variation related to these traits, we conducted a GWAS of various skin phenotypes in 11,311 Japanese women and identified associations for age-spots, freckles, double eyelids, straight/curly hair, eyebrow thickness, hairiness, and sweating. In silico annotation with RoadMap Epigenomics epigenetic state maps and colocalization analysis of GWAS and GTEx Project eQTL signals provided information about tissue specificity, candidate causal variants, and functional target genes. Novel signals for skin-spot traits neighboured AKAP1/MSI2 (rs17833789; P = 2.2 × 10<sup>-9</sup>), BNC2 (rs10810635; P = 2.1 × 10<sup>-22</sup>), HSPA12A (rs12259842; P = 7.1 × 10<sup>-11</sup>), PPARGC1B (rs251468; P = 1.3 × 10<sup>-21</sup>), and RAB11FIP2 (rs10444039; P = 5.6 × 10<sup>-21</sup>). HSPA12A SNPs were the only protein-coding gene eQTLs identified across skin-spot loci. Double edged eyelid analysis identified that a signal around EMX2 (rs12570134; P = 8.2 × 10<sup>-15</sup>) was also associated with expression of EMX2 and the antisense-RNA gene EMX2OS in brain putamen basal ganglia tissue. A known hair morphology signal in EDAR was associated with both eyebrow thickness (rs3827760; P = 1.7 × 10<sup>-9</sup>) and straight/curly hair (rs260643; P = 1.6 × 10<sup>-103</sup>). Excessive hairiness signals' top SNPs were also eQTLs for TBX15 (rs984225; P = 1.6 × 10<sup>-8</sup>), BCL2 (rs7226979; P = 7.3 × 10<sup>-11</sup>), and GCC2 and LIMS1 (rs6542772; P = 2.2 × 10<sup>-9</sup>). For excessive sweating, top variants in two signals in chr2:28.82-29.05 Mb (rs56089836; P = 1.7 × 10<sup>-11</sup>) were eQTLs for either PPP1CB or PLB1, while a top chr16:48.26-48.45 Mb locus SNP was a known ABCC11 missense variant (rs6500380; P = 6.8 × 10<sup>-10</sup>). In total, we identified twelve loci containing sixteen association signals, of which fifteen were novel. These findings will help dermatologic researchers better understand the genetic underpinnings of skin-related phenotypic variation in human populations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "How AMPK and PKA Interplay to Regulate Mitochondrial Function and Survival in Models of Ischemia and Diabetes.",
+    "doi": "10.1155/2017/4353510",
+    "pmid": "29391924",
+    "authors": [
+      "Zhang J, Wang Y, Liu X, Dagda RK, Zhang Y."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-17",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "Adenosine monophosphate-activated protein kinase (AMPK) is a conserved, redox-activated master regulator of cell metabolism. In the presence of oxidative stress, AMPK promotes cytoprotection by enhancing the conservation of energy by suppressing protein translation and by stimulating autophagy. AMPK interplays with protein kinase A (PKA) to regulate oxidative stress, mitochondrial function, and cell survival. AMPK and dual-specificity A-kinase anchoring protein 1 (D-AKAP1), a mitochondrial-directed scaffold of PKA, interact to regulate mitochondrial function and oxidative stress in cardiac and endothelial cells. Ischemia and diabetes, a chronic disease that increases the onset of cardiovascular diseases, suppress the cardioprotective effects of AMPK and PKA. Here, we review the molecular mechanisms by which AMPK and D-AKAP1/PKA interplay to regulate mitochondrial function, oxidative stress, and signaling pathways that prime endothelial cells, cardiac cells, and neurons for cytoprotection against oxidative stress. We discuss recent literature showing how temporal dynamics and localization of activated AMPK and PKA holoenzymes play a crucial role in governing cellular bioenergetics and cell survival in models of ischemia, cardiovascular diseases, and diabetes. Finally, we propose therapeutic strategies that tout localized PKA and AMPK signaling to reverse mitochondrial dysfunction, oxidative stress, and death of neurons and cardiac and endothelial cells during ischemia and diabetes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitochondrial AKAP1 supports mTOR pathway and tumor growth.",
+    "doi": "10.1038/cddis.2017.241",
+    "pmid": "28569781",
+    "authors": [
+      "Rinaldi L, Sepe M, Delle Donne R, Conte K, Arcella A, Borzacchiello D, Amente S, De Vita F, Porpora M, Garbi C, Oliva MA, Procaccini C, Faicchia D, Matarese G, Zito Marino F, Rocco G, Pignatiello S, Franco R, Insabato L, Majello B, Feliciello A."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-01",
+    "cited_by_count": 55,
+    "journal": "",
+    "abstract": "Mitochondria are the powerhouses of energy production and the sites where metabolic pathway and survival signals integrate and focus, promoting adaptive responses to hormone stimulation and nutrient availability. Increasing evidence suggests that mitochondrial bioenergetics, metabolism and signaling are linked to tumorigenesis. AKAP1 scaffolding protein integrates cAMP and src signaling on mitochondria, regulating organelle biogenesis, oxidative metabolism and cell survival. Here, we provide evidence that AKAP1 is a transcriptional target of Myc and supports the growth of cancer cells. We identify Sestrin2, a leucine sensor and inhibitor of the mammalian target of rapamycin (mTOR), as a novel component of the complex assembled by AKAP1 on mitochondria. Downregulation of AKAP1 impaired mTOR pathway and inhibited glioblastoma growth. Both effects were reversed by concomitant depletion of AKAP1 and sestrin2. High levels of AKAP1 were found in a wide variety of high-grade cancer tissues. In lung cancer, AKAP1 expression correlates with high levels of Myc, mTOR phosphorylation and reduced patient survival. Collectively, these data disclose a previously unrecognized role of AKAP1 in mTOR pathway regulation and cancer growth. AKAP1/mTOR signal integration on mitochondria may provide a new target for cancer therapy.",
+    "openalex_id": ""
+  }
+]

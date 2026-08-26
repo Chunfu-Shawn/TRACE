@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Comprehensive molecular profiling of lung adenocarcinoma.",
+    "doi": "10.1038/nature13385",
+    "pmid": "25079552",
+    "authors": [
+      "Cancer Genome Atlas Research Network."
+    ],
+    "year": "2014",
+    "publication_date": "2014-07-09",
+    "cited_by_count": 4663,
+    "journal": "",
+    "abstract": "Adenocarcinoma of the lung is the leading cause of cancer death worldwide. Here we report molecular profiling of 230 resected lung adenocarcinomas using messenger RNA, microRNA and DNA sequencing integrated with copy number, methylation and proteomic analyses. High rates of somatic mutation were seen (mean 8.9 mutations per megabase). Eighteen genes were statistically significantly mutated, including RIT1 activating mutations and newly described loss-of-function MGA mutations which are mutually exclusive with focal MYC amplification. EGFR mutations were more frequent in female patients, whereas mutations in RBM10 were more common in males. Aberrations in NF1, MET, ERBB2 and RIT1 occurred in 13% of cases and were enriched in samples otherwise lacking an activated oncogene, suggesting a driver role for these events in certain tumours. DNA and mRNA sequence from the same tumour highlighted splicing alterations driven by somatic genomic changes, including exon 14 skipping in MET mRNA in 4% of cases. MAPK and PI(3)K pathway activity, when measured at the protein level, was explained by known mutations in only a fraction of cases, suggesting additional, unexplained mechanisms of pathway activation. These data establish a foundation for classification and further investigations of lung adenocarcinoma molecular pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mapping the hallmarks of lung adenocarcinoma with massively parallel sequencing.",
+    "doi": "10.1016/j.cell.2012.08.029",
+    "pmid": "22980975",
+    "authors": [
+      "Imielinski M, Berger AH, Hammerman PS, Hernandez B, Pugh TJ, Hodis E, Cho J, Suh J, Capelletti M, Sivachenko A, Sougnez C, Auclair D, Lawrence MS, Stojanov P, Cibulskis K, Choi K, de Waal L, Sharifnia T, Brooks A, Greulich H, Banerji S, Zander T, Seidel D, Leenders F, Ansén S, Ludwig C, Engel-Riedel W, Stoelben E, Wolf J, Goparju C, Thompson K, Winckler W, Kwiatkowski D, Johnson BE, Jänne PA, Miller VA, Pao W, Travis WD, Pass HI, Gabriel SB, Lander ES, Thomas RK, Garraway LA, Getz G, Meyerson M."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-01",
+    "cited_by_count": 1541,
+    "journal": "",
+    "abstract": "Lung adenocarcinoma, the most common subtype of non-small cell lung cancer, is responsible for more than 500,000 deaths per year worldwide. Here, we report exome and genome sequences of 183 lung adenocarcinoma tumor/normal DNA pairs. These analyses revealed a mean exonic somatic mutation rate of 12.0 events/megabase and identified the majority of genes previously reported as significantly mutated in lung adenocarcinoma. In addition, we identified statistically recurrent somatic mutations in the splicing factor gene U2AF1 and truncating mutations affecting RBM10 and ARID1A. Analysis of nucleotide context-specific mutation signatures grouped the sample set into distinct clusters that correlated with smoking history and alterations of reported lung adenocarcinoma genes. Whole-genome sequence analysis revealed frequent structural rearrangements, including in-frame exonic alterations within EGFR and SIK2 kinases. The candidate genes identified in this study are attractive targets for biological characterization and therapeutic targeting of lung adenocarcinoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Whole-exome sequencing of pancreatic cancer defines genetic diversity and therapeutic targets.",
+    "doi": "10.1038/ncomms7744",
+    "pmid": "25855536",
+    "authors": [
+      "Witkiewicz AK, McMillan EA, Balaji U, Baek G, Lin WC, Mansour J, Mollaee M, Wagner KU, Koduru P, Yopp A, Choti MA, Yeo CJ, McCue P, White MA, Knudsen ES."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-09",
+    "cited_by_count": 917,
+    "journal": "",
+    "abstract": "Pancreatic ductal adenocarcinoma (PDA) has a dismal prognosis and insights into both disease etiology and targeted intervention are needed. A total of 109 micro-dissected PDA cases were subjected to whole-exome sequencing. Microdissection enriches tumour cellularity and enhances mutation calling. Here we show that environmental stress and alterations in DNA repair genes associate with distinct mutation spectra. Copy number alterations target multiple tumour suppressive/oncogenic loci; however, amplification of MYC is uniquely associated with poor outcome and adenosquamous subtype. We identify multiple novel mutated genes in PDA, with select genes harbouring prognostic significance. RBM10 mutations associate with longer survival in spite of histological features of aggressive disease. KRAS mutations are observed in >90% of cases, but codon Q61 alleles are selectively associated with improved survival. Oncogenic BRAF mutations are mutually exclusive with KRAS and define sensitivity to vemurafenib in PDA models. High-frequency alterations in Wnt signalling, chromatin remodelling, Hedgehog signalling, DNA repair and cell cycle processes are observed. Together, these data delineate new genetic diversity of PDA and provide insights into prognostic determinants and therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genomic Correlates of Immune-Cell Infiltrates in Colorectal Carcinoma.",
+    "doi": "10.1016/j.celrep.2016.03.075",
+    "pmid": "27149842",
+    "authors": [
+      "Giannakis M, Mu XJ, Shukla SA, Qian ZR, Cohen O, Nishihara R, Bahl S, Cao Y, Amin-Mansour A, Yamauchi M, Sukawa Y, Stewart C, Rosenberg M, Mima K, Inamura K, Nosho K, Nowak JA, Lawrence MS, Giovannucci EL, Chan AT, Ng K, Meyerhardt JA, Van Allen EM, Getz G, Gabriel SB, Lander ES, Wu CJ, Fuchs CS, Ogino S, Garraway LA."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-14",
+    "cited_by_count": 662,
+    "journal": "",
+    "abstract": "Large-scale genomic characterization of tumors from prospective cohort studies may yield new insights into cancer pathogenesis. We performed whole-exome sequencing of 619 incident colorectal cancers (CRCs) and integrated the results with tumor immunity, pathology, and survival data. We identified recurrently mutated genes in CRC, such as BCL9L, RBM10, CTCF, and KLF5, that were not previously appreciated in this disease. Furthermore, we investigated the genomic correlates of immune-cell infiltration and found that higher neoantigen load was positively associated with overall lymphocytic infiltration, tumor-infiltrating lymphocytes (TILs), memory T cells, and CRC-specific survival. The association with TILs was evident even within microsatellite-stable tumors. We also found positive selection of mutations in HLA genes and other components of the antigen-processing machinery in TIL-rich tumors. These results may inform immunotherapeutic approaches in CRC. More generally, this study demonstrates a framework for future integrative molecular epidemiology research in colorectal and other malignancies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Whole-exome sequencing uncovers frequent GNAS mutations in intraductal papillary mucinous neoplasms of the pancreas.",
+    "doi": "10.1038/srep00161",
+    "pmid": "22355676",
+    "authors": [
+      "Furukawa T, Kuboki Y, Tanji E, Yoshida S, Hatori T, Yamamoto M, Shibata N, Shimizu K, Kamatani N, Shiratori K."
+    ],
+    "year": "2011",
+    "publication_date": "2011-11-18",
+    "cited_by_count": 337,
+    "journal": "",
+    "abstract": "Intraductal papillary mucinous neoplasm (IPMN) is a common pancreatic cystic neoplasm that is often invasive and metastatic, resulting in a poor prognosis. Few molecular alterations unique to IPMN are known. We performed whole-exome sequencing for a primary IPMN tissue, which uncovered somatic mutations in KCNF1, DYNC1H1, PGCP, STAB1, PTPRM, PRPF8, RNASE3, SPHKAP, MLXIPL, VPS13C, PRCC, GNAS, KRAS, RBM10, RNF43, DOCK2, and CENPF. We further analyzed GNAS mutations in archival cases of 118 IPMNs and 32 pancreatic ductal adenocarcinomas (PDAs), which revealed that 48 (40.7%) of the 118 IPMNs but none of the 32 PDAs harbored GNAS mutations. G-protein alpha-subunit encoded by GNAS and its downstream targets, phosphorylated substrates of protein kinase A, were evidently expressed in IPMN; the latter was associated with neoplastic grade. These results indicate that GNAS mutations are common and specific for IPMN, and activation of G-protein signaling appears to play a pivotal role in IPMN.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM5, 6, and 10 differentially regulate NUMB alternative splicing to control cancer cell proliferation.",
+    "doi": "10.1016/j.molcel.2013.11.010",
+    "pmid": "24332178",
+    "authors": [
+      "Bechara EG, Sebestyén E, Bernardis I, Eyras E, Valcárcel J."
+    ],
+    "year": "2013",
+    "publication_date": "2013-12-01",
+    "cited_by_count": 306,
+    "journal": "",
+    "abstract": "RBM5, a regulator of alternative splicing of apoptotic genes, and its highly homologous RBM6 and RBM10 are RNA-binding proteins frequently deleted or mutated in lung cancer. We report that RBM5/6 and RBM10 antagonistically regulate the proliferative capacity of cancer cells and display distinct positional effects in alternative splicing regulation. We identify the Notch pathway regulator NUMB as a key target of these factors in the control of cell proliferation. NUMB alternative splicing, which is frequently altered in lung cancer, can regulate colony and xenograft tumor formation, and its modulation recapitulates or antagonizes the effects of RBM5, 6, and 10 in cell colony formation. RBM10 mutations identified in lung cancer cells disrupt NUMB splicing regulation to promote cell growth. Our results reveal a key genetic circuit in the control of cancer cell proliferation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Poorly Differentiated Carcinoma of the Thyroid Gland: Current Status and Future Prospects.",
+    "doi": "10.1089/thy.2018.0509",
+    "pmid": "30747050",
+    "authors": [
+      "Ibrahimpasic T, Ghossein R, Shah JP, Ganly I."
+    ],
+    "year": "2019",
+    "publication_date": "2019-03-01",
+    "cited_by_count": 197,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Poorly differentiated thyroid cancer (PDTC) is a rare but clinically highly significant entity because it accounts for most fatalities from non-anaplastic follicular cell-derived thyroid cancer. Due to the relative rarity of the disease and heterogeneous diagnostic criteria, studies on PDTC have been limited. In light of the evolution of ultra-deep next-generation sequencing technologies and through correlation of clinicopathologic and genomic characteristics of PDTC, an improved understanding of the biology of PDTC has been facilitated. Here, the diagnostic criteria, clinicopathologic characteristics, management, and outcomes in PDTC, as well as genomic drivers in PDTC reported in recent next-generation sequencing studies, are reviewed. In addition, future prospects in improving the outcomes in PDTC patients are reviewed.<h4>Summary</h4>PDTC patients tend to present with adverse clinicopathologic characteristics: older age, male predominance, advanced locoregional disease, and distant metastases. Surgery with clearance of all gross disease can achieve satisfactory locoregional control. However, the majority of PDTC patients die of distant disease. Five-year disease-specific survival for PDTC patients has been reported at 66%. On multivariate analysis, reported predictors of poor survival in PDTC patients have been older age (>45 years), T4a pathological stage, extrathyroidal extension, high mitotic rate, tumor necrosis, and distant metastasis at presentation. BRAF<sup>V600E</sup> or RAS mutations (27% and 24% of cases, respectively) remain mutually exclusive main drivers in PDTC. TERT promoter mutations represent the most common alteration in PDTC (40%). Mutation in translation initiation factor EIF1AX (11%) and tumor suppressor TP53 (16%) have also been reported in PDTC. High rates of novel mutations (MED12 and RBM10) have been reported in fatal PDTC (15% and 12%, respectively). Chromosome 1q gains represent the most common arm-level alterations in PDTC, and those patients show worse survival rates. Chromosome 22q losses are also found in PDTC and show strong association with RAS mutation.<h4>Conclusions</h4>These new insights into the clinicopathologic and molecular characteristics of PDTC, together with further advancement in ultra-deep sequencing technologies, will be conducive in narrowing the focus in order to develop novel targeted therapies and improve the outcomes in PDTC patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Massively parallel sequencing of exons on the X chromosome identifies RBM10 as the gene that causes a syndromic form of cleft palate.",
+    "doi": "10.1016/j.ajhg.2010.04.007",
+    "pmid": "20451169",
+    "authors": [
+      "Johnston JJ, Teer JK, Cherukuri PF, Hansen NF, Loftus SK, NIH Intramural Sequencing Center (NISC), Chong K, Mullikin JC, Biesecker LG."
+    ],
+    "year": "2010",
+    "publication_date": "2010-05-06",
+    "cited_by_count": 131,
+    "journal": "",
+    "abstract": "Micrognathia, glossoptosis, and cleft palate comprise one of the most common malformation sequences, Robin sequence. It is a component of the TARP syndrome, talipes equinovarus, atrial septal defect, Robin sequence, and persistent left superior vena cava. This disorder is X-linked and severe, with apparently 100% pre- or postnatal lethality in affected males. Here we characterize a second family with TARP syndrome, confirm linkage to Xp11.23-q13.3, perform massively parallel sequencing of X chromosome exons, filter the results via a number of criteria including the linkage region, use a unique algorithm to characterize sequence changes, and show that TARP syndrome is caused by mutations in the RBM10 gene, which encodes RNA binding motif 10. We further show that this previously uncharacterized gene is expressed in midgestation mouse embryos in the branchial arches and limbs, consistent with the human phenotype. We conclude that massively parallel sequencing is useful to characterize large candidate linkage intervals and that it can be used successfully to allow identification of disease-causing gene mutations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding motif (RBM) proteins: a novel family of apoptosis modulators?",
+    "doi": "10.1002/jcb.20204",
+    "pmid": "15514923",
+    "authors": [
+      "Sutherland LC, Rintala-Maki ND, White RD, Morin CD."
+    ],
+    "year": "2005",
+    "publication_date": "2005-01-01",
+    "cited_by_count": 129,
+    "journal": "",
+    "abstract": "RBM5 is a known modulator of apoptosis, an RNA binding protein, and a putative tumor suppressor. Originally identified as LUCA-15, and subsequently as H37, it was designated \"RBM\" (for RNA Binding Motif) due to the presence of two RRM (RNA Recognition Motif) domains within the protein coding sequence. Recently, a number of proteins have been attributed with this same RBM designation, based on the presence of one or more RRM consensus sequences. One such protein, RBM3, was also recently found to have apoptotic modulatory capabilities. The high sequence homology at the amino acid level between RBM5, RBM6, and particularly, RBM10 suggests that they, too, may play an important role in regulating apoptosis. It is the intent of this article to ammalgamate the data on the ten originally identified RBM proteins in order to question the existence of a novel family of RNA binding apoptosis regulators.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genomic Alterations in Fatal Forms of Non-Anaplastic Thyroid Cancer: Identification of <i>MED12</i> and <i>RBM10</i> as Novel Thyroid Cancer Genes Associated with Tumor Virulence.",
+    "doi": "10.1158/1078-0432.ccr-17-1183",
+    "pmid": "28634282",
+    "authors": [
+      "Ibrahimpasic T, Xu B, Landa I, Dogan S, Middha S, Seshan V, Deraje S, Carlson DL, Migliacci J, Knauf JA, Untch B, Berger MF, Morris L, Tuttle RM, Chan T, Fagin JA, Ghossein R, Ganly I."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-20",
+    "cited_by_count": 106,
+    "journal": "",
+    "abstract": "<b>Purpose:</b> Patients with anaplastic thyroid cancer (ATC) have a very high death rate. In contrast, deaths from non-anaplastic thyroid (NAT) cancer are much less common. The genetic alterations in fatal NAT cancers have not been reported.<b>Experimental Design:</b> We performed next-generation sequencing of 410 cancer genes from 57 fatal NAT primary cancers. Results were compared with The Cancer Genome Atlas study (TCGA study) of papillary thyroid cancers (PTCs) and to the genomic changes reported in ATC.<b>Results:</b> There was a very high prevalence of <i>TERT</i> promoter mutations, comparable with that of ATC, and these co-occurred with <i>BRAF</i> and <i>RAS</i> mutations. A high incidence of chromosome 1q gain was seen highlighting its importance in tumor aggressiveness. Two novel fusion genes <i>DLG5</i>-<i>RET</i> and <i>OSBPL1A</i>-<i>BRAF</i> were identified. There was a high frequency of mutations in <i>MED12</i> and these were mutually exclusive to <i>TERT</i> promoter mutations and also to <i>BRAF</i> and <i>RAS</i> mutations. In addition, a high frequency of mutations in <i>RBM10</i> was identified and these co-occurred with <i>RAS</i> mutations and <i>PIK3CA</i> mutations. Compared with the PTCs in TCGA, there were higher frequencies of mutations in <i>TP53, POLE, PI3K/AKT/mTOR</i> pathway effectors, <i>SWI/SNF</i> subunits, and histone methyltransferases.<b>Conclusions:</b> These data support a model, whereby fatal NAT cancers arise from well-differentiated tumors through the accumulation of key additional genetic abnormalities. The high rate of <i>TERT</i> promoter mutations, <i>MED12</i> mutations, <i>RBM10</i> mutations, and chromosome 1q gain highlight their likely association with tumor virulence. <i>Clin Cancer Res; 23(19); 5970-80. ©2017 AACR</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tumor suppressor properties of the splicing regulatory factor RBM10.",
+    "doi": "10.1080/15476286.2016.1144004",
+    "pmid": "26853560",
+    "authors": [
+      "Hernández J, Bechara E, Schlesinger D, Delgado J, Serrano L, Valcárcel J."
+    ],
+    "year": "2016",
+    "publication_date": "2016-01-01",
+    "cited_by_count": 103,
+    "journal": "",
+    "abstract": "RBM10 is an RNA binding protein and alternative splicing regulator frequently mutated in lung adenocarcinomas. Recent results indicate that RBM10 inhibits proliferation of lung cancer cells by promoting skipping of exon 9 of the gene NUMB, a frequent alternative splicing change in lung cancer generating a negative regulator of Notch signaling. Complementing these observations, we show that knock down of RBM10 in human cancer cells enhances growth of mouse tumor xenografts, confirming that RBM10 acts as a tumor suppressor, while knock down of an oncogenic mutant version of RBM10 reduces xenograft tumor growth. A RBM10 mutation found in lung cancer cells, V354E, disrupts RBM10-mediated regulation of NUMB alternative splicing, inducing the cell proliferation-promoting isoform. We now show that 2 natural RBM10 isoforms that differ by the presence or absence of V354 in the second RNA Recognition Motif (RRM2), display similar regulatory effects on NUMB alternative splicing, suggesting that V354E actively disrupts RBM10 activity. Structural modeling localizes V354 in the outside surface of one α-helix opposite to the RNA binding surface of RBM10, and we show that the mutation does not compromise binding of the RRM2 domain to NUMB RNA regulatory sequences. We further show that other RBM10 mutations found in lung adenocarcinomas also compromise regulation of NUMB exon 9. Collectively, our previous and current results reveal that RBM10 is a tumor suppressor that represses Notch signaling and cell proliferation through the regulation of NUMB alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic Determinants of EGFR-Driven Lung Cancer Growth and Therapeutic Response <i>In Vivo</i>.",
+    "doi": "10.1158/2159-8290.cd-20-1385",
+    "pmid": "33707235",
+    "authors": [
+      "Foggetti G, Li C, Cai H, Hellyer JA, Lin WY, Ayeni D, Hastings K, Choi J, Wurtz A, Andrejka L, Maghini DG, Rashleigh N, Levy S, Homer R, Gettinger SN, Diehn M, Wakelee HA, Petrov DA, Winslow MM, Politi K."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-11",
+    "cited_by_count": 102,
+    "journal": "",
+    "abstract": "In lung adenocarcinoma, oncogenic <i>EGFR</i> mutations co-occur with many tumor suppressor gene alterations; however, the extent to which these contribute to tumor growth and response to therapy <i>in vivo</i> remains largely unknown. By quantifying the effects of inactivating 10 putative tumor suppressor genes in a mouse model of EGFR-driven <i>Trp53</i>-deficient lung adenocarcinoma, we found that <i>Apc, Rb1</i>, or <i>Rbm10</i> inactivation strongly promoted tumor growth. Unexpectedly, inactivation of <i>Lkb1</i> or <i>Setd2-</i>the strongest drivers of growth in a KRAS-driven model-reduced EGFR-driven tumor growth. These results are consistent with mutational frequencies in human EGFR- and KRAS-driven lung adenocarcinomas. Furthermore, <i>KEAP1</i> inactivation reduced the sensitivity of EGFR-driven tumors to the EGFR inhibitor osimertinib, and mutations in genes in the KEAP1 pathway were associated with decreased time on tyrosine kinase inhibitor treatment in patients. Our study highlights how the impact of genetic alterations differs across oncogenic contexts and that the fitness landscape shifts upon treatment. SIGNIFICANCE: By modeling complex genotypes <i>in vivo</i>, this study reveals key tumor suppressors that constrain the growth of <i>EGFR</i>-mutant tumors. Furthermore, we uncovered that <i>KEAP1</i> inactivation reduces the sensitivity of these tumors to tyrosine kinase inhibitors. Thus, our approach identifies genotypes of biological and therapeutic importance in this disease.<i>This article is highlighted in the In This Issue feature, p. 1601</i>.",
+    "openalex_id": ""
+  }
+]

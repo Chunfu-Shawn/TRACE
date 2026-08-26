@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Rare copy number variation in treatment-resistant major depressive disorder.",
+    "doi": "10.1016/j.biopsych.2013.10.028",
+    "pmid": "24529801",
+    "authors": [
+      "O'Dushlaine C, Ripke S, Ruderfer DM, Hamilton SP, Fava M, Iosifescu DV, Kohane IS, Churchill SE, Castro VM, Clements CC, Blumenthal SR, Murphy SN, Smoller JW, Perlis RH."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-19",
+    "cited_by_count": 49,
+    "journal": "",
+    "abstract": "<h4>Background</h4>While antidepressant treatment response appears to be partially heritable, no consistent genetic associations have been identified. Large, rare copy number variants (CNVs) play a role in other neuropsychiatric diseases, so we assessed their association with treatment-resistant depression (TRD).<h4>Methods</h4>We analyzed data from two genome-wide association studies comprising 1263 Caucasian patients with major depressive disorder. One was drawn from a large health system by applying natural language processing to electronic health records (i2b2 cohort). The second consisted of a multicenter study of sequential antidepressant treatments, Sequenced Treatment Alternatives to Relieve Depression. The Birdsuite package was used to identify rare deletions and duplications. Individuals without symptomatic remission, despite two antidepressant treatment trials, were contrasted with those who remitted with a first treatment trial.<h4>Results</h4>CNV data were derived for 778 subjects in the i2b2 cohort, including 300 subjects (37%) with TRD, and 485 subjects in Sequenced Treatment Alternatives to Relieve Depression cohort, including 152 (31%) with TRD. CNV burden analyses identified modest enrichment of duplications in cases (empirical p = .04 for duplications of 100-200 kilobase) and a particular deletion region spanning gene PABPC4L (empirical p = .02, 6 cases: 0 controls). Pathway analysis suggested enrichment of CNVs intersecting genes regulating actin cytoskeleton. However, none of these associations survived genome-wide correction.<h4>Conclusions</h4>Contribution of rare CNVs to TRD appears to be modest, individually or in aggregate. The electronic health record-based methodology demonstrated here should facilitate collection of larger TRD cohorts necessary to further characterize these effects.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Segregation and potential functional impact of a rare stop-gain PABPC4L variant in familial atypical Parkinsonism.",
+    "doi": "10.1038/s41598-019-50102-6",
+    "pmid": "31537871",
+    "authors": [
+      "Aslam M, Ullah A, Paramasivam N, Kandasamy N, Naureen S, Badshah M, Khan K, Wajid M, Abbasi R, Eils R, Brockmann MA, Schlesner M, Ahmad N, von Engelhardt J."
+    ],
+    "year": "2019",
+    "publication_date": "2019-09-19",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Atypical parkinsonian disorders (APDs) comprise a group of neurodegenerative diseases with heterogeneous clinical and pathological features. Most APDs are sporadic, but rare familial forms have also been reported. Epidemiological and post-mortem studies associated APDs with oxidative stress and cellular protein aggregates. Identifying molecular mechanisms that translate stress into toxic protein aggregation and neurodegeneration in APDs is an active area of research. Recently, ribonucleic acid (RNA) stress granule (SG) pathways were discussed to be pathogenically relevant in several neurodegenerative disorders including APDs. Using whole genome sequencing, mRNA expression analysis, transfection assays and cell imaging, we investigated the genetic and molecular basis of a familial neurodegenerative atypical parkinsonian disorder. We investigated a family with six living members in two generations exhibiting clinical symptoms consistent with atypical parkinsonism. Two affected family members suffered from parkinsonism that was associated with ataxia. Magnetic resonance imaging (MRI) of these patients showed brainstem and cerebellar atrophy. Whole genome sequencing identified a heterozygous stop-gain variant (c.C811T; p.R271X) in the Poly(A) binding protein, cytoplasmic 4-like (PABPC4L) gene, which co-segregated with the disease in the family. In situ hybridization showed that the murine pabpc4l is expressed in several brain regions and in particular in the cerebellum and brainstem. To determine the functional impact of the stop-gain variant in the PABPC4L gene, we investigated the subcellular localization of PABPC4L in heterologous cells. Wild-type PABPC4L protein localized predominantly to the cell nucleus, in contrast to the truncated protein encoded by the stop-gain variant p.R271X, which was found homogeneously throughout the cell. Interestingly, the wild-type, but not the truncated protein localized to RasGAP SH3 domain Binding Protein (G3BP)-labeled cytoplasmic granules in response to oxidative stress induction. This suggests that the PABPC4L variant alters intracellular distribution and possibly the stress granule associated function of the protein, which may underlie APD in this family. In conclusion, we present genetic and molecular evidence supporting the role of a stop-gain PABPC4L variant in a rare familial APD. Our data shows that the variant results in cellular mislocalization and inability of the protein to associate with stress granules.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Playing both sides - Epstein-Barr Virus accumulates select cellular transcripts to counter virus-mediated host shut-off in lytic cells.",
+    "doi": "10.1371/journal.ppat.1014211",
+    "pmid": "42113877",
+    "authors": [
+      "Daigle D, Creasy-Marrazzo A, Gradoville L, El-Guindy A, Mukherjee R, Das S, Baral B, Rousseau BA, Park R, McIntosh MT, Miller G, Bhaduri-McIntosh S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epstein-Barr virus (EBV), an oncogenic virus, actively remodels the intracellular environment during its lytic (replicative/productive) phase to facilitate genome replication, virion packaging, and egress while attempting to evade immune responses. A key aspect of this remodeling is the downregulation of host gene expression, a phenomenon known as host shutoff. This process is prominently mediated by the EBV-encoded nuclease BGLF5, but BGLF5-independent mechanisms also contribute - most notably, the viral lytic switch protein ZEBRA, which can suppress host protein synthesis. Despite this broad suppression, the expression of certain host genes essential for lytic progression must be preserved or even enhanced. To investigate how such genes evade host shutoff, we analyzed the expression of a set of cellular transcripts in Burkitt lymphoma cells, sorted 24 hours after exposure to lytic triggers, into lytic and refractory (non-lytic) populations. We identified a subset of host transcripts consistently upregulated in lytic cells across Burkitt lymphoma lines reactivated by functionally distinct lytic stimuli, indicating that such upregulation is independent of pleiotropic lytic cycle inducing stimuli. Importantly, we found that while ZEBRA suppresses protein expression of some of these host (and select viral) genes, EBV also transcriptionally upregulates two related host genes, ELAVL4 and PABPC4L. Both encode RNA-binding proteins, and we found that they differentially modulate viral transcript abundance - enhancing some while repressing others - ultimately supporting the transcriptional demands, efficient genome replication and virion release during the EBV lytic cycle. These findings highlight the virus's finely tuned regulation of both host and viral gene expression to ensure successful completion of the lytic cycle. Specifically, they suggest that EBV selectively upregulates critical host genes to counteract/escape host shutoff and promote virus propagation.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Deconvoluting Mechanisms of Acquired Resistance to RAF Inhibitors in BRAF&lt;sup&gt;V600E&lt;/sup&gt;-Mutant Human Glioma.",
+    "doi": "10.1158/1078-0432.ccr-21-2660",
+    "pmid": "34433654",
+    "authors": [
+      "Schreck KC, Morin A, Zhao G, Allen AN, Flannery P, Glantz M, Green AL, Jones C, Jones KL, Kilburn LB, Nazemi KJ, Samuel D, Sanford B, Solomon DA, Wang J, Pratilas CA, Nicolaides T, Mulcahy Levy JM."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-25",
+    "cited_by_count": 36,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Selective RAF-targeted therapy is effective in some patients with BRAF<sup>V600E</sup>-mutated glioma, though emergent and adaptive resistance occurs through ill-defined mechanisms.<h4>Experimental design</h4>Paired pre-/post- RAF inhibitor (RAFi)-treated glioma samples (<i>N</i> = 15) were obtained and queried for treatment-emergent genomic alterations using DNA and RNA sequencing (RNA-seq). Functional validation of putative resistance mechanisms was performed using established and patient-derived BRAF<sup>V600E</sup>-mutant glioma cell lines.<h4>Results</h4>Analysis of 15 tissue sample pairs identified 13 alterations conferring putative resistance were identified among nine paired samples (including mutations involving <i>ERRFI1, BAP1, ANKHD1</i>, and <i>MAP2K1</i>). We performed functional validation of mechanisms of resistance, including loss of <i>NF1, PTEN</i>, or <i>CBL</i>, in BRAF<sup>V600E</sup>-mutant glioma lines, and demonstrate they are capable of conferring resistance <i>in vitro</i>. Knockdown of CBL resulted in increased <i>EGFR</i> expression and phosphorylation, a possible mechanism for maintaining ERK signaling within the cell. Combination therapy with a MEKi or EGFR inhibitor was able to overcome resistance to BRAFi, in NF1 knockdown and CBL knockdown, respectively. Restoration of wild-type PTEN in B76 cells (PTEN<sup>-/-</sup>) restored sensitivity to BRAFi. We identified and validated CRAF upregulation as a mechanism of resistance in one resistant sample. RNA-seq analysis identified two emergent expression patterns in resistant samples, consistent with expression patterns of known glioma subtypes.<h4>Conclusions</h4>Resistance mechanisms to BRAFi in glioma are varied and may predict effective precision combinations of targeted therapy, highlighting the importance of a personalized approach.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of ANKHD1/LINC00346/ZNF655 Feedback Loop in Regulating the Glioma Angiogenesis via Staufen1-Mediated mRNA Decay.",
+    "doi": "10.1016/j.omtn.2020.05.004",
+    "pmid": "32464549",
+    "authors": [
+      "Yang C, Zheng J, Liu X, Xue Y, He Q, Dong Y, Wang D, Li Z, Liu L, Ma J, Cai H, Liu Y."
+    ],
+    "year": "2020",
+    "publication_date": "2020-05-12",
+    "cited_by_count": 36,
+    "journal": "",
+    "abstract": "Accumulating evidence shows that long noncoding RNA (lncRNA) dysregulation plays a critical role in tumor angiogenesis. Glioma is characterized by abundant angiogenesis. Herein, we investigated the expression and function of LINC00346 in the regulation of glioma angiogenesis. The present study first demonstrated that ANKHD1 (ankyrin repeat and KH domain-containing protein 1) and LINC00346 were significantly increased in glioma-associated endothelial cells (GECs), whereas ZNF655 (zinc finger protein 655) was decreased in GECs. Meanwhile, ANKHD1 inhibition, LINC00346 inhibition, or ZNF655 overexpression impeded angiogenesis of GECs. Moreover, ANKHD1 targeted LINC00346 and enhanced the stability of LINC00346. In addition, LINC00346 bound to ZNF655 mRNA through their Alu elements so that LINC00346 facilitated the degradation of ZNF655 mRNA via a STAU1 (Staufen1)-mediated mRNA decay (SMD) mechanism. Futhermore, ZNF655 targeted the promoter region of ANKHD1 and formed an ANKHD1/LINC00346/ZNF655 feedback loop that regulated glioma angiogenesis. Finally, knockdown of ANKHD1 and LINC00346, combined with overexpression of ZNF655, resulted in a significant decrease in new vessels and hemoglobin content in vivo. The results identified an ANKHD1/LINC00346/ZNF655 feedback loop in the regulation of glioma angiogenesis that may provide new targets and strategies for targeted therapy against glioma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The feedback loop of ANKHD1/lncRNA MALAT1/YAP1 strengthens the radioresistance of CRC by activating YAP1/AKT signaling.",
+    "doi": "10.1038/s41419-022-04554-w",
+    "pmid": "35110552",
+    "authors": [
+      "Yao PA, Wu Y, Zhao K, Li Y, Cao J, Xing C."
+    ],
+    "year": "2022",
+    "publication_date": "2022-02-02",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "Innate radioresistance substantially limits the effectiveness of radiotherapy for colorectal cancer (CRC); thus, a strategy to enhance the radiosensitivity of CRC is urgently needed. Herein, we reported that ankyrin repeat and KH domain containing 1 (ANKHD1) serves as a key regulator of radioresistance in CRC. ANKHD1 was highly expressed in CRC tissues and was highly correlated with Yes-associated protein 1 (YAP1) in CRC. Our results first revealed that ANKHD1 knockdown could increase the radiosensitivity of CRC by regulating DNA-damage repair, both in vitro and in vivo. Furthermore, the interactive regulation between ANKHD1 or YAP1 and lncRNA MALAT1 was revealed by RIP and RNA pull-down assays. Moreover, our results also demonstrated that MALAT1 silencing can radiosensitize CRC cells to IR through YAP1/AKT axis, similar to ANKHD1 silencing. Taken together, we report a feedback loop of ANKHD1/MALAT1/YAP1 that synergistically promotes the transcriptional coactivation of YAP1 and in turn enhances the radioresistance of CRC by regulating DNA-damage repair, probably via the YAP1/AKT axis. Our results suggested that targeting the YAP1/AKT axis downstream of ANKHD1/MALAT1/YAP1 may enhance the radiosensitivity of CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ANKHD1 is required for SMYD3 to promote tumor metastasis in hepatocellular carcinoma.",
+    "doi": "10.1186/s13046-018-1011-0",
+    "pmid": "30646949",
+    "authors": [
+      "Zhou Z, Jiang H, Tu K, Yu W, Zhang J, Hu Z, Zhang H, Hao D, Huang P, Wang J, Wang A, Xiao Z, He C."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-15",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "<h4>Absract</h4>BACKGROUND: Tumor metastasis is the major reason for poor prognosis of hepatocellular carcinoma (HCC) patients after hepatic resection. SMYD3 has been demonstrated to promote liver tumor metastasis in mice. However, the detailed molecular mechanism is still largely unknown.<h4>Methods</h4>The effect of SMYD3 on invasiveness and metastasis of HCC was analyzed by immunohistochemistry, migration assay, invasion assay, wound healing assay and in vivo lung metastasis assay. Mass spectrometry analysis was conducted using proteins pulled down by H3K4me3 antibody in SMYD3-overexpressing cells. Luciferase reporter, chromatin immunoprecipitation, Electrophoretic mobility shift assay were used to measure the regulation of SLUG transcription by SMYD3-ANKHD1. In addition, the role of SMYD3-ANKHD1 in determining clinical outcomes for HCC patients was investigated by immunohistochemistry in 243 HCC tissues.<h4>Results</h4>SMYD3 was an independent prognostic factor of HCC and promoted migration and invasion of human HCC cells. ANKHD1 was identified by mass spectrometry as a co-regulator with SMYD3. ANKHD1 interacted with H3K4me3 when cells were overexpressing SMYD3. The pro-migratory and pro-invasive effects of SMYD3 were attenuated when ANKHD1 was knocked down by siRNA. Furthermore, we found that SMYD3 bound and activated the SLUG gene promoter in a manner associated with elevating H3K4me3, H3K9Ac and H3K14Ac. Knockdown of ANKHD1 could attenuate the SMYD3-dependent activation of Slug expression. We further detected the expression of SMYD3 and ANKHD1 in 243 HCC patients and found that patients with positive coexpression of SMYD3 and ANKHD1 (SMYD3<sup>+</sup>ANKHD1<sup>+</sup>) had the shortest overall and recurrence-free survival.<h4>Conclusion</h4>Our findings provide a novel molecular mechanism for the SMYD3-regulated HCC migration and metastasis, and indicates that SMYD3-ANKHD1 may be a potential target for treating HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Classification and Biomarker Genes Selection for Cancer Gene Expression Data Using Random Forest.",
+    "doi": "10.30699/ijp.2017.27990",
+    "pmid": "29563929",
+    "authors": [
+      "Ram M, Najafi A, Shakeri MT."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-01",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "<h4>Background & objective</h4>Microarray and next generation sequencing (NGS) data are the important sources to find helpful molecular patterns. Also, the great number of gene expression data increases the challenge of how to identify the biomarkers associated with cancer. The random forest (RF) is used to effectively analyze the problems of large-p and small-n. Therefore, RF can be used to select and rank the genes for the diagnosis and effective treatment of cancer.<h4>Methods</h4>The microarray gene expression data of colon, leukemia, and prostate cancers were collected from public databases. Primary preprocessing was done on them using limma package, and then, the RF classification method was implemented on datasets separately in R software. Finally, the selected genes in each of the cancers were evaluated and compared with those of previous experimental studies and their functionalities were assessed in molecular cancer processes.<h4>Result</h4>The RF method extracted very small sets of genes while it retained its predictive performance. About colon cancer data set <i>DIEXF</i>, <i>GUCA2A</i>, <i>CA7</i>, and <i>IGHA1</i> key genes with the accuracy of 87.39 and precision of 85.45 were selected. The <i>SNCA</i>, <i>USP20</i>, and <i>SNRPA1</i> genes were selected for prostate cancer with the accuracy of 73.33 and precision of 66.67. Also, key genes of leukemia data set were <i>BAG4</i>, <i>ANKHD1</i>-<i>EIF4EBP3</i>, <i>PLXNC1</i>, and <i>PCDH9</i> genes, and the accuracy and precision were 100 and 95.24, respectively.<h4>Conclusion</h4>The current study results showed most of the selected genes involved in the processes and cancerous pathways were previously reported and had an important role in shifting from normal cell to abnormal.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Defining the Caprin-1 Interactome in Unstressed and Stressed Conditions.",
+    "doi": "10.1021/acs.jproteome.1c00016",
+    "pmid": "33939924",
+    "authors": [
+      "Vu L, Ghosh A, Tran C, Tebung WA, Sidibé H, Garcia-Mansfield K, David-Dirgo V, Sharma R, Pirrotte P, Bowser R, Vande Velde C."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-03",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "Cytoplasmic stress granules (SGs) are dynamic foci containing translationally arrested mRNA and RNA-binding proteins (RBPs) that form in response to a variety of cellular stressors. It has been debated that SGs may evolve into cytoplasmic inclusions observed in many neurodegenerative diseases. Recent studies have examined the SG proteome by interrogating the interactome of G3BP1. However, it is widely accepted that multiple baits are required to capture the full SG proteome. To gain further insight into the SG proteome, we employed immunoprecipitation coupled with mass spectrometry of endogenous Caprin-1, an RBP implicated in mRNP granules. Overall, we identified 1543 proteins that interact with Caprin-1. Interactors under stressed conditions were primarily annotated to the ribosome, spliceosome, and RNA transport pathways. We validated four Caprin-1 interactors that localized to arsenite-induced SGs: ANKHD1, TALIN-1, GEMIN5, and SNRNP200. We also validated these stress-induced interactions in SH-SY5Y cells and further determined that SNRNP200 also associated with osmotic- and thermal-induced SGs. Finally, we identified SNRNP200 in cytoplasmic aggregates in amyotrophic lateral sclerosis (ALS) spinal cord and motor cortex. Collectively, our findings provide the first description of the Caprin-1 protein interactome, identify novel cytoplasmic SG components, and reveal a SG protein in cytoplasmic aggregates in ALS patient neurons. Proteomic data collected in this study are available <i>via</i> ProteomeXchange with identifier PXD023271.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mask family proteins ANKHD1 and ANKRD17 regulate YAP nuclear import and stability.",
+    "doi": "10.7554/elife.48601",
+    "pmid": "31661072",
+    "authors": [
+      "Sidor C, Borreguero-Munoz N, Fletcher GC, Elbediwy A, Guillermin O, Thompson BJ."
+    ],
+    "year": "2019",
+    "publication_date": "2019-10-29",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "Mask family proteins were discovered in <i>Drosophila</i> to promote the activity of the transcriptional coactivator Yorkie (Yki), the sole fly homolog of mammalian YAP (YAP1) and TAZ (WWTR1). The molecular function of Mask, or its mammalian homologs Mask1 (ANKHD1) and Mask2 (ANKRD17), remains unclear. Mask family proteins contain two ankyrin repeat domains that bind Yki/YAP as well as a conserved nuclear localisation sequence (NLS) and nuclear export sequence (NES), suggesting a role in nucleo-cytoplasmic transport. Here we show that Mask acts to promote nuclear import of Yki, and that addition of an ectopic NLS to Yki is sufficient to bypass the requirement for Mask in Yki-driven tissue growth. Mammalian Mask1/2 proteins also promote nuclear import of YAP, as well as stabilising YAP and driving formation of liquid droplets. Mask1/2 and YAP normally colocalise in a granular fashion in both nucleus and cytoplasm, and are co-regulated during mechanotransduction.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeted and explorative profiling of kallikrein proteases and global proteome biology of pancreatic ductal adenocarcinoma, chronic pancreatitis, and normal pancreas highlights disease-specific proteome remodelling.",
+    "doi": "10.1016/j.neo.2022.100871",
+    "pmid": "36610378",
+    "authors": [
+      "Werner J, Bernhard P, Cosenza-Contreras M, Pinter N, Fahrner M, Pallavi P, Eberhard J, Bronsert P, Rückert F, Schilling O."
+    ],
+    "year": "2023",
+    "publication_date": "2023-01-05",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Pancreatic ductal adenocarcinoma (PDAC) represents one of the most aggressive and lethal malignancies worldwide with an urgent need for new diagnostic and therapeutic strategies. One major risk factor for PDAC is the pre-indication of chronic pancreatitis (CP), which represents highly inflammatory pancreatic tissue. Kallikreins (KLKs) are secreted serine proteases that play an important role in various cancers as components of the tumor microenvironment. Previous studies of KLKs in solid tumors largely relied on either transcriptomics or immunodetection. We present one of the first targeted mass spectrometry profiling of kallikrein proteases in PDAC, CP, and normal pancreas. We show that KLK6 and KLK10 are significantly upregulated in PDAC (n=14) but not in CP (n=7) when compared to normal pancreas (n=16), highlighting their specific intertwining with malignancy. Additional explorative proteome profiling identified 5936 proteins in our pancreatic cohort and observed disease-specific proteome rearrangements in PDAC and CP. As such, PDAC features an enriched proteome motif for extracellular matrix (ECM) and cell adhesion while there is depletion of mitochondrial energy metabolism proteins, reminiscent of the Warburg effect. Although often regarded as a PDAC hallmark, the ECM fingerprint was also observed in CP, alongside with a prototypical inflammatory proteome motif as well as with an increased wound healing process and proteolytic activity, thereby possibly illustrating tissue autolysis. Proteogenomic analysis based on publicly accessible data sources identified 112 PDAC-specific and 32 CP-specific single amino acid variants, which among others affect KRAS and ANKHD1. Our study emphasizes the diagnostic potential of kallikreins and provides novel insights into proteomic characteristics of PDAC and CP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "USP22-mediated deubiquitination of PTEN inhibits pancreatic cancer progression by inducing p21 expression.",
+    "doi": "10.1002/1878-0261.13137",
+    "pmid": "34743406",
+    "authors": [
+      "Ren D, Sun Y, Li D, Wu H, Jin X."
+    ],
+    "year": "2022",
+    "publication_date": "2021-11-16",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Phosphatase and tensin homolog deleted on chromosome ten (PTEN) is a dual lipid and protein phosphatase. Multiple mechanisms contributing to the regulation of PTEN levels have been identified thus far, including post-translational modifications, epigenetic mechanisms, and transcriptional mechanisms. In the present study, we identified ubiquitin-specific peptidase 22 (USP22) as a novel deubiquitination-modifying enzyme of PTEN. Furthermore, by inducing deubiquitination and inhibiting the degradation of PTEN, USP22 could induce cyclin-dependent kinase inhibitor 1A (CDKN1A, also symboled as p21) expression in pancreatic cancer. Besides, MDM2 proto-oncogene (MDM2) inhibitor enhanced the antipancreatic cancer effects of USP22 overexpression. In addition to its regulation of MDM2-tumor protein p53 (p53) signaling, we found that PTEN could induce p21 expression by interacting with ankyrin repeat and KH domain containing 1 (ANKHD1) and inhibiting ANKHD1 binding to the p21 promoter. Taken together, our results indicate that ANKHD1 and MDM2 might be novel therapeutic targets in pancreatic cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular and functional characterization of a novel splice variant of ANKHD1 that lacks the KH domain and its role in cell survival and apoptosis.",
+    "doi": "10.1111/j.1742-4658.2005.04821.x",
+    "pmid": "16098192",
+    "authors": [
+      "Miles MC, Janket ML, Wheeler ED, Chattopadhyay A, Majumder B, Dericco J, Schafer EA, Ayyavoo V."
+    ],
+    "year": "2005",
+    "publication_date": "2005-08-01",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Multiple ankyrin repeat motif-containing proteins play an important role in protein-protein interactions. ANKHD1 proteins are known to possess multiple ankyrin repeat domains and a single KH domain with no known function. Using yeast two-hybrid system analysis, we identified a novel splice variant of ANKHD1. This splice variant of ANKHD1, which we designated as HIV-1 Vpr-binding ankyrin repeat protein (VBARP), does not contain the signature KH domain, and codes for only a single ankyrin repeat motif. We characterized VBARP by molecular and functional analysis, revealing that VBARP is ubiquitously expressed in different tissues as well as cell lines of different lineage. In addition, blast searches indicated that orthologs and homologs to VBARP exist in different phyla, suggesting that VBARP might be evolutionarily conserved, and thus may be involved in basic cellular function(s). Furthermore, biochemical analysis revealed the presence of two VBARP isoforms coding for 69 and 49 kDa polypeptides, respectively, that are primarily localized in the cytoplasm. Functional analysis using short interfering RNA approaches indicate that this gene product is essential for cell survival through its regulation of caspases. Taken together, these results indicate that VBARP is a novel splice variant of ANKHD1 and may play a role in cellular apoptosis (antiapoptotic) and cell survival pathway(s).",
+    "openalex_id": ""
+  },
+  {
+    "title": "Evaluating the Molecular Properties and Function of ANKHD1, and Its Role in Cancer.",
+    "doi": "10.3390/ijms241612834",
+    "pmid": "37629022",
+    "authors": [
+      "Mullenger JL, Zeidler MP, Fragiadaki M."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-16",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Ankyrin repeat and single KH domain-containing protein 1 (ANKHD1) is a large, scaffolding protein composed of two stretches of ankyrin repeat domains that mediate protein-protein interactions and a KH domain that mediates RNA or single-stranded DNA binding. ANKHD1 interacts with proteins in several crucial signalling pathways, including receptor tyrosine kinase, JAK/STAT, mechanosensitive Hippo (YAP/TAZ), and p21. Studies into the role of ANKHD1 in cancer cell lines demonstrate a crucial role in driving uncontrolled cellular proliferation and growth, enhanced tumorigenicity, cell cycle progression through the S phase, and increased epithelial-to-mesenchymal transition. Furthermore, at a clinical level, the increased expression of ANKHD1 has been associated with greater tumour infiltration, increased metastasis, and larger tumours. Elevated ANKHD1 resulted in poorer prognosis, more aggressive growth, and a decrease in patient survival in numerous cancer types. This review aims to gather the current knowledge about ANKHD1 and explore its molecular properties and functions, focusing on the protein's role in cancer at both a cellular and clinical level.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Emerging functions for ANKHD1 in cancer-related signaling pathways and cellular processes.",
+    "doi": "",
+    "pmid": "32635985",
+    "authors": [
+      "Almeida BO, Machado-Neto JA."
+    ],
+    "year": "2020",
+    "publication_date": "2020-08-01",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "ANKHD1 (ankyrin repeat and KH domain containing 1) is a large protein characterized by the presence of multiple ankyrin repeats and a K-homology domain. Ankyrin repeat domains consist of widely existing protein motifs in nature, they mediate protein-protein interactions and regulate fundamental biological processes, while the KH domain binds to RNA or ssDNA and is associated with transcriptional and translational regulation. In recent years, studies containing relevant information on ANKHD1 in cancer biology and its clinical relevance, as well as the increasing complexity of signaling networks in which this protein acts, have been reported. Among the signaling pathways of interest in oncology regulated by ANKHD1 are Hippo signaling, JAK/STAT, and STMN1. The scope of the present review is to survey the current knowledge and highlight future perspectives for ANKHD1 in the malignant phenotype of cancer cells, exploring biological, functional, and clinical reports of this protein in cancer. [BMB Reports 2020; 53(8): 413-418].",
+    "openalex_id": ""
+  }
+]

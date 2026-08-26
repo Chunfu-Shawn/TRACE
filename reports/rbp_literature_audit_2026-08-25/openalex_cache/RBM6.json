@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Biology of the mRNA Splicing Machinery and Its Dysregulation in Cancer Providing Therapeutic Opportunities",
+    "doi": "10.3390/ijms22105110",
+    "authors": [
+      "Maxime Blijlevens",
+      "Jing Li",
+      "Victor W. van Beusechem"
+    ],
+    "year": 2021,
+    "publication_date": "2021-05-12",
+    "cited_by_count": 45,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "Dysregulation of messenger RNA (mRNA) processing-in particular mRNA splicing-is a hallmark of cancer. Compared to normal cells, cancer cells frequently present aberrant mRNA splicing, which promotes cancer progression and treatment resistance. This hallmark provides opportunities for developing new targeted cancer treatments. Splicing of precursor mRNA into mature mRNA is executed by a dynamic complex of proteins and small RNAs called the spliceosome. Spliceosomes are part of the supraspliceosom",
+    "openalex_id": "https://openalex.org/W3160794741",
+    "relevance_score": 41.68326
+  },
+  {
+    "title": "Roles of RNA-binding proteins in neurological disorders, COVID-19, and cancer",
+    "doi": "10.1007/s13577-022-00843-w",
+    "authors": [
+      "Daniel Ruben Akiola Sanya",
+      "Claudia Cava",
+      "Djamila Onésime"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-18",
+    "cited_by_count": 32,
+    "journal": "Human Cell",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4311843027",
+    "relevance_score": 35.56832
+  },
+  {
+    "title": "Regulation of Pre-mRNA Splicing: Indispensable Role of Post-Translational Modifications of Splicing Factors",
+    "doi": "10.3390/life13030604",
+    "authors": [
+      "Miroslava Kretová",
+      "Tomas Selicky",
+      "Ingrid Čipáková",
+      "Luboš Čipák"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-21",
+    "cited_by_count": 33,
+    "journal": "Life",
+    "abstract": "Pre-mRNA splicing is a process used by eukaryotic cells to generate messenger RNAs that can be translated into proteins. During splicing, the non-coding regions of the RNAs (introns) are removed from pre-mRNAs and the coding regions (exons) are joined together, resulting in mature mRNAs. The particular steps of splicing are executed by the multimegadalton complex called a spliceosome. This complex is composed of small nuclear ribonucleoproteins, various splicing factors, and other regulatory and",
+    "openalex_id": "https://openalex.org/W4321500375",
+    "relevance_score": 32.63381
+  },
+  {
+    "title": "Precursor RNA Properties Driving Cryptic 3’ Splice Site Selection in SF3B1 Mutant Malignancies",
+    "doi": null,
+    "authors": [
+      "Austin A Herbert"
+    ],
+    "year": 2026,
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "TigerPrints (Clemson University)",
+    "abstract": "SF3B1 is a core component of the spliceosome involved in branch point recognition and 3’ splice site selection. SF3B1 is commonly mutated in myelodysplastic syndromes and other blood cancers with the K700E mutation being the most frequent. This mutation of SF3B1 induces cryptic 3’ splice site activation in hundreds of genes. Introduction of such cryptic 3’ splice sites can shift the reading frame of protein coding transcripts, causing the transcript to be tagged for nonsense-mediated decay or re",
+    "openalex_id": "https://openalex.org/W7164617248",
+    "relevance_score": 2.3240654
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.1805518
+  }
+]

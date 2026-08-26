@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Control of c-myc mRNA stability by IGF2BP1-associated cytoplasmic RNPs.",
+    "doi": "10.1261/rna.1175909",
+    "pmid": "19029303",
+    "authors": [
+      "Weidensdorfer D, Stöhr N, Baude A, Lederer M, Köhn M, Schierhorn A, Buchmeier S, Wahle E, Hüttelmaier S."
+    ],
+    "year": "2009",
+    "publication_date": "2008-11-24",
+    "cited_by_count": 279,
+    "journal": "",
+    "abstract": "The RNA-binding protein IGF2BP1 (IGF-II mRNA binding protein 1) stabilizes the c-myc RNA by associating with the Coding Region instability Determinant (CRD). If and how other proteins cooperate with IGF2BP1 in promoting stabilization of the c-myc mRNA via the CRD remained elusive. Here, we identify various RNA-binding proteins that associate with IGF2BP1 in an RNA-dependent fashion. Four of these proteins (HNRNPU, SYNCRIP, YBX1, and DHX9) were essential to ensure stabilization of the c-myc mRNA via the CRD. These factors associate with IGF2BP1 in a CRD-dependent manner, co-distribute with IGF2BP1 in non-polysomal fractions comprising c-myc mRNA, and colocalize with IGF2BP1 in the cytoplasm. A selective shift of relative c-myc mRNA levels to the polysomal fraction is observed upon IGF2BP1 knockdown. These findings suggest that IGF2BP1 in complex with at least four proteins promotes CRD-mediated mRNA stabilization. Complex formation at the CRD presumably limits the transfer of c-myc mRNA to the polysomal fraction and subsequent translation-coupled decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Macrophage Polarization and Reprogramming in Acute Inflammation: A Redox Perspective.",
+    "doi": "10.3390/antiox11071394",
+    "pmid": "35883885",
+    "authors": [
+      "Pérez S, Rius-Pérez S."
+    ],
+    "year": "2022",
+    "publication_date": "2022-07-19",
+    "cited_by_count": 221,
+    "journal": "",
+    "abstract": "Macrophage polarization refers to the process by which macrophages can produce two distinct functional phenotypes: M1 or M2. The balance between both strongly affects the progression of inflammatory disorders. Here, we review how redox signals regulate macrophage polarization and reprogramming during acute inflammation. In M1, macrophages augment NADPH oxidase isoform 2 (NOX2), inducible nitric oxide synthase (iNOS), synaptotagmin-binding cytoplasmic RNA interacting protein (SYNCRIP), and tumor necrosis factor receptor-associated factor 6 increase oxygen and nitrogen reactive species, which triggers inflammatory response, phagocytosis, and cytotoxicity. In M2, macrophages down-regulate NOX2, iNOS, SYNCRIP, and/or up-regulate arginase and superoxide dismutase type 1, counteract oxidative and nitrosative stress, and favor anti-inflammatory and tissue repair responses. M1 and M2 macrophages exhibit different metabolic profiles, which are tightly regulated by redox mechanisms. Oxidative and nitrosative stress sustain the M1 phenotype by activating glycolysis and lipid biosynthesis, but by inhibiting tricarboxylic acid cycle and oxidative phosphorylation. This metabolic profile is reversed in M2 macrophages because of changes in the redox state. Therefore, new therapies based on redox mechanisms have emerged to treat acute inflammation with positive results, which highlights the relevance of redox signaling as a master regulator of macrophage reprogramming.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Opposing intrinsic temporal gradients guide neural stem cell production of varied neuronal fates.",
+    "doi": "10.1126/science.aad1886",
+    "pmid": "26472907",
+    "authors": [
+      "Liu Z, Yang CP, Sugino K, Fu CC, Liu LY, Yao X, Lee LP, Lee T."
+    ],
+    "year": "2015",
+    "publication_date": "2015-10-01",
+    "cited_by_count": 158,
+    "journal": "",
+    "abstract": "Neural stem cells show age-dependent developmental potentials, as evidenced by their production of distinct neuron types at different developmental times. Drosophila neuroblasts produce long, stereotyped lineages of neurons. We searched for factors that could regulate neural temporal fate by RNA-sequencing lineage-specific neuroblasts at various developmental times. We found that two RNA-binding proteins, IGF-II mRNA-binding protein (Imp) and Syncrip (Syp), display opposing high-to-low and low-to-high temporal gradients with lineage-specific temporal dynamics. Imp and Syp promote early and late fates, respectively, in both a slowly progressing and a rapidly changing lineage. Imp and Syp control neuronal fates in the mushroom body lineages by regulating the temporal transcription factor Chinmo translation. Together, the opposing Imp/Syp gradients encode stem cell age, specifying multiple cell fates within a lineage.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A cryptic RNA-binding domain mediates Syncrip recognition and exosomal partitioning of miRNA targets.",
+    "doi": "10.1038/s41467-018-03182-3",
+    "pmid": "29483512",
+    "authors": [
+      "Hobor F, Dallmann A, Ball NJ, Cicchini C, Battistelli C, Ogrodowicz RW, Christodoulou E, Martin SR, Castello A, Tripodi M, Taylor IA, Ramos A."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-26",
+    "cited_by_count": 109,
+    "journal": "",
+    "abstract": "Exosomal miRNA transfer is a mechanism for cell-cell communication that is important in the immune response, in the functioning of the nervous system and in cancer. Syncrip/hnRNPQ is a highly conserved RNA-binding protein that mediates the exosomal partition of a set of miRNAs. Here, we report that Syncrip's amino-terminal domain, which was previously thought to mediate protein-protein interactions, is a cryptic, conserved and sequence-specific RNA-binding domain, designated NURR (N-terminal unit for RNA recognition). The NURR domain mediates the specific recognition of a short hEXO sequence defining Syncrip exosomal miRNA targets, and is coupled by a non-canonical structural element to Syncrip's RRM domains to achieve high-affinity miRNA binding. As a consequence, Syncrip-mediated selection of the target miRNAs implies both recognition of the hEXO sequence by the NURR domain and binding of the RRM domains 5' to this sequence. This structural arrangement enables Syncrip-mediated selection of miRNAs with different seed sequences.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome sequencing identifies multiple deleterious variants in autism patients with more severe phenotypes.",
+    "doi": "10.1038/s41436-018-0380-2",
+    "pmid": "30504930",
+    "authors": [
+      "Guo H, Duyzend MH, Coe BP, Baker C, Hoekzema K, Gerdts J, Turner TN, Zody MC, Beighley JS, Murali SC, Nelson BJ, University of Washington Center for Mendelian Genomics, Bamshad MJ, Nickerson DA, Bernier RA, Eichler EE."
+    ],
+    "year": "2019",
+    "publication_date": "2018-12-03",
+    "cited_by_count": 107,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>To maximize the discovery of potentially pathogenic variants to better understand the diagnostic utility of genome sequencing (GS) and to assess how the presence of multiple risk events might affect the phenotypic severity in autism spectrum disorders (ASD).<h4>Methods</h4>GS was applied to 180 simplex and multiplex ASD families (578 individuals, 213 patients) with exome sequencing and array comparative genomic hybridization further applied to a subset for validation and cross-platform comparisons.<h4>Results</h4>We found that 40.8% of patients carried variants with evidence of disease risk, including a de novo frameshift variant in NR4A2 and two de novo missense variants in SYNCRIP, while 21.1% carried clinically relevant pathogenic or likely pathogenic variants. Patients with more than one risk variant (9.9%) were more severely affected with respect to cognitive ability compared with patients with a single or no-risk variant. We observed no instance among the 27 multiplex families where a pathogenic or likely pathogenic variant was transmitted to all affected members in the family.<h4>Conclusion</h4>The study demonstrates the diagnostic utility of GS, especially for multiple risk variants that contribute to the phenotypic severity, shows the genetic heterogeneity in multiplex families, and provides evidence for new genes for follow up.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rare deleterious mutations of HNRNP genes result in shared neurodevelopmental disorders.",
+    "doi": "10.1186/s13073-021-00870-6",
+    "pmid": "33874999",
+    "authors": [
+      "Gillentine MA, Wang T, Hoekzema K, Rosenfeld J, Liu P, Guo H, Kim CN, De Vries BBA, Vissers LELM, Nordenskjold M, Kvarnung M, Lindstrand A, Nordgren A, Gecz J, Iascone M, Cereda A, Scatigno A, Maitz S, Zanni G, Bertini E, Zweier C, Schuhmann S, Wiesener A, Pepper M, Panjwani H, Torti E, Abid F, Anselm I, Srivastava S, Atwal P, Bacino CA, Bhat G, Cobian K, Bird LM, Friedman J, Wright MS, Callewaert B, Petit F, Mathieu S, Afenjar A, Christensen CK, White KM, Elpeleg O, Berger I, Espineli EJ, Fagerberg C, Brasch-Andersen C, Hansen LK, Feyma T, Hughes S, Thiffault I, Sullivan B, Yan S, Keller K, Keren B, Mignot C, Kooy F, Meuwissen M, Basinger A, Kukolich M, Philips M, Ortega L, Drummond-Borg M, Lauridsen M, Sorensen K, Lehman A, CAUSES Study, Lopez-Rangel E, Levy P, Lessel D, Lotze T, Madan-Khetarpal S, Sebastian J, Vento J, Vats D, Benman LM, Mckee S, Mirzaa GM, Muss C, Pappas J, Peeters H, Romano C, Elia M, Galesi O, Simon MEH, van Gassen KLI, Simpson K, Stratton R, Syed S, Thevenon J, Palafoll IV, Vitobello A, Bournez M, Faivre L, Xia K, SPARK Consortium, Earl RK, Nowakowski T, Bernier RA, Eichler EE."
+    ],
+    "year": "2021",
+    "publication_date": "2021-04-19",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "<h4>Background</h4>With the increasing number of genomic sequencing studies, hundreds of genes have been implicated in neurodevelopmental disorders (NDDs). The rate of gene discovery far outpaces our understanding of genotype-phenotype correlations, with clinical characterization remaining a bottleneck for understanding NDDs. Most disease-associated Mendelian genes are members of gene families, and we hypothesize that those with related molecular function share clinical presentations.<h4>Methods</h4>We tested our hypothesis by considering gene families that have multiple members with an enrichment of de novo variants among NDDs, as determined by previous meta-analyses. One of these gene families is the heterogeneous nuclear ribonucleoproteins (hnRNPs), which has 33 members, five of which have been recently identified as NDD genes (HNRNPK, HNRNPU, HNRNPH1, HNRNPH2, and HNRNPR) and two of which have significant enrichment in our previous meta-analysis of probands with NDDs (HNRNPU and SYNCRIP). Utilizing protein homology, mutation analyses, gene expression analyses, and phenotypic characterization, we provide evidence for variation in 12 HNRNP genes as candidates for NDDs. Seven are potentially novel while the remaining genes in the family likely do not significantly contribute to NDD risk.<h4>Results</h4>We report 119 new NDD cases (64 de novo variants) through sequencing and international collaborations and combined with published clinical case reports. We consider 235 cases with gene-disruptive single-nucleotide variants or indels and 15 cases with small copy number variants. Three hnRNP-encoding genes reach nominal or exome-wide significance for de novo variant enrichment, while nine are candidates for pathogenic mutations. Comparison of HNRNP gene expression shows a pattern consistent with a role in cerebral cortical development with enriched expression among radial glial progenitors. Clinical assessment of probands (n = 188-221) expands the phenotypes associated with HNRNP rare variants, and phenotypes associated with variation in the HNRNP genes distinguishes them as a subgroup of NDDs.<h4>Conclusions</h4>Overall, our novel approach of exploiting gene families in NDDs identifies new HNRNP-related disorders, expands the phenotypes of known HNRNP-related disorders, strongly implicates disruption of the hnRNPs as a whole in NDDs, and supports that NDD subtypes likely have shared molecular pathogenesis. To date, this is the first study to identify novel genetic disorders based on the presence of disorders in related genes. We also perform the first phenotypic analyses focusing on related genes. Finally, we show that radial glial expression of these genes is likely critical during neurodevelopment. This is important for diagnostics, as well as developing strategies to best study these genes for the development of therapeutics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Artificial intelligence in neurodegenerative disease research: use of IBM Watson to identify additional RNA-binding proteins altered in amyotrophic lateral sclerosis.",
+    "doi": "10.1007/s00401-017-1785-8",
+    "pmid": "29134320",
+    "authors": [
+      "Bakkar N, Kovalik T, Lorenzini I, Spangler S, Lacoste A, Sponaugle K, Ferrante P, Argentinis E, Sattler R, Bowser R."
+    ],
+    "year": "2018",
+    "publication_date": "2017-11-13",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) is a devastating neurodegenerative disease with no effective treatments. Numerous RNA-binding proteins (RBPs) have been shown to be altered in ALS, with mutations in 11 RBPs causing familial forms of the disease, and 6 more RBPs showing abnormal expression/distribution in ALS albeit without any known mutations. RBP dysregulation is widely accepted as a contributing factor in ALS pathobiology. There are at least 1542 RBPs in the human genome; therefore, other unidentified RBPs may also be linked to the pathogenesis of ALS. We used IBM Watson<sup>®</sup> to sieve through all RBPs in the genome and identify new RBPs linked to ALS (ALS-RBPs). IBM Watson extracted features from published literature to create semantic similarities and identify new connections between entities of interest. IBM Watson analyzed all published abstracts of previously known ALS-RBPs, and applied that text-based knowledge to all RBPs in the genome, ranking them by semantic similarity to the known set. We then validated the Watson top-ten-ranked RBPs at the protein and RNA levels in tissues from ALS and non-neurological disease controls, as well as in patient-derived induced pluripotent stem cells. 5 RBPs previously unlinked to ALS, hnRNPU, Syncrip, RBMS3, Caprin-1 and NUPL2, showed significant alterations in ALS compared to controls. Overall, we successfully used IBM Watson to help identify additional RBPs altered in ALS, highlighting the use of artificial intelligence tools to accelerate scientific discovery in ALS and possibly other complex neurological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An RNA-interacting protein, SYNCRIP (heterogeneous nuclear ribonuclear protein Q1/NSAP1) is a component of mRNA granule transported with inositol 1,4,5-trisphosphate receptor type 1 mRNA in neuronal dendrites.",
+    "doi": "10.1074/jbc.m409732200",
+    "pmid": "15475564",
+    "authors": [
+      "Bannai H, Fukatsu K, Mizutani A, Natsume T, Iemura S, Ikegami T, Inoue T, Mikoshiba K."
+    ],
+    "year": "2004",
+    "publication_date": "2004-10-08",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "mRNA transport and local translation in the neuronal dendrite is implicated in the induction of synaptic plasticity. Recently, we cloned an RNA-interacting protein, SYNCRIP (heterogeneous nuclear ribonuclear protein Q1/NSAP1), that is suggested to be important for the stabilization of mRNA. We report here that SYNCRIP is a component of mRNA granules in rat hippocampal neurons. SYNCRIP was mainly found at cell bodies, but punctate expression patterns in the proximal dendrite were also seen. Time-lapse analysis in living neurons revealed that the granules labeled with fluorescent protein-tagged SYNCRIP were transported bi-directionally within the dendrite at approximately 0.05 microm/s. Treatment of neurons with nocodazole significantly inhibited the movement of green fluorescent protein-SYNCRIP-positive granules, indicating that the transport of SYNCRIP-containing granules is dependent on microtubules. The distribution of SYNCRIP-containing granules overlapped with that of dendritic RNAs and elongation factor 1alpha. SYNCRIP was also found to be co-transported with green fluorescent protein-tagged human staufen1 and the 3'-untranslated region of inositol 1,4,5-trisphosphate receptor type 1 mRNA. These results suggest that SYNCRIP is transported within the dendrite as a component of mRNA granules and raise the possibility that mRNA turnover in mRNA granules and the regulation of local protein synthesis in neuronal dendrites may involve SYNCRIP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Functional screen of MSI2 interactors identifies an essential role for SYNCRIP in myeloid leukemia stem cells.",
+    "doi": "10.1038/ng.3854",
+    "pmid": "28436985",
+    "authors": [
+      "Vu LP, Prieto C, Amin EM, Chhangawala S, Krivtsov A, Calvo-Vidal MN, Chou T, Chow A, Minuesa G, Park SM, Barlowe TS, Taggart J, Tivnan P, Deering RP, Chu LP, Kwon JA, Meydan C, Perales-Paton J, Arshi A, Gönen M, Famulare C, Patel M, Paietta E, Tallman MS, Lu Y, Glass J, Garret-Bakelman FE, Melnick A, Levine R, Al-Shahrour F, Järås M, Hacohen N, Hwang A, Garippa R, Lengner CJ, Armstrong SA, Cerchietti L, Cowley GS, Root D, Doench J, Leslie C, Ebert BL, Kharas MG."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-24",
+    "cited_by_count": 90,
+    "journal": "",
+    "abstract": "The identity of the RNA-binding proteins (RBPs) that govern cancer stem cells remains poorly characterized. The MSI2 RBP is a central regulator of translation of cancer stem cell programs. Through proteomic analysis of the MSI2-interacting RBP network and functional shRNA screening, we identified 24 genes required for in vivo leukemia. Syncrip was the most differentially required gene between normal and myeloid leukemia cells. SYNCRIP depletion increased apoptosis and differentiation while delaying leukemogenesis. Gene expression profiling of SYNCRIP-depleted cells demonstrated a loss of the MLL and HOXA9 leukemia stem cell program. SYNCRIP and MSI2 interact indirectly though shared mRNA targets. SYNCRIP maintains HOXA9 translation, and MSI2 or HOXA9 overexpression rescued the effects of SYNCRIP depletion. Altogether, our data identify SYNCRIP as a new RBP that controls the myeloid leukemia stem cell program. We propose that targeting these RBP complexes might provide a novel therapeutic strategy in leukemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Drosophila Syncrip binds the gurken mRNA localisation signal and regulates localised transcripts during axis specification.",
+    "doi": "10.1242/bio.2012885",
+    "pmid": "23213441",
+    "authors": [
+      "McDermott SM, Meignin C, Rappsilber J, Davis I."
+    ],
+    "year": "2012",
+    "publication_date": "2012-04-11",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "In the Drosophila oocyte, mRNA transport and localised translation play a fundamental role in axis determination and germline formation of the future embryo. gurken mRNA encodes a secreted TGF-α signal that specifies dorsal structures, and is localised to the dorso-anterior corner of the oocyte via a cis-acting 64 nucleotide gurken localisation signal. Using GRNA chromatography, we characterised the biochemical composition of the ribonucleoprotein complexes that form around the gurken mRNA localisation signal in the oocyte. We identified a number of the factors already known to be involved in gurken localisation and translational regulation, such as Squid and Imp, in addition to a number of factors with known links to mRNA localisation, such as Me31B and Exu. We also identified previously uncharacterised Drosophila proteins, including the fly homologue of mammalian SYNCRIP/hnRNPQ, a component of RNA transport granules in the dendrites of mammalian hippocampal neurons. We show that Drosophila Syncrip binds specifically to gurken and oskar, but not bicoid transcripts. The loss-of-function and overexpression phenotypes of syncrip in Drosophila egg chambers show that the protein is required for correct grk and osk mRNA localisation and translational regulation. We conclude that Drosophila Syncrip is a new factor required for localisation and translational regulation of oskar and gurken mRNA in the oocyte. We propose that Syncrip/SYNCRIP is part of a conserved complex associated with localised transcripts and required for their correct translational regulation in flies and mammals.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The hnRNP-Q protein LIF2 participates in the plant immune response.",
+    "doi": "10.1371/journal.pone.0099343",
+    "pmid": "24914891",
+    "authors": [
+      "Le Roux C, Del Prete S, Boutet-Mercey S, Perreau F, Balagué C, Roby D, Fagard M, Gaudin V."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-10",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "Eukaryotes have evolved complex defense pathways to combat invading pathogens. Here, we investigated the role of the Arabidopsis thaliana heterogeneous nuclear ribonucleoprotein (hnRNP-Q) LIF2 in the plant innate immune response. We show that LIF2 loss-of-function in A. thaliana leads to changes in the basal expression of the salicylic acid (SA)- and jasmonic acid (JA)- dependent defense marker genes PR1 and PDF1.2, respectively. Whereas the expression of genes involved in SA and JA biosynthesis and signaling was also affected in the lif2-1 mutant, no change in SA and JA hormonal contents was detected. In addition, the composition of glucosinolates, a class of defense-related secondary metabolites, was altered in the lif2-1 mutant in the absence of pathogen challenge. The lif2-1 mutant exhibited reduced susceptibility to the hemi-biotrophic pathogen Pseudomonas syringae and the necrotrophic ascomycete Botrytis cinerea. Furthermore, the lif2-1 sid2-2 double mutant was less susceptible than the wild type to P. syringae infection, suggesting that the lif2 response to pathogens was independent of SA accumulation. Together, our data suggest that lif2-1 exhibits a basal primed defense state, resulting from complex deregulation of gene expression, which leads to increased resistance to pathogens with various infection strategies. Therefore, LIF2 may function as a suppressor of cell-autonomous immunity. Similar to its human homolog, NSAP1/SYNCRIP, a trans-acting factor involved in both cellular processes and the viral life cycle, LIF2 may regulate the conflicting aspects of development and defense programs, suggesting that a conserved evolutionary trade-off between growth and defense pathways exists in eukaryotes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Control of translation and miRNA-dependent repression by a novel poly(A) binding protein, hnRNP-Q.",
+    "doi": "10.1371/journal.pbio.1001564",
+    "pmid": "23700384",
+    "authors": [
+      "Svitkin YV, Yanagiya A, Karetnikov AE, Alain T, Fabian MR, Khoutorsky A, Perreault S, Topisirovic I, Sonenberg N."
+    ],
+    "year": "2013",
+    "publication_date": "2013-05-21",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "Translation control often operates via remodeling of messenger ribonucleoprotein particles. The poly(A) binding protein (PABP) simultaneously interacts with the 3' poly(A) tail of the mRNA and the eukaryotic translation initiation factor 4G (eIF4G) to stimulate translation. PABP also promotes miRNA-dependent deadenylation and translational repression of target mRNAs. We demonstrate that isoform 2 of the mouse heterogeneous nuclear protein Q (hnRNP-Q2/SYNCRIP) binds poly(A) by default when PABP binding is inhibited. In addition, hnRNP-Q2 competes with PABP for binding to poly(A) in vitro. Depleting hnRNP-Q2 from translation extracts stimulates cap-dependent and IRES-mediated translation that is dependent on the PABP/poly(A) complex. Adding recombinant hnRNP-Q2 to the extracts inhibited translation in a poly(A) tail-dependent manner. The displacement of PABP from the poly(A) tail by hnRNP-Q2 impaired the association of eIF4E with the 5' m(7)G cap structure of mRNA, resulting in the inhibition of 48S and 80S ribosome initiation complex formation. In mouse fibroblasts, silencing of hnRNP-Q2 stimulated translation. In addition, hnRNP-Q2 impeded let-7a miRNA-mediated deadenylation and repression of target mRNAs, which require PABP. Thus, by competing with PABP, hnRNP-Q2 plays important roles in the regulation of global translation and miRNA-mediated repression of specific mRNAs.",
+    "openalex_id": ""
+  }
+]

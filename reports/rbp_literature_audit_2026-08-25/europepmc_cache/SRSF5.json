@@ -1,0 +1,170 @@
+[
+  {
+    "title": "CHAtRF Modulates Cardiac Hypertrophy via SRSF5-Dependent Regulation of Psmg4 Alternative Splicing.",
+    "doi": "10.34133/research.1202",
+    "pmid": "41907183",
+    "authors": [
+      "Zhou LY, Wang K, Li YH, Wang SC, Chen XZ, Liu CY, Li XM, Wang YQ, Cai SF, Yang SM, Wang YH, Liu F, Wang K."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "tRNA-derived small RNAs (tsRNAs) or tRNA-derived fragments (tRFs) are an important class of regulatory molecules whose role in cardiac hypertrophy remains largely unknown. Here, we identified a novel tRF contributing to the regulation of cardiac hypertrophy that we termed CHAtRF (cardiac hypertrophy-associated tRF). The CHAtRF level was increased in mice and in patients with cardiac hypertrophy. CHAtRF deficiency attenuated angiotensin II (AngII)-induced cardiac hypertrophy and restored the heart function, while CHAtRF overexpression enhanced hypertrophic responses. Mechanistically, CHAtRF directly interacts with SRSF5 and blocks SRSF5 to bind with Psmg4 pre-mRNA, which mediates alternative splicing of Psmg4 pre-mRNA and promotes exon 2 skipping of Psmg4. CHAtRF-dependent alternative splicing of Psmg4 inhibits the expression of Psmg4 full-length isoform, resulting in progression of pathological hypertrophy. The ability of CHAtRF to regulate hypertrophy was confirmed in hiPSC-CMs, and CHAtRF serum levels are higher in individuals with myocardial hypertrophy or heart failure. Our findings reveal new insights into the previously unrecognized role of tsRNAs during cardiac hypertrophy, which provide potential novel therapeutic targets for pathological hypertrophy and might serve as potential biomarkers for diagnosing cardiac hypertrophy and heart failure.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptome-based identification and experimental validation of a key gene in Alzheimer's disease using dermal fibroblasts.",
+    "doi": "10.1177/13872877261443968",
+    "pmid": "42024084",
+    "authors": [
+      "Xie M, Niu X, Sun F, Shi L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BackgroundAlzheimer's disease (AD) is a neurodegenerative disorder primarily characterized by progressive cognitive impairment and neuronal damage. The pathogenesis of AD is complex and involves multiple pathological processes. Currently, effective methods for early diagnosis and treatment are lacking.ObjectiveTo identify key pathogenic genes and investigate their roles in Alzheimer's disease, we analyzed transcriptomic data from dermal fibroblasts of AD patients, aiming to assess their potential as novel biomarkers and therapeutic targets.MethodsTranscriptomic data from AD patient and control-derived dermal fibroblasts (DFs) were analyzed to identify differentially expressed genes. Key genes were screened using bioinformatics and a random forest algorithm. ceRNA analysis was performed to explore miRNA-mRNA interactions. The candidate gene SRSF5 was validated via overexpression and knockdown, followed by qPCR, western blotting, and reactive oxygen species (ROS) assays. The role of SRSF5 in endoplasmic reticulum (ER) stress was evaluated by measuring ER stress markers and cellular stress responses.ResultsTranscriptomic analysis revealed significant upregulation of SRSF5 in AD DFs. ceRNA analysis identified miRNAs regulating SRSF5 in AD. Overexpression of SRSF5 led to reduced neuronal proliferation, increased apoptosis, elevated ROS levels, and activation of ER stress markers (CHOP, GRP78, XBP1). SRSF5 knockdown alleviated these effects.ConclusionsSRSF5 may drive AD pathogenesis via ER and oxidative stress, serving as a potential biomarker and therapeutic target for early diagnosis and intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rapid depletion and super-resolution microscopy reveal dual roles of SRSF5 in coordinating nuclear speckle-paraspeckle crosstalk during cellular stress.",
+    "doi": "10.1093/nar/gkaf713",
+    "pmid": "40716777",
+    "authors": [
+      "Okuda EK, Kessler LF, Arnold B, Riegger RJ, Hernández Cañás MC, Zebrowska E, Bakisoglu C, Rudigier M, Krost C, Nagasse HY, Keiten-Schmitz J, Müller S, Stanek D, Dormann D, Zarnack K, Heilemann M, Müller-McNicoll M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-01",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Nuclear speckles (NS) and paraspeckles (PS) are adjacent yet distinct nuclear condensates that undergo stress-induced reorganization. Here, we identify a dual role for the splicing factor SRSF5 in coordinating the crosstalk between both condensates. Super-resolution imaging shows that SRSF5, while enriched in NS, also overlaps with the shell of a subset of PS. SRSF5 binds purine-rich sequences at the 5' end of NEAT1_2 promoting its alignment to PS shells and the formation of large PS cluster during stress. We propose that SRSF5 binding occurs transiently during PS maturation and must later be removed from NEAT1_2 by nuclear helicases. Inhibition of this remodeling by rocaglamide A, which locks helicases onto purine-rich RNA leads to the aberrant fusion of PS and NS, which can be partially rescued by acute SRSF5 depletion. Surprisingly, while short-term SRSF5 loss impairs PS formation, prolonged depletion activates a feedback loop involving intron retention and premature polyadenylation of TARDBP, reduction of TDP-43 levels and NEAT1_2 isoform switching, ultimately restoring PS clusters. Our findings reveal that SRSF5 serves both architectural and regulatory roles in PS biogenesis and that helicase-mediated remodeling is essential to maintain PS identity and function under stress. These insights uncover fundamental principles of nuclear body dynamics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Subversion of phosphorylated SR proteins by enterovirus A71 in IRES-dependent translation revealed by RNA-interactome analysis.",
+    "doi": "10.1371/journal.ppat.1013242",
+    "pmid": "40522993",
+    "authors": [
+      "Lee KM, Wu CC, Fan YT, Chiang HJ, Lien PY, Wang JP, Huang YC, Shih SR."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-16",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "During infection by positive-sense single-stranded RNA viruses, understanding the mechanisms governing the fate of viral RNA, whether directed towards translation, replication, or virion assembly, remains a significant challenge. In this study, we conducted RNA-interactome analysis using metabolic labeling coupled with quantitative proteomics to investigate the protein composition of temporal ribonucleoprotein complexes (RNPs) during enterovirus A71 (EV-A71) infection. Comparative analysis of RNPs during the early and late infection stages, representing the eclipse and maturation phases, revealed dynamic RNP remodeling over time. This remodeling process involved the exchange of nuclear RNA binding proteins with cytoplasmic membrane-associated proteins. Notably, EV-A71 infection induced the phosphorylation and cytoplasmic re-localization of nuclear serine and arginine-rich (SR) proteins, as determined using pan-SR protein antibodies, with these proteins found to co-localize with viral RNAs. Knockdown of specific SR proteins, including SRSF4, SRSF5, and SRSF6, significantly reduced viral growth, highlighting their critical role in the infection process. Intriguingly, these phosphorylated SR proteins cofractionated with the translation machinery rather than the replication organelles, a phenomenon predominantly observed during the early infection phase and abolished in the late phase. Importantly, inhibition of SR protein phosphorylation using the kinase inhibitors SRPKIN-1 and TG003 significantly impaired IRES-dependent translation and EV-A71 replication. These findings underscore the pivotal role of SR protein phosphoregulation during the eclipse phase of EV-A71 infection in facilitating the formation of translation-competent complexes. Furthermore, they highlight the potential of targeting SR protein phosphorylation as a promising strategy for antiviral development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing of fibronectin gene contribute to the aneurysmal dilatation of arteriovenous fistula.",
+    "doi": "10.1080/0886022x.2025.2611610",
+    "pmid": "41582005",
+    "authors": [
+      "Wang H, Ni Q, Qi H, Qian X, Chu Y, Wang Y, Yao Y, Shen N, Deng W, Guo X, Zhang L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Patients with end-stage renal disease often require arteriovenous fistula (AVF) creation for hemodialysis. However, nearly 40% of patients develop aneurysmal dilatation of AVF (AVFA) after surgery, which can lead to prolonged bleeding at puncture sites, increased infection risk, and even potential rupture. Despite its high incidence, research on AVFA remains remarkably limited. This study makes an innovative discovery by establishing a link between AVFA formation and alternative splicing of fibronectin (FN), a crucial extracellular matrix component. Specifically, we demonstrate that increased inclusion of the EDA exon in FN within vascular smooth muscle cells triggers phenotypic switching to a synthetic state and extracellular matrix remodeling through the ITGB1/FAK/Src/RUNX2 pathway. These changes ultimately reduce vascular mechanical strength and contribute to AVFA development. Furthermore, we identify the splicing factor SRSF5 as a key regulator of EDA inclusion and characterize its potential binding sites, providing potential therapeutic targets for AVFA prevention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF5 Regulates Trophoblast Apoptosis by Inhibiting NR2F2 Transcriptional Activity Through MLX Ubiquitin Degradation Mediated by Alternative Splicing in Preeclampsia.",
+    "doi": "10.1096/fj.202501137r",
+    "pmid": "40586738",
+    "authors": [
+      "Li R, Chen R, Wang L, Liu K, Wu H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The pathogenesis of preeclampsia (PE) is closely related to the dysfunction of placental trophoblast. However, the precise mechanisms underlying placental dysfunction remain inadequately elucidated. The expression of Serine/arginine-rich Splicing Factor 5 (SRSF5) in the placental tissues of PE mice was detected by quantitative real time-PCR (qRT-PCR), western blot and immunohistochemistry (IHC) experiments. The functions of SRSF5 in HTR8/SVneo cells were detected by CCK8, wound healing and transwell assays. TUNEL was used to analyze the apoptosis of HTR8/SVneo cells. Subsequently, alternative splicing events of Max-like protein X (MLX) were identified using RT-PCR and RIP assays. In addition, experiments such as Co-IP and in vivo ubiquitination were used to analyze the molecular mechanism by which SRSF5 regulates apoptosis of HTR8/SVneo cells. SRSF5 was significantly overexpressed in placental tissues of PE mice. Knockdown of SRSF5 induced proliferation, migration and invasion of HTR8/SVneo cells and inhibited cell apoptosis. Mechanistically, silencing SRSF5 could induce the ubiquitination and degradation of MLX through alternative splicing in HTR8/SVneo cells. Furthermore, the knockdown of SRSF5 enhanced the transcriptional activity of nuclear receptor subfamily 2 group F member 2 (NR2F2) via MLX, which contributed to the apoptosis of HTR8/SVneo cells. In summary, the downregulation of SRSF5 enhances the transcriptional activation of NR2F2 and inhibits trophoblast cell apoptosis by facilitating ubiquitination and degradation of MLX protein through alternative splicing, thereby participating in the pathogenesis of PE.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA-mRNA integrated networks in the neuroendocrine system of bisphenol a-treated mice induce cellular dysfunctions by disrupting transcriptional homeostasis.",
+    "doi": "10.1080/19768354.2025.2569881",
+    "pmid": "41090079",
+    "authors": [
+      "Oh SM, Lim B, Park YB, Jang MJ, Lim SW, Lim C, Kim DY, Park Y, Seo YJ, Kim JM."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-11",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Bisphenol A (BPA) is a widely used xenoestrogen that can disrupt neuroendocrine and immune regulation through multiple hormone receptors. This study investigated BPA-induced long non-coding RNA (lncRNA)-mRNA interactions in the cerebral cortex and hypothalamic-pituitary-thyroid (HPT) axis of adult male mice. Transcriptome sequencing and comprehensive lncRNA annotation identified 14,858 novel lncRNA transcripts. Integrated network analysis using weighted gene co-expression network analysis (WGCNA) revealed four distinct tissue-specific modules: neuronal signaling alterations (<i>Tac1</i>, <i>Htr1b</i>, <i>Npy</i>), RNA splicing modifications (<i>Srsf5</i>), PI3K/Akt-mediated cellular dysfunction (<i>Creb5</i>, <i>Cdkn1a</i>), and immune receptor signaling disruptions (<i>Trbv15, Fcrla</i>). These findings suggest that BPA reprograms transcriptional networks in a tissue-specific manner, potentially disrupting hormone-related neurotransmission, metabolic regulation, and immune signaling via lncRNA-mediated mechanisms. Such systems-level reprogramming of the immune-neuroendocrine network (INEN) provides novel mechanistic insights and biomarker candidates for assessing and mitigating the health impacts of environmental endocrine disruptors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Cpeb4 regulates splicing of the Id2 gene in osteoclast differentiation.",
+    "doi": "10.1002/jcp.31197",
+    "pmid": "38284484",
+    "authors": [
+      "Arasaki Y, Hayata T."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-29",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Cytoplasmic polyadenylation element-binding protein 4 (Cpeb4) is an RNA-binding protein that regulates posttranscriptional regulation, such as regulation of messenger RNA stability and translation. In the previous study, we reported that Cpeb4 localizes to nuclear bodies upon induction of osteoclast differentiation by RANKL. However, the mechanisms of the localization of Cpeb4 and osteoclastogenesis by Cpeb4 remain unknown. Here, we show that Cpeb4 localizes to the nuclear bodies by its RNA-binding ability and partially regulates normal splicing during osteoclast differentiation. Sodium dodecyl sulfate-polyacrylamide gel electrophoresis analysis with Phos-tag® revealed that the phosphorylation levels of Cpeb4 were already high in the RAW264.7 cells and were not altered by RANKL treatment. Immunofluorescence showed that exogenous Cpeb4 in HEK293T cells without RANKL stimulation localized to the same foci as shown in RANKL-stimulated RAW264.7 cells. Furthermore, when nuclear export was inhibited by leptomycin B treatment, Cpeb4 accumulated throughout the nucleus. Importantly, RNA recognition motif (RRM) 7 of Cpeb4 was essential for the localization. In contrast, the intrinsically disordered region, RRM1, and zinc finger domain CEBP_ZZ were not necessary for the localization. The mechanistic study showed that Cpeb4 co-localized and interacted with the splicing factors serine/arginine-rich splicing factor 5 (SRSF5) and SRSF6, suggesting that Cpeb4 may be involved in the splicing reaction. RNA-sequencing analysis revealed that the expression of genes related to cell proliferation processes, such as mitotic cell cycle and regulation of cell cycle processes, was elevated in osteoclasts depleted of Cpeb4. Interestingly, the splicing pattern of the inhibitor of DNA binding 2 (Id2) gene, which suppresses osteoclast differentiation, was altered by the depletion of Cpeb4. These results provide new insight into the role of Cpeb4 as a player of normal splicing of Id2 in osteoclast differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "L-Arginine Enhances Oral Keratinocyte Proliferation under High-Glucose Conditions via Upregulation of <i>CYP1A1</i>, <i>SKP2</i>, and <i>SRSF5</i>.",
+    "doi": "10.3390/molecules28207020",
+    "pmid": "37894498",
+    "authors": [
+      "Shi J, Leonardo TR, Han C, Bangash HI, Chen D, Trivedi HM, Chen L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-10",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "High glucose inhibits oral keratinocyte proliferation. Diabetes can lead to delayed oral wound healing and periodontal disease. L-Arginine, one of the most versatile amino acids, plays an important role in wound healing, organ maturation, and development. In this study, L-Arginine was found to enhance oral keratinocyte proliferation under high-glucose conditions. RNA sequencing analysis discovered a significant number of genes differentially upregulated following L-Arginine treatment under high-glucose conditions. Cytochrome P450 family 1 subfamily A member 1 (<i>CYP1A1</i>) was the most significantly upregulated gene at 24 and 48 h after L-Arginine treatment. Gene Ontology enrichment analysis found that cell proliferation- and mitosis-related biological processes, such as mitotic nuclear division, mRNA processing, and positive regulation of cell cycle processes, were significantly upregulated. Pathway enrichment analysis found that S-phase kinase-associated protein 2 (<i>SKP2</i>) and serine- and arginine-rich splicing factor 5 (<i>SRSF5</i>) were the top upregulated genes in cell cycle and spliceosome pathways, respectively. Indirect immunofluorescent cytochemistry confirmed increased protein levels of <i>CYP1A1</i>, <i>SKP2</i>, and <i>SRSF5</i> after L-Arginine treatment. Knockdown of <i>CYP1A1</i>, <i>SKP2</i>, and <i>SRSF5</i> abolished the enhanced proliferative effect of L-Arginine on oral keratinocytes under high-glucose conditions. In conclusion, L-Arginine enhances oral keratinocyte proliferation under high-glucose conditions via upregulation of <i>CYP1A1</i>, <i>SKP2</i>, and <i>SRSF5</i>, suggesting that supplemental L-Arginine in oral care products may be beneficial for oral tissue repair and regeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF5-Mediated Alternative Splicing of M Gene is Essential for Influenza A Virus Replication: A Host-Directed Target Against Influenza Virus.",
+    "doi": "10.1002/advs.202203088",
+    "pmid": "36257906",
+    "authors": [
+      "Li Q, Jiang Z, Ren S, Guo H, Song Z, Chen S, Gao X, Meng F, Zhu J, Liu L, Tong Q, Sun H, Sun Y, Pu J, Chang KC, Liu J."
+    ],
+    "year": "2022",
+    "publication_date": "2022-10-18",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "Splicing of influenza A virus (IAV) RNA is an essential process in the viral life cycle that involves the co-opting of host factors. Here, it is demonstrated that induction of host serine and arginine-rich splicing factor 5 (SRSF5) by IAV facilitated viral replication by enhancing viral M mRNA splicing. Mechanistically, SRSF5 with its RRM2 domain directly bounds M mRNA at conserved sites (M mRNA position 163, 709, and 712), and interacts with U1 small nuclear ribonucleoprotein (snRNP) to promote M mRNA splicing and M2 production. Mutations introduced to the three binding sites, without changing amino acid code, significantly attenuates virus replication and pathogenesis in vivo. Likewise, SRSF5 conditional knockout in the lung protects mice against lethal IAV challenge. Furthermore, anidulafungin, an approved antifungal drug, is identified as an inhibitor of SRSF5 that effectively blocks IAV replication in vitro and in vivo. In conclusion, SRSF5 as an activator of M mRNA splicing promotes IAV replication and is a host-derived antiviral target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of two short peptide motifs from serine/arginine-rich protein ribonucleic acid recognition motif-1 domain acting as splicing regulators.",
+    "doi": "10.7717/peerj.16103",
+    "pmid": "37744237",
+    "authors": [
+      "Jiang T, Wang L, Tang L, Zeb A, Hou Y."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Serine/arginine-rich (SR) proteins regulate pre-mRNA splicing. However, structurally similar proteins often behave differently in splicing regulation and the underlying mechanisms are largely unknown. Here, using <i>SMN1/2</i> minigenes we extensively analyzed four SR proteins, SRSF1/5/6/9.<h4>Methods</h4>In this study, the effects of these proteins on <i>SMN1/2</i> exon 7 splicing when tethered at either intron 6 or 7 were evaluated using an MS2-tethering assay. Deletion analysis in four SR proteins and co-overexpression analysis were performed.<h4>Results</h4>Splicing outcomes varied among all four SR proteins, SRSF1 and SRSF5 function the same at the two sites, acting as repressor and stimulator, respectively; while SRSF6 and SRSF9 promote exon 7 inclusion at only one site. Further, the key domains of each SR proteins were investigated, which identified a potent inhibitory nonapeptide in the C-terminus of SRSF1/9 ribonucleic acid recognition motif-1 (RRM1) and a potent stimulatory heptapeptide at the N-terminus of SRSF5/6 RRM1.<h4>Conclusion</h4>The insight of the four SR proteins and their domains in affecting <i>SMN</i> gene splicing brings a new perspective on the modes of action of SR proteins; and the functional peptides obtained here offers new ideas for developing splice switching-related therapies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative Splicing of Serum Response Factor Reveals Isoform-Specific Remodeling in Cardiac Diseases.",
+    "doi": "10.3390/genes16080947",
+    "pmid": "40869995",
+    "authors": [
+      "Abdi SAH, Azhar G, Zhang X, Sharma S, Hafeez M, Wei JY."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-11",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<b>Background:</b> Alternative splicing is an important mechanism of transcriptomic and proteomic diversity and is progressively involved in cardiovascular disease (CVD) pathogenesis. Serum response factor (SRF), a critical transcription factor in cardiac development and function, may itself undergo splicing regulation, potentially altering its function in disease states. <b>Objective:</b> The objective of this study is to identify SRF-associated alternative splicing events in cardiac pathological conditions and examine regulatory interactions with splicing factors using RNA-seq data. <b>Methods:</b> Three human heart RNA-seq databases (PRJNA198165, PRJNA477855, PRJNA678360) were used, comprising various cardiac conditions like non-ischemic cardiomyopathy (NICM), ischemic cardiomyopathy (ICM), dilated cardiomyopathy (DCM), and heart failure with reduced ejection fraction (HFrEF), with and without left ventricular assist device (LVAD) support. Splicing events were identified using the rMATS tool, and correlation analyses were performed between SRF and predicted splicing factors. Functional enrichment of SRF-correlated genes was assessed via Gene Ontology (GO) and KEGG pathways. <b>Results:</b> The skipped exon (SE) events were the predominant splicing type across all datasets. SRF chr6, including (Exon 2, 43,173,847-43,174,113), (Exon 4, 43,176,548-43,176,667), and (Exon 5, 43,178,294-43,178,485), were most frequently involved in SE and mutually exclusive exon (MXE) events across multiple heart failure subtypes. Correlation analysis revealed strong positive associations between SRF and several splicing factors (HNRNPL, HNRNPD, SRSF5, and SRSF8). GO and KEGG analyses revealed enrichment of muscle development, sarcomere structure, lipid metabolism, and immune signaling pathways. <b>Conclusions:</b> Our study shows that SRF is subject to extensive alternative splicing in heart failure, particularly at Exon 2 and Exon 5, suggesting isoform-specific roles in cardiac remodeling. The strong co-expression with specific splicing factors delineates a regulatory axis that may explain the pathological transcriptome in cardiomyopathy. These findings provide a foundation for exploring splicing-based biomarkers and therapeutic targets in cardiac pathology for SRF.",
+    "openalex_id": ""
+  }
+]

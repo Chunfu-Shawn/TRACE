@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RBM5, 6, and 10 differentially regulate NUMB alternative splicing to control cancer cell proliferation.",
+    "doi": "10.1016/j.molcel.2013.11.010",
+    "pmid": "24332178",
+    "authors": [
+      "Bechara EG, Sebestyén E, Bernardis I, Eyras E, Valcárcel J."
+    ],
+    "year": "2013",
+    "publication_date": "2013-12-01",
+    "cited_by_count": 306,
+    "journal": "",
+    "abstract": "RBM5, a regulator of alternative splicing of apoptotic genes, and its highly homologous RBM6 and RBM10 are RNA-binding proteins frequently deleted or mutated in lung cancer. We report that RBM5/6 and RBM10 antagonistically regulate the proliferative capacity of cancer cells and display distinct positional effects in alternative splicing regulation. We identify the Notch pathway regulator NUMB as a key target of these factors in the control of cell proliferation. NUMB alternative splicing, which is frequently altered in lung cancer, can regulate colony and xenograft tumor formation, and its modulation recapitulates or antagonizes the effects of RBM5, 6, and 10 in cell colony formation. RBM10 mutations identified in lung cancer cells disrupt NUMB splicing regulation to promote cell growth. Our results reveal a key genetic circuit in the control of cancer cell proliferation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding motif (RBM) proteins: a novel family of apoptosis modulators?",
+    "doi": "10.1002/jcb.20204",
+    "pmid": "15514923",
+    "authors": [
+      "Sutherland LC, Rintala-Maki ND, White RD, Morin CD."
+    ],
+    "year": "2005",
+    "publication_date": "2005-01-01",
+    "cited_by_count": 129,
+    "journal": "",
+    "abstract": "RBM5 is a known modulator of apoptosis, an RNA binding protein, and a putative tumor suppressor. Originally identified as LUCA-15, and subsequently as H37, it was designated \"RBM\" (for RNA Binding Motif) due to the presence of two RRM (RNA Recognition Motif) domains within the protein coding sequence. Recently, a number of proteins have been attributed with this same RBM designation, based on the presence of one or more RRM consensus sequences. One such protein, RBM3, was also recently found to have apoptotic modulatory capabilities. The high sequence homology at the amino acid level between RBM5, RBM6, and particularly, RBM10 suggests that they, too, may play an important role in regulating apoptosis. It is the intent of this article to ammalgamate the data on the ten originally identified RBM proteins in order to question the existence of a novel family of RNA binding apoptosis regulators.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM5 as a putative tumor suppressor gene for lung cancer.",
+    "doi": "10.1097/jto.0b013e3181c6e330",
+    "pmid": "20186023",
+    "authors": [
+      "Sutherland LC, Wang K, Robinson AG."
+    ],
+    "year": "2010",
+    "publication_date": "2010-03-01",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "RBM5 is one member of a group of structurally related genes that includes RBM6 and RBM10. RBM10 maps to Xp11.23, and one allele is inactivated as a result of X chromosome inactivation. Both RBM5 and RBM6 map to 3p21.3, a tumor suppressor region that experiences loss of heterozygosity in the majority of lung cancers. Overexpression of RBM5, which encodes an RNA-binding protein involved in the regulation of alternative splicing and retards ascites associated tumor growth in immunocompromised mice, a phenomenon that may be related to an associated ability to modulate apoptosis. As part of our quest to gain a better understanding of how the proapoptotic activity of RBM5 might contribute to tumor suppressor function, we reviewed all the literature relating to RBM5 expression, with a focus on lung cancer. On the basis of the existing data, we suggest that-to more thoroughly assess the potential involvement of RBM5 as a lung cancer regulatory protein-more research is required regarding (a) the expression of not only full-length RBM5 but all of the alternate variants associated with the locus, in relation to histologic subtype and smoking history, and (b) the mutation status of various genes within the transforming growth factor-alpha signaling pathway, which may function to either directly or indirectly regulate RBM5 activity in RBM5-retaining lung cancers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing in lung cancer.",
+    "doi": "10.1016/j.bbagrm.2019.05.006",
+    "pmid": "31152916",
+    "authors": [
+      "Coomer AO, Black F, Greystoke A, Munkley J, Elliott DJ."
+    ],
+    "year": "2019",
+    "publication_date": "2019-05-29",
+    "cited_by_count": 59,
+    "journal": "",
+    "abstract": "Lung cancer has the highest mortality rate of all cancers worldwide. Lung cancer is a very heterogeneous disease that is often diagnosed at later stages which have a poor prognosis. Aberrant alternative splicing patterns found in lung cancer contribute to important cell functions. These include changes in splicing for the BCL2L1, MDM2, MDM4, NUMB and MET genes during lung tumourigenesis, to affect pathways involved in apoptosis, cell proliferation and cellular cohesion. Global analyses of RNASeq datasets suggest there may be many more potentially influential aberrant splicing events that need to be investigated in lung cancer. Changes in expression of the splicing factors that regulate alternative splicing events have also been identified in lung cancer. Of these, changes in expression of QKI, RBM4, RBM5, RBM6, RBM10 and SRSF1 proteins regulate many of the most frequently referenced aberrant splicing events in lung cancer. The expanding list of genes known to be aberrantly spliced in lung cancer along with the altered expression of splicing factors that regulate them are providing new clues as to how lung cancer develops, and how these events can be exploited for better treatment. This article is part of a Special Issue entitled: RNA structure and splicing regulation edited by Francisco Baralle, Ravindra Singh and Stefan Stamm.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Expression of RBM5-related factors in primary breast tissue.",
+    "doi": "10.1002/jcb.21134",
+    "pmid": "17131366",
+    "authors": [
+      "Rintala-Maki ND, Goard CA, Langdon CE, Wall VE, Traulsen KE, Morin CD, Bonin M, Sutherland LC."
+    ],
+    "year": "2007",
+    "publication_date": "2007-04-01",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "The aim of this study was to examine the expression of the RBM5 tumor suppressor, in relation to RBM6 and RBM10, to obtain a better understanding of the potential role played by these RBM5-related factors in the regulation of RBM5 tumor-suppressor activity. Paired non-tumor and tumor samples were obtained from 73 breast cancer patients. RNA and protein expression were examined by semi-quantitative reverse transcription-polymerase chain reaction and immunoblot, respectively. Data were analyzed using various statistical methods to test for correlations amongst the RBM5-related factors, and between the factors and various pathological parameters. Most notably, RBM5, RBM10v1, and HER2 protein expression levels were elevated in tumor tissue (P < 0.0001). RBM5 and RBM10v1 protein expression were significantly positively correlated (P < 0.001), as were RBM5 and HER2 protein expression (P < 0.01), in both non-tumor and tumor tissue, whereas RBM10v1 and HER2 protein expression were only marginally correlated, in non-tumor tissue (P < 0.05). Interestingly, RBM5 and RBM10v1 protein expression were both deregulated in relation to RNA expression in tumor tissue. RBM10v2 and RBM6 RNA were highly significantly positively correlated in relation to various factors relating to poor prognosis (P < 0.0001). To our knowledge, this study is the first to examine RBM5 expression at both the RNA and protein level in primary breast tumor tissue, and the first to examine expression of all RBM5-related factors in a comprehensive manner. The results provide a graphic illustration that RBM5-related factors are significantly differentially expressed in breast cancer, and suggest complex inter-related regulatory networks involving alternative splicing, oncogenic expression, and tissue-specific function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A necroptotic-independent function of MLKL in regulating endothelial cell adhesion molecule expression.",
+    "doi": "10.1038/s41419-020-2483-3",
+    "pmid": "32332696",
+    "authors": [
+      "Dai J, Zhang C, Guo L, He H, Jiang K, Huang Y, Zhang X, Zhang H, Wei W, Zhang Y, Lu L, Hu J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-04-24",
+    "cited_by_count": 43,
+    "journal": "",
+    "abstract": "Mixed-lineage kinase domain-like protein (MLKL) is known as the terminal executor of necroptosis. However, its function outside of necroptosis is still not clear. Herein, we demonstrate that MLKL promotes vascular inflammation by regulating the expression of adhesion molecules ICAM1, VCAM1, and E-selectin in endothelial cells (EC). MLKL deficiency suppresses the expression of these adhesion molecules, thereby reducing EC-leukocyte interaction in vitro and in vivo. Mechanistically, we show that MLKL interacts with RBM6 to promote the mRNA stability of adhesion molecules. In conclusion, this study identified a novel role of MLKL in regulating endothelial adhesion molecule expression and local EC-leukocyte interaction during acute inflammation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A comparison of genomic structures and expression patterns of two closely related flanking genes in a critical lung cancer region at 3p21.3.",
+    "doi": "10.1038/sj.ejhg.5200334",
+    "pmid": "10352938",
+    "authors": [
+      "Timmer T, Terpstra P, van den Berg A, Veldhuis PM, Ter Elst A, Voutsinas G, Hulsbeek MM, Draaijers TG, Looman MW, Kok K, Naylor SL, Buys CH."
+    ],
+    "year": "1999",
+    "publication_date": "1999-05-01",
+    "cited_by_count": 39,
+    "journal": "",
+    "abstract": "In the search for a tumour suppressor gene in the 3p21.3 region we isolated two genes, RBM5 and RBM6. Gene RBM5 maps to the region which is homozygously deleted in the small cell lung cancer cell line GLC20; RBM6 crosses the telomeric breakpoint of this deletion. Sequence comparison revealed that at the amino acid level both genes show 30% identity. They contain two zinc finger motifs, a bipartite nuclear signal and two RNA binding motifs, suggesting that the proteins for which RBM5 and RBM6 are coding have a DNA/RNA binding function and are located in the nucleus. Northern and Southern analysis did not reveal any abnormalities. By SSCP analysis of 16 lung cancer cell lines we found only in RBM5 a single presumably neutral mutation. By RT-PCR we demonstrated the existence of two alternative splice variants of RBM6, one including and one excluding exon 5, in both normal lung tissue and lung cancer cell lines. Exclusion of exon 5 results in a frameshift which would cause a truncated protein of 520 amino acids instead of 1123 amino acids. In normal lung tissue, the relative amount of the shorter transcript was much greater than that in the lung tumour cell lines, which raises the question whether some tumour suppressor function may be attributed to the derived shorter protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel fusion of RBM6 to CSF1R in acute megakaryoblastic leukemia.",
+    "doi": "10.1182/blood-2006-10-052282",
+    "pmid": "17360941",
+    "authors": [
+      "Gu TL, Mercher T, Tyner JW, Goss VL, Walters DK, Cornejo MG, Reeves C, Popova L, Lee K, Heinrich MC, Rush J, Daibata M, Miyoshi I, Gilliland DG, Druker BJ, Polakiewicz RD."
+    ],
+    "year": "2007",
+    "publication_date": "2007-03-14",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "Activated tyrosine kinases have been frequently implicated in the pathogenesis of cancer, including acute myeloid leukemia (AML), and are validated targets for therapeutic intervention with small-molecule kinase inhibitors. To identify novel activated tyrosine kinases in AML, we used a discovery platform consisting of immunoaffinity profiling coupled to mass spectrometry that identifies large numbers of tyrosine-phosphorylated proteins, including active kinases. This method revealed the presence of an activated colony-stimulating factor 1 receptor (CSF1R) kinase in the acute megakaryoblastic leukemia (AMKL) cell line MKPL-1. Further studies using siRNA and a small-molecule inhibitor showed that CSF1R is essential for the growth and survival of MKPL-1 cells. DNA sequence analysis of cDNA generated by 5'RACE from CSF1R coding sequences identified a novel fusion of the RNA binding motif 6 (RBM6) gene to CSF1R gene generated presumably by a t(3;5)(p21;q33) translocation. Expression of the RBM6-CSF1R fusion protein conferred interleukin-3 (IL-3)-independent growth in BaF3 cells, and induces a myeloid proliferative disease (MPD) with features of megakaryoblastic leukemia in a murine transplant model. These findings identify a novel potential therapeutic target in leukemogenesis, and demonstrate the utility of phosphoproteomic strategies for discovery of tyrosine kinase alleles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM6 splicing factor promotes homologous recombination repair of double-strand breaks and modulates sensitivity to chemotherapeutic drugs.",
+    "doi": "10.1093/nar/gkab976",
+    "pmid": "34718714",
+    "authors": [
+      "Machour FE, Abu-Zhayia ER, Awwad SW, Bidany-Mizrahi T, Meinke S, Bishara LA, Heyd F, Aqeilan RI, Ayoub N."
+    ],
+    "year": "2021",
+    "publication_date": "2021-11-01",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "RNA-binding proteins regulate mRNA processing and translation and are often aberrantly expressed in cancer. The RNA-binding motif protein 6, RBM6, is a known alternative splicing factor that harbors tumor suppressor activity and is frequently mutated in human cancer. Here, we identify RBM6 as a novel regulator of homologous recombination (HR) repair of DNA double-strand breaks (DSBs). Mechanistically, we show that RBM6 regulates alternative splicing-coupled nonstop-decay of a positive HR regulator, Fe65/APBB1. RBM6 knockdown leads to a severe reduction in Fe65 protein levels and consequently impairs HR of DSBs. Accordingly, RBM6-deficient cancer cells are vulnerable to ATM and PARP inhibition and show remarkable sensitivity to cisplatin. Concordantly, cisplatin administration inhibits the growth of breast tumor devoid of RBM6 in mouse xenograft model. Furthermore, we observe that RBM6 protein is significantly lost in metastatic breast tumors compared with primary tumors, thus suggesting RBM6 as a potential therapeutic target of advanced breast cancer. Collectively, our results elucidate the link between the multifaceted roles of RBM6 in regulating alternative splicing and HR of DSBs that may contribute to tumorigenesis, and pave the way for new avenues of therapy for RBM6-deficient tumors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-335 modulates Numb alternative splicing via targeting RBM10 in endometrial cancer.",
+    "doi": "10.1002/kjm2.12149",
+    "pmid": "31894898",
+    "authors": [
+      "Dou XQ, Chen XJ, Zhou Q, Wen MX, Zhang SZ, Zhang SQ."
+    ],
+    "year": "2020",
+    "publication_date": "2020-01-02",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "Numb is a conserved protein plays important roles in the development of cancer. Two Numb isoforms have been found produced by alternative splicing and play contrast roles in regulating cellular functions. It is reported that the expression of Numb long isoform (Numb-L) was increased in various kinds of cancers, but in endometrial cancer, the condition is still unknown. The level of two Numb transcripts and protein isoforms were detected by semiquantitative polymerase chain reaction and immunoblotting in 47 paired endometrial tumor and adjacent non-tumor control tissues. The level of three alternative splicing related proteins: RBM5, RBM6, and RBM10 was determined by immunoblotting. MiRNAs targeting RBM10 were predicted by bioinformatics tools and their interaction with RBM10 was confirmed by luciferase assay and immunoblotting. The function of miR-335 in endometrial cancer was examined in xenograft mouse model. Numb-L level was increased in tumors and negatively correlated with RBM10 protein level. RBM10 mRNA level was not significantly altered in endometrial tumors suggesting its expression may regulated by post transcriptional regulators such as miRNAs. We identified miR-133a, miR-133b, and miR-335 directly target RBM10, but only miR-335 level increased in tumors and negatively correlated with RBM10 protein level. miR-335 overexpression promoted tumor growth by downregulating RBM10 and upregulating Numb-L level in xenograft mouse model. miR-335 overexpression promoted Numb-L expression via targeting RBM10 in endometrial cancer, which may provide new biomarkers for EC diagnosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM6-RBM5 transcription-induced chimeras are differentially expressed in tumours.",
+    "doi": "10.1186/1471-2164-8-348",
+    "pmid": "17908320",
+    "authors": [
+      "Wang K, Ubriaco G, Sutherland LC."
+    ],
+    "year": "2007",
+    "publication_date": "2007-10-01",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "<h4>Unlabelled</h4>Transcription-induced chimerism, a mechanism involving the transcription and intergenic splicing of two consecutive genes, has recently been estimated to account for approximately 5% of the human transcriptome. Despite this prevalence, the regulation and function of these fused transcripts remains largely uncharacterised.<h4>Results</h4>We identified three novel transcription-induced chimeras resulting from the intergenic splicing of a single RNA transcript incorporating the two neighbouring 3p21.3 tumour suppressor locus genes, RBM6 and RBM5, which encode the RNA Binding Motif protein 6 and RNA Binding Motif protein 5, respectively. Each of the three novel chimeric transcripts lacked exons 3, 6, 20 and 21 of RBM6 and exon 1 of RBM5. Differences between the transcripts were associated with the presence or absence of exon 4, exon 5 and a 17 nucleotide (nt) sequence from intron 10 of RBM6. All three chimeric transcripts incorporated the canonical splice sites from both genes (excluding the 17 nt intron 10 insertion). Differential expression was observed in tumour tissue compared to non-tumour tissue, and amongst tumour types. In breast tumour tissue, chimeric expression was associated with elevated levels of RBM6 and RBM5 mRNA, and increased tumour size. No protein expression was detected by in vitro transcription/translation.<h4>Conclusion</h4>These results suggest that RBM6 mRNA experiences altered co-transcriptional gene regulation in certain cancers. The results also suggest that RBM6-RBM5 transcription-induced chimerism might be a process that is linked to the tumour-associated increased transcriptional activity of the RBM6 gene. It appears that none of the transcription-induced chimeras generates a protein product; however, the novel alternative splicing, which affects putative functional domains within exons 3, 6 and 11 of RBM6, does suggest that the generation of these chimeric transcripts has functional relevance. Finally, the association of chimeric expression with breast tumour size suggests that RBM6-RBM5 chimeric expression may be a potential tumour differentiation marker.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing of VEGFA is regulated by RBM10 in endometrial cancer.",
+    "doi": "10.1002/kjm2.12127",
+    "pmid": "31587503",
+    "authors": [
+      "Dou XQ, Chen XJ, Wen MX, Zhang SZ, Zhou Q, Zhang SQ."
+    ],
+    "year": "2020",
+    "publication_date": "2019-10-06",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Vascular endothelial growth factor A (VEGFA) gene has three alternative exons which results in multiple isoforms. VEGFA has been found overexpressed in patients with endometrial cancer, but the VEGFA expression pattern and how it is regulated are still unknown. The level of VEGFA transcripts and protein isoforms were detected by semi-quantitative Polymerase chain reaction (PCR) and immunoblotting in 29 paired endometrial tumor and adjacent nontumor control tissues. The level of three alternative splicing related proteins: RBM5, RBM6, and RBM10 was determined by immunoblotting. The H3K27Ac level in RBM10 promoter region was detected by ChIP-PCR. The RBM10 promoter region methylation level were quantified by methylation-sensitive high resolution melting. VEGFA165a was overexpressed and VEGFA165b level was reduced in tumors. RBM10 level was reduced in tumors. RBM10 level was negatively correlated with VEGFA165a level and positively correlated with VEGFA165b level in tumors. Using HEC-1-A and RL95-2 cells, we confirmed that VEGFA165a/b expressed pattern was controlled by RBM10. MALAT1 level was increased in tumors but not involved in VEGFA alternative splicing. Reduced H3K27Ac level and increased DNA methylation in the promoter region controlled RBM10 expression in tumors. VEGFA alternative splicing in endometrial cancer was regulated by RBM10, the expression of which was controlled by histone acetylation and DNA methylation.",
+    "openalex_id": ""
+  }
+]

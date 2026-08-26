@@ -1,0 +1,64 @@
+[
+  {
+    "title": "Global Co-regulatory Cross Talk Between m6A and m5C RNA Methylation Systems Coordinate Cellular Responses and Brain Disease Pathways",
+    "doi": "10.1007/s12035-024-04555-0",
+    "authors": [
+      "Oliver C Orji",
+      "Joseph Stones",
+      "Seema Rajani",
+      "R. A. Markus",
+      "Merve Demirbügen Öz"
+    ],
+    "year": 2024,
+    "publication_date": "2024-11-05",
+    "cited_by_count": 12,
+    "journal": "Molecular Neurobiology",
+    "abstract": "Abstract N6 adenosine and C5 cytosine modification of mRNAs, tRNAs and rRNAs are regulated by the behaviour of distinct sets of writer, reader and eraser effector proteins which are conventionally considered to function independently. Here, we provide evidence of global cross-regulatory and functional interaction between the m6A and m5C RNA methylation systems. We first show that m6A and m5C effector protein transcripts are subject to reciprocal base modification supporting the existence of co-r",
+    "openalex_id": "https://openalex.org/W4404066548",
+    "relevance_score": 24.917349
+  },
+  {
+    "title": "Mechanisms of RNA and Protein Quality Control and Their Roles in Cellular Senescence and Age-Related Diseases",
+    "doi": "10.3390/cells11244062",
+    "authors": [
+      "Donghee Kang",
+      "Yurim Baek",
+      "Jae‐Seon Lee"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-15",
+    "cited_by_count": 8,
+    "journal": "Cells",
+    "abstract": "Cellular senescence, a hallmark of aging, is defined as irreversible cell cycle arrest in response to various stimuli. It plays both beneficial and detrimental roles in cellular homeostasis and diseases. Quality control (QC) is important for the proper maintenance of cellular homeostasis. The QC machineries regulate the integrity of RNA and protein by repairing or degrading them, and are dysregulated during cellular senescence. QC dysfunction also contributes to multiple age-related diseases, in",
+    "openalex_id": "https://openalex.org/W4311789091",
+    "relevance_score": 23.498146
+  },
+  {
+    "title": "Identifikacija in analiza dinamičnih zvezdišč RNA v zgodnjem mišjem embrionalnem razvoju",
+    "doi": null,
+    "authors": [
+      "Tajda Klobučar"
+    ],
+    "year": 2026,
+    "publication_date": "2026-06-26",
+    "cited_by_count": 0,
+    "journal": "Repository of the University of Ljubljana (University of Ljubljana)",
+    "abstract": "Early mouse embryonic development proceeds through tightly regulated transitions by specific molecular mechanisms and signalling pathways. Among the implicated mechanisms, complex RNA-protein networks are emerging as important factors. While ribonucleoproteins (RNPs) are known to play a crucial role in the formation of RNP granules and biomolecular condensates, it is still unknown how and which RNA features might contribute to their formation. Here, we identified a novel class of semi-extractabl",
+    "openalex_id": "https://openalex.org/W7166930072",
+    "relevance_score": 2.291396
+  },
+  {
+    "title": "Molecular determinants of miRNA target specificity and tissue-specific studies in C. elegans",
+    "doi": "10.5451/unibas-007076247",
+    "authors": [
+      "Giovanna Brancati"
+    ],
+    "year": 2017,
+    "publication_date": "2017-01-01",
+    "cited_by_count": 0,
+    "journal": "edoc (University of Basel)",
+    "abstract": "MicroRNAs (miRNAs) control gene expression by repressing target messenger RNAs. Target \\nidentification is thus key to understand the biological implications of a miRNA in physiological or \\npathological processes, but it has remained the main challenge in the field. \\nTraditionally, we refer to “canonical targets” when the 3’UTR of a gene contains a perfect Watson- \\nCrick match to the 5’ sequence of the miRNA. However, many non-canonical miRNA binding sites have \\nbeen identified that display ",
+    "openalex_id": "https://openalex.org/W2982563316",
+    "relevance_score": 1.9587224
+  }
+]

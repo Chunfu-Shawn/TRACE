@@ -1,0 +1,201 @@
+[
+  {
+    "title": "O-GlcNAc regulates gene expression by controlling detained intron splicing",
+    "doi": "10.1093/nar/gkaa263",
+    "authors": [
+      "Zhi-Wei Tan",
+      "George Fei",
+      "João A. Paulo",
+      "Stanislav Bellaousov",
+      "Sara E. Martin"
+    ],
+    "year": 2020,
+    "publication_date": "2020-04-07",
+    "cited_by_count": 124,
+    "journal": "Nucleic Acids Research",
+    "abstract": "Intron detention in precursor RNAs serves to regulate expression of a substantial fraction of genes in eukaryotic genomes. How detained intron (DI) splicing is controlled is poorly understood. Here, we show that a ubiquitous post-translational modification called O-GlcNAc, which is thought to integrate signaling pathways as nutrient conditions fluctuate, controls detained intron splicing. Using specific inhibitors of the enzyme that installs O-GlcNAc (O-GlcNAc transferase, or OGT) and the enzyme",
+    "openalex_id": "https://openalex.org/W3020244548",
+    "relevance_score": 67.32495
+  },
+  {
+    "title": "HSV-1-induced disruption of transcription termination resembles a cellular stress response but selectively increases chromatin accessibility downstream of genes",
+    "doi": "10.1371/journal.ppat.1006954",
+    "authors": [
+      "Thomas Hennig",
+      "Marco Michalski",
+      "Andrzej Rutkowski",
+      "Lara Djaković",
+      "Adam W. Whisnant"
+    ],
+    "year": 2018,
+    "publication_date": "2018-03-26",
+    "cited_by_count": 106,
+    "journal": "PLoS Pathogens",
+    "abstract": "Lytic herpes simplex virus 1 (HSV-1) infection triggers disruption of transcription termination (DoTT) of most cellular genes, resulting in extensive intergenic transcription. Similarly, cellular stress responses lead to gene-specific transcription downstream of genes (DoG). In this study, we performed a detailed comparison of DoTT/DoG transcription between HSV-1 infection, salt and heat stress in primary human fibroblasts using 4sU-seq and ATAC-seq. Although DoTT at late times of HSV-1 infectio",
+    "openalex_id": "https://openalex.org/W2791571516",
+    "relevance_score": 55.458923
+  },
+  {
+    "title": "SRSF10: an atypical splicing regulator with critical roles in stress response, organ development, and viral replication",
+    "doi": "10.1261/rna.078879.121",
+    "authors": [
+      "Lulzim Shkreta",
+      "Aurélie Delannoy",
+      "Anna Salvetti",
+      "Benoı̂t Chabot"
+    ],
+    "year": 2021,
+    "publication_date": "2021-07-27",
+    "cited_by_count": 65,
+    "journal": "RNA",
+    "abstract": "Serine/arginine splicing factor 10 (SRSF10) is a member of the family of mammalian splicing regulators known as SR proteins. Like several of its SR siblings, the SRSF10 protein is composed of an RNA binding domain (RRM) and of arginine and serine-rich auxiliary domains (RS) that guide interactions with other proteins. The phosphorylation status of SRSF10 is of paramount importance for its activity and is subjected to changes during mitosis, heat-shock, and DNA damage. SRSF10 overexpression has f",
+    "openalex_id": "https://openalex.org/W3187056121",
+    "relevance_score": 46.667698
+  },
+  {
+    "title": "Jmjd6, a JmjC Dioxygenase with Many Interaction Partners and Pleiotropic Functions",
+    "doi": "10.3389/fgene.2017.00032",
+    "authors": [
+      "Janice Kwok",
+      "Marie O’Shea",
+      "David Hume",
+      "Andreas Lengeling"
+    ],
+    "year": 2017,
+    "publication_date": "2017-03-15",
+    "cited_by_count": 72,
+    "journal": "Frontiers in Genetics",
+    "abstract": "Lysyl hydroxylation and arginyl demethylation are post-translational events that are important for many cellular processes. The jumonji domain containing protein 6 (JMJD6) has been reported to catalyze both lysyl hydroxylation and arginyl demethylation on diverse protein substrates. It also interacts directly with RNA. This review summarizes knowledge of JMJD6 functions that have emerged in the last 15 years and considers how a single Jumonji C (JmjC) domain-containing enzyme can target so many ",
+    "openalex_id": "https://openalex.org/W2593832951",
+    "relevance_score": 45.272156
+  },
+  {
+    "title": "Insights into the Regulatory Role of m6A Epitranscriptome in Glioblastoma",
+    "doi": "10.3390/ijms21082816",
+    "authors": [
+      "Silvia Galardi",
+      "Alessandro Michienzi",
+      "Silvia Anna Ciafrè"
+    ],
+    "year": 2020,
+    "publication_date": "2020-04-17",
+    "cited_by_count": 40,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "N6-methyladenosine (m6A) is one of the most widespread and abundant internal messenger RNA modifications found in eukaryotes. Emerging evidence suggests that this modification is strongly linked to the activation and inhibition of cancer pathways and is associated with prognostically significant tumour subtypes. The present review describes the dynamic nature of m6A regulator enzymes, as methyltransferases, demethylases and m6A binding proteins, and points out thevalue of the balance among these",
+    "openalex_id": "https://openalex.org/W3017318797",
+    "relevance_score": 42.78974
+  },
+  {
+    "title": "Multifaceted Regulation of Gene Expression by the Apoptosis- and Splicing-Associated Protein Complex and Its Components",
+    "doi": "10.7150/ijbs.18649",
+    "authors": [
+      "Bhagyashree Deka",
+      "Kusum Singh"
+    ],
+    "year": 2017,
+    "publication_date": "2017-01-01",
+    "cited_by_count": 30,
+    "journal": "International Journal of Biological Sciences",
+    "abstract": "assay shows that the ASAP complex behaves as splicing repressor. In addition, the individual members of the ASAP complex associates with the exon junction complex (EJC) to play roles in splicing and translation. RNPS1 increases the translation efficiency by participating in the 3'end processing and polysome association of mRNAs. Similarly, during NMD RNPS1 aids in the recruitment of decay factors by interacting with EJC.",
+    "openalex_id": "https://openalex.org/W2611373388",
+    "relevance_score": 39.305065
+  },
+  {
+    "title": "SR proteins in cancer: function, regulation, and small inhibitor",
+    "doi": "10.1186/s11658-024-00594-6",
+    "authors": [
+      "Mingrong Bei",
+      "Jianzhen Xu"
+    ],
+    "year": 2024,
+    "publication_date": "2024-05-22",
+    "cited_by_count": 23,
+    "journal": "Cellular & Molecular Biology Letters",
+    "abstract": "Abstract Alternative splicing of pre-mRNAs is a fundamental step in RNA processing required for gene expression in most metazoans. Serine and arginine-rich proteins (SR proteins) comprise a family of multifunctional proteins that contain an RNA recognition motif (RRM) and the ultra-conserved arginine/serine-rich (RS) domain, and play an important role in precise alternative splicing. Increasing research supports SR proteins as also functioning in other RNA-processing-related mechanisms, such as ",
+    "openalex_id": "https://openalex.org/W4398222500",
+    "relevance_score": 33.288914
+  },
+  {
+    "title": "Oncogenic SRSF3 in health and diseases",
+    "doi": "10.7150/ijbs.83368",
+    "authors": [
+      "Rong Jia",
+      "Zhi‐Ming Zheng"
+    ],
+    "year": 2023,
+    "publication_date": "2023-01-01",
+    "cited_by_count": 26,
+    "journal": "International Journal of Biological Sciences",
+    "abstract": "Serine/arginine rich splicing factor 3 (SRSF3) is an important multi-functional splicing factor, and has attracted increasing attentions in the past thirty years. The importance of SRSF3 is evidenced by its impressively conserved protein sequences in all animals and alternative exon 4 which represents an autoregulatory mechanism to maintain its proper cellular expression level. New functions of SRSF3 have been continuously discovered recently, especially its oncogenic function. SRSF3 plays essen",
+    "openalex_id": "https://openalex.org/W4380685957",
+    "relevance_score": 31.433104
+  },
+  {
+    "title": "Reading the m6A-encoded epitranscriptomic information in development and diseases",
+    "doi": "10.1186/s13578-024-01293-7",
+    "authors": [
+      "Yunbing Chen",
+      "Ziyu Zhou",
+      "Yanxi Chen",
+      "Di Chen"
+    ],
+    "year": 2024,
+    "publication_date": "2024-09-28",
+    "cited_by_count": 20,
+    "journal": "Cell & Bioscience",
+    "abstract": "Abstract N6-methyladenosine (m6A) represents the most prevalent internal and reversible modification on RNAs. Different cell types display their unique m6A profiles, which are determined by the functions of m6A writers and erasers. M6A modifications lead to different outcomes such as decay, stabilization, or transport of the RNAs. The m6A-encoded epigenetic information is interpreted by m6A readers and their interacting proteins. M6A readers are essential for different biological processes, and ",
+    "openalex_id": "https://openalex.org/W4402939595",
+    "relevance_score": 27.281137
+  },
+  {
+    "title": "The Fine Art of Writing a Message: RNA Metabolism in the Shaping and Remodeling of the Nervous System",
+    "doi": "10.3389/fnmol.2021.755686",
+    "authors": [
+      "M Macías",
+      "Olivier Urwyler"
+    ],
+    "year": 2021,
+    "publication_date": "2021-11-30",
+    "cited_by_count": 13,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "Neuronal morphogenesis, integration into circuits, and remodeling of synaptic connections occur in temporally and spatially defined steps. Accordingly, the expression of proteins and specific protein isoforms that contribute to these processes must be controlled quantitatively in time and space. A wide variety of post-transcriptional regulatory mechanisms, which act on pre-mRNA and mRNA molecules contribute to this control. They are thereby critically involved in physiological and pathophysiolog",
+    "openalex_id": "https://openalex.org/W3217633619",
+    "relevance_score": 25.009325
+  },
+  {
+    "title": "Interferon-Regulated Expression of Cellular Splicing Factors Modulates Multiple Levels of HIV-1 Gene Expression and Replication",
+    "doi": "10.3390/v16060938",
+    "authors": [
+      "Fabian Roesmann",
+      "Lisa Müller",
+      "Katleen Klaassen",
+      "Stefanie Heß",
+      "Marek Widera"
+    ],
+    "year": 2024,
+    "publication_date": "2024-06-11",
+    "cited_by_count": 5,
+    "journal": "Viruses",
+    "abstract": "Type I interferons (IFN-Is) are pivotal in innate immunity against human immunodeficiency virus I (HIV-1) by eliciting the expression of IFN-stimulated genes (ISGs), which encompass potent host restriction factors. While ISGs restrict the viral replication within the host cell by targeting various stages of the viral life cycle, the lesser-known IFN-repressed genes (IRepGs), including RNA-binding proteins (RBPs), affect the viral replication by altering the expression of the host dependency fact",
+    "openalex_id": "https://openalex.org/W4399576036",
+    "relevance_score": 17.875795
+  },
+  {
+    "title": "Functional analysis of three Arabidopsis SR proteins (SCL33, SC35, SCL30A) in plant development and splicing",
+    "doi": "10.25675/3.021732",
+    "authors": [
+      "Julie A. Thomas",
+      "Reddy, A. S. N.",
+      "Bedinger, Pat",
+      "Pilon, Marinus",
+      "Wilusz, Jeff"
+    ],
+    "year": 2007,
+    "publication_date": "2007-01-03",
+    "cited_by_count": 3,
+    "journal": "Digital Collections of Colorado (Colorado State University)",
+    "abstract": "To view the abstract, please see the full text of the document.",
+    "openalex_id": "https://openalex.org/W2889297837",
+    "relevance_score": 14.309323
+  }
+]

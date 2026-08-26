@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Host microRNA-31-5p regulates KHDRBS3 expression and modulates viral gene expression during KSHV lytic reactivation.",
+    "doi": "10.1016/j.celrep.2026.117160",
+    "pmid": "41931390",
+    "authors": [
+      "Lee SM, Avalos CL, Miliotis C, Doh HM, Chan E, Kaye KM, Slack FJ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Oncogenic Kaposi's sarcoma-associated herpesvirus (KSHV) employs a biphasic life cycle consisting of latency and lytic replication to achieve lifelong infection. Despite its essential role in KSHV persistence and tumorigenicity, much remains unknown about how KSHV lytic reactivation is regulated. Leveraging high-throughput transcriptomics, we identify microRNA-31-5p (miRNA-31-5p) as a key regulator of KSHV lytic reactivation, capable of modulating expression of KSHV lytic genes and progression through the lytic cascade. Mechanistically, miR-31-5p controls the KSHV lytic switch by regulating expression of the RNA-binding protein KHDRBS3. miR-31-5p-mediated KHDRBS3 repression results in decreased nascent transcription of crucial viral lytic genes including the main KSHV transcription factor RTA. We characterize KHDRBS3 as a major host factor that is critical for KSHV lytic replication and uncover its key role in KSHV lytic gene transcription. Our results highlight a pivotal role for the miR-31-5p/KHDRBS3 axis in modulating KSHV reactivation and provide insights into gene-expression regulation of lytic KSHV.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Endothelin-1 overexpression in mice increases vascular Vegfa164 and Vegfa188 alternative splice isoforms via enhanced Khdrbs3 expression.",
+    "doi": "10.1097/hjh.0000000000004363",
+    "pmid": "42253124",
+    "authors": [
+      "Berillo O, Coelho SC, Ferreira NS, Richer C, Sinnett D, Paradis P, Schiffrin EL."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>Mice with tamoxifen-inducible endothelium-restricted human endothelin-1 (ET-1) overexpression (ieET-1) exhibited blood pressure elevation after 3  weeks and 3  months, and vascular injury after 3  months. We hypothesised that ET-1 overexpression-induced vascular injury is mediated by gene expression dysregulation.<h4>Methods</h4>Male ieET-1 mice and mice expressing a tamoxifen-inducible Cre recombinase in endothelial cells were induced with tamoxifen and studied 3-week and 3-month post-treatment. MicroRNA and gene expression were profiled in mesenteric arteries by RNA-sequencing and validated by RT-qPCR. Aorta was used for immunofluorescence microscopy.<h4>Results</h4>KH domain containing RNA binding signal transduction associated 3 ( Khdrbs3 ) was the top upregulated gene identified by RNA-sequencing ( P  = 8x10 -12 ) validated by RT-qPCR ( P  < 0.001) after 3-week and 3-month ET-1 overexpression. KHDRBS3 protein was increased in aortic endothelial and vascular smooth muscle cells (VSMCs) after 3-month ET-1 overexpression. KHDRBS3 is a splicing regulator of various mRNAs, including human vascular endothelial growth factor A ( VEGFA ) 165 isoform with exon 7 retention. Three-month ET-1 overexpression upregulated isoforms Vegfa164 containing exon 7 and Vegfa188 retaining exons 6 and 7, and downregulated Vegfa120 isoform lacking both exons ( P  < 0.05). Analysis of RNA-immunoprecipitation-sequencing of myocardium of patients with dilated cardiomyopathy identified VEGFA and four key VSMC-specific pre-mRNAs as KHDRBS3 targets. Reanalysis of RNA-sequencing data of angiotensin II-infused mice revealed a high correlation between ET-1 ( Edn1 ) and Khdrbs3 mRNAs in mesenteric arteries ( r2  = 0.82, P  = 3.7 x 10 -9 ).<h4>Conclusion</h4>Endothelial human ET-1 overexpression induced RNA splicing via enhanced Khdrbs3 expression, which may play a role in vascular injury, and could represent a therapeutic target in hypertension.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Roles of KHDRBS2 and KHDRBS3 in prostate cancer progression and AR-V7 regulation.",
+    "doi": "10.1007/s12672-025-04294-1",
+    "pmid": "41417173",
+    "authors": [
+      "Yang X, Liu X, Xiao R, Cao Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To investigate the biological functions of KHDRBS2 and KHDRBS3 in prostate cancer (PCa) progression and their potential roles in regulating androgen receptor splice variant 7 (AR-V7) expression, a key factor in castration-resistant prostate cancer (CRPC).<h4>Methods</h4>We performed a comprehensive analysis of publicly available datasets to examine the expression patterns of KHDRBS family members in PCa, including CRPC and neuroendocrine subtypes. In vitro experiments were conducted using AR-positive 22RV1 and AR-negative PC3 cell lines to assess the expression and regulatory interactions of KHDRBS2 and KHDRBS3. Functional assays evaluated their effects on cell proliferation and tumor growth in vivo. Additionally, KHDRBS2 protein levels were manipulated in 22RV1 cells to assess their impact on AR-V7 and full-length AR expression.<h4>Results</h4>Our dataset analysis revealed distinct expression patterns of KHDRBS2 and KHDRBS3, with higher alteration frequencies in CRPC and neuroendocrine PCa. In vitro, KHDRBS2 and KHDRBS3 exhibited mutually exclusive expression, with KHDRBS2 predominantly found in AR-positive 22RV1 cells and KHDRBS3 in AR-negative PC3 cells. Reciprocal regulation between the two proteins was observed in both cell lines. Functional studies showed that both KHDRBS2 and KHDRBS3 promoted cell proliferation and tumor growth. Notably, silencing KHDRBS2 in 22RV1 cells led to a selective reduction in AR-V7 expression, without affecting full-length AR levels.<h4>Conclusions</h4>These findings uncover novel roles for KHDRBS2 and KHDRBS3 in PCa progression, with KHDRBS2 identified as a potential key regulator of AR-V7 expression. Our results provide new insights into AR splice variant regulation and highlight potential therapeutic targets for PCa treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A transcriptomic atlas at bulk and single-cell levels identifies novel transcriptional and splicing regulators of ECM homeostasis in osteoarthritis.",
+    "doi": "10.3389/fgene.2025.1690319",
+    "pmid": "41477642",
+    "authors": [
+      "Ye X, Zheng C, Li H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-16",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Osteoarthritis (OA) is a common chronic degenerative joint disease. Chondrocytes undergo dynamic changes during the pathogenesis of OA, and the destruction of the extracellular matrix (ECM) and its homeostatic disruption are hallmarks of OA. This study explores the roles of transcriptional and alternative splicing (AS) mechanisms in regulating extracellular matrix (ECM) homeostasis in osteoarthritis (OA), using bulk and single-cell RNA-sequencing data. By analyzing two OA transcriptome datasets, we identified differentially expressed genes (DEGs) that are enriched in ECM-related pathways and constructed a regulatory network between differentially expressed transcription factors (DE TFs) and ECM-related DEGs. This revealed the potential roles of transcription factors ELF3 and DDIT3 in regulating the expression of <i>COL3A1</i>, <i>COL5A2</i>, and <i>S100A4</i>. Single-cell RNA-sequencing data further validated the expression patterns of <i>ELF3</i> and <i>DDIT3</i> in distinct chondrocyte subtypes. Additionally, by analyzing AS events, we identified the RNA-binding protein (RBP) KHDRBS3 as a regulator of AS for the ECM-related gene <i>IL16</i>. Aberrant changes in these events may impact the ECM environment of chondrocytes and contribute to the pathogenesis of OA. This study, for the first time, dissects the regulatory models in OA cartilage at both transcriptional and post-transcriptional levels. These findings provide novel potential targets for early diagnosis and intervention strategies in OA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KDM6A alternative splicing induced by 25(OH)D inhibits breast cancer cell stemness through repressing TRAP1 transcription.",
+    "doi": "10.1038/s41388-026-03694-z",
+    "pmid": "41703283",
+    "authors": [
+      "Ma L, Sheng X, Wang L, Wan X, Chen R, Li X, Zheng R, Xu L, Zha X, Wang J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "25-Hydroxyvitamin D (25(OH)D), a metabolite of vitamin D, has demonstrated anticancer properties; however, the role of alternative splicing in mediating these effects remains poorly understood. In this study, we reveal for the first time that 25(OH)D exerts antitumor effects by promoting exon 13 skipping of KDM6A (KDM6A Δexon13), which suppresses the proliferation and stemness of breast cancer cells and lacks H3K27 demethylase activity. Mechanistically, CUT&Tag and RNA-seq analyses demonstrated that KDM6A Δexon13 induces the accumulation of H3K27me3 at the promoter region of TRAP1, thereby inhibiting its transcription. Consequently, the downregulation of TRAP1 reduces Smad2/3 phosphorylation. Furthermore, KHDRBS3 was identified as the splicing factor of KDM6A Δexon13 and was regulated by 25(OH)D. Notably, 25(OH)D exhibited a synergistic effect with GSK-J4, a specific inhibitor of KDM6A, in suppressing breast cancer cell growth. Collectively, our findings uncover a novel anticancer mechanism of 25(OH)D, highlight the critical role of KDM6A Δexon13 in breast cancer progression, and provide further evidence supporting the correction of 25(OH)D deficiency in breast cancer patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing and differential gene expression during changes in endometrial receptivity in patients with recurrent implantation failure.",
+    "doi": "10.1038/s41598-026-40386-w",
+    "pmid": "41708805",
+    "authors": [
+      "Wang ML, Lu BJ, Lu X, Li L, Sun XX, Chen JC, Liu H, Chen C, Wu H, Li DJ, Zhang WB."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Recurrent implantation failure (RIF) remains a major challenge in assisted reproductive technology, and the molecular mechanisms underlying endometrial receptivity are incompletely understood. This study aimed to comprehensively characterize transcriptomic alterations, including alternative splicing events (ASEs), differential gene expression (DEGs), and immune cell dynamics across different phases of endometrial receptivity in women with RIF. Endometrial biopsies were collected from 90 healthy fertile controls and 73 RIF patients during pre-receptive, receptive, and post-receptive phases. High-throughput RNA sequencing was performed, and bioinformatic analyses were conducted to identify ASEs, DEGs, immune cell composition, and RNA-binding protein (RBP) networks. Skipped exons and mutually exclusive exons were the predominant splicing events observed. Both ASEs and DEGs were significantly enriched in pathways regulating cell adhesion, cytoskeletal organization, and immune modulation. KHDRBS3 emerged as a potential key RBP involved in splicing regulation during the window of implantation. Immune profiling revealed dynamic alterations in CD8 + T cells, NK cells, and monocytes between non-receptive and receptive phases, suggesting immune dysregulation associated with implantation failure. Drug repurposing analysis identified several small molecules targeting ASE-related genes, offering promising therapeutic options for RIF. These findings highlight the coordinated changes in alternative splicing, gene expression, and immune cell composition that characterize endometrial receptivity and provide insights that may guide the development of novel diagnostic biomarkers and targeted interventions to improve reproductive outcomes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exosome-Delivered circFOXP1 Upregulates Autophagy and Promotes Hepatocellular Carcinoma Progression Through Its Encoded p196 Protein Targeting the KHDRBS3/ULK1 Axis.",
+    "doi": "10.2147/ijn.s505157",
+    "pmid": "40292405",
+    "authors": [
+      "Zhao P, Yin C, Liu R, Shao S, Ke W, Song Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-23",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Circular RNAs (circRNAs) are pivotal regulators in cancer, and circFOXP1 has been implicated in tumorigenesis. This study explores the exosome-mediated transfer of circFOXP1 and its functional protein product, p196, in hepatocellular carcinoma (HCC) progression.<h4>Methods</h4>HCC circRNA datasets were obtained from the Gene Expression Omnibus (GEO) databases, and circRNAs were validated via qRT-PCR and Sanger sequencing. Exosomes were isolated via ultracentrifugation and characterized by TEM/NTA. RIP, Co-IP, RNA pull-down and in vitro binding assays were employed to determine molecular interactions. Loss- and gain-of-function assays were employed to evaluate the effects of circFOXP1, KHDRBS3 and ULK1 on the proliferation, and invasion abilities of HCC cells both in vitro and in vivo.<h4>Results</h4>CircFOXP1, which encoded a 196-amino acid protein, p196, was highly expressed in HCC tissues and cells and secreted via exosomes. Overexpression of p196 enhanced HCC cell proliferation, invasion, and autophagy flux in vitro, while knockdown produced opposite effects. Mechanistically, p196 directly bound KHDRBS3 through its D2 domain, forming a complex that stabilized ULK1 mRNA, thereby increasing ULK1 protein levels, activating autophagy and accelerating tumor progression.<h4>Conclusion</h4>Our findings indicated that circFOXP1-encoded p196 plays a role as a tumor promoter, contributing to the malignant progression of HCC. Targeting the circFOXP1/p196-KHDRBS3-ULK1 axis presents a promising therapeutic strategy for HCC, with potential applications in biomarker development and combination therapies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptomic signature associated with RNA-binding proteins for survival stratification of laryngeal cancer.",
+    "doi": "10.18632/aging.204234",
+    "pmid": "35985767",
+    "authors": [
+      "Shen Y, Chen H, Huang Q, Du H, Zhou L."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) have been suggested as important prognostic indicators in different human cancers. This study was designed to search the prognostic value of RBPs of laryngeal squamous cell carcinoma (LSCC). Differentially expressed RBPs (DERBPs) were screened via The Cancer Genome Atlas (TCGA). Bioinformatics methods were used to identify prognostic DERBPs. Expression profiling of training cohort were calculated to develop a transcriptomic signature, which was validated by three independent cohorts (TCGA cohort, GSE65858 cohort and GSE27020 cohort). We identified DERBPs and a set of signatures (GTPBP3, KHDRBS3 and RBM38) were confirmed as prognosis-related hub DERBPs in LSCC, which was also tested and verified by bioinformatics method and molecular biology experiment. The role of immune cell infiltration and drug resistance between subgroups was explored. Furthermore, the risk score based on transcriptomic signature was turned out to be an independent prognostic indicator for LSCC. Finally, a nomogram for further clinical application was established. Our study demonstrated that the transcriptomic signature we constructed could serve as a novel therapeutic target and biomarker for LSCC from the perspective of RBPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KHDRBS3 accelerates glycolysis and promotes malignancy of hepatocellular carcinoma via upregulating 14-3-3ζ.",
+    "doi": "10.1186/s12935-023-03085-4",
+    "pmid": "37848941",
+    "authors": [
+      "Zhao M, Zhang Y, Li L, Liu X, Zhou W, Wang C, Tang Y."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Primary hepatocellular carcinoma (HCC) is a malignancy with high morbidity and mortality. KH domain-containing, RNA-binding signal transduction-associated protein 3 (KHDRBS3) is an RNA-binding protein that is aberrantly expressed in multiple tumors; however, its expression and biological function in HCC have not been reported.<h4>Methods</h4>KHDRBS3 knockdown and overexpression were performed using the lentiviral vector system to investigate the effects of KHDRBS3 on cell proliferation, apoptosis, chemoresistance, and glycolysis. Murine xenograft tumor models were constructed to study the role of KHDRBS3 on tumor growth in vivo. Furthermore, RNA-Pull Down and RNA immunoprecipitation were utilized to explore the interaction between KHDRBS3 and 14-3-3ζ, a phosphopeptide-binding molecule encoded by YWHAZ.<h4>Results</h4>KHDRBS3 was highly expressed in human HCC tissues and predicted the poor prognosis of patients with HCC. Knockdown of KHDRBS3 exhibited a carcinostatic effect in HCC and impeded proliferation and tumor growth, reduced glycolysis, enhanced cell sensitivity to doxorubicin, and induced apoptosis. On the contrary, forced expression of KHDRBS3 expedited the malignant biological behaviors of HCC cells. The expression of KHDRBS3 was positively correlated with the expression of 14-3-3ζ. RNA immunoprecipitation and RNA pull-down assays demonstrated that KHDRBS3 bound to YWHAZ. We further confirmed that 14-3-3ζ silencing significantly reversed the promotion of proliferation and glycolysis and the inhibition of apoptosis caused by KHDRBS3 overexpression.<h4>Conclusions</h4>Our findings suggest that KHDRBS3 promotes glycolysis and malignant progression of HCC through upregulating 14-3-3ζ expression, providing a possible target for HCC therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of a Treg-related gene signature for predicting prognosis and immunosuppression in skin cutaneous melanoma.",
+    "doi": "10.1007/s10238-025-01941-3",
+    "pmid": "41286029",
+    "authors": [
+      "Lian C, Jin R, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-25",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Skin cutaneous melanoma (SKCM) is an aggressive malignancy where regulatory T cells (Tregs) drive an immunosuppressive tumor microenvironment, resulting in poor prognosis. Thus, there was an urgent need to identify Treg-related molecular biomarkers to optimize SKCM's prognostic assessment and therapeutic strategies. In this study, SKCM-related datasets were acquired from public databases. First, gene modules associated with Tregs screened using Weighted Correlation Network Analysis were intersected with differentially expressed genes to obtain Treg-DEGs. Subsequently, univariate Cox proportional hazards regression, LASSO regression, and multivariate Cox proportional hazards regression were employed to construct a prognostic biomarker signature. Furthermore, the biological functions of the prognostic biomarkers were explored by integrating functional enrichment analysis, molecular regulatory network construction, and drug prediction analysis. Finally, in cellular experiments, the mRNA and protein expression levels of the biomarkers were validated using qRT-PCR and Western blot. The risk model constructed based on the 10 prognostic biomarkers (PTPRF, ULK1, TGM3, CRABP2, SV2A, HLA-DQB2, KHDRBS3, VWA5A, CRIP1, and TFAP2C) could well predict the overall survival of SKCM patients. Functional enrichment analyses indicated that high-risk patients were enriched in keratinization pathways, whereas low-risk patients showed activation of autoimmune and infection-related pathways. NEAT1 might have regulated CRABP2 via miR-375. Additionally, 54 potential drugs, including resveratrol and metronidazole, were predicted for targeted therapy. qRT-PCR and Western blot confirmed PTPRF, ULK1, TGM3, and CRABP2 were upregulated at both the mRNA and protein levels. These findings indicate that the Treg-related signature serves as robust prognostic biomarkers and may guide personalized immunotherapy in SCKM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development and validation of a RNA binding protein-associated prognostic model for head and neck squamous cell carcinoma.",
+    "doi": "10.18632/aging.202848",
+    "pmid": "33758106",
+    "authors": [
+      "Yang X, Han B, Zhang R, Su Y, Hosseini DK, Wu H, Yang M, Sun H."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-24",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Evidence shows that defects in RNA-binding proteins (RBPs) are closely related to the occurrence and development of HNSCC. We obtained 502 tumors and 44 normal samples from the TCGA database, among which 190 differentially expressed RBPs were screened. Finally, a prognostic model containing nine RBPs (<i>CELF2, CPEB1, DDX39B, EIF3L, EZH2, KHDRBS3, RNASE10, RNASE3</i> and <i>SIDT1</i>) was produced. Further analysis showed that the overall survival rate in the high-risk group was lower than that in the low-risk group. The area under the ROC curve (AUC) in the training and testing groups was significant (3-year AUC, 0.735 vs 0.796; 5-year AUC, 0.821 vs 0.804). In addition, a comprehensive analysis of nine identified RBPs showed that most of them were related to the OS of HNSCC patients, and three of them (<i>CELF2, EZH2,</i> and <i>SIDT1</i>) were differentially expressed in HNSCC and control tissues at the protein level. In addition, our data revealed that the identified RBPs are highly interconnected, with high frequency copy number changes in HNSCC samples. GSEA indicated that the abnormal biological processes related to RNA and the activation of some classical tumor signaling pathways were important driving forces for the development of HNSCC. Our results provide novel insights into the pathogenesis of HNSCC, among which nine RBP markers have potential application value in clinical decision-making and individualized treatment of HNSCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "circHECTD1 Promotes the Proliferation and Migration of Human Brain Vascular Smooth Muscle Cells via Interacting with KHDRBS3 to Stabilize EZH2 mRNA Expression.",
+    "doi": "10.2147/jir.s398199",
+    "pmid": "36998321",
+    "authors": [
+      "Feng M, Tu W, Zhou Q, Du Y, Xu K, Wang Y."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-24",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>The objective of this paper is to explore the role of circHECTD1 in vascular smooth muscle cells (VSMCs) and atherosclerosis (AS).<h4>Methods</h4>VSMCs were treated with platelet-derived growth factor-BB (PDGF-BB) in vitro, and the level of circHECTD1 was determined using qRT-PCR. Cell proliferation, migration, and invasion were analyzed using CCK8 and transwell assays. Cell apoptosis and cell cycle were analyzed using flow cytometry. The binding interaction between circHECTD1 and KHDRBS3 or EZH2 was investigated using the RIP, RNA pull-down.<h4>Results</h4>CircHECTD1 was upregulated in PDGF-BB-induced VSMCs with a dose-dependent and time-dependent manner. Knockdown of circHECTD1 suppressed VSMCsproliferation and migration and enhanced cell apoptosis in VSMCs, while circHECTD1 overexpression yielded opposite effects. Mechanistically, circHECTD1 could interact with KHDRBS3, thus enhanced the stability of EZH2 mRNA and increased EZH2 protein level. In addition, silencing EZH2 in VSMCs reversed the proliferation-enhancing effect of circHECTD1 overexpression.<h4>Conclusion</h4>Our findings provided providing a potential prognostic and therapy biomarker for AS.",
+    "openalex_id": ""
+  }
+]

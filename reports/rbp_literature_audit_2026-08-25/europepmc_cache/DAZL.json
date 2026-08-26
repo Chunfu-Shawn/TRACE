@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Loss of full-length DAZL isoform disrupts PABPC1-dependent translational regulation and meiosis.",
+    "doi": "10.1038/s41419-025-08179-7",
+    "pmid": "41249172",
+    "authors": [
+      "Li X, Cao D, Lu Y, Bian Z, Zhao T, Liu W, Zhao Y, Tan J, Li L, Xu EY."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-17",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) events are exceptionally active during spermatogenesis, enhancing the diversity of the testicular transcriptome and proteome. In mouse testes, the germ cell-specific RNA-binding protein DAZL undergoes alternative splicing to produce two isoforms: a full-length DAZL (DAZL_FL) and a short isoform lacking exon 8 (DAZL_Sh). While DAZL is a hallmark of germ cell development, the physiological roles of its alternative splicing, and the distinct functions of these two isoforms remain yet to be fully elucidated. To investigate this, we disrupted alternative splicing of Dazl by generating DAZL short isoform only mice via deletion of the DAZL exon 8 and found that the resulting loss of DAZL_FL led to male infertility, characterized by extensive spermatocyte apoptosis and arrest of spermatid development. Ribosome profiling (Ribo-seq) revealed that loss of DAZL_FL downregulated the translation of meiotic genes specifically bound by DAZL. Mechanistically, DAZL_Sh failed to interact with Poly(A) Binding Protein Cytoplasmic 1 (PABPC1), resulting in impaired translation of DAZL-targeted germ cell transcripts. In females, DAZL_FL ablation caused complete infertility, marked by massive primordial follicle apoptosis and failure of primary follicle recruitment, highlighting a shared role for DAZL_FL in meiotic regulation in both sexes. Our findings established DAZL/PABPC1 complex formation as a pivotal mechanism controlling meiotic progression. By functionally dissecting DAZL isoforms, we uncovered a critical role of Dazl alternative splicing during spermatogenesis and folliculogenesis, further expanding the roles of DAZL in germ cell development and thereby providing novel genetic causes and potential therapeutic targets for azoospermia and primary ovarian insufficiency.",
+    "openalex_id": ""
+  },
+  {
+    "title": "When Fertilization Is Not Enough: Maternal-Zygotic Transition as a Determinant of Embryo Competence in IVF.",
+    "doi": "10.3390/ijms27114787",
+    "pmid": "42278318",
+    "authors": [
+      "Voros C, Chatzinikolaou F, Papadimas G, Gunes AC, Koulakmanidis AM, Papapanagiotou I, Karpouzos A, Athanasiou D, Bananis K, Athanasiou A, Athanasiou A, Tsimpoukelis C, Daskalaki MA, Trakatelli CM, Thomakos N, Antsaklis P, Loutradis D, Daskalakis G."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "A significant concern with IVF is that many embryos fail to develop despite proper fertilization. This gap indicates that factors outside sperm-oocyte fusion influence developmental competency. The maternal-zygotic transition (MZT) is a crucial developmental phase during which control shifts from maternally inherited transcripts to activation of the embryonic genome. During the early stages following fertilization, the embryo depends only on maternal mRNA and proteins amassed throughout oogenesis. For successful development, these transcripts must be expeditiously removed with the concurrent genome activation. Any disruption, whether due to inadequate maternal mRNA degradation, aberrant translational control, or delayed genome activation, has been associated with premature developmental stoppage and diminished blastocyst formation. Principal regulators, such as BTG4, CPEB1, DAZL, and components of the translational machinery, govern this modification and seem to be affected by the quality of the oocyte and the age of the mother. Increasing evidence suggests that disruption of MZT may account for instances of suboptimal embryo development that conventional assessment techniques cannot elucidate. MZT offers a biological framework for assessing embryo competency beyond simple appearance. If scientists had a deeper understanding of this process, they might identify molecular markers and enhance the selection of embryos in IVF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Azoospermia phenotype and scRNA-seq reveal hnRNPK as a factor essential for male germ cell development in mice.",
+    "doi": "10.1093/nar/gkag108",
+    "pmid": "41665013",
+    "authors": [
+      "Gao H, Yang S, Ning A, Yin L, Lan Y, Cheng K, Xiong W, Xiong X, Zhang J, Chen J, Feng S, Fan X, Liu K, Gui Y, Zhang P, Wang X, Wang F, Chen X, Zhang Q, Yuan S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The process of male germ cell development is a central determinant of spermatogenesis. Nevertheless, the genetic regulatory mechanisms underlying male germ cell development in mammals remain largely unclear. In this study, employing a germ cell-specific Hnrnpk knockout mouse model combined with multi-omics analyses, we identified hnRNPK as a key factor necessary for maintaining normal development in differentiating spermatogonia. Phenotypically, adult mice with germ cell-specific hnRNPK deletion exhibited infertility, characterized by a near-complete absence of spermatocytes in the seminiferous tubules. Single-cell RNA sequencing (scRNA-seq) analysis revealed that hnRNPK deletion induced cell-cycle dysregulation in differentiating spermatogonia, triggering apoptotic cell death. As a consequence, the population of differentiating spermatogonia in the testes is markedly diminished, and these cells fail to undergo proper maturation or successfully enter meiosis. Mechanistically, cytoplasmic hnRNPK exerts its regulatory function at the post-transcriptional level, regulating the translation efficiency (TE) of genes involved in meiosis, the cell cycle, and transcriptional regulation. Furthermore, hnRNPK interacts with and colocalizes with DAZL at the 40S ribosome, thereby modulating the initiation of target messenger RNA translation. In the nucleus, hnRNPK interacts with splicing factors and participates in the splicing of target genes related to germ cell differentiation and meiosis. Collectively, these findings emphasize the functional role and mechanistic involvement of hnRNPK in differentiating spermatogonia, providing valuable insights into the post-transcriptional regulatory mechanisms that govern male germ cell development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PUM1 and PUM2 promote translation of chromatin regulators to ensure mammalian spermatogenesis.",
+    "doi": "10.1126/sciadv.aed5708",
+    "pmid": "42467772",
+    "authors": [
+      "Zang M, Liu S, Xie Z, Yang D, Wang K, Ding Y, Zhu T, Zhang S, Zhao T, Yao B, Liu M, Lin K, Xu EY."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Translational control is essential for male germ cell development, yet how post-transcriptional regulation is coupled to chromatin remodeling during spermatogenesis remains poorly understood. Here, we show that the RNA-binding proteins PUMILIO1 (PUM1) and PUMILIO2 (PUM2) promote translation of mRNAs encoding chromatin regulators in the mouse testis. Conditional deletion of <i>Pum1</i> and <i>Pum2</i> in germ cells at multiple developmental stages results in spermatogenic failure, defective nuclear shaping, impaired histone-to-protamine exchange, and complete male sterility. Polysome profiling and ribosome sequencing reveal selective reductions in translation efficiency of chromatin regulators, including histone modifiers and nucleosome remodelers, in <i>Pum1/2</i>-deficient testes. Mechanistically, PUM1/2 associate with DAZL and PABPC1 to form a germ cell-specific translational activation complex that enhances protein output with little impact on mRNA stability. Together, these findings redefine mammalian PUM proteins as context-dependent translational activators in the germline and uncover a post-transcriptional mechanism that links RNA regulation to chromatin dynamics during spermatogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Anatomy and Function of Deleted in Azoospermia Like (DAZL) Gene in Human and Mouse.",
+    "doi": "10.12717/dr.2025.29.2.19",
+    "pmid": "40708703",
+    "authors": [
+      "Choi H, Cheon YP."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-30",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "The deleted in azoospermia like (DAZL) gene is a member of the DAZ gene family. It is firstly identified in male germ cells and recognized as a key molecule of their development, now it is extended to the female germ cells and the embryo. The DAZL gene is constructed with 11 exons, 10 introns, a 5' untranslated region (UTR), and a 3' UTR, and the enhancers at the upstream of the promoter in both human and mouse. It has been revealed that DAZL gene expression is not restricted to germ cells. The known mechanisms for expression regulation include the CpG methylation on the promoter region and post-transcriptional regulation by antagonistic proteins. DAZL protein has one RNA recognition motif (RRM) and one DAZ repeat. DAZL orchestrates the translation of numerous mRNAs essential for germ cell proliferation, differentiation, and survival. Several studies have unveiled DAZL's broader roles, including its involvement in stemness and tumorigenicity through post-transcriptional regulation via polyadenylation and potential functions in RNA stabilization. The alternatively spliced variants are also evaluated in different tissues. This review consolidates current knowledge on DAZL's molecular mechanisms, expression, and emerging research directions, and introduces DAZL gene anatomy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Machine learning-based predictive models and subtypes patterns in peripheral blood of schizophrenia based on a machine learning computational framework.",
+    "doi": "10.1038/s41537-026-00744-z",
+    "pmid": "41876515",
+    "authors": [
+      "Li Z, Sun Q, Li H, Guan N, Ni J, Wang J, Xu X, Shen Y, Sun S, Li Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-24",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Schizophrenia (SCZ) is a complex psychiatric disorder, and its pathogenic mechanisms are not yet fully understood. The identification of reliable blood biomarkers and molecular subtypes for early diagnosis and effective therapy remains a significant challenge. To address this issue, we utilized a combination of bioinformatics and machine learning (ML) to identify potential biomarkers for SCZ. Our approach involved the integration of 12 different ML algorithms to develop a diagnostic signature based on data from several datasets, including GSE18312, GSE27383, GSE38485, GSE54913, and GSE165604. A nomogram was constructed using these datasets for potential clinical applications. In addition, clustering analysis was performed on SCZ patients using consensus clustering and non-negative matrix factorization (NMF) algorithms. We further evaluated subtype differences in biological functions and immune cells through various methods, such as gene set enrichment analysis (GSEA), gene set variation analysis (GSVA), Proteomaps, and IOBR analyses. Our results identified a diagnostic signature composed of 16 genes (APBB2, CLCN1, SYDE1, PAX5, SNAI1, DAZL, UNC93B1, PLAGL2, HS3ST1, ITPKB, PILRA, BTLA, SWAP70, AZI2, ADM, and AVPR2), which demonstrated robust performance in diagnosing SCZ across eight different datasets. A nomogram based on these genes was created, providing clinical benefits for SCZ patients. Among the identified genes, AZI2 was found to be the most critical, influencing inflammation and immunity. We also identified potential chemical compounds that could target these 16 genes. Unsupervised clustering and NMF algorithms revealed two distinct subtypes of SCZ, each associated with unique immune cell profiles, biological functions, and protein expression levels. In conclusion, this study not only developed a diagnostic signature and a novel nomogram for SCZ but also provided new insights into the subtypes of SCZ. These findings may pave the way for personalized diagnosis and treatment strategies for SCZ patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Induction of germ cell-like cells from deleted in azoospermia-like enhanced green fluorescent protein gene knock-in chicken somatic cells via transgenic expression of pluripotency and germ cell-specific transcription factors.",
+    "doi": "10.5713/ab.25.0233",
+    "pmid": "40808566",
+    "authors": [
+      "Lee BR, Yang H, Jung SK, Byun SJ, Park TS."
+    ],
+    "year": "2026",
+    "publication_date": "2025-08-12",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>Germ cell identity is regulated by the coordinated action of multiple key transcription factors during embryonic development, which includes the induction and control of germ-line-specific gene expression. The expression of DEAD-box helicase 4 (DDX4) and deleted in azoospermia-like (DAZL) genes in chickens plays a pivotal role in germplasm formation and the specification of germ cell lineage from a totipotent genome. This study aimed to investigate the regulatory mechanisms underlying germ cell fate determination.<h4>Methods</h4>Large-scale gene expression profiling was conducted to screen and select critical transcription factors. This analysis identified differentially expressed genes in chicken primordial germ cells (PGCs), comprising 1,020 transcription factors. Additionally, we generated a chicken DF1 cell line featuring an enhanced green fluorescent protein (eGFP) reporter precisely knocked into the transcriptional start site of the DAZL gene using the CRISPR-Cas9 system, enabling real-time monitoring of DAZL expression during reprogramming.<h4>Results</h4>Through analysis of transcription factor binding sites within approximately 10 kb upstream regions of DDX4 and DAZL, resulting in the selection of 10 candidate transcription factors for germ cell induction. Subsequently, the ten transcription factors identified as regulators of germ cell identity were transduced into the DAZL-knock-in eGFP DF1 cells. This approach led to the successful induction of eGFP-expressing cells in vitro, driven by the endogenous DAZL promoter. We conducted further characterization of these cells to confirm their germ cell-specific properties.<h4>Conclusion</h4>Our findings offer new insights into the transcriptional regulation of chicken germ cells by identifying key factors that activate DAZL expression. These results indicated valuable opportunities for advancing germ cell induction from somatic cells, with potential applications of in vitro models for studying germ cell-specific gene regulatory pathways in avian species.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel cancer-germline gene DAZL promotes progression and cisplatin resistance of non-small cell lung cancer by upregulating JAK2 and MCM8.",
+    "doi": "10.1016/j.gene.2024.148449",
+    "pmid": "38588931",
+    "authors": [
+      "Zhou L, Le MNU, Du Y, Chen X, Jin M, Xiang H, Xia LE, Zhou J, He J, Ning Y."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-06",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Germline-specific genes are usually activated in cancer cells and drive cancer progression; such genes are called cancer-germline or cancer-testis genes. The RNA-binding protein DAZL is predominantly expressed in germ cells and plays a role in gametogenesis as a translational activator or repressor. However, its expression and role in non-small cell lung cancer (NSCLC) are unknown. Here, mining of RNA-sequencing data from public resources and immunohistochemical analysis of tissue microarrays showed that DAZL was expressed exclusively in testis among normal human tissues but ectopically expressed in NSCLC tissues. Testis and NSCLC cells expressed the shorter and longer transcript variants of the DAZL gene, respectively. Overexpression of the longer DAZL transcript promoted tumor growth in a mouse xenograft model. Silencing of DAZL suppressed cell proliferation, colony formation, migration, invasion, and cisplatin resistance in vitro and tumor growth in vivo. Quantitative proteomic analysis based on tandem mass tag and Western blot analysis showed that DAZL upregulated the expression of JAK2 and MCM8. RNA-binding protein immunoprecipitation assays showed that DAZL bound to the mRNA of JAK2 and MCM8. The JAK2 inhibitor fedratinib attenuated the oncogenic outcomes induced by DAZL overexpression, whereas silencing MCM8 counteracted the effects of DAZL overexpression on cisplatin-damaged DNA synthesis and half-maximal inhibitory concentration of cisplatin. In conclusion, DAZL was identified as a novel cancer-germline gene that enhances the translation of JAK2 and MCM8 to promote NSCLC progression and resistance to cisplatin, respectively. These findings suggest that DAZL is a potential therapeutic target in NSCLC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Truncated DAZL mutation reduces NANOS3 expression in primordial germ cells and leads to premature ovarian insufficiency.",
+    "doi": "10.1093/lifemedi/lnae007",
+    "pmid": "39872666",
+    "authors": [
+      "Liu Q, Guo T, Yan A, Kee K."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-09",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "BCAS2 regulates oocyte meiotic prophase I by participating in mRNA alternative splicing.",
+    "doi": "10.1096/fj.202301234rr",
+    "pmid": "38085152",
+    "authors": [
+      "Yao X, Wang C, Yu W, Sun L, Lv Z, Xie X, Tian S, Yan L, Li L, Liu J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-01",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Oocyte meiotic prophase I (MI) is an important event in female reproduction. Breast cancer amplified sequence 2 (BCAS2) is a component of the spliceosome. Previous reports have shown that BCAS2 is critical in male germ cell meiosis, oocyte development, and early embryo genome integrity. However, the role of BCAS2 in oocyte meiosis has not been reported. We used Stra8-GFPCre mice to knock out Bcas2 in oocytes during the pachytene phase. The results of fertility tests showed that Bcas2 conditional knockout (cKO) in oocytes results in infertility in female mice. Morphological analysis showed that the number of primordial follicles in the ovaries of 2-month-old (M) mice was significantly reduced and that follicle development was blocked. Further analysis showed that the number of primordial follicles decreased and that follicle development was slowed in 7-day postpartum (dpp) ovaries. Moreover, primordial follicles undergo apoptosis, and DNA damage cannot be repaired in primary follicle oocytes. Meiosis was abnormal; some oocytes could not reach the diplotene stage, and more oocytes could not develop to the dictyotene stage. Alternative splicing (AS) analysis revealed abnormal AS of deleted in azoospermia like (Dazl) and diaphanous related formin 2 (Diaph2) oogenesis-related genes in cKO mouse ovaries, and the process of AS was involved by CDC5L and PRP19.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF1-mediated alternative splicing is required for spermatogenesis.",
+    "doi": "10.7150/ijbs.83474",
+    "pmid": "37781512",
+    "authors": [
+      "Lei WL, Li YY, Du Z, Su R, Meng TG, Ning Y, Hou G, Schatten H, Wang ZB, Han Z, Sun F, Qian WP, Liu C, Sun QY."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-11",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) plays significant roles in a multitude of fundamental biological activities. AS is prevalent in the testis, but the regulations of AS in spermatogenesis is only little explored. Here, we report that Serine/arginine-rich splicing factor 1 (SRSF1) plays critical roles in alternative splicing and male reproduction. Male germ cell-specific deletion of <i>Srsf1</i> led to complete infertility by affecting spermatogenesis. Mechanistically, by combining RNA-seq data with LACE-seq data, we showed that SRSF1 affected the AS of <i>Stra8</i> in a direct manner and <i>Dazl</i>, <i>Dmc1</i>, <i>Mre11a</i>, <i>Syce2</i> and <i>Rif1</i> in an indirect manner. Our findings demonstrate that SRSF1 has crucial functions in spermatogenesis and male fertility by regulating alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Germline organoids develop in vitro from embryonic Taeniopygia guttata (zebra finch) cultures.",
+    "doi": "10.1038/s41598-026-46600-z",
+    "pmid": "42009850",
+    "authors": [
+      "Brown B, Nagy E, Takkar AK, Greengold NA, Gujar SS, Amini A, Collins MA, Rajabi J, Walls J, Kaminski C, Sanchez M, McQuire-Guzman E, Ellington T, Bracht JR."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Organoids are three-dimensional structures that develop in cultures of stem cells, and resemble multicellular organs. While performing long-term culture of Taeniopygia guttata (zebra finch) germline tissue, we observed the formation of germline organoids from cultures of both sexes. These macro-scale structures contain multiple cell types and retain Primordial Germ Cells (PGCs) and their descendant germ-cell lineages for two to four months of culture in vitro. We show that the PGC-specific germline-restricted chromosome (GRC) can be detected after three months of culture, and that the organoids exhibit DAZL- and DDX4-positive structures resembling germinal epithelia. Taken together our results open new possibilities for the study of key steps of avian reproductive development.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Zinc finger protein ZNF33B facilitates Japanese encephalitis virus replication by regulating m&lt;sup&gt;6&lt;/sup&gt;A modification on Ifih1 and Irf3 transcripts to antagonize antiviral response.",
+    "doi": "10.1186/s13578-025-01526-3",
+    "pmid": "41486161",
+    "authors": [
+      "Du J, Li C, Zhang J, Luo J, Zhang H, Chen H, Li X, Qian P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-04",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Japanese encephalitis virus (JEV), a neurotropic flavivirus, poses a significant public health threat, yet the molecular mechanisms underlying its interaction with host immunity remain poorly understood. This study reveals that zinc finger protein ZNF33B promotes JEV replication by subverting the RLR-mediated innate immune response through orchestrating m⁶A RNA modification. ZNF33B directly binds to antiviral transcripts Ifih1 (encoding MDA5), Mavs, and Irf3, recruiting the m⁶A methyltransferase METTL14 to enhance their m⁶A methylation. Concurrently, ZNF33B interacts with the nuclear m⁶A reader YTHDC1 to facilitate the export of these methylated transcripts from the nucleus to the cytoplasm. In the cytoplasm, the m⁶A-modified transcripts are recognized by the cytoplasmic reader YTHDF2, leading to accelerated RNA decay. This process downregulates MDA5 and IRF3 protein levels, suppressing type I interferon production and downstream antiviral responses, thereby creating a permissive environment for JEV replication. Our findings establish a regulatory axis where ZNF33B integrates m⁶A modification and RNA metabolism to evade host immunity, highlighting the potential of targeting epitranscriptomic pathways for antiviral therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "How loss-of-function mutations in &lt;i&gt;IFIH1&lt;/i&gt; contribute to infectious and/or inflammatory disease - a systematic review.",
+    "doi": "10.1016/j.jtauto.2026.100353",
+    "pmid": "41695592",
+    "authors": [
+      "Ince I, Sposito F, Charras A, McCann LJ, Hedrich CM."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The <i>IFIH1</i> gene encodes for the cytoplasmic innate immune receptor <i>Melanoma Differentiation-Associated protein 5</i> (MDA5) that detects viral double-stranded RNA to initiate type I interferon (IFN) responses. While gain-of-function mutations in <i>IFIH1</i> have been linked with systemic inflammatory diseases, loss-of-function remains less well understood. This systematic review, following <i>Preferred Reporting Items for Systematic reviews and Meta-Analyses</i> (PRISMA) guidance, explored how <i>IFIH1</i>/MDA5 loss-of-function affects susceptibility to virus infections and/or contributes to inflammatory diseases. Sixteen loss-of-function variants affecting <i>IFIH1</i> were discussed across 33 studies. Loss-of-function variants were consistently associated with increased susceptibility and/or severity of <b>virus infections</b>, including severe acute respiratory syndrome coronavirus (SARS-CoV2) and human immunodeficiency virus (HIV). Several rare biallelic <i>IFIH1</i> mutations lead to profound immunodeficiency, while heterozygous mutations associate with milder clinical presentations. Likely through dampening IFN responses, several variants <b>protect from the development of inflammatory diseases, including</b> type 1 diabetes and hypothyroidism. However, <i>IFIH1</i> deficiency is also implicated in the development of inflammatory diseases, including i<b>nflammatory bowel disease. Moreover,</b> the presence of <b>inactivating</b> anti-MDA5 antibodies may alter the clinical phenotypes and prognosis of dermatomyositis and infections with SARS-CoV2. Though their exact impact on MDA5 function has not been confirmed experimentally, anti-MDA5 antibodies may result in loss-of-function and impaired host defence against viruses. Loss of <i>IFIH1</i>/MDA5 activity has diverse effects on anti-viral immunity, associated damage and susceptibility to inflammatory disease, but also protection against organ-specific immune-mediated pathology. Findings highlight the importance of <i>IFIH1</i> in immune regulation and warrant future studies exploring its potential as a diagnostic and therapeutic target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bioinformatics analysis identifies biomarkers associated with T-cell depletion in systemic lupus erythematosus.",
+    "doi": "10.1097/md.0000000000049016",
+    "pmid": "42216358",
+    "authors": [
+      "Yang L, Gao W, Yang L, Liu X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Systemic lupus erythematosus (SLE) is a chronic autoimmune disease that affects multiple organ systems. In SLE, T-cell subsets are closely associated with autoimmunity and organ inflammation. Detecting T-cell exhaustion (TEX)-related biomarkers is crucial for early SLE diagnosis and offers new insights into disease mechanisms. Transcriptomic data for SLE were collected from public databases, and TEX-related genes were obtained from the literature. Biomarkers were identified using analyses such as differential expression analysis and machine learning algorithms. The potential mechanisms of action of these biomarkers were further investigated, including nomogram construction, gene set enrichment analysis, immune microenvironment analysis, molecular regulatory network analysis, molecular docking, and reverse transcription-quantitative polymerase chain reaction validation. IFIT3, IFIH1, CXCL10, and STAT2 were identified as biomarkers. The nomogram demonstrated good predictive performance. These biomarkers were mainly involved in biological processes such as ribosome biogenesis and negative regulation of viral genome replication. Four significantly different immune cell types were identified, including monocytes and resting memory CD4 T cells. The biomarkers were found to be regulated by several transcription factors and microRNAs. Furthermore, the 4 biomarkers exhibited high binding affinity for several drugs; in particular, the binding energy of STAT2 with bisphenol A was -7.0 kcal/mol. Finally, reverse transcription-quantitative polymerase chain reaction results showed that all 4 biomarkers were significantly upregulated in SLE patients. In summary, this study identified TEX-related biomarkers in SLE, which may have important clinical implications for the diagnosis and treatment of SLE.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Anifrolumab to Treat Severe Hepatic Involvement in a De Novo IFIH1 Mutation.",
+    "doi": "10.1007/s10875-026-01981-8",
+    "pmid": "41941034",
+    "authors": [
+      "Romano M, Demirkaya E, Zizzo AN, Berard RA, CAN BE AID Study Group."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Heterozygous IFIH1-Δ14 Polymorphism that Causes Severe Systemic Inflammatory Reactions Resembling Hemophagocytic Lymphohistiocytosis.",
+    "doi": "",
+    "pmid": "42492979",
+    "authors": [
+      "Jeong I, Ryu SE, Lee HJ, Lee SM, Kim IS, Chang CL, Oh SH."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Type I interferon signaling is central to antiviral innate immunity, and disruption of this pathway may contribute to unusually severe illness during otherwise common viral infections in children. We report a previously healthy 12-month-old girl who presented with a fever for two weeks, followed by a generalized skin rash. She then subsequently developed a persistent fever, pancytopenia, splenomegaly, elevated soluble IL-2 receptor, and hypofibrinogenemia, fulfilling diagnostic criteria for hemophagocytic lymphohistiocytosis (HLH). Because an underlying immune disorder was suspected, targeted panel sequencing was performed, followed by Sanger confirmation and RNA transcript analysis; this identified a heterozygous <i>IFIH1</i> splice-site variant (NM_022168.4:c.2807+1G>A (rs35732034)). Reverse transcription-polymerase chain reaction and transcript sequencing demonstrated exon 14 skipping (Δ14) in patient RNA, providing direct confirmation of the predicted splicing abnormality and aligning with the prior report by Asgari et al. regarding this same variant in children with severe viral illness. Although these findings support the biological relevance of the variant in this clinical setting, they do not establish a causal relationship or indicate that the variant was the sole cause of the inflammatory syndrome. As a single case report, this observation should therefore be interpreted cautiously; however, it suggests that <i>IFIH1</i> abnormalities may be associated with infection-related hyperinflammation or an HLH-like presentation in some patients and highlights the value of RNA-based validation when interpreting candidate splice-site variants in innate immune genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterised intron retention profiles in muscle tissue of idiopathic inflammatory myopathy subtypes.",
+    "doi": "10.1136/ard-2023-225035",
+    "pmid": "38302260",
+    "authors": [
+      "Xiao Y, Xie S, Li HD, Liu Y, Zhang H, Zuo X, Zhu H, Li Y, Luo H."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-12",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>Idiopathic inflammatory myopathies (IIMs) are a group of heterogeneous autoimmune diseases. Intron retention (IR) serves as an important post-transcriptional and translational regulatory mechanism. This study aims to identify changes in IR profiles in IIM subtypes, investigating their influence on proteins and their correlations with clinical features.<h4>Methods</h4>RNA sequencing and liquid chromatography-tandem mass spectrometry were performed on muscle tissues obtained from 174 patients with IIM and 19 controls, following QC procedures. GTFtools and iREAD software were used for IR identification. An analysis of differentially expressed IRs (DEIs), exons and proteins was carried out using edgeR or DEP. Functional analysis was performed with clusterProfiler, and SPIRON was used to assess splicing factors.<h4>Results</h4>A total of 6783 IRs located in 3111 unique genes were identified in all IIM subtypes compared with controls. IIM subtype-specific DEIs were associated with the pathogenesis of respective IIM subtypes. Splicing factors YBX1 and HSPA2 exhibited the most changes in dermatomyositis and immune-mediated necrotising myopathy. Increased IR was associated with reduced protein expression. Some of the IIM-specific DEIs were correlated with clinical parameters (skin rash, MMT-8 scores and muscle enzymes) and muscle histopathological features (myofiber necrosis, regeneration and inflammation). IRs in IFIH1 and TRIM21 were strongly correlated with anti-MDA5+ antibody, while IRs in SRP14 were associated with anti-SRP+ antibody.<h4>Conclusion</h4>This study revealed distinct IRs and specific splicing factors associated with IIM subtypes, which might be contributing to the pathogenesis of IIM. We also emphasised the potential impact of IR on protein expression in IIM muscles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Luteolin ameliorates steroid-induced osteonecrosis of the femoral head via a gut microbiota-L-Carnitine-IFIH1 axis.",
+    "doi": "10.1186/s12967-026-07793-z",
+    "pmid": "41652636",
+    "authors": [
+      "Li T, Li Y, Gao J, Ma R, Peng Y, Zhang Q, Chen Y, Wang W."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Steroid-induced osteonecrosis of the femoral head (SONFH) lacks effective early-stage interventions, and its systemic drivers remain incompletely defined. Luteolin (Lut) is reported to be protective, but the in vivo mechanism is unclear. We investigated whether Lut acts through a gut microbiota–metabolite–innate immunity axis in SONFH. METHODS: Male Sprague–Dawley rats underwent SONFH induction using lipopolysaccharide plus methylprednisolone and received oral Lut or L-Carnitine; gut microbiota dependence was examined using a four-antibiotic depletion regimen. Femoral heads were evaluated by histology and micro-computed tomography. Mechanisms were interrogated by integrated 16S rRNA profiling, untargeted serum Liquid Chromatography–Mass Spectrometry metabolomics, and femoral-head transcriptomics. Dexamethasone (Dex)-injuried ROS17/2.8 osteoblasts and HMEC-1 endothelial cells were used for functional validation, and IFIH1 was silenced by shRNA to test pathway necessity. RESULTS: Lut preserved trabecular microarchitecture and reduced empty osteocyte lacunae in vivo, yet minimally rescued Dex-injured osteoblasts and endothelial cells, indicating an indirect mechanism mediated by gut microbiota-derived metabolic changes. Microbiota depletion abolished Lut’s in vivo benefit, establishing microbiota dependence. Metabolomics identified an increase in circulating L-Carnitine that correlated with four bacterial genera. Exogenous L-Carnitine restored cell proliferation, reduced apoptosis, and improved endothelial tube formation, and in vivo improved trabecular indices while lowering inflammatory cytokines (IL-1β, IL-6, TNF-α). Integrated multi-omics highlighted an interferon-stimulated gene module (OAS1A, HERC6, IFIH1, IFI44), with IFIH1 most strongly associated with disease severity. L-Carnitine attenuated Dex-induced IFIH1 expression, and IFIH1 knockdown mimicked L-Carnitine and eliminated its additional anti-inflammatory effect. CONCLUSIONS: Lut alleviates SONFH via gut microbiota-driven elevation of L-Carnitine, which constrains IFIH1 expression and inflammation to preserve femoral-head trabecular microarchitecture. Targeting the microbiota–L-Carnitine–IFIH1 axis may enable mechanism-based early intervention strategies for SONFH.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Repeated Episodes of GPP Induced by Respiratory Infections Are Mediated by Loss-of-Function IFIH1.",
+    "doi": "10.1002/iid3.70397",
+    "pmid": "41847945",
+    "authors": [
+      "Liu Y, Sun Y, Yang J, Li H, Zhou W, Meng S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Generalized pustular psoriasis (GPP) is a severe and recurrent autoinflammatory disease that can be induced by a variety of factors. At present, its etiology and pathogenesis have not yet been fully elucidated. Upper respiratory tract infections are the main predisposing factor in children with GPP, and the MDA5 protein encoded by the IFIH1, functions as a key receptor for sensing upper respiratory tract viruses and may contribute to the induction of antiviral and immunological responses.<h4>Methods</h4>We performed whole-exome sequencing in 80 pediatric GPP patients and conducted rare variant association analyses against healthy controls. Structural and expression analyses of mutant MDA5 were performed to evaluate mechanistic consequences. Identified IFIH1 variants were functionally characterized using IFN-β luciferase reporter assays, circular dichroism spectroscopy, and protein stability assays.<h4>Results</h4>We identified eight IFIH1 rare variants in 10 pediatric GPP patients, accounting for 12.5% of the total cohort. Association analyses revealed a significantly higher prevalence of rare variants of IFIH1 in GPP patients as compared to healthy controls. IFIH1 variation was found to cause structural changes or decreased expression of its encoded protein MDA5, the intrinsic stability of the mutant was lower than that of the wild-type IFIH1. Notably, functional assays demonstrated that these IFIH1 variants (6/8) substantially impaired the production of interferon beta (IFN-β).<h4>Conclusion</h4>This study suggests that loss-of-function variants in IFIH1 may be associated with the pathogenesis of recurrent episodes of GPP triggered by URTI. These findings offer a theoretical basis for the development of targeted etiological and pathogenetic preventive measures.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Zapnometinib treatment and influenza A virus infection modulate the HLA class I ligandome in human lung adenocarcinoma cells.",
+    "doi": "10.3389/fimmu.2026.1790267",
+    "pmid": "42273698",
+    "authors": [
+      "Hamza H, Ghosh M, Rammensee HG, Planz O."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Influenza viruses continue to pose a global health threat, and available antiviral therapies are limited by resistance and reduced efficacy. Host-directed drugs such as MEK inhibitors have emerged as promising alternatives. Zapnometinib, a clinical-stage MEK inhibitor, has shown both antiviral and immunomodulatory activity. However, its impact on antigen presentation at the level of the HLA-I ligandome has not been investigated.<h4>Methods</h4>Label-free LC-MS/MS was applied to analyze HLA-I-presented peptides in human lung adenocarcinoma Calu-3 cells. Cells were infected with Influenza A virus (IAV) H3N2/Fukui and treated with zapnometinib. Surface HLA-I expression was quantified by flow cytometry, and immunopeptidomic analyses were applied to assess ligandome alterations and functional pathway enrichment.<h4>Results</h4>Zapnometinib treatment and IAV infection did not significantly alter HLA-I surface expression (fold changes 1.01-1.13, p > 0.05). Immunopeptidomics revealed allotype-specific changes in the relative abundance of HLA-I-presented peptides (approximately 3-12% change per allotype), and statistically significant modulation of defined ligand subsets (about 3-14% of ligands per condition; log<sub>2</sub> fold change ≥ 2, adjusted p < 0.05). Functional annotation analysis showed condition-specific enrichment in distinct cellular pathways, such as interferon-induced pathways, including IFI16 upregulation during infection and its downregulation upon MEK inhibition, indicating selective modulation of antiviral responses, cell cycle and RNA-processing pathways under zapnometinib treatment, and adhesion-related pathways under combined treatment. Ligandome remodeling after IAV H3N2/Fukui infection strongly affected antiviral hubs (IFIH1, DHX58, IFI16), whereas zapnometinib caused no consistent or significant reduction.<h4>Discussion/conclusion</h4>This study provides the first evidence that zapnometinib and IAV H3N2/Fukui induce remarkable effects on the HLA-I ligandome plasticity without substantially affecting overall HLA-I expression. These findings highlight the dual role of MEK inhibitors in modulating both viral replication and immune recognition through pathway- and allotype-specific changes in peptide presentation rather than bulk HLA-I levels. Our results support further investigation of zapnometinib as a host-directed antiviral strategy with the potential to contribute to targeted immunomodulation in antiviral therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Direct RNA sequencing reveals chicken post-transcriptional modifications in response to Campylobacter jejuni inoculation.",
+    "doi": "10.1186/s12864-025-11564-3",
+    "pmid": "40229696",
+    "authors": [
+      "Zhao Y, Wang Y, Ren Y, Liu L, Wang T, Liu L, Li X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-14",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Campylobacter jejuni (C. jejuni), is a leading cause of food-borne pathogen, poses significant threats to poultry industry and public health. Post-transcriptional modifications play crucial roles in regulating the immune system and cell functions. However, the epigenetic regulation in response to C. jejuni inoculation in chicken remains elusive.<h4>Results</h4>The RNA transcriptional profiles and base modification alterations in the chicken cecum following C. jejuni inoculation were characterized using direct RNA sequencing and analyzed by bio-informatics and expression analysis. We identified 40,755 transcripts and 23,877 genes following C. jejuni inoculation in the chicken cecum. Of which, 10,503 novel transcripts across 8,560 genes were identified. The number of significantly differential alternative splicing events and poly(A) tails was 192 and 426, respectively (P < 0.05). Particularly, 121 significantly differentially expressed transcripts which were enriched in defense response to gram-negative bacteria, positive regulation of interleukin-6 production, innate immune response, macrophage activation (P < 0.05). Among these, 29 transcripts contained m<sup>5</sup>C sites, and 37 transcripts contained m<sup>6</sup>A sites. The transcripts containing m<sup>6</sup>A/m<sup>5</sup>C modifications displayed higher expression levels and shorter poly(A) tails than those without modifications. Functional analysis of these modules including differentially expressed transcripts (DETs), transcripts with differentially significant poly(A) tail length, m<sup>5</sup>C modified DETs, and m<sup>6</sup>A modified DETs showed that the negative regulation of interferon-beta production was enriched (P < 0.05). Specially, ENSGALT00000020390 (novel transcript), and ENSGALT00000053962 (IFIH1-202) were significantly enriched.<h4>Conclusions</h4>This study provided a post-transcriptional modification profile in the chicken cecum post C. jejuni inoculation, including alternative splicing, poly(A) tail length, m<sup>6</sup>A and m<sup>5</sup>C modifications. ENSGALG00000012480 and IFIH1 could be potential candidate genes as epigenetic markers following C. jejuni inoculation. The findings provide new insights into the complexity of expression regulation and data resource of the epitranscriptome, enhancing our understanding on epigenetic modification regulating C. jejuni inoculation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Early brain-penetrant immunotherapy reverses interferon signature and improves motor outcome in a case of ADAR1-related Aicardi-Goutières syndrome.",
+    "doi": "10.1002/cti2.70113",
+    "pmid": "42376186",
+    "authors": [
+      "Dale RC, Hayes J, Han VX, Dissanayake R, Lau X, Farrar M, Gloss B, Hofer M, Tantsis E, Lorentzos M, Abbas S, Crow YJ, Mohammad S, Patel S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-28",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>Aicardi-Goutières syndrome (AGS) is a genetic interferonopathy resulting from defects in nucleic acid metabolism and subsequent enhanced type I interferon signalling. We report how an expedited genomic diagnosis in conjunction with natural history data can enable a long-term brain-penetrant anti-inflammatory regimen to optimise neurodevelopmental outcomes in genetic autoinflammatory brain disorders.<h4>Methods</h4>Expedited genomic testing identified compound heterozygous <i>ADAR1</i> mutations. Published natural history data from 33 patients with biallelic <i>ADAR1</i> mutations reported severe disability (GMFCS V) or death in 79%. To reduce neuroinflammation, we commenced a long-term pulsed oral dexamethasone protocol (20 mg/m<sup>2</sup> for 3 days every 3 weeks) from the age of 11 months, plus ruxolitinib, a Janus Kinase (JAK) inhibitor (5 mg per day).<h4>Results</h4>At the age of 24 months, the patient was crawling and walking a few steps unaided, with a GMFCS level of II. Single-cell RNA sequencing of 41 164 leukocytes, taken before and after 3 months of treatment and compared to three age matched male controls, showed a reversal of upregulated pan-cellular interferon pathways, with most differentially expressed genes observed in monocytes. On treatment, there was statistically significant downregulation of key autoinflammatory genes, including nucleic acid sensing (<i>CGAS, IFIH1, SAMHD1</i>), interferon-stimulated genes (<i>ISG15 and IFIF44L</i>) and signalling (<i>JAK1</i>). Given the dual immune therapy, it was not possible to define whether the biological effect was related to dexamethasone or JAK inhibitor, or both.<h4>Conclusion</h4>Compared with natural history data, our data suggest that early diagnosis, and the use of early brain-penetrant immune suppressants (dexamethasone), may improve outcomes in <i>ADAR1</i> AGS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "IGF2BP2 orchestrates global expression and alternative splicing profiles associated with glioblastoma development in U251 cells.",
+    "doi": "10.1016/j.tranon.2024.102177",
+    "pmid": "39515086",
+    "authors": [
+      "Liu W, Liu Y, Li H, Wang S, Chen P, Liu Z, Huo X, Tian J."
+    ],
+    "year": "2025",
+    "publication_date": "2024-11-07",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Glioblastoma (GBM) is a highly invasive and malignant central nervous system tumor with a median survival duration of 15 months despite multimodal therapy. The insulin-like growth factor 2 mRNA binding protein 2 (IGF2BP2) has been implicated in various cancers and is known to regulate RNA metabolism and alternative splicing (AS). However, its role in GBM remains unclear. Overexpression of IGF2BP2 led to significant alterations in gene expression, with 472 genes upregulated and 99 downregulated. Gene ontology (GO) analysis indicated enrichment in immune-related biological processes. Notably, IGF2BP2 was found to regulate AS events, with 1372 regulated AS genes (RASGs) and 2096 significantly distinct ASEs identified. Furthermore, IGF2BP2 selectively bound to 3' and 5' untranslated regions (UTRs) via GG[AU]C motifs, and IFIH1 was identified as a direct binding partner and upregulated gene upon IGF2BP2 overexpression. Functional enrichment analysis suggested that IGF2BP2 influences pathways related to RNA splicing and immune responses. Our findings demonstrate that IGF2BP2 plays a crucial role in GBM by modulating the transcriptome and AS events. The upregulation of immune-related genes and the regulation of AS by IGF2BP2 highlight its potential as a therapeutic target in GBM, particularly for immunotherapy. The study provides a foundation for further investigation into the molecular mechanisms of IGF2BP2 in GBM and its implications for cancer treatment.",
+    "openalex_id": ""
+  }
+]

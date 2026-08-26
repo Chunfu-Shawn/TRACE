@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Identification and validation of RNA-binding protein-related gene signature revealed potential associations with immunosuppression and drug sensitivity in glioma.",
+    "doi": "10.1002/cam4.4248",
+    "pmid": "34482648",
+    "authors": [
+      "Chen Z, Wu H, Yang H, Fan Y, Zhao S, Zhang M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-09-05",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is the most common central nervous system tumor in adults, and a considerable part of them are high-degree ones with high malignancy and poor prognosis. At present, the classification and treatment of glioma are mainly based on its histological characteristics, so studies at the molecular level are needed.<h4>Methods</h4>RNA-seq data from The Cancer Genome Atlas (TCGA) datasets (n = 703) and Chinese Glioma Genome Atlas (CGGA) were utilized to find out the differentially expressed RNA-binding proteins (RBPs) between normal cerebral tissue and glioma. A prediction system for the prognosis of glioma patients based on 11 RBPs was established and validated using uni- and multi-variate Cox regression analyses. STITCH and CMap databases were exploited to identify putative drugs and their targets. Single sample gene set enrichment analysis (ssGSEA) was used to calculate scores of specific immune-related gene sets. IC50 of over 20,000 compounds in 60 cancer cell lines was collected from the CellMiner database to test the drug sensitivity prediction value of the RBP-based signature.<h4>Results</h4>We established a reliable prediction system for the prognosis of glioma patients based on 11 RBPs including THOC3, LSM11, SARNP, PABPC1L2B, SMN1, BRCA1, ZC3H8, DZIP1L, HEXIM2, LARP4B, and ZC3H12B. These RBPs were primarily associated with ribosome and post-transcriptional regulation. RBP-based risk scores were closely related to immune cells and immune function. We also confirmed the potential of the signature to predict the drug sensitivity of currently approved or evaluated drugs.<h4>Conclusions</h4>Differentially expressed RBPs in glioma can be used as a basis for prognosis prediction, new drugs screening and drug sensitivity prediction. As RBP-based glioma risk scores were associated with immunity, immunotherapy may become an important treatment for glioma in the future.",
+    "openalex_id": ""
+  }
+]

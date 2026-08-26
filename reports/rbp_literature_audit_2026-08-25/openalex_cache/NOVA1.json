@@ -1,0 +1,197 @@
+[
+  {
+    "title": "Circular RNA: metabolism, functions and interactions with proteins",
+    "doi": "10.1186/s12943-020-01286-3",
+    "authors": [
+      "Zhou Wei-yi",
+      "Zerong Cai",
+      "Jia Liu",
+      "De‐Shen Wang",
+      "Huai‐Qiang Ju"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-01",
+    "cited_by_count": 1608,
+    "journal": "Molecular Cancer",
+    "abstract": "Circular RNAs (CircRNAs) are single-stranded, covalently closed RNA molecules that are ubiquitous across species ranging from viruses to mammals. Important advances have been made in the biogenesis, regulation, localization, degradation and modification of circRNAs. CircRNAs exert biological functions by acting as transcriptional regulators, microRNA (miR) sponges and protein templates. Moreover, emerging evidence has revealed that a group of circRNAs can serve as protein decoys, scaffolds and r",
+    "openalex_id": "https://openalex.org/W3112047397",
+    "relevance_score": 233.28168
+  },
+  {
+    "title": "Emerging complexity of the HuD/ELAVl4 gene; implications for neuronal development, function, and dysfunction",
+    "doi": "10.1261/rna.039164.113",
+    "authors": [
+      "Lucas Bronicki",
+      "Bernard J. Jasmin"
+    ],
+    "year": 2013,
+    "publication_date": "2013-07-16",
+    "cited_by_count": 134,
+    "journal": "RNA",
+    "abstract": "Precise control of messenger RNA (mRNA) processing and abundance are increasingly being recognized as critical for proper spatiotemporal gene expression, particularly in neurons. These regulatory events are governed by a large number of trans-acting factors found in neurons, most notably RNA-binding proteins (RBPs) and micro-RNAs (miRs), which bind to specific cis-acting elements or structures within mRNAs. Through this binding mechanism, trans-acting factors, particularly RBPs, control all aspe",
+    "openalex_id": "https://openalex.org/W2152333262",
+    "relevance_score": 65.40678
+  },
+  {
+    "title": "Emerging functions of alternative splicing coupled with nonsense-mediated decay",
+    "doi": "10.1042/bst20140066",
+    "authors": [
+      "Fursham Hamid",
+      "Eugene V. Makeyev"
+    ],
+    "year": 2014,
+    "publication_date": "2014-08-01",
+    "cited_by_count": 63,
+    "journal": "Biochemical Society Transactions",
+    "abstract": "Higher eukaryotes rely on AS (alternative splicing) of pre-mRNAs (mRNA precursors) to generate more than one protein product from a single gene and to regulate mRNA stability and translational activity. An important example of the latter function involves an interplay between AS and NMD (nonsense-mediated decay), a cytoplasmic quality control mechanism eliminating mRNAs containing PTCs (premature translation termination codons). Although originally identified as an error surveillance process, AS",
+    "openalex_id": "https://openalex.org/W2313642141",
+    "relevance_score": 52.13882
+  },
+  {
+    "title": "Unraveling the Pathways to Neuronal Homeostasis and Disease: Mechanistic Insights into the Role of RNA-Binding Proteins and Associated Factors",
+    "doi": "10.3390/ijms19082280",
+    "authors": [
+      "Stylianos Ravanidis",
+      "Fedon-Giasin Kattan",
+      "Epaminondas Doxakis"
+    ],
+    "year": 2018,
+    "publication_date": "2018-08-03",
+    "cited_by_count": 68,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The timing, dosage and location of gene expression are fundamental determinants of brain architectural complexity. In neurons, this is, primarily, achieved by specific sets of trans-acting RNA-binding proteins (RBPs) and their associated factors that bind to specific cis elements throughout the RNA sequence to regulate splicing, polyadenylation, stability, transport and localized translation at both axons and dendrites. Not surprisingly, misregulation of RBP expression or disruption of its funct",
+    "openalex_id": "https://openalex.org/W2887769003",
+    "relevance_score": 51.951893
+  },
+  {
+    "title": "Genome annotation for clinical genomic diagnostics: strengths and weaknesses",
+    "doi": "10.1186/s13073-017-0441-1",
+    "authors": [
+      "Charles A. Steward",
+      "Alasdair Parker",
+      "Berge A. Minassian",
+      "Sanjay M. Sisodiya",
+      "Adam Frankish"
+    ],
+    "year": 2017,
+    "publication_date": "2017-05-30",
+    "cited_by_count": 52,
+    "journal": "Genome Medicine",
+    "abstract": "The Human Genome Project and advances in DNA sequencing technologies have revolutionized the identification of genetic disorders through the use of clinical exome sequencing. However, in a considerable number of patients, the genetic basis remains unclear. As clinicians begin to consider whole-genome sequencing, an understanding of the processes and tools involved and the factors to consider in the annotation of the structure and function of genomic elements that might influence variant identifi",
+    "openalex_id": "https://openalex.org/W2618126900",
+    "relevance_score": 42.457344
+  },
+  {
+    "title": "Roles of RNA-binding proteins in neurological disorders, COVID-19, and cancer",
+    "doi": "10.1007/s13577-022-00843-w",
+    "authors": [
+      "Daniel Ruben Akiola Sanya",
+      "Claudia Cava",
+      "Djamila Onésime"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-18",
+    "cited_by_count": 32,
+    "journal": "Human Cell",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4311843027",
+    "relevance_score": 35.97846
+  },
+  {
+    "title": "Many Functions of Telomerase Components: Certainties, Doubts, and Inconsistencies",
+    "doi": "10.3390/ijms232315189",
+    "authors": [
+      "Ion Udroiu",
+      "Jessica Marinaccio",
+      "Antonella Sgura"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-02",
+    "cited_by_count": 24,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "A growing number of studies have evidenced non-telomeric functions of \"telomerase\". Almost all of them, however, investigated the non-canonical effects of the catalytic subunit TERT, and not the telomerase ribonucleoprotein holoenzyme. These functions mainly comprise signal transduction, gene regulation and the increase of anti-oxidative systems. Although less studied, TERC (the RNA component of telomerase) has also been shown to be involved in gene regulation, as well as other functions. All th",
+    "openalex_id": "https://openalex.org/W4311514609",
+    "relevance_score": 27.602089
+  },
+  {
+    "title": "The Fine Art of Writing a Message: RNA Metabolism in the Shaping and Remodeling of the Nervous System",
+    "doi": "10.3389/fnmol.2021.755686",
+    "authors": [
+      "M Macías",
+      "Olivier Urwyler"
+    ],
+    "year": 2021,
+    "publication_date": "2021-11-30",
+    "cited_by_count": 13,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "Neuronal morphogenesis, integration into circuits, and remodeling of synaptic connections occur in temporally and spatially defined steps. Accordingly, the expression of proteins and specific protein isoforms that contribute to these processes must be controlled quantitatively in time and space. A wide variety of post-transcriptional regulatory mechanisms, which act on pre-mRNA and mRNA molecules contribute to this control. They are thereby critically involved in physiological and pathophysiolog",
+    "openalex_id": "https://openalex.org/W3217633619",
+    "relevance_score": 26.399393
+  },
+  {
+    "title": "mRNA isoform balance in neuronal development and disease",
+    "doi": "10.1002/wrna.1762",
+    "authors": [
+      "Geneva LaForce",
+      "Polyxeni Philippidou",
+      "Ashleigh E. Schaffer"
+    ],
+    "year": 2022,
+    "publication_date": "2022-09-19",
+    "cited_by_count": 14,
+    "journal": "Wiley Interdisciplinary Reviews - RNA",
+    "abstract": "Balanced mRNA isoform diversity and abundance are spatially and temporally regulated throughout cellular differentiation. The proportion of expressed isoforms contributes to cell type specification and determines key properties of the differentiated cells. Neurons are unique cell types with intricate developmental programs, characteristic cellular morphologies, and electrophysiological potential. Neuron-specific gene expression programs establish these distinctive cellular characteristics and dr",
+    "openalex_id": "https://openalex.org/W4296389480",
+    "relevance_score": 25.02468
+  },
+  {
+    "title": "Splicing to keep splicing: A feedback system for cellular homeostasis and state transition",
+    "doi": "10.1002/ctm2.70369",
+    "authors": [
+      "Zhonghao Guo",
+      "Xurui Zhang",
+      "Yachen Li",
+      "Yule Chen",
+      "Yungang Xu"
+    ],
+    "year": 2025,
+    "publication_date": "2025-06-01",
+    "cited_by_count": 8,
+    "journal": "Clinical and Translational Medicine",
+    "abstract": "BACKGROUND: Alternative splicing (AS) plays a crucial role in regulating gene expression and governing proteomic diversity by generating multiple protein isoforms from a single gene. Increasing evidence has highlighted the regulation for pre-mRNA splicing of the splicing factors (SFs). This review aims to examine featured mechanisms and examples of SF regulation by AS, focusing on paradigmatic feedback loops and their biological implications. MAIN BODY OF THE ABSTRACT: We specifically focus on t",
+    "openalex_id": "https://openalex.org/W4411465227",
+    "relevance_score": 21.49343
+  },
+  {
+    "title": "The Role of mRNA Alternative Processing in Mammalian Neurodevelopment",
+    "doi": "10.3390/ijms262211075",
+    "authors": [
+      "Xian Liu",
+      "Jian Zuo",
+      "G.-Y. Zhang",
+      "Xiaoyu Han",
+      "Yao Tian"
+    ],
+    "year": 2025,
+    "publication_date": "2025-11-16",
+    "cited_by_count": 2,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The mammalian brain undergoes a series of orderly developmental events, including neurogenesis, neuronal migration, axon guidance, and synaptic connection. These neurodevelopmental mechanisms have traditionally been characterized through studies focused on transcriptional control; however, a growing body of evidence highlights the critical roles of co- or post-transcriptional steps like alternative splicing, alternative polyadenylation, and RNA chemical modification in orchestrating brain develo",
+    "openalex_id": "https://openalex.org/W4416274125",
+    "relevance_score": 11.964517
+  },
+  {
+    "title": "Functional genetic analysis of motor neuron disease",
+    "doi": "10.5287/ora-avgj8j6jv",
+    "authors": [
+      "Dirk Bäumer"
+    ],
+    "year": 2010,
+    "publication_date": "2010-01-01",
+    "cited_by_count": 1,
+    "journal": "Oxford University Research Archive (ORA) (University of Oxford)",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) and spinal muscular atrophy (SMA) are the commonest motor neuron diseases of adult- and childhood onset. Alterations of the RNA binding protein TDP-43 are associated with most cases of ALS, while SMA is caused by deletion of the Survival Motor Neuron (SMN1) gene. SMN has been well characterised in its role in the assembly of the cellular machinery that carries out splicing of pre-mRNA, but is thought to have other functions in RNA metabolism unrelated to pre-m",
+    "openalex_id": "https://openalex.org/W1868518727",
+    "relevance_score": 9.471246
+  }
+]

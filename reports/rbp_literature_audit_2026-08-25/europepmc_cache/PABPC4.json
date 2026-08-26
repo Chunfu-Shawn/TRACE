@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ENO1-related gene signature predicts prognosis and therapeutic response in diffuse large B-cell lymphoma.",
+    "doi": "10.3389/fimmu.2025.1644020",
+    "pmid": "41208958",
+    "authors": [
+      "Yan W, Liu X, Gao B, Zhang S, Ren J, Lu Y, Ai L, Yan J, Wang H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-23",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Alpha-enolase (ENO1), the enzyme catalyzing 2-phosphoglycerate conversion to phosphoenolpyruvate, is highly expressed in diffuse large B-cell lymphoma (DLBCL) and correlates with adverse clinical outcomes. Thus, understanding the relationship between ENO1-related gene (ERG) network and DLBCL is imperative. Here, we integrated multi-omics profiling (RIP-seq, RNA-seq, and protein interactome analysis) to identify ERGs and established a prognostic model by machine learning algorithms.<h4>Methods</h4>We identified eleven hub genes (CHERP, SYNE2, INTS1, FAP, MMP9, LRP5, RBM8A, PRMT5, SLC25A6, PABPC4, PSTPIP2) using RNA sequencing, RNA immunoprecipitation sequencing, and protein interaction profiling. A prognostic model was constructed using univariate Cox regression and least absolute shrinkage and selection operator (LASSO) regression in the GSE10846 dataset and validated in two independent cohorts. DLBCL patients were stratified into high- and low-risk groups based on the model, and clinical characteristics were compared. The tumor immune microenvironment (TIME) was analyzed using CIBERSORT and xCell algorithms to explore correlations with the ERG score. Drug sensitivity assays in DLBCL cell lines were performed to validate the model's predictive capacity for chemotherapy response. Furthermore, the functional role of PABPC4, a key gene in the scoring system, was investigated through <i>in vitro</i> and <i>in vivo</i> experiments.<h4>Results</h4>A prognostic model including 11 hub genes was established. Patients in the high-risk group exhibited worse clinical outcomes and an immunosuppressive TIME, characterized by altered expression of immune checkpoint-related proteins. This group demonstrated increased sensitivity to vincristine, etoposide, and oxaliplatin. Knockdown of PABPC4 significantly inhibited cell proliferation, reduced colony formation, and delayed tumor growth <i>in vivo</i>.<h4>Conclusions</h4>The ERG scoring system offers a robust and precise tool for predicting survival and guiding personalized treatment in DLBCL patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cytoplasmic poly-adenosine binding proteins modulate susceptibility of mRNAs to Pumilio-mediated decay.",
+    "doi": "10.1093/nar/gkag075",
+    "pmid": "41641701",
+    "authors": [
+      "McKenney KM, Hernandez-Perez C, Dunshee EB, Pum JM, DesMarais AJ, Connacher RP, Goldstrohm AC."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-01",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "The cytoplasmic fate of messenger RNAs (mRNAs) is dictated by the balance of translation and mRNA degradation, governed in part by the 3' poly-adenosine tail and cytoplasmic poly(A)-binding proteins (PABPCs). Deadenylases remove poly(A) to initiate mRNA decay, while sequence-specific RNA-binding factors, including Pumilio proteins (PUM1 and PUM2), modulate these processes. We investigated how human PUM1&2 repress target mRNAs by accelerating their degradation. We found that the poly(A) tail plays a central role in PUM repression, dependent on the interplay of deadenylases and PABPCs. PUM-mediated repression requires the CCR4-NOT deadenylase but not the poly(A) nuclease. PUMs associate with and require PABPC1 and PABPC4 to repress. In the absence of PABPCs, both PUM targets and non-targets become unstable, bypassing PUM control. Increasing PABPC inhibits PUM activity in a concentration-dependent manner by stabilizing poly(A) mRNAs. The results support a Goldilocks principle, wherein PABPC abundance tunes the response of mRNAs to PUM-mediated repression through protection of poly(A) from deadenylation. We propose that this principle may apply to other poly(A) dependent regulatory factors. Variation of PABPC levels across tissues and development suggests physiological relevance for this mechanism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Association of post-transcriptional regulatory gene single nucleotide polymorphisms with Alzheimer's disease.",
+    "doi": "10.1177/13872877261424256",
+    "pmid": "41761645",
+    "authors": [
+      "Bissar N, Kassir R, Missilmani F, Salem-Sokhn E, El Shamieh S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BackgroundAlzheimer's disease (AD) is a progressive neurodegenerative characterized by amyloid-β (Aβ) peptide aggregation and tangles. Protein translation deregulation and viral exposures, including SARS-CoV-2, have been implicated in increased AD risk. Genes such as YIF1A, PABPC4, and MRPS27, which are involved in mRNA translation and protein folding have been linked to neurodegeneration and host responses to SARS-CoV-2.ObjectiveThis study investigates the association of three genetic variants, rs7945723G>A<i>,</i> rs6587A>G, and rs6831A>G, respectively correlated with <i>YIF1A</i>, <i>PABPC4,</i> and <i>MRPS27</i>, with AD, and explored their expression in COVID-19 samples to assess potential shared pathways.MethodsA KASP genotyping assay was performed on 127 AD patients and 250 controls. A Binary logistic regression model assessed the association between AD and the single nucleotide polymorphisms, adjusting for age, sex, body mass index, and education. Gene expression was quantified by RT-qPCR in nasopharyngeal samples from 32 COVID-19 patients and 39 controls. The Mann- Whitney test compared gene expression between groups, and logistic regression evaluated associations with COVID-19 status.ResultsResults showed that rs6587A>G in PABPC4 is significantly associated with AD risk with the GG genotype conferring increased susceptibility (OR = 4.3, p = 0.010). Gene expression analysis revealed no significant differences in <i>PABPC4</i>, <i>YIF1A</i>, or <i>MRPS27</i> between COVID-19 and control groups.ConclusionsOur findings suggest that post-transcriptional regulatory mechanisms, particularly involving PABPC4, may contribute to AD-related pathways. Larger multi-ethnic cohorts and functional studies are needed to clarify the role of <i>PABPC4</i> and potential shared mechanisms between AD and COVID-19.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Elevated PABPC4 expression in human prostate cancer tissues predicts adverse clinical outcomes.",
+    "doi": "10.21037/tau-2025-19",
+    "pmid": "40800098",
+    "authors": [
+      "Shen X, Li Z, Shi Y, Zhou Z, Wang Y, Qu M, Ji J, Gao X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-28",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Poly(A) binding protein cytoplasmic 4 (PABPC4) has been regarded as a prognostic marker in many malignancies. In this study, we evaluated PABPC4 expression at both messenger ribonucleic acid (mRNA) and protein levels. The prognostic value of PABPC4 in patients with prostate cancer (PCa) was also investigated.<h4>Methods</h4>The Cancer Genome Atlas (TCGA) database, Gene Expression Omnibus (GEO) database, our analysis of Chinese Prostate Cancer Genome and Epigenome Atlas (CPGEA), and 65 pairs of ribonucleic acid (RNA) sequencing data from our center were employed to detect the expression of PABPC4 in PCa tissues. Tissue microarrays (TMAs) were utilized to detect the expression of the PABPC4 protein, and survival analysis as well as risk factor analysis were conducted.<h4>Results</h4>In the 65 pairs of sequencing data, the expression of PABPC4 in tumor tissues was significantly higher than that in paired adjacent tissues (P<0.001), and its expression also presented significant differences among different Gleason groups (P=0.041). In the CPGEA data, the expression of PABPC4 in tumor tissues was significantly higher than that in control tissues (P<0.001), and the expression of PABPC4 in M1 patients was higher than that in M0 patients, although no significant statistical difference was shown (P=0.051). In the TCGA data, the expression of PABPC4 in tumor tissues was significantly higher than that in control tissues (P<0.001). The expression of pT3/4 (pathological tumor stage 3 and pathological tumor stage 4) in high-stage tumor tissues was significantly higher than that in low-stage tumor tissues (pT2) (P=0.02), the expression of pT3/4 in GSE21034 and GSE32571 tumor tissues was significantly higher than that in control tissues (P<0.001), and the expression of pT3/4 in primary tumor tissues was higher than that in metastatic tissues in GSE6752 (P<0.001). The TCGA data revealed that patients with high PABPC4 expression had poorer overall survival (OS) than those with low PABPC4 expression (P=0.04), and the TMA data indicated that patients with high PABPC4 expression had a poor prognosis (P=0.004).<h4>Conclusions</h4>Our study demonstrated that PABPC4 was overexpressed at mRNA and protein levels in PCa. We found that patients with high PABPC4 expression had a shorter biochemical recurrence (BCR)-free survival and OS, showing its value as a prognostic biomarker in patients with PCa.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>circFAM134B</i> is a key factor regulating reticulophagy-mediated ferroptosis in hepatocellular carcinoma.",
+    "doi": "10.1080/15384101.2023.2249302",
+    "pmid": "37603831",
+    "authors": [
+      "Bi T, Lu Q, Pan X, Dong F, Hu Y, Xu Z, Xiu P, Liu Z, Li J."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-21",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Ferroptosis is an important mode of regulated cell death (RCD). Its inhibition is closely related to therapeutic resistance and poor prognosis in hepatocellular carcinoma (HCC). Previous reports have demonstrated ferroptosis as a biological process highly dependent on selective autophagy, such as ferritinophagy, lipophagy, and clockophagy. Our study also revealed a role for ER-phagy-mediated ferroptosis in HCC cells treated with multi-targeted tyrosine kinase inhibitors (TKIs). In the current study, we found that the homologous circular RNA (circRNA) of the family with sequence similarity 134, member B (<i>FAM134B</i>), hsa_circ_0128505 (was abbreviated as <i>circFAM134B</i> in the present study), was identified to specifically target ER-phagy to promote lenvatinib (LV)-induced ferroptosis using reactive oxygen species (ROS), Fe<sup>2+</sup>, malondialdehyde (MDA), and western blot (WB) assays in HCC cells. RNA pull-down and mass spectrometry analyses suggested that <i>circFAM134B</i> and <i>FAM134B</i> mRNA were enriched with several common interacting proteins. Among them, poly (A) binding protein cytoplasmic 4 (PABPC4) was identified as the most enriched binding partner. It was proven to be a novel antagonist against the nonsense-mediated mRNA decay (NMD) mechanism. We then applied RNA immunoprecipitation (RIP), RNA pull-down, luciferase reporter, and NMD reporter gene assays to further explore the exact role and underlying mechanism of <i>circFAM134B-</i>PABPC4-FAM134B axis in HCC cells. <i>circFAM134B</i> was confirmed as a sponge that competitively interacted with PABPC4, thereby influencing <i>FAM134B</i> mRNA nonsense decay. Our results provide novel evidences and strategies for the comprehensive treatment of HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identifying regulatory elements and their RNA-binding proteins in the 3' untranslated regions of papillomavirus late mRNAs.",
+    "doi": "10.3892/br.2024.1813",
+    "pmid": "39006509",
+    "authors": [
+      "Iamborwornkun N, Kitkumthorn N, Stevenson A, Kirk A, Graham SV, Chuen-Im T."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Human papillomaviruses (HPVs) infect cutaneous and mucosal epithelia to cause benign (warts) and malignant lesions (e.g. cervical cancer). Bovine papillomaviruses (BPVs) infect fibroblasts to cause fibropapillomas but can also infect cutaneous epithelial cells. For HPV-1, -16, -31 and BPV-1, <i>cis</i>-acting RNA elements in the late 3' untranslated region (3'UTR) control expression of virus proteins by binding host cell proteins. The present study compared the effects on gene expression of the <i>cis</i>-acting elements of seven PV late 3'UTRs (HPV-6b, -11, -16, -31 and BPV-1, -3 and -4) representing a range of different genera and species and pathological properties. pSV-<i>beta-galactosidase</i> reporter plasmids containing the late 3'UTRs from seven PVs were transiently transfected into cervical adenocarcinoma HeLa cells, and reporter gene expression quantified by reverse transcription-quantitative PCR and a <i>beta-galactosidase</i> assay. All elements inhibited gene expression in keratinocytes. Cancer-related types HPV-16 and -31, had the greatest inhibitory activity whereas the lowest inhibition was found in the non-cancer related types, BPV-3 and HPV-11. Using RBPmap version 1.1, bioinformatics predictions of factors binding the elements identified proteins which function mainly in mRNA splicing. Markedly, in terms of protein binding motifs, BPV late 3'UTR elements were similar to those of HPV-1a but not to other HPVs. Using HPV-1a as a model and siRNA depletion, the bioinformatics predictions were tested and it was found that PABPC4 was responsible for some of the 3'UTR repressive activity. The data revealed candidate proteins that could control PV late gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human cells contain myriad excised linear intron RNAs with links to gene regulation and potential utility as biomarkers.",
+    "doi": "10.1371/journal.pgen.1011416",
+    "pmid": "39325823",
+    "authors": [
+      "Yao J, Xu H, Ferrick-Kiddie EA, Nottingham RM, Wu DC, Ares M, Lambowitz AM."
+    ],
+    "year": "2024",
+    "publication_date": "2024-09-26",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "A previous study using Thermostable Group II Intron Reverse Transcriptase sequencing (TGIRT-seq) found human plasma contains short (≤300 nt) structured full-length excised linear intron (FLEXI) RNAs with potential to serve as blood-based biomarkers. Here, TGIRT-seq identified >9,000 different FLEXI RNAs in human cell lines, including relatively abundant FLEXIs with cell-type-specific expression patterns. Analysis of public CLIP-seq datasets identified 126 RNA-binding proteins (RBPs) that have binding sites within the region corresponding to the FLEXI or overlapping FLEXI splice sites in pre-mRNAs, including 53 RBPs with binding sites for ≥30 different FLEXIs. These included splicing factors, transcription factors, a chromatin remodeling protein, cellular growth regulators, and proteins with cytoplasmic functions. Analysis of ENCODE datasets identified subsets of these RBPs whose knockdown impacted FLEXI host gene mRNA levels or proximate alternative splicing, indicating functional interactions. Hierarchical clustering identified six subsets of RBPs whose FLEXI binding sites were co-enriched in six subsets of functionally related host genes: AGO1-4 and DICER, including but not limited to agotrons or mirtron pre-miRNAs; DKC1, NOLC1, SMNDC1, and AATF (Apoptosis Antagonizing Transcription Factor), including but not limited to snoRNA-encoding FLEXIs; two subsets of alternative splicing factors; and two subsets that included RBPs with cytoplasmic functions (e.g., LARP4, PABPC4, METAP2, and ZNF622) together with regulatory proteins. Cell fractionation experiments showed cytoplasmic enrichment of FLEXI RNAs with binding sites for RBPs with cytoplasmic functions. The subsets of host genes encoding FLEXIs with binding sites for different subsets of RBPs were co-enriched with non-FLEXI other short and long introns with binding sites for the same RBPs, suggesting overarching mechanisms for coordinately regulating expression of functionally related genes. Our findings identify FLEXIs as a previously unrecognized large class of cellular RNAs and provide a comprehensive roadmap for further analyzing their biological functions and the relationship of their RBPs to cellular regulatory mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPC4 Inhibits SADS-CoV Replication by Degrading the Nucleocapsid Protein Through Selective Autophagy.",
+    "doi": "10.3390/vetsci12030257",
+    "pmid": "40266995",
+    "authors": [
+      "Zhao C, Qin Y, Huang H, Chen W, Hu Y, Zhang X, Li Y, Lan T, Sun W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-10",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Swine acute diarrhea syndrome coronavirus (SADS-CoV) is a novel enteric coronavirus that causes severe clinical diarrhea and intestinal pathological injury in pigs. Selective autophagy is an important mechanism of host defense against virus invasion. However, the mechanism through which SADS-CoV-mediated selective autophagy mediates the innate immune response remains unknown. Here, we report that the host protein PABPC4 can inhibit SADS-CoV replication through targeting and degrading its N protein. Furthermore, we demonstrate that PABPC4 recruits MARCHF8 (an E3 ubiquitin ligase), which ubiquitinates the N protein and is degraded via NDP52/CALCOCO2 (a selective autophagy cargo receptor). Taken together, these findings reveal a new mechanism by which PABPC4 inhibits virus replication, and reveal a new target for antiviral drug development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Decoding Potential Cuproptosis-Related Genes in Sarcopenia: A Multi-Omics Network Analysis.",
+    "doi": "10.3390/biology14121642",
+    "pmid": "41463417",
+    "authors": [
+      "Yan H, Shi L, Li Y, Zhang Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Sarcopenia is a common age-related skeletal muscle disorder that lacks diagnostic and therapeutic options. Emerging evidence suggests that cuproptosis, a copper-dependent form of regulated cell death, contributes to muscle atrophy, yet the underlying associations remain poorly understood. To address this gap, we integrated two GEO datasets (GSE1428 and GSE25941) for differential expression analysis and applied weighted gene co-expression network analysis (WGCNA) to identify disease-related modules. Cuproptosis-related genes (CRGs) from GeneCards database were intersected with DEGs and WGCNA gene modules to obtain sarcopenia-associated cuproptosis DEGs (SAR-CUP DEGs). Functional enrichment was performed using GO, KEGG, GSEA and GSVA. Hub genes were further identified through three machine learning algorithms (LASSO, RF, and SVM). Regulatory networks were constructed via NetworkAnalyst and GeneMANIA database. A diagnostic model was also developed and later validated in an independent dataset (GSE136344). Experimental validation was performed in a D-galactose-induced sarcopenia cell model. We identified 367 DEGs and 7 co-expression modules, among which 14 SAR-CUP DEGs were mainly enriched in mitochondrial energy metabolism pathways. Machine learning methods highlighted <i>SLC25A12</i> and <i>PABPC4</i> as hub genes. Regulatory network analysis revealed key modulators, such as FOXC1, miR-16-5p, GOT2, and GOT1. Diagnostic performance analysis demonstrated strong predictive value for <i>SLC25A12</i> (AUC = 0.879) and <i>PABPC4</i> (AUC = 0.858), and RT-qPCR confirmed their downregulation in the sarcopenia cell model (<i>p</i> < 0.01). In conclusion, <i>SLC25A12</i> and <i>PABPC4</i> are promising biomarkers linking copper metabolism dysregulation with sarcopenia, offering potential targets for diagnosis and therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Interaction between poly(A)-binding protein PABPC4 and nuclear receptor corepressor NCoR1 modulates a metabolic stress response.",
+    "doi": "10.1016/j.jbc.2023.104702",
+    "pmid": "37059182",
+    "authors": [
+      "Oliveira AG, Oliveira LD, Cruz MV, Guimarães DSPSF, Lima TI, Santos-Fávero BC, Luchessi AD, Pauletti BA, Leme AP, Bajgelman MC, Afonso J, Regitano LCA, Carvalho HF, Carneiro EM, Kobarg J, Perissi V, Auwerx J, Silveira LR."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-12",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Mitochondria are organelles known primarily for generating ATP via the oxidative phosphorylation process. Environmental signals are sensed by whole organisms or cells and markedly affect this process, leading to alterations in gene transcription and, consequently, changes in mitochondrial function and biogenesis. The expression of mitochondrial genes is finely regulated by nuclear transcription factors, including nuclear receptors and their coregulators. Among the best-known coregulators is the nuclear receptor corepressor 1 (NCoR1). Muscle-specific knockout of NCoR1 in mice induces an oxidative phenotype, improving glucose and fatty acid metabolism. However, the mechanism by which NCoR1 is regulated remains elusive. In this work, we identified the poly(A)-binding protein 4 (PABPC4) as a new NCoR1 interactor. Unexpectedly, we found that silencing of PABPC4 induced an oxidative phenotype in both C2C12 and MEF cells, as indicated by increased oxygen consumption, mitochondria content, and reduced lactate production. Mechanistically, we demonstrated that PABPC4 silencing increased the ubiquitination and consequent degradation of NCoR1, leading to the derepression of PPAR-regulated genes. As a consequence, cells with PABPC4 silencing had a greater capacity to metabolize lipids, reduced intracellular lipid droplets, and reduced cell death. Interestingly, in conditions known to induce mitochondrial function and biogenesis, both mRNA expression and PABPC4 protein content were markedly reduced. Our study, therefore, suggests that the lowering of PABPC4 expression may represent an adaptive event required to induce mitochondrial activity in response to metabolic stress in skeletal muscle cells. As such, the NCoR1-PABPC4 interface might be a new road to the treatment of metabolic diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translational regulation in the brain by TDP-43 phase separation.",
+    "doi": "10.1083/jcb.202101019",
+    "pmid": "34427634",
+    "authors": [
+      "Gao J, Wang L, Ren X, Dunn JR, Peters A, Miyagi M, Fujioka H, Zhao F, Askwith C, Liang J, Wang X."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-24",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "The in vivo physiological function of liquid-liquid phase separation (LLPS) that governs non-membrane-bound structures remains elusive. Among LLPS-prone proteins, TAR DNA-binding protein of 43 kD (TDP-43) is under intense investigation because of its close association with neurological disorders. Here, we generated mice expressing endogenous LLPS-deficient murine TDP-43. LLPS-deficient TDP-43 mice demonstrate impaired neuronal function and behavioral abnormalities specifically related to brain function. Brain neurons of these mice, however, did not show TDP-43 proteinopathy or neurodegeneration. Instead, the global rate of protein synthesis was found to be greatly enhanced by TDP-43 LLPS loss. Mechanistically, TDP-43 LLPS ablation increased its association with PABPC4, RPS6, RPL7, and other translational factors. The physical interactions between TDP-43 and translational factors relies on a motif, the deletion of which abolished the impact of LLPS-deficient TDP-43 on translation. Our findings show a specific physiological role for TDP-43 LLPS in the regulation of brain function and uncover an intriguing novel molecular mechanism of translational control by LLPS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Elucidation of TRIM25 ubiquitination targets involved in diverse cellular and antiviral processes.",
+    "doi": "10.1371/journal.ppat.1010743",
+    "pmid": "36067236",
+    "authors": [
+      "Yang E, Huang S, Jami-Alahmadi Y, McInerney GM, Wohlschlegel JA, Li MMH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-06",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "The tripartite motif (TRIM) family of E3 ubiquitin ligases is well known for its roles in antiviral restriction and innate immunity regulation, in addition to many other cellular pathways. In particular, TRIM25-mediated ubiquitination affects both carcinogenesis and antiviral response. While individual substrates have been identified for TRIM25, it remains unclear how it regulates diverse processes. Here we characterized a mutation, R54P, critical for TRIM25 catalytic activity, which we successfully utilized to \"trap\" substrates. We demonstrated that TRIM25 targets proteins implicated in stress granule formation (G3BP1/2), nonsense-mediated mRNA decay (UPF1), nucleoside synthesis (NME1), and mRNA translation and stability (PABPC4). The R54P mutation abolishes TRIM25 inhibition of alphaviruses independently of the host interferon response, suggesting that this antiviral effect is a direct consequence of ubiquitination. Consistent with that, we observed diminished antiviral activity upon knockdown of several TRIM25-R54P specific interactors including NME1 and PABPC4. Our findings highlight that multiple substrates mediate the cellular and antiviral activities of TRIM25, illustrating the multi-faceted role of this ubiquitination network in modulating diverse biological processes.",
+    "openalex_id": ""
+  }
+]

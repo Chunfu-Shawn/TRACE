@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RNA-binding protein RBM47 in health and disease: molecular mechanisms, preclinical evidence, and translational challenges.",
+    "doi": "10.3389/fimmu.2026.1863629",
+    "pmid": "42495611",
+    "authors": [
+      "Huang S, Wang Q, Shen J, Wang X, Luo T, Yin J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-09",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA-binding motif protein 47 (RBM47) is an evolutionarily conserved multifunctional RNA-binding protein. It mediates post-transcriptional regulation through C-to-U RNA editing, alternative splicing, and messenger RNA (mRNA) stability control. Preclinical evidence indicates that RBM47 exhibits context-dependent, dual effects in human disease. In breast cancer (BC), colorectal cancer (CRC), renal cell carcinoma (RCC), papillary thyroid carcinoma (PTC), and non-small cell lung cancer (NSCLC), experimental studies suggest that RBM47 exerts tumor-suppressive activity through the inhibition of the Wnt/β-catenin, phosphoinositide 3-kinase (PI3K)-AKT, and nuclear factor erythroid 2-related factor 2 (Nrf2) pathways. Conversely, in glioma and pancreatic cancer (PC), cell and animal models indicate that RBM47 exerts oncogenic activity by promoting M2 macrophage polarization and immune evasion. Furthermore, aberrant RBM47 expression has been implicated in postoperative cognitive dysfunction (POCD), inflammatory bowel disease (IBD), and antiviral innate immune regulation in preclinical models. This review summarizes the molecular characteristics and pathological mechanisms of RBM47, discusses the preclinical rationale for its potential utility as a biomarker and therapeutic node, and critically analyzes current research limitations, conflicting evidence, and translational bottlenecks. All biomarker and therapeutic applications discussed remain at the preclinical or retrospective-correlative stage; no RBM47-targeted intervention has entered clinical trials.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding protein RBM47 promotes endothelial-to-mesenchymal transition and neointimal hyperplasia in arteriovenous fistulas.",
+    "doi": "10.1186/s12882-026-05194-4",
+    "pmid": "42432548",
+    "authors": [
+      "Li Z, Lan X, Zhang C, Hu T, Yao S, Zhao Y, Yu X, Sun X, Ma H, Wang Q, Liang H, Jiao J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Arteriovenous fistula (AVF) is the preferred vascular access for hemodialysis in patients with end-stage renal disease. However, AVF stenosis, a severe complication, significantly impairs the patient's quality of life. The mechanisms underlying AVF stenosis are multifactorial, with neointima (NI) hyperplasia within the fistula being a key contributor. While the involvement of RNA-binding proteins in the pathogenesis of various vascular diseases has garnered increasing attention, their role in autogenous AVFs remains poorly understood.<h4>Methods</h4>Differentially expressed genes in a mouse AVF model were identified through public database analysis, and quantitative real-time polymerase chain reaction (qRT-PCR) confirmed RBM47 as the most significantly altered gene. Endothelial-specific RBM47 overexpression was achieved by local delivery of adeno-associated virus (AAV)-RBM47 using F127 hydrogel. Hematoxylin-eosin staining was used to assess neointimal thickness in human and mouse AVF tissues. RBM47 expression and function were evaluated by qRT-PCR, Western blotting, and assays of proliferation and migration. Mechanistic studies, including transcriptome sequencing, Replicate Multivariate Analysis of Transcript Splicing (rMATS) analysis, RNA-Binding Protein Immunoprecipitation (RIP) Assay, molecular docking, immunohistochemistry, and immunofluorescence, were performed to investigate the relationship between RBM47, SEC31A splicing, and downstream signaling.<h4>Results</h4>RBM47 expression was markedly increased in stenotic AVF tissues from both patients and mouse models. Endothelial overexpression of RBM47 significantly aggravated neointimal hyperplasia. In vitro, RBM47 promoted human umbilical vein endothelial cell (HUVEC) proliferation, migration, and EndMT. Mechanistically, RBM47 was predominantly localized in the nucleus, suggesting a role in alternative splicing. Transcriptome sequencing revealed that RBM47 promoted retention of exon 13 in SEC31A, thereby suppressing the generation of the SEC31A-Δ13 splice variant. This splice variant inhibited SMAD3 phosphorylation and its downstream signaling cascade.<h4>Conclusions</h4>RBM47 promotes neointimal hyperplasia in autogenous AVF by inducing EndMT. Specifically, RBM47 regulates alternative splicing of SEC31A and reduces the production of the SEC31A-Δ13 splice variant, which inhibits SMAD3 phosphorylation. These findings reveal a novel mechanism by which RNA-binding proteins contribute to AVF stenosis and suggest RBM47 as a potential therapeutic target for preventing AVF failure.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Unveiling the oncogenic function of CCDC12 in regulating RBM47 splicing in breast cancer.",
+    "doi": "10.1016/j.ijbiomac.2026.150904",
+    "pmid": "41690343",
+    "authors": [
+      "Ye Z, Zhu L, Chen L, Yu H, Fan X, Sun P, Wang X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-12",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Breast cancer (BC) remains a leading cause of cancer-related mortality, in part due to the lack of effective therapeutic targets. In this study, we report that Coiled-Coil Domain Containing 12 (CCDC12), a relatively uncharacterized member of the CCDC protein family, is upregulated in BC tissues. Functional assays in vitro and in vivo indicate that CCDC12 contributes to malignant phenotypes, including enhanced proliferation and metastatic potential. Transcriptomic analysis is associated with widespread alterations in alternative splicing programs. Among the affected events, RNA Binding Motif Protein 47 (RBM47) was identified as a splicing-related target exhibiting increased exon 5 skipping following CCDC12 knockdown. This splicing change produces a truncated RBM47 isoform with reduced tumor-suppressive activity, while reintroduction of full-length RBM47 partially restores impaired cellular phenotypes. These findings support the existence of a CCDC12-RBM47 regulatory relationship that may participate in breast cancer progression, although the upstream signals and detailed molecular mechanisms remain to be clarified. Collectively, the study provides insight into a previously underappreciated role of CCDC12 in breast cancer biology and highlights the need for future work to establish its mechanistic and translational significance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing of KRAS exon 4 promotes tumor progression via enhanced KRAS4A oncogenic activity.",
+    "doi": "10.1080/19768354.2025.2598971",
+    "pmid": "41368203",
+    "authors": [
+      "Cho N, Kwon E, Kim SE, Kim KK."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-05",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "KRAS is a well-established oncogene that exhibits high-frequency mutations at cancer-driver hotspot loci across human cancers. While the oncogenic roles of mutant KRAS have been extensively investigated, the functional significance of KRAS splicing isoforms generated by exon 4 (E4) alternative splicing remains poorly understood. Here, we analyzed the expression patterns of <i>KRAS</i> E4 splicing variants in cancer tissues using The Cancer Genome Atlas (TCGA) data and found that certain cancer types exhibit relatively higher expression of the E4-included <i>KRAS</i> (<i>KRAS4A</i>) splicing variant compared to the E4-excluded KRAS (<i>KRAS4B</i>) splicing variant. Functional analysis revealed that the oncogenic properties of KRAS4A were significantly enhanced compared to those of KRAS4B. Furthermore, we identified RBM47 and PTBP1 as key regulators that promote <i>KRAS</i> E4 inclusion. Our findings demonstrate that RBM47- and PTBP1-mediated alternative splicing of <i>KRAS</i> contributes to enhanced tumor progression, highlighting <i>KRAS</i> alternative splicing as a promising therapeutic target for cancer treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "&lt;i&gt;Pseudomonas putida&lt;/i&gt; KT2440-induced RBM47 regulates non-small cell lung cancer stem cell properties and T cell-mediated antitumor activity.",
+    "doi": "10.21037/jtd-2025-1945",
+    "pmid": "41376900",
+    "authors": [
+      "Zheng QX, Guo BL, Jiang YS, Zhong RR, Seetharamu N, Okuda K, Inno A, Zhan Y, Huang WJ, Chen ZY."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Lung cancer (LC) remains a major cause of cancer-related mortality globally and is the most frequently diagnosed malignancy. Recent research has highlighted the role of intratumor microbiota in cancer pathogenesis. Studies have indicated a close association of <i>Pseudomonas putida</i> strain KT2440 with non-small cell LC (NSCLC) progression. However, the underlying mechanism of KT2440-induced NSCLC tumorigenesis is unknown. In this study, we aimed to investigate how <i>Pseudomonas putida</i> KT2440 influences non-small cell lung cancer stem cell (NSCL-CSC) properties and T cell-mediated antitumor activity.<h4>Methods</h4>RNA-binding motif protein 47 (RBM47) expression in NSCLC tumor samples and cell lines was examined via quantitative real-time polymerase chain reaction (qRT-PCR). N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) modification of RBM47 was examined via methylated RNA immunoprecipitation (RIP)-PCR. <i>In vitro</i> and <i>in vivo</i> experiments were used to assess the effect of RBM47 on cancer stem cell (CSC) growth.<h4>Results</h4>These experiments revealed that the KT2440 induced m<sup>6</sup>A, which enhanced the messenger RNA (mRNA) expression of RBM47, whereas methyltransferase-like 3 (METTL3) and YTHDF1-dependent m<sup>6</sup>A methylation decreased RBM47 expression in NSCLC. RBM47 was found to be downregulated in CSCs. Furthermore, it was found that RBM47 knockdown (KD) increased the self-renewal and tumorigenesis ability of NSCL-CSCs likely via the Wnt pathway. Moreover, RBM47 enhanced T-cell proliferation and cytotoxicity by destabilizing the programmed death-ligand 1 (PD-L1) mRNA via 3'-untranslated region (3'-UTR) binding.<h4>Conclusions</h4>The RBM47 induction pathway, influenced by KT2440-induced m6A modification, modulates NSCL-CSC properties and T cell-mediated antitumor activity, supporting RBM47 as a novel therapeutic target against LC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM47 functions as an anti-oncogene by regulating expression and alternative splicing of cell proliferation and apoptosis associated genes in colorectal cancer cells.",
+    "doi": "10.1038/s41598-025-05151-5",
+    "pmid": "40695891",
+    "authors": [
+      "Liu G, Li T, Li P, Wei S, Abulizi K."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Transcriptional and post-transcriptional regulation mediated by RNA binding proteins (RBPs) have essential influence on the progression of colorectal cancer (CRC), while the underlying mechanisms need to be clarified. In this study, we focused on RBP-RBM47 and overexpressed its expression in HCT116 cells to evaluate its influence on cellular phenotypes and performed transcriptome sequencing (RNA-seq) to identify the downstream targets. After RBM47 overexpression (RBM47-OE), we found the proliferation level was decreased while apoptosis level was increased. Meanwhile, the invasion and migration ability of HCT116 was also significantly inhibited by RBM47-OE. We identified 216 up and 97 down differentially expressed genes (DEGs) by RBM47-OE, and found they were significantly enriched in immune response, apoptosis, TNF signaling, and autophagy pathways. RBM47-OE can also regulate the splicing pattern of 2541 alternative splicing (AS) events. The regulated AS genes were enriched in cell cycle, DNA damage and repair, mRNA splicing, and cell division associated pathways. To validate the regulation on gene expression and AS, we selected several DEGs and AS events to perform RT-qPCR experiment. The results showed that the expression level of CASP3, CCN1, and ATF5, and the splicing pattern of CD44 and MDM2, were significantly regulated by RBM47-OE in HCT116 cells. In summary, our results demonstrated the anti-tumor function and the globally downstream targets of RBM47 in CRC cells. We extend the cellular and molecular cognition of RBM47 in tumor. The identified molecular targets can also be served as potential targets for CRC treatment in future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Correction: Copy number amplification-induced overexpression of lncRNA LOC101927668 facilitates colorectal cancer progression by recruiting hnRNPD to disrupt RBM47/p53/p21 signaling.",
+    "doi": "10.1186/s13046-026-03772-w",
+    "pmid": "42381075",
+    "authors": [
+      "Wang Z, Han H, Zhang C, Wu C, Di J, Xing P, Qiao X, Weng K, Hao H, Yang X, Hou Y, Jiang B, Su X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "The role of positive feedback loop between LINC00862 and RBM47 in hepatocellular carcinoma suppression.",
+    "doi": "10.1016/j.gendis.2025.101763",
+    "pmid": "41487470",
+    "authors": [
+      "Guo T, Jiang Y, Zhu S, Shi M, Sun L, Feng J, Li Z, Gong C."
+    ],
+    "year": "2026",
+    "publication_date": "2025-07-09",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "While the dynamic interaction between long non-coding RNA (lncRNA) and RNA binding proteins is widely recognized as pivotal in the regulation of hepatocellular carcinoma (HCC), the precise underlying mechanisms and networks governing their effects remain elusive. Here, we have uncovered LINC00862, a novel lncRNA that exhibits pronounced down-regulation in HCC tissues and whose expression levels are linked positively to favorable HCC outcomes, as a function of tumor stage and size. Through functional assays, we have established the anti-tumor effects of LINC00862 on HCC processes such as proliferation, invasion, metastasis, and growth <i>in vitro</i> and <i>in vivo</i>. Mechanistically, RNA sequencing and quantitative proteomics analyses have revealed that LINC00862's downstream target effector in HCC cells is RBM47. Our further experimentation strongly supports RBM47 as a central mediator of LINC00862's tumor-suppressive effects. Furthermore, our study elucidates the ability of LINC00862 to engage in Hoogsteen pairing interaction with the RBM47 promoter, while simultaneously recruiting the transcription factor CHD5 to elicit RBM47 transcriptional activation, ultimately resulting in transcriptional up-regulation and its consequential expression in hepatoma cells. It is intriguing to note that we also discovered that RBM47 could act as a transcription factor, positively regulating LINC00862 expression. Our identification of a positive feedback loop involving LINC00862 and RBM47 expands our comprehension of the intricate regulatory network that shapes HCC pathogenesis. LINC00862 represents a promising molecular marker for HCC diagnosis and therapeutics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM47-Induced Gasdermin A/GSDMA Mediates Mesenchymal-Epithelial Transition and Pyroptosis of Colorectal Cancer Cells.",
+    "doi": "10.3390/cancers18030504",
+    "pmid": "41681975",
+    "authors": [
+      "Du Y, Rokavec M, Hermeking H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Down-regulation of the RNA-binding motif protein 47 (RBM47) frequently occurs in colorectal cancer (CRC) and is associated with poor prognosis. However, the downstream effectors of RBM47 have remained unknown. Therefore, we performed a comprehensive RNA-Seq analysis after inactivation or ectopic expression of RBM47. <i>Gasdermin A</i>/<i>GSDMA</i>, a poorly characterized member of the gasdermin family highly expressed in gastrointestinal epithelium, was identified as the most differentially regulated transcript. RBM47 directly bound to the 3'-untranslated region of <i>GSDMA</i> mRNA and stabilized it. Consistently, ectopic <i>RBM47</i> increased GSDMA mRNA and protein expression, whereas <i>RBM47</i> knockdown had the opposite effect. GSDMA was necessary for the RBM47-induced mesenchymal-to-epithelial transition (MET) and suppression of migration and invasion by RBM47 in CRC cells. Moreover, activation of the RBM47/GSDMA axis triggered pyroptosis, a form of cell death characterized by cell swelling, plasma membrane rupture, and, therefore, immunogenic effects. Both RBM47 and GSDMA enhanced sensitivity to Oxaliplatin through the induction of MET and pyroptosis. Knockdown of GSDMA abolished RBM47-mediated pyroptosis and chemo-sensitization. Analysis of CRC patient cohorts revealed that <i>RBM47</i> expression correlates with response to FOLFOX chemotherapy. Therefore, our results establish GSDMA as a critical downstream mediator of RBM47-induced tumor suppression that links epithelial differentiation and pyroptosis to chemotherapy sensitivity. Finally, these findings identify the RBM47/GSDMA axis as a potential predictive biomarker for the response to Oxaliplatin in CRC patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive profiling and molecular characterization of alternative splicing regulation in synaptic remodelling associated with neuropathic pain induced by chronic constrictive injury in a rat model.",
+    "doi": "10.1080/15476286.2026.2675080",
+    "pmid": "42137963",
+    "authors": [
+      "Zhou J, Jia Y, Song W, Zhang Y, Xia Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Neuropathic pain (NP) is a chronic pain condition caused by injury to the nervous system. Although alternative splicing dysregulation has been implicated in NP, the contribution of RNA-binding proteins (RBPs) to this process remains unclear. We analysed 12 RNA-seq datasets (GSE217932) using the SUVA pipeline to identify splicing alterations in Sham, chronic constriction injury (CCI) and CCI treated with L-tetrahydropalmatine (CCI_THP) groups. Co-expression and co-disturbance analyses were performed to define splicing-associated RBP networks. Key findings were further validated in a CCI rat model by behavioural testing, junction-specific RT-qPCR, immunohistochemistry and immunofluorescence. Distinct splicing profiles were observed among the three groups. Differentially spliced genes were enriched in pathways related to axonogenesis, cell junction assembly and synapse assembly. Several genes, including <i>Lrrc4c, Shank2, Nefh, and Grid2</i>, showed aberrant splicing in CCI, which was partially reversed by THP treatment. K-means clustering supported a role for THP in restoring synaptic remodelling-related splicing alterations. In addition, <i>Nefh</i> splicing was associated with <i>Rbm47 and Grn</i> expression, and multiple RBPs, including <i>Rbm47, Grn, Lcp2, Plek, Ptpn6 and Hcls1</i>, were significantly upregulated in CCI. These results were supported by in vivo validation of selected splicing events and protein changes. This study provides a transcriptome-wide view of alternative splicing and RBP dysregulation in NP, and suggests that THP may alleviate neuropathic pain partly by modulating aberrant splicing programs. These findings offer insight into NP mechanisms and identify potential therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Down-regulation of RBM47 due to diminished activation by forkhead box A1 (FOXA1) and silencing by CpG methylation is associated with epithelial-mesenchymal transition and metastasis of colorectal cancer.",
+    "doi": "10.1186/s43556-025-00382-4",
+    "pmid": "41335176",
+    "authors": [
+      "Rokavec M, Du Y, Hermeking H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-03",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "The gene encoding the RNA-binding motif protein 47 (RBM47) is highly expressed in epithelial cells and its down-regulation is characteristic for many types of cancer, among them colorectal cancer (CRC). However, the underlying mechanisms for this differential expression of RBM47 and its functional consequences during CRC progression have remained unknown. Here we found that RBM47 expression progressively decreases during CRC progression and is associated with poor prognosis and the metastatic CRC subtypes CMS4 and CRIS-B. In mice and humans RBM47 expression was highest in endoderm-derived tissues. The expression of forkhead box A1 (FOXA1), a transcription factor essential for the development of endoderm-derived epithelial tissues, showed a positive correlation with RBM47 expression in human tissues, as well as in primary CRCs and derived cell lines. Like RBM47, FOXA1 showed a down-regulation during CRC progression that is associated with poor prognosis and CMS4/CRIS-B. Ectopic FOXA1 induced RBM47 via directly binding to FOXA1 binding sites within the RBM47 promoter region. Up-regulation of RBM47 was necessary for FOXA1-mediated mesenchymal-to-epithelial transition (MET) and inhibition of CRC cell migration and invasion. RBM47 expression was silenced by CpG methylation in mesenchymal-like CRC cell lines. Moreover, epigenetic silencing of RBM47 in primary CRCs was associated with liver metastases. Therefore, the down-regulation of RBM47 is presumably initially mediated by loss of FOXA1 expression and subsequently fixed by CpG methylation of the RBM47 promoter. This down-regulation of RBM47 facilitates EMT and thereby promotes CRC metastasis. Finally, our results show that CpG hypermethylation of the RBM47 promoter represents a potential biomarker for metastatic CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Uncovering the role of RNA binding proteins in colorectal cancer through single-cell transcriptomic analysis.",
+    "doi": "10.1038/s41598-025-29678-9",
+    "pmid": "41309865",
+    "authors": [
+      "Lin M, Weng Z, Lin Y, Lai J, Xu M, Wang K, Chen X, Chen H, Pan J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-27",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Colorectal cancer (CRC) is a globally prevalent malignancy associated with high mortality rates. Despite the existence of various treatment modalities, the prognosis for CRC remains relatively poor. This study aims to explore the role of RNA-binding proteins (RBPs) in CRC progression and their potential as prognostic biomarkers and therapeutic targets. We first identified 166 prognosis-related RBPs, including LIN28B, PPARGC1A, RBM47, and AFF3, by performing univariate Cox regression analysis on bulk transcriptomic and clinical data from The Cancer Genome Atlas (TCGA). Next, single-cell RNA sequencing data from normal, adenoma, and CRC tissues of four patients were analyzed to determine cell type-specific expression patterns of RBPs. Ten upregulated RBPs (HSPB1, RBM47, HMGN2, BRD2, BST2, RBM6, YBX3, CANX, PLEC, and RNASET2) were identified as CRC-associated. Among them, HSPB1, RBM47, HMGN2, BRD2, BST2, and PLEC were predominantly expressed in epithelial cell subsets, whereas RNASET2, RBM6, YBX3, and G3BP2 showed higher expression in T cell subpopulations. Aberrant expression of these RBPs was significantly associated with clinical features such as age, cancer stage, and overall survival (p < 0.05). To validate the above findings, we performed qRT-PCR experiments on 15 paired CRC tumor and adjacent normal tissue samples. The results showed that the expression levels of CANX, RNASET2, YBX3, and BST2 were significantly higher in tumor tissues compared to adjacent normal tissues. Furthermore, we validated the expression levels and prognostic significance of these genes using the TCGA-COAD and READ cohorts, and found that their high expression was significantly associated with poorer overall survival. We suggest that RBPs may influence the occurrence and progression of CRC by affecting epithelial cells and T-cell subtypes, thus serving as promising prognostic biomarkers and potential targets for cancer immunotherapy in CRC.",
+    "openalex_id": ""
+  }
+]

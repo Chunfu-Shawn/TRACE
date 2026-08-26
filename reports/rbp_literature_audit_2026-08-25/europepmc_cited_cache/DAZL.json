@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Human DAZL, DAZ and BOULE genes modulate primordial germ-cell and haploid gamete formation.",
+    "doi": "10.1038/nature08562",
+    "pmid": "19865085",
+    "authors": [
+      "Kee K, Angeles VT, Flores M, Nguyen HN, Reijo Pera RA."
+    ],
+    "year": "2009",
+    "publication_date": "2009-10-28",
+    "cited_by_count": 381,
+    "journal": "",
+    "abstract": "The leading cause of infertility in men and women is quantitative and qualitative defects in human germ-cell (oocyte and sperm) development. Yet, it has not been possible to examine the unique developmental genetics of human germ-cell formation and differentiation owing to inaccessibility of germ cells during fetal development. Although several studies have shown that germ cells can be differentiated from mouse and human embryonic stem cells, human germ cells differentiated in these studies generally did not develop beyond the earliest stages. Here we used a germ-cell reporter to quantify and isolate primordial germ cells derived from both male and female human embryonic stem cells. By silencing and overexpressing genes that encode germ-cell-specific cytoplasmic RNA-binding proteins (not transcription factors), we modulated human germ-cell formation and developmental progression. We observed that human DAZL (deleted in azoospermia-like) functions in primordial germ-cell formation, whereas closely related genes DAZ and BOULE (also called BOLL) promote later stages of meiosis and development of haploid gametes. These results are significant to the generation of gametes for future basic science and potential clinical applications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A hierarchical network controls protein translation during murine embryonic stem cell self-renewal and differentiation.",
+    "doi": "10.1016/j.stem.2008.03.013",
+    "pmid": "18462695",
+    "authors": [
+      "Sampath P, Pritchard DK, Pabon L, Reinecke H, Schwartz SM, Morris DR, Murry CE."
+    ],
+    "year": "2008",
+    "publication_date": "2008-05-01",
+    "cited_by_count": 239,
+    "journal": "",
+    "abstract": "Stem cell differentiation involves changes in transcription, but little is known about translational control during differentiation. We comprehensively profiled gene expression during differentiation of murine embryonic stem cells (ESCs) into embryoid bodies by integrating transcriptome analysis with global assessment of ribosome loading. While protein synthesis was parsimonious during self-renewal, differentiation induced an anabolic switch, with global increases in transcript abundance, polysome content, protein synthesis, and protein content. Furthermore, 78% of transcripts showed increased ribosome loading, thereby enhancing translational efficiency. Transcripts under exclusive translational control included the transcription factor ATF5, the tumor suppressor DCC, and the beta-catenin agonist Wnt1. We show that a hierarchy of translational regulators, including mTOR, 4EBP1, and the RNA-binding proteins DAZL and GRSF1, control global and selective protein synthesis during ESC differentiation. Parsimonious translation in pluripotent state and hierarchical translational regulation during differentiation may be important quality controls for self-renewal and choice of fate in ESCs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide analysis of translation reveals a critical role for deleted in azoospermia-like (Dazl) at the oocyte-to-zygote transition.",
+    "doi": "10.1101/gad.2028911",
+    "pmid": "21460039",
+    "authors": [
+      "Chen J, Melton C, Suh N, Oh JS, Horner K, Xie F, Sette C, Blelloch R, Conti M."
+    ],
+    "year": "2011",
+    "publication_date": "2011-04-01",
+    "cited_by_count": 221,
+    "journal": "",
+    "abstract": "Oocyte maturation, fertilization, and early embryonic development occur in the absence of gene transcription. Therefore, it is critical to understand at a global level the post-transcriptional events that are driving these transitions. Here we used a systems approach by combining polysome mRNA profiling and bioinformatics to identify RNA-binding motifs in mRNAs that either enter or exit the polysome pool during mouse oocyte maturation. Association of mRNA with the polysomes correlates with active translation. Using this strategy, we identified highly specific patterns of mRNA recruitment to the polysomes that are synchronized with the cell cycle. A large number of the mRNAs recovered with translating ribosomes contain motifs for the RNA-binding proteins DAZL (deleted in azoospermia-like) and CPEB (cytoplasmic polyadenylation element-binding protein). Although a Dazl role in early germ cell development is well established, no function has been described during oocyte-to-embryo transition. We demonstrate that CPEB1 regulates Dazl post-transcriptionally, and that DAZL is essential for meiotic maturation and embryonic cleavage. In the absence of DAZL synthesis, the meiotic spindle fails to form due to disorganization of meiotic microtubules. Therefore, Cpeb1 and Dazl function in a progressive, self-reinforcing pathway to promote oocyte maturation and early embryonic development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A critical role for Xdazl, a germ plasm-localized RNA, in the differentiation of primordial germ cells in Xenopus.",
+    "doi": "10.1242/dev.127.3.447",
+    "pmid": "10631166",
+    "authors": [
+      "Houston DW, King ML."
+    ],
+    "year": "2000",
+    "publication_date": "2000-02-01",
+    "cited_by_count": 198,
+    "journal": "",
+    "abstract": "Xdazl is an RNA component of Xenopus germ plasm and encodes an RNA-binding protein that can act as a functional homologue of Drosophila boule. boule is required for entry into meiotic cell division during fly spermatogenesis. Both Xdazl and boule are related to the human DAZ and DAZL, and murine Dazl genes, which are also involved in gamete differentiation. As suggested from its germ plasm localization, we show here that Xdazl is critically involved in PGC development in Xenopus. Xdazl protein is expressed in the cytoplasm, specifically in the germ plasm, from blastula to early tailbud stages. Specific depletion of maternal Xdazl RNA results in tadpoles lacking, or severely deficient in, primordial germ cells (PGCs). In the absence of Xdazl, PGCs do not successfully migrate from the ventral to the dorsal endoderm and do not reach the dorsal mesentery. Germ plasm aggregation and intracellular movements are normal indicating that the defect occurs after PGC formation. We propose that Xdazl is required for early PGC differentiation and is indirectly necessary for the migration of PGCs through the endoderm. As an RNA-binding protein, Xdazl may regulate translation or expression of factors that mediate migration of PGCs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A gene family required for human germ cell development evolved from an ancient meiotic gene conserved in metazoans.",
+    "doi": "10.1073/pnas.131090498",
+    "pmid": "11390979",
+    "authors": [
+      "Xu EY, Moore FL, Pera RA."
+    ],
+    "year": "2001",
+    "publication_date": "2001-06-05",
+    "cited_by_count": 192,
+    "journal": "",
+    "abstract": "The Deleted in AZoospermia (DAZ) genes encode potential RNA-binding proteins that are expressed exclusively in prenatal and postnatal germ cells and are strong candidates for human fertility factors. Here we report the identification of an additional member of the DAZ gene family, which we have called BOULE. With the identification of this gene, it is clear that the human DAZ gene family contains at least three members: DAZ, a Y-chromosome gene cluster that arose 30-40 million years ago and whose deletion is linked to infertility in men; DAZL, the \"father\" of DAZ, a gene that maps to human chromosome 3 and has homologs required for both female and male germ cell development in other organisms; and BOULE, a gene that we propose is the \"grandfather\" of DAZ and maps to human chromosome 2. Human and mouse BOULE resemble the invertebrate meiotic regulator Boule, the proposed ortholog of DAZ, in sequence and expression pattern and hence likely perform a similar meiotic function. In contrast, the previously identified human DAZ and DAZL are expressed much earlier than BOULE in prenatal germ stem cells and spermatogonia; DAZL also is expressed in female germ cells. These data suggest that homologs of the DAZ gene family can be grouped into two subfamilies (BOULE and DAZL) and that members of the DAZ family evolved from an ancestral meiotic regulator, Boule, to assume distinct, yet overlapping, functions in germ cell development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The DAZL family proteins are PABP-binding proteins that regulate translation in germ cells.",
+    "doi": "10.1038/sj.emboj.7600738",
+    "pmid": "16001084",
+    "authors": [
+      "Collier B, Gorgoni B, Loveridge C, Cooke HJ, Gray NK."
+    ],
+    "year": "2005",
+    "publication_date": "2005-07-07",
+    "cited_by_count": 182,
+    "journal": "",
+    "abstract": "DAZL proteins are germ-cell-specific RNA-binding proteins essential for gametogenesis. The precise molecular role of these proteins in germ-cell development remains enigmatic; however, they appear to function in the cytoplasm. In order to directly address the function of vertebrate DAZL proteins, we have used Xenopus laevis oocytes as a model system. Here we demonstrate that members of this family, including Xdazl, mouse Dazl, human DAZL, human DAZ and human BOULE, have the ability to stimulate translation and function at the level of translation initiation. We show that DAZL proteins interact with poly(A)-binding proteins (PABPs), which are critical for the initiation of translation. Mapping and tethered function experiments suggest that these interactions are physiologically important. This leads to an attractive hypothesis whereby DAZL proteins activate translationally silent mRNAs during germ cell development through the direct recruitment of PABPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human Pumilio-2 is expressed in embryonic stem cells and germ cells and interacts with DAZ (Deleted in AZoospermia) and DAZ-like proteins.",
+    "doi": "10.1073/pnas.0234478100",
+    "pmid": "12511597",
+    "authors": [
+      "Moore FL, Jaruzelska J, Fox MS, Urano J, Firpo MT, Turek PJ, Dorfman DM, Pera RA."
+    ],
+    "year": "2003",
+    "publication_date": "2003-01-02",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "Early in development, a part of the embryo is set aside to become the germ cell lineage that will ultimately differentiate to form sperm and eggs and transmit genetic information to the next generation. Men with deletions encompassing the Y-chromosome DAZ genes have few or no germ cells but are otherwise healthy, indicating they harbor specific defects in formation or maintenance of germ cells. A DAZ homolog, DAZL (DAZ-Like), is found in diverse organisms, including humans and is required for germ cell development in males and/or females. We identified proteins that interact with DAZ proteins to better understand their function in human germ cells. Here, we show that PUM2, a human homolog of Pumilio, a protein required to maintain germ line stem cells in Drosophila and Caenorhabditis elegans, forms a stable complex with DAZ through the same functional domain required for RNA binding, protein-protein interactions and rescue of Pumilio mutations in flies. We also show that PUM2 is expressed predominantly in human embryonic stem cells and germ cells and colocalizes with DAZ and DAZL in germ cells. These data implicate PUM2 as a component of conserved cellular machinery that may be required for germ cell development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dazl binds in vivo to specific transcripts and can regulate the pre-meiotic translation of Mvh in germ cells.",
+    "doi": "10.1093/hmg/ddi414",
+    "pmid": "16278232",
+    "authors": [
+      "Reynolds N, Collier B, Maratou K, Bingham V, Speed RM, Taggart M, Semple CA, Gray NK, Cooke HJ."
+    ],
+    "year": "2005",
+    "publication_date": "2005-11-08",
+    "cited_by_count": 142,
+    "journal": "",
+    "abstract": "Gametogenesis is a complex process subject to strict controls at both levels of transcription and translation. Members of a family of conserved RNA-binding proteins encoded by the DAZ genes are required for the translational regulation of gene expression essential for this process. Although loss of DAZ family genes is associated with infertility in several organisms including humans, the identity of the transcripts regulated in vivo is unknown. Using a combination of immunoprecipitation and microarray analysis, we have identified a number of mRNAs that are bound by the murine Dazl protein both in vivo and in vitro. Sequence analysis shows that these transcripts contain binding sites for Dazl, which have been conserved during evolution between human, rat and mouse. We have focussed on mouse vasa homologue (Mvh), a gene that is essential for male gametogenesis, and show that Dazl stimulates translation via the Mvh 3'-UTR. Finally, we show that germ cells of Dazl null mice contain reduced levels of Mvh protein, indicating that Dazl-mediated regulation of Mvh translation is crucial for mammalian spermatogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DAZ family proteins exist throughout male germ cell development and transit from nucleus to cytoplasm at meiosis in humans and mice.",
+    "doi": "10.1095/biolreprod63.5.1490",
+    "pmid": "11058556",
+    "authors": [
+      "Reijo RA, Dorfman DM, Slee R, Renshaw AA, Loughlin KR, Cooke H, Page DC."
+    ],
+    "year": "2000",
+    "publication_date": "2000-11-01",
+    "cited_by_count": 135,
+    "journal": "",
+    "abstract": "The human DAZ gene family is expressed in germ cells and consists of a cluster of nearly identical DAZ (deleted in azoospermia) genes on the Y chromosome and an autosomal homolog, DAZL (DAZ-like). Only the autosomal gene is found in mice. Y-chromosome deletions that encompass the DAZ genes are a common cause of spermatogenic failure in men, and autosomal homologs of DAZ are essential for testicular germ cell development in mice and Drosophila. Previous studies have reported that mouse DAZL protein is strictly cytoplasmic and that human DAZ protein is restricted to postmeiotic cells. By contrast, we report here that human DAZ and human and mouse DAZL proteins are present in both the nuclei and cytoplasm of fetal gonocytes and in spermatogonial nuclei. The proteins relocate to the cytoplasm during male meiosis. Further observations using human tissues indicate that, unlike DAZ, human DAZL protein persists in spermatids and even spermatozoa. These results, combined with findings in diverse species, suggest that DAZ family proteins function in multiple cellular compartments at multiple points in male germ cell development. They may act during meiosis and much earlier, when spermatogonial stem cell populations are established.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Divergent RNA-binding proteins, DAZL and VASA, induce meiotic progression in human germ cells derived in vitro.",
+    "doi": "10.1002/stem.1012",
+    "pmid": "22162380",
+    "authors": [
+      "Medrano JV, Ramathal C, Nguyen HN, Simon C, Reijo Pera RA."
+    ],
+    "year": "2012",
+    "publication_date": "2012-03-01",
+    "cited_by_count": 128,
+    "journal": "",
+    "abstract": "Our understanding of human germ cell development is limited in large part due to inaccessibility of early human development to molecular genetic analysis. Pluripotent human embryonic stem cells (hESCs) and induced pluripotent stem cells (iPSCs) have been shown to differentiate to cells of all three embryonic germ layers, as well as germ cells in vitro, and thus may provide a model for the study of the genetics and epigenetics of human germline. Here, we examined whether intrinsic germ cell translational, rather than transcriptional, factors might drive germline formation and/or differentiation from human pluripotent stem cells in vitro. We observed that, with overexpression of VASA (DDX4) and/or DAZL (Deleted in Azoospermia Like), both hESCs and iPSCs differentiated to primordial germ cells, and maturation and progression through meiosis was enhanced. These results demonstrate that evolutionarily unrelated and divergent RNA-binding proteins can promote meiotic progression of human-derived germ cells in vitro. These studies describe an in vitro model for exploring specifics of human meiosis, a process that is remarkably susceptible to errors that lead to different infertility-related diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A MAPK cascade couples maternal mRNA translation and degradation to meiotic cell cycle progression in mouse oocytes.",
+    "doi": "10.1242/dev.144410",
+    "pmid": "27993988",
+    "authors": [
+      "Sha QQ, Dai XX, Dang Y, Tang F, Liu J, Zhang YL, Fan HY."
+    ],
+    "year": "2017",
+    "publication_date": "2016-12-19",
+    "cited_by_count": 120,
+    "journal": "",
+    "abstract": "Mammalian oocyte maturation depends on the translational activation of stored maternal mRNAs upon meiotic resumption. Cytoplasmic polyadenylation element binding protein 1 (CPEB1) is a key oocyte factor that regulates maternal mRNA translation. However, the signal that triggers CPEB1 activation at the onset of mammalian oocyte maturation is not known. We provide evidence that a mitogen-activated protein kinase (MAPK) cascade couples maternal mRNA translation to meiotic cell cycle progression in mouse oocytes by triggering CPEB1 phosphorylation and degradation. Mutations of the phosphorylation sites or ubiquitin E3 ligase binding sites in CPEB1 have a dominant-negative effect in oocytes, and mimic the phenotype of ERK1/2 knockout, by impairing spindle assembly and mRNA translation. Overexpression of the CPEB1 downstream translation activator DAZL in ERK1/2-deficient oocytes partially rescued the meiotic defects, indicating that ERK1/2 is essential for spindle assembly, metaphase II arrest and maternal-zygotic transition (MZT) primarily by triggering the translation of key maternal mRNAs. Taken together, ERK1/2-mediated CPEB1 phosphorylation/degradation is a major mechanism of maternal mRNA translational activation, and is crucial for mouse oocyte maturation and MZT.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Post-transcriptional regulation of the meiotic Cdc25 protein Twine by the Dazl orthologue Boule.",
+    "doi": "10.1038/11091",
+    "pmid": "10559904",
+    "authors": [
+      "Maines JZ, Wasserman SA."
+    ],
+    "year": "1999",
+    "publication_date": "1999-07-01",
+    "cited_by_count": 115,
+    "journal": "",
+    "abstract": "Boule, a Drosophila orthologue of the vertebrate Dazl fertility factors, is a testis-specific regulator of meiotic entry and germline differentiation. Mutations inactivating either Boule, which is an RNA-binding protein, or Twine, which is a Cdc25-type phosphatase, block meiotic entry in males. Here we show that twine and boule interact genetically. We also find that protein expression from twine messenger RNA correlates with cytoplasmic accumulation of Boule and is markedly reduced by boule mutations. Remarkably, heterologous expression of Twine rescues the boule meiotic-entry defect, indicating that the essential function of Boule at the transition from G2 to M phase during meiosis is in the control of Twine translation.",
+    "openalex_id": ""
+  }
+]

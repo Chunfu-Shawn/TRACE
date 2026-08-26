@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Identification of Candidate Parkinson Disease Genes by Integrating Genome-Wide Association Study, Expression, and Epigenetic Data Sets.",
+    "doi": "10.1001/jamaneurol.2020.5257",
+    "pmid": "33523105",
+    "authors": [
+      "Kia DA, Zhang D, Guelfi S, Manzoni C, Hubbard L, Reynolds RH, Botía J, Ryten M, Ferrari R, Lewis PA, Williams N, Trabzuni D, Hardy J, Wood NW, United Kingdom Brain Expression Consortium (UKBEC) and the International Parkinson’s Disease Genomics Consortium (IPDGC)."
+    ],
+    "year": "2021",
+    "publication_date": "2021-04-01",
+    "cited_by_count": 175,
+    "journal": "",
+    "abstract": "<h4>Importance</h4>Substantial genome-wide association study (GWAS) work in Parkinson disease (PD) has led to the discovery of an increasing number of loci shown reliably to be associated with increased risk of disease. Improved understanding of the underlying genes and mechanisms at these loci will be key to understanding the pathogenesis of PD.<h4>Objective</h4>To investigate what genes and genomic processes underlie the risk of sporadic PD.<h4>Design and setting</h4>This genetic association study used the bioinformatic tools Coloc and transcriptome-wide association study (TWAS) to integrate PD case-control GWAS data published in 2017 with expression data (from Braineac, the Genotype-Tissue Expression [GTEx], and CommonMind) and methylation data (derived from UK Parkinson brain samples) to uncover putative gene expression and splicing mechanisms associated with PD GWAS signals. Candidate genes were further characterized using cell-type specificity, weighted gene coexpression networks, and weighted protein-protein interaction networks.<h4>Main outcomes and measures</h4>It was hypothesized a priori that some genes underlying PD loci would alter PD risk through changes to expression, splicing, or methylation. Candidate genes are presented whose change in expression, splicing, or methylation are associated with risk of PD as well as the functional pathways and cell types in which these genes have an important role.<h4>Results</h4>Gene-level analysis of expression revealed 5 genes (WDR6 [OMIM 606031], CD38 [OMIM 107270], GPNMB [OMIM 604368], RAB29 [OMIM 603949], and TMEM163 [OMIM 618978]) that replicated using both Coloc and TWAS analyses in both the GTEx and Braineac expression data sets. A further 6 genes (ZRANB3 [OMIM 615655], PCGF3 [OMIM 617543], NEK1 [OMIM 604588], NUPL2 [NCBI 11097], GALC [OMIM 606890], and CTSB [OMIM 116810]) showed evidence of disease-associated splicing effects. Cell-type specificity analysis revealed that gene expression was overall more prevalent in glial cell types compared with neurons. The weighted gene coexpression performed on the GTEx data set showed that NUPL2 is a key gene in 3 modules implicated in catabolic processes associated with protein ubiquitination and in the ubiquitin-dependent protein catabolic process in the nucleus accumbens, caudate, and putamen. TMEM163 and ZRANB3 were both important in modules in the frontal cortex and caudate, respectively, indicating regulation of signaling and cell communication. Protein interactor analysis and simulations using random networks demonstrated that the candidate genes interact significantly more with known mendelian PD and parkinsonism proteins than would be expected by chance.<h4>Conclusions and relevance</h4>Together, these results suggest that several candidate genes and pathways are associated with the findings observed in PD GWAS studies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Artificial intelligence in neurodegenerative disease research: use of IBM Watson to identify additional RNA-binding proteins altered in amyotrophic lateral sclerosis.",
+    "doi": "10.1007/s00401-017-1785-8",
+    "pmid": "29134320",
+    "authors": [
+      "Bakkar N, Kovalik T, Lorenzini I, Spangler S, Lacoste A, Sponaugle K, Ferrante P, Argentinis E, Sattler R, Bowser R."
+    ],
+    "year": "2018",
+    "publication_date": "2017-11-13",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) is a devastating neurodegenerative disease with no effective treatments. Numerous RNA-binding proteins (RBPs) have been shown to be altered in ALS, with mutations in 11 RBPs causing familial forms of the disease, and 6 more RBPs showing abnormal expression/distribution in ALS albeit without any known mutations. RBP dysregulation is widely accepted as a contributing factor in ALS pathobiology. There are at least 1542 RBPs in the human genome; therefore, other unidentified RBPs may also be linked to the pathogenesis of ALS. We used IBM Watson<sup>®</sup> to sieve through all RBPs in the genome and identify new RBPs linked to ALS (ALS-RBPs). IBM Watson extracted features from published literature to create semantic similarities and identify new connections between entities of interest. IBM Watson analyzed all published abstracts of previously known ALS-RBPs, and applied that text-based knowledge to all RBPs in the genome, ranking them by semantic similarity to the known set. We then validated the Watson top-ten-ranked RBPs at the protein and RNA levels in tissues from ALS and non-neurological disease controls, as well as in patient-derived induced pluripotent stem cells. 5 RBPs previously unlinked to ALS, hnRNPU, Syncrip, RBMS3, Caprin-1 and NUPL2, showed significant alterations in ALS compared to controls. Overall, we successfully used IBM Watson to help identify additional RBPs altered in ALS, highlighting the use of artificial intelligence tools to accelerate scientific discovery in ALS and possibly other complex neurological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Increased brain expression of GPNMB is associated with genome wide significant risk for Parkinson's disease on chromosome 7p15.3.",
+    "doi": "10.1007/s10048-017-0514-8",
+    "pmid": "28391543",
+    "authors": [
+      "Murthy MN, Blauwendraat C, UKBEC, Guelfi S, IPDGC, Hardy J, Lewis PA, Trabzuni D."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-08",
+    "cited_by_count": 71,
+    "journal": "",
+    "abstract": "Genome wide association studies (GWAS) for Parkinson's disease (PD) have previously revealed a significant association with a locus on chromosome 7p15.3, initially designated as the glycoprotein non-metastatic melanoma protein B (GPNMB) locus. In this study, the functional consequences of this association on expression were explored in depth by integrating different expression quantitative trait locus (eQTL) datasets (Braineac, CAGEseq, GTEx, and Phenotype-Genotype Integrator (PheGenI)). Top risk SNP rs199347 eQTLs demonstrated increased expressions of GPNMB, KLHL7, and NUPL2 with the major allele (AA) in brain, with most significant eQTLs in cortical regions, followed by putamen. In addition, decreased expression of the antisense RNA KLHL7-AS1 was observed in GTEx. Furthermore, rs199347 is an eQTL with long non-coding RNA (AC005082.12) in human tissues other than brain. Interestingly, transcript-specific eQTLs in immune-related tissues (spleen and lymphoblastoid cells) for NUPL2 and KLHL7-AS1 were observed, which suggests a complex functional role of this eQTL in specific tissues, cell types at specific time points. Significantly increased expression of GPNMB linked to rs199347 was consistent across all datasets, and taken in combination with the risk SNP being located within the GPNMB gene, these results suggest that increased expression of GPNMB is the causative link explaining the association of this locus with PD. However, other transcript eQTLs and subsequent functional roles cannot be excluded. This highlights the importance of further investigations to understand the functional interactions between the coding genes, antisense, and non-coding RNA species considering the tissue and cell-type specificity to understand the underlying biological mechanisms in PD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A genome-wide association study of chronic obstructive pulmonary disease in Hispanics.",
+    "doi": "10.1513/annalsats.201408-380oc",
+    "pmid": "25584925",
+    "authors": [
+      "Chen W, Brehm JM, Manichaikul A, Cho MH, Boutaoui N, Yan Q, Burkart KM, Enright PL, Rotter JI, Petersen H, Leng S, Obeidat M, Bossé Y, Brandsma CA, Hao K, Rich SS, Powell R, Avila L, Soto-Quiros M, Silverman EK, Tesfaigzi Y, Barr RG, Celedón JC."
+    ],
+    "year": "2015",
+    "publication_date": "2015-03-01",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "<h4>Rationale</h4>Genome-wide association studies (GWAS) of chronic obstructive pulmonary disease (COPD) have identified disease-susceptibility loci, mostly in subjects of European descent.<h4>Objectives</h4>We hypothesized that by studying Hispanic populations we would be able to identify unique loci that contribute to COPD pathogenesis in Hispanics but remain undetected in GWAS of non-Hispanic populations.<h4>Methods</h4>We conducted a metaanalysis of two GWAS of COPD in independent cohorts of Hispanics in Costa Rica and the United States (Multi-Ethnic Study of Atherosclerosis [MESA]). We performed a replication study of the top single-nucleotide polymorphisms in an independent Hispanic cohort in New Mexico (the Lovelace Smokers Cohort). We also attempted to replicate prior findings from genome-wide studies in non-Hispanic populations in Hispanic cohorts.<h4>Measurements and main results</h4>We found no genome-wide significant association with COPD in our metaanalysis of Costa Rica and MESA. After combining the top results from this metaanalysis with those from our replication study in the Lovelace Smokers Cohort, we identified two single-nucleotide polymorphisms approaching genome-wide significance for an association with COPD. The first (rs858249, combined P value = 6.1 × 10(-8)) is near the genes KLHL7 and NUPL2 on chromosome 7. The second (rs286499, combined P value = 8.4 × 10(-8)) is located in an intron of DLG2. The two most significant single-nucleotide polymorphisms in FAM13A from a previous genome-wide study in non-Hispanics were associated with COPD in Hispanics.<h4>Conclusions</h4>We have identified two novel loci (in or near the genes KLHL7/NUPL2 and DLG2) that may play a role in COPD pathogenesis in Hispanic populations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The nucleoporin-like protein NLP1 (hCG1) promotes CRM1-dependent nuclear protein export.",
+    "doi": "10.1242/jcs.090316",
+    "pmid": "22250199",
+    "authors": [
+      "Waldmann I, Spillner C, Kehlenbach RH."
+    ],
+    "year": "2012",
+    "publication_date": "2012-01-16",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "Translocation of transport complexes across the nuclear envelope is mediated by nucleoporins, proteins of the nuclear pore complex that contain phenylalanine-glycine (FG) repeats as a characteristic binding motif for transport receptors. CRM1 (exportin 1), the major export receptor, forms trimeric complexes with RanGTP and proteins containing nuclear export sequences (NESs). We analyzed the role of the nucleoporin-like protein 1, NLP1 (also known as hCG1 and NUPL2) in CRM1-dependent nuclear transport. NLP1, which contains many FG repeats, localizes to the nuclear envelope and could also be mobile within the nucleus. It promotes the formation of complexes containing CRM1 and RanGTP, with or without NES-containing cargo proteins, that can be dissociated by RanBP1 and/or the cytoplasmic nucleoporin Nup214. The FG repeats of NLP1 do not play a major role in CRM1 binding. Overexpression of NLP1 promotes CRM1-dependent export of certain cargos, whereas its depletion by small interfering RNAs leads to reduced export rates. Thus, NLP1 functions as an accessory factor in CRM1-dependent nuclear protein export.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ATGL-mediated fat catabolism regulates cardiac mitochondrial function via PPAR-α and PGC-1.",
+    "doi": "10.1038/nm.2439",
+    "pmid": "21857651",
+    "authors": [
+      "Haemmerle G, Moustafa T, Woelkart G, Büttner S, Schmidt A, van de Weijer T, Hesselink M, Jaeger D, Kienesberger PC, Zierler K, Schreiber R, Eichmann T, Kolb D, Kotzbeck P, Schweiger M, Kumari M, Eder S, Schoiswohl G, Wongsiriroj N, Pollak NM, Radner FP, Preiss-Landl K, Kolbe T, Rülicke T, Pieske B, Trauner M, Lass A, Zimmermann R, Hoefler G, Cinti S, Kershaw EE, Schrauwen P, Madeo F, Mayer B, Zechner R."
+    ],
+    "year": "2011",
+    "publication_date": "2011-08-21",
+    "cited_by_count": 662,
+    "journal": "",
+    "abstract": "Peroxisome proliferator-activated receptors (PPARs) are nuclear hormone receptors that regulate genes involved in energy metabolism and inflammation. For biological activity, PPARs require cognate lipid ligands, heterodimerization with retinoic X receptors, and coactivation by PPAR-γ coactivator-1α or PPAR-γ coactivator-1β (PGC-1α or PGC-1β, encoded by Ppargc1a and Ppargc1b, respectively). Here we show that lipolysis of cellular triglycerides by adipose triglyceride lipase (patatin-like phospholipase domain containing protein 2, encoded by Pnpla2; hereafter referred to as Atgl) generates essential mediator(s) involved in the generation of lipid ligands for PPAR activation. Atgl deficiency in mice decreases mRNA levels of PPAR-α and PPAR-δ target genes. In the heart, this leads to decreased PGC-1α and PGC-1β expression and severely disrupted mitochondrial substrate oxidation and respiration; this is followed by excessive lipid accumulation, cardiac insufficiency and lethal cardiomyopathy. Reconstituting normal PPAR target gene expression by pharmacological treatment of Atgl-deficient mice with PPAR-α agonists completely reverses the mitochondrial defects, restores normal heart function and prevents premature death. These findings reveal a potential treatment for the excessive cardiac lipid accumulation and often-lethal cardiomyopathy in people with neutral lipid storage disease, a disease marked by reduced or absent ATGL activity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Gene networks driving bovine milk fat synthesis during the lactation cycle.",
+    "doi": "10.1186/1471-2164-9-366",
+    "pmid": "18671863",
+    "authors": [
+      "Bionaz M, Loor JJ."
+    ],
+    "year": "2008",
+    "publication_date": "2008-07-31",
+    "cited_by_count": 573,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The molecular events associated with regulation of milk fat synthesis in the bovine mammary gland remain largely unknown. Our objective was to study mammary tissue mRNA expression via quantitative PCR of 45 genes associated with lipid synthesis (triacylglycerol and phospholipids) and secretion from the late pre-partum/non-lactating period through the end of subsequent lactation. mRNA expression was coupled with milk fatty acid (FA) composition and calculated indexes of FA desaturation and de novo synthesis by the mammary gland.<h4>Results</h4>Marked up-regulation and/or % relative mRNA abundance during lactation were observed for genes associated with mammary FA uptake from blood (LPL, CD36), intracellular FA trafficking (FABP3), long-chain (ACSL1) and short-chain (ACSS2) intracellular FA activation, de novo FA synthesis (ACACA, FASN), desaturation (SCD, FADS1), triacylglycerol synthesis (AGPAT6, GPAM, LPIN1), lipid droplet formation (BTN1A1, XDH), ketone body utilization (BDH1), and transcription regulation (INSIG1, PPARG, PPARGC1A). Change in SREBF1 mRNA expression during lactation, thought to be central for milk fat synthesis regulation, was < or =2-fold in magnitude, while expression of INSIG1, which negatively regulates SREBP activation, was >12-fold and had a parallel pattern of expression to PPARGC1A. Genes involved in phospholipid synthesis had moderate up-regulation in expression and % relative mRNA abundance. The mRNA abundance and up-regulation in expression of ABCG2 during lactation was markedly high, suggesting a biological role of this gene in milk synthesis/secretion. Weak correlations were observed between both milk FA composition and desaturase indexes (i.e., apparent SCD activity) with mRNA expression pattern of genes measured.<h4>Conclusion</h4>A network of genes participates in coordinating milk fat synthesis and secretion. Results challenge the proposal that SREBF1 is central for milk fat synthesis regulation and highlight a pivotal role for a concerted action among PPARG, PPARGC1A, and INSIG1. Expression of SCD, the most abundant gene measured, appears to be key during milk fat synthesis. The lack of correlation between gene expression and calculated desaturase indexes does not support their use to infer mRNA expression or enzyme activity (e.g., SCD). Longitudinal mRNA expression allowed development of transcriptional regulation networks and an updated model of milk fat synthesis regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A branched-chain amino acid metabolite drives vascular fatty acid transport and causes insulin resistance.",
+    "doi": "10.1038/nm.4057",
+    "pmid": "26950361",
+    "authors": [
+      "Jang C, Oh SF, Wada S, Rowe GC, Liu L, Chan MC, Rhee J, Hoshino A, Kim B, Ibrahim A, Baca LG, Kim E, Ghosh CC, Parikh SM, Jiang A, Chu Q, Forman DE, Lecker SH, Krishnaiah S, Rabinowitz JD, Weljie AM, Baur JA, Kasper DL, Arany Z."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-07",
+    "cited_by_count": 492,
+    "journal": "",
+    "abstract": "Epidemiological and experimental data implicate branched-chain amino acids (BCAAs) in the development of insulin resistance, but the mechanisms that underlie this link remain unclear. Insulin resistance in skeletal muscle stems from the excess accumulation of lipid species, a process that requires blood-borne lipids to initially traverse the blood vessel wall. How this trans-endothelial transport occurs and how it is regulated are not well understood. Here we leveraged PPARGC1a (also known as PGC-1α; encoded by Ppargc1a), a transcriptional coactivator that regulates broad programs of fatty acid consumption, to identify 3-hydroxyisobutyrate (3-HIB), a catabolic intermediate of the BCAA valine, as a new paracrine regulator of trans-endothelial fatty acid transport. We found that 3-HIB is secreted from muscle cells, activates endothelial fatty acid transport, stimulates muscle fatty acid uptake in vivo and promotes lipid accumulation in muscle, leading to insulin resistance in mice. Conversely, inhibiting the synthesis of 3-HIB in muscle cells blocks the ability of PGC-1α to promote endothelial fatty acid uptake. 3-HIB levels are elevated in muscle from db/db mice with diabetes and from human subjects with diabetes, as compared to those without diabetes. These data unveil a mechanism in which the metabolite 3-HIB, by regulating the trans-endothelial flux of fatty acids, links the regulation of fatty acid flux to BCAA catabolism, providing a mechanistic explanation for how increased BCAA catabolic flux can cause diabetes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epigenetic regulation of PPARGC1A in human type 2 diabetic islets and effect on insulin secretion.",
+    "doi": "10.1007/s00125-007-0916-5",
+    "pmid": "18270681",
+    "authors": [
+      "Ling C, Del Guerra S, Lupi R, Rönn T, Granhall C, Luthman H, Masiello P, Marchetti P, Groop L, Del Prato S."
+    ],
+    "year": "2008",
+    "publication_date": "2008-02-13",
+    "cited_by_count": 355,
+    "journal": "",
+    "abstract": "<h4>Aims/hypothesis</h4>Insulin secretion in pancreatic islets is dependent upon mitochondrial function and production of ATP. The transcriptional coactivator peroxisome proliferator activated receptor gamma coactivator-1 alpha (protein PGC-1alpha; gene PPARGC1A) is a master regulator of mitochondrial genes and its expression is decreased and related to impaired oxidative phosphorylation in muscle from patients with type 2 diabetes. Whether it plays a similar role in human pancreatic islets is not known. We therefore investigated if PPARGC1A expression is altered in islets from patients with type 2 diabetes and whether this expression is influenced by genetic (PPARGC1A Gly482Ser polymorphism) and epigenetic (DNA methylation) factors. We also tested if experimental downregulation of PPARGC1A expression in human islets influenced insulin secretion.<h4>Methods</h4>The PPARGC1A Gly482Ser polymorphism was genotyped in human pancreatic islets from 48 non-diabetic and 12 type 2 diabetic multi-organ donors and related to PPARGC1A mRNA expression. DNA methylation of the PPARGC1A promoter was analysed in pancreatic islets from ten type 2 diabetic and nine control donors. Isolated human islets were transfected with PPARGC1A silencing RNA (siRNA).<h4>Results</h4>PPARGC1A mRNA expression was reduced by 90% (p<0.005) and correlated with the reduction in insulin secretion in islets from patients with type 2 diabetes. After downregulation of PPARGC1A expression in human islets by siRNA, insulin secretion was reduced by 41% (p <or= 0. 01). We were able to ascribe reduced PPARGC1A expression in islets to both genetic and epigenetic factors, i.e. a common PPARGC1A Gly482Ser polymorphism was associated with reduced PPARGC1A mRNA expression (p<0.00005) and reduced insulin secretion (p<0.05). In support of an epigenetic influence, the PPARGC1A gene promoter showed a twofold increase in DNA methylation in diabetic islets compared with non-diabetic islets (p<0.04).<h4>Conclusions/interpretation</h4>We have shown for the first time that PPARGC1A might be important in human islet insulin secretion and that expression of PPARGC1A in human islets can be regulated by both genetic and epigenetic factors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitophagy is required for mitochondrial biogenesis and myogenic differentiation of C2C12 myoblasts.",
+    "doi": "10.1080/15548627.2015.1115172",
+    "pmid": "26566717",
+    "authors": [
+      "Sin J, Andres AM, Taylor DJ, Weston T, Hiraumi Y, Stotland A, Kim BJ, Huang C, Doran KS, Gottlieb RA."
+    ],
+    "year": "2016",
+    "publication_date": "2016-01-01",
+    "cited_by_count": 321,
+    "journal": "",
+    "abstract": "Myogenesis is a crucial process governing skeletal muscle development and homeostasis. Differentiation of primitive myoblasts into mature myotubes requires a metabolic switch to support the increased energetic demand of contractile muscle. Skeletal myoblasts specifically shift from a highly glycolytic state to relying predominantly on oxidative phosphorylation (OXPHOS) upon differentiation. We have found that this phenomenon requires dramatic remodeling of the mitochondrial network involving both mitochondrial clearance and biogenesis. During early myogenic differentiation, autophagy is robustly upregulated and this coincides with DNM1L/DRP1 (dynamin 1-like)-mediated fragmentation and subsequent removal of mitochondria via SQSTM1 (sequestosome 1)-mediated mitophagy. Mitochondria are then repopulated via PPARGC1A/PGC-1α (peroxisome proliferator-activated receptor gamma, coactivator 1 alpha)-mediated biogenesis. Mitochondrial fusion protein OPA1 (optic atrophy 1 [autosomal dominant]) is then briskly upregulated, resulting in the reformation of mitochondrial networks. The final product is a myotube replete with new mitochondria. Respirometry reveals that the constituents of these newly established mitochondrial networks are better primed for OXPHOS and are more tightly coupled than those in myoblasts. Additionally, we have found that suppressing autophagy with various inhibitors during differentiation interferes with myogenic differentiation. Together these data highlight the integral role of autophagy and mitophagy in myogenic differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long noncoding RNA Tug1 regulates mitochondrial bioenergetics in diabetic nephropathy.",
+    "doi": "10.1172/jci87927",
+    "pmid": "27760051",
+    "authors": [
+      "Long J, Badal SS, Ye Z, Wang Y, Ayanga BA, Galvan DL, Green NH, Chang BH, Overbeek PA, Danesh FR."
+    ],
+    "year": "2016",
+    "publication_date": "2016-10-17",
+    "cited_by_count": 320,
+    "journal": "",
+    "abstract": "The regulatory roles of long noncoding RNAs (lncRNAs) in transcriptional coactivators are still largely unknown. Here, we have shown that the peroxisome proliferator-activated receptor γ (PPARγ) coactivator α (PGC-1α, encoded by Ppargc1a) is functionally regulated by the lncRNA taurine-upregulated gene 1 (Tug1). Further, we have described a role for Tug1 in the regulation of mitochondrial function in podocytes. Using a murine model of diabetic nephropathy (DN), we performed an unbiased RNA-sequencing (RNA-seq) analysis of kidney glomeruli and identified Tug1 as a differentially expressed lncRNA in the diabetic milieu. Podocyte-specific overexpression (OE) of Tug1 in diabetic mice improved the biochemical and histological features associated with DN. Unexpectedly, we found that Tug1 OE rescued the expression of PGC-1α and its transcriptional targets. Tug1 OE was also associated with improvements in mitochondrial bioenergetics in the podocytes of diabetic mice. Mechanistically, we found that the interaction between Tug1 and PGC-1α promotes the binding of PGC-1α to its own promoter. We identified a Tug1-binding element (TBE) upstream of the Ppargc1a gene and showed that Tug1 binds with the TBE to enhance Ppargc1a promoter activity. These findings indicate that a direct interaction between PGC-1α and Tug1 modulates mitochondrial bioenergetics in podocytes in the diabetic milieu.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Resveratrol supplementation does not improve metabolic function in nonobese women with normal glucose tolerance.",
+    "doi": "10.1016/j.cmet.2012.09.015",
+    "pmid": "23102619",
+    "authors": [
+      "Yoshino J, Conte C, Fontana L, Mittendorfer B, Imai S, Schechtman KB, Gu C, Kunz I, Rossi Fanelli F, Patterson BW, Klein S."
+    ],
+    "year": "2012",
+    "publication_date": "2012-10-25",
+    "cited_by_count": 309,
+    "journal": "",
+    "abstract": "Resveratrol has been reported to improve metabolic function in metabolically abnormal rodents and humans, but it has not been studied in nonobese people with normal glucose tolerance. We conducted a randomized, double-blind, placebo-controlled trial to evaluate the metabolic effects of 12 weeks of resveratrol supplementation (75 mg/day) in nonobese, postmenopausal women with normal glucose tolerance. Although resveratrol supplementation increased plasma resveratrol concentration, it did not change body composition, resting metabolic rate, plasma lipids, or inflammatory markers. A two-stage hyperinsulinemic-euglycemic clamp procedure, in conjunction with stable isotopically labeled tracer infusions, demonstrated that resveratrol did not increase liver, skeletal muscle, or adipose tissue insulin sensitivity. Consistent with the absence of in vivo metabolic effects, resveratrol did not affect its putative molecular targets, including AMPK, SIRT1, NAMPT, and PPARGC1A, in either skeletal muscle or adipose tissue. These findings demonstrate that resveratrol supplementation does not have beneficial metabolic effects in nonobese, postmenopausal women with normal glucose tolerance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "BNIP3L/NIX and FUNDC1-mediated mitophagy is required for mitochondrial network remodeling during cardiac progenitor cell differentiation.",
+    "doi": "10.1080/15548627.2019.1580095",
+    "pmid": "30741592",
+    "authors": [
+      "Lampert MA, Orogo AM, Najor RH, Hammerling BC, Leon LJ, Wang BJ, Kim T, Sussman MA, Gustafsson ÅB."
+    ],
+    "year": "2019",
+    "publication_date": "2019-02-22",
+    "cited_by_count": 264,
+    "journal": "",
+    "abstract": "Cell-based therapies represent a very promising strategy to repair and regenerate the injured heart to prevent progression to heart failure. To date, these therapies have had limited success due to a lack of survival and retention of the infused cells. Therefore, it is important to increase our understanding of the biology of these cells and utilize this information to enhance their survival and function in the injured heart. Mitochondria are critical for progenitor cell function and survival. Here, we demonstrate the importance of mitochondrial autophagy, or mitophagy, in the differentiation process in adult cardiac progenitor cells (CPCs). We found that mitophagy was rapidly induced upon initiation of differentiation in CPCs. We also found that mitophagy was mediated by mitophagy receptors, rather than the PINK1-PRKN/PARKIN pathway. Mitophagy mediated by BNIP3L/NIX and FUNDC1 was not involved in regulating progenitor cell fate determination, mitochondrial biogenesis, or reprogramming. Instead, mitophagy facilitated the CPCs to undergo proper mitochondrial network reorganization during differentiation. Abrogating BNIP3L- and FUNDC1-mediated mitophagy during differentiation led to sustained mitochondrial fission and formation of donut-shaped impaired mitochondria. It also resulted in increased susceptibility to cell death and failure to survive the infarcted heart. Finally, aging is associated with accumulation of mitochondrial DNA (mtDNA) damage in cells and we found that acquiring mtDNA mutations selectively disrupted the differentiation-activated mitophagy program in CPCs. These findings demonstrate the importance of BNIP3L- and FUNDC1-mediated mitophagy as a critical regulator of mitochondrial network formation during differentiation, as well as the consequences of accumulating mtDNA mutations. <b>Abbreviations</b>: Baf: bafilomycin A<sub>1</sub>; BCL2L13: BCL2 like 13; BNIP3: BCL2 interacting protein 3; BNIP3L: BCL2 interacting protein 3 like; CPCs: cardiac progenitor cells; DM: differentiation media; DNM1L: dynamin 1 like; EPCs: endothelial progenitor cells; FCCP: carbonyl cyanide-<i>4</i>-(trifluoromethoxy)phenylhydrazone; FUNDC1: FUN14 domain containing 1; HSCs: hematopoietic stem cells; MAP1LC3B/LC3: microtubule-associated protein 1 light chain 3 beta; MFN1/2: mitofusin 1/2; MSCs: mesenchymal stem cells; mtDNA: mitochondrial DNA; OXPHOS: oxidative phosphorylation; PPARGC1A: PPARG coactivator 1 alpha; PHB2: prohibitin 2; POLG: DNA polymerase gamma, catalytic subunit; SQSTM1: sequestosome 1; TEM: transmission electron microscopy; TMRM: tetramethylrhodamine methyl ester.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Autophagy in age-related macular degeneration.",
+    "doi": "10.1080/15548627.2022.2069437",
+    "pmid": "35468037",
+    "authors": [
+      "Kaarniranta K, Blasiak J, Liton P, Boulton M, Klionsky DJ, Sinha D."
+    ],
+    "year": "2023",
+    "publication_date": "2022-05-01",
+    "cited_by_count": 201,
+    "journal": "",
+    "abstract": "Age-related macular degeneration (AMD) is the leading cause of visual impairment in the aging population with limited understanding of its pathogenesis and a lack of effective treatment. The progression of AMD is initially characterized by atrophic alterations in the retinal pigment epithelium, as well as the formation of lysosomal lipofuscin and extracellular drusen deposits. Damage caused by chronic oxidative stress, protein aggregation and inflammatory processes may lead to geographic atrophy and/or choroidal neovascularization and fibrosis. The role of macroautophagy/autophagy in AMD pathology is steadily emerging. This review describes selective and secretory autophagy and their role in drusen biogenesis, senescence-associated secretory phenotype, inflammation and epithelial-mesenchymal transition in the pathogenesis of AMD.<b>Abbreviations:</b> Aβ: amyloid-beta; AMBRA1: autophagy and beclin 1 regulator 1; AMD: age-related macular degeneration; ATF6: activating transcription factor 6; ATG: autophagy related; BACE1: beta-secretase 1; BHLHE40: basic helix-loop-helix family member e40; BNIP3: BCL2 interacting protein 3; BNIP3L/NIX: BCL2 interacting protein 3 like; C: complement; CALCOCO2/NDP52: calcium binding and coiled-coil domain 2; CARD: caspase recruitment domain; CDKN2A/p16: cyclin dependent kinase inhibitor 2A; CFB: complement factor B; DELEC1/Dec1; deleted in esophageal cancer 1; EIF2AK3/PERK: eukaryotic translation initiation factor 2 alpha kinase 3; EMT: epithelial-mesenchymal transition; ER: endoplasmic reticulum; ERN1/IRE1: endoplasmic reticulum to nucleus signaling 1; FUNDC1: FUN14 domain containing 1; GABARAP: GABA type A receptor-associated protein; HMGB1: high mobility group box 1; IL: interleukin; KEAP1: kelch like ECH associated protein 1; LAP: LC3-associated phagocytosis; LAMP2: lysosomal associated membrane protein 2; LIR: LC3-interacting region; MAP1LC3/LC3: microtubule associated protein 1 light chain 3; MTOR: mechanistic target of rapamycin kinase; NFE2L2: NFE2 like bZIP transcription factor 2; NLRP3; NLR family pyrin domain containing 3; NFKB/NFκB: nuclear factor kappa B; OPTN: optineurin; PARL: presenilin associated rhomboid like; PGAM5: PGAM family member 5, mitochondrial serine/threonine protein phosphatase; PINK1: PTEN induced kinase 1; POS: photoreceptor outer segment; PPARGC1A: PPARG coactivator 1 alpha; PRKN: parkin RBR E3 ubiquitin protein ligase; PYCARD/ASC: PYD and CARD domain containing; ROS: reactive oxygen species; RPE: retinal pigment epithelium; SA: secretory autophagy; SASP: senescence-associated secretory phenotype; SEC22B: SEC22 homolog B, vesicle trafficking protein; SNAP: synaptosome associated protein; SNARE: soluble N-ethylmaleimide-sensitive factor attachment protein receptor; SQSTM1/p62: sequestosome 1; STX: syntaxin; TGFB2: transforming growth factor beta 2; TRIM16: tripartite motif containing 16; TWIST: twist family bHLH transcription factor; Ub: ubiquitin; ULK: unc-51 like autophagy activating kinase; UPR: unfolded protein response; UPS: ubiquitin-proteasome system; V-ATPase: vacuolar-type H<sup>+</sup>-translocating ATPase; VIM: vimentin.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Thyroid hormone (T<sub>3</sub>) stimulates brown adipose tissue activation via mitochondrial biogenesis and MTOR-mediated mitophagy.",
+    "doi": "10.1080/15548627.2018.1511263",
+    "pmid": "30209975",
+    "authors": [
+      "Yau WW, Singh BK, Lesmana R, Zhou J, Sinha RA, Wong KA, Wu Y, Bay BH, Sugii S, Sun L, Yen PM."
+    ],
+    "year": "2019",
+    "publication_date": "2018-09-13",
+    "cited_by_count": 194,
+    "journal": "",
+    "abstract": "The thyroid hormone triiodothyronine (T<sub>3</sub>) activates thermogenesis by uncoupling electron transport from ATP synthesis in brown adipose tissue (BAT) mitochondria. Although T<sub>3</sub> can induce thermogenesis by sympathetic innervation, little is known about its cell autonomous effects on BAT mitochondria. We thus examined effects of T<sub>3</sub> on mitochondrial activity, autophagy, and metabolism in primary brown adipocytes and BAT and found that T<sub>3</sub> increased fatty acid oxidation and mitochondrial respiration as well as autophagic flux, mitophagy, and mitochondrial biogenesis. Interestingly, there was no significant induction of intracellular reactive oxygen species (ROS) despite high mitochondrial respiration and UCP1 induction by T<sub>3</sub>. However, when cells were treated with Atg5 siRNA to block autophagy, induction of mitochondrial respiration by T<sub>3</sub> decreased, and was accompanied by ROS accumulation, demonstrating a critical role for autophagic mitochondrial turnover. We next generated an Atg5 conditional knockout mouse model (Atg5 cKO) by injecting Ucp1 promoter-driven Cre-expressing adenovirus into Atg5<sup>Flox/Flox</sup> mice to examine effects of BAT-specific autophagy on thermogenesis in vivo. Hyperthyroid Atg5 cKO mice exhibited lower body temperature than hyperthyroid or euthyroid control mice. Metabolomic analysis showed that T<sub>3</sub> increased short and long chain acylcarnitines in BAT, consistent with increased β-oxidation. T<sub>3</sub> also decreased amino acid levels, and in conjunction with SIRT1 activation, decreased MTOR activity to stimulate autophagy. In summary, T<sub>3</sub> has direct effects on mitochondrial autophagy, activity, and turnover in BAT that are essential for thermogenesis. Stimulation of BAT activity by thyroid hormone or its analogs may represent a potential therapeutic strategy for obesity and metabolic diseases. Abbreviations: ACACA: acetyl-Coenzyme A carboxylase alpha; AMPK: AMP-activated protein kinase; Acsl1: acyl-CoA synthetase long-chain family member 1; ATG5: autophagy related 5; ATG7: autophagy related 7; ATP: adenosine triphosphate; BAT: brown adipose tissue; cKO: conditional knockout; COX4I1: cytochrome c oxidase subunit 4I1; Cpt1b: carnitine palmitoyltransferase 1b, muscle; CQ: chloroquine; DAPI: 4',6-diamidino-2-phenylindole; DIO2: deiodinase, iodothyronine, type 2; DMEM: Dulbecco's modified Eagle's medium; EIF4EBP1: eukaryotic translation initiation factor 4E binding protein 1; Fabp4: fatty acid binding protein 4, adipocyte; FBS: fetal bovine serum; FCCP: carbonyl cyanide-4-(trifluoromethoxy)phenylhydrazone; FGF: fibroblast growth factor; FOXO1: forkhead box O1; GAPDH: glyceraldehyde-3-phosphate dehydrogenase; GFP: green fluorescent protein; Gpx1: glutathione peroxidase 1; Lipe: lipase, hormone sensitive; MAP1LC3B: microtubule-associated protein 1 light chain 3; mRNA: messenger RNA; MTORC1: mechanistic target of rapamycin kinase complex 1; NAD: nicotinamide adenine dinucleotide; Nrf1: nuclear respiratory factor 1; OCR: oxygen consumption rate; PBS: phosphate-buffered saline; PCR: polymerase chain reaction; PPARGC1A: peroxisome proliferative activated receptor, gamma, coactivator 1 alpha; Pnpla2: patatin-like phospholipase domain containing 2; Prdm16: PR domain containing 16; PRKA: protein kinase, AMP-activated; RPS6KB: ribosomal protein S6 kinase; RFP: red fluorescent protein; ROS: reactive oxygen species; SD: standard deviation; SEM: standard error of the mean; siRNA: small interfering RNA; SIRT1: sirtuin 1; Sod1: superoxide dismutase 1, soluble; Sod2: superoxide dismutase 2, mitochondrial; SQSTM1: sequestosome 1; T<sub>3</sub>: 3,5,3'-triiodothyronine; TFEB: transcription factor EB; TOMM20: translocase of outer mitochondrial membrane 20; UCP1: uncoupling protein 1 (mitochondrial, proton carrier); ULK1: unc-51 like kinase 1; VDAC1: voltage-dependent anion channel 1; WAT: white adipose tissue.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The hitchhiker's guide to PGC-1α isoform structure and biological functions.",
+    "doi": "10.1007/s00125-015-3671-z",
+    "pmid": "26109214",
+    "authors": [
+      "Martínez-Redondo V, Pettersson AT, Ruas JL."
+    ],
+    "year": "2015",
+    "publication_date": "2015-06-25",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "Proteins of the peroxisome proliferator-activated receptor γ (PPARγ) coactivator 1 (PGC-1) family of transcriptional coactivators coordinate physiological adaptations in many tissues, usually in response to demands for higher nutrient and energy supply. Of the founding members of the family, PGC-1α (also known as PPARGC1A) is the most highly regulated gene, using multiple promoters and alternative splicing to produce a growing number of coactivator variants. PGC-1α promoters are selectively active in distinct tissues in response to specific stimuli. To date, more than ten novel PGC-1α isoforms have been reported to be expressed from a novel promoter (PGC-1α-b, PGC-1α-c), to undergo alternative splicing (NT-PGC-1α) or both (PGC-1α2, PGC-1α3, PGC-1α4). The resulting proteins display differential regulation and tissue distribution and, most importantly, exert specific biological functions. In this review we discuss the structural and functional characteristics of the novel PGC-1α isoforms, aiming to provide an integrative view of this constantly expanding system of transcriptional coactivators.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Histone deacetylase 3 prepares brown adipose tissue for acute thermogenic challenge.",
+    "doi": "10.1038/nature22819",
+    "pmid": "28614293",
+    "authors": [
+      "Emmett MJ, Lim HW, Jager J, Richter HJ, Adlanmerini M, Peed LC, Briggs ER, Steger DJ, Ma T, Sims CA, Baur JA, Pei L, Won KJ, Seale P, Gerhart-Hines Z, Lazar MA."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-14",
+    "cited_by_count": 162,
+    "journal": "",
+    "abstract": "Brown adipose tissue is a thermogenic organ that dissipates chemical energy as heat to protect animals against hypothermia and to counteract metabolic disease. However, the transcriptional mechanisms that determine the thermogenic capacity of brown adipose tissue before environmental cold are unknown. Here we show that histone deacetylase 3 (HDAC3) is required to activate brown adipose tissue enhancers to ensure thermogenic aptitude. Mice with brown adipose tissue-specific genetic ablation of HDAC3 become severely hypothermic and succumb to acute cold exposure. Uncoupling protein 1 (UCP1) is nearly absent in brown adipose tissue lacking HDAC3, and there is also marked downregulation of mitochondrial oxidative phosphorylation genes resulting in diminished mitochondrial respiration. Remarkably, although HDAC3 acts canonically as a transcriptional corepressor, it functions as a coactivator of oestrogen-related receptor α (ERRα) in brown adipose tissue. HDAC3 coactivation of ERRα is mediated by deacetylation of PGC-1α and is required for the transcription of Ucp1, Ppargc1a (encoding PGC-1α), and oxidative phosphorylation genes. Importantly, HDAC3 promotes the basal transcription of these genes independently of adrenergic stimulation. Thus, HDAC3 uniquely primes Ucp1 and the thermogenic transcriptional program to maintain a critical capacity for thermogenesis in brown adipose tissue that can be rapidly engaged upon exposure to dangerously cold temperature.",
+    "openalex_id": ""
+  }
+]

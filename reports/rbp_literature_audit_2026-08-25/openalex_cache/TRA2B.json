@@ -1,0 +1,202 @@
+[
+  {
+    "title": "The RNA Splicing Response to DNA Damage",
+    "doi": "10.3390/biom5042935",
+    "authors": [
+      "Lulzim Shkreta",
+      "Benoı̂t Chabot"
+    ],
+    "year": 2015,
+    "publication_date": "2015-10-29",
+    "cited_by_count": 157,
+    "journal": "Biomolecules",
+    "abstract": "The number of factors known to participate in the DNA damage response (DDR) has expanded considerably in recent years to include splicing and alternative splicing factors. While the binding of splicing proteins and ribonucleoprotein complexes to nascent transcripts prevents genomic instability by deterring the formation of RNA/DNA duplexes, splicing factors are also recruited to, or removed from, sites of DNA damage. The first steps of the DDR promote the post-translational modification of splic",
+    "openalex_id": "https://openalex.org/W1890648625",
+    "relevance_score": 68.48329
+  },
+  {
+    "title": "O-GlcNAc regulates gene expression by controlling detained intron splicing",
+    "doi": "10.1093/nar/gkaa263",
+    "authors": [
+      "Zhi-Wei Tan",
+      "George Fei",
+      "João A. Paulo",
+      "Stanislav Bellaousov",
+      "Sara E. Martin"
+    ],
+    "year": 2020,
+    "publication_date": "2020-04-07",
+    "cited_by_count": 124,
+    "journal": "Nucleic Acids Research",
+    "abstract": "Intron detention in precursor RNAs serves to regulate expression of a substantial fraction of genes in eukaryotic genomes. How detained intron (DI) splicing is controlled is poorly understood. Here, we show that a ubiquitous post-translational modification called O-GlcNAc, which is thought to integrate signaling pathways as nutrient conditions fluctuate, controls detained intron splicing. Using specific inhibitors of the enzyme that installs O-GlcNAc (O-GlcNAc transferase, or OGT) and the enzyme",
+    "openalex_id": "https://openalex.org/W3020244548",
+    "relevance_score": 67.147415
+  },
+  {
+    "title": "Signaling Pathways Driving Aberrant Splicing in Cancer Cells",
+    "doi": "10.3390/genes9010009",
+    "authors": [
+      "Vânia Gonçalves",
+      "Joana Pereira",
+      "Peter Jordan"
+    ],
+    "year": 2017,
+    "publication_date": "2017-12-29",
+    "cited_by_count": 70,
+    "journal": "Genes",
+    "abstract": "Aberrant profiles of pre-mRNA splicing are frequently observed in cancer. At the molecular level, an altered profile results from a complex interplay between chromatin modifications, the transcriptional elongation rate of RNA polymerase, and effective binding of the spliceosome to the generated transcripts. Key players in this interplay are regulatory splicing factors (SFs) that bind to gene-specific splice-regulatory sequence elements. Although mutations in genes of some SFs were described, a m",
+    "openalex_id": "https://openalex.org/W2780276291",
+    "relevance_score": 51.406612
+  },
+  {
+    "title": "hnRNP A/B Proteins: An Encyclopedic Assessment of Their Roles in Homeostasis and Disease",
+    "doi": "10.3390/biology10080712",
+    "authors": [
+      "Patricia A. Thibault",
+      "Aravindhan Ganesan",
+      "Subha Kalyaanamoorthy",
+      "Joseph-Patrick W. E. Clarke",
+      "Hannah E. Salapa"
+    ],
+    "year": 2021,
+    "publication_date": "2021-07-24",
+    "cited_by_count": 61,
+    "journal": "Biology",
+    "abstract": "The hnRNP A/B family of proteins is canonically central to cellular RNA metabolism, but due to their highly conserved nature, the functional differences between hnRNP A1, A2/B1, A0, and A3 are often overlooked. In this review, we explore and identify the shared and disparate homeostatic and disease-related functions of the hnRNP A/B family proteins, highlighting areas where the proteins have not been clearly differentiated. Herein, we provide a comprehensive assembly of the literature on these p",
+    "openalex_id": "https://openalex.org/W3184408414",
+    "relevance_score": 46.631386
+  },
+  {
+    "title": "Deregulation of splicing factors and breast cancer development",
+    "doi": "10.1093/jmcb/mjv027",
+    "authors": [
+      "Marco Silipo",
+      "Hannah Gautrey",
+      "Alison Tyson-Capper"
+    ],
+    "year": 2015,
+    "publication_date": "2015-05-05",
+    "cited_by_count": 54,
+    "journal": "Journal of Molecular Cell Biology",
+    "abstract": "It is well known that many genes implicated in the development and progression of breast cancer undergo aberrant alternative splicing events to produce proteins with pro-cancer properties. These changes in alternative splicing can arise from mutations or single-nucleotide polymorphisms (SNPs) within the DNA sequences of cancer-related genes, which can strongly affect the activity of splicing factors and influence the splice site choice. However, it is important to note that absence of mutations ",
+    "openalex_id": "https://openalex.org/W1938491657",
+    "relevance_score": 46.389584
+  },
+  {
+    "title": "hnRNP A1 in RNA metabolism regulation and as a potential therapeutic target",
+    "doi": "10.3389/fphar.2022.986409",
+    "authors": [
+      "Jianguo Feng",
+      "Jianlong Zhou",
+      "Yunxiao Lin",
+      "Wenhua Huang"
+    ],
+    "year": 2022,
+    "publication_date": "2022-10-21",
+    "cited_by_count": 40,
+    "journal": "Frontiers in Pharmacology",
+    "abstract": "Abnormal RNA metabolism, regulated by various RNA binding proteins, can have functional consequences for multiple diseases. Heterogeneous nuclear ribonucleoprotein A1 (hnRNP A1) is an important RNA binding protein, that regulates various RNA metabolic processes, including transcription, alternative splicing of pre-mRNA, translation, miRNA processing and mRNA stability. As a potent splicing factor, hnRNP A1 can regulate multiple splicing events, including itself, collaborating with other cooperat",
+    "openalex_id": "https://openalex.org/W4306974313",
+    "relevance_score": 43.184338
+  },
+  {
+    "title": "SR proteins in cancer: function, regulation, and small inhibitor",
+    "doi": "10.1186/s11658-024-00594-6",
+    "authors": [
+      "Mingrong Bei",
+      "Jianzhen Xu"
+    ],
+    "year": 2024,
+    "publication_date": "2024-05-22",
+    "cited_by_count": 23,
+    "journal": "Cellular & Molecular Biology Letters",
+    "abstract": "Abstract Alternative splicing of pre-mRNAs is a fundamental step in RNA processing required for gene expression in most metazoans. Serine and arginine-rich proteins (SR proteins) comprise a family of multifunctional proteins that contain an RNA recognition motif (RRM) and the ultra-conserved arginine/serine-rich (RS) domain, and play an important role in precise alternative splicing. Increasing research supports SR proteins as also functioning in other RNA-processing-related mechanisms, such as ",
+    "openalex_id": "https://openalex.org/W4398222500",
+    "relevance_score": 36.483025
+  },
+  {
+    "title": "HIV-1 and two avian retroviral 5′ untranslated regions bind orthologous human and chicken RNA binding proteins",
+    "doi": "10.1016/j.virol.2015.06.001",
+    "authors": [
+      "Matthew S. Stake",
+      "Deepali Singh",
+      "Gatikrushna Singh",
+      "J. Marcela Hernandez",
+      "Rebecca J. Kaddis Maldonado"
+    ],
+    "year": 2015,
+    "publication_date": "2015-11-13",
+    "cited_by_count": 28,
+    "journal": "Virology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W2173915105",
+    "relevance_score": 36.4622
+  },
+  {
+    "title": "Alternative Splicing, RNA Editing, and the Current Limits of Next Generation Sequencing",
+    "doi": "10.3390/genes14071386",
+    "authors": [
+      "Manuela Piazzi",
+      "Alberto Bavelloni",
+      "Sara Salucci",
+      "Irene Faenza",
+      "William L. Blalock"
+    ],
+    "year": 2023,
+    "publication_date": "2023-06-30",
+    "cited_by_count": 26,
+    "journal": "Genes",
+    "abstract": "The advent of next generation sequencing (NGS) has fostered a shift in basic analytic strategies of a gene expression analysis in diverse pathologies for the purposes of research, pharmacology, and personalized medicine. What was once highly focused research on individual signaling pathways or pathway members has, from the time of gene expression arrays, become a global analysis of gene expression that has aided in identifying novel pathway interactions, the discovery of new therapeutic targets,",
+    "openalex_id": "https://openalex.org/W4382752293",
+    "relevance_score": 33.501896
+  },
+  {
+    "title": "Oncogenic SRSF3 in health and diseases",
+    "doi": "10.7150/ijbs.83368",
+    "authors": [
+      "Rong Jia",
+      "Zhi‐Ming Zheng"
+    ],
+    "year": 2023,
+    "publication_date": "2023-01-01",
+    "cited_by_count": 26,
+    "journal": "International Journal of Biological Sciences",
+    "abstract": "Serine/arginine rich splicing factor 3 (SRSF3) is an important multi-functional splicing factor, and has attracted increasing attentions in the past thirty years. The importance of SRSF3 is evidenced by its impressively conserved protein sequences in all animals and alternative exon 4 which represents an autoregulatory mechanism to maintain its proper cellular expression level. New functions of SRSF3 have been continuously discovered recently, especially its oncogenic function. SRSF3 plays essen",
+    "openalex_id": "https://openalex.org/W4380685957",
+    "relevance_score": 32.297905
+  },
+  {
+    "title": "DNA and RNA Binding Proteins: From Motifs to Roles in Cancer",
+    "doi": "10.3390/ijms23169329",
+    "authors": [
+      "Ondřej Bonczek",
+      "Lixiao Wang",
+      "Sivakumar Vadivel Gnanasundram",
+      "Sa Chen",
+      "Lucia Hároníková"
+    ],
+    "year": 2022,
+    "publication_date": "2022-08-18",
+    "cited_by_count": 20,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "DNA and RNA binding proteins (DRBPs) are a broad class of molecules that regulate numerous cellular processes across all living organisms, creating intricate dynamic multilevel networks to control nucleotide metabolism and gene expression. These interactions are highly regulated, and dysregulation contributes to the development of a variety of diseases, including cancer. An increasing number of proteins with DNA and/or RNA binding activities have been identified in recent years, and it is import",
+    "openalex_id": "https://openalex.org/W4292962405",
+    "relevance_score": 29.236313
+  },
+  {
+    "title": "Intron Retention: A Reemerging Paradigm in RNA Biology and Post-Transcriptional Gene Regulation",
+    "doi": "10.3390/genes16080986",
+    "authors": [
+      "Ana L. Porras-Tobias",
+      "Abigail Caldera",
+      "Isabel Castro‐Piedras"
+    ],
+    "year": 2025,
+    "publication_date": "2025-08-21",
+    "cited_by_count": 15,
+    "journal": "Genes",
+    "abstract": "For 40 years, Intron Retention (IR) was dismissed as splicing noise and is now recognized as a dynamic and evolutionarily conserved mechanism of post-transcriptional gene regulation. Unlike canonical splicing, which excises all introns from pre-mRNAs, IR selectively retains intronic sequences, albeit at seemingly random places; however, current research now reveals that this process is strategic in its retention. IR influences mRNA stability, localization, and translational potential. Retained i",
+    "openalex_id": "https://openalex.org/W4413430854",
+    "relevance_score": 28.933966
+  }
+]

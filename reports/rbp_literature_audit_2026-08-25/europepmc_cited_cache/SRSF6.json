@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Long non-coding RNA LINC01133 inhibits epithelial-mesenchymal transition and metastasis in colorectal cancer by interacting with SRSF6.",
+    "doi": "10.1016/j.canlet.2016.07.015",
+    "pmid": "27443606",
+    "authors": [
+      "Kong J, Sun W, Li C, Wan L, Wang S, Wu Y, Xu E, Zhang H, Lai M."
+    ],
+    "year": "2016",
+    "publication_date": "2016-07-18",
+    "cited_by_count": 166,
+    "journal": "",
+    "abstract": "Long non-coding RNAs (lncRNAs) play crucial roles in many biological and pathological processes, including tumor metastasis. Here we reported a novel lncRNA, LINC01133 that was downregulated by TGF-β, which could inhibit epithelial-mesenchymal transition (EMT) and metastasis in colorectal cancer (CRC) cells. An alternative splicing factor SRSF6 was identified to directly interact with LINC01133, and SRSF6 promoted EMT and metastasis in CRC cells independent of LINC01133 And we confirmed that the EMT process was regulated by LINC01133 in CRC cells dependent on the presence of SRSF6. The observation for LINC01133 to inhibit metastasis was also verified in vivo. Moreover clinical data showed that the LINC01133 expression was positively correlated with E-cadherin, and negatively correlated with Vimentin, and there was a robust association of low LIINC01133 expression in tumors with poor survival in CRC samples. These data suggest that LINC01133 inhibits the EMT and metastasis by directly binding to SRSF6 as a target mimic, and may serve as a prognostic biomarker and an effective target for anti-metastasis therapies for CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA CRNDE attenuates chemoresistance in gastric cancer via SRSF6-regulated alternative splicing of PICALM.",
+    "doi": "10.1186/s12943-020-01299-y",
+    "pmid": "33397371",
+    "authors": [
+      "Zhang F, Wang H, Yu J, Yao X, Yang S, Li W, Xu L, Zhao L."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-04",
+    "cited_by_count": 155,
+    "journal": "",
+    "abstract": "De novo and acquired resistance, which are mainly mediated by genetic alterations, are barriers to effective routine chemotherapy. However, the mechanisms underlying gastric cancer (GC) resistance to chemotherapy are still unclear. We showed that the long noncoding RNA CRNDE was related to the chemosensitivity of GC in clinical samples and a PDX model. CRNDE was decreased and inhibited autophagy flux in chemoresistant GC cells. CRNDE directly bound to splicing protein SRSF6 to reduce its protein stability and thus regulate alternative splicing (AS) events. We determined that SRSF6 regulated the PICALM exon 14 skip splice variant and triggered a significant S-to-L isoform switch, which contributed to the expression of the long isoform of PICALM (encoding PICALML). Collectively, our findings reveal the key role of CRNDE in autophagy regulation, highlighting the significance of CRNDE as a potential prognostic marker and therapeutic target against chemoresistance in GC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF6-regulated alternative splicing that promotes tumour progression offers a therapy target for colorectal cancer.",
+    "doi": "10.1136/gutjnl-2017-314983",
+    "pmid": "29114070",
+    "authors": [
+      "Wan L, Yu W, Shen E, Sun W, Liu Y, Kong J, Wu Y, Han F, Zhang L, Yu T, Zhou Y, Xie S, Xu E, Zhang H, Lai M."
+    ],
+    "year": "2019",
+    "publication_date": "2017-11-07",
+    "cited_by_count": 150,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To investigate the molecular function of splicing factor SRSF6 in colorectal cancer (CRC) progression and discover candidate chemicals for cancer therapy through targeting SRSF6.<h4>Design</h4>We performed comprehensive analysis for the expression of SRSF6 in 311 CRC samples, The Cancer Genome Atlas and Gene Expression Omnibus (GEO) database. Functional analysis of SRSF6 in CRC was performed <i>in vitro</i> and <i>in vivo</i>. SRSF6-regulated alternative splicing (AS) and its binding motif were identified by next-generation RNA-sequencing and RNA immunoprecipitation sequencing (RIP-seq), which was validated by gel shift and minigene reporter assay. ZO-1 exon23 AS was investigated to mediate the function of SRSF6 <i>in vitro</i> and <i>in vivo</i>. Based on the analysis of domain-specific role, SRSF6-targeted inhibitor was discovered <i>de novo</i>by virtual screening in 4855 FDA-approved drugs and its antitumour effects were evaluated <i>in vitro</i>and <i>in vivo</i>.<h4>Results</h4>SRSF6 was frequently upregulated in CRC samples and associated with poor prognosis, which promoted proliferation and metastasis <i>in vitro</i> and <i>in vivo</i>. We identified SRSF6-regulated AS targets and discovered the SRSF6 binding motif. Particularly, SRSF6 regulates ZO-1 aberrant splicing to function as an oncogene by binding directly to its motif in the exon23. Based on the result that SRSF6 RRM2 domain plays key roles in regulating AS and biological function, indacaterol, a β2-adrenergic receptor agonist approved for chronic obstructive pulmonary disease treatment, is identified as the inhibitor of SRSF6 to suppress CRC tumourigenicity.<h4>Conclusions</h4>SRSF6 functions the important roles in mediating CRC progression through regulating AS, and indacaterol is repositioned as an antitumour drug through targeting SRSF6.<h4>Accession numbers</h4>The accession numbers for sequencing data are SRP111763 and SRP111797.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing factor SRSF6 is amplified and is an oncoprotein in lung and colon cancers.",
+    "doi": "10.1002/path.4129",
+    "pmid": "23132731",
+    "authors": [
+      "Cohen-Eliav M, Golan-Gerstl R, Siegfried Z, Andersen CL, Thorsen K, Ørntoft TF, Mu D, Karni R."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-01",
+    "cited_by_count": 133,
+    "journal": "",
+    "abstract": "An increasing body of evidence connects alterations in the process of alternative splicing with cancer development and progression. However, a direct role of splicing factors as drivers of cancer development is mostly unknown. We analysed the gene copy number of several splicing factors in colon and lung tumours, and found that the gene encoding for the splicing factor SRSF6 is amplified and over-expressed in these cancers. Moreover, over-expression of SRSF6 in immortal lung epithelial cells enhanced proliferation, protected them from chemotherapy-induced cell death and converted them to be tumourigenic in mice. In contrast, knock-down of SRSF6 in lung and colon cancer cell lines inhibited their tumourigenic abilities. SRSF6 up- or down-regulation altered the splicing of several tumour suppressors and oncogenes to generate the oncogenic isoforms and reduce the tumour-suppressive isoforms. Our data suggest that the splicing factor SRSF6 is an oncoprotein that regulates the proliferation and survival of lung and colon cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing factor SRSF6 promotes hyperplasia of sensitized skin.",
+    "doi": "10.1038/nsmb.2756",
+    "pmid": "24440982",
+    "authors": [
+      "Jensen MA, Wilkinson JE, Krainer AR."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-19",
+    "cited_by_count": 110,
+    "journal": "",
+    "abstract": "Many biological processes involve gene-expression regulation by alternative splicing. Here, we identify the splicing factor SRSF6 as a regulator of wound healing and tissue homeostasis in skin. We show that SRSF6 is a proto-oncogene frequently overexpressed in human skin cancer. Overexpressing it in transgenic mice induces hyperplasia of sensitized skin and promotes aberrant alternative splicing. We identify 139 SRSF6-target genes in skin and show that this SR-rich protein binds to alternative exons in the pre-mRNA of the extracellular-matrix protein tenascin C, thus promoting the expression of isoforms characteristic of invasive and metastatic cancer independently of cell type. SRSF6 overexpression additionally results in depletion of LGR6+ stem cells and excessive keratinocyte proliferation and response to injury. Furthermore, the effects of SRSF6 in wound healing assayed in vitro depend on the tenascin-C isoforms. Thus, abnormal SR-protein expression can perturb tissue homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Differential Functions of Splicing Factors in Mammary Transformation and Breast Cancer Metastasis.",
+    "doi": "10.1016/j.celrep.2019.10.110",
+    "pmid": "31775037",
+    "authors": [
+      "Park S, Brugiolo M, Akerman M, Das S, Urbanski L, Geier A, Kesarwani AK, Fan M, Leclair N, Lin KT, Hu L, Hua I, George J, Muthuswamy SK, Krainer AR, Anczuków O."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-01",
+    "cited_by_count": 94,
+    "journal": "",
+    "abstract": "Misregulation of alternative splicing is a hallmark of human tumors, yet to what extent and how it contributes to malignancy are only beginning to be unraveled. Here, we define which members of the splicing factor SR and SR-like families contribute to breast cancer and uncover differences and redundancies in their targets and biological functions. We identify splicing factors frequently altered in human breast tumors and assay their oncogenic functions using breast organoid models. We demonstrate that not all splicing factors affect mammary tumorigenesis in MCF-10A cells. Specifically, the upregulation of SRSF4, SRSF6, or TRA2β disrupts acinar morphogenesis and promotes cell proliferation and invasion in MCF-10A cells. By characterizing the targets of these oncogenic splicing factors, we identify shared spliced isoforms associated with well-established cancer hallmarks. Finally, we demonstrate that TRA2β is regulated by the MYC oncogene, plays a role in metastasis maintenance in vivo, and its levels correlate with breast cancer patient survival.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Intranasal Administration of miR-146a Agomir Rescued the Pathological Process and Cognitive Impairment in an AD Mouse Model.",
+    "doi": "10.1016/j.omtn.2019.10.002",
+    "pmid": "31707205",
+    "authors": [
+      "Mai H, Fan W, Wang Y, Cai Y, Li X, Chen F, Chen X, Yang J, Tang P, Chen H, Zou T, Hong T, Wan C, Zhao B, Cui L."
+    ],
+    "year": "2019",
+    "publication_date": "2019-10-10",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "Alzheimer's disease (AD) is the most common cause of dementia and cannot be cured. The etiology and pathogenesis of AD is still not fully understood, the genetics is considered to be one of the most important factors for AD onset, and the identified susceptible genes could provide clues to the AD mechanism and also be the potential targets. MicroRNA-146a-5p (miR-146a) is well known in the regulation of the inflammatory response, and the functional SNP of miR-146a was associated with AD risk. In this study, using a noninvasive nasal administration, we discovered that a miR-146a agomir (M146AG) rescued cognitive impairment in the APP/PS1 transgenic mouse and alleviated the overall pathological process in the AD mouse model, including neuroinflammation, glia activation, Aβ deposit, and tau phosphorylation in hippocampi. Furthermore, the transcriptional analysis revealed that besides the effect of neuroinflammation, M146AG may serve as a multi-potency target for intervention in AD. In addition, Srsf6 was identified as a target of miR-146a, which may play a role in AD progression. In conclusion, our study supports that the nasal-to-brain pathway is efficient and operable for the brain administration of microRNAs (miRNAs), and that miR-146a may be a new potential target for AD treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing factor hnRNP A2 activates the Ras-MAPK-ERK pathway by controlling A-Raf splicing in hepatocellular carcinoma development.",
+    "doi": "10.1261/rna.042259.113",
+    "pmid": "24572810",
+    "authors": [
+      "Shilo A, Ben Hur V, Denichenko P, Stein I, Pikarsky E, Rauch J, Kolch W, Zender L, Karni R."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-26",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "In recent years, it has become clear that splicing factors play a direct role in cancer development. We showed previously that splicing factors SRSF1, SRSF6, and hnRNP A2/B1 are up-regulated in several cancers and can act as oncogenes when up-regulated. Here we examined the role of splicing factors hnRNP A1/A1b and hnRNP A2/B1 in hepatocellular carcinoma (HCC). We show that the splicing factors hnRNP A1 and hnRNP A2 are up-regulated in HCC tumors derived from inflammation-induced liver cancer mouse model. Overexpression of hnRNP A1 or hnRNP A2, but not the splicing isoform hnRNP B1, induced tumor formation of immortalized liver progenitor cells, while knockdown of these proteins inhibited anchorage-independent growth and tumor growth of human liver cancer cell lines. In addition, we found that cells overexpressing hnRNP A2 showed constitutive activation of the Ras-MAPK-ERK pathway. In contrast, knockdown of hnRNP A2 inhibited the Ras-MAPK-ERK pathway and prevented ERK1/2 activation by EGF. Moreover, we found that hnRNP A2 regulates the splicing of A-Raf, reducing the production of a short dominant-negative isoform of A-Raf and elevating the full-length A-Raf transcript. Taken together, our data suggest that hnRNP A2 up-regulation in HCC induces an alternative splicing switch that down-regulates a dominant-negative isoform of A-Raf, leading to activation of the Raf-MEK-ERK pathway and cellular transformation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DRAK2 aggravates nonalcoholic fatty liver disease progression through SRSF6-associated RNA alternative splicing.",
+    "doi": "10.1016/j.cmet.2021.09.008",
+    "pmid": "34614409",
+    "authors": [
+      "Li Y, Xu J, Lu Y, Bian H, Yang L, Wu H, Zhang X, Zhang B, Xiong M, Chang Y, Tang J, Yang F, Zhao L, Li J, Gao X, Xia M, Tan M, Li J."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-01",
+    "cited_by_count": 77,
+    "journal": "",
+    "abstract": "Nonalcoholic steatohepatitis (NASH) is an advanced stage of nonalcoholic fatty liver disease (NAFLD) with serious consequences that currently lacks approved pharmacological therapies. Recent studies suggest the close relationship between the pathogenesis of NAFLD and the dysregulation of RNA splicing machinery. Here, we reveal death-associated protein kinase-related apoptosis-inducing kinase-2 (DRAK2) is markedly upregulated in the livers of both NAFLD/NASH patients and NAFLD/NASH diet-fed mice. Hepatic deletion of DRAK2 suppresses the progression of hepatic steatosis to NASH. Comprehensive analyses of the phosphoproteome and transcriptome indicated a crucial role of DRAK2 in RNA splicing and identified the splicing factor SRSF6 as a direct binding protein of DRAK2. Further studies demonstrated that binding to DRAK2 inhibits SRSF6 phosphorylation by the SRSF kinase SRPK1 and regulates alternative splicing of mitochondrial function-related genes. In conclusion, our findings reveal an indispensable role of DRAK2 in NAFLD/NASH and offer a potential therapeutic target for this disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved splicing mechanism of the LMNA gene controls premature aging.",
+    "doi": "10.1093/hmg/ddr385",
+    "pmid": "21875900",
+    "authors": [
+      "Lopez-Mejia IC, Vautrot V, De Toledo M, Behm-Ansmant I, Bourgeois CF, Navarro CL, Osorio FG, Freije JM, Stévenin J, De Sandre-Giovannoli A, Lopez-Otin C, Lévy N, Branlant C, Tazi J."
+    ],
+    "year": "2011",
+    "publication_date": "2011-08-29",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "Hutchinson-Gilford progeria syndrome (HGPS) is a rare genetic disorder phenotypically characterized by many features of premature aging. Most cases of HGPS are due to a heterozygous silent mutation (c.1824C>T; p.Gly608Gly) that enhances the use of an internal 5' splice site (5'SS) in exon 11 of the LMNA pre-mRNA and leads to the production of a truncated protein (progerin) with a dominant negative effect. Here we show that HGPS mutation changes the accessibility of the 5'SS of LMNA exon 11 which is sequestered in a conserved RNA structure. Our results also reveal a regulatory role of a subset of serine-arginine (SR)-rich proteins, including serine-arginine rich splicing factor 1 (SRSF1) and SRSF6, on utilization of the 5'SS leading to lamin A or progerin production and a modulation of this regulation in the presence of the c.1824C>T mutation is shown directly on HGPS patient cells. Mutant mice carrying the equivalent mutation in the LMNA gene (c.1827C>T) also accumulate progerin and phenocopy the main cellular alterations and clinical defects of HGPS patients. RNAi-induced depletion of SRSF1 in the HGPS-like mouse embryonic fibroblasts (MEFs) allowed progerin reduction and dysmorphic nuclei phenotype correction, whereas SRSF6 depletion aggravated the HGPS-like MEF's phenotype. We demonstrate that changes in the splicing ratio between lamin A and progerin are key factors for lifespan since heterozygous mice harboring the mutation lived longer than homozygous littermates but less than the wild-type. Genetic and biochemical data together favor the view that physiological progerin production is under tight control of a conserved splicing mechanism to avoid precocious aging.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing of long non-coding RNAs primarily depends on polypyrimidine tract and 5' splice-site sequences due to weak interactions with SR proteins.",
+    "doi": "10.1093/nar/gky1147",
+    "pmid": "30445574",
+    "authors": [
+      "Krchnáková Z, Thakur PK, Krausová M, Bieberstein N, Haberman N, Müller-McNicoll M, Stanek D."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Many nascent long non-coding RNAs (lncRNAs) undergo the same maturation steps as pre-mRNAs of protein-coding genes (PCGs), but they are often poorly spliced. To identify the underlying mechanisms for this phenomenon, we searched for putative splicing inhibitory sequences using the ncRNA-a2 as a model. Genome-wide analyses of intergenic lncRNAs (lincRNAs) revealed that lincRNA splicing efficiency positively correlates with 5'ss strength while no such correlation was identified for PCGs. In addition, efficiently spliced lincRNAs have higher thymidine content in the polypyrimidine tract (PPT) compared to efficiently spliced PCGs. Using model lincRNAs, we provide experimental evidence that strengthening the 5'ss and increasing the T content in PPT significantly enhances lincRNA splicing. We further showed that lincRNA exons contain less putative binding sites for SR proteins. To map binding of SR proteins to lincRNAs, we performed iCLIP with SRSF2, SRSF5 and SRSF6 and analyzed eCLIP data for SRSF1, SRSF7 and SRSF9. All examined SR proteins bind lincRNA exons to a much lower extent than expression-matched PCGs. We propose that lincRNAs lack the cooperative interaction network that enhances splicing, which renders their splicing outcome more dependent on the optimality of splice sites.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Regulatory mechanisms of incomplete huntingtin mRNA splicing.",
+    "doi": "10.1038/s41467-018-06281-3",
+    "pmid": "30262848",
+    "authors": [
+      "Neueder A, Dumas AA, Benjamin AC, Bates GP."
+    ],
+    "year": "2018",
+    "publication_date": "2018-09-27",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "Huntington's disease is caused by a CAG repeat expansion in exon 1 of the HTT gene. We have previously shown that exon 1 HTT does not always splice to exon 2 producing a small transcript (HTTexon1) that encodes the highly pathogenic exon 1 HTT protein. The mechanisms by which this incomplete splicing occurs are unknown. Here, we have generated a minigene system that recapitulates the CAG repeat-length dependence of HTTexon1 production, and has allowed us to define the regions of intron 1 necessary for incomplete splicing. We show that manipulation of the expression levels of the splicing factor SRSF6, predicted to bind CAG repeats, modulates this aberrant splicing event and also demonstrate that RNA polymerase II transcription speed regulates the levels of HTTexon1 production. Understanding the mechanisms by which this pathogenic exon 1 HTT is generated may provide the basis for the development of strategies to prevent its production.",
+    "openalex_id": ""
+  }
+]

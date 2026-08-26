@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The P124A mutation of SRP14 alters its migration on SDS-PAGE without impacting its function.",
+    "doi": "10.3724/abbs.2024004",
+    "pmid": "38273782",
+    "authors": [
+      "Liu Y, Zhou J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "SRP14 is a crucial protein subunit of the signal recognition particle (SRP), a ribonucleoprotein complex essential for co-translational translocation to the endoplasmic reticulum. During our investigation of SRP14 expression across diverse cell lines, we observe variations in its migration on sodium dodecyl sulfate-polyacrylamide gel electrophoresis (SDS-PAGE), with some cells exhibiting slower migration and others migrating faster. However, the cause of this phenomenon remains elusive. Our research rules out alternative splicing as the cause and, instead, identifies the presence of a P124A mutation in SRP14 (SRP14 <sup>P124A</sup>) among the faster-migrating variants, while the slower-migrating variants lack this mutation. Subsequent ectopic expression of wild-type SRP14 <sup>P124</sup> or SRP14 <sup>WT</sup> and SRP14 <sup>P124A</sup> in various cell lines confirms that the P124A mutation indeed leads to faster migration of SRP14. Further mutagenesis analysis shows that the P117A and A121P mutations within the alanine-rich domain at the C-terminus of SRP14 are responsible for migration alterations on SDS-PAGE, whereas mutations outside this domain, such as P39A, Y27F, and T45A, have no such effect. Furthermore, the ectopic expression of SRP14 <sup>WT</sup> and SRP14 <sup>P124A</sup> yields similar outcomes in terms of SRP RNA stability, cell morphology, and cell growth, indicating that SRP14 <sup>P124A</sup> represents a natural variant of SRP14 and retains comparable functionality. In conclusion, the substitution of proline for alanine in the alanine-rich tail of SRP14 results in faster migration on SDS-PAGE, but has little effect on its function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The role of SRP9/SRP14 in regulating Alu RNA.",
+    "doi": "10.1080/15476286.2024.2430817",
+    "pmid": "39563162",
+    "authors": [
+      "Gussakovsky D, Black NA, Booy EP, McKenna SA."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-01",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "SRP9/SRP14 is a protein heterodimer that plays a critical role in the signal recognition particle through its interaction with the scaffolding signal recognition particle RNA (7SL). SRP9/SRP14 binding to 7SL is mediated through a conserved structural motif that is shared with the primate-specific Alu RNA. Alu RNA are transcription products of Alu elements, a retroelement that comprises ~10% of the human genome. Alu RNA are involved in myriad biological processes and are dysregulated in several human disease states. This review focuses on the roles SRP9/SRP14 has in regulating Alu RNA diversification, maturation, and function. The diverse mechanisms through which SRP9/SRP14 regulates Alu RNA exemplify the breadth of protein-mediated regulation of non-coding RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterised intron retention profiles in muscle tissue of idiopathic inflammatory myopathy subtypes.",
+    "doi": "10.1136/ard-2023-225035",
+    "pmid": "38302260",
+    "authors": [
+      "Xiao Y, Xie S, Li HD, Liu Y, Zhang H, Zuo X, Zhu H, Li Y, Luo H."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-12",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>Idiopathic inflammatory myopathies (IIMs) are a group of heterogeneous autoimmune diseases. Intron retention (IR) serves as an important post-transcriptional and translational regulatory mechanism. This study aims to identify changes in IR profiles in IIM subtypes, investigating their influence on proteins and their correlations with clinical features.<h4>Methods</h4>RNA sequencing and liquid chromatography-tandem mass spectrometry were performed on muscle tissues obtained from 174 patients with IIM and 19 controls, following QC procedures. GTFtools and iREAD software were used for IR identification. An analysis of differentially expressed IRs (DEIs), exons and proteins was carried out using edgeR or DEP. Functional analysis was performed with clusterProfiler, and SPIRON was used to assess splicing factors.<h4>Results</h4>A total of 6783 IRs located in 3111 unique genes were identified in all IIM subtypes compared with controls. IIM subtype-specific DEIs were associated with the pathogenesis of respective IIM subtypes. Splicing factors YBX1 and HSPA2 exhibited the most changes in dermatomyositis and immune-mediated necrotising myopathy. Increased IR was associated with reduced protein expression. Some of the IIM-specific DEIs were correlated with clinical parameters (skin rash, MMT-8 scores and muscle enzymes) and muscle histopathological features (myofiber necrosis, regeneration and inflammation). IRs in IFIH1 and TRIM21 were strongly correlated with anti-MDA5+ antibody, while IRs in SRP14 were associated with anti-SRP+ antibody.<h4>Conclusion</h4>This study revealed distinct IRs and specific splicing factors associated with IIM subtypes, which might be contributing to the pathogenesis of IIM. We also emphasised the potential impact of IR on protein expression in IIM muscles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated transcriptomic and single-cell RNA sequencing identifies lysosomal ion channel genes as potential biomarkers for Alzheimer's disease.",
+    "doi": "10.3389/fgene.2025.1676565",
+    "pmid": "41132791",
+    "authors": [
+      "Wang X, Wu Z, Wei S, Zhao X, Lin J, Zhao F, Liu X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-08",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Previous research has highlighted lysosomal ion channel-related genes (LICRGs) as promising therapeutic targets for neurodegenerative diseases. This study aimed to identify and analyze LICRG-associated biomarkers for Alzheimer's disease (AD), elucidating their underlying biological mechanisms. Three datasets (GSE63061, GSE63060, GSE181279) were analyzed. In GSE63061, intersecting genes were identified by integrating differentially expressed genes (DEGs) from differential expression analysis with key module genes from Weighted Gene Co-expression Network Analysis (WGCNA). Candidate biomarkers were then selected using the MCODE plugin for PPI analysis (top 30 genes), two machine learning approaches, and cross-validation of gene expression profiles in GSE63061 and GSE63060. Single-cell RNA sequencing (scRNA-seq) analysis of GSE181279 identified key biomarkers and cell populations, followed by pseudo-temporal analysis of these cells. Nomogram construction, functional enrichment analysis, immune infiltration assessment, and RT-qPCR analysis were subsequently performed. scRNA-seq analysis revealed that <i>SRP14</i>, <i>EIF3E</i>, and <i>COX7C</i> were prominently expressed across most cell types, particularly in CD4<sup>+</sup> T cells, which were identified as key cells in AD. Pseudo-temporal analysis indicated that CD4<sup>+</sup> T cells from control subjects primarily resided in early differentiation stages, whereas those from patients with AD were predominantly found in later stages. The reduced expression of these biomarkers in AD CD4<sup>+</sup> T cells was consistent with transcriptomic data and further validated by RT-qPCR. A nomogram incorporating these biomarkers demonstrated strong predictive power for AD risk. Functional analysis linked the biomarkers to pathways such as \"ribosome\" and \"oxidative phosphorylation.\" Immune infiltration analysis revealed 23 differentially abundant immune cell types, with significant correlations between all three biomarkers and memory CD4<sup>+</sup> T cells, mesangial cells, and other immune cell types. This study identified <i>SRP14</i>, <i>EIF3E</i>, and <i>COX7C</i> as novel biomarkers, underscoring CD4<sup>+</sup> T cells as pivotal in AD pathogenesis. These findings offer new mechanistic insights and potential therapeutic strategies for AD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear SRP9/SRP14 heterodimer transcriptionally regulates 7SL and BC200 RNA expression.",
+    "doi": "10.1261/rna.079649.123",
+    "pmid": "37156570",
+    "authors": [
+      "Gussakovsky D, Booy EP, Brown MJF, McKenna SA."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-08",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "The SRP9/SRP14 heterodimer is a central component of signal recognition particle (SRP) RNA (7SL) processing and Alu retrotransposition. In this study, we sought to establish the role of nuclear SRP9/SRP14 in the transcriptional regulation of 7SL and BC200 RNA. 7SL and BC200 RNA steady-state levels, rate of decay, and transcriptional activity were evaluated under SRP9/SRP14 knockdown conditions. Immunofluorescent imaging, and subcellular fractionation of MCF-7 cells, revealed a distinct nuclear localization for SRP9/SRP14. The relationship between this localization and transcriptional activity at 7SL and BC200 genes was also examined. These findings demonstrate a novel nuclear function of SRP9/SRP14 establishing that this heterodimer transcriptionally regulates 7SL and BC200 RNA expression. We describe a model in which SRP9/SRP14 cotranscriptionally regulate 7SL and BC200 RNA expression. Our model is also a plausible pathway for regulating Alu RNA transcription and is consistent with the hypothesized roles of SRP9/SRP14 transporting 7SL RNA into the nucleolus for posttranscriptional processing, and trafficking of Alu RNA for retrotransposition.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-Binding Proteins SRP14 and HMGB3 Control HIV-1 Tat mRNA Processing and Translation During HIV-1 Latency.",
+    "doi": "10.3389/fgene.2021.680725",
+    "pmid": "34194479",
+    "authors": [
+      "Khoury G, Lee MY, Ramarathinam SH, McMahon J, Purcell AW, Sonza S, Lewin SR, Purcell DFJ."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-14",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "HIV-1 Tat protein is essential for virus production. RNA-binding proteins that facilitate Tat production may be absent or downregulated in resting CD4<sup>+</sup> T-cells, the main reservoir of latent HIV in people with HIV (PWH) on antiretroviral therapy (ART). In this study, we examined the role of Tat RNA-binding proteins on the expression of Tat and control of latent and productive infection. Affinity purification coupled with mass spectrometry analysis was used to detect binding partners of MS2-tagged <i>tat</i> mRNA in a T cell-line model of HIV latency. The effect of knockdown and overexpression of the proteins of interest on Tat transactivation and translation was assessed by luciferase-based reporter assays and infections with a dual color HIV reporter virus. Out of the 243 interactions identified, knockdown of SRP14 (Signal Recognition Particle 14) negatively affected <i>tat</i> mRNA processing and translation as well as Tat-mediated transactivation, which led to an increase in latent infection. On the other hand, knockdown of HMGB3 (High Mobility Group Box 3) resulted in an increase in Tat transactivation and translation as well as an increase in productive infection. Footprinting experiments revealed that SRP14 and HMGB3 proteins bind to TIM-TAM, a conserved RNA sequence-structure in <i>tat</i> mRNA that functions as a Tat IRES modulator of <i>tat</i> mRNA. Overexpression of SRP14 in resting CD4<sup>+</sup> T-cells from patients on ART was sufficient to reverse HIV-1 latency and induce virus production. The role of SRP14 and HMGB3 proteins in controlling HIV Tat expression during latency will be further assessed as potential drug targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translocational attenuation mediated by the PERK-SRP14 axis is a protective mechanism of unfolded protein response.",
+    "doi": "10.1016/j.celrep.2024.114402",
+    "pmid": "38943644",
+    "authors": [
+      "Liu Y, Gu Y, Chen Y, Wang X, Zhou G, Li J, Wang M, Fang S, Yang Y."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-27",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "The unfolded protein response (UPR) relieves endoplasmic reticulum (ER) stress through multiple strategies, including reducing protein synthesis, increasing protein folding capabilities, and enhancing misfolded protein degradation. After a multi-omics analysis, we find that signal recognition particle 14 (SRP14), an essential component of the SRP, is markedly reduced in cells undergoing ER stress. Further experiments indicate that SRP14 reduction requires PRKR-like ER kinase (PERK)-mediated eukaryotic translation initiation factor 2α (eIF2α) phosphorylation but is independent of ATF4 or ATF3 transcription factors. The decrease of SRP14 correlates with reduced translocation of fusion proteins and endogenous cathepsin D. Enforced expression of an SRP14 variant with elongation arrest capability prevents the reduced translocation of cathepsin D in stressed cells, whereas an SRP14 mutant without the activity does not. Finally, overexpression of SRP14 augments the UPR and aggravates ER-stress-induced cell death. These data suggest that translocational attenuation mediated by the PERK-SRP14 axis is a protective measure for the UPR to mitigate ER stress.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Noncanonical Functions and Cellular Dynamics of the Mammalian Signal Recognition Particle Components.",
+    "doi": "10.3389/fmolb.2021.679584",
+    "pmid": "34113652",
+    "authors": [
+      "Faoro C, Ataide SF."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-25",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "The signal recognition particle (SRP) is a ribonucleoprotein complex fundamental for co-translational delivery of proteins to their proper membrane localization and secretory pathways. Literature of the past two decades has suggested new roles for individual SRP components, 7SL RNA and proteins SRP9, SRP14, SRP19, SRP54, SRP68 and SRP72, outside the SRP cycle. These noncanonical functions interconnect SRP with a multitude of cellular and molecular pathways, including virus-host interactions, stress response, transcriptional regulation and modulation of apoptosis in autoimmune diseases. Uncovered novel properties of the SRP components present a new perspective for the mammalian SRP as a biological modulator of multiple cellular processes. As a consequence of these findings, SRP components have been correlated with a growing list of diseases, such as cancer progression, myopathies and bone marrow genetic diseases, suggesting a potential for development of SRP-target therapies of each individual component. For the first time, here we present the current knowledge on the SRP noncanonical functions and raise the need of a deeper understanding of the molecular interactions between SRP and accessory cellular components. We examine diseases associated with SRP components and discuss the development and feasibility of therapeutics targeting individual SRP noncanonical functions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and validation of signal recognition particle 14 as a prognostic biomarker predicting overall survival in patients with acute myeloid leukemia.",
+    "doi": "10.1186/s12920-021-00975-2",
+    "pmid": "33985510",
+    "authors": [
+      "Shi L, Huang R, Lai Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-13",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Background</h4>This study aimed to determine and verify the prognostic value and potential functional mechanism of signal recognition particle 14 (SRP14) in acute myeloid leukemia (AML) using a genome-wide expression profile dataset.<h4>Methods</h4>We obtained an AML genome-wide expression profile dataset and clinical prognostic data from The Cancer Genome Atlas (TCGA) and GSE12417 databases, and explored the prognostic value and functional mechanism of SRP14 in AML using survival analysis and various online tools.<h4>Results</h4>Survival analysis showed that AML patients with high SRP14 expression had poorer overall survival than patients with low SRP14 expression. Time-dependent receiver operating characteristic curves indicated that SRP14 had good accuracy for predicting the prognosis in patients with AML. Genome-wide co-expression analysis suggested that SRP14 may play a role in AML by participating in the regulation of biological processes and signaling pathways, such as cell cycle, cell adhesion, mitogen-activated protein kinase, tumor necrosis factor, T cell receptor, DNA damage response, and nuclear factor-kappa B (NF-κB) signaling. Gene set enrichment analysis indicated that SRP14 was significantly enriched in biological processes and signaling pathways including regulation of hematopoietic progenitor cell differentiation and stem cell differentiation, intrinsic apoptotic signaling pathway by p53 class mediator, interleukin-1, T cell mediated cytotoxicity, and NF-κB-inducing kinase/NF-κB signaling. Using the TCGA AML dataset, we also identified four drugs (phenazone, benzydamine, cinnarizine, antazoline) that may serve as SRP14-targeted drugs in AML.<h4>Conclusion</h4>The current results revealed that high SRP14 expression was significantly related to a poor prognosis and may serve as a prognostic biomarker in patients with AML.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Systematic Analysis Identifies a Specific RNA-Binding Protein-Related Gene Model for Prognostication and Risk-Adjustment in HBV-Related Hepatocellular Carcinoma.",
+    "doi": "10.3389/fgene.2021.707305",
+    "pmid": "34422009",
+    "authors": [
+      "Li M, Liu Z, Wang J, Liu H, Gong H, Li S, Jia M, Mao Q."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-04",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>Increasing evidence shows that dysregulated RNA binding proteins (RBPs) modulate the progression of several malignancies. Nevertheless, their clinical implications of RBPs in HBV-related hepatocellular carcinoma (HCC) remain largely undefined. Here, this study systematically analyzed the associations of RBPs with HBV-related HCC prognosis.<h4>Methods</h4>Based on differentially expressed RBPs between HBV-related HCC and control specimens, prognosis-related RBPs were screened by univariate analyses. A LASSO model was then created. Kaplan-Meier curves, ROCs, multivariate analyses, subgroup analyses and external verification were separately applied to assess the efficacy of this model in predicting prognosis and recurrence of patients. A nomogram was created by incorporating the model and clinical indicators, which was verified by ROCs, calibration curves and decision curve analyses. By CIBERSORT algorithm, the association between the risk score and immune cell infiltrations was evaluated.<h4>Results</h4>Totally, 54 RBPs were distinctly correlated to prognosis of HBV-related HCC. An 11-RBP model was created, containing POLR2L, MRPS12, DYNLL1, ZFP36, PPIH, RARS, SRP14, DDX41, EIF2B4, and NOL12. This risk score sensitively and accurately predicted one-, three- and five-year overall survival, disease-free survival, and progression-free interval. Compared to other clinical parameters, this risk score had the best predictive efficacy. Also, the clinical generalizability of the model was externally verified in the GSE14520 dataset. The nomogram may predict patients' survival probabilities. Also, the risk score was related to the components in the immune microenvironment.<h4>Conclusion</h4>Collectively, RBPs may act as critical elements in the malignant progression of HBV-related HCC and possess potential implications on prognostication and therapy decision.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Host Cells Actively Resist Porcine Reproductive and Respiratory Syndrome Virus Infection via the IRF8-MicroRNA-10a-SRP14 Regulatory Pathway.",
+    "doi": "10.1128/jvi.00003-22",
+    "pmid": "35293774",
+    "authors": [
+      "Zheng Z, Fu X, Ling X, Sun H, Li Y, Ma Z, Wei B, Zheng H, Xiao S."
+    ],
+    "year": "2022",
+    "publication_date": "2022-03-16",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs) play an important role in the virus-host interaction. Our previous work has indicated that the expression level of miR-10a increased in porcine alveolar macrophages (PAMs) during porcine reproductive and respiratory syndrome virus (PRRSV) infection and further inhibited viral replication through downregulates the expression of host molecule signal-recognition particle 14 (SRP14) protein. However, the molecular mechanism of miR-10a increased after PRRSV infection remains unknown. In the present study, transcription factor interferon regulatory factor 8 (IRF8) was identified as a negative regulator of miR-10a. PRRSV infection decreases the expression level of IRF8 in PAMs, leading to upregulating miR-10a expression to play an anti-PRRSV role. Meanwhile, this work first proved that IRF8 promoted PRRSV replication in an miR-10a-dependent manner. Further, we explained that SRP14, the target gene of miR-10a, promotes the synthesis of the PRRSV genome by interacting with the viral components Nsp2, thus facilitating PRRSV replication. In conclusion, we identified a novel IRF8-miR-10a-SRP14 regulatory pathway against PRRSV infection, which provides new insights into virus-host interactions and suggests potential new antiviral strategies to control PRRSV. <b>IMPORTANCE</b> Porcine reproductive and respiratory syndrome virus (PRRSV) has rapidly spread to the global pig industry and caused incalculable economic damage since first discovered in the 1980s. However, conventional vaccines do not provide satisfactory protection. Understanding the molecular mechanisms of host resistance to PRRSV infection is necessary to develop safe and effective strategies to control PRRSV. During viral infection, miRNAs play vital roles in regulating the expression of viral or host genes at the posttranscriptional level. The significance of our study is that we revealed the transcriptional regulation mechanism of the antiviral molecule miR-10a after PRRSV infection. Moreover, our research also explained the mechanism of host molecule SRP14, the target gene of miR-10a regulating PRRSV replication. Thus, we report a novel regulatory pathway of IRF8-miR-10a-SRP14 against PRRSV infection, which provides new insights into virus-host interactions and suggests potential new control measures for future PRRSV outbreaks.",
+    "openalex_id": ""
+  },
+  {
+    "title": "M7G-Related lncRNAs predict prognosis and regulate the immune microenvironment in lung squamous cell carcinoma.",
+    "doi": "10.1186/s12885-022-10232-z",
+    "pmid": "36333719",
+    "authors": [
+      "Pan J, Huang Z, Lin H, Cheng W, Lai J, Li J."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-04",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "<h4>Background</h4>N7-Methylguanosine (m7G) and long non-coding RNAs (lncRNAs) have been widely studied in cancer and have been found to be useful for assessing tumor progression. However, the role of m7G-related lncRNAs in lung squamous cell carcinoma (LUSC) remains unclear. Thus, it is crucial to identify m7G-associated lncRNAs with definitive prognostic value. This study aimed to investigate the prognostic value, correlation with tumor mutation burden, and impact on the tumor immune microenvironment of m7G-related lncRNAs in LUSC.  METHODS: LUSC transcriptome data and clinical data were downloaded from The Cancer Genome Atlas, and an m7G-related lncRNA-mRNA co-expression network was constructed using Pearson's correlation analysis. Cox regression analyses were used to determine a risk model for m7G-associated lncRNAs with prognostic value. The risk signature was verified using the Kaplan-Meier method, receiver operating characteristic curve analysis, and principal component analysis. A nomogram based on risk scores and clinical characteristics was then developed. Gene set enrichment analysis was used for functional annotation to analyze the risk signature. The association among the risk signature, tumor mutational burden, and tumor-infiltrating immune cells was then analyzed. RT-qPCR was used to investigate the expression of 6 m7G-related lncRNAs in LUSC cells. The cytological function of SRP14-AS1 was verified by wound-healing assay and transwell assay.<h4>Results</h4>A total of 293 m7G-related lncRNAs were identifed, 27 candidate m7G-related lncRNAs were signifcantly associated with overall survival (OS). Six of these lncRNAs (CYP4F26P, LINC02178, MIR22HG, SRP14-AS1, TMEM99, PTCSC2) were selected for establishment of the risk model. The OS of patients in the low-risk group was higher than that of patients in the high-risk group (p < 0.001). Multivariate cox regression analysis indicated that the model could be an independent prognostic factor for LUSC (HR = 1.859; 95% CI 1.452-2.380, p < 0.001). The ROC curve analysis revealed that the AUCs for OS in the 3-, and 5-year were 0.682, 0.657, respectively. GSEA analysis revealed that the risk model was closely related to immune-related pathways. Compared with normal lung epithelial cells, four m7G-related lncRNAs were higher expressed in cancer cells and two were lower expressed, among which knockdown of SRP14-AS1 promoted the proliferation and migration of LUSC cells.<h4>Conclusion</h4>A risk model based on six m7G-related lncRNAs with prognostic value may be a promising prognostic tool in LUSC and guide individualized patient treatment.",
+    "openalex_id": ""
+  }
+]

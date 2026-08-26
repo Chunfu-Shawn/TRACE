@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Transcriptome-wide identification of RNA-binding protein and microRNA target sites by PAR-CLIP.",
+    "doi": "10.1016/j.cell.2010.03.009",
+    "pmid": "20371350",
+    "authors": [
+      "Hafner M, Landthaler M, Burger L, Khorshid M, Hausser J, Berninger P, Rothballer A, Ascano M, Jungkamp AC, Munschauer M, Ulrich A, Wardle GS, Dewell S, Zavolan M, Tuschl T."
+    ],
+    "year": "2010",
+    "publication_date": "2010-04-01",
+    "cited_by_count": 2420,
+    "journal": "",
+    "abstract": "RNA transcripts are subject to posttranscriptional gene regulation involving hundreds of RNA-binding proteins (RBPs) and microRNA-containing ribonucleoprotein complexes (miRNPs) expressed in a cell-type dependent fashion. We developed a cell-based crosslinking approach to determine at high resolution and transcriptome-wide the binding sites of cellular RBPs and miRNPs. The crosslinked sites are revealed by thymidine to cytidine transitions in the cDNAs prepared from immunopurified RNPs of 4-thiouridine-treated cells. We determined the binding sites and regulatory consequences for several intensely studied RBPs and miRNPs, including PUM2, QKI, IGF2BP1-3, AGO/EIF2C1-4 and TNRC6A-C. Our study revealed that these factors bind thousands of sites containing defined sequence motifs and have distinct preferences for exonic versus intronic or coding versus untranslated transcript regions. The precise mapping of binding sites across the transcriptome will be critical to the interpretation of the rapidly emerging data on genetic variation between individuals and how these variations contribute to complex genetic diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comparative analysis of mRNA targets for human PUF-family proteins suggests extensive interaction with the miRNA regulatory system.",
+    "doi": "10.1371/journal.pone.0003164",
+    "pmid": "18776931",
+    "authors": [
+      "Galgano A, Forrer M, Jaskiewicz L, Kanitz A, Zavolan M, Gerber AP."
+    ],
+    "year": "2008",
+    "publication_date": "2008-09-08",
+    "cited_by_count": 243,
+    "journal": "",
+    "abstract": "Genome-wide identification of mRNAs regulated by RNA-binding proteins is crucial to uncover post-transcriptional gene regulatory systems. The conserved PUF family RNA-binding proteins repress gene expression post-transcriptionally by binding to sequence elements in 3'-UTRs of mRNAs. Despite their well-studied implications for development and neurogenesis in metazoa, the mammalian PUF family members are only poorly characterized and mRNA targets are largely unknown. We have systematically identified the mRNAs associated with the two human PUF proteins, PUM1 and PUM2, by the recovery of endogenously formed ribonucleoprotein complexes and the analysis of associated RNAs with DNA microarrays. A largely overlapping set comprised of hundreds of mRNAs were reproducibly associated with the paralogous PUM proteins, many of them encoding functionally related proteins. A characteristic PUF-binding motif was highly enriched among PUM bound messages and validated with RNA pull-down experiments. Moreover, PUF motifs as well as surrounding sequences exhibit higher conservation in PUM bound messages as opposed to transcripts that were not found to be associated, suggesting that PUM function may be modulated by other factors that bind conserved elements. Strikingly, we found that PUF motifs are enriched around predicted miRNA binding sites and that high-confidence miRNA binding sites are significantly enriched in the 3'-UTRs of experimentally determined PUM1 and PUM2 targets, strongly suggesting an interaction of human PUM proteins with the miRNA regulatory system. Our work suggests extensive connections between the RBP and miRNA post-transcriptional regulatory systems and provides a framework for deciphering the molecular mechanism by which PUF proteins regulate their target mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved abundant cytoplasmic long noncoding RNA modulates repression by Pumilio proteins in human cells.",
+    "doi": "10.1038/ncomms12209",
+    "pmid": "27406171",
+    "authors": [
+      "Tichon A, Gil N, Lubelsky Y, Havkin Solomon T, Lemze D, Itzkovitz S, Stern-Ginossar N, Ulitsky I."
+    ],
+    "year": "2016",
+    "publication_date": "2016-07-13",
+    "cited_by_count": 201,
+    "journal": "",
+    "abstract": "Thousands of long noncoding RNA (lncRNA) genes are encoded in the human genome, and hundreds of them are evolutionarily conserved, but their functions and modes of action remain largely obscure. Particularly enigmatic lncRNAs are those that are exported to the cytoplasm, including NORAD-an abundant and highly conserved cytoplasmic lncRNA. Here we show that most of the sequence of NORAD is comprised of repetitive units that together contain at least 17 functional binding sites for the two mammalian Pumilio homologues. Through binding to PUM1 and PUM2, NORAD modulates the mRNA levels of their targets, which are enriched for genes involved in chromosome segregation during cell division. Our results suggest that some cytoplasmic lncRNAs function by modulating the activities of RNA-binding proteins, an activity which positions them at key junctions of cellular signalling pathways.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Post-transcriptional Regulatory Functions of Mammalian Pumilio Proteins.",
+    "doi": "10.1016/j.tig.2018.09.006",
+    "pmid": "30316580",
+    "authors": [
+      "Goldstrohm AC, Hall TMT, McKenney KM."
+    ],
+    "year": "2018",
+    "publication_date": "2018-10-10",
+    "cited_by_count": 183,
+    "journal": "",
+    "abstract": "Mammalian Pumilio proteins, PUM1 and PUM2, are members of the PUF family of sequence-specific RNA-binding proteins. In this review, we explore their mechanisms, regulatory networks, biological functions, and relevance to diseases. Pumilio proteins bind an extensive network of mRNAs and repress protein expression by inhibiting translation and promoting mRNA decay. Opposingly, in certain contexts, they can activate protein expression. Pumilio proteins also regulate noncoding (nc)RNAs. The ncRNA, ncRNA activated by DNA damage (NORAD), can in turn modulate Pumilio activity. Genetic analysis provides new insights into Pumilio protein function. They are essential for growth and development. They control diverse processes, including stem cell fate, and neurological functions, such as behavior and memory formation. Novel findings show that their dysfunction contributes to neurodegeneration, epilepsy, movement disorders, intellectual disability, infertility, and cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human Pumilio proteins recruit multiple deadenylases to efficiently repress messenger RNAs.",
+    "doi": "10.1074/jbc.m112.373522",
+    "pmid": "22955276",
+    "authors": [
+      "Van Etten J, Schagat TL, Hrit J, Weidmann CA, Brumbaugh J, Coon JJ, Goldstrohm AC."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-06",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "PUF proteins are a conserved family of eukaryotic RNA-binding proteins that regulate specific mRNAs: they control many processes including stem cell proliferation, fertility, and memory formation. PUFs repress protein expression from their target mRNAs but the mechanism by which they do so remains unclear, especially for humans. Humans possess two PUF proteins, PUM1 and PUM2, which exhibit similar RNA binding specificities. Here we report new insights into their regulatory activities and mechanisms of action. We developed functional assays to measure sequence-specific repression by PUM1 and PUM2. Both robustly inhibit translation and promote mRNA degradation. Purified PUM complexes were found to contain subunits of the CCR4-NOT (CNOT) complex, which contains multiple enzymes that catalyze mRNA deadenylation. PUMs interact with the CNOT deadenylase subunits in vitro. We used three approaches to determine the importance of deadenylases for PUM repression. First, dominant-negative mutants of CNOT7 and CNOT8 reduced PUM repression. Second, RNA interference depletion of the deadenylases alleviated PUM repression. Third, the poly(A) tail was necessary for maximal PUM repression. These findings demonstrate a conserved mechanism of PUF-mediated repression via direct recruitment of the CCR4-POP2-NOT deadenylase leading to translational inhibition and mRNA degradation. A second, deadenylation independent mechanism was revealed by the finding that PUMs repress an mRNA that lacks a poly(A) tail. Thus, human PUMs are repressors capable of deadenylation-dependent and -independent modes of repression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human Pumilio-2 is expressed in embryonic stem cells and germ cells and interacts with DAZ (Deleted in AZoospermia) and DAZ-like proteins.",
+    "doi": "10.1073/pnas.0234478100",
+    "pmid": "12511597",
+    "authors": [
+      "Moore FL, Jaruzelska J, Fox MS, Urano J, Firpo MT, Turek PJ, Dorfman DM, Pera RA."
+    ],
+    "year": "2003",
+    "publication_date": "2003-01-02",
+    "cited_by_count": 179,
+    "journal": "",
+    "abstract": "Early in development, a part of the embryo is set aside to become the germ cell lineage that will ultimately differentiate to form sperm and eggs and transmit genetic information to the next generation. Men with deletions encompassing the Y-chromosome DAZ genes have few or no germ cells but are otherwise healthy, indicating they harbor specific defects in formation or maintenance of germ cells. A DAZ homolog, DAZL (DAZ-Like), is found in diverse organisms, including humans and is required for germ cell development in males and/or females. We identified proteins that interact with DAZ proteins to better understand their function in human germ cells. Here, we show that PUM2, a human homolog of Pumilio, a protein required to maintain germ line stem cells in Drosophila and Caenorhabditis elegans, forms a stable complex with DAZ through the same functional domain required for RNA binding, protein-protein interactions and rescue of Pumilio mutations in flies. We also show that PUM2 is expressed predominantly in human embryonic stem cells and germ cells and colocalizes with DAZ and DAZL in germ cells. These data implicate PUM2 as a component of conserved cellular machinery that may be required for germ cell development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dendritic localization of the translational repressor Pumilio 2 and its contribution to dendritic stress granules.",
+    "doi": "10.1523/jneurosci.0649-06.2006",
+    "pmid": "16775137",
+    "authors": [
+      "Vessey JP, Vaccani A, Xie Y, Dahm R, Karra D, Kiebler MA, Macchi P."
+    ],
+    "year": "2006",
+    "publication_date": "2006-06-01",
+    "cited_by_count": 160,
+    "journal": "",
+    "abstract": "Pumilio (Pum) protein acts as a translational inhibitor in several organisms including yeast, Drosophila, Xenopus, and mammals. Two Pumilio genes, Pum1 and Pum2, have been identified in mammals, but their function in neurons has not been identified. In this study, we found that Pum2 mRNA is expressed during neuronal development and that the protein is found in discrete particles in both the cell body and the dendritic compartment of fully polarized neurons. This finding indicates that Pum2 is a novel candidate of dendritically localized ribonucleoparticles (RNPs). During metabolic stress, Pum2 is present in stress granules (SGs), which are subsequently detected in the somatodendritic domain. It remains excluded from processing bodies under all conditions. When overexpressed in neurons and fibroblasts, Pum2 induces the formation of SGs that also contain T-cell intracellular antigen 1 (TIA-1)-related protein, eukaryotic initiation factor 4E, poly(A)-binding protein, TIA-1, and other RNA-binding proteins including Staufen1 and Barentsz. This induction of SGs is dependent on the RNA-binding domain and a glutamine-rich region in the N terminus of Pum2. This glutamine-rich region behaves in a similar manner as TIA-1 and prion protein, two molecules with known roles in protein aggregation. Pum2 downregulation in neurons via RNA interference (RNAi) interferes with the formation of SGs during metabolic stress. Cotransfection with an RNAi-resistant portion of the Pum2 mRNA restores SG formation. These results suggest a role for Pum2 in dendritic RNPs and SG formation in mammalian neurons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-340 inhibits tumor cell proliferation and induces apoptosis by targeting multiple negative regulators of p27 in non-small cell lung cancer.",
+    "doi": "10.1038/onc.2014.267",
+    "pmid": "25151966",
+    "authors": [
+      "Fernandez S, Risolino M, Mandia N, Talotta F, Soini Y, Incoronato M, Condorelli G, Banfi S, Verde P."
+    ],
+    "year": "2015",
+    "publication_date": "2014-08-25",
+    "cited_by_count": 150,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs) control cell cycle progression by targeting the transcripts encoding for cyclins, CDKs and CDK inhibitors, such as p27(KIP1) (p27). p27 expression is controlled by multiple transcriptional and posttranscriptional mechanisms, including translational inhibition by miR-221/222 and posttranslational regulation by the SCF(SKP2) complex. The oncosuppressor activity of miR-340 has been recently characterized in breast, colorectal and osteosarcoma tumor cells. However, the mechanisms underlying miR-340-induced cell growth arrest have not been elucidated. Here, we describe miR-340 as a novel tumor suppressor in non-small cell lung cancer (NSCLC). Starting from the observation that the growth-inhibitory and proapoptotic effects of miR-340 correlate with the accumulation of p27 in lung adenocarcinoma and glioblastoma cells, we have analyzed the functional relationship between miR-340 and p27 expression. miR-340 targets three key negative regulators of p27. The miR-340-mediated inhibition of both Pumilio family RNA-binding proteins (PUM1 and PUM2), required for the miR-221/222 interaction with the p27 3'-UTR, antagonizes the miRNA-dependent downregulation of p27. At the same time, miR-340 induces the stabilization of p27 by targeting SKP2, the key posttranslational regulator of p27. Therefore, miR-340 controls p27 at both translational and posttranslational levels. Accordingly, the inhibition of either PUM1 or SKP2 partially recapitulates the miR-340 effect on cell proliferation and apoptosis. In addition to the effect on tumor cell proliferation, miR-340 also inhibits intercellular adhesion and motility in lung cancer cells. These changes correlate with the miR-340-mediated inhibition of previously validated (MET and ROCK1) and potentially novel (RHOA and CDH1) miR-340 target transcripts. Finally, we show that in a small cohort of NSCLC patients (n=23), representative of all four stages of lung cancer, miR-340 expression inversely correlates with clinical staging, thus suggesting that miR-340 downregulation contributes to the disease progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The PUF family of RNA-binding proteins: does evolutionarily conserved structure equal conserved function?",
+    "doi": "10.1080/15216540310001603093",
+    "pmid": "14584586",
+    "authors": [
+      "Spassov DS, Jurecic R."
+    ],
+    "year": "2003",
+    "publication_date": "2003-07-01",
+    "cited_by_count": 145,
+    "journal": "",
+    "abstract": "Drosophila Pumilio (Pum) protein is a founder member of a novel family of RNA-binding proteins, known as the PUF family. The PUF proteins constitute an evolutionarily highly conserved family of proteins present from yeast to humans and plants, and are characterized by a highly conserved C-terminal RNA-binding domain, composed of eight tandem repeats. The conserved biochemical features and genetic function of PUF family members have emerged from studies of model organisms. PUF proteins bind to related sequence motifs in the 3' untranslated region (3'UTR) of specific target mRNAs and repress their translation. Frequently, PUF proteins function asymmetrically to create protein gradients, thus causing asymmetric cell division and regulating cell fate specification. Thus, it was recently proposed that the primordial role of PUF proteins is to sustain mitotic proliferation of stem cells. Here we review the evolution, conserved genetic and biochemical properties of PUF family of proteins, and discuss protein interactions, upstream regulators and downstream targets of PUF proteins. We also suggest that a conserved mechanism of PUF function extends to the newly described mammalian members of the PUF family (human PUM1 and PUM2, and mouse Pum1 and Pum2), that show extensive homology to Drosophila Pum, and could have an important role in cell development, fate specification and differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Translational Repression Complex in Developing Mammalian Neural Stem Cells that Regulates Neuronal Specification.",
+    "doi": "10.1016/j.neuron.2017.12.045",
+    "pmid": "29395907",
+    "authors": [
+      "Zahr SK, Yang G, Kazan H, Borrett MJ, Yuzwa SA, Voronova A, Kaplan DR, Miller FD."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-27",
+    "cited_by_count": 126,
+    "journal": "",
+    "abstract": "The mechanisms instructing genesis of neuronal subtypes from mammalian neural precursors are not well understood. To address this issue, we have characterized the transcriptional landscape of radial glial precursors (RPs) in the embryonic murine cortex. We show that individual RPs express mRNA, but not protein, for transcriptional specifiers of both deep and superficial layer cortical neurons. Some of these mRNAs, including the superficial versus deep layer neuron transcriptional regulators Brn1 and Tle4, are translationally repressed by their association with the RNA-binding protein Pumilio2 (Pum2) and the 4E-T protein. Disruption of these repressive complexes in RPs mid-neurogenesis by knocking down 4E-T or Pum2 causes aberrant co-expression of deep layer neuron specification proteins in newborn superficial layer neurons. Thus, cortical RPs are transcriptionally primed to generate diverse types of neurons, and a Pum2/4E-T complex represses translation of some of these neuronal identity mRNAs to ensure appropriate temporal specification of daughter neurons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-Binding Protein PUM2 Impairs Mitochondrial Dynamics and Mitophagy During Aging.",
+    "doi": "10.1016/j.molcel.2018.11.034",
+    "pmid": "30642763",
+    "authors": [
+      "D'Amico D, Mottis A, Potenza F, Sorrentino V, Li H, Romani M, Lemos V, Schoonjans K, Zamboni N, Knott G, Schneider BL, Auwerx J."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-11",
+    "cited_by_count": 122,
+    "journal": "",
+    "abstract": "Little information is available about how post-transcriptional mechanisms regulate the aging process. Here, we show that the RNA-binding protein Pumilio2 (PUM2), which is a translation repressor, is induced upon aging and acts as a negative regulator of lifespan and mitochondrial homeostasis. Multi-omics and cross-species analyses of PUM2 function show that it inhibits the translation of the mRNA encoding for the mitochondrial fission factor (Mff), thereby impairing mitochondrial fission and mitophagy. This mechanism is conserved in C. elegans by the PUM2 ortholog PUF-8. puf-8 knock-down in old nematodes and Pum2 CRISPR/Cas9-mediated knockout in the muscles of elderly mice enhances mitochondrial fission and mitophagy in both models, hence improving mitochondrial quality control and tissue homeostasis. Our data reveal how a PUM2-mediated layer of post-transcriptional regulation links altered Mff translation to mitochondrial dynamics and mitophagy, thereby mediating age-related mitochondrial dysfunctions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Calcium-dependent N-cadherin up-regulation mediates reactive astrogliosis and neuroprotection after brain injury.",
+    "doi": "10.1073/pnas.1300378110",
+    "pmid": "23798419",
+    "authors": [
+      "Kanemaru K, Kubota J, Sekiya H, Hirose K, Okubo Y, Iino M."
+    ],
+    "year": "2013",
+    "publication_date": "2013-06-24",
+    "cited_by_count": 121,
+    "journal": "",
+    "abstract": "Brain injury induces phenotypic changes in astrocytes, known as reactive astrogliosis, which may influence neuronal survival. Here we show that brain injury induces inositol 1,4,5-trisphosphate (IP3)-dependent Ca(2+) signaling in astrocytes, and that the Ca(2+) signaling is required for astrogliosis. We found that type 2 IP3 receptor knockout (IP3R2KO) mice deficient in astrocytic Ca(2+) signaling have impaired reactive astrogliosis and increased injury-associated neuronal death. We identified N-cadherin and pumilio 2 (Pum2) as downstream signaling molecules, and found that brain injury induces up-regulation of N-cadherin around the injured site. This effect is mediated by Ca(2+)-dependent down-regulation of Pum2, which in turn attenuates Pum2-dependent translational repression of N-cadherin. Furthermore, we show that astrocyte-specific knockout of N-cadherin results in impairment of astrogliosis and neuroprotection. Thus, astrocytic Ca(2+) signaling and the downstream function of N-cadherin play indispensable roles in the cellular responses to brain injury. These findings define a previously unreported signaling axis required for reactive astrogliosis and neuroprotection following brain injury.",
+    "openalex_id": ""
+  }
+]

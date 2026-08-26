@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A New Case of Mitochondrial RNA Helicase SUPV3L1-Associated Neurodegenerative Disease: Ataxia, Spasticity, Optic Atrophy, and Skin Hypopigmentation (ASOASH).",
+    "doi": "10.3390/genes15111406",
+    "pmid": "39596606",
+    "authors": [
+      "Tsygankova P, Chistol D, Krylova T, Bychkov I, Tabakov V, Markova T, Dadali E, Zakharova E."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-30",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The <i>SUPV3L1</i> gene encodes ATP-dependent RNA helicase SUPV3L1, which is a part of the mitochondrial degradosome complex or SUV3. SUPV3L1 unwinds secondary structures of mitochondrial RNA (mtRNA) and facilitates the degradation of mtRNA molecules. A nonsense homozygous variant in the <i>SUPV3L1</i> gene was recently associated with mitochondrial disease. Our study presents the second documented case of <i>SUPV3L1</i> pathology in humans.<h4>Methods</h4>Whole-genome sequencing was performed on the NovaSeq 6000 platform using pair-end reading. Data analysis was performed with an in-house developed pipeline.<h4>Results</h4>The 17-year-old female patient exhibited a diverse array of symptoms, including ataxia, spastic paraparesis, cognitive deficit, optic atrophy, and horizontal gaze-evoked nystagmus. Early onset of symptoms, such as ataxic gait and nystagmus, was noted, with subsequent progression of neurological manifestations. At the time of the observation, the proband had extensive regions of hypopigmented skin patches on the body and extremities, which have progressed over time. Whole-genome sequencing revealed compound heterozygous variants in the <i>SUPV3L1</i> gene: c.272-2A>G and c.1924A>C; p.(Ser642Arg). RNA analysis demonstrated splicing changes attributable to the c.272-2A>G variant. ELISA assay showed increased Complex I content in the patient's fibroblasts. This case underscores the phenotypic diversity associated with <i>SUPV3L1</i> mutations, emphasizing the importance of considering mitochondrial RNA helicase dysfunction in the differential diagnosis of neurodegenerative disorders. Further elucidation of the molecular mechanisms underlying SUPV3L1-associated pathology may provide valuable insights into targeted therapeutic interventions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA degradation in human mitochondria: the journey is not finished.",
+    "doi": "10.1093/hmg/ddae043",
+    "pmid": "38779774",
+    "authors": [
+      "Santonoceto G, Jurkiewicz A, Szczesny RJ."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-01",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "Mitochondria are vital organelles present in almost all eukaryotic cells. Although most of the mitochondrial proteins are nuclear-encoded, mitochondria contain their own genome, whose proper expression is necessary for mitochondrial function. Transcription of the human mitochondrial genome results in the synthesis of long polycistronic transcripts that are subsequently processed by endonucleases to release individual RNA molecules, including precursors of sense protein-encoding mRNA (mt-mRNA) and a vast amount of antisense noncoding RNAs. Because of mitochondrial DNA (mtDNA) organization, the regulation of individual gene expression at the transcriptional level is limited. Although transcription of most protein-coding mitochondrial genes occurs with the same frequency, steady-state levels of mature transcripts are different. Therefore, post-transcriptional processes are important for regulating mt-mRNA levels. The mitochondrial degradosome is a complex composed of the RNA helicase SUV3 (also known as SUPV3L1) and polynucleotide phosphorylase (PNPase, PNPT1). It is the best-characterized RNA-degrading machinery in human mitochondria, which is primarily responsible for the decay of mitochondrial antisense RNA. The mechanism of mitochondrial sense RNA decay is less understood. This review aims to provide a general picture of mitochondrial genome expression, with a particular focus on mitochondrial RNA (mtRNA) degradation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Spatial analysis of mitochondrial gene expression reveals dynamic translation hubs and remodeling in stress.",
+    "doi": "10.1126/sciadv.ads6830",
+    "pmid": "40249810",
+    "authors": [
+      "Begeman A, Smolka JA, Shami A, Waingankar TP, Lewis SC."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-18",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "Protein- and RNA-rich bodies contribute to the spatial organization of gene expression in the cell and are also sites of quality control critical to cell fitness. In most eukaryotes, mitochondria harbor their own genome, and all steps of mitochondrial gene expression co-occur within a single compartment-the matrix. Here, we report that processed mitochondrial RNAs are consolidated into micrometer-scale translation hubs distal to mitochondrial DNA transcription and RNA processing sites in human cells. We find that, during stress, mitochondrial messenger and ribosomal RNA are sequestered in mesoscale bodies containing mitoribosome components, concurrent with suppression of active translation. Stress bodies are triggered by proteotoxic stress downstream of double-stranded RNA accumulation in cells lacking unwinding activity of the highly conserved helicase SUPV3L1/SUV3. We propose that the spatial organization of nascent polypeptide synthesis into discrete domains serves to throttle the flow of genetic information to support recovery of mitochondrial quality control.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Fast Degradation of MecciRNAs by SUPV3L1/ELAC2 Provides a Novel Opportunity to Tackle Heart Failure With Exogenous MecciRNA.",
+    "doi": "10.1161/circulationaha.124.070840",
+    "pmid": "39973625",
+    "authors": [
+      "Liu X, Wang Q, Li X, Yang Y, Deng Y, Wang X, Wang P, Chen L, Ma L, Shan G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-20",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs derived from both nuclear and mitochondrial genomes are identified in animal cells. Mitochondria-encoded circular RNAs (mecciRNAs) are attracting more attention, and several members of mecciRNAs have already been recognized in regulating mitochondrial functions. Mitochondria dysfunctions are well-known to participate in heart failure (HF). This study was designed to investigate the RNA metabolism of mecciRNAs and the relevant roles and potential application of mecciRNAs in HF.<h4>Methods</h4>Compared with highly stable nuclear genome-encoded circular RNAs, the fast degradation feature of mecciRNAs is identified by RNA sequencing and a series of molecular, biochemical, and cellular experiments. The substantial protective effects of in vitro synthesized mecciRNAs were tested in both doxorubicin- and pressure overload-induced mouse models of HF.<h4>Results</h4>We discover that mecciRNAs are promptly degraded by an animal-conserved complex of helicase SUPV3L1 (suppressor of var1, 3-like protein 1) and endoribonuclease ELAC2 (elaC ribonuclease Z 2). MecciRNA degradation complex and mecciRNAs interact with mitochondrial permeability transition pore and its regulators including TRAP1 (TNF receptor-associated protein 1) and CypD (cyclophilin D). MecciRNAs regulate mitochondrial levels of TRAP1 and CypD to modulate the opening of mitochondrial permeability transition pore and the release of mitochondrial reactive oxygen species. Exogenously applied mecciRNAs interact with cytosolic TRAP1 and increase mitochondrial levels of TRAP1, and lead to a more closed state of mitochondrial permeability transition pore to constrain deleterious reactive oxygen species release. HF conditions lead to stimulated mecciRNA degradation, and administration of in vitro synthesized mecciRNAs exhibits substantial protective effects in both doxorubicin- and pressure overload-induced mouse models of HF.<h4>Conclusions</h4>This study demonstrates the fast degradation of mecciRNAs and the associated regulations of mitochondrial reactive oxygen species release of mitochondrial permeability transition pore by mecciRNAs. HF conditions lead to dysregulated mecciRNA degradation, and exogenous mecciRNAs demonstrate treatment potential in mouse models of HF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translatomic profiling reveals novel self-restricting virus-host interactions during HBV infection.",
+    "doi": "10.1016/j.jhep.2021.02.009",
+    "pmid": "33621634",
+    "authors": [
+      "Yuan S, Liao G, Zhang M, Zhu Y, Wang K, Xiao W, Jia C, Dong M, Sun N, Walch A, Xu P, Zhang J, Deng Q, Hu R."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-20",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "<h4>Background & aims</h4>HBV remains a global threat to human health. It remains incompletely understood how HBV self-restricts in the host during most adult infections. Thus, we performed multi-omics analyses to systematically interrogate HBV-host interactions and the life cycle of HBV.<h4>Methods</h4>RNA-sequencing and ribosome profiling were conducted with cell-based models for HBV replication and gene expression. The novel translational events or products hereby detected were then characterized, and functionally assessed in both cell and mouse models. Moreover, quasi-species analyses of HBV subpopulations were conducted with patients at immune tolerance or activation phases, using next- or third-generation sequencing.<h4>Results</h4>We identified EnhI-SL (Enhancer I-stem loop) as a new cis element in the HBV genome; mutations disrupting EnhI-SL were found to elevate viral polymerase expression. Furthermore, while re-discovering HpZ/P', a previously under-explored isoform of HBV polymerase, we also identified HBxZ, a novel short isoform of HBX. Having confirmed their existence, we functionally characterized them as potent suppressors of HBV gene expression and genome replication. Mechanistically, HpZ/P' was found to repress HBV gene expression partially by interacting with, and sequestering SUPV3L1. Activation of the host immune system seemed to reduce the abundance of HBV mutants deficient in HpZ/P' or with disruptions in EnhI-SL. Finally, SRSF2, a host RNA spliceosome protein that is downregulated by HBV, was found to promote the splicing of viral pre-genomic RNA and HpZ/P' biogenesis.<h4>Conclusion</h4>This study has identified multiple self-restricting HBV-host interactions. In particular, SRSF2-HpZ/P' appeared to constitute another negative feedback mechanism in the HBV life cycle. Targeting host splicing machinery might thus represent a strategy to intervene in HBV-host interactions.<h4>Lay summary</h4>There remain many unknowns about the natural history of HBV infection in adults. Herein, we identified new HBV-host mechanisms which could be responsible for self-restricting infections. Targeting these mechanisms could be a promising strategy for the treatment of HBV infections.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitochondrial RNA processing defect caused by a SUPV3L1 mutation in two siblings with a novel neurodegenerative syndrome.",
+    "doi": "10.1002/jimd.12476",
+    "pmid": "35023579",
+    "authors": [
+      "van Esveld SL, Rodenburg RJ, Al-Murshedi F, Al-Ajmi E, Al-Zuhaibi S, Huynen MA, Spelbrink JN."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-21",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "SUPV3L1 encodes a helicase that is mainly localized in the mitochondria. It has been shown in vitro to possess both double-stranded RNA and DNA unwinding activity that is ATP-dependent. Here we report the first two patients for this gene who presented with a homozygous preliminary stop codon resulting in a C-terminal truncation of the SUPV3L1 protein. They presented with a characteristic phenotype of neurodegenerative nature with progressive spastic paraparesis, growth restriction, hypopigmentation, and predisposition to autoimmune disease. Ophthalmological examination showed severe photophobia with corneal erosions, optic atrophy, and pigmentary retinopathy, while neuroimaging showed atrophy of the optic chiasm and the pons with calcification of putamina, with intermittent and mild elevation of lactate. We show that the amino acids that are eliminated by the preliminary stop codon are highly conserved and are predicted to form an amphipathic helix. To investigate if the mutation causes mitochondrial dysfunction, we examined fibroblasts of the proband. We observed very low expression of the truncated protein, a reduction in the mature ND6 mRNA species as well as the accumulation of double-stranded RNA. Lentiviral complementation with the full-length SUPV3L1 cDNA partly restored the observed RNA phenotypes, supporting that the SUPV3L1 mutation in these patients is pathogenic and the cause of the disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Corticosteroid-regulated gene transcription in SH-SY5Y-derived neurons: Insights into the mineralocorticoid and glucocorticoid receptor-mediated response.",
+    "doi": "10.1111/jne.70021",
+    "pmid": "40108866",
+    "authors": [
+      "Lugenbühl JF, Snijders C, Pernia CD, Estruch MS, Kenis G, Daskalakis NP."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-19",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Post-traumatic stress disorder (PTSD) and major depressive disorder (MDD) are debilitating stress-related psychiatric disorders that can develop following exposure to traumatic events or chronic stress in some individuals. The neurobiological processes leading to disease remain largely unknown. Among others, these disorders are characterized by a dysregulated hypothalamic-pituitary-adrenal axis, which is regulated by the glucocorticoid receptor (GR) and the mineralocorticoid receptor (MR). This leads to altered downstream corticosteroid-induced gene expression. In vitro models are promising tools to investigate specific neurobiological underpinnings of the stress response in the brain. Here, we investigated the suitability of SH-SY5Y-derived neurons as a cost-efficient system to study the role of GR and MR in the neuronal stress response. SH-SY5Y-derived neurons were characterized, exposed to corticosteroids, and analyzed on transcriptomic and proteomic levels. We show that (i) these neurons express sufficient and seemingly functional GR and MR to allow the study of corticosteroid-induced transcription, (ii) three corticosteroids cortisol, dexamethasone, and aldosterone, induced similar transcriptomic effects, (iii) the antagonist spironolactone mildly attenuated the effects of dexamethasone in FKBP5, DUSP1, and SUPV3L1. Mifepristone did not significantly alter the effect of aldosterone. (iv) Integrating transcriptomic alterations of these corticosteroid-exposed neurons with those of iPSC-derived neurons exposed to dexamethasone showed concordant corticosteroid-induced effects in the two in vitro systems. To determine translational validity, we compared the gene expression in these neurons with the transcriptome of postmortem brain samples from individuals with PTSD and MDD, yielding stronger negative correlations of corticosteroid effects in SH-SY5Y-derived neurons with PTSD signatures than with MDD signatures. Upon further refinement and validation, SH-SY5Y-derived neurons may serve as a simplistic tool to study neuronal corticosteroid-induced gene expression and the implicated molecular networks around GR and MR. Strengthening our insight into these receptors' functions improves our understanding of the hypothalamic-pituitary-adrenal axis, which is commonly altered in stress-related psychiatric disorders such as PTSD and MDD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The diagnostic yield, candidate genes, and pitfalls for a genetic study of intellectual disability in 118 middle eastern families.",
+    "doi": "10.1038/s41598-022-22036-z",
+    "pmid": "36344539",
+    "authors": [
+      "Al-Kasbi G, Al-Murshedi F, Al-Kindi A, Al-Hashimi N, Al-Thihli K, Al-Saegh A, Al-Futaisi A, Al-Mamari W, Al-Asmi A, Bruwer Z, Al-Kharusi K, Al-Rashdi S, Zadjali F, Al-Yahyaee S, Al-Maawali A."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-07",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "Global Developmental Delay/Intellectual disability (ID) is the term used to describe various disorders caused by abnormal brain development and characterized by impairments in cognition, communication, behavior, or motor skills. In the past few years, whole-exome sequencing (WES) has been proven to be a powerful, robust, and scalable approach for candidate gene discoveries in consanguineous populations. In this study, we recruited 215 patients affected with ID from 118 Middle Eastern families. Whole-exome sequencing was completed for 188 individuals. The average age at which WES was completed was 8.5 years. Pathogenic or likely pathogenic variants were detected in 32/118 families (27%). Variants of uncertain significance were seen in 33/118 families (28%). The candidate genes with a possible association with ID were detected in 32/118 (27%) with a total number of 64 affected individuals. These genes are novel, were previously reported in a single family, or cause strikingly different phenotypes with a different mode of inheritance. These genes included: AATK, AP1G2, CAMSAP1, CCDC9B, CNTROB, DNAH14, DNAJB4, DRG1, DTNBP1, EDRF1, EEF1D, EXOC8, EXOSC4, FARSB, FBXO22, FILIP1, INPP4A, P2RX7, PRDM13, PTRHD1, SCN10A, SCYL2, SMG8, SUPV3L1, TACC2, THUMPD1, XPR1, ZFYVE28. During the 5 years of the study and through gene matching databases, several of these genes have now been confirmed as causative of ID. In conclusion, understanding the causes of ID will help understand biological mechanisms, provide precise counseling for affected families, and aid in primary prevention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Controlling the mitochondrial antisense - role of the SUV3-PNPase complex and its co-factor GRSF1 in mitochondrial RNA surveillance.",
+    "doi": "10.1080/23723556.2018.1516452",
+    "pmid": "30525095",
+    "authors": [
+      "Pietras Z, Wojcik MA, Borowski LS, Szewczyk M, Kulinski TM, Cysewski D, Stepien PP, Dziembowski A, Szczesny RJ."
+    ],
+    "year": "2018",
+    "publication_date": "2018-09-20",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "Transcription of the human mitochondrial genome produces a vast amount of non-coding antisense RNAs. These RNA species can form G-quadraplexes (G4), which affect their decay. We found that the mitochondrial degradosome, a complex of RNA helicase SUPV3L1 (best known as SUV3) and the ribonuclease PNPT1 (also known as PNPase), together with G4-melting protein GRSF1, is a key player in restricting antisense mtRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Proteomics and metabolomics profiling reveal panels of circulating diagnostic biomarkers and molecular subtypes in stable COPD.",
+    "doi": "10.1186/s12931-023-02349-x",
+    "pmid": "36899372",
+    "authors": [
+      "Zhang Z, Wang J, Li Y, Liu F, Chen L, He S, Lin F, Wei X, Fang Y, Li Q, Zhou J, Lu W."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-11",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Chronic obstructive pulmonary disease (COPD) is a complex and heterogeneous disease with high morbidity and mortality, especially in advanced patients. We aimed to develop multi-omics panels of biomarkers for the diagnosis and explore its molecular subtypes.<h4>Methods</h4>A total of 40 stable patients with advanced COPD and 40 controls were enrolled in the study. Proteomics and metabolomics techniques were applied to identify potential biomarkers. An additional 29 COPD and 31 controls were enrolled for validation of the obtained proteomic signatures. Information on demographic, clinical manifestation, and blood test were collected. The ROC analyses were carried out to evaluate the diagnostic performance, and experimentally validated the final biomarkers on mild-to-moderate COPD. Next, molecular subtyping was performed using proteomics data.<h4>Results</h4>Theophylline, palmitoylethanolamide, hypoxanthine, and cadherin 5 (CDH5) could effectively diagnose advanced COPD with high accuracy (auROC = 0.98, sensitivity of 0.94, and specificity of 0.95). The performance of the diagnostic panel was superior to that of other single/combined results and blood tests. Proteome based stratification of COPD revealed three subtypes (I-III) related to different clinical outcomes and molecular feature: simplex COPD, COPD co-existing with bronchiectasis, and COPD largely co-existing with metabolic syndrome, respectively. Two discriminant models were established using the auROC of 0.96 (Principal Component Analysis, PCA) and 0.95 (the combination of RRM1 + SUPV3L1 + KRT78) in differentiating COPD and COPD with co-morbidities. Theophylline and CDH5 were exclusively elevated in advanced COPD but not in its mild form.<h4>Conclusions</h4>This integrative multi-omics analysis provides a more comprehensive understanding of the molecular landscape of advanced COPD, which may suggest molecular targets for specialized therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA degradation in yeast and human mitochondria.",
+    "doi": "10.1016/j.bbagrm.2011.11.010",
+    "pmid": "22178375",
+    "authors": [
+      "Szczesny RJ, Borowski LS, Malecki M, Wojcik MA, Stepien PP, Golik P."
+    ],
+    "year": "2012",
+    "publication_date": "2011-12-08",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Expression of mitochondrially encoded genes must be finely tuned according to the cell's requirements. Since yeast and human mitochondria have limited possibilities to regulate gene expression by altering the transcription initiation rate, posttranscriptional processes, including RNA degradation, are of great importance. In both organisms mitochondrial RNA degradation seems to be mostly depending on the RNA helicase Suv3. Yeast Suv3 functions in cooperation with Dss1 ribonuclease by forming a two-subunit complex called the mitochondrial degradosome. The human ortholog of Suv3 (hSuv3, hSuv3p, SUPV3L1) is also indispensable for mitochondrial RNA decay but its ribonucleolytic partner has so far escaped identification. In this review we summarize the current knowledge about RNA degradation in human and yeast mitochondria. This article is part of a Special Issue entitled: Mitochondrial Gene Expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human mitochondrial RNA decay mediated by PNPase-hSuv3 complex takes place in distinct foci.",
+    "doi": "10.1093/nar/gks1130",
+    "pmid": "23221631",
+    "authors": [
+      "Borowski LS, Dziembowski A, Hejnowicz MS, Stepien PP, Szczesny RJ."
+    ],
+    "year": "2013",
+    "publication_date": "2012-12-05",
+    "cited_by_count": 202,
+    "journal": "",
+    "abstract": "RNA decay is usually mediated by protein complexes and can occur in specific foci such as P-bodies in the cytoplasm of eukaryotes. In human mitochondria nothing is known about the spatial organization of the RNA decay machinery, and the ribonuclease responsible for RNA degradation has not been identified. We demonstrate that silencing of human polynucleotide phosphorylase (PNPase) causes accumulation of RNA decay intermediates and increases the half-life of mitochondrial transcripts. A combination of fluorescence lifetime imaging microscopy with Förster resonance energy transfer and bimolecular fluorescence complementation (BiFC) experiments prove that PNPase and hSuv3 helicase (Suv3, hSuv3p and SUPV3L1) form the RNA-degrading complex in vivo in human mitochondria. This complex, referred to as the degradosome, is formed only in specific foci (named D-foci), which co-localize with mitochondrial RNA and nucleoids. Notably, interaction between PNPase and hSuv3 is essential for efficient mitochondrial RNA degradation. This provides indirect evidence that degradosome-dependent mitochondrial RNA decay takes place in foci.",
+    "openalex_id": ""
+  }
+]

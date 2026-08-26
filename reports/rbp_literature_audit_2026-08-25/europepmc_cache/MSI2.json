@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A single Musashi gene allele is sufficient to maintain mouse photoreceptor cells.",
+    "doi": "10.1371/journal.pone.0338576",
+    "pmid": "42133684",
+    "authors": [
+      "Jeong B, Stoilov P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-14",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "In vertebrates, two genes, Musashi1 (Msi1) and Musashi2 (Msi2), encode for highly similar Musashi protein paralogs. The Musashi proteins are known to bind to 3'-UTRs and control translation. In photoreceptor cells, the Musashi proteins promote the inclusion of photoreceptor-specific alternative exons by binding to the proximal downstream of their introns. While the Musashi proteins are expressed in various cell types, their role in regulating splicing appears to be confined to photoreceptor cells, where the two proteins have exceptionally high expression levels. To test if the photoreceptor-specific role of MSI1 and MSI2 in splicing is due to their expression levels in photoreceptor cells, we generated combined Msi1 and Msi2 knockouts that progressively reduced the number of Musashi alleles in photoreceptor cells. We analyzed the splicing of photoreceptor-specific exons in the Cc2d2a, Cep290, Prom1, and Ttc8 genes and the function of photoreceptor cells in the knockouts. We found that a single allele from either Msi1 or Msi2 is sufficient to maintain photoreceptor function and support high inclusion levels of the photoreceptor-specific exons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Importin-7 facilitates cervical cancer progression through MSI2 nuclear import and is associated with MSI2-MYC-linked glycolytic reprogramming.",
+    "doi": "10.1016/j.trsl.2026.04.007",
+    "pmid": "42066897",
+    "authors": [
+      "Zhou W, Qiu T, Wang J, Chen J, Jiang R, Teng Y, Ma L, Bai Y, Zhang R, Xu Q."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Cervical cancer (CC) remains a major cause of cancer-related mortality in women. This study aimed to clarify the oncogenic role and underlying mechanism of Importin-7 (IPO7), a nuclear transport protein, in CC progression.<h4>Methods</h4>TCGA and GEO datasets were analyzed, with experimental validation in CC cell lines and xenograft mouse models. IPO7 function was assessed through RNA interference, followed by evaluations of cell proliferation, apoptosis, migration, invasion, and tumor growth. Mass spectrometry identified IPO7 cargo. Molecular interactions were investigated by co-immunoprecipitation, nuclear/cytoplasmic fractionation, ubiquitination assays, and nuclear localization signal (NLS) mutagenesis. RNA sequencing, Seahorse flux analysis, and Western blotting were used to assess downstream transcriptomic and metabolic changes.<h4>Results</h4>IPO7 was significantly upregulated in CC and correlated with advanced disease stage and poor prognosis. IPO7 knockdown impaired tumor growth in vitro and in vivo. MSI2 was identified as a direct nuclear cargo of IPO7, with binding dependent on its NLS. IPO7 promoted nuclear translocation of MSI2 and prevented its ubiquitin-mediated cytoplasmic degradation. MSI2 silencing abrogated the oncogenic effects of IPO7. High co-expression of IPO7 and MSI2 was associated with the worst patient outcomes. Mechanistically, IPO7, MSI2, and c-MYC formed a ternary complex that promoted MSI2-dependent nuclear accumulation of c-MYC and enhanced c-MYC mRNA stability. Disruption of this axis suppressed MYC-linked metabolic programs, including reduced glycolytic activity in CC cells.<h4>Conclusions</h4>IPO7 facilitates CC progression by mediating MSI2 nuclear import and enhancing c-MYC-dependent transcriptional programs. This axis is associated with metabolic reprogramming, including a glycolysis-related signature in CC. The IPO7-MSI2-MYC axis represents a novel prognostic marker and therapeutic target in CC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development And Validation of An RNA Binding Protein-Associated Prognostic Model for Colon Adenocarcinoma.",
+    "doi": "10.7150/jca.103477",
+    "pmid": "40535805",
+    "authors": [
+      "Yu X, Guo D, Gao J, Hu J, Zhang W, Yang Q, Wang J, He Y, Liao K, Wang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<b>Purpose:</b> We aimed to identify prognostic RNA-binding proteins (RBP) in colon cancer, analyze their biological functions, and develop predictive models for patient prognosis. <b>Materials and Methods:</b> We downloaded COAD's RNA sequencing data from the Cancer Genome Atlas (TCGA) database, and the expression and prognostic value of these RBPs in COAD were systematically evaluated. Differential expression, KEGG, and GO enrichment analyses were then performed. Cytoscape was used to visualize the protein-protein interaction network, and Cox regression was used to establish a predictive model. Finally, the expression of RBP was verified by the HPA database and immunohistochemical staining. <b>Results:</b> A total of 472 differentially expressed RBPs were detected, including 321 up-regulated RBPs and 151 down-regulated RBPs. Four RBPs (MSI2, EZH2, NCL, TERT) were identified as key prognostic genes and used to construct prognostic models, based on this model, the overall survival (OS) of patients in high-risk subgroup was worse than that of patients in the low-risk subgroup. The area under the curve of time-dependent receiver operator characteristic curve of TCGA training set and Gene Expression Omnibus (GEO) validation set was 0.607 and 0.638 respectively, which confirmed that the prognosis model was good, it showed a good ability to identify COAD. <b>Conclusion:</b> In general, our prognostic model is based on 4 RBPs encoding genes, which greatly reduces the cost of sequencing and is more conducive to clinical applications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Inherited resilience to clonal hematopoiesis by modifying stem cell RNA regulation.",
+    "doi": "10.1126/science.adx4174",
+    "pmid": "41477881",
+    "authors": [
+      "Agarwal G, Antoszewski M, Xie X, Pershad Y, Arora UP, Poon CL, Lyu P, Lee AJ, Guo CJ, Ye T, Norford LB, Neehus AL, Della Volpe L, Wahlster L, Ranasinghe D, Ho TC, Barlowe TS, Chow A, Schurer A, Taggart J, Durham BH, Abdel-Wahab O, McGraw KL, Allan JM, Soldatov R, Bick AG, Kharas MG, Sankaran VG."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Somatic mutations that increase the fitness of hematopoietic stem cells (HSCs) drive their expansion in clonal hematopoiesis (CH) and predispose individuals to blood cancers. Population variation in the growth rate and potential of mutant clones suggests that genetic factors may confer resilience against CH. Here, we identified a noncoding regulatory variant, rs17834140-T, that protects against CH and myeloid malignancies by selectively down-regulating the RNA-binding protein MSI2 in HSCs. By modeling variant effects and mapping MSI2 binding targets, we uncovered an RNA network that maintains human HSCs and influences CH risk. Variant rs17834140-T was associated with slower CH expansion, and stem cell MSI2 levels modified <i>ASXL1</i>-mutant HSC clonal dominance. These findings leverage natural resilience to illuminate posttranscriptional regulation in human HSCs, suggesting that inhibition of MSI2 or its targets could be rational strategies for blood cancer prevention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein MSI2 controls blood-tumor barrier permeability via LINC00667-Mediated IRF6 mRNA decay.",
+    "doi": "10.1016/j.jbc.2026.111208",
+    "pmid": "41581866",
+    "authors": [
+      "Gao R, Ruan X, Xue Y, Wang P, Wang D, E T, Liu X, Liu L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-23",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Increasing evidence shows that RNA-binding proteins play crucial roles in modulating the blood-tumor barrier (BTB) permeability in glioblastoma (GB). In this study, we identified elevated expression of Musashi RNA-binding protein 2 (MSI2) and Long intergenic nonprotein coding RNA 667 (LINC00667) in glioma co-cultured endothelial cells. MSI2 enhanced the stability of LINC00667, and its knockdown elevated the BTB permeability. In contrast, transcription factor interferon regulatory factor 6 (IRF6) exhibited reduced expression in glioma co-cultured endothelial cells, and its over-expression elevated the BTB permeability. Mechanistically, LINC00667 facilitated IRF6 mRNA degradation through Staufen1-mediated mRNA decay pathway. IRF6 inhibited the transcriptions of key tight junction associated proteins (ZO-1, occludin, and claudin-5) through promoter binding. That is, MSI2 knockdown down-regulated the expression of LINC00667, thereby diminishing its ability to degrade IRF6 through the Staufen1-mediated mRNA decay pathway. This led to IRF6 accumulation, which transcriptionally suppressed ZO-1, occludin and claudin-5 expression, ultimately increasing BTB permeability. Furthermore, both individual and combined modulation of MSI2 knockdown, LINC00667 knockdown and IRF6 over-expression enhanced BTB permeability to doxorubicin, thereby increasing the apoptosis rate of GB cells. Collectively, the MSI2/LINC00667/IRF6 pathway plays an important role in modulating BTB permeability, offering potential targets for new molecular therapies in GB.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNA-based protein replacement therapy mitigates osteoarthritis in male mice.",
+    "doi": "10.1038/s41467-025-63343-z",
+    "pmid": "41006212",
+    "authors": [
+      "Suo J, Li L, Tan W, Yin X, Wang J, Shao R, Sun S, Guo SK, Feng J, Gao BQ, Wang Y, Wei MY, Wang L, Feng H, Gao X, Hu P, Zheng X, Chen LL, Lei G, Huang Y, Zou W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-26",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "In vitro-transcribed and circularized RNAs (ivcRNAs) represent a robust platform for sustained protein translation, offering promising potential for localized therapeutic delivery in joint diseases. Osteoarthritis (OA), the most prevalent degenerative joint disorder, remains a major clinical challenge due to its progressive nature and the lack of disease-modifying treatments. In this study, we identify Musashi2 (Msi2) deficiency in articular chondrocytes as a key contributor to OA pathogenesis. To evaluate the efficacy of ivcRNA-mediated protein replacement therapy, we developed a localized delivery strategy that enables high-yield and prolonged protein expression in chondrocytes. Using a destabilization of the medial meniscus (DMM) mouse model, we demonstrate that intra-articular delivery of ivcRNA encoding MSI2 effectively mitigates OA progression in male mice. Furthermore, therapeutic supplementation of SOX5, a downstream effector of MSI2, via ivcRNA delivery further validates this approach. Our findings establish ivcRNA-based protein replacement as a potential RNA therapeutic strategy for osteoarthritis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MSI2 exerts antitumor effects by regulating T-cell function in kidney renal clear cell carcinoma.",
+    "doi": "10.21037/tau-2025-437",
+    "pmid": "41368259",
+    "authors": [
+      "Yang S, Zhang X, Chen X, Zheng Q, Wei Q, Yang Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Musashi 2 (MSI2) exhibits oncogenic effects in various solid tumors. However, its mechanism of action in kidney renal clear cell carcinoma (KIRC) remains unclear. Our study objective is to explore the expression of MSI2 in KIRC and its relationship with the tumor microenvironment (TME).<h4>Methods</h4>We analyzed MSI2 expression at the messenger ribonucleic acid (mRNA) and protein levels using the TIMER2.0 and University of Alabama at Birmingham Cancer Data Analysis Portal (UALCAN) databases, respectively. We also validated the expression and role of MSI2 in renal cells in cell-based experiments and examined the relationship between MSI2 expression and prognosis and the immune microenvironment. Furthermore, we performed an enrichment analysis and constructed regulatory networks for MSI2 to explore its functions and regulatory mechanisms. Finally, we conducted single-cell RNA sequencing (scRNA-seq) to identify key cells in KIRC and a pseudotemporal analysis to investigate their differentiation trajectories.<h4>Results</h4>While MSI2 and its mRNA are typically upregulated in other cancers, they are downregulated in KIRC. A Kaplan-Meier (KM) analysis showed that KIRC patients with high MSI2 expression exhibited improved survival rates. MSI2 was mainly expressed in renal tubules in normal renal tissue and not in KIRC cells. Knocking down MSI2 promoted KIRC cell proliferation, invasion, and migration <i>in vitro</i>, and there was a correlation between MSI2 expression and immune cells and checkpoints. The scRNA-seq analysis indicated that T cells are key players in KIRC. A dynamic MSI2 expression pattern was observed during T-cell differentiation, showing an upward trend in the medium term before leveling off.<h4>Conclusions</h4>Our results suggest that MSI2 plays an antitumor role in KIRC by regulating T-cell function. They also indicate that MSI2 is involved in hydrogen ion secretion in renal tubular epithelial cells and that it may be a differentiation and maturation marker in these cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Multi‑omics identification of MSI2 as a super-enhancer‑driven vulnerability in MYCN‑amplified neuroblastoma.",
+    "doi": "10.1186/s12967-026-08296-7",
+    "pmid": "42143291",
+    "authors": [
+      "Zhang X, Yang Y, Zhang M, Fan K, Huang Z, Zhang Y, Kong L, Chen Q, Tan R, Zhang S, Yu D, Xiong X, Wu K."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-16",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Neuroblastoma (NB) is the most common extracranial solid tumor in children and is characterized by marked clinical heterogeneity and poor prognosis. MYCN amplification drives NB tumorigenesis through epigenetic reprogramming and is frequently accompanied by a copy-number gain of the long arm of chromosome 17 (17q). Epigenetic dysregulation of enhancer landscapes-particularly large regulatory elements termed super‑enhancers (SEs), which are enriched for H3K27ac and bound by lineage-specific master transcription factors (TFs)-establishes distinct NB cellular identities and states. These SE domains demarcate oncogenes that function as critical regulators of cell proliferation and apoptosis. Therefore, SE-driven genes represent tumor vulnerabilities, offering selective therapeutic opportunities.<h4>Methods</h4>By integrating ATAC-seq data from 22 NB cell lines, the intratumoral heterogeneity of MYCN-amplified NB was characterized at the level of chromatin accessibility. Subsequently, based on H3K27ac ChIP-seq data from 38 NB cell lines, the ROSE algorithm was employed to identify SE-driven oncogenes. The synergistic mechanism between MYCN amplification and the 17q SE-driven gene MSI2 was investigated through genome‑wide CRISPR/Cas9 loss‑of‑function screens. At single‑cell resolution, we conducted a comprehensive analysis of the characteristics of heterogeneous tumor subpopulations and their immune microenvironment features. This analysis was performed using multiple bioinformatics workflows, including AUCell scoring, SCENIC analysis, copy‑number inference, cell differentiation‑state evaluation, neighborhood abundance tests, and separability tests. Finally, functional validation was performed using NB cell lines (MYCN‑amplified and non‑amplified) to assess gene perturbations.<h4>Results</h4>Pronounced epigenetic heterogeneity was observed within MYCN-amplified NB. MSI2 is an SE‑driven oncogene and is highly expressed in MYCN‑amplified NB. MSI2 and MYCN are co-expressed, may be mutually dependent, and are both correlated with cell cycle-related pathways. At the single-cell level, we identified and redefined an NB-MSI2 + MYCN+ subtype characterized by malignant transcriptional features, an immunosuppressive microenvironment, and poor patient prognosis. Building on this, combined targeting of MSI2 and MYCN markedly reduced proliferation and migration in MYCN‑amplified NB cells.<h4>Conclusions</h4>The NB‑MSI2 + MYCN+ subtype defines a clinically aggressive, therapy‑refractory state characterized by high proliferation, metabolic reprogramming, and immunosuppression. For patients with MYCN-amplified NB, MSI2 is both a prognostic biomarker and a candidate therapeutic target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Musashi-2 causes cardiac hypertrophy and heart failure by inducing mitochondrial dysfunction through destabilizing Cluh and Smyd1 mRNA.",
+    "doi": "10.1007/s00395-023-01016-y",
+    "pmid": "37923788",
+    "authors": [
+      "Singh S, Gaur A, Sharma RK, Kumari R, Prakash S, Kumari S, Chaudhary AD, Prasun P, Pant P, Hunkler H, Thum T, Jagavelu K, Bharati P, Hanif K, Chitkara P, Kumar S, Mitra K, Gupta SK."
+    ],
+    "year": "2023",
+    "publication_date": "2023-11-03",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "Regulation of RNA stability and translation by RNA-binding proteins (RBPs) is a crucial process altering gene expression. Musashi family of RBPs comprising Msi1 and Msi2 is known to control RNA stability and translation. However, despite the presence of MSI2 in the heart, its function remains largely unknown. Here, we aim to explore the cardiac functions of MSI2. We confirmed the presence of MSI2 in the adult mouse, rat heart, and neonatal rat cardiomyocytes. Furthermore, Msi2 was significantly enriched in the heart cardiomyocyte fraction. Next, using RNA-seq data and isoform-specific PCR primers, we identified Msi2 isoforms 1, 4, and 5, and two novel putative isoforms labeled as Msi2 6 and 7 to be expressed in the heart. Overexpression of Msi2 isoforms led to cardiac hypertrophy in cultured cardiomyocytes. Additionally, Msi2 exhibited a significant increase in a pressure-overload model of cardiac hypertrophy. We selected isoforms 4 and 7 to validate the hypertrophic effects due to their unique alternative splicing patterns. AAV9-mediated overexpression of Msi2 isoforms 4 and 7 in murine hearts led to cardiac hypertrophy, dilation, heart failure, and eventually early death, confirming a pathological function for Msi2. Using global proteomics, gene ontology, transmission electron microscopy, seahorse, and transmembrane potential measurement assays, increased MSI2 was found to cause mitochondrial dysfunction in the heart. Mechanistically, we identified Cluh and Smyd1 as direct downstream targets of Msi2. Overexpression of Cluh and Smyd1 inhibited Msi2-induced cardiac malfunction and mitochondrial dysfunction. Collectively, we show that Msi2 induces hypertrophy, mitochondrial dysfunction, and heart failure.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-107 represses &lt;i&gt;DMPK&lt;/i&gt; and is sequestered by CUG repeats triggering the MSI2/miR-7 pathogenesis axis in myotonic dystrophy.",
+    "doi": "10.1016/j.omtn.2025.102584",
+    "pmid": "40599975",
+    "authors": [
+      "Moreno N, Sabater-Arcis M, Espinosa-Espinosa J, Mulet-Rivero L, García-España E, González-García J, Seoane-Miraz D, Wood MJA, Varela MA, Ohana J, Sevilla T, Perez Alonso M, Bargiela A, Artero R."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-04",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Myotonic dystrophy type 1 (DM1) is a multisystem genetic disorder characterized by muscle disease, including muscle atrophy partially originating from excessive autophagy. We have previously demonstrated that excessive Musashi-2 (MSI2) repressed the biogenesis of miR-7, which derepressed autophagy, ultimately contributing to muscle atrophy, but the root cause of MSI2 dysregulation is unknown. Herein, we investigate the intricate role of miR-107 in DM1 pathogenesis, focusing on its involvement in the MSI2>miR-7>autophagy axis as this microRNA (miRNA) directly regulates MSI2. We found that in DM1, miR-107 function is impaired because expanded CUG repeats sequester it, causing an increase in the expression of its targets, including MSI2. Through different experimental approaches, including luciferase reporter assays, differential scanning fluorimetry, and electrophoretic mobility shift assay (EMSA), we confirm that miR-107 directly binds to CUG repeats in mutant <i>DMPK</i> transcripts. DMPK posttranscriptional regulation by miR-107 was also demonstrated. Modulation of miR-107 in a DM1 cell model context significantly affects its downstream targets, MSI2 and miR-7, thus decreasing excessive autophagic markers and restoring pathological phenotypes such as ribonuclear foci and impaired fusion capacity. These findings underscore the critical role of miR-107 in regulating the MSI2>miR-7>autophagy axis and support this miRNA as a promising therapeutic target for correcting muscle dysfunction in DM1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic suppression of precocious transcription termination identifies mutations in essential subunits of the fission yeast cleavage and polyadenylation machinery.",
+    "doi": "10.1261/rna.080664.125",
+    "pmid": "40908147",
+    "authors": [
+      "Innokentev A, Sanchez AM, Bednor L, Babor J, Schwer B, Shuman S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-16",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The fission yeast phosphate acquisition (<i>PHO</i>) regulon is repressed under phosphate-replete conditions by upstream lncRNA-mediated transcriptional interference. Inositol-1-pyrophosphates control phosphate homeostasis via their action as agonists of precocious <i>PHO</i> lncRNA 3'-processing/termination. Inositol pyrophosphatase-inactivating mutations that increase inositol-1-pyrophosphates elicit derepression of the <i>PHO</i> genes and a severe growth defect in YES medium. Previous studies demonstrated suppression of inositol pyrophosphate toxicosis by targeted deletion or loss-of-function mutations in the nonessential Ssu72, Ppn1, Swd22, and Ctf1 subunits of the fission yeast cleavage and polyadenylation factor (CPF) complex. Here we conducted a selection for spontaneous mutations that suppress the precocious <i>PHO</i> lncRNA termination underlying the sickness of <i>asp1-STF</i> pyrophosphatase mutants. We thereby recovered and characterized novel hypomorphic missense mutations in five essential CPF subunits: Ysh1 (the cleavage endonuclease), Pta1 (an armadillo/HEAT-repeat protein), Pfs2 (a WD repeat protein), Cft1 (a WD repeat protein), and Msi2 (a tandem RRM RNA-binding protein). The suppressor screen also yielded an intron branchpoint mutation in the gene encoding essential CPF subunit Iss1. In addition, we found that <i>asp1-STF</i> toxicosis was suppressed by a missense mutation in the active site of Pla1, the essential poly(A) polymerase subunit of CPF. Genetic crosses revealed a hierarchy of mutational synergies between the essential CPF subunits, the inessential CPF subunits, termination factor Rhn1, the Thr4 \"letter\" of the RNA polymerase II CTD code, and the Asp1 kinase that synthesizes inositol-1-pyrophosphates. The synthetic lethality of <i>msi2-G252E</i> with <i>ctf1</i>Δ, <i>swd22</i>Δ, <i>ppn1</i>Δ, <i>ssu72-C13S</i>, <i>rpb1-CTD-T4A</i>, and <i>asp1</i>Δ establishes Msi2 as a central agent of 3'-processing/termination, functioning in parallel to inositol-1-pyrophosphates.",
+    "openalex_id": ""
+  },
+  {
+    "title": "β-Catenin interacts with canonical RBPs including MSI2 to associate with a Wnt signalling mRNA network in myeloid leukaemia cells.",
+    "doi": "10.1038/s41388-025-03415-y",
+    "pmid": "40301545",
+    "authors": [
+      "Wagstaff M, Sevim O, Goff A, Raynor M, Park H, Mancini EJ, Nguyen DTT, Chevassut T, Blair A, Castellano L, Newbury S, Towler B, Morgan RG."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-30",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Wnt/β-catenin signalling is important for normal hematopoietic stem/progenitor cell (HSPC) biology and heavily implicated in acute and chronic myeloid leukaemia (AML and CML). The central mediator β-catenin is an attractive therapeutic target in myeloid neoplasms however its targeting has been hampered by a poor characterisation of its molecular interactions in haematopoietic cells, which will differ from its network in solid tissues. Our previous β-catenin interactome study identified the significant enrichment of RNA-binding proteins (RBP) implying post-transcriptional roles for β-catenin in myeloid cells. To identify β-catenin interacting mRNAs we performed β-catenin RNA-immunoprecipitation coupled to RNA-sequencing (RIP-seq) and identified significantly enriched Wnt signalling pathway transcripts. Using β-catenin cross-linking immunoprecipitation (CLIP) we demonstrated a limited capacity for β-catenin to bind RNA directly, implying dependence on other RBPs. β-Catenin was found to interact with Musashi-2 (MSI2) in both myeloid cell lines and primary AML patient samples, where expression was significantly correlated. MSI2 knockdown reduced Wnt signalling output (TCF/LEF activity), through suppression of LEF-1 expression and nuclear localisation. Through both RIP and CLIP we demonstrate MSI2 binds LEF1 mRNA in a partly β-catenin dependent fashion, and may impact the post-transcriptional control of LEF-1 expression. Finally, we show that MSI2-mediated expansion of human HSPCs could be partly driven through LEF1 regulation. This is the first study to experimentally demonstrate functional crosstalk between MSI2 and Wnt signalling in human cells, and indicates potential novel post-transcriptional roles for β-catenin in a haematological context.",
+    "openalex_id": ""
+  }
+]

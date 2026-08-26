@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A Tissue-Mapped Axolotl De Novo Transcriptome Enables Identification of Limb Regeneration Factors.",
+    "doi": "10.1016/j.celrep.2016.12.063",
+    "pmid": "28099853",
+    "authors": [
+      "Bryant DM, Johnson K, DiTommaso T, Tickle T, Couger MB, Payzin-Dogru D, Lee TJ, Leigh ND, Kuo TH, Davis FG, Bateman J, Bryant S, Guzikowski AR, Tsai SL, Coyne S, Ye WW, Freeman RM, Peshkin L, Tabin CJ, Regev A, Haas BJ, Whited JL."
+    ],
+    "year": "2017",
+    "publication_date": "2017-01-01",
+    "cited_by_count": 768,
+    "journal": "",
+    "abstract": "Mammals have extremely limited regenerative capabilities; however, axolotls are profoundly regenerative and can replace entire limbs. The mechanisms underlying limb regeneration remain poorly understood, partly because the enormous and incompletely sequenced genomes of axolotls have hindered the study of genes facilitating regeneration. We assembled and annotated a de novo transcriptome using RNA-sequencing profiles for a broad spectrum of tissues that is estimated to have near-complete sequence information for 88% of axolotl genes. We devised expression analyses that identified the axolotl orthologs of cirbp and kazald1 as highly expressed and enriched in blastemas. Using morpholino anti-sense oligonucleotides, we find evidence that cirbp plays a cytoprotective role during limb regeneration whereas manipulation of kazald1 expression disrupts regeneration. Our transcriptome and annotation resources greatly complement previous transcriptomic studies and will be a valuable resource for future research in regenerative biology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of novel lipid droplet factors that regulate lipophagy and cholesterol efflux in macrophage foam cells.",
+    "doi": "10.1080/15548627.2021.1886839",
+    "pmid": "33590792",
+    "authors": [
+      "Robichaud S, Fairman G, Vijithakumar V, Mak E, Cook DP, Pelletier AR, Huard S, Vanderhyden BC, Figeys D, Lavallée-Adam M, Baetz K, Ouimet M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-26",
+    "cited_by_count": 197,
+    "journal": "",
+    "abstract": "Macrophage autophagy is a highly anti-atherogenic process that promotes the catabolism of cytosolic lipid droplets (LDs) to maintain cellular lipid homeostasis. Selective autophagy relies on tags such as ubiquitin and a set of selectivity factors including selective autophagy receptors (SARs) to label specific cargo for degradation. Originally described in yeast cells, \"lipophagy\" refers to the degradation of LDs by autophagy. Yet, how LDs are targeted for autophagy is poorly defined. Here, we employed mass spectrometry to identify lipophagy factors within the macrophage foam cell LD proteome. In addition to structural proteins (e.g., PLIN2), metabolic enzymes (e.g., ACSL) and neutral lipases (e.g., PNPLA2), we found the association of proteins related to the ubiquitination machinery (e.g., AUP1) and autophagy (e.g., HMGB, YWHA/14-3-3 proteins). The functional role of candidate lipophagy factors (a total of 91) was tested using a custom siRNA array combined with high-content cholesterol efflux assays. We observed that knocking down several of these genes, including <i>Hmgb1, Hmgb2, Hspa5</i>, and <i>Scarb2</i>, significantly reduced cholesterol efflux, and SARs SQSTM1/p62, NBR1 and OPTN localized to LDs, suggesting a role for these in lipophagy. Using yeast lipophagy assays, we established a genetic requirement for several candidate lipophagy factors in lipophagy, including HSPA5, UBE2G2 and AUP1. Our study is the first to systematically identify several LD-associated proteins of the lipophagy machinery, a finding with important biological and therapeutic implications. Targeting these to selectively enhance lipophagy to promote cholesterol efflux in foam cells may represent a novel strategy to treat atherosclerosis.<b>Abbreviations:</b> ADGRL3: adhesion G protein-coupled receptor L3; agLDL: aggregated low density lipoprotein; AMPK: AMP-activated protein kinase; APOA1: apolipoprotein A1; ATG: autophagy related; AUP1: AUP1 lipid droplet regulating VLDL assembly factor; BMDM: bone-marrow derived macrophages; BNIP3L: BCL2/adenovirus E1B interacting protein 3-like; BSA: bovine serum albumin; CALCOCO2: calcium binding and coiled-coil domain 2; CIRBP: cold inducible RNA binding protein; COLGALT1: collagen beta(1-O)galactosyltransferase 1; CORO1A: coronin 1A; DMA: deletion mutant array; Faa4: long chain fatty acyl-CoA synthetase; FBS: fetal bovine serum; FUS: fused in sarcoma; HMGB1: high mobility group box 1; HMGB2: high mobility group box 2: HSP90AA1: heat shock protein 90: alpha (cytosolic): class A member 1; HSPA5: heat shock protein family A (Hsp70) member 5; HSPA8: heat shock protein 8; HSPB1: heat shock protein 1; HSPH1: heat shock 105kDa/110kDa protein 1; LDAH: lipid droplet associated hydrolase; LIPA: lysosomal acid lipase A; LIR: LC3-interacting region; MACROH2A1: macroH2A.1 histone; MAP1LC3: microtubule-associated protein 1 light chain 3; MCOLN1: mucolipin 1; NBR1: NBR1, autophagy cargo receptor; NPC2: NPC intracellular cholesterol transporter 2; OPTN: optineurin; P/S: penicillin-streptomycin; PLIN2: perilipin 2; PLIN3: perilipin 3; PNPLA2: patatin like phospholipase domain containing 2; RAB: RAB, member RAS oncogene family; RBBP7, retinoblastoma binding protein 7, chromatin remodeling factor; SAR: selective autophagy receptor; SCARB2: scavenger receptor class B, member 2; SGA: synthetic genetic array; SQSTM1: sequestosome 1; TAX1BP1: Tax1 (human T cell leukemia virus type I) binding protein 1; TFEB: transcription factor EB; TOLLIP: toll interacting protein; UBE2G2: ubiquitin conjugating enzyme E2 G2; UVRAG: UV radiation resistance associated gene; VDAC2: voltage dependent anion channel 2; VIM: vimentin.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Altered m<sup>6</sup>A Modification of Specific Cellular Transcripts Affects Flaviviridae Infection.",
+    "doi": "10.1016/j.molcel.2019.11.007",
+    "pmid": "31810760",
+    "authors": [
+      "Gokhale NS, McIntyre ABR, Mattocks MD, Holley CL, Lazear HM, Mason CE, Horner SM."
+    ],
+    "year": "2020",
+    "publication_date": "2019-12-03",
+    "cited_by_count": 169,
+    "journal": "",
+    "abstract": "The RNA modification N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) modulates mRNA fate and thus affects many biological processes. We analyzed m<sup>6</sup>A across the transcriptome following infection by dengue virus (DENV), Zika virus (ZIKV), West Nile virus (WNV), and hepatitis C virus (HCV). We found that infection by these viruses in the Flaviviridae family alters m<sup>6</sup>A modification of specific cellular transcripts, including RIOK3 and CIRBP. During viral infection, the addition of m<sup>6</sup>A to RIOK3 promotes its translation, while loss of m<sup>6</sup>A in CIRBP promotes alternative splicing. Importantly, viral activation of innate immune sensing or the endoplasmic reticulum (ER) stress response contributes to the changes in m<sup>6</sup>A in RIOK3 or CIRBP, respectively. Further, several transcripts with infection-altered m<sup>6</sup>A profiles, including RIOK3 and CIRBP, encode proteins that influence DENV, ZIKV, and HCV infection. Overall, this work reveals that cellular signaling pathways activated during viral infection lead to alterations in m<sup>6</sup>A modification of host mRNAs to regulate infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cold-induced RNA-binding proteins regulate circadian gene expression by controlling alternative polyadenylation.",
+    "doi": "10.1038/srep02054",
+    "pmid": "23792593",
+    "authors": [
+      "Liu Y, Hu W, Murakawa Y, Yin J, Wang G, Landthaler M, Yan J."
+    ],
+    "year": "2013",
+    "publication_date": "2013-01-01",
+    "cited_by_count": 156,
+    "journal": "",
+    "abstract": "The body temperature is considered a universal cue by which the master clock synchronizes the peripheral clocks in mammals, but the mechanism is not fully understood. Here we identified two cold-induced RNA-binding proteins (RBPs), Cirbp and Rbm3, as important regulators for the temperature entrained circadian gene expression. The depletion of Cirbp or Rbm3 significantly reduced the amplitudes of core circadian genes. PAR-CLIP analyses showed that the 3'UTR binding sites of Cirbp and Rbm3 were significantly enriched near the polyadenylation sites (PASs). Furthermore, the depletion of Cirbp or Rbm3 shortened 3'UTR, whereas low temperature (upregulating Cirbp and Rbm3) lengthened 3'UTR. Remarkably, we found that they repressed the usage of proximal PASs by binding to the common 3'UTR, and many cases of proximal/distal PAS selection regulated by them showed strong circadian oscillations. Our results suggested that Cirbp and Rbm3 regulated the circadian gene expression by controlling alternative polyadenylation (APA).",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cold-inducible RNA binding protein in cancer and inflammation.",
+    "doi": "10.1002/wrna.1462",
+    "pmid": "29322631",
+    "authors": [
+      "Lujan DA, Ochoa JL, Hartley RS."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-11",
+    "cited_by_count": 108,
+    "journal": "",
+    "abstract": "RNA binding proteins (RBPs) play key roles in RNA dynamics, including subcellular localization, translational efficiency and metabolism. Cold-inducible RNA binding protein (CIRP) is a stress-induced protein that was initially described as a DNA damage-induced transcript (A18 hnRNP), as well as a cold-shock domain containing cold-stress response protein (CIRBP) that alters the translational efficiency of its target messenger RNAs (mRNAs). This review summarizes recent work on the roles of CIRP in the context of inflammation and cancer. The function of CIRP in cancer appeared to be solely driven though its functions as an RBP that targeted cancer-associated mRNAs, but it is increasingly clear that CIRP also modulates inflammation. Several recent studies highlight roles for CIRP in immune responses, ranging from sepsis to wound healing and tumor-promoting inflammation. While modulating inflammation is an established role for RBPs that target cytokine mRNAs, CIRP appears to modulate inflammation by several different mechanisms. CIRP has been found in serum, where it binds the TLR4-MD2 complex, acting as a Damage-associated molecular pattern (DAMP). CIRP activates the NF-κB pathway, increasing phosphorylation of Iκκ and IκBα, and stabilizes mRNAs encoding pro-inflammatory cytokines. While CIRP promotes higher levels of pro-inflammatory cytokines in certain cancers, it also decreases inflammation to accelerate wound healing. This dichotomy suggests that the influence of CIRP on inflammation is context dependent and highlights the importance of detailing the mechanisms by which CIRP modulates inflammation. WIREs RNA 2018, 9:e1462. doi: 10.1002/wrna.1462 This article is categorized under: RNA in Disease and Development > RNA in Disease RNA Interactions with Proteins and Other Molecules > Protein-RNA Interactions: Functional Implications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Novel Candidate Gene for Temperature-Dependent Sex Determination in the Common Snapping Turtle.",
+    "doi": "10.1534/genetics.115.182840",
+    "pmid": "26936926",
+    "authors": [
+      "Schroeder AL, Metzger KJ, Miller A, Rhen T."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-02",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "Temperature-dependent sex determination (TSD) was described nearly 50 years ago. Researchers have since identified many genes that display differential expression at male- vs. female-producing temperatures. Yet, it is unclear whether these genes (1) are involved in sex determination per se, (2) are downstream effectors involved in differentiation of ovaries and testes, or (3) are thermo-sensitive but unrelated to gonad development. Here we present multiple lines of evidence linking CIRBP to sex determination in the snapping turtle, Chelydra serpentina We demonstrate significant associations between a single nucleotide polymorphism (SNP) (c63A > C) in CIRBP, transcript levels in embryonic gonads during specification of gonad fate, and sex in hatchlings from a thermal regime that produces mixed sex ratios. The A allele was induced in embryos exposed to a female-producing temperature, while expression of the C allele did not differ between female- and male-producing temperatures. In accord with this pattern of temperature-dependent, allele-specific expression, AA homozygotes were more likely to develop ovaries than AC heterozygotes, which, in turn, were more likely to develop ovaries than CC homozygotes. Multiple regression using SNPs in CIRBP and adjacent loci suggests that c63A > C may be the causal variant or closely linked to it. Differences in CIRBP allele frequencies among turtles from northern Minnesota, southern Minnesota, and Texas reflect small and large-scale latitudinal differences in TSD pattern. Finally, analysis of CIRBP protein localization reveals that CIRBP is in a position to mediate temperature effects on the developing gonads. Together, these studies strongly suggest that CIRBP is involved in determining the fate of the bipotential gonad.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Effects of mild cold shock (25°C) followed by warming up at 37°C on the cellular stress response.",
+    "doi": "10.1371/journal.pone.0069687",
+    "pmid": "23936078",
+    "authors": [
+      "Neutelings T, Lambert CA, Nusgens BV, Colige AC."
+    ],
+    "year": "2013",
+    "publication_date": "2013-07-23",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "Temperature variations in cells, tissues and organs may occur in a number of circumstances. We report here that reducing temperature of cells in culture to 25°C for 5 days followed by a rewarming to 37°C affects cell biology and induces a cellular stress response. Cell proliferation was almost arrested during mild hypothermia and not restored upon returning to 37°C. The expression of cold shock genes, CIRBP and RBM3, was increased at 25°C and returned to basal level upon rewarming while that of heat shock protein HSP70 was inversely regulated. An activation of pro-apoptotic pathways was evidenced by FACS analysis and increased Bax/Bcl2 and BclX(S/L) ratios. Concomitant increased expression of the autophagosome-associated protein LC3II and AKT phosphorylation suggested a simultaneous activation of autophagy and pro-survival pathways. However, a large proportion of cells were dying 24 hours after rewarming. The occurrence of DNA damage was evidenced by the increased phosphorylation of p53 and H2AX, a hallmark of DNA breaks. The latter process, as well as apoptosis, was strongly reduced by the radical oxygen species (ROS) scavenger, N-acetylcysteine, indicating a causal relationship between ROS, DNA damage and cell death during mild cold shock and rewarming. These data bring new insights into the potential deleterious effects of mild hypothermia and rewarming used in various research and therapeutical fields.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Down-regulating cold shock protein genes impairs cancer cell survival and enhances chemosensitivity.",
+    "doi": "10.1002/jcb.22114",
+    "pmid": "19277990",
+    "authors": [
+      "Zeng Y, Kulkarni P, Inoue T, Getzenberg RH."
+    ],
+    "year": "2009",
+    "publication_date": "2009-05-01",
+    "cited_by_count": 69,
+    "journal": "",
+    "abstract": "The microenvironment of the cancer cell is pivotal to its phenotypic regulation. One of the central components of the microenvironment is temperature. An elevation in environmental temperature has been shown to increase the cancer cell's susceptibility to chemo- and radiation therapy. The goal of the studies described here was to identify some of the pathways that are modified by a mild increase in temperature in cancer cells. Using prostate cancer cells as a model system we found that in addition to the well described and anticipated up-regulation of the heat shock family of proteins, there is a significant down-regulation of certain members of the \"cold shock\" family of proteins such as, RNA binding motif protein 3 (RBM3) and cold inducible RNA binding protein (CIRBP). siRNA-mediated down-regulation of the cold shock protein (CSP) encoding mRNAs dramatically attenuates cell survival in the absence of any heat application. Furthermore, we also demonstrate that knocking down the CSPs can enhance the therapeutic response of prostate cancer cells to chemotherapy. Our findings suggest that down-regulating CSPs in cancer cells may \"mimic\" the stress response the cells experience when exposed to heat treatment rendering them more susceptible to therapy. Thus, the pharmacological modulation of RBM3 and CIRBP may represent novel therapeutic approaches for prostate cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The transcriptomic responses of Atlantic salmon (Salmo salar) to high temperature stress alone, and in combination with moderate hypoxia.",
+    "doi": "10.1186/s12864-021-07464-x",
+    "pmid": "33845767",
+    "authors": [
+      "Beemelmanns A, Zanuzzo FS, Xue X, Sandrelli RM, Rise ML, Gamperl AK."
+    ],
+    "year": "2021",
+    "publication_date": "2021-04-12",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Increases in ocean temperatures and in the frequency and severity of hypoxic events are expected with climate change, and may become a challenge for cultured Atlantic salmon and negatively affect their growth, immunology and welfare. Thus, we examined how an incremental temperature increase alone (Warm & Normoxic-WN: 12 → 20 °C; 1 °C week<sup>- 1</sup>), and in combination with moderate hypoxia (Warm & Hypoxic-WH: ~ 70% air saturation), impacted the salmon's hepatic transcriptome expr\\ession compared to control fish (CT: 12 °C, normoxic) using 44 K microarrays and qPCR.<h4>Results</h4>Overall, we identified 2894 differentially expressed probes (DEPs, FDR < 5%), that included 1111 shared DEPs, while 789 and 994 DEPs were specific to WN and WH fish, respectively. Pathway analysis indicated that the cellular mechanisms affected by the two experimental conditions were quite similar, with up-regulated genes functionally associated with the heat shock response, ER-stress, apoptosis and immune defence, while genes connected with general metabolic processes, proteolysis and oxidation-reduction were largely suppressed. The qPCR assessment of 41 microarray-identified genes validated that the heat shock response (hsp90aa1, serpinh1), apoptosis (casp8, jund, jak2) and immune responses (apod, c1ql2, epx) were up-regulated in WN and WH fish, while oxidative stress and hypoxia sensitive genes were down-regulated (cirbp, cyp1a1, egln2, gstt1, hif1α, prdx6, rraga, ucp2). However, the additional challenge of hypoxia resulted in more pronounced effects on heat shock and immune-related processes, including a stronger influence on the expression of 14 immune-related genes. Finally, robust correlations between the transcription of 19 genes and several phenotypic traits in WH fish suggest that changes in gene expression were related to impaired physiological and growth performance.<h4>Conclusion</h4>Increasing temperature to 20 °C alone, and in combination with hypoxia, resulted in the differential expression of genes involved in similar pathways in Atlantic salmon. However, the expression responses of heat shock and immune-relevant genes in fish exposed to 20 °C and hypoxia were more affected, and strongly related to phenotypic characteristics (e.g., growth). This study provides valuable information on how these two environmental challenges affect the expression of stress-, metabolic- and immune-related genes and pathways, and identifies potential biomarker genes for improving our understanding of fish health and welfare.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Single cell RNA sequencing (scRNA-Seq) deciphering pathological alterations in streptozotocin-induced diabetic retinas.",
+    "doi": "10.1016/j.exer.2021.108718",
+    "pmid": "34364890",
+    "authors": [
+      "Sun L, Wang R, Hu G, Liu H, Lv K, Duan Y, Shen N, Wu J, Hu J, Liu Y, Jin Q, Zhang F, Xu X."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-06",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "Diabetic retinopathy (DR) is an irreversible and progressive diabetic complication leading to visual impairment, even blindness. Due to the delicate and complicated structure of the retina, the pathology of DR has not been completely elucidated yet. We constructed a transcriptome atlas of >14,000 single cells from healthy and streptozotocin (STZ)-induced diabetic murine retinas to decipher pathological alterations of DR. We found four stress-inducible genes Cirbp, Rmb3, Mt1 and Mt2 commonly induced in most types of retinal cells. Bipolar cells were little affected on both number and gene expression. Diabetes increased expression of inflammatory factor genes in retinal microglia, and stimulated expression of immediate early genes (IEGs) in retinal astrocytes. A large number of genes were deregulated in diabetic vascular endothelial cells (ECs), and the differentially expressed genes were paired to the pathways functioning in metabolism, shear stress and vascular permeability. These pathways were mapped by more deregulated genes in a subpopulation of ECs specifically presented in diabetic retinas (diabetic retinal ECs, DRECs). Moreover, several inflammation pathways were activated in DRECs, and the most significant one is the IL-17 signaling pathway. According to the EC markers, DRECs were mainly capillary ECs, confirmed by immunofluorescent staining of S100a9, a target gene of the IL-17 signaling pathway. This study deciphered pathological alterations of DR, and provided clues for potential targets for DR therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nonclassical nuclear localization signals mediate nuclear import of CIRBP.",
+    "doi": "10.1073/pnas.1918944117",
+    "pmid": "32234784",
+    "authors": [
+      "Bourgeois B, Hutten S, Gottschalk B, Hofweber M, Richter G, Sternat J, Abou-Ajram C, Göbl C, Leitinger G, Graier WF, Dormann D, Madl T."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-31",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "The specific interaction of importins with nuclear localization signals (NLSs) of cargo proteins not only mediates nuclear import but also, prevents their aberrant phase separation and stress granule recruitment in the cytoplasm. The importin Transportin-1 (TNPO1) plays a key role in the (patho-)physiology of both processes. Here, we report that both TNPO1 and Transportin-3 (TNPO3) recognize two nonclassical NLSs within the cold-inducible RNA-binding protein (CIRBP). Our biophysical investigations show that TNPO1 recognizes an arginine-glycine(-glycine) (RG/RGG)-rich region, whereas TNPO3 recognizes a region rich in arginine-serine-tyrosine (RSY) residues. These interactions regulate nuclear localization, phase separation, and stress granule recruitment of CIRBP in cells. The presence of both RG/RGG and RSY regions in numerous other RNA-binding proteins suggests that the interaction of TNPO1 and TNPO3 with these nonclassical NLSs may regulate the formation of membraneless organelles and subcellular localization of numerous proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Robust 8-Gene Prognostic Signature for Early-Stage Non-small Cell Lung Cancer.",
+    "doi": "10.3389/fonc.2019.00693",
+    "pmid": "31417870",
+    "authors": [
+      "He R, Zuo S."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-31",
+    "cited_by_count": 65,
+    "journal": "",
+    "abstract": "<b>Background:</b> The current staging system is imprecise for prognostic prediction of early-stage non-small cell lung cancer (NSCLC). This study aimed to develop a robust prognostic signature for early-stage NSCLC, allowing classification of patients with a high risk of poor outcome and specific treatment decision. <b>Method:</b> In the present study, a comprehensive genome-wide profiling analysis was conducted using a retrospective pool of early-stage NSCLC patient data from the previous datasets of Gene Expression Omnibus (GEO) including GSE31210, GSE37745, and GSE50081 and The Cancer Genome Atlas (TCGA). Cox proportional hazards models were implemented to determine the association between gene expression levels and overall patient survival in each dataset. The common genes among all datasets were selected as candidate prognostic genes. A risk score model was developed and validated using four independent datasets and the entire cohort. The Kaplan-Meier with log-rank test was used to assess survival difference. <b>Results:</b> A univariate Cox proportional hazards regression analysis for each dataset showed that a total of 2280 genes in GSE31210, 762 genes in GSE37745, 871 genes in GSE50081, and 666 genes in TCGA were identified as candidate protective genes, while overall 2131 genes in GSE31210, 913 in GSE37745, 1107 in GSE50081, and 997 in TCGA were identified as candidate risky genes. There were 8 common genes associated with overall survival, including 7 mRNA and 1 lncRNA. By using the Step-wise multivariate Cox analysis, an 8-gene prognostic signature (CDCP1, HMMR, TPX2, CIRBP, HLF, KBTBD7, SEC24B-AS1, and SH2B1) for early-stage NSCLC was developed. Patients in the high-risk group had shorter overall survival than those in the low-risk group. Multivariate regression and stratified analysis suggested that the prognostic power of the 8-gene signature was independent of other clinical factors. Furthermore, the 8-gene signature achieved AUC values of 0.726, 0.701, 0.725 and 0.650 in GSE31210, GSE37745, GSE50081 and TCGA, respectively. Moreover, the combination of the 8-gene signature and the stage resulted to a better patient classification for survival prediction and treatment decision. <b>Conclusion:</b> This study developed a robust gene signature with great value for prognostic prediction in early-stage NSCLC, which may contribute to patient classification and personalized treatment decisions.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Nuclear effects play an important role in determining codon usage-dependent human gene expression.",
+    "doi": "10.1038/s41467-025-65907-5",
+    "pmid": "41339630",
+    "authors": [
+      "Garg R, Xie P, Duan J, Liu H, Liu Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-03",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Codon usage biases play a significant role in determining gene expression levels. Codon usage was thought to primarily influence translation-dependent processes. Using an unbiased genome-wide screening to search for factors involved in codon usage effects on gene expression, we identified the CCR4-NOT complex subunit CNOT4 and many nuclear factors, including nuclear RNA exosome, PAXT complex components, and transcription factors. The CCR4-NOT complex has been shown to affect codon usage-dependent co-translational mRNA decay in yeast. Surprisingly, human CNOT4 was found to influence codon usage-dependent gene expression largely by its impact on nuclear RNA levels due to transcriptional effect. On the other hand, nuclear exosome and PAXT complex, regulate nuclear mRNA stability through the RNA quality control pathway, leading to preferential cytoplasmic accumulation of mRNAs with optimal codon usage. Overall, our results show that different nuclear mechanisms play a key role in determining nucleotide composition-dependent gene expression levels in human cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Auxin-induced depletion of human CCR4-NOT subunits reveals opposing functions of CNOT1 and CNOT4 in mRNA metabolism.",
+    "doi": "10.1016/j.jbc.2025.110862",
+    "pmid": "41161383",
+    "authors": [
+      "Kulkarni S, Smith C, Akinniyi OT, Giardine BM, Keller CA, Arnaoutov A, Reese JC."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-27",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "CCR4-NOT regulates multiple steps in gene regulation, including transcription, mRNA decay, protein ubiquitylation, and translation. Originally discovered in yeast, this complex is highly conserved across eukaryotes, although its composition and functions differ between mammals and yeast. For example, unlike yeast Not4, human CNOT4 (E3 Ubiquitin Ligase) does not form a stable complex with CCR4-NOT, and its functions are less clear compared to its yeast counterpart. To investigate the roles of CNOT1 (the central scaffold subunit) and CNOT4, we developed a rapid auxin-induced degron cell culture system that allows for the acute depletion of these proteins. We studied the effects of their absence on complex integrity, cell growth, and mRNA expression and turnover. Our transcriptome-wide analysis revealed that depleting CNOT1 altered the expression of thousands of transcripts, with the majority showing increased abundance and a general decrease in mRNA decay. Although CNOT4 does not associate with the complex through standard biochemical methods, BioID proximity labelling confirmed its association with the complex in cells. However, depleting CNOT4 did not affect the integrity of CCR4-NOT. In contrast to the effects observed with CNOT1 depletion, reducing CNOT4 levels led to only modest changes in RNA steady-state levels and unexpectedly accelerated global mRNA decay. Finally, we show that the changes in mRNA stability in CCR4-NOT-depleted cells correlated with the codon optimality of the transcripts. Our data suggest that CNOT4 exerts opposite effects on mRNA metabolism compared to CNOT1, and that CNOT4 may have functions distinct from those of complex subunits that promote mRNA degradation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "USP4 promotes non-small cell lung cancer tumorigenesis by antagonizing CNOT4-mediated degradation of PAF1.",
+    "doi": "10.1186/s12931-026-03630-5",
+    "pmid": "41857610",
+    "authors": [
+      "Chen S, Wang Y, Han S, Zhang B."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Non-small cell lung cancer (NSCLC) is a leading cause of cancer mortality. This study examines whether the deubiquitinase USP4 promotes NSCLC progression by stabilizing PAF1 and opposing the E3 ligase CNOT4. METHODS: USP4 and PAF1 expression were examined in NSCLC cell lines and paired tumor tissues by Western blotting and RT-qPCR. Functional studies included USP4 overexpression or silencing, proteasome inhibition, and rescue assays with PAF1. Co-immunoprecipitation and ubiquitination analyses were performed to confirm protein interaction and K48-linked ubiquitin modification. Cellular proliferation was assessed using CCK-8 assays, and the oncogenic role of USP4 in vivo was evaluated through A549 xenograft models co-expressing USP4 and/or CNOT4, followed by histological and Ki-67 analyses. RESULTS: USP4 and PAF1 were concomitantly upregulated in NSCLC cells and tissues, displaying a strong positive correlation. In addition, in-silico analysis of available NSCLC datasets showed that high USP4 or PAF1 expression was associated with poorer overall survival, whereas high CNOT4 expression was associated with better overall survival. USP4 enhanced PAF1 protein stability by directly binding and reducing its K48-linked polyubiquitination, independent of transcriptional regulation. Functionally, USP4 promoted NSCLC cell proliferation and rescued CNOT4-induced PAF1 degradation. In vivo, USP4 expression restored tumor growth and proliferation suppressed by CNOT4, confirming its antagonistic role in tumorigenesis. CONCLUSION: USP4 stabilizes PAF1 by counteracting CNOT4-mediated ubiquitination and degradation, thereby promoting NSCLC progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ubiquitination of secretory granules promotes their crinophagic degradation in Drosophila.",
+    "doi": "10.1002/1873-3468.70376",
+    "pmid": "42219685",
+    "authors": [
+      "Csizmadia T, Dósa A, Maddali AK, Jipa A, Laczkó-Dobos H, Lőw P, Juhász G."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-31",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Gland cells dynamically regulate their secretory granule content via balancing synthesis, maturation, secretion, and lysosomal degradation (crinophagy). However, the signal(s) leading to crinophagic breakdown of secretory granules are unknown. Here, we show that ubiquitination of unreleased or low-grade glue-containing secretory granules marks these vesicles for crinophagy in larval salivary gland cells of Drosophila. We identify the ubiquitin ligase Cnot4 as a key mediator of glue granule ubiquitination. Loss of Cnot4 prevents ubiquitination and impairs granule fusion with lysosomes. Overexpression of Cnot4 induces premature crinophagy via ectopic ubiquitination of granules. Our work establishes that Cnot4-dependent ubiquitination of secretory granules is a key trigger of crinophagy in Drosophila, paving the way for further analysis of this barely characterized degradation route in metazoans.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cnot4 heterozygosity attenuates high fat diet-induced obesity in mice and impairs PPARγ-mediated adipocyte differentiation.",
+    "doi": "10.1371/journal.pone.0316417",
+    "pmid": "40424271",
+    "authors": [
+      "Yamaguchi T, Hoshizaki M, Imai Y, Yamamoto T, Kuba K."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-27",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Adipocyte differentiation is crucial for formation and expansion of white adipose tissue and is also associated with the pathologies of obesity. CNOT4 is an E3 ubiquitin ligase and also contains RNA binding domain. In mammals CNOT4 has been suggested to interact with CCR4-NOT complex, a major executor of mRNA poly(A) shortening. While several subunits within the CCR4-NOT complex were shown to be involved in obesity and energy metabolism, the roles of CNOT4 in obesity remain unexplored. In this study, we generated and analyzed Cnot4 knockout mice and found that Cnot4 heterozygous (Cnot4 Het) mice exhibit resistance to high fat diet-induced obesity, including significant reduction in adipose tissue mass and hepatic lipid depots. However, Cnot4 Het did not affect mRNA expression of metabolic genes as well as serum lipid levels or glucose tolerance. On the other hand, Cnot4 Het fibroblasts significantly reduced the capability of differentiation into adipocytes and down-regulated adipogenic gene expression compared to wild type fibroblasts. Mechanistically, heterozygous deletion of Cnot4 down-regulated the transcriptional activity through decreased binding of PPARγ to promoter region of the target gene, thereby suppressing up-regulation of adipocyte marker gene expression in response to rosiglitazone, a PPARγ agonist. These results suggest that CNOT4 mediates adipocyte differentiation during formation and growth of adipose tissue partly through positively regulating transcriptional activity of PPARγ.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stalled translation by mitochondrial stress upregulates a CNOT4-ZNF598 ribosomal quality control pathway important for tissue homeostasis.",
+    "doi": "10.1038/s41467-024-45525-3",
+    "pmid": "38388640",
+    "authors": [
+      "Geng J, Li S, Li Y, Wu Z, Bhurtel S, Rimal S, Khan D, Ohja R, Brandman O, Lu B."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-22",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "Translational control exerts immediate effect on the composition, abundance, and integrity of the proteome. Ribosome-associated quality control (RQC) handles ribosomes stalled at the elongation and termination steps of translation, with ZNF598 in mammals and Hel2 in yeast serving as key sensors of translation stalling and coordinators of downstream resolution of collided ribosomes, termination of stalled translation, and removal of faulty translation products. The physiological regulation of RQC in general and ZNF598 in particular in multicellular settings is underexplored. Here we show that ZNF598 undergoes regulatory K63-linked ubiquitination in a CNOT4-dependent manner and is upregulated upon mitochondrial stresses in mammalian cells and Drosophila. ZNF598 promotes resolution of stalled ribosomes and protects against mitochondrial stress in a ubiquitination-dependent fashion. In Drosophila models of neurodegenerative diseases and patient cells, ZNF598 overexpression aborts stalled translation of mitochondrial outer membrane-associated mRNAs, removes faulty translation products causal of disease, and improves mitochondrial and tissue health. These results shed lights on the regulation of ZNF598 and its functional role in mitochondrial and tissue homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "OTUD6 deubiquitination of RPS7/eS7 on the free 40 S ribosome regulates global protein translation and stress.",
+    "doi": "10.1038/s41467-024-51284-y",
+    "pmid": "39127721",
+    "authors": [
+      "Villa S, Dwivedi P, Stahl A, Hinkle T, Rose CM, Kirkpatrick DS, Tomchik SM, Dixit VM, Wolf FW."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-11",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Ribosomes are regulated by evolutionarily conserved ubiquitination/deubiquitination events. We uncover the role of the deubiquitinase OTUD6 in regulating global protein translation through deubiquitination of the RPS7/eS7 subunit on the free 40 S ribosome in vivo in Drosophila. Coimmunoprecipitation and enrichment of monoubiquitinated proteins from catalytically inactive OTUD6 flies reveal RPS7 as the ribosomal substrate. The 40 S protein RACK1 and E3 ligases CNOT4 and RNF10 function upstream of OTUD6 to regulate alkylation stress. OTUD6 interacts with RPS7 specifically on the free 40 S, and not on 43 S/48 S initiation complexes or the translating ribosome. Global protein translation levels are bidirectionally regulated by OTUD6 protein abundance. OTUD6 protein abundance is physiologically regulated in aging and in response to translational and alkylation stress. Thus, OTUD6 may promote translation initiation, the rate limiting step in protein translation, by titering the amount of 40 S ribosome that recycles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ubiquitination-deficit of Cnot4 impairs the capacity of proliferation and differentiation in mouse embryonic stem cells.",
+    "doi": "10.1016/j.bbrc.2024.151260",
+    "pmid": "39798536",
+    "authors": [
+      "Ding W, He C, Liu X, Hou C, Wang Q, Gong T, Yang J, Shen J, Shan Z, Sun R."
+    ],
+    "year": "2025",
+    "publication_date": "2024-12-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Neurodevelopmental abnormalities are significant contributors to a variety of neurological disorders. Ubiquitination is essential for embryonic development and plays a pivotal role in neurodevelopment. Although Cnot4 possesses E3-ubiquitin ligase activity, its function in neurodevelopment and embryonic stem cells (ESCs) remains inadequately understood. This study examined the impact of Cnot4 ubiquitination-deficit in mouse ESCs using flow cytometry, CCK-8 assays, immunofluorescence, western blotting, RNA sequencing (RNA-seq), and intracellular Ca<sup>2+</sup> measurement. Findings demonstrated that the lack of ubiquitination in Cnot4 reduced ESC proliferation rates and facilitated ectodermal differentiation during spontaneous ESC differentiation. RNA-seq analysis identified that the differentially expressed genes were primarily linked to glucose metabolism and Ca<sup>2+</sup> signaling pathways. Additionally, results indicated that the ubiquitination-deficit in Cnot4 caused increased intracellular Ca<sup>2+</sup> levels in mESCs. These findings suggest that Cnot4 plays a critical role in the regulation of proliferation and differentiation of mESCs through ubiquitination, providing a basis for further exploration of its involvement in embryonic and neural development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRIM21 as a Context-Dependent Regulator in Hepatocellular Carcinoma: Integrating Etiological Landscapes (HBV/NASH) with Core Tumor Progression Mechanisms.",
+    "doi": "10.2147/jhc.s575307",
+    "pmid": "41858922",
+    "authors": [
+      "Sun J, Gao Z, Li Y, Gao J, Wang P, Qin Y, Chen Y, Zhang R."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-13",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Tripartite motif-containing protein 21 (TRIM21), an E3 ubiquitin ligase of the TRIM superfamily, modulates critical cellular processes including ubiquitination, autophagy, and oxidative stress response. Accumulating evidence highlights its context-dependent regulatory roles in hepatocellular carcinoma (HCC)-the most prevalent primary liver malignancy with high mortality and limited therapeutic efficacy. This review systematically summarizes the core mechanisms by which TRIM21 orchestrates HCC progression: ① Autophagy regulation: TRIM21 modulates HCC autophagy via multiple axes, including CCR4-NOT complex (TNKS1BP1/CNOT4)-mediated substrate ubiquitination, ATG14-dependent autophagosome initiation, and RETREG1-driven reticulophagy, with context-dependent effects on tumor proliferation. ② Drug resistance: TRIM21 enhances oxaliplatin sensitivity by ubiquitinating and degrading G6PD (the rate-limiting enzyme of the pentose phosphate pathway), while its role in sorafenib resistance involves dual pathways-the MST1/YAP axis and the ApoE/cholesterol/PI3K-AKT cascade. ③ Metastasis suppression: TRIM21 restricts HCC invasion and metastasis by ubiquitinating key oncoproteins, preserving epithelial integrity and inhibiting mesenchymal transition. ④ Reactive oxygen species (ROS) balance: TRIM21 regulates oxidative stress in HCC via the SQSTM1/p62-Keap1-NRF2 axis, coordinating with HIF1α to modulate antioxidant responses and tumor cell survival. Additionally, we discuss the regulatory significance of TRIM21 in HCC associated with hepatitis B virus (HBV) infection (via HBx/DNA polymerase ubiquitination) and nonalcoholic steatohepatitis (NASH) (via suppressing lipogenic enzymes to reduce steatosis-driven carcinogenesis). This review provides a theoretical basis for TRIM21 as a potential diagnostic marker and therapeutic target for HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Specific recognition and ubiquitination of translating ribosomes by mammalian CCR4-NOT.",
+    "doi": "10.1038/s41594-023-01075-8",
+    "pmid": "37653243",
+    "authors": [
+      "Absmeier E, Chandrasekaran V, O'Reilly FJ, Stowell JAW, Rappsilber J, Passmore LA."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-31",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "Translation affects messenger RNA stability and, in yeast, this is mediated by the Ccr4-Not deadenylation complex. The details of this process in mammals remain unclear. Here, we use cryogenic electron microscopy (cryo-EM) and crosslinking mass spectrometry to show that mammalian CCR4-NOT specifically recognizes ribosomes that are stalled during translation elongation in an in vitro reconstituted system with rabbit and human components. Similar to yeast, mammalian CCR4-NOT inserts a helical bundle of its CNOT3 subunit into the empty E site of the ribosome. Our cryo-EM structure shows that CNOT3 also locks the L1 stalk in an open conformation to inhibit further translation. CCR4-NOT is required for stable association of the nonconstitutive subunit CNOT4, which ubiquitinates the ribosome, likely to signal stalled translation elongation. Overall, our work shows that human CCR4-NOT not only detects but also enforces ribosomal stalling to couple translation and mRNA decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TNKS1BP1 mediates AECII senescence and radiation induced lung injury through suppressing EEF2 degradation.",
+    "doi": "10.1186/s12931-024-02914-y",
+    "pmid": "39113018",
+    "authors": [
+      "Zhu J, Ao X, Liu Y, Zhou S, Hou Y, Yan Z, Zhou L, Chen H, Wang P, Liang X, Xie D, Gao S, Zhou PK, Gu Y."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-07",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Although recent studies provide mechanistic understanding to the pathogenesis of radiation induced lung injury (RILI), rare therapeutics show definitive promise for treating this disease. Type II alveolar epithelial cells (AECII) injury in various manner results in an inflammation response to initiate RILI.<h4>Results</h4>Here, we reported that radiation (IR) up-regulated the TNKS1BP1, causing progressive accumulation of the cellular senescence by up-regulating EEF2 in AECII and lung tissue of RILI mice. Senescent AECII induced Senescence-Associated Secretory Phenotype (SASP), consequently activating fibroblasts and macrophages to promote RILI development. In response to IR, elevated TNKS1BP1 interacted with and decreased CNOT4 to suppress EEF2 degradation. Ectopic expression of EEF2 accelerated AECII senescence. Using a model system of TNKS1BP1 knockout (KO) mice, we demonstrated that TNKS1BP1 KO prevents IR-induced lung tissue senescence and RILI.<h4>Conclusions</h4>Notably, this study suggested that a regulatory mechanism of the TNKS1BP1/CNOT4/EEF2 axis in AECII senescence may be a potential strategy for RILI.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TNKS1BP1 facilitates ubiquitination of CNOT4 by TRIM21 to promote hepatocellular carcinoma progression and immune evasion.",
+    "doi": "10.1038/s41419-024-06897-y",
+    "pmid": "39019859",
+    "authors": [
+      "Wang Y, Sandrine IK, Ma L, Chen K, Chen X, Yu Y, Wang S, Xiao L, Li C, Liu Y, Liu B, Yuan X."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-17",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "Immune checkpoint inhibitors, particularly PD-1/PD-L1 blockades, have been approved for unresectable hepatocellular carcinoma (HCC). However, high resistance rates still limit their efficacy, highlighting the urgent need to understand the underlying mechanisms and develop strategies for overcoming the resistance. In this study, tankyrasel binding protein 1 (TNKS1BP1) was found to interact with tripartite motif containing 21 (TRIM21) and mediated the ubiquitination of CCR4-NOT transcription complex subunit 4 (CNOT4) at the K239 residue via K48 and K6 linkage, which was essential for its tumorigenesis function. Autophagy and lipid reprogramming were identified as two possible mechanisms underlying the pro-tumor effect of TNKS1BP1. Upregulated TNKS1BP1 inhibited autophagy while induced lipid accumulation by inhibiting the JAK2/STAT3 pathway upon the degradation of CNOT4 in HCC. Importantly, knocking down TNKS1BP1 synergized with anti-PD-L1 treatment by upregulating PD-L1 expression on tumor cells via the JAK2/STAT3 pathway, and remodeling the tumor microenvironment by increasing infiltration of tumor-infiltrating lymphocytes as well as augmenting the effect of cytotoxic T lymphocytes. In conclusion, this study identified TNKS1BP1 as a predictive biomarker for patient prognosis and a promising therapeutic target to overcome anti-PD-L1 resistance in HCC.",
+    "openalex_id": ""
+  }
+]

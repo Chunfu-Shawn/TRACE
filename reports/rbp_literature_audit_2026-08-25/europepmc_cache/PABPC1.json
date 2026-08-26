@@ -1,0 +1,170 @@
+[
+  {
+    "title": "High-throughput screening identifies a critical role of the SPOP-PABPC1 axis in lung adenocarcinoma progression.",
+    "doi": "10.1073/pnas.2602470123",
+    "pmid": "42268896",
+    "authors": [
+      "Zhang J, Liu R, Han X, Jiao Y, Peng Y, Zhou Z, Deng Y, Gong L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Lung adenocarcinoma (LUAD) is the most common and deadly subtype of lung cancer, with limited therapeutic options and poor prognosis. Ubiquitination is an important posttranslational modification (PTM) that controls protein turnover, localization and interaction. The dysregulated ubiquitination machinery is a hallmark of cancer, contributing to tumor development. Identifying key E3 ubiquitin ligases and deubiquitinases in LUAD could lead to new biomarkers and treatments. Through RNA sequencing, bioinformatics, and clinical studies, SPOP has been identified as a promising E3 ligase target in LUAD. SPOP is downregulated in LUAD samples and associated with poorer patient outcomes. Functional analyses demonstrate that SPOP suppresses LUAD cell migration, proliferation, and in vivo tumor growth. Mechanistically, SPOP targets poly(A)-binding protein cytoplasmic 1 (PABPC1) for nonproteolytic ubiquitination, leading to its nuclear retention and inhibition of global protein synthesis, thereby suppressing the oncogenic effects of PABPC1. Furthermore, the deubiquitinase HAUSP is able to counteract SPOP-mediated ubiquitination of PABPC1, enhancing its oncogenic role in LUAD cells. Collectively, our findings reveal a SPOP/HAUSP-PABPC1 regulatory axis in LUAD, where SPOP and HAUSP oppositely modulate PABPC1 ubiquitination to control LUAD cell proliferation and migration. This axis represents a promising therapeutic target in LUAD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pathophysiological and translational implications of the dysregulation of molecular machineries controlling RNA metabolism in thyrotropinomas.",
+    "doi": "10.1016/j.isci.2026.117055",
+    "pmid": "42602702",
+    "authors": [
+      "G-García ME, Flores-Martínez Á, Arroyo-Millán L, Venegas E, Diaz-Perdigones CM, Maraver S, Cano D, Arráez C, Arráez MA, Japón MA, Martínez-Fuentes AJ, Soto-Moreno A, Fuentes-Fayos AC, Herrera-Martínez AD, Luque RM."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The contribution of post-transcriptional regulation remains largely unexplored in thyrotropin-secreting pituitary tumors (TSHomas), a rare endocrine pathology responsible for inappropriate TSH secretion and central hyperthyroidism. We investigated the TSHoma post-transcriptional regulatory landscape by analyzing components of molecular machineries controlling RNA metabolism [spliceosome/RNA-exosome/nonsense-mediated decay (NMD)], their associations with clinical parameters, and the impact of their pharmacological inhibition in TSHoma cells. A drastic dysregulation of multiple components of spliceosome [spliceosome (<i>SF3B2</i>/<i>U2AF35/PRPF40A</i>) and splicing factors (e.g., <i>SRP30C</i>/<i>EIF4A3/DDX1</i>/<i>TRA2B/HNR</i> <i>NN</i> <i>F</i>…)], RNA-Exosome (e.g., <i>DIS3</i>/<i>DIS3L</i>/<i>PABPN1</i>), and NMD [e.g., <i>PABPC1</i>, and NMD-canonical targets (<i>DDIT3/GADD45B/MAFF/PDRG1/ATF4</i>/<i>ATF3</i>)] was found in TSHomas vs. non-tumor pituitaries with some of these alterations associated with relevant clinical features (e.g., tumor size, TSHB/fT4-levels). Moreover, we demonstrate a clear antiproliferative action of spliceosome/RNA-Exosome/NMD inhibitors in primary patient-derived TSHoma cells. Overall, a clinically relevant spliceosome/RNA-Exosome/NMD-associated molecular dysregulation and antiproliferative actions of these machineries' inhibition are demonstrated in TSHomas, highlighting a potential source of novel diagnostic/prognostic biomarkers and therapeutic tools in TSHomas.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of full-length DAZL isoform disrupts PABPC1-dependent translational regulation and meiosis.",
+    "doi": "10.1038/s41419-025-08179-7",
+    "pmid": "41249172",
+    "authors": [
+      "Li X, Cao D, Lu Y, Bian Z, Zhao T, Liu W, Zhao Y, Tan J, Li L, Xu EY."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-17",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) events are exceptionally active during spermatogenesis, enhancing the diversity of the testicular transcriptome and proteome. In mouse testes, the germ cell-specific RNA-binding protein DAZL undergoes alternative splicing to produce two isoforms: a full-length DAZL (DAZL_FL) and a short isoform lacking exon 8 (DAZL_Sh). While DAZL is a hallmark of germ cell development, the physiological roles of its alternative splicing, and the distinct functions of these two isoforms remain yet to be fully elucidated. To investigate this, we disrupted alternative splicing of Dazl by generating DAZL short isoform only mice via deletion of the DAZL exon 8 and found that the resulting loss of DAZL_FL led to male infertility, characterized by extensive spermatocyte apoptosis and arrest of spermatid development. Ribosome profiling (Ribo-seq) revealed that loss of DAZL_FL downregulated the translation of meiotic genes specifically bound by DAZL. Mechanistically, DAZL_Sh failed to interact with Poly(A) Binding Protein Cytoplasmic 1 (PABPC1), resulting in impaired translation of DAZL-targeted germ cell transcripts. In females, DAZL_FL ablation caused complete infertility, marked by massive primordial follicle apoptosis and failure of primary follicle recruitment, highlighting a shared role for DAZL_FL in meiotic regulation in both sexes. Our findings established DAZL/PABPC1 complex formation as a pivotal mechanism controlling meiotic progression. By functionally dissecting DAZL isoforms, we uncovered a critical role of Dazl alternative splicing during spermatogenesis and folliculogenesis, further expanding the roles of DAZL in germ cell development and thereby providing novel genetic causes and potential therapeutic targets for azoospermia and primary ovarian insufficiency.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Coronavirus endoribonuclease nsp15 suppresses host protein synthesis and evades PKR-eIF2α-mediated translation shutoff to ensure viral protein synthesis.",
+    "doi": "10.1371/journal.ppat.1012987",
+    "pmid": "40096172",
+    "authors": [
+      "Gong X, Feng S, Wang J, Gao B, Xue W, Chu H, Fang S, Yuan Y, Cheng Y, Liao M, Sun Y, Tan L, Song C, Qiu X, Ding C, Tijhaar E, Forlenza M, Liao Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-17",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "The endoribonuclease (EndoU) nsp15 of coronaviruses plays a crucial role in evading host innate immune responses by reducing the abundance of viral double-stranded RNA (dsRNA). However, our understanding of its interactions with host cellular targets remains limited. In this study, we demonstrate that overexpression of nsp15 from four coronavirus genera inhibits cellular protein synthesis and causes nuclear retention of PABPC1. Mutation analysis confirms the essential role of EndoU activity in these processes. Fluorescence in situ hybridization (FISH) analysis shows that cellular mRNA co-localizes with nsp15 in certain cells. Real time RT-PCR indicates that the mRNA levels of several antiviral genes decrease in cells expressing nsp15, and this reduction depends on the EndoU activity of nsp15. Using infectious bronchitis virus (IBV) as a model, we investigate the inhibitory effect of nsp15 on protein translation during infection. We find that infection with IBV with functional nsp15 suppresses protein synthesis in a PKR-eIF2α independent manner, with PABPC1 mainly located in the cytoplasm. However, infection with EndoU activity-deficiency mutant virus rIBV-nsp15-H238A results in the accumulation of viral dsRNA, triggering a PKR-eIF2α-dependent shutdown of protein synthesis and leading to the nuclear relocation of PABPC1. In the absence of the PKR-eIF2α pathway, IBV is still able to suppress host protein synthesis, while the inhibitory effect of rIBV-nsp15-H238A on protein synthesis was significantly reduced. Although nsp15 locates to replication-transcription complex (RTC) during infection, RNA immunoprecipitation (RIP)-Seq analysis confirms that IBV nsp15 binds to six viral RNAs and 237 cellular RNAs. The proteins encoded by the nsp15-associated cellular RNAs predominantly involved in translation. Additionally, proteomic analysis of the nsp15 interactome identifies 809 cellular proteins, which are significantly enriched in pathways related to ribosome biogenesis, RNA processing, and translation. Therefore, nsp15 helps virus circumvent the detrimental PKR-eIF2α pathway by reducing viral dsRNA accumulation and suppresses host protein synthesis by targeting host RNAs and proteins. This study reveals unique yet conserved mechanisms of protein synthesis shutdown by catalytically active nsp15 EndoU, shedding light on how coronaviruses regulate host protein expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PUM1 and PUM2 promote translation of chromatin regulators to ensure mammalian spermatogenesis.",
+    "doi": "10.1126/sciadv.aed5708",
+    "pmid": "42467772",
+    "authors": [
+      "Zang M, Liu S, Xie Z, Yang D, Wang K, Ding Y, Zhu T, Zhang S, Zhao T, Yao B, Liu M, Lin K, Xu EY."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Translational control is essential for male germ cell development, yet how post-transcriptional regulation is coupled to chromatin remodeling during spermatogenesis remains poorly understood. Here, we show that the RNA-binding proteins PUMILIO1 (PUM1) and PUMILIO2 (PUM2) promote translation of mRNAs encoding chromatin regulators in the mouse testis. Conditional deletion of <i>Pum1</i> and <i>Pum2</i> in germ cells at multiple developmental stages results in spermatogenic failure, defective nuclear shaping, impaired histone-to-protamine exchange, and complete male sterility. Polysome profiling and ribosome sequencing reveal selective reductions in translation efficiency of chromatin regulators, including histone modifiers and nucleosome remodelers, in <i>Pum1/2</i>-deficient testes. Mechanistically, PUM1/2 associate with DAZL and PABPC1 to form a germ cell-specific translational activation complex that enhances protein output with little impact on mRNA stability. Together, these findings redefine mammalian PUM proteins as context-dependent translational activators in the germline and uncover a post-transcriptional mechanism that links RNA regulation to chromatin dynamics during spermatogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "UCHL3 Regulates Subgenomic Flaviviral RNA Condensates to Promote Virus Propagation.",
+    "doi": "10.1002/advs.202521781",
+    "pmid": "42231789",
+    "authors": [
+      "Trejo-Cerro O, Beekmayer-Dhillon A, Teo QW, Siu L, Li MY, Heesom KJ, Pinto-Fernández A, Sanyal S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Flavivirus subgenomic RNAs (sfRNAs) antagonise antiviral defences, yet how sfRNAs are organized and maintained in cells remains poorly understood. Here we identify ubiquitin C-terminal hydrolase L3 (UCHL3) as a post-translational regulator of flavivirus sfRNA stability and function. Using activity-based protein profiling during ZIKV and DENV infections, we discovered that UCHL3 is activated upon flavivirus infection. CRISPR-Cas9 knockout of UCHL3 significantly impaired viral replication and reduced viral protein expression across multiple cell models; reconstitution with wild-type UCHL3 rescued these defects, whereas a catalytically inactive mutant (C95A) failed to restore replication, confirming the requirement for deubiquitylase activity. Through a proximity-biotinylation sfRNA-interactome capture assay, we show that UCHL3 physically interacts with sfRNA complexes. Importantly, UCHL3 deletion accelerates RNase L activation, causing enhanced sfRNA relocalization from protective P-bodies to PABPC1-positive RNase L-induced bodies (RLBs), resulting in viral RNA decay. RNase L knockdown restores viral replication in UCHL3-deficient cells, confirming RNase L-dependent antiviral effects. This pro-viral effect of UCHL3 operates through interferon-independent mechanisms, as replication defects persist despite exogenous interferon treatment. This work therefore identifies UCHL3 as a regulator of sfRNA fate between pro-viral and antiviral RNA condensates, identifying a post-translational mechanism governing viral RNA stability and a potential therapeutic target for flavivirus infections.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPC1-induced stabilization of PGK1 mRNA reduces apoptosis and sunitinib sensitivity in renal cell carcinoma by suppressing endoplasmic reticulum stress.",
+    "doi": "10.1038/s41419-026-08676-3",
+    "pmid": "41932875",
+    "authors": [
+      "Chen X, Cao S, Jia T, Shi C, Yang Z, Liang Q, Zhang X, Gu L, Ma X, Huang Q, Li X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Sunitinib resistance poses a significant challenge in the management of advanced and metastatic clear cell renal cell carcinoma (ccRCC). Although RNA-binding proteins (RBPs) have recently emerged as important regulators of tumorigenesis, their roles in ccRCC progression and sunitinib resistance remain poorly understood. Through comprehensive bioinformatics analysis of clinical datasets, we identified PABPC1 as an RBP significantly upregulated in ccRCC. Functionally, PABPC1 promoted the proliferation, migration, invasion, and sunitinib resistance of ccRCC cells. Mechanistically, PABPC1 bound to and stabilized PGK1 mRNA, thereby upregulating PGK1 expression. This upregulation reduced endoplasmic reticulum (ER) stress, inhibited apoptosis, and consequently conferred sunitinib resistance in ccRCC cells. Importantly, treatment with Eeyarestatin I, a small-molecule ER stress agonist, restored sunitinib sensitivity in tumor cells. These findings reveal a novel PABPC1-PGK1 regulatory axis underlying sunitinib resistance and suggest a promising therapeutic strategy for overcoming drug resistance in ccRCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Sodium butyrate protects against necrotizing enterocolitis through a mechanism involving YB-1-dependent regulation of intestinal epithelial apoptosis.",
+    "doi": "10.1038/s41598-026-50396-3",
+    "pmid": "42045470",
+    "authors": [
+      "Xiang Q, Yu R, Huang L, Liu Q, Qin N, Wang L, Wu Y, Fu H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Due to a lack of complete mechanistic understanding, there are no specific therapeutics for necrotizing enterocolitis (NEC), a deadly gastrointestinal disease affecting premature newborns. While sodium butyrate offers intestinal protection, its efficacy is strictly dose-dependent, and the underlying mechanisms regulating intestinal epithelial cell (IEC) survival remain elusive. Here, using neonatal murine NEC models and human IECs, we demonstrate that moderate-dose butyrate (50 mg/kg) significantly attenuates mucosal injury and improves survival, whereas high-dose butyrate (250 mg/kg) exacerbates mortality by inducing complex cell death pathways including necroptosis and ferroptosis. Mechanistically, moderate butyrate suppresses glycolysis and intracellular lactate production, which restores expression of the translational regulator PABPC1; PABPC1 then binds to YB-1 mRNA to enhance YB-1 protein synthesis without altering transcription. Elevated YB-1 subsequently binds BCL-2 mRNA, increasing BCL-2 protein levels to inhibit intrinsic mitochondrial apoptosis. Functional validation shows that YB-1 knockdown abolishes butyrate-mediated protection and exacerbates TNF-α-induced apoptosis, while YB-1 overexpression rescues cell viability, and exogenous lactate supplementation reverses these effects by suppressing the PABPC1-YB-1 axis. These findings elucidate a novel Lactate-PABPC1-YB-1-BCL-2 signaling axis through which butyrate safeguards the intestinal epithelium, highlighting precise dosing and the modulation of epithelial translational control as promising therapeutic strategies for NEC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Higher Intron Retention Levels in Female Alzheimer's Brains May Be Linked to Disease Prevalence.",
+    "doi": "10.1111/acel.14457",
+    "pmid": "39804791",
+    "authors": [
+      "Choo CT, Leow CY, Ong CT."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-13",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Multimodal study of Alzheimer's disease (AD) dorsolateral prefrontal cortex (DLPFC) showed AD-related aberrant intron retention (IR) and proteomic changes not observed at the RNA level. However, the role of sex and how IR may impact the proteome are unclear. Analysis of DLPFC transcriptome showed a clear sex-biased pattern where female AD had 1645 elevated IR events compared to 80 in male AD DLPFC. Increased IR is correlated with lower mRNA levels, suggestive of nonsense-mediated mRNA decay. Two hundred thirty-three mRNAs with elevated IR in females were curated AD genes enriched for ubiquitin-like protein ligase and Tau protein binding. Increased IR genes in combined sex and female AD cohorts showed significant changes in their protein expression patterns with 11%-24% of them differential expressed proteins (DEP), alluding to the regulation of AD proteome by IR independent of RNA level. Upregulated DEPs in male AD were linked to RNA splicing that may prevent aberrant IR, whereas in female AD, they overlapped significantly more with the MAPK/metabolism module associated with cognitive decline. IR genes appeared to be significantly downregulated in specific female AD inhibitory and excitatory neurons compared to control. Differentially retained introns in female AD have elevated H3K27ac marks, strong CTCF binding at their flanking exons, and enriched for PABPC1 motif. Given that H3K27ac is repressive over gene bodies in aged brain and CTCF impedes transcription elongation, their binding patterns can delay co-transcriptional recruitment of spliceosome to cause IR, which may in turn contribute to different trajectories of AD pathology in women.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated Bioinformatics Analysis of Differentially Expressed RNA-Binding Proteins in Human Gliomas.",
+    "doi": "10.1007/s10571-025-01608-3",
+    "pmid": "41361662",
+    "authors": [
+      "Haque S, Mathkor DM, Babegi AS, Ahmad F, Arumugam M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-08",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Gliomas are complex and among the most lethal central nervous system (CNS) disorders. While they are notoriously heterogeneous, evidences suggest critical involvement of intricate interactions between RNA-binding proteins (RBPs) and their diverse partners, in the pathogeneses of gliomas. In this study, we used RNA sequencing data from the Cancer Genome Atlas (TCGA) to identify differentially expressed genes (DEGs). After selection of differentially expressed RBPs from these DEGs, systematic investigation of their transcriptomic changes during glioma progression was undertaken. Extensive in silico assessments allowed the creation of their interactome and pathway, identifying potential biological effects of these differentially expressed RBPs. Construction of regulatory networks of these differentially expressed RBPs and their topological analysis discovered key RBPs such as PABPC1, EIF4A2, RPS3, EEF1A1, RPS6, ELAVL2, CPEB1, and CELF5, which are largely involved in alternative splicing and ribosomal biogenesis. Moreover, we also identified differentially expressed RBPs such as YBX1, ELAVL2, and IGF2BP1, which may be involved in the formation of stress granules in gliomas. We also identified highly mutated RBPs, such as RPSA, RPL5, CPEB4, and SMAD7, in gliomas. Further, RBPs like RPS8, RPL5, RPS3A, EEF1A1, and EIF4E1B were found to be strongly correlated with patients' overall survival. Taken together, our analyses identified several candidate RBPs which might serve as potential targets for oncological measures against gliomas.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tuning tRNA synthetase inhibition reveals parabolic induction of stress granules limited in size and RNA content.",
+    "doi": "10.1261/rna.080883.125",
+    "pmid": "41656003",
+    "authors": [
+      "Baymiller M, Helton NS, Dodd B, Moon SL."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Translation elongation defects cause ribosome stalling and activate the integrated stress response (ISR). During the ISR, translation initiation suppression and ribosome runoff drive mRNA condensation into stress granules. However, the effects of partial translation elongation inhibition on stress granules are poorly defined. We demonstrate that intermediate levels of tRNA synthetase inhibitors activate the ISR and cause assembly of stress granules in a parabolic dose-response pattern. These stress granules are limited in size and number due to ribosome association with mRNAs. Assembly of stress granules by intermediate levels of the prolyl-tRNA synthetase inhibitor halofuginone requires the canonical stress granule scaffolding proteins G3BP1/2 and GCN2-mediated ISR activation. We performed a candidate-based comparative analysis of the composition of stress granules induced by intermediate levels of halofuginone or canonical stressors arsenite or thapsigargin. The stress granules induced by halofuginone, arsenite, or thapsigargin harbor polyadenylated RNA and the canonical stress granule proteins PABPC1, G3BP1, and UBAP2L. We observe stress- and transcript-specific differences in the localization of candidate RNA molecules to stress granules. These results demonstrate that partial translation elongation inhibition permits stress granule assembly through the balance of ISR activation and mRNA association with ribosomes, with implications for the stress response associated with amino acid or tRNA deficiency, therapeutic tRNA synthetase inhibition, or diseases associated with tRNA synthetase mutations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CARF regulates the alternative splicing and piwi/piRNA complexes during mouse spermatogenesis through PABPC1.",
+    "doi": "10.3724/abbs.2024224",
+    "pmid": "39696987",
+    "authors": [
+      "Cao Y, Wang S, Liu J, Xu J, Liang Y, Ao F, Wei Z, Wang L."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "ADP-ribosylation factor collaborator (CARF), which is also known as CDKN2AIP, was first recognized as an ADP-ribosylation factor-interacting protein that participates in the activation of the ARF-p53-p21 (WAF1) signaling pathway under different conditions, such as oxidative and oncogenic stresses. The activation of this pathway often leads to cell growth arrest and apoptosis as well as senescence. Previous studies revealed that CARF, an RNA-binding protein, is critical for maintaining stem cell pluripotency and somatic differentiation. Nevertheless, its involvement in spermatogenesis has not been well examined. In this study, we show that male mice deficient in <i>Carf</i> expression present impaired spermatogenesis and fertility. IP-MS and RNA-seq analyses reveal that CARF/ <i>Carf</i> interacts with multiple key splicing factors, such as PABPC1, and directly targets 356 different types of mRNAs in spermatocytes. <i>Carf</i>-associated mRNAs display aberrant splicing patterns when Carf expression is deficient. In addition, our results demonstrate that PIWIL1 expression and localization are altered in the <i>Carf</i> <sup><i>-</i>/ <i>-</i></sup> mouse model through the downregulation of PABPC1, which further affects the ratio of pachytene-piRNA. Our study suggests that CARF is critical for regulating alternative splicing in mammalian spermatogenesis and determining infertility in male mice.",
+    "openalex_id": ""
+  }
+]

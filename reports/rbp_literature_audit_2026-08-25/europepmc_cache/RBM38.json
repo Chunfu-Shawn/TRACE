@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RNA-binding protein Rbm38 as a multifaceted post-transcriptional regulator in zebrafish pancreatic development.",
+    "doi": "10.1093/jmcb/mjaf025",
+    "pmid": "40796306",
+    "authors": [
+      "Zhang X, Li X, Liu R, Wang L, Wang Y, Zhang A, Yang S, Li H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RNA-binding motif protein 38 (Rbm38), also known as RNPC1, is a major regulator of post-transcriptional gene expression. It represents a potential candidate gene linked to the susceptibility of type 2 diabetes, and decreased RBM38 expression can enhance the proliferation of pancreatic cancer cells in humans. However, its role in pancreatic development remains elusive. In this study, we explored the function of Rbm38 using zebrafish as a model. Pancreatic expression of Rbm38 is present at larval stages and is controlled by several transcription factors acting on specific rbm38 promoter regions. The loss of Rbm38 leads to abnormal pancreatic enlargement. Mechanistically, Rbm38 is involved in several aspects of post-transcriptional regulation of pancreatic gene expression. It destabilizes pdx1 transcripts by binding to the 3'-untranslated region and regulates alternative splicing of key pancreatic transcription factor genes, including isl1a, smad2, and nkx2.2a. These findings elucidate the role of Rbm38 in pancreatic development and highlight its significance in maintaining pancreatic homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Evolutionary Conservation and Functional Diversification of the Rbm24/38 Family in Metazoans.",
+    "doi": "10.1002/wrna.70054",
+    "pmid": "42596705",
+    "authors": [
+      "Zhang X, Zhang A, Bai Z, Li H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) regulate RNA metabolism at multiple levels and are essential mediators of post-transcriptional gene regulation in a wide range of physiological and pathological processes. The Rbm24/38 family is a conserved group of RRM-containing RBPs. In invertebrates, Rbm24/38 homologs are generally present as single-copy genes, whereas vertebrates possess two paralogs, Rbm24 and Rbm38, reflecting the progressive elaboration of posttranscriptional regulatory networks during evolution. Functional evidence for non-vertebrate Rbm24/38 homologs remains limited; the nematode protein SUP-12 has been primarily implicated in the regulation of pre-mRNA splicing during myogenesis. By contrast, vertebrate Rbm24 and Rbm38 exhibit broader spatial expression patterns across multiple tissues. Although their expression domains partially overlap, they also display clear gene- and species-specific differences. Functionally, vertebrate Rbm24 and Rbm38 contribute to multilayered post-transcriptional regulation through mechanisms such as alternative splicing, mRNA stability control, and alternative polyadenylation. In addition, regulatory features including isoform diversity, phase-separation potential, and post-translational modifications may further expand their functional versatility, enabling them to coordinate cell fate decisions and tissue homeostasis in distinct physiological contexts. In this review, we summarize recent advances in the evolution, structure, expression, molecular regulation, and biological functions of the Rbm24/38 family. We highlight its conserved features and functional diversification, as well as key unresolved questions regarding its evolution and specialization across metazoans.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbm38 deficiency impairs erythroid heme biosynthesis and induces porphyria via reduced ferrochelatase expression.",
+    "doi": "10.1182/blood.2025028783",
+    "pmid": "40961234",
+    "authors": [
+      "Xie X, Zou A, Zhang L, Ma X, He Y, Liu H, Lu Y, Yang Y, Ouyang J, Liu K, Zhong P, Li J, Xu S, Zhou L, Han B, Chen M, Lv K, Zhang D, Liu L, Mei Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Abstract</h4>RNA splicing and processing are critical for erythropoiesis, because dysregulation of RNA splicing ultimately disrupts protein synthesis. The RNA-binding protein Rbm38 is highly expressed during terminal erythropoiesis. Although in vitro studies have implicated Rbm38 as a key regulator of erythroid differentiation, the landscape of RNA splicing regulated by Rbm38 and its role in terminal erythropoiesis in vivo have not been fully elucidated. Here, we generated whole-body and conditional knockout mouse models for Rbm38 and found that mature red blood cell (RBC) production was impaired in the bone marrow of Rbm38-deficient mice. Rbm38-/- RBCs exhibited reduced hemoglobin content and increased susceptibility to oxidative stress-induced hemolysis. These mutant mice also developed microcytic hypochromic anemia, along with dysregulated iron homeostasis. Additionally, they exhibited decreased mitochondrial heme biosynthesis and accumulation of free protoporphyrin IX (PPIX) in erythrocytes and feces, resembling human erythropoietic protoporphyria (EPP). Mechanistically, Rbm38 regulates the incorporation of ferrous iron (Fe2+) into PPIX to form heme by modulating alternative splicing, messenger RNA decay, and translation of the porphyrin metabolic enzyme gene Ferrochelatase (Fech). Importantly, enforced expression of Fech largely restored erythroid differentiation defects and ameliorated anemia in Rbm38-/- transplants. We further demonstrated that genetic variants in the human RBM38 gene locus influence PPIX levels in erythrocytes from healthy cohorts. Our findings demonstrate that Rbm38 governs terminal erythropoiesis by orchestrating RNA splicing, stability, and translation during heme biosynthesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting &lt;i&gt;HORMAD1&lt;/i&gt; splicing enhances MEK inhibitor sensitivity in breast cancers.",
+    "doi": "10.1261/rna.081080.126",
+    "pmid": "42309673",
+    "authors": [
+      "Sun C, Luo H, Zhang J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Mutations in BRCA1 are key drivers of breast cancer by impairing homologous recombination. While these tumors are often sensitive to PARP inhibitors, resistance frequently emerges, highlighting the need to identify additional molecular vulnerabilities. HORMAD1 is frequently overexpressed in triple-negative breast cancer and associated with genomic instability, yet its role in therapy response in BRCA1-deficient tumors remains unclear. Here, transcriptomic profiling of BRCA1-mutant breast cancer identified <i>HORMAD1</i> as one of the most upregulated and alternatively spliced genes. The splicing inhibitor isoginkgetin globally altered alternative splicing patterns in BRCA1-mutant cells, promoting <i>HORMAD1</i> exon 4 inclusion. We found that RNA-binding protein RBM38 is correlated with exon 4 inclusion, and RBM38 knockdown further sensitized BRCA1-mutant cells to <i>MEK1</i> inhibition. Together, these findings define an RBM38-HORMAD1 signaling as a potential therapeutic vulnerability in BRCA1-mutant breast cancer and suggest that targeting splicing regulation may represent a promising strategy to enhance treatment efficacy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An X. Rbm38 binds Fech pre-mRNA to prevent anemia and porphyria. Blood. 2025;146(25):3016-3017.",
+    "doi": "10.1182/blood.2026033861",
+    "pmid": "41989795",
+    "authors": [
+      ""
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbm38 binds Fech pre-mRNA to prevent anemia and porphyria.",
+    "doi": "10.1182/blood.2025031227",
+    "pmid": "41410917",
+    "authors": [
+      "An X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "Corrigendum: Fine-tuning p53 activity by modulating the interaction between eukaryotic translation initiation factor eIF4E and RNA-binding protein RBM38.",
+    "doi": "10.1101/gad.353489.125",
+    "pmid": "41491692",
+    "authors": [
+      "Sun W, Laubach K, Lucchessi C, Zhang Y, Chen M, Zhang J, Chen X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "CDK4/6 Inhibitors Suppress RB-Null Triple-Negative Breast Cancer by Inhibiting Mutant P53 Expression via RBM38 RNA-Binding Protein.",
+    "doi": "10.3390/cancers17203339",
+    "pmid": "41154395",
+    "authors": [
+      "Zhang J, Wen K, Nakajima KI, Shi Y, Chen X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-16",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<i>Background:</i> Cyclin-dependent kinase 4/6 (CDK4/6) inhibitors have been developed and clinically used as a frontline targeted therapeutic agent for hormone receptor-positive (HR+), HER2-negative breast cancer. However, the efficacy for CDK4/6 inhibitors varies in different types of cancer and thus there is a need to identify new biomarkers that would help predict efficacy and/or resistance. <i>Methods:</i> We examined the effect of CDK4/6 inhibitors in both RB-proficient and -deficient triple-negative breast cancer (TNBC) cells. We also examined whether mutant p53 could be a target and/or prognostic marker for CDK4/6 inhibitors in (TNBC). <i>Results:</i> We found that CDK4/6 inhibitors suppress mutant p53 expression in both RB-proficient and RB-deficient TNBC cells. We also found that suppression of mutant p53 is responsible for CDK4/6 inhibitors suppressing TNBC cell survival. Mechanistically, we showed that CDK4/6 inhibitors suppress mutant p53 mRNA translation through the RNA-binding protein RBM38. Previously, we showed that when phosphorylated at serine 195, phosphorylated RBM38 interacts with eIF4G on p53 mRNA and promotes p53 mRNA translation. Indeed, we found that CDK4 phosphorylates RBM38 at serine 195, which subsequently enhances mutant p53 mRNA translation. <i>Conclusions:</i> Collectively, our findings suggest that mutant p53 could serve as a potential biomarker for the therapeutic efficacy of CDK4/6 inhibitors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Dynamic Landscape of 3'-UTR Alternative Polyadenylation Across Mouse Fetal Development and Anatomy.",
+    "doi": "10.1002/advs.202502443",
+    "pmid": "40126195",
+    "authors": [
+      "Wang Q, Chen X, Zhang XO."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-24",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Alternative cleavage and polyadenylation (APA) in the 3'-untranslated region (3'-UTR) of mRNA produces transcripts with varied 3'-UTR and plays a key role in development and organogenesis. This work characterizes 3'-UTR APA using 85 high-quality RNA-seq datasets encompassing 12 tissue types and eight developmental stages of mouse fetuses. Results show that 46.4% of expressed genes undergo APA in a tissue-specific manner. Changes in polyadenylation site (pAS) usage often operate beyond transcriptional control, revealing APA as an additional layer of gene regulation. Sequence analysis demonstrates that pAS selection, governed by polyadenylation signal strength and adenine preferences, is evolutionarily conserved between mice and humans. Intriguingly, brain tissues display complex 3'-UTR APA dynamics during development, potentially regulated by RNA-binding proteins such as Rbm38, potentially impacting 3' UTR extension by restricting distal pAS usage. These APA events are associated with a depletion of conserved miRNA binding sites and an enrichment of transposable elements within alternative 3' UTRs. To facilitate further research, this work develops APApedia (http://xozhanglab.com/apapedia/), a comprehensive database cataloging identified 3'-UTR APA events, which serves as a valuable resource for the community to study APA in development and tissue-specific regulation. This comprehensive resource aids in deciphering the functional implications of APA in mouse fetal development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptomic signature associated with RNA-binding proteins for survival stratification of laryngeal cancer.",
+    "doi": "10.18632/aging.204234",
+    "pmid": "35985767",
+    "authors": [
+      "Shen Y, Chen H, Huang Q, Du H, Zhou L."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) have been suggested as important prognostic indicators in different human cancers. This study was designed to search the prognostic value of RBPs of laryngeal squamous cell carcinoma (LSCC). Differentially expressed RBPs (DERBPs) were screened via The Cancer Genome Atlas (TCGA). Bioinformatics methods were used to identify prognostic DERBPs. Expression profiling of training cohort were calculated to develop a transcriptomic signature, which was validated by three independent cohorts (TCGA cohort, GSE65858 cohort and GSE27020 cohort). We identified DERBPs and a set of signatures (GTPBP3, KHDRBS3 and RBM38) were confirmed as prognosis-related hub DERBPs in LSCC, which was also tested and verified by bioinformatics method and molecular biology experiment. The role of immune cell infiltration and drug resistance between subgroups was explored. Furthermore, the risk score based on transcriptomic signature was turned out to be an independent prognostic indicator for LSCC. Finally, a nomogram for further clinical application was established. Our study demonstrated that the transcriptomic signature we constructed could serve as a novel therapeutic target and biomarker for LSCC from the perspective of RBPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of a First-in-Class Small-Molecule Inhibitor of the EIF4E-RBM38 Complex That Enhances Wild-type TP53 Protein Translation for Tumor Growth Suppression.",
+    "doi": "10.1158/1535-7163.mct-22-0627",
+    "pmid": "36940176",
+    "authors": [
+      "Lucchesi CA, Zhang J, Gao M, Shaw J, Chen X."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "EIF4E, an mRNA cap-binding protein, is necessary for cap-dependent translation. Overexpression of EIF4E is known to promote cancer development by preferentially translating a group of oncogenic mRNAs. Thus, 4EGI-1, a disruptor of EIF4E-EIF4G1 interaction, was developed to inhibit oncoprotein expression for cancer therapy. Interestingly, RBM38, an RNA-binding protein, interacts with EIF4E on TP53 mRNA, prevents EIF4E from binding to TP53 mRNA cap, and inhibits TP53 expression. Thus, Pep8, an eight amino acid peptide derived from RBM38, was developed to disrupt the EIF4E-RBM38 complex, leading to increased TP53 expression and decreased tumor cell growth. Herein, we have developed a first-in-class small-molecule compound 094, which interacts with EIF4E via the same pocket as does Pep8, dissociates RBM38 from EIF4E, and enhances TP53 translation in RBM38- and EIF4E-dependent manners. Structure-activity relationship studies identified that both the fluorobenzene and ethyl benzamide are necessary for compound 094 to interact with EIF4E. Furthermore, we showed that compound 094 is capable of suppressing three-dimensional tumor spheroid growth in RBM38- and TP53-dependent manners. In addition, we found that compound 094 cooperates with the chemotherapeutic agent doxorubicin and EIF4E inhibitor 4EGI-1 to suppress tumor cell growth. Collectively, we showed that two distinct approaches can be used together to target EIF4E for cancer therapy by enhancing wild-type TP53 expression (094) and by suppressing oncoprotein expression (4EGI-1).",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding proteins in the mouse lens: Functional classifications, expression profiling, and interaction studies of Carhsp1 with crystallin mRNAs.",
+    "doi": "10.1016/j.ydbio.2026.04.017",
+    "pmid": "42061735",
+    "authors": [
+      "Rayêe D, Hwang DW, Chang WK, Karp IN, Coomson SY, Zhao Y, Bowman T, Lachke SA, Singer RH, Eliscovich C, Cvekl A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-28",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are critical regulators of mRNAs controlling all processes such as RNA transcription, transport, localization, translation, mRNA:ncRNA interactions, and decay. Cellular differentiation is driven by temporally and spatially regulated expression of proteins needed for the optimal function of individual cells, tissues and organs. Lens fiber cell differentiation is marked by high levels of expression of crystallin genes encoding critical proteins for lens transparency and light refraction. Herein we performed proteomic and transcriptomic analyses of RBPs in differentiating mouse lenses to identify the most abundant RBPs and establish dynamic changes of their expression in differentiating lenses. Expression analyses showed highly abundant RBPs, including Carhsp1, Igf2bp1/ZBP1, Ybx1, Pabpc1, Ddx39, and Rbm38. Binding sites of Carhsp1, the most abundant lens RBP, were predicted in various crystallin and β-actin mRNAs. Immunoprecipitations using Carhsp1-specific antibodies confirmed interactions of Carhsp1 with crystallin mRNAs in newborn lens. A combination of single molecule RNA FISH (smFISH) and immunofluorescence was used to probe in vivo interactions of Carhsp1 with αA-, αB-crystallin, and β-actin mRNAs in cytoplasm and nucleoplasm of cultured mouse lens epithelial cells. These experiments favor a working model of direct association of Carhsp1 mediated by multiple candidate binding sites within both αA-, αB-crystallin mRNAs. Together, these results open new avenues to perform comprehensive genetic, cell, and molecular biology studies of individual RBPs in the lens.",
+    "openalex_id": ""
+  }
+]

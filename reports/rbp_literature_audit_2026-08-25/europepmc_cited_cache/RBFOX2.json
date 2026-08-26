@@ -1,0 +1,170 @@
+[
+  {
+    "title": "De novo mutations in congenital heart disease with neurodevelopmental and other congenital anomalies.",
+    "doi": "10.1126/science.aac9396",
+    "pmid": "26785492",
+    "authors": [
+      "Homsy J, Zaidi S, Shen Y, Ware JS, Samocha KE, Karczewski KJ, Karczewski KJ, DePalma SR, McKean D, Wakimoto H, Gorham J, Jin SC, Deanfield J, Giardini A, Porter GA, Kim R, Bilguvar K, López-Giráldez F, Tikhonova I, Mane S, Romano-Adesman A, Qi H, Vardarajan B, Ma L, Daly M, Roberts AE, Russell MW, Mital S, Newburger JW, Gaynor JW, Breitbart RE, Iossifov I, Ronemus M, Sanders SJ, Kaltman JR, Seidman JG, Brueckner M, Gelb BD, Goldmuntz E, Lifton RP, Seidman CE, Chung WK."
+    ],
+    "year": "2015",
+    "publication_date": "2015-12-01",
+    "cited_by_count": 723,
+    "journal": "",
+    "abstract": "Congenital heart disease (CHD) patients have an increased prevalence of extracardiac congenital anomalies (CAs) and risk of neurodevelopmental disabilities (NDDs). Exome sequencing of 1213 CHD parent-offspring trios identified an excess of protein-damaging de novo mutations, especially in genes highly expressed in the developing heart and brain. These mutations accounted for 20% of patients with CHD, NDD, and CA but only 2% of patients with isolated CHD. Mutations altered genes involved in morphogenesis, chromatin modification, and transcriptional regulation, including multiple mutations in RBFOX2, a regulator of mRNA splicing. Genes mutated in other cohorts examined for NDD were enriched in CHD cases, particularly those with coexisting NDD. These findings reveal shared genetic contributions to CHD, NDD, and CA and provide opportunities for improved prognostic assessment and early therapeutic intervention in CHD patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An EMT-driven alternative splicing program occurs in human breast cancer and modulates cellular phenotype.",
+    "doi": "10.1371/journal.pgen.1002218",
+    "pmid": "21876675",
+    "authors": [
+      "Shapiro IM, Cheng AW, Flytzanis NC, Balsamo M, Condeelis JS, Oktay MH, Burge CB, Gertler FB."
+    ],
+    "year": "2011",
+    "publication_date": "2011-08-18",
+    "cited_by_count": 398,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT), a mechanism important for embryonic development, plays a critical role during malignant transformation. While much is known about transcriptional regulation of EMT, alternative splicing of several genes has also been correlated with EMT progression, but the extent of splicing changes and their contributions to the morphological conversion accompanying EMT have not been investigated comprehensively. Using an established cell culture model and RNA-Seq analyses, we determined an alternative splicing signature for EMT. Genes encoding key drivers of EMT-dependent changes in cell phenotype, such as actin cytoskeleton remodeling, regulation of cell-cell junction formation, and regulation of cell migration, were enriched among EMT-associated alternatively splicing events. Our analysis suggested that most EMT-associated alternative splicing events are regulated by one or more members of the RBFOX, MBNL, CELF, hnRNP, or ESRP classes of splicing factors. The EMT alternative splicing signature was confirmed in human breast cancer cell lines, which could be classified into basal and luminal subtypes based exclusively on their EMT-associated splicing pattern. Expression of EMT-associated alternative mRNA transcripts was also observed in primary breast cancer samples, indicating that EMT-dependent splicing changes occur commonly in human tumors. The functional significance of EMT-associated alternative splicing was tested by expression of the epithelial-specific splicing factor ESRP1 or by depletion of RBFOX2 in mesenchymal cells, both of which elicited significant changes in cell morphology and motility towards an epithelial phenotype, suggesting that splicing regulation alone can drive critical aspects of EMT-associated phenotypic changes. The molecular description obtained here may aid in the development of new diagnostic and prognostic markers for analysis of breast cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Bind-n-Seq: quantitative assessment of the sequence and structural binding specificity of RNA binding proteins.",
+    "doi": "10.1016/j.molcel.2014.04.016",
+    "pmid": "24837674",
+    "authors": [
+      "Lambert N, Robertson A, Jangi M, McGeary S, Sharp PA, Burge CB."
+    ],
+    "year": "2014",
+    "publication_date": "2014-05-15",
+    "cited_by_count": 383,
+    "journal": "",
+    "abstract": "Specific protein-RNA interactions guide posttranscriptional gene regulation. Here, we describe RNA Bind-n-Seq (RBNS), a method that comprehensively characterizes sequence and structural specificity of RNA binding proteins (RBPs), and its application to the developmental alternative splicing factors RBFOX2, CELF1/CUGBP1, and MBNL1. For each factor, we recovered both canonical motifs and additional near-optimal binding motifs. RNA secondary structure inhibits binding of RBFOX2 and CELF1, while MBNL1 favors unpaired Us but tolerates C/G pairing in motifs containing UGC and/or GCU. Dissociation constants calculated from RBNS data using a novel algorithm correlated highly with values measured by surface plasmon resonance. Motifs identified by RBNS were conserved, were bound and active in vivo, and distinguished the subset of motifs enriched by CLIP-Seq that had regulatory activity. Together, our data demonstrate that RBNS complements crosslinking-based methods and show that in vivo binding and activity of these splicing factors is driven largely by intrinsic RNA affinity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing regulator Rbfox2 is required for both cerebellar development and mature motor function.",
+    "doi": "10.1101/gad.182477.111",
+    "pmid": "22357600",
+    "authors": [
+      "Gehman LT, Meera P, Stoilov P, Shiue L, O'Brien JE, Meisler MH, Ares M, Otis TS, Black DL."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-22",
+    "cited_by_count": 193,
+    "journal": "",
+    "abstract": "The Rbfox proteins (Rbfox1, Rbfox2, and Rbfox3) regulate the alternative splicing of many important neuronal transcripts and have been implicated in a variety of neurological disorders. However, their roles in brain development and function are not well understood, in part due to redundancy in their activities. Here we show that, unlike Rbfox1 deletion, the CNS-specific deletion of Rbfox2 disrupts cerebellar development. Genome-wide analysis of Rbfox2(-/-) brain RNA identifies numerous splicing changes altering proteins important both for brain development and mature neuronal function. To separate developmental defects from alterations in the physiology of mature cells, Rbfox1 and Rbfox2 were deleted from mature Purkinje cells, resulting in highly irregular firing. Notably, the Scn8a mRNA encoding the Na(v)1.6 sodium channel, a key mediator of Purkinje cell pacemaking, is improperly spliced in RbFox2 and Rbfox1 mutant brains, leading to highly reduced protein expression. Thus, Rbfox2 protein controls a post-transcriptional program required for proper brain development. Rbfox2 is subsequently required with Rbfox1 to maintain mature neuronal physiology, specifically Purkinje cell pacemaking, through their shared control of sodium channel transcript splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Unusual Processing Generates SPA LncRNAs that Sequester Multiple RNA Binding Proteins.",
+    "doi": "10.1016/j.molcel.2016.10.007",
+    "pmid": "27871485",
+    "authors": [
+      "Wu H, Yin QF, Luo Z, Yao RW, Zheng CC, Zhang J, Xiang JF, Yang L, Chen LL."
+    ],
+    "year": "2016",
+    "publication_date": "2016-10-27",
+    "cited_by_count": 150,
+    "journal": "",
+    "abstract": "We identify a type of polycistronic transcript-derived long noncoding RNAs (lncRNAs) that are 5' small nucleolar RNA (snoRNA) capped and 3' polyadenylated (SPAs). SPA processing is associated with nascent mRNA 3' processing and kinetic competition between XRN2 trimming and Pol II elongation. Following cleavage/polyadenylation of its upstream gene, the downstream uncapped pre-SPA is trimmed by XRN2 until this exonuclease reaches the co-transcriptionally assembled snoRNP. This snoRNP complex prevents further degradation, generates a snoRNA 5' end, and allows continuous Pol II elongation. The imprinted 15q11-q13 encodes two SPAs that are deleted in Prader-Willi syndrome (PWS) patients. These lncRNAs form a nuclear accumulation that is enriched in RNA binding proteins (RBPs) including TDP43, RBFOX2, and hnRNP M. Generation of a human PWS cellular model by depleting these lncRNAs results in altered patterns of RBPs binding and alternative splicing. Together, these results expand the diversity of lncRNAs and provide additional insights into PWS pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Rbfox2: an essential regulator of EMT-driven alternative splicing and a mediator of cellular invasion.",
+    "doi": "10.1038/onc.2013.50",
+    "pmid": "23435423",
+    "authors": [
+      "Braeutigam C, Rago L, Rolke A, Waldmeier L, Christofori G, Winter J."
+    ],
+    "year": "2014",
+    "publication_date": "2013-02-25",
+    "cited_by_count": 143,
+    "journal": "",
+    "abstract": "The epithelial-mesenchymal transition (EMT), a prerequisite for cancer progression and metastasis formation, is regulated not only at the transcriptional but also at the post-transcriptional level, including at the level of alternative pre-mRNA splicing. Several recent studies have highlighted the involvement of splicing factors, including epithelial splicing regulatory proteins (Esrps) and RNA-binding Fox protein 2 (Rbfox2), in this process. Esrps regulate epithelial-specific splicing, and their expression is downregulated during EMT. By contrast, the role of Rbfox2 is controversial because Rbfox2 regulates epithelial as well as mesenchymal splicing events. Here, we have used several established cell culture models to investigate the functions of Rbfox2 during EMT. We demonstrate that induction of an EMT upregulates the expression of Rbfox2, which correlates with an increase in Rbfox2-regulated splicing events in the cortactin (Cttn), Pard3 and dynamin 2 (Dnm2) transcripts. At the same time, however, the epithelial-specific ability to splice the Enah, Slk and Tsc2 transcripts is either reduced or lost completely by Rbfox2, which might be due, in part, to downregulation of the expression of the Esrps cooperative factors. Depletion of Rbfox2 during EMT did not prevent the activation of transforming growth factor-β signaling, the upregulation of mesenchymal markers or changes in cell morphology toward a mesenchymal phenotype. In addition, this depletion did not influence cell migration. However, depletion of Rbfox2 in cells that have completed an EMT significantly reduced their invasive potential. Taken together, our results suggest that during an EMT, Rbfox2-regulated splicing shifts from epithelial-to mesenchymal-specific events, leading to a higher degree of tissue invasiveness.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of recurrent regulated alternative splicing events across human solid tumors.",
+    "doi": "10.1093/nar/gkv210",
+    "pmid": "25908786",
+    "authors": [
+      "Danan-Gotthold M, Golan-Gerstl R, Eisenberg E, Meir K, Karni R, Levanon EY."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-23",
+    "cited_by_count": 139,
+    "journal": "",
+    "abstract": "Cancer is a complex disease that involves aberrant gene expression regulation. Discriminating the modified expression patterns driving tumor biology from the many that have no or little contribution is important for understanding cancer molecular basis. Recurrent deregulation patterns observed in multiple cancer types are enriched for such driver events. Here, we studied splicing alterations in hundreds of matched tumor and normal RNA-seq samples of eight solid cancer types. We found hundreds of cassette exons for which splicing was altered in multiple cancer types and identified a set of highly frequent altered splicing events. Specific splicing regulators, including RBFOX2, MBNL1/2 and QKI, appear to account for many splicing alteration events in multiple cancer types. Together, our results provide a first global analysis of regulated splicing alterations in cancer and identify common events with a potential causative role in solid tumor development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBFOX2 is an important regulator of mesenchymal tissue-specific splicing in both normal and cancer tissues.",
+    "doi": "10.1128/mcb.01174-12",
+    "pmid": "23149937",
+    "authors": [
+      "Venables JP, Brosseau JP, Gadea G, Klinck R, Prinos P, Beaulieu JF, Lapointe E, Durand M, Thibault P, Tremblay K, Rousset F, Tazi J, Abou Elela S, Chabot B."
+    ],
+    "year": "2013",
+    "publication_date": "2012-11-12",
+    "cited_by_count": 133,
+    "journal": "",
+    "abstract": "Alternative splicing provides a critical and flexible layer of regulation intervening in many biological processes to regulate the diversity of proteins and impact cell phenotype. To identify alternative splicing differences that distinguish epithelial from mesenchymal tissues, we have investigated hundreds of cassette exons using a high-throughput reverse transcription-PCR (RT-PCR) platform. Extensive changes in splicing were noted between epithelial and mesenchymal tissues in both human colon and ovarian tissues, with many changes from mostly one splice variant to predominantly the other. Remarkably, many of the splicing differences that distinguish normal mesenchymal from normal epithelial tissues matched those that differentiate normal ovarian tissues from ovarian cancer. Furthermore, because splicing profiling could classify cancer cell lines according to their epithelial/mesenchymal characteristics, we used these cancer cell lines to identify regulators for these specific splicing signatures. By knocking down 78 potential splicing factors in five cell lines, we provide an extensive view of the complex regulatory landscape associated with the epithelial and mesenchymal states, thus revealing that RBFOX2 is an important driver of mesenchymal tissue-specific splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbfox Splicing Factors Promote Neuronal Maturation and Axon Initial Segment Assembly.",
+    "doi": "10.1016/j.neuron.2018.01.020",
+    "pmid": "29398366",
+    "authors": [
+      "Jacko M, Weyn-Vanhentenryck SM, Smerdon JW, Yan R, Feng H, Williams DJ, Pai J, Xu K, Wichterle H, Zhang C."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-01",
+    "cited_by_count": 126,
+    "journal": "",
+    "abstract": "Neuronal maturation requires dramatic morphological and functional changes, but the molecular mechanisms governing this process are not well understood. Here, we studied the role of Rbfox1, Rbfox2, and Rbfox3 proteins, a family of tissue-specific splicing regulators mutated in multiple neurodevelopmental disorders. We generated Rbfox triple knockout (tKO) ventral spinal neurons to define a comprehensive network of alternative exons under Rbfox regulation and to investigate their functional importance in the developing neurons. Rbfox tKO neurons exhibit defects in alternative splicing of many cytoskeletal, membrane, and synaptic proteins, and display immature electrophysiological activity. The axon initial segment (AIS), a subcellular structure important for action potential initiation, is diminished upon Rbfox depletion. We identified an Rbfox-regulated splicing switch in ankyrin G, the AIS \"interaction hub\" protein, that regulates ankyrin G-beta spectrin affinity and AIS assembly. Our data show that the Rbfox-regulated splicing program plays a crucial role in structural and functional maturation of postmitotic neurons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbfox2 controls autoregulation in RNA-binding protein networks.",
+    "doi": "10.1101/gad.235770.113",
+    "pmid": "24637117",
+    "authors": [
+      "Jangi M, Boutz PL, Paul P, Sharp PA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-03-01",
+    "cited_by_count": 122,
+    "journal": "",
+    "abstract": "The tight regulation of splicing networks is critical for organismal development. To maintain robust splicing patterns, many splicing factors autoregulate their expression through alternative splicing-coupled nonsense-mediated decay (AS-NMD). However, as negative autoregulation results in a self-limiting window of splicing factor expression, it is unknown how variations in steady-state protein levels can arise in different physiological contexts. Here, we demonstrate that Rbfox2 cross-regulates AS-NMD events within RNA-binding proteins to alter their expression. Using individual nucleotide-resolution cross-linking immunoprecipitation coupled to high-throughput sequencing (iCLIP) and mRNA sequencing, we identified >200 AS-NMD splicing events that are bound by Rbfox2 in mouse embryonic stem cells. These \"silent\" events are characterized by minimal apparent splicing changes but appreciable changes in gene expression upon Rbfox2 knockdown due to degradation of the NMD-inducing isoform. Nearly 70 of these AS-NMD events fall within genes encoding RNA-binding proteins, many of which are autoregulated. As with the coding splicing events that we found to be regulated by Rbfox2, silent splicing events are evolutionarily conserved and frequently contain the Rbfox2 consensus UGCAUG. Our findings uncover an unexpectedly broad and multilayer regulatory network controlled by Rbfox2 and offer an explanation for how autoregulatory splicing networks are tuned.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MBNL1 and RBFOX2 cooperate to establish a splicing programme involved in pluripotent stem cell differentiation.",
+    "doi": "10.1038/ncomms3480",
+    "pmid": "24048253",
+    "authors": [
+      "Venables JP, Lapasset L, Gadea G, Fort P, Klinck R, Irimia M, Vignal E, Thibault P, Prinos P, Chabot B, Abou Elela S, Roux P, Lemaitre JM, Tazi J."
+    ],
+    "year": "2013",
+    "publication_date": "2013-01-01",
+    "cited_by_count": 122,
+    "journal": "",
+    "abstract": "Reprogramming somatic cells into induced pluripotent stem cells (iPSCs) has provided huge insight into the pathways, mechanisms and transcription factors that control differentiation. Here we use high-throughput RT-PCR technology to take a snapshot of splicing changes in the full spectrum of high- and low-expressed genes during induction of fibroblasts, from several donors, into iPSCs and their subsequent redifferentiation. We uncover a programme of concerted alternative splicing changes involved in late mesoderm differentiation and controlled by key splicing regulators MBNL1 and RBFOX2. These critical splicing adjustments arise early in vertebrate evolution and remain fixed in at least 10 genes (including PLOD2, CLSTN1, ATP2A1, PALM, ITGA6, KIF13A, FMNL3, PPIP5K1, MARK2 and FNIP1), implying that vertebrates require alternative splicing to fully implement the instructions of transcriptional control networks.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Sequence Context Effects Measured In Vitro Predict In Vivo Protein Binding and Regulation.",
+    "doi": "10.1016/j.molcel.2016.08.035",
+    "pmid": "27720642",
+    "authors": [
+      "Taliaferro JM, Lambert NJ, Sudmant PH, Dominguez D, Merkin JJ, Alexis MS, Bazile C, Burge CB."
+    ],
+    "year": "2016",
+    "publication_date": "2016-10-06",
+    "cited_by_count": 118,
+    "journal": "",
+    "abstract": "Many RNA binding proteins (RBPs) bind specific RNA sequence motifs, but only a small fraction (∼15%-40%) of RBP motif occurrences are occupied in vivo. To determine which contextual features discriminate between bound and unbound motifs, we performed an in vitro binding assay using 12,000 mouse RNA sequences with the RBPs MBNL1 and RBFOX2. Surprisingly, the strength of binding to motif occurrences in vitro was significantly correlated with in vivo binding, developmental regulation, and evolutionary age of alternative splicing. Multiple lines of evidence indicate that the primary context effect that affects binding in vitro and in vivo is RNA secondary structure. Large-scale combinatorial mutagenesis of unfavorable sequence contexts revealed a consistent pattern whereby mutations that increased motif accessibility improved protein binding and regulatory activity. Our results indicate widespread inhibition of motif binding by local RNA secondary structure and suggest that mutations that alter sequence context commonly affect RBP binding and regulation.",
+    "openalex_id": ""
+  }
+]

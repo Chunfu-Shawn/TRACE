@@ -1,0 +1,170 @@
+[
+  {
+    "title": "2'-O-methylation-dependent installation of N&lt;sup&gt;2&lt;/sup&gt;-methylguanosine in the U6 internal stem loop facilitates efficient spliceosome assembly.",
+    "doi": "10.1038/s41467-026-72355-2",
+    "pmid": "42031737",
+    "authors": [
+      "Kleiber N, Petrosyan J, Greve M, Thomé CC, Dybkov O, Tay LLE, Welp LM, Hackert P, Touboul D, Stark H, Bohnsack MT, Urlaub H, Herzel L, Graille M, Höbartner C, Bohnsack KE."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The internal stem loop (ISL) of the human U6 snRNA, which catalyzes pre-mRNA splicing, contains LARP7-dependent, snoRNA-guided 2'-O-methylations and an N<sup>2</sup>-methylguanosine (m<sup>2</sup>G) that is required for splicing of weak splice sites. Here, we show that installation of m<sup>2</sup>G<sub>72</sub> by the THUMPD2-TRMT112 methyltransferase complex is one of the last maturation events during U6 snRNP biogenesis. We dissect features of THUMPD2 required for association with U6 and present an experimentally validated model of the THUMPD2-TRMT112-U6 complex. Using in vitro methylation assays as well as a newly developed m<sup>2</sup>G-sensitive deoxyribozyme to monitor U6-m<sup>2</sup>G<sub>72</sub> levels in cellular RNAs, we reveal that 2'-O-methylations within the U6 ISL enhance methylation of G<sub>72</sub>. We show that m<sup>2</sup>G<sub>72</sub> and the 2'-O-methylations in U6 independently and interdependently influence alternative splicing. Furthermore, our data demonstrate that 2'-O-methylations in the ISL are required for incorporation of U6 into snRNPs whereas m<sup>2</sup>G<sub>72</sub> influences the progression of the U6 snRNP into larger assemblies, highlighting distinct roles of these modifications during spliceosome assembly.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Functional Characterization of Variants in &lt;i&gt;LARP7&lt;/i&gt;: Report of Three New Individuals With Alazami Syndrome and a Literature Review.",
+    "doi": "10.1155/humu/6490124",
+    "pmid": "40548259",
+    "authors": [
+      "Ambrose A, Caluseriu O, Mercimek-Andrews S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-12",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<b>Introduction:</b> Biallelic pathogenic variants in <i>LARP7</i> result in Alazami syndrome, which is characterized by global developmental delay, cognitive dysfunction, and dysmorphic features. Cardiac and skeletal phenotypes are reported in about 30% of individuals. We report three new individuals with Alazami syndrome and functional characterization of <i>LARP7</i> variants in this study. <b>Materials and Methods:</b> We reviewed electronic patient charts. We applied the American College of Medical Genetics and Genomics and the Association for Molecular Pathology variant classification algorithms. We performed a 3D protein modeling tool for in silico prediction and functional characterization of <i>LARP7</i> variants using qPCR gene expression experiments. We reviewed the medical literature for Alazami syndrome and <i>LARP7</i>. <b>Results:</b> We report three individuals from two unrelated families with characteristic phenotypes suggestive of Alazami syndrome. We identified a homozygous novel missense <i>LARP7</i> likely pathogenic variant (p.Asp54Val) in Family 1 and a homozygous novel pathogenic <i>LARP7</i> variant (p.Lys219Glu∗) in Family 2 using clinical exome sequencing. 3D protein modeling showed large structural changes for both variants compared to wildtype. The functional characterization showed a statistically significant difference in LARP7 expression between affected individuals and wildtype control. We report phenotypic variability within the same family that the cardiac phenotype was only present in Family 1, Case 2. There were < 60 individuals with Alazami syndrome reported to date. <b>Conclusion:</b> We report three new individuals with Alazami syndrome and two novel variants in <i>LARP7</i>. We report the first missense <i>LARP7</i> variant associated with Alazami syndrome. We report the protein 3D structure of <i>LARP7</i> variants. We show a relationship between the p.Asp54Val <i>LARP7</i> variant and LARP7 expression levels. We think that this could be due to abnormal RNA binding of LARP7 as per the 3D protein modeling prediction tool.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The fission yeast methyl phosphate capping enzyme Bmc1 guides 2'-O-methylation of the U6 snRNA.",
+    "doi": "10.1093/nar/gkad563",
+    "pmid": "37403782",
+    "authors": [
+      "Porat J, Slat VA, Rader SD, Bayfield MA."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-01",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Splicing requires the tight coordination of dynamic spliceosomal RNAs and proteins. U6 is the only spliceosomal RNA transcribed by RNA Polymerase III and undergoes an extensive maturation process. In humans and fission yeast, this includes addition of a 5' γ-monomethyl phosphate cap by members of the Bin3/MePCE family as well as snoRNA guided 2'-O-methylation. Previously, we have shown that the Bin3/MePCE homolog Bmc1 is recruited to the S. pombe telomerase holoenzyme by the LARP7 family protein Pof8, where it acts in a catalytic-independent manner to protect the telomerase RNA and facilitate holoenzyme assembly. Here, we show that Bmc1 and Pof8 are required for the formation of a distinct U6 snRNP that promotes 2'-O-methylation of U6, and identify a non-canonical snoRNA that guides this methylation. We also show that the 5' γ-monomethyl phosphate capping activity of Bmc1 is not required for its role in promoting snoRNA guided 2'-O-methylation, and that this role relies on different regions of Pof8 from those required for Pof8 function in telomerase. Our results are consistent with a novel role for Bmc1/MePCE family members in stimulating 2'-O-methylation and a more general role for Bmc1 and Pof8 in guiding noncoding RNP assembly beyond the telomerase RNP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LARP7 promotes postnatal cardiac regeneration by facilitating G&lt;sub&gt;2&lt;/sub&gt;/M phase transition.",
+    "doi": "10.1016/j.yjmcc.2026.02.003",
+    "pmid": "41667032",
+    "authors": [
+      "Zhang S, Cheng K, Xiong J, Liu X, Lin J, Hu H, Geng Z, Xu W, Xu S, Tan A, Zhang J, Li W, Guo Z, Yang P, Cheng X, Zhong T, Guo X, Fu L, Zhang M, Chen J, Wu G, Wu L, Zhu D, Zhang B."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-08",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The limited regenerative potential of adult mammalian cardiomyocyte is the biggest hurdle for the heart repair after injury. La Ribonucleoprotein 7 (LARP7), a member of La ribonucleoprotein domain family, is the key regulator of transcription and DNA damage response, but it's role in heart regeneration remains elusive. In this study, the authors discover LARP7 expression level is correlated with myocardial regeneration. Overexpressing LARP7 in the cardiomyocytes moderately promote the cardiomyocyte proliferation and extend the neonatal heart's regenerative window. The mechanism uncovers that LARP7 enhances G<sub>2</sub>/M phase transition of cardiomyocyte by suppressing p21 via the SIRT1/p53 pathway and thereby elevating the activity of CDK1/CCNB. To further boost regenerative capacity, The authors co-express CCND1 and CDK4 together with LARP7 using a dual AAV9 system that markedly boosts the cardiac regeneration and facilitates recovery post cardiac damage. In sum, our study unveils LARP7 as a novel molecular switch of cell cycle. LARP7 ectopic expression, especially combining with G<sub>1</sub>/S regulators effectively enhances the cardiac regeneration, which underscores LARP7 as a perspective target in cardiac regeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding proteins in aging and age-related diseases: roles, mechanisms, and a large language model analysis.",
+    "doi": "10.1007/s10522-026-10464-7",
+    "pmid": "42322462",
+    "authors": [
+      "Han Q, Huang S, Luo S, Yang D."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Aging is a progressive and irreversible biological process that contributes to the pathogenesis of numerous age-related diseases. Elucidating the molecular mechanisms of aging is crucial for promoting healthy aging and extending healthspan. RNA-binding proteins (RBPs) are pivotal regulators of post-transcriptional gene expression and play essential roles in diverse biological processes. RBPs interact with both coding and non-coding RNAs to regulate RNA metabolism, stability, localization, and translation. Dysregulated RBP-RNA interactions have been closely associated with aging and age-related diseases. This review systematically summarizes the structural characteristics of RBPs and the evolution of methods used to study them. We focus on the molecular mechanisms of six key RBPs, namely HuR, AUF1, TTP, IGF2BP2, QKI, and LARP7, in the context of aging and age-related diseases. In addition, we discuss the regulatory functions of post-translational modifications of RBPs. Furthermore, we provide a multidimensional overview of RBP involvement in aging and age-related diseases through large language model (LLM)-based text-mining analysis. Our study provides a foundation for the comprehensive characterization of RBPs in aging and age-related diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LARP7 enhances the potential of dental pulp stem cells to promote peripheral nerve repair.",
+    "doi": "10.1093/stmcls/sxag013",
+    "pmid": "41812059",
+    "authors": [
+      "Yang Z, Qu G, Wang X, Wang L, Chen L, Fu G, Chen W, Yang Z, Li W, Zhou Y, Jin J, Zhou L, Zou D."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Peripheral nerve injuries (PNIs) present a persistent clinical challenge due to the intrinsically limited regenerative capacity of peripheral nerves. While dental pulp stem cells (DPSCs) exhibit significant neuroregenerative potential, their therapeutic efficacy is constrained by hostile microenvironments and inherent functional heterogeneity. Genetic modification may offer a promising strategy to enhance their therapeutic capabilities.<h4>Methods</h4>DPSCs were induced toward neural lineage differentiation, and key gene candidates were identified through qRT-PCR. Lentiviral-mediated gene interference was performed to modulate target gene expression, followed by comprehensive analysis of differentiation outcomes using qRT-PCR, Western blotting, and immunofluorescence assays. RNA sequencing was employed to uncover associated signaling pathways, which were subsequently validated through pharmacological inhibition with specific inhibitors. The therapeutic efficacy of genetically engineered DPSCs was evaluated in a rat model of sciatic nerve crush injury, with neural regeneration quantitatively assessed via neuroelectrophysiological measurements and histological analyses.<h4>Results</h4>LARP7 positively regulated the Schwann cell-like differentiation of DPSCs, as well as their trophic and anti-inflammatory effects, thus enhancing its therapeutic effects on nerve repair and promoting functional recovery. Mechanistically, we found that LARP7 remodeled cytokine-cytokine receptor interactions, enhancing trophic support while attenuating proinflammatory responses, and activated the PI3K-Akt-mTOR signaling pathway, with ERBB4 serving as a critical downstream effector, promoting DPSCs differentiation into Schwann cell-like phenotypes.<h4>Conclusions</h4>Collectively, LARP7-mediated changes in DPSCs establish a new therapeutic paradigm that addresses the limitations of current stem cell-based interventions and enables the development of standardized biotherapeutics for peripheral nerve repair.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LARP7 protects against ischemic brain injury by modulating NLRP3 deacetylation to suppress neuronal pyroptosis.",
+    "doi": "10.1186/s12974-025-03649-3",
+    "pmid": "41351020",
+    "authors": [
+      "Tang H, Wen J, Yang Q, Wang L, Qin T, Ren Y, Zhao Y, Wu Y, Li C, Li J, He Y, Huang J, Zi W, Yang Q."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-05",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Ischemic stroke is a leading cause of morbidity and mortality worldwide, yet available therapeutic strategies remain limited. La ribonucleoprotein domain family member 7 (LARP7), a critical regulator of RNA stability and transcriptional control, participates in cellular stress responses and inflammatory modulation. Emerging evidence suggests LARP7's involvement in neuroinflammation and neuronal survival, yet its role in ischemic stroke pathogenesis is still poorly understood.<h4>Methods</h4>We systematically investigated LARP7 expression in patients with acute ischemic stroke (AIS), mice subjected to middle cerebral artery occlusion/reperfusion (MCAO/R), and neurons exposed to oxygen-glucose deprivation/reoxygenation (OGD/R). To elucidate the role of LARP7 in ischemic stroke, we generated neuron-specific LARP7 knockout mice, and employed a lentiviral delivery system for neuronal LARP7 overexpression. Protein interactions between LARP7-Sirt1 and Sirt1-NLRP3 were assessed using co-immunoprecipitation, proximity ligation assay, domain deletion analysis, and acetyl-proteomics. Furthermore, a potential LARP7 activator was identified through virtual screening, and its activation efficacy and neuroprotective effects were evaluated.<h4>Results</h4>LARP7 was markedly downregulated in the ischemic brain tissues from AIS patients and MCAO/R mice, as well as in OGD/R neurons. Neuronal LARP7 deficiency exacerbated neuronal pyroptosis and neurological deficits following ischemic stroke, which could be partially rescued by pharmacological activation of Sirt1. Mechanistically, LARP7's C-terminal domain interacted with the N-terminal domain of Sirt1 to enhance Sirt1 deacetylase activity, which facilitated NLRP3 deacetylation at K21/K22/K24, thereby inhibiting inflammasome assembly and subsequent neuronal pyroptosis. Furthermore, sorafenib tosylate was identified as a potential LARP7 activator with demonstrated neuroprotective effects.<h4>Conclusion</h4>LARP7 enhances Sirt1 deacetylase activity to regulate NLRP3 deacetylation, thereby inhibiting inflammasome assembly and neuronal pyroptosis after ischemic stroke. Targeting LARP7 could represent a promising therapeutic strategy for ischemic stroke.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Enhanced P-TEFb activity compromises dentate gyrus neurogenesis in mice.",
+    "doi": "10.1038/s44318-026-00752-w",
+    "pmid": "41872527",
+    "authors": [
+      "Fang Y, Qiu T, Wang P, Bai S, Wang M, Yang C, Wang Y, Zhang P, Wang H, Liu S, Xiao X, Li Q."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Enhanced P-TEFb activity is thought to promote cell proliferation by increasing the transcriptional output of RNA polymerase II. The 7SK snRNP complex, which contains LARP7 and HEXIM1, sequesters and inhibits most cellular P-TEFb to prevent premature transcription elongation. Paradoxically, instead of exerting overgrowth effects, biallelic inactivation of LARP7 is linked to Alazami syndrome, a human neurodevelopmental disorder characterized by growth restriction and cognitive impairment. Here, we report that conditional ablation of either Larp7 or Hexim1 in the murine brain reduces the size and impairs the function of the hippocampal dentate gyrus during the neonatal period. Functional analyses reveal that increased P-TEFb activity enhances self-renewal transcriptional programs in transit-amplifying neuronal progenitor cells to limit neurogenesis in developing dentate gyri. These results demonstrate that dysregulated subtissular stem cell dynamics can reconcile increased P-TEFb activity with reduced organ growth, and suggest a translational opportunity for repurposing P-TEFb inhibitors to treat medical conditions affecting dentate gyrus size and function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "La protein binding to telomerase RNA supports an evolutionary relationship between plant and ciliate telomerase pathways.",
+    "doi": "10.1093/nar/gkag216",
+    "pmid": "41805124",
+    "authors": [
+      "Jenner L, Pruchkouski D, Štefanovie B, Nováková O, Kubíčková M, Fajkus P, Brázdová M, Paleček J, Sýkorová E."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The Arabidopsis thaliana La1 (AtLa1) protein is a member of the genuine La family of RNA biogenesis proteins, which are structurally similar to the La-related protein 7 (LARP7) family. LARP7 proteins participate in the biogenesis of the telomerase ribonucleoprotein complex in model systems, but are absent in plants. We show that AtLa1 binds to telomerase RNA in a manner reminiscent of the Tetrahymena LARP7 protein p65. Classical in vitro methods and microscale thermophoresis (MST) were used to specify the molecular structures involved in this multi-surface interaction. AtLa1 also enhances the binding of TR to the telomerase reverse transcriptase RNA binding domain. We therefore propose that biogenesis of telomerase RNA in plants and ciliates is achieved by a similar pathway, differing in the employment of genuine La or LARP7-like proteins, respectively. We also report that the domain of unknown function (DUF3223, DeCL) found in the AtLa1 protein binding partner, Domino, is an RNA binding domain with modest TR-binding capacity. This domain is also found in plant and ciliate proteins, including plant polymerases IV/V and the Tetrahymena La protein Mlp1. Together, these suggest that RNA biogenesis pathways in plants and ciliates have a conserved evolutionary relationship, with parallels between their La proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Liquid-liquid phase separation of LARP7 restrains HIV-1 replication.",
+    "doi": "10.1038/s44319-025-00421-9",
+    "pmid": "40113991",
+    "authors": [
+      "Li Z, Fang X, Zhao B, Liu R, Shen Y, Li T, Wang Y, Guo Z, Wang W, Zhang B, Han Q, Xu X, Wang K, Yin L, Gong W, Li A, Zhou T, Li T, Li W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-20",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "HIV-1 initiates replication by its transactivator Tat, hijacking the positive transcription elongation factor b (P-TEFb) in the host cell. Most P-TEFb is maintained in an inactive state by 7SK snRNP until it is brought to the transcription initiation complex by cellular or viral transactivators that accelerate transcription and facilitate the production of full-length viral transcripts. Here, we report that HIV-1 infection triggers liquid-liquid phase separation of LARP7, a central component of 7SK snRNP. Tat is incorporated into HIV-1-induced LARP7 condensates after infection. Conserved lysine residues in the intrinsically disordered region of LARP7 are essential for both its phase separation and the inhibition of Tat-mediated transcription. These findings identify a mechanism wherein P-TEFb and Tat are sequestered within LARP7 condensates, restraining HIV-1 transcription.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The effect of LARP7 on gene expression during osteogenesis.",
+    "doi": "10.1007/s11033-024-10216-1",
+    "pmid": "39804499",
+    "authors": [
+      "Ozisin MS, Imren G, Aydin B, Karaosmanoglu B, Taskiran EZ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-13",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>La-related protein 7 (LARP7) is a key regulator of RNA metabolism and is thought to play a role in various cellular processes. LARP7 gene autosomal recessive mutations are the cause of Alazami syndrome, which presents with skeletal abnormalities, intellectual disabilities, and facial dysmorphisms. This study aimed to determine the role of LARP7 in modulating gene expression dynamics during osteogenesis.<h4>Methods and results</h4>First, the temporal expression profile of the LARP7 gene during various stages of osteogenesis was examined. Then, RNA interference-mediated knockdown of LARP7 was implemented and high-throughput RNA-seq analysis was performed in order to identify global gene expression changes associated with knockdown of LARP7. The findings show there were significant alterations in the overall gene expression profile. The observed down-regulation in extracellular matrix (ECM) component genes suggests that it might lead to impairments in the structure and function of the bone matrix. Additionally, modulation of alternative splicing events were observed, especially in the RUNX2 and SPP1, indicating the potential contribution of LARP7 to the phenotypic features observed in Alazami syndrome.<h4>Conclusion</h4>Overall, the findings clarify the regulatory mechanisms of LARP7 in osteogenic differentiation and illuminate potential avenues for therapeutic interventions in patients with skeletal disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptome-proteome integration analysis identifies elevated expression of LARP7 promoting the tumorigenesis and development of gastrointestinal stromal tumors.",
+    "doi": "10.1016/j.tranon.2025.102316",
+    "pmid": "39933393",
+    "authors": [
+      "Zheng H, Pan Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-10",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Gastrointestinal stromal tumors (GISTs) are the most common mesenchymal tumors in the digestive tract, with c-kit and PDGFRA mutations being the primary causes. However, GIST pathogenesis is not still fully understood. Differential expression analysis, Univariate Cox regression and Kaplan-Meier curves were utilized to screen for up-regulated and prognostically relevant genes. The expression distribution was compared across various demographics and clinical groups. The relationship between gene expression and cytokine pathway activation was assessed via CytoSig. Immune cell infiltration was analyzed using TIMER2.0. Four paired GIST and adjacent normal tissues were collected to validate the expression trend. CCK8 assays and scratch wound healing assays were conducted in GIST-T1 and GIST-882 cells. Results indicated that LARP7 was up-regulated in GISTs at both mRNA and protein levels. This elevated expression was associated with poor prognosis, particularly in GISTs located in the small intestine and those with larger tumor sizes. LARP7 was implicated in the expression of IFN-induced genes and the negative regulation of viral processes. Predictions of cytokine pathways supported these findings, and immune cell infiltration analysis revealed a higher presence of CD8+ T cells in GISTs with high LARP7 expression. The lncRNA (H19 or LINC00665)-miRNA(hsa-miR-138-5p) axis targeted LARP7. Furthermore, LARP7 was elevated in imatinib-resistant GISTs, with some other drugs predicted to aid in therapy. LARP7 knockdown resulted in reduced proliferation and migration of GIST-T1 and GIST-882 cells. Overall, high expression of LARP7 correlates with poor prognosis in GISTs, highlighting its potential as a therapeutic target.",
+    "openalex_id": ""
+  }
+]

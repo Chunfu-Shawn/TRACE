@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The Prp19 complex and the Usp4Sart3 deubiquitinating enzyme control reversible ubiquitination at the spliceosome.",
+    "doi": "10.1101/gad.1925010",
+    "pmid": "20595234",
+    "authors": [
+      "Song EJ, Werner SL, Neubauer J, Stegmeier F, Aspden J, Rio D, Harper JW, Elledge SJ, Kirschner MW, Rape M."
+    ],
+    "year": "2010",
+    "publication_date": "2010-07-01",
+    "cited_by_count": 196,
+    "journal": "",
+    "abstract": "The spliceosome, a dynamic assembly of proteins and RNAs, catalyzes the excision of intron sequences from nascent mRNAs. Recent work has suggested that the activity and composition of the spliceosome are regulated by ubiquitination, but the underlying mechanisms have not been elucidated. Here, we report that the spliceosomal Prp19 complex modifies Prp3, a component of the U4 snRNP, with nonproteolytic K63-linked ubiquitin chains. The K63-linked chains increase the affinity of Prp3 for the U5 snRNP component Prp8, thereby allowing for the stabilization of the U4/U6.U5 snRNP. Prp3 is deubiquitinated by Usp4 and its substrate targeting factor, the U4/U6 recycling protein Sart3, which likely facilitates ejection of U4 proteins from the spliceosome during maturation of its active site. Loss of Usp4 in cells interferes with the accumulation of correctly spliced mRNAs, including those for alpha-tubulin and Bub1, and impairs cell cycle progression. We propose that the reversible ubiquitination of spliceosomal proteins, such as Prp3, guides rearrangements in the composition of the spliceosome at distinct steps of the splicing reaction.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Therapeutic potential of targeting microRNA-10b in established intracranial glioblastoma: first steps toward the clinic.",
+    "doi": "10.15252/emmm.201505495",
+    "pmid": "26881967",
+    "authors": [
+      "Teplyuk NM, Uhlmann EJ, Gabriely G, Volfovsky N, Wang Y, Teng J, Karmali P, Marcusson E, Peter M, Mohan A, Kraytsberg Y, Cialic R, Chiocca EA, Godlewski J, Tannous B, Krichevsky AM."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-01",
+    "cited_by_count": 112,
+    "journal": "",
+    "abstract": "MicroRNA-10b (miR-10b) is a unique oncogenic miRNA that is highly expressed in all GBM subtypes, while absent in normal neuroglial cells of the brain. miR-10b inhibition strongly impairs proliferation and survival of cultured glioma cells, including glioma-initiating stem-like cells (GSC). Although several miR-10b targets have been identified previously, the common mechanism conferring the miR-10b-sustained viability of GSC is unknown. Here, we demonstrate that in heterogeneous GSC, miR-10b regulates cell cycle and alternative splicing, often through the non-canonical targeting via 5'UTRs of its target genes, including MBNL1-3, SART3, and RSRC1. We have further assessed the inhibition of miR-10b in intracranial human GSC-derived xenograft and murine GL261 allograft models in athymic and immunocompetent mice. Three delivery routes for the miR-10b antisense oligonucleotide inhibitors (ASO), direct intratumoral injections, continuous osmotic delivery, and systemic intravenous injections, have been explored. In all cases, the treatment with miR-10b ASO led to targets' derepression, and attenuated growth and progression of established intracranial GBM. No significant systemic toxicity was observed upon ASO administration by local or systemic routes. Our results indicate that miR-10b is a promising candidate for the development of targeted therapies against all GBM subtypes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "p110, a novel human U6 snRNP protein and U4/U6 snRNP recycling factor.",
+    "doi": "10.1093/emboj/21.11.2724",
+    "pmid": "12032085",
+    "authors": [
+      "Bell M, Schreiner S, Damianov A, Reddy R, Bindereif A."
+    ],
+    "year": "2002",
+    "publication_date": "2002-06-01",
+    "cited_by_count": 109,
+    "journal": "",
+    "abstract": "During each spliceosome cycle, the U6 snRNA undergoes extensive structural rearrangements, alternating between singular, U4-U6 and U6-U2 base-paired forms. In Saccharomyces cerevisiae, Prp24 functions as an snRNP recycling factor, reannealing U4 and U6 snRNAs. By database searching, we have identified a Prp24-related human protein previously described as p110(nrb) or SART3. p110 contains in its C-terminal region two RNA recognition motifs (RRMs). The N-terminal two-thirds of p110, for which there is no counterpart in the S.cerevisiae Prp24, carries seven tetratricopeptide repeat (TPR) domains. p110 homologs sharing the same domain structure also exist in several other eukaryotes. p110 is associated with the mammalian U6 and U4/U6 snRNPs, but not with U4/U5/U6 tri-snRNPs nor with spliceosomes. Recom binant p110 binds in vitro specifically to human U6 snRNA, requiring an internal U6 region. Using an in vitro recycling assay, we demonstrate that p110 functions in the reassembly of the U4/U6 snRNP. In summary, p110 represents the human ortholog of Prp24, and associates only transiently with U6 and U4/U6 snRNPs during the recycling phase of the spliceosome cycle.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Detection of snRNP assembly intermediates in Cajal bodies by fluorescence resonance energy transfer.",
+    "doi": "10.1083/jcb.200405160",
+    "pmid": "15452143",
+    "authors": [
+      "Stanĕk D, Neugebauer KM."
+    ],
+    "year": "2004",
+    "publication_date": "2004-09-01",
+    "cited_by_count": 93,
+    "journal": "",
+    "abstract": "Spliceosomal small nuclear ribonucleoprotein particles (snRNPs) are required for pre-mRNA splicing throughout the nucleoplasm, yet snRNPs also concentrate in Cajal bodies (CBs). To address a proposed role of CBs in snRNP assembly, we have used fluorescence resonance energy transfer (FRET) microscopy to investigate the subnuclear distribution of specific snRNP intermediates. Two distinct complexes containing the protein SART3 (p110), required for U4/U6 snRNP assembly, were localized: SART3.U6 snRNP and SART3.U4/U6 snRNP. These complexes segregated to different nuclear compartments, with SART3.U6 snRNPs exclusively in the nucleoplasm and SART3.U4/U6 snRNPs preferentially in CBs. Mutant cells lacking the CB-specific protein coilin and consequently lacking CBs exhibited increased nucleoplasmic levels of SART3.U4/U6 snRNP complexes. Reconstitution of CBs in these cells by expression of exogenous coilin restored accumulation of SART3.U4/U6 snRNP in CBs. Thus, while some U4/U6 snRNP assembly can occur in the nucleoplasm, these data provide evidence that SART3.U6 snRNPs form in the nucleoplasm and translocate to CBs where U4/U6 snRNP assembly occurs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting of U4/U6 small nuclear RNP assembly factor SART3/p110 to Cajal bodies.",
+    "doi": "10.1083/jcb.200210087",
+    "pmid": "12578909",
+    "authors": [
+      "Stanĕk D, Rader SD, Klingauf M, Neugebauer KM."
+    ],
+    "year": "2003",
+    "publication_date": "2003-02-10",
+    "cited_by_count": 92,
+    "journal": "",
+    "abstract": "The spliceosomal small nuclear RNAs (snRNAs) are distributed throughout the nucleoplasm and concentrated in nuclear inclusions termed Cajal bodies (CBs). A role for CBs in the metabolism of snRNPs has been proposed but is not well understood. The SART3/p110 protein interacts transiently with the U6 and U4/U6 snRNPs and promotes the reassembly of U4/U6 snRNPs after splicing in vitro. Here we report that SART3/p110 is enriched in CBs but not in gems or residual CBs lacking coilin. The U6 snRNP Sm-like (LSm) proteins, also involved in U4/U6 snRNP assembly, were localized to CBs as well. The levels of SART3/p110 and LSm proteins in CBs were reduced upon treatment with the transcription inhibitor alpha-amanitin, suggesting that CB localization reflects active processes dependent on transcription/splicing. The NH2-terminal HAT domain of SART3/p110 was necessary and sufficient for specific protein targeting to CBs. Overexpression of truncation mutants containing the HAT domain had dominant negative effects on U6 snRNP localization to CBs, indicating that endogenous SART3/p110 plays a role in targeting the U6 snRNP to CBs. We propose that U4 and U6 snRNPs accumulate in CBs for the purpose of assembly into U4/U6 snRNPs by SART3/p110.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress granule-associated protein G3BP2 regulates breast tumor initiation.",
+    "doi": "10.1073/pnas.1525387114",
+    "pmid": "28096337",
+    "authors": [
+      "Gupta N, Badeaux M, Liu Y, Naxerova K, Sgroi D, Munn LL, Jain RK, Garkavtsev I."
+    ],
+    "year": "2017",
+    "publication_date": "2017-01-17",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "Breast tumors contain tumorigenic cancer cells, termed \"tumor-initiating cells\" (TICs), which are capable of both replenishing themselves and giving rise to populations of nontumorigenic breast cancer cells (non-TICs). However, the molecular mechanisms responsible for breast tumor initiation remain poorly understood. Here we describe a chemical screening strategy to identify small molecules that enhance the effect of chemotherapeutic agents on TIC-enriched breast cancer cells. We identified proteins that interact with the lead compound C108, including the stress granule-associated protein, GTPase-activating protein (SH3 domain)-binding protein 2, G3BP2. G3BP2 regulates breast tumor initiation through the stabilization of Squamous cell carcinoma antigen recognized by T cells 3 (SART3) mRNA, which leads to increased expression of the pluripotency transcription factors Octamer-binding protein 4 (Oct-4) and Nanog Homeobox (Nanog). Our findings suggest that G3BP2 is important for the process of breast cancer initiation. Furthermore, these data suggest a possible connection between stress granule formation and tumor initiation in breast cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The U4/U6 recycling factor SART3 has histone chaperone activity and associates with USP15 to regulate H2B deubiquitination.",
+    "doi": "10.1074/jbc.m114.551754",
+    "pmid": "24526689",
+    "authors": [
+      "Long L, Thelen JP, Furgason M, Haj-Yahya M, Brik A, Cheng D, Peng J, Yao T."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-13",
+    "cited_by_count": 84,
+    "journal": "",
+    "abstract": "Post-translational modifications of histone proteins produce dynamic signals that regulate the structure and function of chromatin. Mono-ubiquitination of H2B in the histone tail (at Lys-123 in yeast or Lys-120 in humans) is a conserved modification that has been implicated in the regulation of transcription, replication, and DNA repair processes. In a search for direct effectors of ubH2B, we identified a deubiquitinating enzyme, Usp15, through affinity purification with a nonhydrolyzable ubH2B mimic. In the nucleus, Usp15 indirectly associates with the ubH2B E3 ligase, RNF20/RNF40, and directly associates with a component of the splicing machinery, SART3 (also known as TIP110 or p110). These physical interactions place Usp15 in the vicinity of actively transcribed DNA. Importantly we found that SART3 has previously unrecognized histone chaperone activities. SART3, but not the well-characterized histone chaperone Nap1, enhances Usp15 binding to ubH2B and facilitates deubiquitination of ubH2B in free histones but not in nucleosomes. These results suggest that SART3 recruits ubH2B, which may be evicted from DNA during transcription, for deubiquitination by Usp15. In light of the function played by SART3 in U4/U6 di-snRNP formation, our discovery points to a direct link between eviction-coupled erasure of the ubiquitin mark from ubH2B and co-transcriptional pre-mRNA splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved Lsm-interaction motif in Prp24 required for efficient U4/U6 di-snRNP formation.",
+    "doi": "10.1017/s1355838202020010",
+    "pmid": "12458792",
+    "authors": [
+      "Rader SD, Guthrie C."
+    ],
+    "year": "2002",
+    "publication_date": "2002-11-01",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "The assembly of the U4 and U6 snRNPs into the U4/U6 di-snRNP is necessary for pre-mRNA splicing, and in Saccharomyces cerevisiae requires the splicing factor Prp24. We have identified a family of Prp24 homologs that includes the human protein SART3/p110nrb, which had been identified previously as a surface antigen in several cancers. Sequence conservation among the Prp24 homologs reveals the existence of a fourth previously unidentified RNA recognition motif (RRM) in Prp24, which we demonstrate is necessary for growth of budding yeast at 37 degrees C. The family is also characterized by a highly conserved 12-amino-acid motif at the extreme C terminus. Deletion of this motif in Prp24 causes a cold-sensitive growth phenotype and a decrease in base-paired U4/U6 levels in vivo. The mutant protein also has a reduced association with U6 snRNA in extract, and is unable to interact with the U6 Lsm proteins by two-hybrid assay. In vitro annealing assays demonstrate that deletion of the motif causes a defect in U4/U6 formation by reducing binding of Prp24 to its substrate. We conclude that the conserved C-terminal motif of Prp24 interacts with the Lsm proteins to promote U4/U6 formation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "In vivo kinetics of U4/U6·U5 tri-snRNP formation in Cajal bodies.",
+    "doi": "10.1091/mbc.e10-07-0560",
+    "pmid": "21177826",
+    "authors": [
+      "Novotný I, Blažíková M, Staněk D, Herman P, Malinsky J."
+    ],
+    "year": "2011",
+    "publication_date": "2010-12-22",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "The U4/U6·U5 tri-small nuclear ribonucleoprotein particle (tri-snRNP) is an essential pre-mRNA splicing factor, which is assembled in a stepwise manner before each round of splicing. It was previously shown that the tri-snRNP is formed in Cajal bodies (CBs), but little is known about the dynamics of this process. Here we created a mathematical model of tri-snRNP assembly in CBs and used it to fit kinetics of individual snRNPs monitored by fluorescence recovery after photobleaching. A global fitting of all kinetic data determined key reaction constants of tri-snRNP assembly. Our model predicts that the rates of di-snRNP and tri-snRNP assemblies are similar and that ∼230 tri-snRNPs are assembled in one CB per minute. Our analysis further indicates that tri-snRNP assembly is approximately 10-fold faster in CBs than in the surrounding nucleoplasm, which is fully consistent with the importance of CBs for snRNP formation in rapidly developing biological systems. Finally, the model predicted binding between SART3 and a CB component. We tested this prediction by Förster resonance energy transfer and revealed an interaction between SART3 and coilin in CBs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Network of coregulated spliceosome components revealed by zebrafish mutant in recycling factor p110.",
+    "doi": "10.1073/pnas.0701919104",
+    "pmid": "17416673",
+    "authors": [
+      "Trede NS, Medenbach J, Damianov A, Hung LH, Weber GJ, Paw BH, Zhou Y, Hersey C, Zapata A, Keefe M, Barut BA, Stuart AB, Katz T, Amemiya CT, Zon LI, Bindereif A."
+    ],
+    "year": "2007",
+    "publication_date": "2007-04-06",
+    "cited_by_count": 65,
+    "journal": "",
+    "abstract": "The spliceosome cycle consists of assembly, catalysis, and recycling phases. Recycling of postspliceosomal U4 and U6 small nuclear ribonucleoproteins (snRNPs) requires p110/SART3, a general splicing factor. In this article, we report that the zebrafish earl grey (egy) mutation maps in the p110 gene and results in a phenotype characterized by thymus hypoplasia, other organ-specific defects, and death by 7 to 8 days postfertilization. U4/U6 snRNPs were disrupted in egy mutant embryos, demonstrating the importance of p110 for U4/U6 snRNP recycling in vivo. Surprisingly, expression profiling of the egy mutant revealed an extensive network of coordinately up-regulated components of the spliceosome cycle, providing a mechanism compensating for the recycling defect. Together, our data demonstrate that a mutation in a general splicing factor can lead to distinct defects in organ development and cause disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Screening for diverse PDGFRA or PDGFRB fusion genes is facilitated by generic quantitative reverse transcriptase polymerase chain reaction analysis.",
+    "doi": "10.3324/haematol.2009.016345",
+    "pmid": "20107158",
+    "authors": [
+      "Erben P, Gosenca D, Müller MC, Reinhard J, Score J, Del Valle F, Walz C, Mix J, Metzgeroth G, Ernst T, Haferlach C, Cross NC, Hochhaus A, Reiter A."
+    ],
+    "year": "2010",
+    "publication_date": "2010-01-27",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Rapid identification of diverse fusion genes with involvement of PDGFRA or PDGFRB in eosinophilia-associated myeloproliferative neoplasms is essential for adequate clinical management but is complicated by the multitude and heterogeneity of partner genes and breakpoints.<h4>Design and methods</h4>We established a generic quantitative reverse transcriptase polymerase chain reaction to detect overexpression of the 3'-regions of PDGFRA or PDGFRB as a possible indicator of an underlying fusion.<h4>Results</h4>At diagnosis, all patients with known fusion genes involving PDGFRA (n=5; 51 patients) or PDGFRB (n=5; 7 patients) showed significantly increased normalized expression levels compared to 191 patients with fusion gene-negative eosinophilia or healthy individuals (PDGFRA/ABL: 0.73 versus 0.0066 versus 0.0064, P<0.0001; PDGFRB/ABL: 196 versus 3.8 versus 5.85, P<0.0001). The sensitivity and specificity of the activation screening test were, respectively, 100% and 88.4% for PDGFRA and 100% and 94% for PDGFRB. Furthermore, significant overexpression of PDGFRB was found in a patient with an eosinophilia-associated myeloproliferative neoplasm with uninformative cytogenetics and an excellent response to imatinib. Subsequently, a new SART3-PDGFRB fusion gene was identified by 5'-rapid amplification of cDNA ends polymerase chain reaction (5'-RACE-PCR).<h4>Conclusions</h4>Quantitative reverse transcriptase polymerase chain reaction analysis is a simple and useful adjunct to standard diagnostic assays to detect clinically significant overexpression of PDGFRA and PDGFRB in eosinophilia-associated myeloproliferative neoplasms or related disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress-induced lncRNA LASTR fosters cancer cell fitness by regulating the activity of the U4/U6 recycling factor SART3.",
+    "doi": "10.1093/nar/gkz1237",
+    "pmid": "31956895",
+    "authors": [
+      "De Troyer L, Zhao P, Pastor T, Baietti MF, Barra J, Vendramin R, Dok R, Lechat B, Najm P, Van Haver D, Impens F, Leucci E, Sablina AA."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-01",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "Dysregulated splicing is a common event in cancer even in the absence of mutations in the core splicing machinery. The aberrant long non-coding transcriptome constitutes an uncharacterized level of regulation of post-transcriptional events in cancer. Here, we found that the stress-induced long non-coding RNA (lncRNA), LINC02657 or LASTR (lncRNA associated with SART3 regulation of splicing), is upregulated in hypoxic breast cancer and is essential for the growth of LASTR-positive triple-negative breast tumors. LASTR is upregulated in several types of epithelial cancers due to the activation of the stress-induced JNK/c-JUN pathway. Using a mass-spectrometry based approach, we identified the RNA-splicing factor SART3 as a LASTR-interacting partner. We found that LASTR promotes splicing efficiency by controlling SART3 association with the U4 and U6 small nuclear ribonucleoproteins (snRNP) during spliceosome recycling. Intron retention induced by LASTR depletion downregulates expression of essential genes, ultimately decreasing the fitness of cancer cells.",
+    "openalex_id": ""
+  }
+]

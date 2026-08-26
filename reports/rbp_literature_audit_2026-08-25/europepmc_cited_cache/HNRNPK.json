@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Systematic discovery of Xist RNA binding proteins.",
+    "doi": "10.1016/j.cell.2015.03.025",
+    "pmid": "25843628",
+    "authors": [
+      "Chu C, Zhang QC, da Rocha ST, Flynn RA, Bharadwaj M, Calabrese JM, Magnuson T, Heard E, Chang HY."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-02",
+    "cited_by_count": 933,
+    "journal": "",
+    "abstract": "Noncoding RNAs (ncRNAs) function with associated proteins to effect complex structural and regulatory outcomes. To reveal the composition and dynamics of specific noncoding RNA-protein complexes (RNPs) in vivo, we developed comprehensive identification of RNA binding proteins by mass spectrometry (ChIRP-MS). ChIRP-MS analysis of four ncRNAs captures key protein interactors, including a U1-specific link to the 3' RNA processing machinery. Xist, an essential lncRNA for X chromosome inactivation (XCI), interacts with 81 proteins from chromatin modification, nuclear matrix, and RNA remodeling pathways. The Xist RNA-protein particle assembles in two steps coupled with the transition from pluripotency to differentiation. Specific interactors include HnrnpK, which participates in Xist-mediated gene silencing and histone modifications but not Xist localization, and Drosophila Split ends homolog Spen, which interacts via the A-repeat domain of Xist and is required for gene silencing. Thus, Xist lncRNA engages with proteins in a modular and developmentally controlled manner to coordinate chromatin spreading and silencing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative 3'-end processing of long noncoding RNA initiates construction of nuclear paraspeckles.",
+    "doi": "10.1038/emboj.2012.251",
+    "pmid": "22960638",
+    "authors": [
+      "Naganuma T, Nakagawa S, Tanigawa A, Sasaki YF, Goshima N, Hirose T."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-07",
+    "cited_by_count": 392,
+    "journal": "",
+    "abstract": "Paraspeckles are unique subnuclear structures built around a specific long noncoding RNA, NEAT1, which is comprised of two isoforms produced by alternative 3'-end processing (NEAT1_1 and NEAT1_2). To address the precise molecular processes that lead to paraspeckle formation, we identified 35 paraspeckle proteins (PSPs), mainly by colocalization screening with a fluorescent protein-tagged full-length cDNA library. Most of the newly identified PSPs possessed various putative RNA-binding domains. Subsequent RNAi analyses identified seven essential PSPs for paraspeckle formation. One of the essential PSPs, HNRNPK, appeared to affect the production of the essential NEAT1_2 isoform by negatively regulating the 3'-end polyadenylation of the NEAT1_1 isoform. An in vitro 3'-end processing assay revealed that HNRNPK arrested binding of the CPSF6-NUDT21 (CFIm) complex in the vicinity of the alternative polyadenylation site of NEAT1_1. In vitro binding assays showed that HNRNPK competed with CPSF6 for binding to NUDT21, which was the underlying mechanism to arrest CFIm binding by HNRNPK. This HNRNPK function led to the preferential accumulation of NEAT1_2 and initiated paraspeckle construction with multiple PSPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "hnRNPK Recruits PCGF3/5-PRC1 to the Xist RNA B-Repeat to Establish Polycomb-Mediated Chromosomal Silencing.",
+    "doi": "10.1016/j.molcel.2017.11.013",
+    "pmid": "29220657",
+    "authors": [
+      "Pintacuda G, Wei G, Roustan C, Kirmizitas BA, Solcan N, Cerase A, Castello A, Mohammed S, Moindrot B, Nesterova TB, Brockdorff N."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-01",
+    "cited_by_count": 316,
+    "journal": "",
+    "abstract": "The Polycomb-repressive complexes PRC1 and PRC2 play a key role in chromosome silencing induced by the non-coding RNA Xist. Polycomb recruitment is initiated by the PCGF3/5-PRC1 complex, which catalyzes chromosome-wide H2A lysine 119 ubiquitylation, signaling recruitment of other PRC1 complexes, and PRC2. However, the molecular mechanism for PCGF3/5-PRC1 recruitment by Xist RNA is not understood. Here we define the Xist RNA Polycomb Interaction Domain (XR-PID), a 600 nt sequence encompassing the Xist B-repeat element. Deletion of XR-PID abolishes Xist-dependent Polycomb recruitment, in turn abrogating Xist-mediated gene silencing and reversing Xist-induced chromatin inaccessibility. We identify the RNA-binding protein hnRNPK as the principal XR-PID binding factor required to recruit PCGF3/5-PRC1. Accordingly, synthetically tethering hnRNPK to Xist RNA lacking XR-PID is sufficient for Xist-dependent Polycomb recruitment. Our findings define a key pathway for Polycomb recruitment by Xist RNA, providing important insights into mechanisms of chromatin modification by non-coding RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Sequences enriched in Alu repeats drive nuclear localization of long RNAs in human cells.",
+    "doi": "10.1038/nature25757",
+    "pmid": "29466324",
+    "authors": [
+      "Lubelsky Y, Ulitsky I."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-24",
+    "cited_by_count": 284,
+    "journal": "",
+    "abstract": "Long noncoding RNAs (lncRNAs) are emerging as key parts of multiple cellular pathways, but their modes of action and how these are dictated by sequence remain unclear. lncRNAs tend to be enriched in the nuclear fraction, whereas most mRNAs are overtly cytoplasmic, although several studies have found that hundreds of mRNAs in various cell types are retained in the nucleus. It is thus conceivable that some mechanisms that promote nuclear enrichment are shared between lncRNAs and mRNAs. Here, to identify elements in lncRNAs and mRNAs that can force nuclear localization, we screened libraries of short fragments tiled across nuclear RNAs, which were cloned into the untranslated regions of an efficiently exported mRNA. The screen identified a short sequence derived from Alu elements and bound by HNRNPK that increased nuclear accumulation. Binding of HNRNPK to C-rich motifs outside Alu elements is also associated with nuclear enrichment in both lncRNAs and mRNAs, and this mechanism is conserved across species. Our results thus identify a pathway for regulation of RNA accumulation and subcellular localization that has been co-opted to regulate the fate of transcripts with integrated Alu elements.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA packaging into extracellular vesicles: An orchestra of RNA-binding proteins?",
+    "doi": "10.1002/jev2.12043",
+    "pmid": "33391635",
+    "authors": [
+      "Fabbiano F, Corsi J, Gurrieri E, Trevisan C, Notarangelo M, D'Agostino VG."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-28",
+    "cited_by_count": 248,
+    "journal": "",
+    "abstract": "Extracellular vesicles (EVs) are heterogeneous membranous particles released from the cells through different biogenetic and secretory mechanisms. We now conceive EVs as shuttles mediating cellular communication, carrying a variety of molecules resulting from intracellular homeostatic mechanisms. The RNA is a widely detected cargo and, impressively, a recognized functional intermediate that elects EVs as modulators of cancer cell phenotypes, determinants of disease spreading, cell surrogates in regenerative medicine, and a source for non-invasive molecular diagnostics. The mechanistic elucidation of the intracellular events responsible for the engagement of RNA into EVs will significantly improve the comprehension and possibly the prediction of EV \"quality\" in association with cell physiology. Interestingly, the application of multidisciplinary approaches, including biochemical as well as cell-based and computational strategies, is increasingly revealing an active RNA-packaging process implicating RNA-binding proteins (RBPs) in the sorting of coding and non-coding RNAs. In this review, we provide a comprehensive view of RBPs recently emerging as part of the EV biology, considering the scenarios where: <i>(i)</i> individual RBPs were detected in EVs along with their RNA substrates, <i>(ii)</i> RBPs were detected in EVs with inferred RNA targets, and <i>(iii)</i> EV-transcripts were found to harbour sequence motifs mirroring the activity of RBPs. Proteins so far identified are members of the hnRNP family (hnRNPA2B1, hnRNPC1, hnRNPG, hnRNPH1, hnRNPK, and hnRNPQ), as well as YBX1, HuR, AGO2, IGF2BP1, MEX3C, ANXA2, ALIX, NCL, FUS, TDP-43, MVP, LIN28, SRP9/14, QKI, and TERT. We describe the RBPs based on protein domain features, current knowledge on the association with human diseases, recognition of RNA consensus motifs, and the need to clarify the functional significance in different cellular contexts. We also summarize data on previously identified RBP inhibitor small molecules that could also be introduced in EV research as potential modulators of vesicular RNA sorting.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Paraspeckle formation during the biogenesis of long non-coding RNAs.",
+    "doi": "10.4161/rna.23547",
+    "pmid": "23324609",
+    "authors": [
+      "Naganuma T, Hirose T."
+    ],
+    "year": "2013",
+    "publication_date": "2013-01-16",
+    "cited_by_count": 193,
+    "journal": "",
+    "abstract": "Paraspeckles are unique subnuclear structures that are built around a specific long non-coding RNA (lncRNA), NEAT1, which is comprised of two isoforms (NEAT1_1 and NEAT1_2) that are produced by alternative 3'-end processing. NEAT1 lncRNAs are unusual RNA polymerase II transcripts that lack introns. The non-polyadenylated 3'-end of NEAT1_2 is non-canonically processed by RNase P. NEAT1_2 is an essential component for paraspeckle formation. Paraspeckles form during the NEAT1_2 lncRNA biogenesis process, which encompasses transcription from its own chromosome locus through lncRNA processing and accumulation. Recent RNAi analyses of 40 paraspeckle proteins (PSPs) identified four PSPs that are required for paraspeckle formation by mediating NEAT1 processing and accumulation. In particular, HNRNPK was shown to arrest CFIm-dependent NEAT1_1 polyadenylation, leading to NEAT1_2 synthesis. The other three PSPs were required for paraspeckle formation, but did not affect NEAT1_2 expression. This observation suggests that NEAT1_2 accumulation is necessary but not sufficient for paraspeckle formation. An additional step, presumably the bundling of NEAT1 ribonucleoprotein sub-complexes, may be required for construction of the intact paraspeckle structure. NEAT1 expression is likely regulated at transcriptional and post-transcriptional steps under certain stress conditions, suggesting roles for paraspeckles in the lncRNA-mediated regulation of gene expression, such as the nucleocytoplasmic transport of mRNA in response to certain stimuli.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Members of the poly (rC) binding protein family stimulate the activity of the c-myc internal ribosome entry segment in vitro and in vivo.",
+    "doi": "10.1038/sj.onc.1206645",
+    "pmid": "12970749",
+    "authors": [
+      "Evans JR, Mitchell SA, Spriggs KA, Ostrowski J, Bomsztyk K, Ostarek D, Willis AE."
+    ],
+    "year": "2003",
+    "publication_date": "2003-09-01",
+    "cited_by_count": 193,
+    "journal": "",
+    "abstract": "The 5' untranslated region of the proto-oncogene c-myc contains an internal ribosome entry segment and c-Myc translation can be initiated by cap-independent as well as cap-dependent mechanisms. In contrast to the process of cap-dependent initiation, the trans-acting factor requirements for cellular internal ribosome entry are poorly understood. Here, we show that members of the poly (rC) binding protein family, poly (rC) binding protein 1 (PCBP1), poly (rC) binding protein 2 (PCBP2) and hnRNPK were able to activate the IRES in vitro up to threefold when added in combination with upstream of N-ras and unr-interacting protein. The interactions of PCBP1, PCBP2 and hnRNPK with c-myc-IRES-RNA were shown to be specific by ultraviolet crosslinking analysis and electrophoretic mobility shift assays, while immunoprecipitation of the three proteins using specific antibodies followed by reverse transcriptase-polymerase chain reaction showed that they were able to bind c-myc mRNA. c-myc-IRES-mediated translation from the reporter vector was stimulated by cotransfection of plasmids encoding PCBP1, PCBP2 and hnRNPK. Interestingly, the mutated version of the c-myc IRES that is prevalent in patients with multiple myeloma bound hnRNPK more efficiently in vitro and was stimulated by hnRNPK to a greater extent in vivo.",
+    "openalex_id": ""
+  },
+  {
+    "title": "c-Src-mediated phosphorylation of hnRNP K drives translational activation of specifically silenced mRNAs.",
+    "doi": "10.1128/mcb.22.13.4535-4543.2002",
+    "pmid": "12052863",
+    "authors": [
+      "Ostareck-Lederer A, Ostareck DH, Cans C, Neubauer G, Bomsztyk K, Superti-Furga G, Hentze MW."
+    ],
+    "year": "2002",
+    "publication_date": "2002-07-01",
+    "cited_by_count": 184,
+    "journal": "",
+    "abstract": "hnRNPK and hnRNP E1/E2 mediate translational silencing of cellular and viral mRNAs in a differentiation-dependent way by binding to specific regulatory sequences. The translation of 15-lipoxygenase (LOX) mRNA in erythroid precursor cells and of the L2 mRNA of human papilloma virus type 16 (HPV-16) in squamous epithelial cells is silenced when either of these cells is immature and is activated in maturing cells by unknown mechanisms. Here we address the question of how the silenced mRNA can be translationally activated. We show that hnRNP K and the c-Src kinase specifically interact with each other, leading to c-Src activation and tyrosine phosphorylation of hnRNP K in vivo and in vitro. c-Src-mediated phosphorylation reversibly inhibits the binding of hnRNP K to the differentiation control element (DICE) of the LOX mRNA 3' untranslated region in vitro and specifically derepresses the translation of DICE-bearing mRNAs in vivo. Our results establish a novel role of c-Src kinase in translational gene regulation and reveal a mechanism by which silenced mRNAs can be translationally activated.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA cytosine methylation and methyltransferases mediate chromatin organization and 5-azacytidine response and resistance in leukaemia.",
+    "doi": "10.1038/s41467-018-03513-4",
+    "pmid": "29563491",
+    "authors": [
+      "Cheng JX, Chen L, Li Y, Cloe A, Yue M, Wei J, Watanabe KA, Shammo JM, Anastasi J, Shen QJ, Larson RA, He C, Le Beau MM, Vardiman JW."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-21",
+    "cited_by_count": 176,
+    "journal": "",
+    "abstract": "The roles of RNA 5-methylcytosine (RNA:m<sup>5</sup>C) and RNA:m<sup>5</sup>C methyltransferases (RCMTs) in lineage-associated chromatin organization and drug response/resistance are unclear. Here we demonstrate that the RCMTs, namely NSUN3 and DNMT2, directly bind hnRNPK, a conserved RNA-binding protein. hnRNPK interacts with the lineage-determining transcription factors (TFs), GATA1 and SPI1/PU.1, and with CDK9/P-TEFb to recruit RNA-polymerase-II at nascent RNA, leading to formation of 5-Azacitidine (5-AZA)-sensitive chromatin structure. In contrast, NSUN1 binds BRD4 and RNA-polymerase-II to form an active chromatin structure that is insensitive to 5-AZA, but hypersensitive to the BRD4 inhibitor JQ1 and to the downregulation of NSUN1 by siRNAs. Both 5-AZA-resistant leukaemia cell lines and clinically 5-AZA-resistant myelodysplastic syndrome and acute myeloid leukaemia specimens have a significant increase in RNA:m<sup>5</sup>C and NSUN1-/BRD4-associated active chromatin. This study reveals novel RNA:m<sup>5</sup>C/RCMT-mediated chromatin structures that modulate 5-AZA response/resistance in leukaemia cells, and hence provides a new insight into treatment of leukaemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Xist Deletional Analysis Reveals an Interdependency between Xist RNA and Polycomb Complexes for Spreading along the Inactive X.",
+    "doi": "10.1016/j.molcel.2019.01.015",
+    "pmid": "30827740",
+    "authors": [
+      "Colognori D, Sunwoo H, Kriz AJ, Wang CY, Lee JT."
+    ],
+    "year": "2019",
+    "publication_date": "2019-02-28",
+    "cited_by_count": 159,
+    "journal": "",
+    "abstract": "During X-inactivation, Xist RNA spreads along an entire chromosome to establish silencing. However, the mechanism and functional RNA elements involved in spreading remain undefined. By performing a comprehensive endogenous Xist deletion screen, we identify Repeat B as crucial for spreading Xist and maintaining Polycomb repressive complexes 1 and 2 (PRC1/PRC2) along the inactive X (Xi). Unexpectedly, spreading of these three factors is inextricably linked. Deleting Repeat B or its direct binding partner, HNRNPK, compromises recruitment of PRC1 and PRC2. In turn, ablating PRC1 or PRC2 impairs Xist spreading. Therefore, Xist and Polycomb complexes require each other to propagate along the Xi, suggesting a positive feedback mechanism between RNA initiator and protein effectors. Perturbing Xist/Polycomb spreading causes failure of de novo Xi silencing, with partial compensatory downregulation of the active X, and also disrupts topological Xi reconfiguration. Thus, Repeat B is a multifunctional element that integrates interdependent Xist/Polycomb spreading, silencing, and changes in chromosome architecture.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The p53-induced lincRNA-p21 derails somatic cell reprogramming by sustaining H3K9me3 and CpG methylation at pluripotency gene promoters.",
+    "doi": "10.1038/cr.2014.165",
+    "pmid": "25512341",
+    "authors": [
+      "Bao X, Wu H, Zhu X, Guo X, Hutchins AP, Luo Z, Song H, Chen Y, Lai K, Yin M, Xu L, Zhou L, Chen J, Wang D, Qin B, Frampton J, Tse HF, Pei D, Wang H, Zhang B, Esteban MA."
+    ],
+    "year": "2015",
+    "publication_date": "2014-12-16",
+    "cited_by_count": 151,
+    "journal": "",
+    "abstract": "Recent studies have boosted our understanding of long noncoding RNAs (lncRNAs) in numerous biological processes, but few have examined their roles in somatic cell reprogramming. Through expression profiling and functional screening, we have identified that the large intergenic noncoding RNA p21 (lincRNA-p21) impairs reprogramming. Notably, lincRNA-p21 is induced by p53 but does not promote apoptosis or cell senescence in reprogramming. Instead, lincRNA-p21 associates with the H3K9 methyltransferase SETDB1 and the maintenance DNA methyltransferase DNMT1, which is facilitated by the RNA-binding protein HNRNPK. Consequently, lincRNA-p21 prevents reprogramming by sustaining H3K9me3 and/or CpG methylation at pluripotency gene promoters. Our results provide insight into the role of lncRNAs in reprogramming and establish a novel link between p53 and heterochromatin regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Altered RNA Splicing by Mutant p53 Activates Oncogenic RAS Signaling in Pancreatic Cancer.",
+    "doi": "10.1016/j.ccell.2020.05.010",
+    "pmid": "32559497",
+    "authors": [
+      "Escobar-Hoyos LF, Penson A, Kannan R, Cho H, Pan CH, Singh RK, Apken LH, Hobbs GA, Luo R, Lecomte N, Babu S, Pan FC, Alonso-Curbelo D, Morris JP, Askan G, Grbovic-Huezo O, Ogrodowski P, Bermeo J, Saglimbeni J, Cruz CD, Ho YJ, Lawrence SA, Melchor JP, Goda GA, Bai K, Pastore A, Hogg SJ, Raghavan S, Bailey P, Chang DK, Biankin A, Shroyer KR, Wolpin BM, Aguirre AJ, Ventura A, Taylor B, Der CJ, Dominguez D, Kümmel D, Oeckinghaus A, Lowe SW, Bradley RK, Abdel-Wahab O, Leach SD."
+    ],
+    "year": "2020",
+    "publication_date": "2020-06-18",
+    "cited_by_count": 137,
+    "journal": "",
+    "abstract": "Pancreatic ductal adenocarcinoma (PDAC) is driven by co-existing mutations in KRAS and TP53. However, how these mutations collaborate to promote this cancer is unknown. Here, we uncover sequence-specific changes in RNA splicing enforced by mutant p53 which enhance KRAS activity. Mutant p53 increases expression of splicing regulator hnRNPK to promote inclusion of cytosine-rich exons within GTPase-activating proteins (GAPs), negative regulators of RAS family members. Mutant p53-enforced GAP isoforms lose cell membrane association, leading to heightened KRAS activity. Preventing cytosine-rich exon inclusion in mutant KRAS/p53 PDACs decreases tumor growth. Moreover, mutant p53 PDACs are sensitized to inhibition of splicing via spliceosome inhibitors. These data provide insight into co-enrichment of KRAS and p53 mutations and therapeutics targeting this mechanism in PDAC.",
+    "openalex_id": ""
+  }
+]

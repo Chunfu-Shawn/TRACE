@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Dual-trigger model of CD20 escape: NONO regulation and cryptic splicing induced by transcript overload in pediatric B-ALL.",
+    "doi": "10.3389/fimmu.2026.1763413",
+    "pmid": "41993182",
+    "authors": [
+      "Kermani M, Maxeiner S, Alt F, Ziegler N, König J, Paret C, Faber J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>The B-cell-specific marker CD20 is expressed in various B-cell malignancies, including B-cell acute lymphoblastic leukemia (B-ALL) and serves as a key target for immunotherapies. Reduced or absent CD20 expression has been associated with diminished responses to anti-CD20 antibodies and CD20 directed CAR T-cells. Antigen loss may arise from alternative splicing or transcriptional downregulation of <i>MS4A1</i>, the gene coding for CD20, a processes influenced by RNA- and DNA-binding proteins. <i>NONO</i>, a non-POU domain-containing octamer-binding protein implicated in several cancers, regulates CD20 surface expression.<h4>Methods</h4>To explore factors associated with heterogeneous CD20 expression, we quantified <i>MS4A1</i> transcript levels, profiled <i>MS4A1</i> messenger RNA (mRNA) isoforms, and analyzed <i>NONO</i> mRNA in pediatric B-ALL samples. In addition, we used an <i>in vitro</i> CRISPR/Cas9 knockout model to assess the effects of <i>NONO</i> loss on <i>MS4A1</i> transcript abundance, isoform distribution, and transcript stability. Plasmid-based overexpression of <i>MS4A1</i> was used to examine its effect on splicing.<h4>Results</h4>Loss of <i>NONO</i> was associated with increased <i>MS4A1</i> transcript levels without detectable changes in isoform distribution or stability, and <i>NONO</i> mRNA expression was negatively associated with <i>MS4A1</i> mRNA expression in CD20-positive blasts. At diagnosis, two <i>MS4A1</i> mRNA isoforms were detected in CD20-positive blasts: The wild-type (WT-CD20) and a shorter variant (D393-CD20), a Δ4-6 multi-exon-skipped isoform that yields a truncated intracellular protein inaccessible to CD20-directed immunotherapies. Although WT-CD20 was the dominant splice isoform, the D393/WT-CD20 ratio correlated positively with overall <i>MS4A1</i> transcript abundance. High WT-CD20 transcript abundance further biased splicing toward the D393-CD20 isoform, indicating involvement of cryptic splice sites and potential re-splicing events at the level of mature <i>MS4A1</i> mRNA.<h4>Discussion</h4>Together, these findings are consistent with a model in which <i>NONO</i> expression and transcript-level dynamics of <i>MS4A1</i> are associated with CD20 heterogeneity in pediatric B-ALL. These observations may contribute to understanding variability in CD20 expression and antigen availability in pediatric B-ALL.",
+    "openalex_id": ""
+  },
+  {
+    "title": "O-GlcNAcylation of NONO mediates alternative splicing of SETMAR and facilitates NHEJ repair.",
+    "doi": "10.1186/s13059-026-03930-5",
+    "pmid": "41535889",
+    "authors": [
+      "Li M, Tian H, Zhou Z, Jiang Y, Guo X, Qin W, Zhang H, Jiao Y, Guo S, Wu C."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The NONO protein plays a crucial role in RNA metabolism and DNA repair. It undergoes various post-translational modifications, including phosphorylation, ubiquitination, acetylation and methylation, all of which regulate its diverse cellular functions. However, the role of O-GlcNAcylation in regulating NONO's function in DNA damage repair is not well understood.<h4>Results</h4>This study demonstrates that O-GlcNAcylation of NONO at Serine 147 (Ser147) is essential for its recruitment to DNA damage sites. Specifically, O-GlcNAcylation at Ser147 reduces NONO ubiquitination and stabilizes its interaction with SFPQ, regulating the alternative splicing of the histone methyltransferase SETMAR. A deficiency in O-GlcNAcylation at Ser 147 impairs NONO's binding to SETMAR pre-mRNA, leading to an increased production of the truncated isoform of SETMAR (SETMAR-S). The resulting SETMAR-S suppresses the generation of H3K36me2 and inhibits the recruitment of Ku70 at DNA damage sites, ultimately impairing non-homologous end joining (NHEJ) repair. Furthermore, the disruption of O-GlcNAcylation at Ser147 sensitizes liver cancer cells to ionizing radiation treatment, both in vitro and in vivo.<h4>Conclusions</h4>O-GlcNAcylation at Ser 147 of NONO mediates the alternative splicing of SETMAR and facilitates NHEJ repair. Collectively, our findings suggest that targeting NONO O-GlcNAcylation may provide a novel therapeutic strategy for cancer treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Saying \"Yes\" to NONO: A Therapeutic Target for Neuroblastoma and Beyond.",
+    "doi": "10.3390/cancers17193228",
+    "pmid": "41097754",
+    "authors": [
+      "Pogodaeva SS, Miletina OO, Antipova NV, Shtil AA, Kuchur OA."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-03",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Pediatric tumors such as neuroblastoma are characterized by a genome-wide 'transcriptional burden', surmising the involvement of multiple alterations of gene expression. Search for master regulators of transcription whose inactivation is lethal for tumor cells identified the non-POU domain-containing octamer-binding protein (NONO), a member of the Drosophila Behavior/Human Splicing family known for the ability to form complexes with macromolecules. NONO emerges as an essential mechanism in normal neurogenesis as well as in tumor biology. In particular, NONO interactions with RNAs, largely with long non-coding MYCN transcripts, have been attributed to the aggressiveness of neuroblastoma. Broadening its significance beyond MYCN regulation, NONO guards a subset of transcription factors that comprise a core regulatory circuit, a self-sustained loop that maintains transcription. As a component of protein-protein complexes, NONO has been implicated in the control of cell cycle progression, double-strand DNA repair, and, generally, in cell survival. Altogether, the pro-oncogenic roles of NONO justify the need for its inactivation as a therapeutic strategy. However, considering NONO as a therapeutic target, its druggability is a challenge. Recent advances in the inactivation of NONO and downstream signaling with small molecular weight compounds make promising the development of pharmacological antagonists of NONO pathway(s) for neuroblastoma treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NONO regulates m&lt;sup&gt;5&lt;/sup&gt;C modification and alternative splicing of PTEN mRNAs to drive gastric cancer progression.",
+    "doi": "10.1186/s13046-024-03260-z",
+    "pmid": "40033337",
+    "authors": [
+      "Zhao G, Liu R, Ge L, Qi D, Wu Q, Lin Z, Song H, Zhong L, Cui H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-04",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The effect of m<sup>5</sup>C modification on oncogene mRNAs has been well studied, while little is known about its influence on mRNAs of tumor suppressor genes (TSGs). Early studies showed PTEN, a key TSG, undergoes alternative splicing (AS) in cancers, however, the underlying regulatory mechanism remains elusive.<h4>Methods</h4>We analyzed tissue microarrays and transcriptomic data derived from gastric cancer, with an emphasis on RNA splicing and m<sup>5</sup>C regulators. To unravel the role of NONO in GC, we employed RNA sequencing, RNA-Bis-Seq, RNA immunoprecipitation, RNA in situ hybridization, and Minigene reporter assay with NONO knockdown cells. The clinical relevance was validated using CDX models and human tissue microarrays.<h4>Results</h4>Analysis of publicly available datasets and immunohistochemistry assay of tissue microarrays containing 40 GC tissues showed NONO was upregulated in GC and contributed to poor prognosis. In vitro and in vivo experiments indicated a positive regulatory role of NONO in terms of cell proliferation, migration, and invasion of GC. Mechanically, NONO interacted directly with PTEN pre-mRNA and recruited the RNA m<sup>5</sup>C methyltransferase NSUN2 via RNA-recognition motif (RRM) domains, altering the mRNA methylation pattern across PTEN pre-mRNA. The oncogenic role of NONO/NSUN2/PTEN axis in GC progression was further confirmed with pre-clinical experiments and clinical data.<h4>Conclusion</h4>Here, we revealed NONO-regulated AS of PTEN mRNA in an m<sup>5</sup>C-dependent manner, resulting in the downregulation of PTEN expression in gastric cancer (GC).This study unveils a novel regulatory mechanism of tumor suppressor gene inactivation mediated by m<sup>5</sup>C modification and related alternative splicing in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRC Kinase Isoforms Regulate mRNA Splicing during Neural Development.",
+    "doi": "10.1523/jneurosci.1705-24.2025",
+    "pmid": "40750357",
+    "authors": [
+      "Pizzey AR, West LC, Elberfeld SJ, Lewis PA, Walker H, Cowell L, Newling K, Dowle A, Evans GJO, Isaacs HV."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alternative mRNA splicing generates transcriptomic diversity to direct tissue-specific functions. There is a high level of alternative splicing in the brain during embryonic development, but the master regulators of this process are poorly understood. One key splicing event in neuronal differentiation is the inclusion of a microexon in the SH3 domain of the ubiquitous tyrosine kinase, C-SRC, to yield the constitutively active, neural-specific N1-SRC kinase. We previously demonstrated that specific inhibition of N1-SRC in developing <i>Xenopus</i> embryos inhibits neurogenesis, but the targets and mode of action of N1-SRC were unknown. In the current study, we screened for N1-SRC SH3 domain interactors, surprisingly finding no unique targets compared with the C-SRC SH3 domain, but rather a subset of binding partners, enriched in splicing regulators. Analysis of public phosphoproteomic data revealed that SRC-dependent phosphorylation of the splicing machinery is widespread and enriched in RNA-binding proteins (RBPs). To investigate whether N1-SRC-dependent regulation of splicing underpins its role in neurogenesis, we undertook long- and short-read RNA-seq analysis of N1-SRC knockdown <i>Xenopus</i> embryos. We observed an upregulation of splicing factor expression and aberrant splicing of splicing regulators, principally HNRNPA1 and TRA2A. The affected splice junctions in both genes are in their glycine-rich C-termini, and junctions contain putative binding sites for SFPQ/NONO and FUS RBPs. Both SFPQ and FUS are SRC substrates, suggesting a mechanism by which N1-SRC knockdown leads to mis-splicing of HNRNPA1 and TRA2A. Thus, the neuronal splicing of C-SRC to generate N1-SRC regulates the alternative splicing landscape during neurogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NONO Maintains SREBP-Regulated Cholesterol Biosynthesis via RNA Binding in Neuroblastoma.",
+    "doi": "10.1096/fj.202403267rr",
+    "pmid": "40955587",
+    "authors": [
+      "Zhang S, Ingram H, Cooper J, Naveed A, Kathman SG, Lindsey GL, Liu T, Bond CS, Fletcher JI, Cravatt BF, Fox AH."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "High-risk neuroblastoma is associated with upregulation of cholesterol biosynthesis through increased expression of sterol regulatory element-binding protein (SREBP). NONO, a multifunctional nuclear RNA binding protein, is an established oncogene in neuroblastoma and can stabilize SREBP in breast cancer. Hence, here we addressed the unexplored question of NONO regulation of SREBP in neuroblastoma. We show NONO knockdown reduces cholesterol in neuroblastoma patient-derived tumor cell lines and high-risk neuroblastoma KELLY cells. NONO knockdown also reduces mRNA and protein expression of SREBP family members in KELLY cells. RNA-seq of NONO knockdown confirmed cholesterol synthesis pathway genes are downregulated. Further, only overexpression of NONO wild-type, rather than NONO mutant lacking the RNA recognition motif 1, could elevate SREBP levels after endogenous NONO knockdown, revealing the importance of NONO RNA binding activity. Finally, (R)-SKBG-1, a small molecule that modulates the RNA binding activity of NONO, hence altering its subnuclear distribution, significantly decreased cholesterol levels and SREBP target gene expression in KELLY cells. These results lend weight to manipulating NONO RNA binding as a potential therapeutic avenue for treating aggressive neuroblastoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA decay rate as a control point for long non-coding RNA function: a BRIC-based causal analysis of NEAT1.",
+    "doi": "10.1016/j.gene.2026.150363",
+    "pmid": "42628853",
+    "authors": [
+      "Tani H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The abundance of a long non-coding RNA (lncRNA) is set by both its synthesis and its decay, yet for nuclear lncRNAs the contribution of decay - and whether decay rate is a determinant of function - has been little explored. I addressed this for NEAT1, the architectural scaffold of paraspeckles. By genome-wide half-life measurement (5'-bromouridine immunoprecipitation chase, BRIC), NEAT1 is a representative short-lived lncRNA at the median of the lncRNA half-life distribution (∼3.3 h), unlike the stable MALAT1. Using inhibitor-free decay measurement and bidirectional perturbation, I show that the core nuclear exosome (EXOSC5, EXOSC2), but not the 5'→3' exonuclease XRN2, the exosome-associated 3'→5' exonuclease EXOSC10, or the deadenylase PARN, sets the NEAT1 decay rate: exosome depletion lengthened the NEAT1 half-life (7.8 → 15.1 h) and raised its abundance; reciprocally, EXOSC5 over-expression shortened the NEAT1 half-life and EXOSC2 over-expression reduced its abundance. The resulting changes in NEAT1 abundance scaled the number and size of paraspeckles without increasing paraspeckle-protein mRNA levels, and changed the expression of candidate PSF/NONO target genes: across three orthogonal NEAT1 manipulations, increased NEAT1 abundance was associated with repression of RAP1A and TCF3 and activation of the NONO-regulated gene GJA1, without changing those mRNAs' own stabilities (under EXOSC5 depletion). These results, which complement the subsequently established exosome-adaptor mechanism of NEAT1 turnover by adding a direct decay-rate measurement and a functional read-out, identify RNA decay rate as a control point - a throttle - on lncRNA function, supported through bidirectional perturbation for NEAT1 in HeLa cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The pleiotropic nature of NONO, a master regulator of essential biological pathways in cancers.",
+    "doi": "10.1038/s41417-024-00763-x",
+    "pmid": "38493226",
+    "authors": [
+      "Ronchetti D, Traini V, Silvestris I, Fabbiano G, Passamonti F, Bolli N, Taiana E."
+    ],
+    "year": "2024",
+    "publication_date": "2024-03-16",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "NONO is a member of the Drosophila behavior/human splicing (DBHS) family of proteins. NONO is a multifunctional protein that acts as a \"molecular scaffold\" to carry out versatile biological activities in many aspects of gene regulation, cell proliferation, apoptosis, migration, DNA damage repair, and maintaining cellular circadian rhythm coupled to the cell cycle. Besides these physiological activities, emerging evidence strongly indicates that NONO-altered expression levels promote tumorigenesis. In addition, NONO can undergo various post-transcriptional or post-translational modifications, including alternative splicing, phosphorylation, methylation, and acetylation, whose impact on cancer remains largely to be elucidated. Overall, altered NONO expression and/or activities are a common feature in cancer. This review provides an integrated scenario of the current understanding of the molecular mechanisms and the biological processes affected by NONO in different tumor contexts, suggesting that a better elucidation of the pleiotropic functions of NONO in physiology and tumorigenesis will make it a potential therapeutic target in cancer. In this respect, due to the complex landscape of NONO activities and interactions, we highlight caveats that must be considered during experimental planning and data interpretation of NONO studies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of RNA binding proteins of the <i>Drosophila</i> behavior and human splicing (DBHS) family in health and cancer.",
+    "doi": "10.1080/15476286.2024.2332855",
+    "pmid": "38551131",
+    "authors": [
+      "Takeiwa T, Ikeda K, Horie K, Inoue S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-01",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) play crucial roles in the functions and homoeostasis of various tissues by regulating multiple events of RNA processing including RNA splicing, intracellular RNA transport, and mRNA translation. The <i>Drosophila</i> behavior and human splicing (DBHS) family proteins including PSF/SFPQ, NONO, and PSPC1 are ubiquitously expressed RBPs that contribute to the physiology of several tissues. In mammals, DBHS proteins have been reported to contribute to neurological diseases and play crucial roles in cancers, such as prostate, breast, and liver cancers, by regulating cancer-specific gene expression. Notably, in recent years, multiple small molecules targeting DBHS family proteins have been developed for application as cancer therapeutics. This review provides a recent overview of the functions of DBHS family in physiology and pathophysiology, and discusses the application of DBHS family proteins as promising diagnostic and therapeutic targets for cancers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NONO and LncRNA NEAT1 orchestrate embryo implantation by paraspeckle-dependent CDC42SE1 mRNA nuclear retention.",
+    "doi": "10.1016/j.ijbiomac.2025.148231",
+    "pmid": "41075892",
+    "authors": [
+      "Huang S, Su T, Zhu J, Zhang L, Zhou C, Zheng S, Hou B, Sun X, Li X, Ahmed Z, Pius L, Liu M, Xu D."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The successful implantation of an embryo depends on the endometrium's ability to be receptive. However, the molecular regulatory mechanisms involved in the formation of endometrial receptivity remain poorly understood. In this study, we discovered the mRNA NONO and lncRNA nuclear enriched abundant transcript 1 (NEAT1) using RNA sequencing, which are highly expressed in Meishan (MS) pig endometrium on day 18 of pregnancy. The binding of NEAT1 with proteins such as NONO forms the paraspeckles. Functional assays showed that knockdown of the paraspeckle protein NONO inhibited the proliferation, migration, and adhesion of endometrial epithelial cells (EECs). Isobaric tag for relative and absolute quantitation (iTRAQ) results showed that silencing the paraspeckle scaffold NEAT1 altered the expression levels of numerous genes, particularly CDC42SE1 expression. Mechanistically, NEAT1 retained CDC42SE1 mRNA within the nucleus through paraspeckle and inhibited its exonuclear translation. CDC42SE1 suppresses activation of the Phosphatidylinositol 3-kinase/Protein Kinase B (PI3K/AKT) pathway via interacting with GNG2 and CDC42. In vivo assays demonstrated that LV-sh-NONO injection significantly impeded embryo implantation. These findings suggest that NONO and lncRNA NEAT1 play a regulatory role in embryo implantation through paraspeckle-mediated nuclear retention of CDC42SE1, and provide a new potential target for reducing pig embryo loss.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Essential role of NONO-HOXA1-Wnt axis in cardiomyocyte differentiation.",
+    "doi": "10.1038/s41467-026-68760-2",
+    "pmid": "41580430",
+    "authors": [
+      "Feng Z, Gao Y, Gao H, Sun S, Na W, Huang X, Li S, Tan C, Min S, Lu Y, Zhuang Q, Lin S, Ma X, Liu Y, Shou W, Wang M, Wang J, Gu Z, Sheng W, Wu F, Huang G."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "NONO is recognized as a critical molecular scaffold involved in both transcriptional and posttranscriptional regulation. Mutations in NONO are frequently linked to congenital heart diseases (CHDs) in humans. However, the mechanisms by which NONO regulates cardiac development remain elusive. Here, we identified NONO as a pivotal dual-function regulator of cardiomyocyte differentiation in human induced pluripotent stem cells (hiPSCs). NONO deficiency in hiPSCs results in a distinct defect in early cardiomyocyte differentiation. Mechanistically, NONO interacts with HOXA1 and regulates the dynamic expression of key genes during early cardiomyocyte differentiation. ChIP-seq analysis reveals that NONO loss reduces HOXA1 occupancy at target genes, compromising its transcriptional regulation. Additionally, NONO and HOXA1 cooperatively activate the Wnt signaling. Taken together, these findings establish the NONO-HOXA1-Wnt axis as a key molecular mechanism in cardiomyocyte differentiation and provide insights into the etiology of CHDs associated with NONO mutations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An N-terminal and ankyrin repeat domain interactome of Shank3 identifies the protein complex with the splicing regulator Nono in mice.",
+    "doi": "10.1111/gtc.13142",
+    "pmid": "38964745",
+    "authors": [
+      "Okuzono S, Fujii F, Setoyama D, Taira R, Shinmyo Y, Kato H, Masuda K, Yonemoto K, Akamine S, Matsushita Y, Motomura Y, Sakurai T, Kawasaki H, Han K, Kato TA, Torisu H, Kang D, Nakabeppu Y, Ohga S, Sakai Y."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-04",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "An autism-associated gene Shank3 encodes multiple splicing isoforms, Shank3a-f. We have recently reported that Shank3a/b-knockout mice were more susceptible to kainic acid-induced seizures than wild-type mice at 4 weeks of age. Little is known, however, about how the N-terminal and ankyrin repeat domains (NT-Ank) of Shank3a/b regulate multiple molecular signals in the developing brain. To explore the functional roles of Shank3a/b, we performed a mass spectrometry-based proteomic search for proteins interacting with GFP-tagged NT-Ank. In this study, NT-Ank was predicted to form a variety of complexes with a total of 348 proteins, in which RNA-binding (n = 102), spliceosome (n = 22), and ribosome-associated molecules (n = 9) were significantly enriched. Among them, an X-linked intellectual disability-associated protein, Nono, was identified as a NT-Ank-binding protein. Coimmunoprecipitation assays validated the interaction of Shank3 with Nono in the mouse brain. In agreement with these data, the thalamus of Shank3a/b-knockout mice aberrantly expressed splicing isoforms of autism-associated genes, Nrxn1 and Eif4G1, before and after seizures with kainic acid treatment. These data indicate that Shank3 interacts with multiple RNA-binding proteins in the postnatal brain, thereby regulating the homeostatic expression of splicing isoforms for autism-associated genes after birth.",
+    "openalex_id": ""
+  }
+]

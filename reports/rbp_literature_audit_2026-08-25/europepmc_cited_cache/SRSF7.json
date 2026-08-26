@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Nuclear m6A reader YTHDC1 regulates alternative polyadenylation and splicing during mouse oocyte development.",
+    "doi": "10.1371/journal.pgen.1007412",
+    "pmid": "29799838",
+    "authors": [
+      "Kasowitz SD, Ma J, Anderson SJ, Leu NA, Xu Y, Gregory BD, Schultz RM, Wang PJ."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-25",
+    "cited_by_count": 480,
+    "journal": "",
+    "abstract": "The N6-methyladenosine (m6A) modification is the most prevalent internal RNA modification in eukaryotes. The majority of m6A sites are found in the last exon and 3' UTRs. Here we show that the nuclear m6A reader YTHDC1 is essential for embryo viability and germline development in mouse. Specifically, YTHDC1 is required for spermatogonial development in males and for oocyte growth and maturation in females; Ythdc1-deficient oocytes are blocked at the primary follicle stage. Strikingly, loss of YTHDC1 leads to extensive alternative polyadenylation in oocytes, altering 3' UTR length. Furthermore, YTHDC1 deficiency causes massive alternative splicing defects in oocytes. The majority of splicing defects in mutant oocytes are rescued by introducing wild-type, but not m6A-binding-deficient, YTHDC1. YTHDC1 is associated with the pre-mRNA 3' end processing factors CPSF6, SRSF3, and SRSF7. Thus, YTHDC1 plays a critical role in processing of pre-mRNA transcripts in the oocyte nucleus and may have similar non-redundant roles throughout fetal development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SR proteins are NXF1 adaptors that link alternative RNA processing to mRNA export.",
+    "doi": "10.1101/gad.276477.115",
+    "pmid": "26944680",
+    "authors": [
+      "Müller-McNicoll M, Botti V, de Jesus Domingues AM, Brandl H, Schwich OD, Steiner MC, Curk T, Poser I, Zarnack K, Neugebauer KM."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-01",
+    "cited_by_count": 269,
+    "journal": "",
+    "abstract": "Nuclear export factor 1 (NXF1) exports mRNA to the cytoplasm after recruitment to mRNA by specific adaptor proteins. How and why cells use numerous different export adaptors is poorly understood. Here we critically evaluate members of the SR protein family (SRSF1-7) for their potential to act as NXF1 adaptors that couple pre-mRNA processing to mRNA export. Consistent with this proposal, >1000 endogenous mRNAs required individual SR proteins for nuclear export in vivo. To address the mechanism, transcriptome-wide RNA-binding profiles of NXF1 and SRSF1-7 were determined in parallel by individual-nucleotide-resolution UV cross-linking and immunoprecipitation (iCLIP). Quantitative comparisons of RNA-binding sites showed that NXF1 and SR proteins bind mRNA targets at adjacent sites, indicative of cobinding. SRSF3 emerged as the most potent NXF1 adaptor, conferring sequence specificity to RNA binding by NXF1 in last exons. Interestingly, SRSF3 and SRSF7 were shown to bind different sites in last exons and regulate 3' untranslated region length in an opposing manner. Both SRSF3 and SRSF7 promoted NXF1 recruitment to mRNA. Thus, SRSF3 and SRSF7 couple alternative splicing and polyadenylation to NXF1-mediated mRNA export, thereby controlling the cytoplasmic abundance of transcripts with alternative 3' ends.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mapping the single-cell transcriptomic response of murine diabetic kidney disease to therapies.",
+    "doi": "10.1016/j.cmet.2022.05.010",
+    "pmid": "35709763",
+    "authors": [
+      "Wu H, Gonzalez Villalobos R, Yao X, Reilly D, Chen T, Rankin M, Myshkin E, Breyer MD, Humphreys BD."
+    ],
+    "year": "2022",
+    "publication_date": "2022-06-15",
+    "cited_by_count": 233,
+    "journal": "",
+    "abstract": "Diabetic kidney disease (DKD) occurs in ∼40% of patients with diabetes and causes kidney failure, cardiovascular disease, and premature death. We analyzed the response of a murine DKD model to five treatment regimens using single-cell RNA sequencing (scRNA-seq). Our atlas of ∼1 million cells revealed a heterogeneous response of all kidney cell types both to DKD and its treatment. Both monotherapy and combination therapies targeted differing cell types and induced distinct and non-overlapping transcriptional changes. The early effects of sodium-glucose cotransporter-2 inhibitors (SGLT2i) on the S1 segment of the proximal tubule suggest that this drug class induces fasting mimicry and hypoxia responses. Diabetes downregulated the spliceosome regulator serine/arginine-rich splicing factor 7 (Srsf7) in proximal tubule that was specifically rescued by SGLT2i. In vitro proximal tubule knockdown of Srsf7 induced a pro-inflammatory phenotype, implicating alternative splicing as a driver of DKD and suggesting SGLT2i regulation of proximal tubule alternative splicing as a potential mechanism of action for this drug class.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cis- and trans-regulations of pre-mRNA splicing by RNA editing enzymes influence cancer development.",
+    "doi": "10.1038/s41467-020-14621-5",
+    "pmid": "32034135",
+    "authors": [
+      "Tang SJ, Shen H, An O, Hong H, Li J, Song Y, Han J, Tay DJT, Ng VHE, Bellido Molias F, Leong KW, Leong KW, Pitcheshwar P, Yang H, Chen L."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-07",
+    "cited_by_count": 104,
+    "journal": "",
+    "abstract": "RNA editing and splicing are the two major processes that dynamically regulate human transcriptome diversity. Despite growing evidence of crosstalk between RNA editing enzymes (mainly ADAR1) and splicing machineries, detailed mechanistic explanations and their biological importance in diseases, such as cancer are still lacking. Herein, we identify approximately a hundred high-confidence splicing events altered by ADAR1 and/or ADAR2, and ADAR1 or ADAR2 protein can regulate cassette exons in both directions. We unravel a binding tendency of ADARs to dsRNAs that involves GA-rich sequences for editing and splicing regulation. ADAR1 edits an intronic splicing silencer, leading to recruitment of SRSF7 and repression of exon inclusion. We also present a mechanism through which ADAR2 binds to dsRNA formed between GA-rich sequences and polypyrimidine (Py)-tract and precludes access of U2AF65 to 3' splice site. Furthermore, we find these ADARs-regulated splicing changes per se influence tumorigenesis, not merely byproducts of ADARs editing and binding.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of a DNA Damage-Induced Alternative Splicing Pathway That Regulates p53 and Cellular Senescence Markers.",
+    "doi": "10.1158/2159-8290.cd-16-0908",
+    "pmid": "28288992",
+    "authors": [
+      "Chen J, Crutchley J, Zhang D, Owzar K, Kastan MB."
+    ],
+    "year": "2017",
+    "publication_date": "2017-03-13",
+    "cited_by_count": 91,
+    "journal": "",
+    "abstract": "Cellular responses to DNA damage are critical determinants of cancer development and aging-associated pathogenesis. Here, we identify and characterize a DNA-damage response (DDR) pathway that regulates alternative splicing of numerous gene products, including the human tumor suppressor <i>TP53</i>, and controls DNA damage-induced cellular senescence. In brief, ionizing radiation (IR) inhibits the activity of SMG1, a phosphoinositide-3-kinase-like kinase family member, reducing the binding of SMG1 to a specific region near exon 9 of p53 precursor mRNA and promoting the binding of ribosomal protein L26 (RPL26) to p53 pre-mRNA. RPL26, in turn, is required for the recruitment of the serine/arginine-rich splicing factor SRSF7 to p53 pre-mRNA and generation of alternatively spliced p53β RNA. Disruption of this pathway via selective knockout of p53β by CRISPR/Cas9 or downregulation of pathway constituents significantly reduces IR-induced senescence markers, and cells lacking p53β expression fail to transcriptionally repress negative regulators of cellular senescence and aging.<b>Significance:</b> We identified a new component of the DDR pathway that regulates alternative splicing of messenger RNAs, including human <i>TP53</i> mRNA. Modulation of this regulatory pathway affects DNA-damage induction of cellular senescence markers. <i>Cancer Discov; 7(7); 766-81. ©2017 AACR.</i><i>This article is highlighted in the In This Issue feature, p. 653</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide identification of Fas/CD95 alternative splicing regulators reveals links with iron homeostasis.",
+    "doi": "10.1016/j.molcel.2014.10.029",
+    "pmid": "25482508",
+    "authors": [
+      "Tejedor JR, Papasaikas P, Valcárcel J."
+    ],
+    "year": "2015",
+    "publication_date": "2014-12-04",
+    "cited_by_count": 91,
+    "journal": "",
+    "abstract": "Alternative splicing of Fas/CD95 exon 6 generates either a membrane-bound receptor that promotes, or a soluble isoform that inhibits, apoptosis. Using an automatized genome-wide siRNA screening for alternative splicing regulators of endogenous transcripts in mammalian cells, we identified 200 genes whose knockdown modulates the ratio between Fas/CD95 isoforms. These include classical splicing regulators; core spliceosome components; and factors implicated in transcription and chromatin remodeling, RNA transport, intracellular signaling, and metabolic control. Coherent effects of genes involved in iron homeostasis and pharmacological modulation of iron levels revealed a link between intracellular iron and Fas/CD95 exon 6 inclusion. A splicing regulatory network linked iron levels with reduced activity of the Zinc-finger-containing splicing regulator SRSF7, and in vivo and in vitro assays revealed that iron inhibits SRSF7 RNA binding. Our results uncover numerous links between cellular pathways and RNA processing and a mechanism by which iron homeostasis can influence alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF7 maintains its homeostasis through the expression of Split-ORFs and nuclear body assembly.",
+    "doi": "10.1038/s41594-020-0385-9",
+    "pmid": "32123389",
+    "authors": [
+      "Königs V, de Oliveira Freitas Machado C, Arnold B, Blümel N, Solovyeva A, Löbbert S, Schafranek M, Ruiz De Los Mozos I, Wittig I, McNicoll F, Schulz MH, Müller-McNicoll M."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-02",
+    "cited_by_count": 77,
+    "journal": "",
+    "abstract": "SRSF7 is an essential RNA-binding protein whose misexpression promotes cancer. Here, we describe how SRSF7 maintains its protein homeostasis in murine P19 cells using an intricate negative feedback mechanism. SRSF7 binding to its premessenger RNA promotes inclusion of a poison cassette exon and transcript degradation via nonsense-mediated decay (NMD). However, elevated SRSF7 levels inhibit NMD and promote translation of two protein halves, termed Split-ORFs, from the bicistronic SRSF7-PCE transcript. The first half acts as dominant-negative isoform suppressing poison cassette exon inclusion and instead promoting the retention of flanking introns containing repeated SRSF7 binding sites. Massive SRSF7 binding to these sites and its oligomerization promote the assembly of large nuclear bodies, which sequester SRSF7 transcripts at their transcription site, preventing their export and restoring normal SRSF7 protein levels. We further show that hundreds of human and mouse NMD targets, especially RNA-binding proteins, encode potential Split-ORFs, some of which are expressed under specific cellular conditions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing of long non-coding RNAs primarily depends on polypyrimidine tract and 5' splice-site sequences due to weak interactions with SR proteins.",
+    "doi": "10.1093/nar/gky1147",
+    "pmid": "30445574",
+    "authors": [
+      "Krchnáková Z, Thakur PK, Krausová M, Bieberstein N, Haberman N, Müller-McNicoll M, Stanek D."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Many nascent long non-coding RNAs (lncRNAs) undergo the same maturation steps as pre-mRNAs of protein-coding genes (PCGs), but they are often poorly spliced. To identify the underlying mechanisms for this phenomenon, we searched for putative splicing inhibitory sequences using the ncRNA-a2 as a model. Genome-wide analyses of intergenic lncRNAs (lincRNAs) revealed that lincRNA splicing efficiency positively correlates with 5'ss strength while no such correlation was identified for PCGs. In addition, efficiently spliced lincRNAs have higher thymidine content in the polypyrimidine tract (PPT) compared to efficiently spliced PCGs. Using model lincRNAs, we provide experimental evidence that strengthening the 5'ss and increasing the T content in PPT significantly enhances lincRNA splicing. We further showed that lincRNA exons contain less putative binding sites for SR proteins. To map binding of SR proteins to lincRNAs, we performed iCLIP with SRSF2, SRSF5 and SRSF6 and analyzed eCLIP data for SRSF1, SRSF7 and SRSF9. All examined SR proteins bind lincRNA exons to a much lower extent than expression-matched PCGs. We propose that lincRNAs lack the cooperative interaction network that enhances splicing, which renders their splicing outcome more dependent on the optimality of splice sites.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Fractionation iCLIP detects persistent SR protein binding to conserved, retained introns in chromatin, nucleoplasm and cytoplasm.",
+    "doi": "10.1093/nar/gkx671",
+    "pmid": "28977534",
+    "authors": [
+      "Brugiolo M, Botti V, Liu N, Müller-McNicoll M, Neugebauer KM."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-01",
+    "cited_by_count": 58,
+    "journal": "",
+    "abstract": "RNA binding proteins (RBPs) regulate the lives of all RNAs from transcription, processing, and function to decay. How RNA-protein interactions change over time and space to support these roles is poorly understood. Towards this end, we sought to determine how two SR proteins-SRSF3 and SRSF7, regulators of pre-mRNA splicing, nuclear export and translation-interact with RNA in different cellular compartments. To do so, we developed Fractionation iCLIP (Fr-iCLIP), in which chromatin, nucleoplasmic and cytoplasmic fractions are prepared from UV-crosslinked cells and then subjected to iCLIP. As expected, SRSF3 and SRSF7 targets were detected in all fractions, with intron, snoRNA and lncRNA interactions enriched in the nucleus. Cytoplasmically-bound mRNAs reflected distinct functional groupings, suggesting coordinated translation regulation. Surprisingly, hundreds of cytoplasmic intron targets were detected. These cytoplasmic introns were found to be highly conserved and introduced premature termination codons into coding regions. However, many intron-retained mRNAs were not substrates for nonsense-mediated decay (NMD), even though they were detected in polysomes. These findings suggest that intron-retained mRNAs in the cytoplasm have previously uncharacterized functions and/or escape surveillance. Hence, Fr-iCLIP detects the cellular location of RNA-protein interactions and provides insight into co-transcriptional, post-transcriptional and cytoplasmic RBP functions for coding and non-coding RNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF3 and SRSF7 modulate 3'UTR length through suppression or activation of proximal polyadenylation sites and regulation of CFIm levels.",
+    "doi": "10.1186/s13059-021-02298-y",
+    "pmid": "33706811",
+    "authors": [
+      "Schwich OD, Blümel N, Keller M, Wegener M, Setty ST, Brunstein ME, Poser I, Mozos IRL, Suess B, Münch C, McNicoll F, Zarnack K, Müller-McNicoll M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-11",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Alternative polyadenylation (APA) refers to the regulated selection of polyadenylation sites (PASs) in transcripts, which determines the length of their 3' untranslated regions (3'UTRs). We have recently shown that SRSF3 and SRSF7, two closely related SR proteins, connect APA with mRNA export. The mechanism underlying APA regulation by SRSF3 and SRSF7 remained unknown.<h4>Results</h4>Here we combine iCLIP and 3'-end sequencing and find that SRSF3 and SRSF7 bind upstream of proximal PASs (pPASs), but they exert opposite effects on 3'UTR length. SRSF7 enhances pPAS usage in a concentration-dependent but splicing-independent manner by recruiting the cleavage factor FIP1, generating short 3'UTRs. Protein domains unique to SRSF7, which are absent from SRSF3, contribute to FIP1 recruitment. In contrast, SRSF3 promotes distal PAS (dPAS) usage and hence long 3'UTRs directly by counteracting SRSF7, but also indirectly by maintaining high levels of cleavage factor Im (CFIm) via alternative splicing. Upon SRSF3 depletion, CFIm levels decrease and 3'UTRs are shortened. The indirect SRSF3 targets are particularly sensitive to low CFIm levels, because here CFIm serves a dual function; it enhances dPAS and inhibits pPAS usage by binding immediately downstream and assembling unproductive cleavage complexes, which together promotes long 3'UTRs.<h4>Conclusions</h4>We demonstrate that SRSF3 and SRSF7 are direct modulators of pPAS usage and show how small differences in the domain architecture of SR proteins can confer opposite effects on pPAS regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative transcriptomic analysis suggests new autoregulatory splicing events coupled with nonsense-mediated mRNA decay.",
+    "doi": "10.1093/nar/gkz193",
+    "pmid": "30916337",
+    "authors": [
+      "Pervouchine D, Popov Y, Berry A, Borsari B, Frankish A, Guigó R."
+    ],
+    "year": "2019",
+    "publication_date": "2019-06-01",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "Nonsense-mediated decay (NMD) is a eukaryotic mRNA surveillance system that selectively degrades transcripts with premature termination codons (PTC). Many RNA-binding proteins (RBP) regulate their expression levels by a negative feedback loop, in which RBP binds its own pre-mRNA and causes alternative splicing to introduce a PTC. We present a bioinformatic analysis integrating three data sources, eCLIP assays for a large RBP panel, shRNA inactivation of NMD pathway, and shRNA-depletion of RBPs followed by RNA-seq, to identify novel such autoregulatory feedback loops. We show that RBPs frequently bind their own pre-mRNAs, their exons respond prominently to NMD pathway disruption, and that the responding exons are enriched with nearby eCLIP peaks. We confirm previously proposed models of autoregulation in SRSF7 and U2AF1 genes and present two novel models, in which (i) SFPQ binds its mRNA and promotes switching to an alternative distal 3'-UTR that is targeted by NMD, and (ii) RPS3 binding activates a poison 5'-splice site in its pre-mRNA that leads to a frame shift and degradation by NMD. We also suggest specific splicing events that could be implicated in autoregulatory feedback loops in RBM39, HNRNPM, and U2AF2 genes. The results are available through a UCSC Genome Browser track hub.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF7 knockdown promotes apoptosis of colon and lung cancer cells.",
+    "doi": "10.3892/ol.2018.8072",
+    "pmid": "29556298",
+    "authors": [
+      "Fu Y, Wang Y."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-16",
+    "cited_by_count": 54,
+    "journal": "",
+    "abstract": "Serine/arginine-rich (SR) proteins are a family of important splicing factors, which are involved in multiple aspects of RNA processing, including splicing, mRNA nuclear export, mRNA stability and translation. Previous studies have identified a number of SR proteins that exhibit abnormal expression in various tumor types. In the present study, the expression and function of serine/arginine-rich splicing factor 7 (SRSF7) were investigated in colon and lung cancer. Using tissue immunohistochemistry, it was observed that SRSF7 was overexpressed in colon and lung cancer tissues. As the role of SRSF7 in cancer remains to be fully elucidated, the expression of SRSF7 was knocked down in the present study by transfecting SRSF7-specific small interfering RNAs (siRNAs) into the HCT116 colon cancer cell line and A549 lung cancer cell line, which exhibited elevated expression of SRSF7. MTS assays, western blot analysis, flow cytometry and spectrofluorometer analyses were performed to assess the effects of SRSF7 knockdown on the proliferation and apoptosis of cells. The results demonstrated that the expression of SRSF7 was efficiently knocked down by SRSF7 siRNA, and that SRSF7 knockdown inhibited proliferation and enhanced apoptosis of HCT116 and A549 cells. Further experiments involving BEAS-2B cells stably overexpressing SRSF7, and A549 cells with stable knockdown of SRSF7 revealed that SRSF7 regulated the splicing of the apoptosis regulator Fas. Collectively, these data indicated that SRSF7 is critical for the survival of colon and lung cancer cells, and may be a potential therapeutic target for the treatment of colon and lung cancer.",
+    "openalex_id": ""
+  }
+]

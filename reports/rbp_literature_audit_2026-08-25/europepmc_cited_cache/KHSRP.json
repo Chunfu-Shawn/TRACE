@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The RNA-binding protein KSRP promotes the biogenesis of a subset of microRNAs.",
+    "doi": "10.1038/nature08025",
+    "pmid": "19458619",
+    "authors": [
+      "Trabucchi M, Briata P, Garcia-Mayoral M, Haase AD, Filipowicz W, Ramos A, Gherzi R, Rosenfeld MG."
+    ],
+    "year": "2009",
+    "publication_date": "2009-05-20",
+    "cited_by_count": 534,
+    "journal": "",
+    "abstract": "Consistent with the role of microRNAs (miRNAs) in down-regulating gene expression by reducing the translation and/or stability of target messenger RNAs, the levels of specific miRNAs are important for correct embryonic development and have been linked to several forms of cancer. However, the regulatory mechanisms by which primary miRNAs (pri-miRNAs) are processed first to precursor miRNAs (pre-miRNAs) and then to mature miRNAs by the multiprotein Drosha and Dicer complexes, respectively, remain largely unknown. The KH-type splicing regulatory protein (KSRP, also known as KHSRP) interacts with single-strand AU-rich-element-containing mRNAs and is a key mediator of mRNA decay. Here we show in mammalian cells that KSRP also serves as a component of both Drosha and Dicer complexes and regulates the biogenesis of a subset of miRNAs. KSRP binds with high affinity to the terminal loop of the target miRNA precursors and promotes their maturation. This mechanism is required for specific changes in target mRNA expression that affect specific biological programs, including proliferation, apoptosis and differentiation. These findings reveal an unexpected mechanism that links KSRP to the machinery regulating maturation of a cohort of miRNAs that, in addition to its role in promoting mRNA decay, independently serves to integrate specific regulatory programs of protein expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "'See-saw' expression of microRNA-198 and FSTL1 from a single transcript in wound healing.",
+    "doi": "10.1038/nature11890",
+    "pmid": "23395958",
+    "authors": [
+      "Sundaram GM, Common JE, Gopal FE, Srikanta S, Lakshman K, Lunny DP, Lim TC, Tanavde V, Lane EB, Sampath P."
+    ],
+    "year": "2013",
+    "publication_date": "2013-02-10",
+    "cited_by_count": 178,
+    "journal": "",
+    "abstract": "Post-transcriptional switches are flexible effectors of dynamic changes in gene expression. Here we report a new post-transcriptional switch that dictates the spatiotemporal and mutually exclusive expression of two alternative gene products from a single transcript. Expression of primate-specific exonic microRNA-198 (miR-198), located in the 3'-untranslated region of follistatin-like 1 (FSTL1) messenger RNA, switches to expression of the linked open reading frame of FSTL1 upon wounding in a human ex vivo organ culture system. We show that binding of a KH-type splicing regulatory protein (KSRP, also known as KHSRP) to the primary transcript determines the fate of the transcript and is essential for the processing of miR-198: transforming growth factor-β signalling switches off miR-198 expression by downregulating KSRP, and promotes FSTL1 protein expression. We also show that FSTL1 expression promotes keratinocyte migration, whereas miR-198 expression has the opposite effect by targeting and inhibiting DIAPH1, PLAU and LAMC2. A clear inverse correlation between the expression pattern of FSTL1 (pro-migratory) and miR-198 (anti-migratory) highlights the importance of this regulatory switch in controlling context-specific gene expression to orchestrate wound re-epithelialization. The deleterious effect of failure of this switch is apparent in non-healing chronic diabetic ulcers, in which expression of miR-198 persists, FSTL1 is absent, and keratinocyte migration, re-epithelialization and wound healing all fail to occur.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptome-wide profiles of circular RNA and RNA-binding protein interactions reveal effects on circular RNA biogenesis and cancer pathway expression.",
+    "doi": "10.1186/s13073-020-00812-8",
+    "pmid": "33287884",
+    "authors": [
+      "Okholm TLH, Sathe S, Park SS, Kamstrup AB, Rasmussen AM, Shankar A, Chua ZM, Fristrup N, Nielsen MM, Vang S, Dyrskjøt L, Aigner S, Damgaard CK, Yeo GW, Pedersen JS."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-07",
+    "cited_by_count": 158,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs (circRNAs) are stable, often highly expressed RNA transcripts with potential to modulate other regulatory RNAs. A few circRNAs have been shown to bind RNA-binding proteins (RBPs); however, little is known about the prevalence and distribution of these interactions in different biological contexts.<h4>Methods</h4>We conduct an extensive screen of circRNA-RBP interactions in the ENCODE cell lines HepG2 and K562. We profile circRNAs in deep-sequenced total RNA samples and analyze circRNA-RBP interactions using a large set of eCLIP data with binding sites of 150 RBPs. We validate interactions for select circRNAs and RBPs by performing RNA immunoprecipitation and functionally characterize our most interesting candidates by conducting knockdown studies followed by RNA-Seq.<h4>Results</h4>We generate a comprehensive catalog of circRNA-RBP interactions in HepG2 and K562 cells. We show that KHSRP binding sites are enriched in flanking introns of circRNAs and that KHSRP depletion affects circRNA biogenesis. We identify circRNAs that are highly covered by RBP binding sites and experimentally validate individual circRNA-RBP interactions. We show that circCDYL, a highly expressed circRNA with clinical and functional implications in bladder cancer, is almost completely covered with GRWD1 binding sites in HepG2 cells, and that circCDYL depletion counteracts the effect of GRWD1 depletion. Furthermore, we confirm interactions between circCDYL and RBPs in bladder cancer cells and demonstrate that circCDYL depletion affects hallmarks of cancer and perturbs the expression of key cancer genes, e.g., TP53. Finally, we show that elevated levels of circCDYL are associated with overall survival of bladder cancer patients.<h4>Conclusions</h4>Our study demonstrates transcriptome-wide and cell-type-specific circRNA-RBP interactions that could play important regulatory roles in tumorigenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Next-generation sequencing of translocation renal cell carcinoma reveals novel RNA splicing partners and frequent mutations of chromatin-remodeling genes.",
+    "doi": "10.1158/1078-0432.ccr-13-3036",
+    "pmid": "24899691",
+    "authors": [
+      "Malouf GG, Su X, Yao H, Gao J, Xiong L, He Q, Compérat E, Couturier J, Molinié V, Escudier B, Camparo P, Doss DJ, Thompson EJ, Khayat D, Wood CG, Yu W, Teh BT, Weinstein J, Tannir NM."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-04",
+    "cited_by_count": 120,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>MITF/TFE translocation renal cell carcinoma (TRCC) is a rare subtype of kidney cancer. Its incidence and the genome-wide characterization of its genetic origin have not been fully elucidated.<h4>Experimental design</h4>We performed RNA and exome sequencing on an exploratory set of TRCC (n = 7), and validated our findings using The Cancer Genome Atlas (TCGA) clear-cell RCC (ccRCC) dataset (n = 460).<h4>Results</h4>Using the TCGA dataset, we identified seven TRCC (1.5%) cases and determined their genomic profile. We discovered three novel partners of MITF/TFE (LUC7L3, KHSRP, and KHDRBS2) that are involved in RNA splicing. TRCC displayed a unique gene expression signature as compared with other RCC types, and showed activation of MITF, the transforming growth factor β1 and the PI3K complex targets. Genes differentially spliced between TRCC and other RCC types were enriched for MITF and ID2 targets. Exome sequencing of TRCC revealed a distinct mutational spectrum as compared with ccRCC, with frequent mutations in chromatin-remodeling genes (six of eight cases, three of which were from the TCGA). In two cases, we identified mutations in INO80D, an ATP-dependent chromatin-remodeling gene, previously shown to control the amplitude of the S phase. Knockdown of INO80D decreased cell proliferation in a novel cell line bearing LUC7L3-TFE3 translocation.<h4>Conclusions</h4>This genome-wide study defines the incidence of TRCC within a ccRCC-directed project and expands the genomic spectrum of TRCC by identifying novel MITF/TFE partners involved in RNA splicing and frequent mutations in chromatin-remodeling genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanistic studies of a small-molecule modulator of SMN2 splicing.",
+    "doi": "10.1073/pnas.1800260115",
+    "pmid": "29712837",
+    "authors": [
+      "Wang J, Schultz PG, Johnson KA."
+    ],
+    "year": "2018",
+    "publication_date": "2018-04-30",
+    "cited_by_count": 110,
+    "journal": "",
+    "abstract": "RG-7916 is a first-in-class drug candidate for the treatment of spinal muscular atrophy (SMA) that functions by modulating pre-mRNA splicing of the <i>SMN2</i> gene, resulting in a 2.5-fold increase in survival of motor neuron (SMN) protein level, a key protein lacking in SMA patients. RG-7916 is currently in three interventional phase 2 clinical trials for various types of SMA. In this report, we show that SMN-C2 and -C3, close analogs of RG-7916, act as selective RNA-binding ligands that modulate pre-mRNA splicing. Chemical proteomic and genomic techniques reveal that SMN-C2 directly binds to the AGGAAG motif on exon 7 of the SMN2 pre-mRNA, and promotes a conformational change in two to three unpaired nucleotides at the junction of intron 6 and exon 7 in both in vitro and in-cell models. This change creates a new functional binding surface that increases binding of the splicing modulators, far upstream element binding protein 1 (FUBP1) and its homolog, KH-type splicing regulatory protein (KHSRP), to the SMN-C2/C3-SMN2 pre-mRNA complex and enhances SMN2 splicing. These findings underscore the potential of small-molecule drugs to selectively bind RNA and modulate pre-mRNA splicing as an approach to the treatment of human disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Gene expression in peripheral blood mononuclear cells from patients with chronic fatigue syndrome.",
+    "doi": "10.1136/jcp.2005.025718",
+    "pmid": "16049284",
+    "authors": [
+      "Kaushik N, Fear D, Richards SC, McDermott CR, Nuwaysir EF, Kellam P, Harrison TJ, Wilkinson RJ, Tyrrell DA, Holgate ST, Kerr JR."
+    ],
+    "year": "2005",
+    "publication_date": "2005-08-01",
+    "cited_by_count": 92,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Chronic fatigue syndrome (CFS) is a multisystem disease, the pathogenesis of which remains undetermined.<h4>Aims</h4>To test the hypothesis that there are reproducible abnormalities of gene expression in patients with CFS compared with normal healthy persons.<h4>Methods</h4>To gain further insight into the pathogenesis of this disease, gene expression was analysed in peripheral blood mononuclear cells from 25 patients with CFS diagnosed according to the Centers for Disease Control criteria and 25 normal blood donors matched for age, sex, and geographical location, using a single colour microarray representing 9522 human genes. After normalisation, average difference values for each gene were compared between test and control groups using a cutoff fold difference of expression > or = 1.5 and a p value of 0.001. Genes showing differential expression were further analysed using Taqman real time polymerase chain reaction (PCR) in fresh samples.<h4>Results</h4>Analysis of microarray data revealed differential expression of 35 genes. Real time PCR confirmed differential expression in the same direction as array results for 16 of these genes, 15 of which were upregulated (ABCD4, PRKCL1, MRPL23, CD2BP2, GSN, NTE, POLR2G, PEX16, EIF2B4, EIF4G1, ANAPC11, PDCD2, KHSRP, BRMS1, and GABARAPL1) and one of which was downregulated (IL-10RA). This profile suggests T cell activation and perturbation of neuronal and mitochondrial function. Upregulation of neuropathy target esterase and eukaryotic translation initiation factor 4G1 may suggest links with organophosphate exposure and virus infection, respectively.<h4>Conclusion</h4>These results suggest that patients with CFS have reproducible alterations in gene regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Diverse roles of the nucleic acid-binding protein KHSRP in cell differentiation and disease.",
+    "doi": "10.1002/wrna.1327",
+    "pmid": "26708421",
+    "authors": [
+      "Briata P, Bordo D, Puppo M, Gorlero F, Rossi M, Perrone-Bizzozero N, Gherzi R."
+    ],
+    "year": "2016",
+    "publication_date": "2015-12-27",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "The single-stranded nucleic acid-binding protein KHSRP (KH-type splicing regulatory protein) modulates RNA life and gene expression at various levels. KHSRP controls important cellular functions as different as proliferation, differentiation, metabolism, and response to infectious agents. We summarize and discuss experimental evidence providing a potential link between changes in KHSRP expression/function and human diseases including neuromuscular disorders, obesity, type II diabetes, and cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long Noncoding RNA AB074169 Inhibits Cell Proliferation via Modulation of KHSRP-Mediated CDKN1a Expression in Papillary Thyroid Carcinoma.",
+    "doi": "10.1158/0008-5472.can-17-3766",
+    "pmid": "29735546",
+    "authors": [
+      "Gou Q, Gao L, Nie X, Pu W, Zhu J, Wang Y, Liu X, Tan S, Zhou JK, Gong Y, He J, Wu K, Xie Y, Zhao W, Dai L, Liu L, Xiang R, Wei YQ, Zhang L, Peng Y."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-07",
+    "cited_by_count": 85,
+    "journal": "",
+    "abstract": "Long noncoding RNAs (lncRNA) are emerging as a novel class of regulators in gene expression associated with tumorigenesis. However, the role of lncRNAs in papillary thyroid carcinoma (PTC) is poorly understood. Here, we conducted global lncRNA profiling and identified lncRNA AB074169 (lncAB) as significantly downregulated in PTC. Decreased expression of lncAB in PTC was caused by CpG hypermethylation within its gene promoter. Functional studies showed that lncAB overexpression led to cell-cycle arrest and tumor growth inhibition <i>in vitro</i> and <i>in vivo</i>, whereas lncAB knockdown promoted cell proliferation. Mechanistic analyses revealed that lncAB bound KH-type splicing regulatory protein (KHSRP) and also decreased expression of KHSRP, thus increasing CDKN1a (p21) expression and decreasing CDK2 expression to repress cell proliferation. Taken together, these findings demonstrate that lncAB functions as a tumor suppressor during PTC tumorigenesis.<b>Significance:</b> These findings identify a tumor-suppressive long noncoding RNA in papillary thyroid carcinoma.<b>Graphical Abstract:</b> http://cancerres.aacrjournals.org/content/canres/78/15/4163/F1.large.jpg <i>Cancer Res; 78(15); 4163-74. ©2018 AACR</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Control of the negative IRES trans-acting factor KHSRP by ubiquitination.",
+    "doi": "10.1093/nar/gkw1042",
+    "pmid": "27899653",
+    "authors": [
+      "Kung YA, Hung CT, Chien KY, Shih SR."
+    ],
+    "year": "2017",
+    "publication_date": "2016-11-28",
+    "cited_by_count": 83,
+    "journal": "",
+    "abstract": "Cells and viruses can utilize internal ribosome entry sites (IRES) to drive translation when cap-dependent translation is inhibited by stress or viral factors. IRES trans-acting factors (ITAFs) are known to participate in such cap-independent translation, but there are gaps in the understanding as to how ITAFs, particularly negative ITAFs, regulate IRES-driven translation. This study found that Lys109, Lys121 and Lys122 represent critical ubiquitination sites for far upstream element-binding protein 2 (KHSRP, also known as KH-type splicing regulatory protein or FBP2), a negative ITAF. Mutations at these sites subsequently reduced KHSRP ubiquitination and abolished its inhibitory effect on IRES-driven translation. We further found that interaction between the Kelch domain of Kelch-like protein 12 (KLHL12) and the C-terminal domain of KHSRP contributed to KHSRP ubiquitination, leading to downregulation of enterovirus IRES-mediated translation in infected cells and increased competition against other positive ITAFs. Together, these results show that ubiquitination can exert control over IRES-driven translation via modification of ITAFs, and to the best of our knowledge, this is the first description of such a regulatory mechanism for IRES-dependent translation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding protein KHSRP promotes tumor growth and metastasis in non-small cell lung cancer.",
+    "doi": "10.1186/s13046-019-1479-2",
+    "pmid": "31775888",
+    "authors": [
+      "Yan M, Sun L, Li J, Yu H, Lin H, Yu T, Zhao F, Zhu M, Liu L, Geng Q, Kong H, Pan H, Yao M."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-27",
+    "cited_by_count": 80,
+    "journal": "",
+    "abstract": "<h4>Background</h4>KH-type splicing regulatory protein (KHSRP) plays an important role in cancer invasion, but the relevant mechanism is not well known. In the present study, we investigated the function and potential molecular mechanism of KHSRP in non-small cell lung cancer (NSCLC) metastasis and elucidated its clinical significance.<h4>Methods</h4>Isobaric tags for relative and absolute quantitation and the SWATH™ approach were combined with nanoliquid chromatography-tandem mass spectrometry analysis to identify metastasis-associated nucleoproteins in NSCLC. Real-time PCR and Western blot were used to screen for metastasis-associated candidate molecules. Gene knockdown and overexpression were used to investigate their functions and molecular mechanisms in lung cancer cells. Coimmunoprecipitation (Co-IP) experiments were performed to identify the interactions between candidate molecules and their interacting proteins. Gene expression and its association with multiple clinicopathologic characteristics were analyzed by immunohistochemistry (IHC) and Western blot in human lung cancer specimens.<h4>Results</h4>KHSRP was identified as a metastasis-associated candidate molecule. In NSCLC cell lines, knockdown of KHSRP significantly reduced lung cancer cell proliferation, migration, and invasion in vitro and in vivo, whereas overexpression of KHSRP did the opposite. Mechanistically, the protein heterogeneous nuclear ribonucleoprotein C (C1/C2) (HNRNPC) was identified to interact with KHSRP using Co-IP experiments. In NSCLC cell lines, overexpression of HNRNPC significantly promoted lung cancer cell proliferation, migration, and invasion in vitro and in vivo. KHSRP and HNRNPC may induce human lung cancer cell invasion and metastasis by activating the IFN-α-JAK-STAT1 signaling pathway. Drastically higher expression levels of KHSRP and HNRNPC were observed in lung cancer tissues compared to those in adjacent noncancerous tissues. Increased KHSRP and HNRNPC expression was significantly associated with advanced tumor stages and metastasis (both lymph node and distant). Kaplan-Meier survival analysis showed that patients with high KHSRP and HNRNPC expression levels were predicted to have the shortest survival times and to have a poor prognosis.<h4>Conclusions</h4>KHSRP plays an important role in NSCLC metastasis and may serve as a potential prognostic marker and novel therapeutic target for lung cancer metastasis treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA EPR controls epithelial proliferation by coordinating Cdkn1a transcription and mRNA decay response to TGF-β.",
+    "doi": "10.1038/s41467-019-09754-1",
+    "pmid": "31036808",
+    "authors": [
+      "Rossi M, Bucci G, Rizzotto D, Bordo D, Marzi MJ, Puppo M, Flinois A, Spadaro D, Citi S, Emionite L, Cilli M, Nicassio F, Inga A, Briata P, Gherzi R."
+    ],
+    "year": "2019",
+    "publication_date": "2019-04-29",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "Long noncoding RNAs (lncRNAs) are emerging as regulators of fundamental biological processes. Here we report on the characterization of an intergenic lncRNA expressed in epithelial tissues which we termed EPR (Epithelial cell Program Regulator). EPR is rapidly downregulated by TGF-β and its sustained expression largely reshapes the transcriptome, favors the acquisition of epithelial traits, and reduces cell proliferation in cultured mammary gland cells as well as in an animal model of orthotopic transplantation. EPR generates a small peptide that localizes at epithelial cell junctions but the RNA molecule per se accounts for the vast majority of EPR-induced gene expression changes. Mechanistically, EPR interacts with chromatin and regulates Cdkn1a gene expression by affecting both its transcription and mRNA decay through its association with SMAD3 and the mRNA decay-promoting factor KHSRP, respectively. We propose that EPR enables epithelial cells to control proliferation by modulating waves of gene expression in response to TGF-β.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miRNA-Mediated KHSRP Silencing Rewires Distinct Post-transcriptional Programs during TGF-β-Induced Epithelial-to-Mesenchymal Transition.",
+    "doi": "10.1016/j.celrep.2016.06.055",
+    "pmid": "27396342",
+    "authors": [
+      "Puppo M, Bucci G, Rossi M, Giovarelli M, Bordo D, Moshiri A, Gorlero F, Gherzi R, Briata P."
+    ],
+    "year": "2016",
+    "publication_date": "2016-07-07",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Epithelial-to-mesenchymal transition (EMT) confers several traits to cancer cells that are required for malignant progression. Here, we report that miR-27b-3p-mediated silencing of the single-strand RNA binding protein KHSRP is required for transforming growth factor β (TGF-β)-induced EMT in mammary gland cells. Sustained KHSRP expression limits TGF-β-dependent induction of EMT factors and cell migration, whereas its knockdown in untreated cells mimics TGF-β-induced EMT. Genome-wide sequencing analyses revealed that KHSRP controls (1) levels of mature miR-192-5p, a microRNA that targets a group of EMT factors, and (2) alternative splicing of a cohort of pre-mRNAs related to cell adhesion and motility including Cd44 and Fgfr2. KHSRP belongs to a ribonucleoprotein complex that includes hnRNPA1, and the two proteins cooperate in promoting epithelial-type exon usage of select pre-mRNAs. Thus, TGF-β-induced KHSRP silencing is central in a pathway leading to gene-expression changes that contribute to the cellular changes linked to EMT.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Next-generation sequencing of translocation renal cell carcinoma reveals novel RNA splicing partners and frequent mutations of chromatin-remodeling genes.",
+    "doi": "10.1158/1078-0432.ccr-13-3036",
+    "pmid": "24899691",
+    "authors": [
+      "Malouf GG, Su X, Yao H, Gao J, Xiong L, He Q, Compérat E, Couturier J, Molinié V, Escudier B, Camparo P, Doss DJ, Thompson EJ, Khayat D, Wood CG, Yu W, Teh BT, Weinstein J, Tannir NM."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-04",
+    "cited_by_count": 120,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>MITF/TFE translocation renal cell carcinoma (TRCC) is a rare subtype of kidney cancer. Its incidence and the genome-wide characterization of its genetic origin have not been fully elucidated.<h4>Experimental design</h4>We performed RNA and exome sequencing on an exploratory set of TRCC (n = 7), and validated our findings using The Cancer Genome Atlas (TCGA) clear-cell RCC (ccRCC) dataset (n = 460).<h4>Results</h4>Using the TCGA dataset, we identified seven TRCC (1.5%) cases and determined their genomic profile. We discovered three novel partners of MITF/TFE (LUC7L3, KHSRP, and KHDRBS2) that are involved in RNA splicing. TRCC displayed a unique gene expression signature as compared with other RCC types, and showed activation of MITF, the transforming growth factor β1 and the PI3K complex targets. Genes differentially spliced between TRCC and other RCC types were enriched for MITF and ID2 targets. Exome sequencing of TRCC revealed a distinct mutational spectrum as compared with ccRCC, with frequent mutations in chromatin-remodeling genes (six of eight cases, three of which were from the TCGA). In two cases, we identified mutations in INO80D, an ATP-dependent chromatin-remodeling gene, previously shown to control the amplitude of the S phase. Knockdown of INO80D decreased cell proliferation in a novel cell line bearing LUC7L3-TFE3 translocation.<h4>Conclusions</h4>This genome-wide study defines the incidence of TRCC within a ccRCC-directed project and expands the genomic spectrum of TRCC by identifying novel MITF/TFE partners involved in RNA splicing and frequent mutations in chromatin-remodeling genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Whole-genome sequencing reveals selection signatures associated with important traits in six goat breeds.",
+    "doi": "10.1038/s41598-018-28719-w",
+    "pmid": "29991772",
+    "authors": [
+      "Guo J, Tao H, Li P, Li L, Zhong T, Wang L, Ma J, Chen X, Song T, Zhang H."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-10",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "Comparative population genomics analysis is an effective approach to identify selection signatures in farm animals. In this study, we systematically investigated the selection signatures in six phenotypically diverse goat breeds using SNPs obtained from pooled whole-genome resequencing data. More than 95.5% of 446-642 million clean reads were mapped to the latest reference goat genome, which generated a sequencing depth ranging from 22.30 to 31.75-fold for each breed. A total of 5,802,307, 6,794,020, 7,562,312, 5,325,119, 8,764,136, and 9,488,057 putative SNPs were detected in Boer, Meigu, Jintang Black, Nanjiang Yellow, Tibetan, and Tibetan cashmere goats, respectively. Based on the genome-wide F<sub>ST</sub> and expected heterozygosity scores along 100-kb sliding windows, 68, 89, 44, 44, 19, and 35 outlier windows were deemed as the selection signatures in the six goat breeds. After genome annotation, several genes within the selection signals were found to be possibly associated with important traits in goats, such as coat color (IRF4, EXOC2, RALY, EIF2S2, and KITLG), high-altitude adaptation (EPAS1), growth (LDB2), and reproduction traits (KHDRBS2). In summary, we provide an improved understanding of the genetic diversity and the genomic footprints under positive selection or the adaptations to the local environments in the domestic goat genome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genomic aberrations in lung adenocarcinoma in never smokers.",
+    "doi": "10.1371/journal.pone.0015145",
+    "pmid": "21151896",
+    "authors": [
+      "Job B, Bernheim A, Beau-Faller M, Camilleri-Broët S, Girard P, Hofman P, Mazières J, Toujani S, Lacroix L, Laffaire J, Dessen P, Fouret P, LG Investigators."
+    ],
+    "year": "2010",
+    "publication_date": "2010-12-06",
+    "cited_by_count": 62,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Lung cancer in never smokers would rank as the seventh most common cause of cancer death worldwide.<h4>Methods and findings</h4>We performed high-resolution array comparative genomic hybridization analysis of lung adenocarcinoma in sixty never smokers and identified fourteen new minimal common regions (MCR) of gain or loss, of which five contained a single gene (MOCS2, NSUN3, KHDRBS2, SNTG1 and ST18). One larger MCR of gain contained NSD1. One focal amplification and nine gains contained FUS. NSD1 and FUS are oncogenes hitherto not known to be associated with lung cancer. FISH showed that the amplicon containing FUS was joined to the next telomeric amplicon at 16p11.2. FUS was over-expressed in 10 tumors with gain of 16p11.2 compared to 30 tumors without that gain. Other cancer genes present in aberrations included ARNT, BCL9, CDK4, CDKN2B, EGFR, ERBB2, MDM2, MDM4, MET, MYC and KRAS. Unsupervised hierarchical clustering with adjustment for false-discovery rate revealed clusters differing by the level and pattern of aberrations and displaying particular tumor characteristics. One cluster was strongly associated with gain of MYC. Another cluster was characterized by extensive losses containing tumor suppressor genes of which RB1 and WRN. Tumors in that cluster frequently harbored a central scar-like fibrosis. A third cluster was associated with gains on 7p and 7q, containing ETV1 and BRAF, and displayed the highest rate of EGFR mutations. SNP array analysis validated copy-number aberrations and revealed that RB1 and WRN were altered by recurrent copy-neutral loss of heterozygosity.<h4>Conclusions</h4>The present study has uncovered new aberrations containing cancer genes. The oncogene FUS is a candidate gene in the 16p region that is frequently gained in never smokers. Multiple genetic pathways defined by gains of MYC, deletions of RB1 and WRN or gains on 7p and 7q are involved in lung adenocarcinoma in never smokers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Large-scale genome sequencing redefines the genetic footprints of high-altitude adaptation in Tibetans.",
+    "doi": "10.1186/s13059-023-02912-1",
+    "pmid": "37055782",
+    "authors": [
+      "Zheng W, He Y, Guo Y, Yue T, Zhang H, Li J, Zhou B, Zeng X, Li L, Wang B, Cao J, Chen L, Li C, Li H, Cui C, Bai C, Baimakangzhuo, Qi X, Ouzhuluobu, Su B."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-13",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Tibetans are genetically adapted to high-altitude environments. Though many studies have been conducted, the genetic basis of the adaptation remains elusive due to the poor reproducibility for detecting selective signatures in the Tibetan genomes.<h4>Results</h4>Here, we present whole-genome sequencing (WGS) data of 1001 indigenous Tibetans, covering the major populated areas of the Qinghai-Tibetan Plateau in China. We identify 35 million variants, and more than one-third of them are novel variants. Utilizing the large-scale WGS data, we construct a comprehensive map of allele frequency and linkage disequilibrium and provide a population-specific genome reference panel, referred to as 1KTGP. Moreover, with the use of a combined approach, we redefine the signatures of Darwinian-positive selection in the Tibetan genomes, and we characterize a high-confidence list of 4320 variants and 192 genes that have undergone selection in Tibetans. In particular, we discover four new genes, TMEM132C, ATP13A3, SANBR, and KHDRBS2, with strong signals of selection, and they may account for the adaptation of cardio-pulmonary functions in Tibetans. Functional annotation and enrichment analysis indicate that the 192 genes with selective signatures are likely involved in multiple organs and physiological systems, suggesting polygenic and pleiotropic effects.<h4>Conclusions</h4>Overall, the large-scale Tibetan WGS data and the identified adaptive variants/genes can serve as a valuable resource for future genetic and medical studies of high-altitude populations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "easyCLIP analysis of RNA-protein interactions incorporating absolute quantification.",
+    "doi": "10.1038/s41467-021-21623-4",
+    "pmid": "33692367",
+    "authors": [
+      "Porter DF, Miao W, Yang X, Goda GA, Ji AL, Donohue LKH, Aleman MM, Dominguez D, Khavari PA."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-10",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "Quantitative criteria to identify proteins as RNA-binding proteins (RBPs) are presently lacking, as are criteria to define RBP target RNAs. Here, we develop an ultraviolet (UV) cross-linking immunoprecipitation (CLIP)-sequencing method, easyCLIP. easyCLIP provides absolute cross-link rates, as well as increased simplicity, efficiency, and capacity to visualize RNA libraries during sequencing library preparation. Measurement of >200 independent cross-link experiments across >35 proteins identifies an RNA cross-link rate threshold that distinguishes RBPs from non-RBPs and defines target RNAs as those with a complex frequency unlikely for a random protein. We apply easyCLIP to the 33 most recurrent cancer mutations across 28 RBPs, finding increased RNA binding per RBP molecule for KHDRBS2 R168C, A1CF E34K and PCBP1 L100P/Q cancer mutations. Quantitating RBP-RNA interactions can thus nominate proteins as RBPs and define the impact of specific disease-associated RBP mutations on RNA association.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and validation of a novel cuproptosis-related signature as a prognostic model for lung adenocarcinoma.",
+    "doi": "10.3389/fendo.2022.963220",
+    "pmid": "36353226",
+    "authors": [
+      "Chen Y, Tang L, Huang W, Zhang Y, Abisola FH, Li L."
+    ],
+    "year": "2022",
+    "publication_date": "2022-10-24",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Cuproptosis is a novel form of copper-induced cell death that targets lipoylated tricarboxylic acid (TCA) cycle proteins. However, its prognostic role in lung adenocarcinoma (LUAD) remains unclear. This study aimed to establish a cuproptosis-related prognostic signature for patients with LUAD.<h4>Methods</h4>Transcriptome data of LUAD samples were extracted from the Cancer Genome Atlas (TCGA) and Gene Expression Omnibus (GEO) databases. The prognostic value of cuproptosis-related genes (CRGs) was investigated using Cox regression analysis to develop a cuproptosis-related prognostic model. Kyoto Encyclopedia of Genes and Genomes (KEGG), gene ontology (GO) and gene set variation analysis (GSVA) were conducted to characterize different biological activities or pathways between high- or low-CRG groups. The expression pattern and prognostic values of CRGs were validated in 37 paired tumor-normal samples using quantitative PCR. Furthermore, <i>in vitro</i> experiments were performed to investigate the relationship between cuproptosis and CRG expression and to explore the function of target genes in cuproptosis.<h4>Results</h4>Among the 36 CRGs, 17 genes were upregulated, and 3 genes were downregulated in LUAD. A total of 385 CRGs were identified using Pearson correlation analysis. A cuproptosis-related signature was constructed using least absolute shrinkage and selection operator (LASSO) analysis. The prognostic value of the cuproptosis-related signature was validated in six external validation cohorts and in LUAD specimens from our facility. Patients in the high-risk group based on the CRG signature score had shorter overall survival than those in the low-risk group in both the datasets and clinical specimens. <i>In vitro</i> experiments revealed that the expression of <i>BARX1</i>, <i>GFRA3</i>, and <i>KHDRBS2</i> was upregulated after cuproptosis was induced by elesclomol-CuCL<sub>2</sub>, whereas the upregulation was suppressed on pretreatment with tetrathiomolybdate (TTM), a chelator of copper. Further, the cell proliferation assay revealed that the <i>BARX1</i> and <i>GFRA3</i> deficiency facilities the cuproptosis induced by elesclomol-CuCL<sub>2</sub>.<h4>Conclusion</h4>This study established a new CRG signature that can be used to predict the OS of LUAD patients. Moreover, the knockdown of <i>BARX1</i> and <i>GFRA3</i> could increase the sensitivity of LUAD cells to the cuproptosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mapping Transgene Insertion Sites Reveals Complex Interactions Between Mouse Transgenes and Neighboring Endogenous Genes.",
+    "doi": "10.3389/fnmol.2018.00385",
+    "pmid": "30405348",
+    "authors": [
+      "Laboulaye MA, Duan X, Qiao M, Whitney IE, Sanes JR."
+    ],
+    "year": "2018",
+    "publication_date": "2018-10-23",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Transgenic mouse lines are routinely employed to label and manipulate distinct cell types. The transgene generally comprises cell-type specific regulatory elements linked to a cDNA encoding a reporter or other protein. However, off-target expression seemingly unrelated to the regulatory elements in the transgene is often observed, it is sometimes suspected to reflect influences related to the site of transgene integration in the genome. To test this hypothesis, we used a proximity ligation-based method, Targeted Locus Amplification (TLA), to map the insertion sites of three well-characterized transgenes that appeared to exhibit insertion site-dependent expression in retina. The nearest endogenous genes to transgenes HB9-GFP, Mito-P, and TYW3 are <i>Cdh6</i>, <i>Fat4</i> and <i>Khdrbs2</i>, respectively. For two lines, we demonstrate that expression reflects that of the closest endogenous gene (<i>Fat4</i> and <i>Cdh6</i>), even though the distance between transgene and endogenous gene is 550 and 680 kb, respectively. In all three lines, the transgenes decrease expression of the neighboring endogenous genes. In each case, the affected endogenous gene was expressed in at least some of the cell types that the transgenic line has been used to mark and study. These results provide insights into the effects of transgenes and endogenous genes on each other's expression, demonstrate that mapping insertion site is valuable for interpreting results obtained with transgenic lines, and indicate that TLA is a reliable method for integration site discovery.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated analysis of the roles and prognostic value of RNA binding proteins in lung adenocarcinoma.",
+    "doi": "10.7717/peerj.8509",
+    "pmid": "32071816",
+    "authors": [
+      "Li W, Li N, Gao L, You C."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-06",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "Lung cancer is the top cause of carcinoma-associated deaths worldwide. RNA binding proteins (RBPs) dysregulation has been reported in various malignant tumors, and that dysregulation is closely associated with tumorigenesis and tumor progression. However, little is known about the roles of RBPs in lung adenocarcinoma (LUAD). In this study, we downloaded the RNA sequencing data of LUAD from The Cancer Genome Atlas (TCGA) database and determined the differently expressed RBPs between normal and cancer tissues. We then performed an integrative analysis to explore the expression and prognostic significance of these RBPs. A total of 164 differently expressed RBPs were identified, including 40 down-regulated and 124 up-regulated RBPs. Pathway and Gene ontology (GO) analysis indicated that the differently expressed RBPs were mainly related to RNA processing, RNA metabolic process, RNA degradation, RNA transport, splicing, localization, regulation of translation, RNA binding, TGF-beta signaling pathway, mRNA surveillance pathway, and aminoacyl-tRNA biosynthesis. Survival analysis revealed that the high expression of <i>BOP1</i> or <i>GNL3</i> or <i>WDR12</i> or <i>DCAF13</i> or <i>IGF2BP3</i> or <i>IGF2BP1</i> were associated with poor overall survival (OS). Conversely, overexpression of <i>KHDRBS2</i>/<i>SMAD</i> predicted high OS in these patients. ROC curve analysis showed that the eight hub genes with a better diagnostic accuracy to distinguish lung adenocarcinoma. The results provided novel insights into the pathogenesis of LUAD and the development of treatment targets and prognostic molecular markers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Assessing Genomic Diversity and Selective Pressures in Bohai Black Cattle Using Whole-Genome Sequencing Data.",
+    "doi": "10.3390/ani12050665",
+    "pmid": "35268233",
+    "authors": [
+      "Ma X, Cheng H, Liu Y, Sun L, Chen N, Jiang F, You W, Yang Z, Zhang B, Song E, Lei C."
+    ],
+    "year": "2022",
+    "publication_date": "2022-03-07",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Bohai Black cattle are one of the well-known cattle breeds with black coat color in China, which are cultivated for beef. However, no study has conducted a comprehensive analysis of genomic diversity and selective pressures in Bohai Black cattle. Here, we performed a comprehensive analysis of genomic variation in 10 Bohai Black cattle (five newly sequenced and five published) and the published whole-genome sequencing (WGS) data of 50 cattle representing five \"core\" cattle populations. The population structure analysis revealed that Bohai Black cattle harbored the ancestry with European taurine, Northeast Asian taurine, and Chinese indicine. The Bohai Black cattle demonstrated relatively high genomic diversity from the other cattle breeds, as indicated by the nucleotide diversity (pi), the expected heterozygosity (H<sub>E</sub>) and the observed heterozygosity (H<sub>O</sub>), the linkage disequilibrium (LD) decay, and runs of homozygosity (ROH). We identified 65 genes containing more than five non-synonymous SNPs (nsSNPs), and an enrichment analysis revealed the \"ECM-receptor interaction\" pathways associated with meat quality in Bohai Black cattle. Five methods (CLR, θπ, F<sub>ST</sub>, θπ ratio, and XP-EHH) were used to find several pathways and genes carried selection signatures in Bohai Black cattle, including black coat color (<i>MC1R</i>), muscle development (<i>ITGA9</i>, <i>ENAH</i>, <i>CAPG</i>, <i>ABI2</i>, and <i>ISLR</i>), fat deposition (<i>TBC1D1</i>, <i>CYB5R4</i>, <i>TUSC3</i>, and <i>EPS8</i>), reproduction traits (<i>SPIRE2</i>, <i>KHDRBS2</i>, and <i>FANCA</i>), and immune system response (<i>CD84</i>, <i>SLAMF1</i>, <i>SLAMF6</i>, and <i>CDK10</i>). Taken together, our results provide a valuable resource for characterizing the uniqueness of Bohai Black cattle.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive Analysis of Prognostic Value of MEX3A and Its Relationship with Immune Infiltrates in Ovarian Cancer.",
+    "doi": "10.1155/2021/5574176",
+    "pmid": "34189143",
+    "authors": [
+      "Zhang P, Su T, Zhang S."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-03",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "MEX3A is a critical RNA-binding ubiquitin ligase that is upregulated in various types of cancer. However, the correlations of MEX3A with prognosis and its molecular mechanism in ovarian cancer (OC) remain unclear. The expression level, prognostic values, and the genetic variations of MEX3A were analyzed via Gene Expression Profiling Interactive Analysis (GEPIA) Oncomine, Kaplan-Meier plotter, and cBioPortal. We used the LinkedOmics database to investigate the functions of MEX3A coexpressed genes and performed visualizing gene interaction network analysis on the GeneMANIA website. The correlations between MEX3A and cancer immune infiltration were analyzed by the Tumor Immune Estimation Resource (TIMER) site and the TISIDB database. Furthermore, <i>in vitro</i> analysis was performed to evaluate the biological functions of MEX3A in OC cells. Our study showed that the expression of the MEX3A in OC was higher than in normal tissues; it had the greatest prognostic value in OC, and strong physical interaction with PABPC1, LAMTOR2, KHDRBS2, and IGF2BP2, which indicated the association between MEX3A and immune infiltration. We also found that MEX3A was negatively related to infiltrating levels of several types of immune cells, including macrophages, neutrophils, dendritic cells (DCs), B cells, and CD8+ T cells. Additionally, <i>in vitro</i> experiments demonstrated that MEX3A promotes proliferation and migration in OC cells. Taken together, MEX3A might influence the biological functions of OC cells by regulating the immune infiltration in the microenvironment as a prognostic biomarker and a potential therapeutic target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic expression of the RNA-binding protein Sam68 during mouse pre-implantation development.",
+    "doi": "10.1016/j.gep.2008.01.005",
+    "pmid": "18321792",
+    "authors": [
+      "Paronetto MP, Bianchi E, Geremia R, Sette C."
+    ],
+    "year": "2008",
+    "publication_date": "2008-02-02",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "The STAR protein Sam68 (KHDRBS1) is involved in several aspects of post-transcriptional mRNA metabolism. Herein, we have investigated the expression and subcellular localization of Sam68 during early mouse embryogenesis. We found that mouse oocytes express high levels of Sam68 mRNA, low levels of the transcript for Khdrbs2 (current symbol for Slm-1) and no Khdrbs3 (current symbol for Slm-2), two highly homologous STAR genes. Sam68 protein is expressed throughout oocyte meiotic maturation and early embryogenesis. It is released in the cytoplasm upon meiotic resumption and it slowly accumulates in the nucleus after fertilization. Unlike what was observed for other RNA-binding proteins, nuclear accumulation of Sam68 was independent of de novo mRNA transcription. However, we found that inhibition of mRNA translation by either cycloheximide or puromycin in one-cell embryos caused the accumulation of Sam68 in cytoplasmic granules. Analysis of these granules by deconvolution microscopy demonstrated that they are sites of accumulation for proteins involved in the initiation of mRNA translation, such as eIF4A1, eIF4E and eIF4G. These granules contained RNA and were dissolved by treatment with RNase A. Other proteins expressed by the zygote, like the splicing factor SC35 or the cytoplasmic kinase ERK2, did not accumulate in such structures after treatment with inhibitors of mRNA translation, indicating that the localization of Sam68 and of the translation initiation factors in these granules is a specific event. These results indicate that Sam68 is involved in translational regulation of maternal mRNAs in the zygote and in the early signaling events triggered by fertilization.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pseudogene ACTBP2 increases blood-brain barrier permeability by promoting KHDRBS2 transcription through recruitment of KMT2D/WDR5 in Aβ<sub>1-</sub><sub>42</sub> microenvironment.",
+    "doi": "10.1038/s41420-021-00531-y",
+    "pmid": "34127651",
+    "authors": [
+      "Liu Q, Liu X, Zhao D, Ruan X, Su R, Shang X, Wang D, Yang C, Xue Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-14",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "The blood-brain barrier (BBB) has a vital role in maintaining the homeostasis of the central nervous system (CNS). Changes in the structure and function of BBB can accelerate Alzheimer's disease (AD) development. β-Amyloid (Aβ) deposition is the major pathological event of AD. We elucidated the function and possible molecular mechanisms of the effect of pseudogene ACTBP2 on the permeability of BBB in Aβ<sub>1-42</sub> microenvironment. BBB model treated with Aβ<sub>1-42</sub> for 48 h were used to simulate Aβ-mediated BBB dysfunction in AD. We proved that pseudogene ACTBP2, RNA-binding protein KHDRBS2, and transcription factor HEY2 are highly expressed in ECs that were obtained in a BBB model in vitro in Aβ<sub>1-42</sub> microenvironment. In Aβ<sub>1-42</sub>-incubated ECs, ACTBP2 recruits methyltransferases KMT2D and WDR5, binds to KHDRBS2 promoter, and promotes KHDRBS2 transcription. The interaction of KHDRBS2 with the 3'UTR of HEY2 mRNA increases the stability of HEY2 and promotes its expression. HEY2 increases BBB permeability in Aβ<sub>1-42</sub> microenvironment by transcriptionally inhibiting the expression of ZO-1, occludin, and claudin-5. We confirmed that knocking down of Khdrbs2 or Hey2 increased the expression levels of ZO-1, occludin, and claudin-5 in APP/PS1 mice brain microvessels. ACTBP2/KHDRBS2/HEY2 axis has a crucial role in the regulation of BBB permeability in Aβ<sub>1-42</sub> microenvironment, which may provide a novel target for the therapy of AD.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Coordinated upregulation of PABPC1L and SNHG lncRNAs defines a tumor-specific expression module in colorectal cancer: evidence from paired tumor-normal expression profiling.",
+    "doi": "10.1016/j.bbrep.2025.102373",
+    "pmid": "41357316",
+    "authors": [
+      "Ghadyani F, Fazeli Z, Eslami S, Sanati M, Tajik Z, Ghafouri-Fard S, Sadeghi A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Nonsense-mediated mRNA decay (NMD) has an important role in the pathoetiology of cancer, including colorectal cancer (CRC). Identification of the lncRNAs associated with this function would enhance our understating about the molecular mechanisms of CRC and facilitate design of novel therapies. In the current study, we used a bioinformatics approach to find NMD-associated lncRNAs in CRC. Then, we assessed expression of these genes in 43 paired CRC samples and adjacent non-tumor (ANT) tissues. Three transcripts were significantly overexpressed in tumor tissue: PABPC1L (mean fold-change ≈ 5.20, 95 % CI 2.30-11.85, P = 0.0003), SNHG17 (mean fold-change ≈ 5.46, 95 % CI 2.04-14.50, P = 0.001), and SNHG1 (mean fold-change ≈ 5.82, P = 0.0086). RUSC1-AS1 showed a non-significant trend toward upregulation (fold-change ≈ 2.15, 95 % CI 0.92-5.00, P = 0.07). The combined four-gene model demonstrated moderate discriminatory power, yielding an AUC of 0.76 (95 % CI 0.65-0.86, <i>p</i> < 0.0001) with balanced sensitivity and specificity of 69.8 % each at the 0.5 cutoff (overall accuracy 69.8 %). Taken together, RUSC1-AS1, SNHG17, PABPC1L and SNHG1 can be novel candidates for future diagnostic studies in CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPC1L Induces IDO1 to Promote Tryptophan Metabolism and Immune Suppression in Renal Cell Carcinoma.",
+    "doi": "10.1158/0008-5472.can-23-2521",
+    "pmid": "38382068",
+    "authors": [
+      "Shu G, Chen M, Liao W, Fu L, Lin M, Gui C, Cen J, Lu J, Chen Z, Wei J, Chen W, Wang Y, Zhu J, Zhao T, Zhao T, Liu X, Jing J, Liu GC, Pan Y, Luo J, Zhang J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-01",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "The tumor microenvironment (TME) in renal cell carcinomas (RCC) is marked by substantial immunosuppression and immune resistance despite having extensive T-cell infiltration. Elucidation of the mechanisms underlying immune evasion could help identify therapeutic strategies to boost the efficacy of immune checkpoint blockade (ICB) in RCC. This study uncovered a mechanism wherein the polyadenylate-binding protein PABPC1L modulates indoleamine 2,3-dioxygenase 1 (IDO1), a prospective target for immunotherapy. PABPC1L was markedly upregulated in RCC, and high PABPC1L expression correlated with unfavorable prognosis and resistance to ICB. PABPC1L bolstered tryptophan metabolism by upregulating IDO1, inducing T-cell dysfunction and Treg infiltration. PABPC1L enhanced the stability of JAK2 mRNA, leading to increased JAK2-STAT1 signaling that induced IDO1 expression. Additionally, PABPC1L-induced activation of the JAK2-STAT1 axis created a positive feedback loop to promote PABPC1L transcription. Conversely, loss of PABPC1L diminished IDO1 expression, mitigated cytotoxic T-cell suppression, and enhanced responsiveness to anti-PD-1 therapy in patient-derived xenograft models. These findings reveal the crucial role of PABPC1L in facilitating immune evasion in RCC and indicate that inhibiting PABPC1L could be a potential immunotherapeutic approach in combination with ICB to improve patient outcomes.<h4>Significance</h4>PABPC1L functions as a key factor in renal cell carcinoma immune evasion, enhancing IDO1 and impeding T-cell function, and represents a potential target to enhance the efficacy of immune checkpoint blockade therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pathogenic missense variation in PABPC1L/EPAB causes female infertility due to oocyte maturation arrest at the germinal vesicle stage.",
+    "doi": "10.1007/s10815-023-03009-1",
+    "pmid": "38177974",
+    "authors": [
+      "Okutman O, Gürbüz AS, Büyük U, Real E, Leconte R, Chennen K, Mayer C, Muller J, Le May N, Viville S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-05",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Women undergoing controlled ovarian hyperstimulation prior to in vitro fertilization (IVF) are treated using various protocols to induce multiple follicular growths. Complete failure of all oocytes to mature during IVF cycles is rare; however, it is a known cause of primary female infertility. Recently, pathogenic variations in a few genes have been identified in women with oocyte maturation defects; however, the underlying genetic causes remain largely unknown.This study included a Turkish family comprising three sisters with recurring oocyte maturation arrest at the germinal vesicle stage after multiple ovarian stimulations. Exome sequencing revealed a homozygous missense variant (c.1037C>T, p.Ala346Val) in the EPAB gene (also known as PABPC1L) in all three affected sisters, which was either absent or heterozygous in the unaffected family members. Functional experiments confirming the pathogenicity of the variant were performed by transfecting HEK293T cells and demonstrated the instability and increased rate of proteolysis of the mutated PABPC1L/EPAB protein. The identified variant, located in the well-conserved fourth RNA recognition motif (RRM4), in silico 3D modelling suggested changes in the physical properties of the pathogenic variant of PABPC1L/EPAB. Our findings validate PABPC1L/EPAB as an essential genetic contributor to the oocyte maturation process in humans and have direct implications for the genetic counselling of patients and their family members.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bi-allelic pathogenic variants in PABPC1L cause oocyte maturation arrest and female infertility.",
+    "doi": "10.15252/emmm.202217177",
+    "pmid": "37052235",
+    "authors": [
+      "Wang W, Guo J, Shi J, Li Q, Chen B, Pan Z, Qu R, Fu J, Shi R, Xue X, Mu J, Zhang Z, Wu T, Wang W, Zhao L, Li Q, He L, Sun X, Sang Q, Lin G, Wang L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-13",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Oocyte maturation arrest is one of the important causes of female infertility, but the genetic factors remain largely unknown. PABPC1L, a predominant poly(A)-binding protein in Xenopus, mouse, and human oocytes and early embryos prior to zygotic genome activation, plays a key role in translational activation of maternal mRNAs. Here, we identified compound heterozygous and homozygous variants in PABPC1L that are responsible for female infertility mainly characterized by oocyte maturation arrest in five individuals. In vitro studies demonstrated that these variants resulted in truncated proteins, reduced protein abundance, altered cytoplasmic localization, and reduced mRNA translational activation by affecting the binding of PABPC1L to mRNA. In vivo, three strains of Pabpc1l knock-in (KI) female mice were infertile. RNA-sequencing analysis showed abnormal activation of the Mos-MAPK pathway in the zygotes of KI mice. Finally, we activated this pathway in mouse zygotes by injecting human MOS mRNA, and this mimicked the phenotype of KI mice. Our findings reveal the important roles of PABPC1L in human oocyte maturation and add a genetic potential candidate gene to be screened for causes of infertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human Tissues Exhibit Diverse Composition of Translation Machinery.",
+    "doi": "10.3390/ijms24098361",
+    "pmid": "37176068",
+    "authors": [
+      "Anisimova AS, Kolyupanova NM, Makarova NE, Egorov AA, Kulakovskiy IV, Dmitriev SE."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-06",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "While protein synthesis is vital for the majority of cell types of the human body, diversely differentiated cells require specific translation regulation. This suggests the specialization of translation machinery across tissues and organs. Using transcriptomic data from GTEx, FANTOM, and Gene Atlas, we systematically explored the abundance of transcripts encoding translation factors and aminoacyl-tRNA synthetases (ARSases) in human tissues. We revised a few known and identified several novel translation-related genes exhibiting strict tissue-specific expression. The proteins they encode include eEF1A1, eEF1A2, PABPC1L, PABPC3, eIF1B, eIF4E1B, eIF4ENIF1, and eIF5AL1. Furthermore, our analysis revealed a pervasive tissue-specific relative abundance of translation machinery components (e.g., PABP and eRF3 paralogs, eIF2B and eIF3 subunits, eIF5MPs, and some ARSases), suggesting presumptive variance in the composition of translation initiation, elongation, and termination complexes. These conclusions were largely confirmed by the analysis of proteomic data. Finally, we paid attention to sexual dimorphism in the repertoire of translation factors encoded in sex chromosomes (eIF1A, eIF2γ, and DDX3), and identified the testis and brain as organs with the most diverged expression of translation-associated genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Intronless Pabpc6 encodes a testis-specific, cytoplasmic poly(A)-binding protein but is dispensable for spermatogenesis in the mouse†.",
+    "doi": "10.1093/biolre/ioae017",
+    "pmid": "38281153",
+    "authors": [
+      "Kaku Y, Isono Y, Tanaka H, Kobayashi T, Kanemori Y, Kashiwabara SI."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Besides ubiquitous poly(A)-binding protein, cytoplasmic 1 (PABPC1), testis-specific PABPC2/PABPt (in humans, referred to as PABPC3), and female and male germline-specific PABPC1L/ePAB, have been reported in the mouse testis. Recent in silico analysis additionally identified testis-specific Pabpc6 in the mouse. In this study, we characterized PABPC6 and its mutant mice. PABPC6 was initially detectable in the cytoplasm of pachytene spermatocytes, increased in abundance in round spermatids, and decreased in elongating spermatids. PABPC6 was capable of binding to poly(A) tails of various mRNAs and interacting with translation-associated factors, including EIF4G, PAIP1, and PAIP2. Noteworthy was that PABPC6, unlike PABPC1, was barely associated with translationally active polysomes and enriched in chromatoid bodies of round spermatids. Despite these unique characteristics, neither synthesis of testicular proteins nor spermatogenesis was affected in the mutant mice lacking PABPC6, suggesting that PABPC6 is functionally redundant with other co-existing PABPC proteins during spermatogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Female infertility from oocyte maturation arrest: assembling the genetic puzzle.",
+    "doi": "10.15252/emmm.202317729",
+    "pmid": "37073822",
+    "authors": [
+      "Ding X, Schimenti JC."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-19",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Assisted reproduction procedures often encounter an issue called oocyte maturation arrest (OMA), which is manifested as failed IVF/ICSI attempts using oocytes from some infertile women. In this issue of EMBO Molecular Medicine, Wang et al identify infertile women bearing novel DNA sequence variants in a gene called PABPC1L, which is essential for translation of maternal mRNAs. By conducting a series of in vitro and in vivo experiments, they demonstrated certain variants as being causal for OMA, confirming a conserved requirement for PABPC1L in human oocyte maturation. This study offers a promising therapeutic target for treating OMA patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular characterization of colorectal cancer: A five-gene prognostic signature based on RNA-binding proteins.",
+    "doi": "10.4103/sjg.sjg_530_20",
+    "pmid": "34169901",
+    "authors": [
+      "Liang Q, Du X, Mao L, Wang G."
+    ],
+    "year": "2021",
+    "publication_date": "2021-07-01",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Colorectal cancer (CRC) is one of the most common cancers worldwide. RNA-binding proteins (RBPs) regulate essential biological processes and play essential roles in a variety of cancers. The present study screened differentially expressed RBPs, analyzed their function and constructed a prognostic model to predict the overall survival of patients with CRC.<h4>Methods</h4>We downloaded CRC RNA-sequencing data from the Cancer Genome Atlas (TCGA) portal and screened differentially expressed RBPs. Then, functional analyses of these genes were performed, and a risk model was established by multivariate Cox regression.<h4>Results</h4>We obtained 132 differentially expressed RBPs, including 66 upregulated and 66 downregulated RBPs. Functional analysis revealed that these genes were significantly enriched in RNA processing, modification and binding, ribosome biogenesis, post-transcriptional regulation, ribonuclease and nuclease activity. Additionally, some RBPs were significantly related to interferon (IFN)-alpha and IFN-beta biosynthetic processes and the Toll-like receptor signaling pathway. A prognostic model was constructed and included insulin like growth factor 2 messenger ribonucleic acid binding protein 3 (IGF2BP3), poly (A) binding protein cytoplasmic 1 like (PABPC1L), peroxisome proliferator activated receptor gamma coactivator 1 alpha (PPARGC1A), peptidyl- transfer ribonucleic acid hydrolase 1 homolog (PTRH1) and tudor domain containing 7 (TDRD7). The model is an independent risk factor for clinicopathological characteristics.<h4>Conclusion</h4>Our study provided novel insights into the pathogenesis of CRC and constructed a prognostic gene model, which may be helpful for determining the prognosis of CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A comprehensive expression landscape of RNA-binding proteins (RBPs) across 16 human cancer types.",
+    "doi": "10.1080/15476286.2019.1673657",
+    "pmid": "31607220",
+    "authors": [
+      "Zhang B, Babu KR, Lim CY, Kwok ZH, Li J, Zhou S, Yang H, Tay Y."
+    ],
+    "year": "2020",
+    "publication_date": "2019-10-13",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are key regulators of posttranscriptional processes such as RNA maturation, localization, turnover and translation. Despite their dysregulation in various diseases including cancer, the landscape of RBP expression in human cancer has not been well elucidated. Here, we built a comprehensive expression landscape of 1504 RBPs across 16 human cancer types, which revealed that RBPs are predominantly upregulated in tumours and this phenomenon is affected by the tumour immune subtypes and microenvironment. Across different cancer types, 109 RBPs are consistently upregulated while 41 RBPs are consistently downregulated. These up-regulated and down-regulated RBPs show distinct molecular characteristics and prognostic effects, whereas their dysregulation is mediated by distinct cis/trans-regulatory mechanisms. Finally, we validated one candidate PABPC1L that might promote colon tumorigenesis by regulating mRNA splicing. In summary, we built a comprehensive expression landscape of RBPs across different cancer types and identified consistently dysregulated RBPs which could be novel targets for developing broad-spectrum anticancer agents.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development and validation of a prognostic model for kidney renal clear cell carcinoma based on RNA binding protein expression.",
+    "doi": "10.18632/aging.104137",
+    "pmid": "33229623",
+    "authors": [
+      "Xiang Y, Zhou S, Hao J, Zhong C, Ma Q, Sun Z, Wei C."
+    ],
+    "year": "2020",
+    "publication_date": "2020-11-20",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Dysregulated expression of RNA-binding proteins (RBPs) is strongly associated with the development and progression of multiple tumors. However, little is known about the role of RBPs in kidney renal clear cell carcinoma (KIRC). In this study, we examined RBP expression profiles using The Cancer Genome Atlas database and identified 133 RBPs that were differentially expressed in KIRC and non-tumor tissues. We then systematically analyzed the potential biological functions of these RBPs and established PPIs. Based on Lasso regression and Cox survival analyses, we constructed a risk model that could independently and accurately predict prognosis based on seven RBPs (NOL12, PABPC1L, RNASE2, RPL22L1, RBM47, OASL, and YBX3). Survival times were shorter in patients with high risk scores for cohorts stratified by different characteristics. Gene set enrichment analysis was also performed to further understand functional differences between high- and low-risk groups. Finally, we developed a clinical nomogram with a concordance index of 0.792 for estimating 3- and 5-year survival probabilities. Our results demonstrate that this risk model could potentially improve individualized diagnostic and therapeutic strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and validation of a 9-RBPs-related gene signature associated with prognosis and immune infiltration in bladder cancer based on bioinformatics analysis and machine learning.",
+    "doi": "10.21037/tau-2024-688",
+    "pmid": "40376515",
+    "authors": [
+      "Chen Y, Yan Z, Li L, Liang Y, Wei X, Zhao Y, Cao Y, Zhang H, Tang L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-27",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Bladder cancer (BLCA) is the most common type of malignancy affecting the urinary tract, characterized by high recurrence rates, propensity for progression, metastatic potential, and multidrug resistance, all of which ultimately contribute to an unfavorable prognosis. RNA-binding proteins (RBPs) play a critical role in cancer development and have been associated with the progression and prognosis of the disease. However, comprehensive investigations into the biological functions and molecular mechanisms of RBPs in BLCA remain limited. The study aims to explore the relationship between RBPs and prognosis in BLCA, and to develop and validate an RBPs-based prognostic signature, providing new insights for the diagnosis and treatment of BLCA.<h4>Methods</h4>Clinical data and RBPs expression profiles of BLCA patients were sourced from The Cancer Genome Atlas (TCGA) and Gene Expression Omnibus (GEO). A systematic bioinformatics analysis was conducted to identify differentially expressed RBPs and assess their prognostic significance. The optimal predictive model was selected by integrating multiple machine learning algorithms, enabling the identification of hub genes associated with BLCA prognosis and developing an RBP-related gene signature. To evaluate the prognostic signature's efficacy, survival curves and receiver operating characteristic (ROC) curves were generated. A nomogram was constructed and validated to predict the survival of BLCA patients at 1, 3, and 5 years. Furthermore, analyses of immune infiltration and gene set enrichment analysis (GSEA) were conducted to explore the roles of RBPs in immune cell interactions and elucidate underlying biological pathways.<h4>Results</h4>A prognostic signature was effectively developed using nine RBPs (OAS1, MTG1, DUS4L, IGF2BP3, NOL12, PABPC1L, ZC3HAV1L, TRMT2A and TRMU), represented as risk score, through the integration of 13 combinatorial machine learning algorithms. Kaplan-Meier analysis revealed that the high-risk group exhibited a significantly poorer overall survival (OS) probability compared to the low-risk group. The areas under the ROC curves for the risk score model at 1, 3, and 5 years were 0.661, 0.655, and 0.676, respectively. The nomogram, which integrated clinical characteristics and risk scores, demonstrated robust prognostic accuracy. Furthermore, single-sample gene set enrichment analysis (ssGSEA) demonstrated significant correlations between both the risk score model and hub RBPs with the immune status of BLCA patients. GSEA indicated that major signaling pathways enriched in the high-risk group included extracellular matrix (ECM) components and interaction, as well as cytokine and receptor interaction.<h4>Conclusions</h4>This study successfully identified and developed a prognostic signature based on nine RBPs, accompanied by a nomogram for predicting survival probability in BLCA patients. Our findings demonstrate that these nine RBPs function as significant biomarkers for forecasting the prognosis and immune status in BLCA, suggesting their potential as therapeutic targets for BLCA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Effects of RNA Binding Proteins on the Prognosis and Malignant Progression in Prostate Cancer.",
+    "doi": "10.3389/fgene.2020.591667",
+    "pmid": "33193734",
+    "authors": [
+      "Hua X, Ge S, Chen J, Zhang L, Tai S, Liang C."
+    ],
+    "year": "2020",
+    "publication_date": "2020-10-20",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Prostate cancer (PCa) is a common lethal malignancy in men. RNA binding proteins (RBPs) have been proven to regulate the biological processes of various tumors, but their roles in PCa remain less defined. In the present study, we used bioinformatics analysis to identify RBP genes with prognostic and diagnostic values. A total of 59 differentially expressed RBPs in PCa were obtained, comprising 28 upregulated and 31 downregulated RBP genes, which may play important roles in PCa. Functional enrichment analyses showed that these RBPs were mainly involved in mRNA processing, RNA splicing, and regulation of RNA splicing. Additionally, we identified nine RBP genes (EXO1, PABPC1L, REXO2, MBNL2, MSI1, CTU1, MAEL, YBX2, and ESRP2) and their prognostic values by a protein-protein interaction network and Cox regression analyses. The expression of these nine RBPs was validated using immunohistochemical staining between the tumor and normal samples. Further, the associations between the expression of these nine RBPs and pathological T staging, Gleason score, and lymph node metastasis were evaluated. Moreover, these nine RBP genes showed good diagnostic values and could categorize the PCa patients into two clusters with different malignant phenotypes. Finally, we constructed a prognostic model based on these nine RBP genes and validated them using three external datasets. The model showed good efficiency in predicting patient survival and was independent of other clinical factors. Therefore, our model could be used as a supplement for clinical factors to predict patient prognosis and thereby improve patient survival.",
+    "openalex_id": ""
+  }
+]

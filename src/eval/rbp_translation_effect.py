@@ -1238,7 +1238,7 @@ class RBPMotifMutagenesisEvaluator:
         self.model = base_model
         self.device = _model_device(base_model)
         self.pwm_library = {
-            str(key): normalize_pwm(value)
+            str(key).strip(): normalize_pwm(value)
             for key, value in pwm_library.items()
         }
         self.prediction_scale = prediction_scale
@@ -1343,7 +1343,7 @@ class RBPMotifMutagenesisEvaluator:
         disrupted_records = []
         mutation_counts = {}
         for hit in hits.itertuples(index=False):
-            matrix_id = str(hit.Matrix_ID)
+            matrix_id = str(hit.Matrix_ID).strip()
             if matrix_id not in self.pwm_library:
                 raise KeyError(f"PWM '{matrix_id}' is unavailable.")
             sample = samples[hit.Tid]
@@ -1657,9 +1657,13 @@ class RBPMotifMutagenesisEvaluator:
         )
 
         rows = []
+        missing_least_preferred_pwms = set()
+        incompatible_least_preferred_pwms = set()
         for hit in selected.itertuples(index=False):
             sample = samples[hit.Tid]
             wt_signal = float(hit.WT_CDS_Mean_Signal)
+            matrix_id = str(hit.Matrix_ID).strip()
+            hit_pwm = self.pwm_library.get(matrix_id)
             context_start = max(0, int(hit.Start) - context_flank)
             context_end = min(
                 sample["Transcript_Length"], int(hit.End) + context_flank
@@ -1687,28 +1691,36 @@ class RBPMotifMutagenesisEvaluator:
                 least_preferred_base = None
                 least_preferred_contribution = np.nan
                 if is_motif:
-                    matrix_id = str(hit.Matrix_ID)
-                    if matrix_id not in self.pwm_library:
-                        raise KeyError(f"PWM '{matrix_id}' is unavailable.")
                     motif_offset = position - int(hit.Start)
-                    native_index = BASE_TO_INDEX[sample["Sequence"][position]]
-                    least_preferred_index = _least_preferred_alternative(
-                        self.pwm_library[matrix_id][motif_offset],
-                        native_index,
-                    )
-                    least_preferred_base = str(BASES[least_preferred_index])
-                    least_variant_id = alternative_variants[
-                        (hit.Hit_ID, position, least_preferred_base)
-                    ]
-                    least_signal = _mean_cds_signal(
-                        predictions[least_variant_id],
-                        sample["CDS_Start_0based"],
-                        sample["CDS_End_exclusive"],
-                        skip_codons=cds_skip_codons,
-                    )
-                    least_preferred_contribution = np.log2(
-                        (wt_signal + eps) / (least_signal + eps)
-                    )
+                    if hit_pwm is None:
+                        missing_least_preferred_pwms.add(matrix_id)
+                    elif not 0 <= motif_offset < len(hit_pwm):
+                        incompatible_least_preferred_pwms.add(matrix_id)
+                    else:
+                        native_index = BASE_TO_INDEX[
+                            sample["Sequence"][position]
+                        ]
+                        least_preferred_index = (
+                            _least_preferred_alternative(
+                                hit_pwm[motif_offset],
+                                native_index,
+                            )
+                        )
+                        least_preferred_base = str(
+                            BASES[least_preferred_index]
+                        )
+                        least_variant_id = alternative_variants[
+                            (hit.Hit_ID, position, least_preferred_base)
+                        ]
+                        least_signal = _mean_cds_signal(
+                            predictions[least_variant_id],
+                            sample["CDS_Start_0based"],
+                            sample["CDS_End_exclusive"],
+                            skip_codons=cds_skip_codons,
+                        )
+                        least_preferred_contribution = np.log2(
+                            (wt_signal + eps) / (least_signal + eps)
+                        )
                 rows.append({
                     "Hit_ID": hit.Hit_ID,
                     "Tid": hit.Tid,
@@ -1731,6 +1743,12 @@ class RBPMotifMutagenesisEvaluator:
                         least_preferred_contribution
                     ),
                     "PWM_Least_Preferred_Alternative": least_preferred_base,
+                    "PWM_Available_For_Least_Preferred": bool(
+                        hit_pwm is not None
+                    ),
+                    "PWM_Least_Preferred_Computed": bool(
+                        pd.notna(least_preferred_contribution)
+                    ),
                     "Motif_Delta_Log2_TE": float(hit.Delta_Log2_TE),
                     "Group_Median_Delta_Log2_TE": float(
                         hit.Group_Median_Delta_Log2_TE
@@ -1741,6 +1759,24 @@ class RBPMotifMutagenesisEvaluator:
                     "CDS_End_exclusive": sample["CDS_End_exclusive"],
                     "Transcript_Length": sample["Transcript_Length"],
                 })
+        if missing_least_preferred_pwms:
+            preview = ", ".join(sorted(missing_least_preferred_pwms)[:5])
+            print(
+                "[WARN] PWM least-preferred scores were skipped for "
+                f"{len(missing_least_preferred_pwms)} unavailable PWM(s): "
+                f"{preview}. Mean-of-three-alternatives contributions are "
+                "complete and can still be plotted."
+            )
+        if incompatible_least_preferred_pwms:
+            preview = ", ".join(
+                sorted(incompatible_least_preferred_pwms)[:5]
+            )
+            print(
+                "[WARN] PWM least-preferred scores were skipped for "
+                f"{len(incompatible_least_preferred_pwms)} PWM(s) whose "
+                f"length does not match the hit interval: {preview}. "
+                "Mean-of-three-alternatives contributions are complete."
+            )
         return pd.DataFrame(rows)
 
 

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The myotonic dystrophies: molecular, clinical, and therapeutic challenges.",
+    "doi": "10.1016/s1474-4422(12)70204-1",
+    "pmid": "22995693",
+    "authors": [
+      "Udd B, Krahe R."
+    ],
+    "year": "2012",
+    "publication_date": "2012-10-01",
+    "cited_by_count": 359,
+    "journal": "",
+    "abstract": "Myotonic dystrophy is the most common type of muscular dystrophy in adults and is characterised by progressive myopathy, myotonia, and multiorgan involvement. Two genetically distinct entities have been identified. Myotonic dystrophy type 1 (also known as Steinert's disease) was first described more than 100 years ago, whereas myotonic dystrophy type 2 was identified only 18 years ago, after genetic testing for type 1 disease could be applied. Both diseases are caused by autosomal dominant nucleotide repeat expansions. In patients with myotonic dystrophy type 1, a (CTG)(n) expansion is present in DMPK, whereas in patients with type 2 disease, there is a (CCTG)(n) expansion in CNBP. When transcribed into CUG-containing RNA, mutant transcripts aggregate as nuclear foci that sequester RNA-binding proteins, resulting in a spliceopathy of downstream effector genes. The prevailing paradigm therefore is that both disorders are toxic RNA diseases. However, research indicates several additional pathogenic effects take place with respect to protein translation and turnover. Despite clinical and genetic similarities, myotonic dystrophy type 1 and type 2 are distinct disorders requiring different diagnostic and management strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The SARS-CoV-2 RNA-protein interactome in infected human cells.",
+    "doi": "10.1038/s41564-020-00846-z",
+    "pmid": "33349665",
+    "authors": [
+      "Schmidt N, Lareau CA, Keshishian H, Ganskih S, Schneider C, Hennig T, Melanson R, Werner S, Wei Y, Zimmer M, Ade J, Kirschner L, Zielinski S, Dölken L, Lander ES, Caliskan N, Fischer U, Vogel J, Carr SA, Bodem J, Munschauer M."
+    ],
+    "year": "2021",
+    "publication_date": "2020-12-21",
+    "cited_by_count": 297,
+    "journal": "",
+    "abstract": "Characterizing the interactions that SARS-CoV-2 viral RNAs make with host cell proteins during infection can improve our understanding of viral RNA functions and the host innate immune response. Using RNA antisense purification and mass spectrometry, we identified up to 104 human proteins that directly and specifically bind to SARS-CoV-2 RNAs in infected human cells. We integrated the SARS-CoV-2 RNA interactome with changes in proteome abundance induced by viral infection and linked interactome proteins to cellular pathways relevant to SARS-CoV-2 infections. We demonstrated by genetic perturbation that cellular nucleic acid-binding protein (CNBP) and La-related protein 1 (LARP1), two of the most strongly enriched viral RNA binders, restrict SARS-CoV-2 replication in infected cells and provide a global map of their direct RNA contact sites. Pharmacological inhibition of three other RNA interactome members, PPIA, ATP1A1, and the ARP2/3 complex, reduced viral replication in two human cell lines. The identification of host dependency factors and defence strategies as presented in this work will improve the design of targeted therapeutics against SARS-CoV-2.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Myotonic dystrophies: An update on clinical aspects, genetic, pathology, and molecular pathomechanisms.",
+    "doi": "10.1016/j.bbadis.2014.05.019",
+    "pmid": "24882752",
+    "authors": [
+      "Meola G, Cardani R."
+    ],
+    "year": "2015",
+    "publication_date": "2014-05-29",
+    "cited_by_count": 250,
+    "journal": "",
+    "abstract": "Myotonic dystrophy (DM) is the most common adult muscular dystrophy, characterized by autosomal dominant progressive myopathy, myotonia and multiorgan involvement. To date two distinct forms caused by similar mutations have been identified. Myotonic dystrophy type 1 (DM1, Steinert's disease) is caused by a (CTG)n expansion in DMPK, while myotonic dystrophy type 2 (DM2) is caused by a (CCTG)n expansion in ZNF9/CNBP. When transcribed into CUG/CCUG-containing RNA, mutant transcripts aggregate as nuclear foci that sequester RNA-binding proteins, resulting in spliceopathy of downstream effector genes. However, it is now clear that additional pathogenic mechanism like changes in gene expression, protein translation and micro-RNA metabolism may also contribute to disease pathology. Despite clinical and genetic similarities, DM1 and DM2 are distinct disorders requiring different diagnostic and management strategies. This review is an update on the recent advances in the understanding of the molecular mechanisms behind myotonic dystrophies. This article is part of a Special Issue entitled: Neuromuscular Diseases: Pathology and Molecular Pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circ-HuR suppresses HuR expression and gastric cancer progression by inhibiting CNBP transactivation.",
+    "doi": "10.1186/s12943-019-1094-z",
+    "pmid": "31718709",
+    "authors": [
+      "Yang F, Hu A, Li D, Wang J, Guo Y, Liu Y, Li H, Chen Y, Wang X, Huang K, Zheng L, Tong Q."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-13",
+    "cited_by_count": 184,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs (circRNAs), a subclass of non-coding RNAs, play essential roles in tumorigenesis and aggressiveness. Our previous study has identified that circAGO2 drives gastric cancer progression through activating human antigen R (HuR), a protein stabilizing AU-rich element-containing mRNAs. However, the functions and underlying mechanisms of circRNAs derived from HuR in gastric cancer progression remain elusive.<h4>Methods</h4>CircRNAs derived from HuR were detected by real-time quantitative RT-PCR and validated by Sanger sequencing. Biotin-labeled RNA pull-down, mass spectrometry, RNA immunoprecipitation, RNA electrophoretic mobility shift, and in vitro binding assays were applied to identify proteins interacting with circRNA. Gene expression regulation was observed by chromatin immunoprecipitation, dual-luciferase assay, real-time quantitative RT-PCR, and western blot assays. Gain- and loss-of-function studies were performed to observe the impacts of circRNA and its protein partner on the growth, invasion, and metastasis of gastric cancer cells in vitro and in vivo.<h4>Results</h4>Circ-HuR (hsa_circ_0049027) was predominantly detected in the nucleus, and was down-regulated in gastric cancer tissues and cell lines. Ectopic expression of circ-HuR suppressed the growth, invasion, and metastasis of gastric cancer cells in vitro and in vivo. Mechanistically, circ-HuR interacted with CCHC-type zinc finger nucleic acid binding protein (CNBP), and subsequently restrained its binding to HuR promoter, resulting in down-regulation of HuR and repression of tumor progression.<h4>Conclusions</h4>Circ-HuR serves as a tumor suppressor to inhibit CNBP-facilitated HuR expression and gastric cancer progression, indicating a potential therapeutic target for gastric cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A G-Rich Motif in the lncRNA Braveheart Interacts with a Zinc-Finger Transcription Factor to Specify the Cardiovascular Lineage.",
+    "doi": "10.1016/j.molcel.2016.08.010",
+    "pmid": "27618485",
+    "authors": [
+      "Xue Z, Hennelly S, Doyle B, Gulati AA, Novikova IV, Sanbonmatsu KY, Boyer LA."
+    ],
+    "year": "2016",
+    "publication_date": "2016-09-08",
+    "cited_by_count": 126,
+    "journal": "",
+    "abstract": "Long non-coding RNAs (lncRNAs) are an emerging class of transcripts that can modulate gene expression; however, their mechanisms of action remain poorly understood. Here, we experimentally determine the secondary structure of Braveheart (Bvht) using chemical probing methods and show that this ∼590 nt transcript has a modular fold. Using CRISPR/Cas9-mediated editing of mouse embryonic stem cells, we find that deletion of 11 nt in a 5' asymmetric G-rich internal loop (AGIL) of Bvht (bvht<sup>dAGIL</sup>) dramatically impairs cardiomyocyte differentiation. We demonstrate a specific interaction between AGIL and cellular nucleic acid binding protein (CNBP/ZNF9), a zinc-finger protein known to bind single-stranded G-rich sequences. We further show that CNBP deletion partially rescues the bvht<sup>dAGIL</sup> mutant phenotype by restoring differentiation capacity. Together, our work shows that Bvht functions with CNBP through a well-defined RNA motif to regulate cardiovascular lineage commitment, opening the door for exploring broader roles of RNA structure in development and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Core Clinical Phenotypes in Myotonic Dystrophies.",
+    "doi": "10.3389/fneur.2018.00303",
+    "pmid": "29770119",
+    "authors": [
+      "Wenninger S, Montagnese F, Schoser B."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-02",
+    "cited_by_count": 122,
+    "journal": "",
+    "abstract": "Myotonic dystrophy type 1 (DM1) and type 2 (DM2) represent the most frequent multisystemic muscular dystrophies in adulthood. They are progressive, autosomal dominant diseases caused by an abnormal expansion of an unstable nucleotide repeat located in the non-coding region of their respective genes DMPK for DM1 and CNBP in DM2. Clinically, these multisystemic disorders are characterized by a high variability of muscular and extramuscular symptoms, often causing a delay in diagnosis. For both subtypes, many symptoms overlap, but some differences allow their clinical distinction. This article highlights the clinical core features of myotonic dystrophies, thus facilitating their early recognition and diagnosis. Particular attention will be given to signs and symptoms of muscular involvement, to issues related to respiratory impairment, and to the multiorgan involvement. This article is part of a Special Issue entitled \"Beyond Borders: Myotonic Dystrophies-A European Perception.\"",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Human CCHC-type Zinc Finger Nucleic Acid-Binding Protein Binds G-Rich Elements in Target mRNA Coding Sequences and Promotes Translation.",
+    "doi": "10.1016/j.celrep.2017.02.080",
+    "pmid": "28329689",
+    "authors": [
+      "Benhalevy D, Gupta SK, Danan CH, Ghosal S, Sun HW, Kazemier HG, Paeschke K, Hafner M, Juranek SA."
+    ],
+    "year": "2017",
+    "publication_date": "2017-03-01",
+    "cited_by_count": 105,
+    "journal": "",
+    "abstract": "The CCHC-type zinc finger nucleic acid-binding protein (CNBP/ZNF9) is conserved in eukaryotes and is essential for embryonic development in mammals. It has been implicated in transcriptional, as well as post-transcriptional, gene regulation; however, its nucleic acid ligands and molecular function remain elusive. Here, we use multiple systems-wide approaches to identify CNBP targets and function. We used photoactivatable ribonucleoside-enhanced crosslinking and immunoprecipitation (PAR-CLIP) to identify 8,420 CNBP binding sites on 4,178 mRNAs. CNBP preferentially bound G-rich elements in the target mRNA coding sequences, most of which were previously found to form G-quadruplex and other stable structures in vitro. Functional analyses, including RNA sequencing, ribosome profiling, and quantitative mass spectrometry, revealed that CNBP binding did not influence target mRNA abundance but rather increased their translational efficiency. Considering that CNBP binding prevented G-quadruplex structure formation in vitro, we hypothesize that CNBP is supporting translation by resolving stable structures on mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Short Tandem Repeat Expansions and RNA-Mediated Pathogenesis in Myotonic Dystrophy.",
+    "doi": "10.3390/ijms20133365",
+    "pmid": "31323950",
+    "authors": [
+      "Sznajder ŁJ, Swanson MS."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-09",
+    "cited_by_count": 99,
+    "journal": "",
+    "abstract": "Short tandem repeat (STR) or microsatellite, expansions underlie more than 50 hereditary neurological, neuromuscular and other diseases, including myotonic dystrophy types 1 (DM1) and 2 (DM2). Current disease models for DM1 and DM2 propose a common pathomechanism, whereby the transcription of mutant <i>DMPK</i> (DM1) and <i>CNBP</i> (DM2) genes results in the synthesis of CUG and CCUG repeat expansion (CUG<sup>exp</sup>, CCUG<sup>exp</sup>) RNAs, respectively. These CUG<sup>exp</sup> and CCUG<sup>exp</sup> RNAs are toxic since they promote the assembly of ribonucleoprotein (RNP) complexes or RNA foci, leading to sequestration of Muscleblind-like (MBNL) proteins in the nucleus and global dysregulation of the processing, localization and stability of MBNL target RNAs. STR expansion RNAs also form phase-separated gel-like droplets both in vitro and in transiently transfected cells, implicating RNA-RNA multivalent interactions as drivers of RNA foci formation. Importantly, the nucleation and growth of these nuclear foci and transcript misprocessing are reversible processes and thus amenable to therapeutic intervention. In this review, we provide an overview of potential DM1 and DM2 pathomechanisms, followed by a discussion of MBNL functions in RNA processing and how multivalent interactions between expanded STR RNAs and RNA-binding proteins (RBPs) promote RNA foci assembly.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cellular nucleic acid binding protein binds a conserved region of the 5' UTR of Xenopus laevis ribosomal protein mRNAs.",
+    "doi": "10.1006/jmbi.1996.0888",
+    "pmid": "9096224",
+    "authors": [
+      "Pellizzoni L, Lotti F, Maras B, Pierandrei-Amaldi P."
+    ],
+    "year": "1997",
+    "publication_date": "1997-03-01",
+    "cited_by_count": 85,
+    "journal": "",
+    "abstract": "Vertebrate ribosomal protein mRNAs share structural features in the 5' untranslated region implicated in the control of their translation. A pyrimidine tract, at the 5' end, is considered the common cis-acting element, but the control requires also the integrity of the conserved downstream region. These sequences interact in vitro with proteins, which may represent the trans-acting factors for a common regulation. The protein that binds the pyrimidine tract has been identified as La and its binding in vitro depends on interaction with a protein factor. In the present study, by purification, microsequencing and immunoprecipitation analysis we have identified the protein that interacts with the region downstream of the pyrimidine tract as the Xenopus laevis cellular nucleic acid binding protein (CNBP). The interaction of this protein with the conserved region of various ribosomal protein (rp)-mRNAs suggests a class-specific recognition. The binding of CNBP to the target region requires the assistance of a protease-sensitive factor, that dissociates after complex formation. Some evidence suggests that this may be the same factor that assists the binding of La to the 5' untranslated region (UTR) of the rp-mRNAs. Considering that CNBP and La come in contact with two typical regions of the 5' UTR, essential for regulation, their interaction with the assisting factor may exert a modulating activity on the translational control of ribosomal protein mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Muscle wasting in myotonic dystrophies: a model of premature aging.",
+    "doi": "10.3389/fnagi.2015.00125",
+    "pmid": "26217220",
+    "authors": [
+      "Mateos-Aierdi AJ, Goicoechea M, Aiastui A, Fernández-Torrón R, Garcia-Puga M, Matheu A, López de Munain A."
+    ],
+    "year": "2015",
+    "publication_date": "2015-07-09",
+    "cited_by_count": 80,
+    "journal": "",
+    "abstract": "Myotonic dystrophy type 1 (DM1 or Steinert's disease) and type 2 (DM2) are multisystem disorders of genetic origin. Progressive muscular weakness, atrophy and myotonia are the most prominent neuromuscular features of these diseases, while other clinical manifestations such as cardiomyopathy, insulin resistance and cataracts are also common. From a clinical perspective, most DM symptoms are interpreted as a result of an accelerated aging (cataracts, muscular weakness and atrophy, cognitive decline, metabolic dysfunction, etc.), including an increased risk of developing tumors. From this point of view, DM1 could be described as a progeroid syndrome since a notable age-dependent dysfunction of all systems occurs. The underlying molecular disorder in DM1 consists of the existence of a pathological (CTG) triplet expansion in the 3' untranslated region (UTR) of the Dystrophia Myotonica Protein Kinase (DMPK) gene, whereas (CCTG)n repeats in the first intron of the Cellular Nucleic acid Binding Protein/Zinc Finger Protein 9 (CNBP/ZNF9) gene cause DM2. The expansions are transcribed into (CUG)n and (CCUG)n-containing RNA, respectively, which form secondary structures and sequester RNA-binding proteins, such as the splicing factor muscleblind-like protein (MBNL), forming nuclear aggregates known as foci. Other splicing factors, such as CUGBP, are also disrupted, leading to a spliceopathy of a large number of downstream genes linked to the clinical features of these diseases. Skeletal muscle regeneration relies on muscle progenitor cells, known as satellite cells, which are activated after muscle damage, and which proliferate and differentiate to muscle cells, thus regenerating the damaged tissue. Satellite cell dysfunction seems to be a common feature of both age-dependent muscle degeneration (sarcopenia) and muscle wasting in DM and other muscle degenerative diseases. This review aims to describe the cellular, molecular and macrostructural processes involved in the muscular degeneration seen in DM patients, highlighting the similarities found with muscle aging.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>N<sup>6</sup></i> -methyladenosine-Mediated Upregulation of WTAPP1 Promotes WTAP Translation and Wnt Signaling to Facilitate Pancreatic Cancer Progression.",
+    "doi": "10.1158/0008-5472.can-21-0494",
+    "pmid": "34362795",
+    "authors": [
+      "Deng J, Zhang J, Ye Y, Liu K, Zeng L, Huang J, Pan L, Li M, Bai R, Zhuang L, Huang X, Wu G, Wei L, Zheng Y, Su J, Zhang S, Chen R, Lin D, Zheng J."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-06",
+    "cited_by_count": 75,
+    "journal": "",
+    "abstract": "Pseudogenes may play important roles in cancer. Here, we explore the mechanism and function of a pseudogene <i>WTAPP1</i> in the progress of pancreatic ductal adenocarcinoma (PDAC). <i>WTAPP1</i> RNA was significantly elevated in PDAC and was associated with poor prognosis in patients. Overexpression of <i>WTAPP1</i> RNA promoted PDAC proliferation and invasiveness <i>in vitro</i> and <i>in vivo</i>. Mechanistically, <i>N</i> <sup>6</sup>-methyladenosine (m<sup>6</sup>A) modification stabilized <i>WTAPP1</i> RNA via CCHC-type zinc finger nucleic-acid binding protein (CNBP), resulting in increased levels of <i>WTAPP1</i> RNA in PDAC cells. Excessive <i>WTAPP1</i> RNA bound its protein-coding counterpart WT1-associated protein (WTAP) mRNA and recruited more EIF3 translation initiation complex to promote WTAP translation. Increased WTAP protein enhanced the activation of Wnt signaling and provoked the malignant phenotypes of PDAC. Decreasing <i>WTAPP1</i> RNA significantly suppressed the <i>in vivo</i> growth and metastasis of PDAC cell lines and patient-derived xenografts. These results indicate that m<sup>6</sup>A-mediated increases in <i>WTAPP1</i> expression promote PDAC progression and thus may serve as a therapeutic target. SIGNIFICANCE: This study reveals how aberrant m<sup>6</sup>A modification of the <i>WTAPP1</i> pseudogene results in increased translation of its protein-coding counterpart to promote Wnt signaling, which contributes to pancreatic cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>LAST</i>, a c-Myc-inducible long noncoding RNA, cooperates with CNBP to promote <i>CCND1</i> mRNA stability in human cells.",
+    "doi": "10.7554/elife.30433",
+    "pmid": "29199958",
+    "authors": [
+      "Cao L, Zhang P, Li J, Wu M."
+    ],
+    "year": "2017",
+    "publication_date": "2017-12-04",
+    "cited_by_count": 75,
+    "journal": "",
+    "abstract": "Cyclin D1 is a critical regulator of cell cycle progression and works at the G1 to S-phase transition. Here, we report the isolation and characterization of the novel c-Myc-regulated lncRNA <i>LAST</i> (<u>L</u>ncRNA-<u>A</u>ssisted <u>S</u>tabilization of <u>T</u>ranscripts), which acts as a <i>CCND1</i> mRNA stabilizer. Mechanistically, <i>LAST</i> was shown to cooperate with CNBP to bind to the 5'UTR of <i>CCND1</i> mRNA to protect against possible nuclease targeting. In addition, data from CNBP RIP-seq and <i>LAST</i> RNA-seq showed that <i>CCND1</i> mRNA might not be the only target of <i>LAST</i> and CNBP; three additional mRNAs were shown to be post-transcriptional targets of <i>LAST</i> and CNBP. In a xenograft model, depletion of <i>LAST</i> diminished and ectopic expression of <i>LAST</i> induced tumor formation, which are suggestive of its oncogenic function. We thus report a previously unknown lncRNA involved in the fine-tuned regulation of <i>CCND1</i> mRNA stability, without which <i>CCND1</i> exhibits, at most, partial expression.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Proximity-specific ribosome profiling reveals the logic of localized mitochondrial translation.",
+    "doi": "10.1016/j.cell.2025.08.002",
+    "pmid": "40876456",
+    "authors": [
+      "Luo J, Khandwala S, Hu J, Lee SY, Hickey KL, Levine ZG, Harper JW, Ting AY, Weissman JS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-27",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "Localized translation broadly enables spatiotemporal control of gene expression. Here, we present LOV-domain-controlled ligase for translation localization (LOCL-TL), an optogenetic approach for monitoring translation with codon resolution at any defined subcellular location under physiological conditions. Application of LOCL-TL to mitochondrially localized translation revealed that ∼20% of human nuclear-encoded mitochondrial genes are translated on the outer mitochondrial membrane (OMM). Mitochondrially translated messages form two classes distinguished by encoded protein length, recruitment mechanism, and cellular function. An evolutionarily ancient mechanism allows nascent chains to drive cotranslational recruitment of long proteins via an unanticipated bipartite targeting signal. Conversely, mRNAs of short proteins, especially eukaryotic-origin electron transport chain (ETC) components, are specifically recruited by the OMM protein A-kinase anchoring protein 1 (AKAP1) in a translation-independent manner that depends on mRNA splicing. AKAP1 loss lowers ETC levels. LOCL-TL thus reveals a hierarchical strategy that enables preferential translation of a subset of proteins on the OMM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "AKAP1 enhances glycogen accumulation and hepatocarcinogenesis through YTHDF2-mediated G6PC mRNA decay.",
+    "doi": "10.1038/s41392-026-02733-1",
+    "pmid": "42303608",
+    "authors": [
+      "Yang T, Zhang J, Zhao Z, Cheng S, Yan Z, Wang W, Wang G, Zhang R, Zhang Z, Yuan P, Zheng X, Zhang H, Li J, Xing J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-16",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "During recent years, a growing body of evidence has revealed that metabolic rewiring of glycogen is a hallmark of cancer that plays a significant role in tumor development and progression. Nonetheless, the molecular mechanism underlying the dysregulation of glycogen remains largely unknown. In this study, using liver-specific AKAP1 depletion and overexpression mouse models, we demonstrated that AKAP1 deficiency markedly suppressed both chemical diethylnitrosamine/carbon tetrachloride (DEN/CCl₄)-induced and Akt/β-catenin oncogene-driven spontaneous hepatocellular carcinoma (HCC) by reducing hepatic glycogen content. Conversely, AKAP1 overexpression promoted glycogen accumulation and accelerated spontaneous hepatocarcinogenesis. Mechanically, m6A-dependent mRNA decay of glucose 6 phosphatase (G6PC) by YTHDF2, which was identified as a direct phosphorylation substrate at serine 289 and 359 sites by AKAP1 in a PKA-dependent manner, is important for AKAP1-caused glycogen accumulation and consequent hepatocarcinogenesis. Additionally, we found that AKAP1 expression is transcriptionally upregulated by Myc-associated zinc-finger protein (MAZ) in HCC cells. Importantly, treatment with AP-21, a competitive peptide inhibitor that disrupts mitochondrial localization of AKAP1, significantly reduced glycogen content and suppressed hepatocarcinogenesis without observable toxicity, highlighting its translational potential as a targeted therapeutic strategy for HCC. Collectively, our findings uncover a critical role for AKAP1 in driving HCC through metabolic reprogramming of glycogen, establishing AKAP1 as a promising therapeutic target for this malignancy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-sequencing based gene variants observed in patients with hyperlipidemia and premature coronary heart disease: A preliminary study.",
+    "doi": "10.1016/j.bbrep.2026.102466",
+    "pmid": "41631214",
+    "authors": [
+      "Dechkhajorn W, Prasongsukarn K, Benjathummarak S, Topanurak S, Maneerat Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Familial hypercholesterolemia (FH) is a genetic disorder characterized by markedly elevated low-density lipoprotein (LDL) cholesterol levels, which primarily progresses to premature or familial coronary heart disease (FH-CHD). This cross-sectional study included healthy controls (N) and patients with hyperlipidemia (H), FH, CHD, and FH-CHD. We attempted to explore gene variants shared in H, FH and FH-CHD using next-generation sequencing tool. The RNA-seq transcriptome profiling from the whole peripheral blood (n = 3/group) were analyzed. The results revealed 15 intersected gene variants between the H/FH and FH-CHD groups. Aligning and mapping on the coding regions showed significant high-impact variants in 6 of the 15 genes including <i>MAFG</i>, <i>AKAP1</i>, <i>TLR5</i>, <i>CHUK, EMC10,</i> and <i>PLRG1.</i> The significant high-impact variations included frameshift variants in <i>CHUK</i> and <i>PLRG,</i> stop-gain variation in <i>TLR5</i> at the last intron, stop-lost variation in <i>EMC10,</i> and splice-acceptor and donor variants in <i>MAFG</i> and <i>AKAP1</i>, respectively. Pathogenicity scoring (ACMG Criteria) interpreted that these variation effects are predicted to lose the gene functions. Based on reference databases without any validation, these gene variations are probably linked to atherogenesis and CHD development. Conclusively, our exploratory observed that <i>MAFG</i>, <i>AKAP1</i>, <i>TLR5</i>, <i>CHUK, EMC10,</i> and <i>PLRG1</i> variants had higher impacts and might be related to premature CHD development. Further classification and functional validation of these genetic variations should be considered for the feasibility of using these gene variants as contributory predictors of the FH-CHD risk in hyperlipidemia patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Insights into the regulation of mRNA translation by scaffolding proteins.",
+    "doi": "10.1042/bst20241021",
+    "pmid": "39641595",
+    "authors": [
+      "Smith MR, Costa G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Regionalisation of molecular mechanisms allows cells to fine-tune their responses to dynamic environments. In this context, scaffolds are well-known mediators of localised protein activity. These phenomenal proteins act as docking sites where pathway components are brought together to ensure efficient and reliable flow of information within the cell. Although scaffolds are mostly understood as hubs for signalling communication, some have also been studied as regulators of mRNA translation. Here, we provide a brief overview of the work unravelling how scaffolding proteins facilitate the cross-talk between the two processes. Firstly, we examine the activity of AKAP1 and AKAP12, two signalling proteins that not only have the capacity to anchor mRNAs to membranes but can also regulate protein synthesis. Next, we review the studies that uncovered how the ribosome-associated protein RACK1 orchestrates translation initiation. We also discuss the evidence pointing to the scaffolds Ezrin and LASP1 as regulators of early translation stages. In the end, we conclude with some open questions and propose future directions that will bring new insights into the regulation of mRNA translation by scaffolding proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hepatic AKAP1 deficiency exacerbates diet-induced MASLD by enhancing GPAT1-mediated lysophosphatidic acid synthesis.",
+    "doi": "10.1038/s41467-025-58790-7",
+    "pmid": "40341440",
+    "authors": [
+      "He L, She X, Guo L, Gao M, Wang S, Lu Z, Guo H, Li R, Nie Y, Xing J, Ji L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-08",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Metabolic dysfunction-associated steatotic liver disease (MASLD), closely associated with obesity, can progress to metabolic dysfunction-associated steatohepatitis when the liver undergoes overt inflammatory damage. A-kinase anchoring protein 1 (AKAP1) has been shown to control lipid accumulation in brown adipocytes. However, the role of AKAP1 signaling in hepatic lipid metabolism and MASLD remains poorly understood. Here, we showed that hepatocyte-specific AKAP1 deficiency exacerbated hepatic steatosis and steatohepatitis in male mice subjected to a high-fat diet and fast-food diet, respectively. Mechanistically, AKAP1 directly phosphorylated and inactivated glycerol-3-phosphate acyltransferase 1 (GPAT1) in a PKA-dependent manner, thus suppressing lysophosphatidic acid (LPA) production. Increased endogenous LPA in hepatocytes promoted hepatocellular triglyceride (TG) synthesis and initiated pronounced inflammatory response in Kupffer cells. Restoring hepatic AKAP1 or repressing LPA levels via GPAT1 knockdown alleviated MASLD exacerbation. Overall, AKAP1 plays a protective role against MASLD by inhibiting GPAT1 activity, highlighting the potential of targeting AKAP1/PKA/GPAT1 signalosome for MASLD therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LINC00323 knockdown suppresses the proliferation, migration, and vascular mimicry of non-small cell lung cancer cells by promoting ubiquitinated degradation of AKAP1.",
+    "doi": "10.1016/j.ncrna.2024.12.006",
+    "pmid": "39802612",
+    "authors": [
+      "Ke B, Zhong H, Gong Y, Chen X, Yan C, Shi L."
+    ],
+    "year": "2025",
+    "publication_date": "2024-12-14",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "<h4>Background</h4>LINC00323, a new long noncoding RNA, is aberrantly expressed in several cancers. However, the expression, function, and mechanism of LINC00323 in non-small cell lung cancer (NSCLC) are unclear.<h4>Methods</h4>In the present study, LINC00323, VEGFA, microvessel density (MVD), and AKAP1 levels were confirmed in NSCLC tissues. Cell proliferation, migration, and vascular mimicry (VM) were examined to assess the effects of LINC00323 and AKAP1 on NSCLC cells. In addition, the interaction between LINC00323 and AKAP1 was verified by RNA pull-down, LC-MS/MS and RNA immunoprecipitation. The ubiquitination level of AKAP1 was also confirmed through coimmunoprecipitation, cycloheximide (CHX) chase, and ubiquitination assays in vitro.<h4>Results</h4>Our results revealed that LINC00323 was upregulated in NSCLC tissues and was positively correlated with metastasis, poor prognosis, VEGFA expression, elevated MVD, and AKAP1 expression. Functionally, LINC00323 or AKAP1 knockdown suppressed the proliferation, migration, and VM of NSCLC cells. Mechanistically, LINC00323 could target AKAP1, and LINC00323 knockdown accelerated ubiquitination-mediated AKAP1 protein degradation. Moreover, LINC00323 silencing suppressed NSCLC cell progression by downregulating AKAP1.<h4>Conclusions</h4>LINC00323 knockdown prevents NSCLC cell proliferation, migration, and VM formation by targeting AKAP1, indicating that LINC00323 and AKAP1 might be biological targets for NSCLC treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic architecture of RNA editing, splicing and gene expression in schizophrenia.",
+    "doi": "10.1093/hmg/ddae172",
+    "pmid": "39656777",
+    "authors": [
+      "Choudhury M, Yamamoto R, Xiao X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-01",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Genome wide association studies (GWAS) have been conducted over the past decades to investigate the underlying genetic origin of neuropsychiatric diseases, such as schizophrenia (SCZ). While these studies demonstrated the significance of disease-phenotype associations, there is a pressing need to fully characterize the functional relevance of disease-associated genetic variants. Functional genetic loci can affect transcriptional and post-transcriptional phenotypes that may contribute to disease pathology. Here, we investigate the associations between genetic variation and RNA editing, splicing, and overall gene expression through identification of quantitative trait loci (QTL) in the CommonMind Consortium SCZ cohort. We find that editing QTL (edQTL), splicing QTL (sQTL) and expression QTL (eQTL) possess both unique and common gene targets, which are involved in many disease-relevant pathways, including brain function and immune response. We identified two QTL that fall into all three QTL categories (seedQTL), one of which, rs146498205, targets the lincRNA gene, RP11-156P1.3. In addition, we observe that the RNA binding protein AKAP1, with known roles in neuronal regulation and mitochondrial function, had enriched binding sites among edQTL, including the seedQTL, rs146498205. We conduct colocalization with various brain disorders and find that all QTL have top colocalizations with SCZ and related neuropsychiatric diseases. Furthermore, we identify QTL within biologically relevant GWAS loci, such as in ELA2, an important tRNA processing gene associated with SCZ risk. This work presents the investigation of multiple QTL types in parallel and demonstrates how they target both distinct and overlapping SCZ-relevant genes and pathways.",
+    "openalex_id": ""
+  },
+  {
+    "title": "AKAP1 contributes to impaired mtDNA replication and mitochondrial dysfunction in podocytes of diabetic kidney disease.",
+    "doi": "10.7150/ijbs.73493",
+    "pmid": "35844803",
+    "authors": [
+      "Feng J, Chen Z, Ma Y, Yang X, Zhu Z, Zhang Z, Hu J, Liang W, Ding G."
+    ],
+    "year": "2022",
+    "publication_date": "2022-06-13",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "Podocyte injury is involved in the onset and progression of diabetic kidney disease (DKD) and is associated with mitochondrial abnormalities. Defective mitochondrial DNA (mtDNA) replication results in mitochondrial dysfunction. However, whether podocyte mtDNA replication is impaired in DKD is still unclear. A-kinase anchoring protein 1 (AKAP1) is localized in the outer mitochondrial membrane (OMM) and acts as a regulator and conductor of mitochondrial signals. Herein, we investigated the role of AKAP1 in high glucose-induced mtDNA replication. Decreased mtDNA replication and mitochondrial dysfunction occurred in podocytes of DKD. AKAP1 expression was up-regulated, and protein kinase C (PKC) signaling was activated under hyperglycemic conditions. AKAP1 recruited PKC and mediated La-related protein 1 (Larp1) phosphorylation, which reduced the expression of mitochondrial transcription factor A (TFAM), a key factor in mtDNA replication. In addition, mtDNA replication, mitochondrial function and podocyte injury were rescued by knocking down AKAP1 expression and the PKC inhibitor enzastaurin. In contrast, AKAP1 overexpression worsened the impairment of mtDNA replication and podocyte injury. In conclusion, our study revealed that AKAP1 phosphorylates Larp1 via PKC signaling activation to decrease mtDNA replication, which accelerates mitochondrial dysfunction and podocyte injury in DKD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Multi-omic analysis of human PHACTR1 signaling networks.",
+    "doi": "10.1038/s42003-026-09542-w",
+    "pmid": "41554990",
+    "authors": [
+      "Wolhuter K, Ma L, Bryce NS, Contreras O, Mellett N, Zhong L, Thekkedam C, Iismaa SE, Giles C, Harvey RP, Hennessy T, Fouracre C, Bradley D, Meikle PJ, Björkegren JLM, Kovacic JC."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Genetic studies have linked PHACTR1 to a range of vascular diseases, underscoring its pivotal role in vascular biology. However, the full spectrum of PHACTR1-mediated signaling pathways remains largely unexplored. To bridge this gap, we employ a multi-omics pipeline combining pairwise differential expression analysis, multi-omics pathway integration, and feature-level correlation analyses across four distinct omics datasets to map the global signaling networks driven by PHACTR1. By integrating transcriptomic, proteomic, metabolic, and lipidomic profiles from human HT1080 cells with PHACTR1 overexpression or knockdown, and then validating key findings in primary human endothelial cells, here we show that PHACTR1 exerts broad control over fundamental cellular processes beyond cytoskeletal regulation. We demonstrate that PHACTR1 governs cell cycle progression, validating that increased expression alters key regulatory proteins. We also uncover a distinct function in iron metabolism, showing PHACTR1 regulates essential cellular iron-storage proteins and identify the PHACTR1 protein within the mitochondria where it directs morphology and bioenergetics through a signaling axis involving AKAP1 and Drp1. These mitochondrial changes align with observed shifts in lipid metabolism and correlations in human arterial tissue. These findings provide a systems-level blueprint of PHACTR1 function, revealing how this gene influences vascular health and offering potential targets for therapeutic intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "AKAP1/PKA-mediated GRP75 phosphorylation at mitochondria-associated endoplasmic reticulum membranes protects cancer cells against ferroptosis.",
+    "doi": "10.1038/s41418-024-01414-2",
+    "pmid": "39537840",
+    "authors": [
+      "Liu H, Zheng S, Hou G, Dai J, Zhao Y, Yang F, Xiang Z, Zhang W, Wang X, Gong Y, Li L, Zhang N, Hu Y."
+    ],
+    "year": "2025",
+    "publication_date": "2024-11-13",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "Emerging evidence suggests that signaling pathways can be spatially regulated to ensure rapid and efficient responses to dynamically changing local cues. Ferroptosis is a recently defined form of lipid peroxidation-driven cell death. Although the molecular mechanisms underlying ferroptosis are emerging, spatial aspects of its signaling remain largely unexplored. By analyzing a public database, we found that a mitochondrial chaperone protein, glucose-regulated protein 75 (GRP75), may have a previously undefined role in regulating ferroptosis. This was subsequently validated. Interestingly, under ferroptotic conditions, GRP75 translocated from mitochondria to mitochondria-associated endoplasmic reticulum (ER) membranes (MAMs) and the cytosol. Further mechanistic studies revealed a highly spatial regulation of GRP75-mediated antiferroptotic signaling. Under ferroptotic conditions, lipid peroxidation predominantly accumulated at the ER, which activated protein kinase A (PKA) in a cAMP-dependent manner. In particular, a signaling microdomain, the outer mitochondrial membrane protein A-kinase anchor protein 1 (AKAP1)-anchored PKA, phosphorylated GRP75 at S148 in MAMs. This caused GRP75 to be sequestered outside the mitochondria, where it competed with Nrf2 for Keap1 binding through a conserved high-affinity RGD-binding motif, ETGE. Nrf2 was then stabilized and activated, leading to the transcriptional activation of a panel of antiferroptotic genes. Blockade of the PKA/GRP75 axis dramatically increased the responses of cancer cells to ferroptosis both in vivo and in vitro. Our identification a localized signaling cascade involved in protecting cancer cells from ferroptosis broadens our understanding of cellular defense mechanisms against ferroptosis and also provides a new target axis (AKAP1/PKA/GRP75) to improve the responses of cancer cells to ferroptosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of A-Kinase Anchoring Protein 1 in Retinal Ganglion Cells: Neurodegeneration and Neuroprotection.",
+    "doi": "10.3390/cells12111539",
+    "pmid": "37296658",
+    "authors": [
+      "Bastola T, Perkins GA, Kim KY, Choi S, Kwon JW, Shen Z, Strack S, Ju WK."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-03",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "A-Kinase anchoring protein 1 (AKAP1) is a multifunctional mitochondrial scaffold protein that regulates mitochondrial dynamics, bioenergetics, and calcium homeostasis by anchoring several proteins, including protein kinase A, to the outer mitochondrial membrane. Glaucoma is a complex, multifactorial disease characterized by a slow and progressive degeneration of the optic nerve and retinal ganglion cells (RGCs), ultimately resulting in vision loss. Impairment of the mitochondrial network and function is linked to glaucomatous neurodegeneration. Loss of AKAP1 induces dynamin-related protein 1 dephosphorylation-mediated mitochondrial fragmentation and loss of RGCs. Elevated intraocular pressure triggers a significant reduction in AKAP1 protein expression in the glaucomatous retina. Amplification of AKAP1 expression protects RGCs from oxidative stress. Hence, modulation of AKAP1 could be considered a potential therapeutic target for neuroprotective intervention in glaucoma and other mitochondria-associated optic neuropathies. This review covers the current research on the role of AKAP1 in the maintenance of mitochondrial dynamics, bioenergetics, and mitophagy in RGCs and provides a scientific basis to identify and develop new therapeutic strategies that could protect RGCs and their axons in glaucoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ligustilide-loaded liposome ameliorates mitochondrial impairments and improves cognitive function via the PKA/AKAP1 signaling pathway in a mouse model of Alzheimer's disease.",
+    "doi": "10.1111/cns.14460",
+    "pmid": "37718506",
+    "authors": [
+      "Zhang Q, Zhang X, Yang B, Li Y, Sun XH, Li X, Sui P, Wang YB, Tian SY, Wang CY."
+    ],
+    "year": "2024",
+    "publication_date": "2023-09-17",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Oxidative stress is an early event in the development of Alzheimer's disease (AD) and maybe a pivotal point of interaction governing AD pathogenesis; oxidative stress contributes to metabolism imbalance, protein misfolding, neuroinflammation and apoptosis. Excess reactive oxygen species (ROS) are a major contributor to oxidative stress. As vital sources of ROS, mitochondria are also the primary targets of ROS attack. Seeking effective avenues to reduce oxidative stress has attracted increasing attention for AD intervention.<h4>Methods</h4>We developed liposome-packaged Ligustilide (LIG) and investigated its effects on mitochondrial function and AD-like pathology in the APPswe/PS1dE9 (APP/PS1) mouse model of AD, and analyzed possible mechanisms.<h4>Results</h4>We observed that LIG-loaded liposome (LIG-LPs) treatment reduced oxidative stress and β-amyloid (Aβ) deposition and mitigated cognitive impairment in APP/PS1 mice. LIG management alleviated the destruction of the inner structure in the hippocampal mitochondria and ameliorated the imbalance between mitochondrial fission and fusion in the APP/PS1 mouse brain. We showed that the decline in cAMP-dependent protein kinase A (PKA) and A-kinase anchor protein 1 for PKA (AKAP1) was associated with oxidative stress and AD-like pathology. We confirmed that LIG-mediated antioxidant properties and neuroprotection were involved in upregulating the PKA/AKAP1 signaling in APPswe cells in vitro.<h4>Conclusion</h4>Liposome packaging for LIG is relatively biosafe and can overcome the instability of LIG. LIG alleviates mitochondrial dysfunctions and cognitive impairment via the PKA/AKAP1 signaling pathway. Our results provide experimental evidence that LIG-LPs may be a promising agent for AD therapy.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Preclinical evaluation of antisense oligonucleotide therapy in a mouse model of &lt;i&gt;HNRNPH2&lt;/i&gt;-related neurodevelopmental disorder.",
+    "doi": "10.1126/scitranslmed.adx3491",
+    "pmid": "42018666",
+    "authors": [
+      "Korff A, Yang X, Ozdemir O, Samanta A, Wang YD, Patni T, Lavado AJ, Kavirayani AM, Ochaba J, Powers B, Bennett CF, Kim HJ, Taylor JP."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Mutations in <i>HNRNPH2</i> cause an X-linked disorder characterized by developmental delay, intellectual disability, motor and gait disturbances, and seizures. Murine models that reproduce key clinical features of <i>HNRNPH2</i>-related neurodevelopmental disorder suggest that it may result from a toxic gain of function of the mutant protein or a complex loss of normal HNRNPH2 function with impaired compensation by its paralog, HNRNPH1. In this study, we tested gapmer antisense oligonucleotides (ASOs) that target murine <i>Hnrnph2</i> in a non-allele-specific manner. The lead ASO reduced <i>Hnrnph2</i> messenger RNA (mRNA) and protein expression while inducing compensatory up-regulation of <i>Hnrnph1</i> expression in both wild-type and <i>Hnrnph2</i> mutant mouse brains. A single intracerebroventricular injection of the <i>Hnrnph2</i> ASO into neonatal mutant <i>Hnrnph2</i> mice rescued molecular and audiogenic seizure phenotypes and improved certain motor and cognitive phenotypes. ASO treatment at the juvenile stage also rescued audiogenic seizures. In contrast, <i>Hnrnph2</i> ASO administration did not alter survival, body weight, or the incidence of hydrocephalus. In human induced pluripotent stem cell-derived neurons, a human-specific <i>HNRNPH2</i> research ASO reduced <i>HNRNPH2</i> mRNA and up-regulated <i>HNRNPH1</i> mRNA. Mechanistically, we found that <i>HNRNPH1</i> expression is regulated by alternative splicing and that HNRNPH2 modulates this process. These findings provide a preclinical proof of concept for <i>HNRNPH2</i> ASO therapy and offer insights into its underlying molecular mechanism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The spectrum of pre-mRNA splicing in autism.",
+    "doi": "10.1002/wrna.1838",
+    "pmid": "38509732",
+    "authors": [
+      "Engal E, Zhang Z, Geminder O, Jaffe-Herman S, Kay G, Ben-Hur A, Salton M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-03-01",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "Disruptions in spatiotemporal gene expression can result in atypical brain function. Specifically, autism spectrum disorder (ASD) is characterized by abnormalities in pre-mRNA splicing. Abnormal splicing patterns have been identified in the brains of individuals with ASD, and mutations in splicing factors have been found to contribute to neurodevelopmental delays associated with ASD. Here we review studies that shed light on the importance of splicing observed in ASD and that explored the intricate relationship between splicing factors and ASD, revealing how disruptions in pre-mRNA splicing may underlie ASD pathogenesis. We provide an overview of the research regarding all splicing factors associated with ASD and place a special emphasis on five specific splicing factors-HNRNPH2, NOVA2, WBP4, SRRM2, and RBFOX1-known to impact the splicing of ASD-related genes. In the discussion of the molecular mechanisms influenced by these splicing factors, we lay the groundwork for a deeper understanding of ASD's complex etiology. Finally, we discuss the potential benefit of unraveling the connection between splicing and ASD for the development of more precise diagnostic tools and targeted therapeutic interventions. This article is categorized under: RNA in Disease and Development > RNA in Disease RNA Evolution and Genomics > RNA and Ribonucleoprotein Evolution RNA Evolution and Genomics > Computational Analyses of RNA RNA-Based Catalysis > RNA Catalysis in Splicing and Translation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Modulation of Spliceosomal Proteins hnRNPH1 and H2 Increases Melanoma Cell Pro-Inflammatory Signaling In Vitro.",
+    "doi": "10.3390/biom15111611",
+    "pmid": "41301529",
+    "authors": [
+      "Sultan M, Ma S, Diez J, Velayutham S, Velayutham S, Al-Harbi Y, Choi JY, Smalley KSM, Nathanson L, Beljanski V, Minond D."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-17",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Melanoma is the most aggressive and deadliest form of skin cancer, and the current treatments of melanoma have many limitations, which necessitate discovering new compounds and targets for melanoma. Two probes, 2155-14 and 2155-18, were identified to induce apoptotic cell death, autophagy, and immune signaling modulation through hnRNPH1/H2-dependent mechanisms. RNA sequencing following the siRNA-mediated knockdown of hnRNPH2 in melanoma cells revealed an enrichment of immune-related signaling pathways. The present study investigated the effect of genetic and pharmacologic downregulation of hnRNPH1/H2 on melanoma immunogenicity in vitro. Our results indicated that treating melanoma cell lines with 2155-14 and 2155-18 led to hnRNPH1/H2 downregulation, whereas hnRNPH2 siRNA treatment led to only hnRNPH2 downregulation. Both types of treatment resulted in a significant upregulation of pro-inflammatory pathways and simultaneous downregulation of anti-inflammatory pathways. These findings provide the first insight into the role of hnRNPH1/H2 as critical drivers of melanoma immunogenicity and suggest their potential as novel therapeutic targets for enhancing melanoma treatment outcomes. This study underscores the impact of post-transcriptional regulation on the immune environment in melanoma and in cancer in general.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Reactivation of Human X-Linked Gene and Stable X-Chromosome Inactivation Observed in Generation and Differentiation of iPSCs from a Female Patient with HNRNPH2 Mutation.",
+    "doi": "10.3390/cells14191486",
+    "pmid": "41090715",
+    "authors": [
+      "Chen G, Rodriguez-Lopez A, Wangsa D, Lomash RM, Huang X, Chen CZ, Bowling RA, Ghousifam N, Banks CJ, Hurd KA, Zou J, Zheng W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "X chromosome inactivation (XCI) is a fundamental epigenetic process that balances X-linked gene expression between females and males by silencing one X chromosome in female cells. Variability or skewing of XCI can influence the clinical presentation of X-linked disorders. Bain type X-linked intellectual disability syndrome (MRXSB), caused by mutations in the X-linked <i>HNRNPH2</i> gene, is characterized by intellectual disability, developmental delay, and neurological abnormalities. In female patients, XCI heterogeneity complicates disease modeling and therapeutic development. Induced pluripotent stem cells (iPSCs) offer a unique platform to study patient-specific disease mechanisms, but the dynamics of XCI during iPSC reprogramming, maintenance, and differentiation are not fully understood. In this study, we generated 12 iPSC clones from fibroblasts of a female MRXSB patient heterozygous for the <i>HNRNPH2</i> c.340C > T mutation. Four clones expressed the mutant <i>HNRNPH2</i> allele and eight expressed the wild-type allele, indicating X chromosome reactivation (XCR) followed by random XCI during reprogramming. Importantly, these XCI patterns remained stable during long-term iPSC propagation and subsequent differentiation into the three germ layers and neural stem cells. Our findings provide new insights into XCI and XCR dynamics in the context of X-linked neurodevelopmental disorders and emphasize the importance of careful clone selection for accurate disease modeling using iPSC-based approaches.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Sex-biased transcriptome in in vitro produced bovine early embryos.",
+    "doi": "10.1186/s13578-025-01459-x",
+    "pmid": "40866999",
+    "authors": [
+      "Shi M, Li G, Araujo HM, Lee AS, Zhang J, Lee YL, IISAGE Consortium, Cheong SH, Duan JE."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-27",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Morphologic sex differences between males and females typically emerge after the primordial germ cell migration and gonad formation, although sex is determined at fertilization based on chromosome composition. A key debated sexual difference is the embryonic developmental rate, with in vitro produced male embryos often developing faster. However, the molecular mechanisms driving early embryonic sex differences remain unclear.<h4>Results</h4>To investigate the transcriptional sex difference during early development, in vitro produced bovine blastocysts were collected and sexed by PCR. A significant male-biased development is consistently observed in expanded blastocysts. Ultra-low input RNA-seq analysis identified 837 DEGs, 1555 significantly sex-biased differential alternative splicing (AS), and 1151 differentially expressed isoforms (DEIs). Among all of the DEGs, there were 231 upregulated and 606 downregulated in males. Functional enrichment analysis revealed male-biased DEGs were associated with metabolic regulation, whereas female-biased DEGs were related to female gonad development, sex differentiation, inflammatory pathways, and TGF-beta signaling. Comparing X chromosome and autosome expression ratio, we found that female-biased DEGs contributed to the higher X-linked gene dosage, a phenomenon not observed in male embryos. Moreover, we identified the sex-biased transcription factors and RNA-bind proteins, including pluripotent factors such as SOX21 and PRDM14, and splicing factors FMR1 and HNRNPH2. Additionally, we revealed that the significantly sex-biased differential AS were predominantly skipped exons, and they could be mapped to 906 genes, with 59 overlapping with DEGs enriched in metabolic and autophagy pathways. By incorporating novel isoforms from long reads sequencing, the sex-biased DEIs were associated with 1017 genes. Functional analysis showed that female-biased DEIs were involved in the negative regulation of transcriptional activity, while male-biased DEIs were related to energy metabolism. Furthermore, we identified sex-biased differential exon usage in DENND1B, DIS3L2, DOCK11, IL1RAPL2, and ZRSR2Y, indicating their sex-specific regulation in early embryo development.<h4>Conclusion</h4>This study provided a comprehensive analysis of transcriptome differences between male and female bovine blastocysts, integrating sex-biased gene expression, alternative splicing, and isoform dynamics. Our findings indicate that enriched metabolism processes in male embryos may contribute to the faster developmental pace, providing insights into sex-specific regulatory mechanisms during early embryogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "hnRNPH2 gain-of-function mutations reveal therapeutic strategies and a role for RNA granules in neurodevelopmental disorders.",
+    "doi": "10.1172/jci171499",
+    "pmid": "37463443",
+    "authors": [
+      "Kelvington BA, Abel T."
+    ],
+    "year": "2023",
+    "publication_date": "2023-07-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "hnRNPH2-related neurodevelopmental disorder (NDD) is caused by mutations in the HNRNPH2 gene and is associated with substantial challenges, including developmental delay, intellectual disability, growth delay, and epilepsy. There is currently no therapeutic intervention available to those with hnRNPH2-related NDD that addresses its underlying mechanisms. In this issue of the JCI, Korff et al. studied specific gain-of-function mutations associated with hnRNPH2-related NDD, with the help of mouse models that recapitulate key features of the condition in humans. Their work paves the way for therapeutic approaches that aim to reduce the expression of mutant hnRNPH2 and highlights a role for disrupted RNA granules in neurodevelopmental and neurodegenerative disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A murine model of hnRNPH2-related neurodevelopmental disorder reveals a mechanism for genetic compensation by Hnrnph1.",
+    "doi": "10.1172/jci160309",
+    "pmid": "37463454",
+    "authors": [
+      "Korff A, Yang X, O'Donovan K, Gonzalez A, Teubner BJ, Nakamura H, Messing J, Yang F, Carisey AF, Wang YD, Patni T, Sheppard H, Zakharenko SS, Chook YM, Taylor JP, Kim HJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-07-17",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "Mutations in HNRNPH2 cause an X-linked neurodevelopmental disorder with features that include developmental delay, motor function deficits, and seizures. More than 90% of patients with hnRNPH2 have a missense mutation within or adjacent to the nuclear localization signal (NLS) of hnRNPH2. Here, we report that hnRNPH2 NLS mutations caused reduced interaction with the nuclear transport receptor Kapβ2 and resulted in modest cytoplasmic accumulation of hnRNPH2. We generated 2 knockin mouse models with human-equivalent mutations in Hnrnph2 as well as Hnrnph2-KO mice. Knockin mice recapitulated clinical features of the human disorder, including reduced survival in male mice, impaired motor and cognitive functions, and increased susceptibility to audiogenic seizures. In contrast, 2 independent lines of Hnrnph2-KO mice showed no detectable phenotypes. Notably, KO mice had upregulated expression of Hnrnph1, a paralog of Hnrnph2, whereas knockin mice failed to upregulate Hnrnph1. Thus, genetic compensation by Hnrnph1 may counteract the loss of hnRNPH2. These findings suggest that HNRNPH2-related disorder may be driven by a toxic gain of function or a complex loss of HNRNPH2 function with impaired compensation by HNRNPH1. The knockin mice described here are an important resource for preclinical studies to assess the therapeutic benefit of gene replacement or knockdown of mutant hnRNPH2.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The HNRNPF/H RNA binding proteins and disease.",
+    "doi": "10.1002/wrna.1788",
+    "pmid": "37042074",
+    "authors": [
+      "Brownmiller T, Caplen NJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-11",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "The members of the HNRNPF/H family of heterogeneous nuclear RNA proteins-HNRNPF, HNRNPH1, HNRNPH2, HNRNPH3, and GRSF1, are critical regulators of RNA maturation. Documented functions of these proteins include regulating splicing, particularly alternative splicing, 5' capping and 3' polyadenylation of RNAs, and RNA export. The assignment of these proteins to the HNRNPF/H protein family members relates to differences in the amino acid composition of their RNA recognition motifs, which differ from those of other RNA binding proteins (RBPs). HNRNPF/H proteins typically bind RNA sequences enriched with guanine (G) residues, including sequences that, in the presence of a cation, have the potential to form higher-order G-quadruplex structures. The need to further investigate members of the HNRNPF/H family of RBPs has intensified with the recent descriptions of their involvement in several disease states, including the pediatric tumor Ewing sarcoma and the hematological malignancy mantle cell lymphoma; newly described groups of developmental syndromes; and neuronal-related disorders, including addictive behavior. Here, to foster the study of the HNRNPF/H family of RBPs, we discuss features of the genes encoding these proteins, their structures and functions, and emerging contributions to disease. This article is categorized under: RNA in Disease and Development > RNA in Disease RNA Processing > Splicing Regulation/Alternative Splicing RNA Interactions with Proteins and Other Molecules > Protein-RNA Interactions: Functional Implications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Complementary analysis of proteome-wide proteomics reveals changes in RNA binding protein-profiles during prostate cancer progression.",
+    "doi": "10.1002/cnr2.1886",
+    "pmid": "37591798",
+    "authors": [
+      "Aikio E, Koivukoski S, Kallio E, Sadeesh N, Niskanen EA, Latonen L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-17",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Accumulating evidence indicates importance of RNA regulation in cancer. This includes events such as splicing, translation, and regulation of noncoding RNAs, functions which are governed by RNA binding proteins (RBPs).<h4>Aims</h4>To find which RBPs could be relevant for prostate cancer, we performed systematic screening of RBP expression in clinical prostate cancer.<h4>Methods and results</h4>We interrogated four proteome-wide proteomics datasets including tumor samples of primary, castration resistant, and metastatic prostate cancer. We found that, while the majority of RBPs are expressed but not significantly altered during prostate cancer development and progression, expression of several RBPs increases in advanced disease. Interestingly, most of the differentially expressed RBPs are not targets of differential posttranscriptional phosphorylation during disease progression. The RBPs undergoing expression changes have functions in, especially, poly(A)-RNA binding, nucleocytoplasmic transport, and cellular stress responses, suggesting that these may play a role in formation of castration resistance. Pathway analyzes indicate that increased ribosome production and chromatin-related functions of RBPs are also linked to castration resistant and metastatic prostate cancers. We selected a group of differentially expressed RBPs and studied their role in cultured prostate cancer cells. With siRNA screens, several of these were indicated in survival (DDX6, EIF4A3, PABPN1), growth (e.g., EIF5A, HNRNPH2, LRRC47, and NVL), and migration (e.g., NOL3 and SLTM) of prostate cancer cells. Our analyzes further show that RRP9, a U3 small nucleolar protein essential for ribosome formation, undergoes changes at protein level during metastasis in prostate cancer.<h4>Conclusion</h4>In this work, we recognized significant molecular alterations in RBP profiles during development and evolution of prostate cancer. Our study further indicates several functionally significant RBPs warranting further investigation for their functions and possible targetability in prostate cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "5'-tRNA&lt;sup&gt;Gly(GCC)&lt;/sup&gt; halves generated by IRE1α are linked to the ER stress response.",
+    "doi": "10.1038/s41467-024-53624-4",
+    "pmid": "39468069",
+    "authors": [
+      "Jin H, Yeom JH, Shin E, Ha Y, Liu H, Kim D, Joo M, Kim YH, Kim HK, Ryu M, Kim HM, Kim J, Kim KP, Hahn Y, Bae J, Lee K."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-28",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "Transfer RNA halves (tRHs) have various biological functions. However, the biogenesis of specific 5'-tRHs under certain conditions remains unknown. Here, we report that inositol-requiring enzyme 1α (IRE1α) cleaves the anticodon stem-loop region of tRNA<sup>Gly(GCC)</sup> to produce 5'-tRHs (5'-tRH-Gly<sup>GCC</sup>) with highly selective target discrimination upon endoplasmic reticulum (ER) stress. Levels of 5'-tRH-Gly<sup>GCC</sup> positively affect cancer cell proliferation and modulate mRNA isoform biogenesis both in vitro and in vivo; these effects require co-expression of two nuclear ribonucleoproteins, HNRNPM and HNRNPH2, which we identify as binding proteins of 5'-tRH-Gly<sup>GCC</sup>. In addition, under ER stress in vivo, we observe simultaneous induction of IRE1α and 5'-tRH-Gly<sup>GCC</sup> expression in mouse organs and a distantly related organism, Cryptococcus neoformans. Thus, collectively, our findings indicate an evolutionarily conserved function for IRE1α-generated 5'-tRH-Gly<sup>GCC</sup> in cellular adaptation upon ER stress.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A new Karyopherin-β2 binding PY-NLS epitope of HNRNPH2 linked to neurodevelopmental disorders.",
+    "doi": "10.1016/j.str.2023.05.010",
+    "pmid": "37279758",
+    "authors": [
+      "Gonzalez A, Kim HJ, Freibaum BD, Fung HYJ, Brautigam CA, Taylor JP, Chook YM."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-05",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "The HNRNPH2 proline-tyrosine nuclear localization signal (PY-NLS) is mutated in HNRNPH2-related X-linked neurodevelopmental disorder, causing the normally nuclear HNRNPH2 to accumulate in the cytoplasm. We solved the cryoelectron microscopy (cryo-EM) structure of Karyopherin-β2/Transportin-1 bound to the HNRNPH2 PY-NLS to understand importin-NLS recognition and disruption in disease. HNRNPH2 <sup>206</sup>RPGPY<sup>210</sup> is a typical R-X<sub>2-4</sub>-P-Y motif comprising PY-NLS epitopes 2 and 3, followed by an additional Karyopherin-β2-binding epitope, we term epitope 4, at residues <sup>211</sup>DRP<sup>213</sup>; no density is present for PY-NLS epitope 1. Disease variant mutations at epitopes 2-4 impair Karyopherin-β2 binding and cause aberrant cytoplasmic accumulation in cells, emphasizing the role of nuclear import defect in disease. Sequence/structure analysis suggests that strong PY-NLS epitopes 4 are rare and thus far limited to close paralogs of HNRNPH2, HNRNPH1, and HNRNPF. Epitope 4-binidng hotspot Karyopherin-β2 W373 corresponds to close paralog Karyopherin-β2b/Transportin-2 W370, a pathological variant site in neurodevelopmental abnormalities, suggesting that Karyopherin-β2b/Transportin-2-HNRNPH2/H1/F interactions may be compromised in the abnormalities.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rett-like Phenotypes in <i>HNRNPH2</i>-Related Neurodevelopmental Disorder.",
+    "doi": "10.3390/genes14061154",
+    "pmid": "37372334",
+    "authors": [
+      "Gonzalez JN, Goldman S, Carter MT, Bain JM."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-26",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Rett Syndrome (RTT) is a neurodevelopmental disorder with a prevalence of 1:10,000 to 15,000 females worldwide. Classic Rett Syndrome presents in early childhood with a period of developmental regression, loss of purposeful hand skills along with hand stereotypies, gait abnormalities, and loss of acquired speech. Atypical RTT is diagnosed when a child shows some but not all the phenotypes of classic RTT, along with additional supporting criteria. Over 95% of classic RTT cases are attributed to pathogenic variants in Methyl-CpG Binding Protein 2 (<i>MECP2</i>), though additional genes have been implicated in other RTT cases, particularly those with the atypical RTT clinical picture. Other genetic etiologies have emerged with similar clinical characteristics to RTT Syndrome. Our team has characterized <i>HNRNPH2</i>-related neurodevelopmental disorder (<i>HNRNPH2-</i>RNDD) in 33 individuals associated with de novo pathogenic missense variants in the X-linked <i>HNRNPH2</i> gene, characterized by developmental delay, intellectual disability, seizures, autistic-like features, and motor abnormalities. We sought to further characterize RTT clinical features in this group of individuals by using caregiver report. Twenty-six caregivers completed electronic surveys, with only 3 individuals having previously received an atypical RTT diagnosis, and no individuals with a typical RTT diagnosis. Caregivers reported a high number of behaviors and/or phenotypes consistent with RTT, including the major criteria of the syndrome, such as regression of developmental skills and abnormal gait. Based on the survey results, 12 individuals could meet the diagnostic clinical criteria for atypical RTT Syndrome. In summary, individuals with <i>HNRNPH2-</i>RNDD exhibit clinical characteristics that overlap with those of RTT, and therefore, <i>HNRNPH2-</i>RNDD, should be considered on the differential diagnosis list with this clinical picture.",
+    "openalex_id": ""
+  }
+]

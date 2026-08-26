@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Single-cell analysis identifies dynamic gene expression networks that govern B cell development and transformation.",
+    "doi": "10.1038/s41467-021-27232-5",
+    "pmid": "34824268",
+    "authors": [
+      "Lee RD, Munro SA, Knutson TP, LaRue RS, Heltemes-Harris LM, Farrar MA."
+    ],
+    "year": "2021",
+    "publication_date": "2021-11-25",
+    "cited_by_count": 112,
+    "journal": "",
+    "abstract": "Integration of external signals and B-lymphoid transcription factor activities organise B cell lineage commitment through alternating cycles of proliferation and differentiation, producing a diverse repertoire of mature B cells. We use single-cell transcriptomics/proteomics to identify differentially expressed gene networks across B cell development and correlate these networks with subtypes of B cell leukemia. Here we show unique transcriptional signatures that refine the pre-B cell expansion stages into pre-BCR-dependent and pre-BCR-independent proliferative phases. These changes correlate with reciprocal changes in expression of the transcription factor EBF1 and the RNA binding protein YBX3, that are defining features of the pre-BCR-dependent stage. Using pseudotime analysis, we further characterize the expression kinetics of different biological modalities across B cell development, including transcription factors, cytokines, chemokines, and their associated receptors. Our findings demonstrate the underlying heterogeneity of developing B cells and characterise developmental nodes linked to B cell transformation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-Binding Protein YBX3 Controls Amino Acid Levels by Regulating SLC mRNA Abundance.",
+    "doi": "10.1016/j.celrep.2019.05.039",
+    "pmid": "31189097",
+    "authors": [
+      "Cooke A, Schwarzl T, Huppertz I, Kramer G, Mantas P, Alleaume AM, Huber W, Krijgsveld J, Hentze MW."
+    ],
+    "year": "2019",
+    "publication_date": "2019-06-01",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "Sufficient amino acid supplies are critical for protein synthesis and, thus, cell growth and proliferation. Specialized transporters mediate amino acid exchange across membranes and their regulation is critical for amino acid homeostasis. Here, we report that the DNA- and RNA-binding protein YBX3 regulates the expression of amino acid transporters. To investigate the functions of YBX3, we integrated proteomic and transcriptomic data from cells depleted of YBX3 with analyses of YBX3 RNA binding sites to identify RNAs directly regulated by YBX3. The data implicate YBX3 as a RNA-binding protein that regulates distinct sets of mRNAs by discrete mechanisms, including mRNA abundance. Among direct YBX3 targets, two solute carrier (SLC) amino acid transporters (SLC7A5 and SLC3A2) were identified. We show that YBX3 stabilizes these SLC mRNAs and that YBX3 depletion diminishes the expression of SLC7A5/SLC3A2, which specifically reduces SLC7A5/SLC3A2 amino acid substrates. Thus, YBX3 emerges as a key regulator of amino acid levels.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Compound Heterozygosity for Y Box Proteins Causes Sterility Due to Loss of Translational Repression.",
+    "doi": "10.1371/journal.pgen.1005690",
+    "pmid": "26646932",
+    "authors": [
+      "Snyder E, Soundararajan R, Sharma M, Dearth A, Smith B, Braun RE."
+    ],
+    "year": "2015",
+    "publication_date": "2015-12-08",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "The Y-box proteins YBX2 and YBX3 bind RNA and DNA and are required for metazoan development and fertility. However, possible functional redundancy between YBX2 and YBX3 has prevented elucidation of their molecular function as RNA masking proteins and identification of their target RNAs. To investigate possible functional redundancy between YBX2 and YBX3, we attempted to construct Ybx2-/-;Ybx3-/- double mutants using a previously reported Ybx2-/- model and a newly generated global Ybx3-/- model. Loss of YBX3 resulted in reduced male fertility and defects in spermatid differentiation. However, homozygous double mutants could not be generated as haploinsufficiency of both Ybx2 and Ybx3 caused sterility characterized by extensive defects in spermatid differentiation. RNA sequence analysis of mRNP and polysome occupancy in single and compound Ybx2/3 heterozygotes revealed loss of translational repression almost exclusively in the compound Ybx2/3 heterozygotes. RNAseq analysis also demonstrated that Y-box protein dose-dependent loss of translational regulation was inversely correlated with the presence of a Y box recognition target sequence, suggesting that Y box proteins bind RNA hierarchically to modulate translation in a range of targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Validation of housekeeping gene and impact on normalized gene expression in clear cell renal cell carcinoma: critical reassessment of YBX3/ZONAB/CSDA expression.",
+    "doi": "10.1186/1471-2199-15-9",
+    "pmid": "24885929",
+    "authors": [
+      "Dupasquier S, Delmarcelle AS, Marbaix E, Cosyns JP, Courtoy PJ, Pierreux CE."
+    ],
+    "year": "2014",
+    "publication_date": "2014-05-16",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "<h4>Background</h4>YBX3/ZONAB/CSDA is an epithelial-specific transcription factor acting in the density-based switch between proliferation and differentiation. Our laboratory reported overexpression of YBX3 in clear cell renal cell arcinoma (ccRCC), as part of a wide study of YBX3 regulation in vitro and in vivo. The preliminary data was limited to 5 cases, of which only 3 could be compared to paired normal tissue, and beta-Actin was used as sole reference to normalize gene expression. We thus decided to re-evaluate YBX3 expression by real-time-PCR in a larger panel of ccRCC samples, and their paired healthy tissue, with special attention on experimental biases such as inter-individual variations, primer specificity, and reference gene for normalization.<h4>Results</h4>Gene expression was measured by RT-qPCR in 16 ccRCC samples, each compared to corresponding healthy tissue to minimize inter-individual variations. Eight potential housekeeping genes were evaluated for expression level and stability among the 16-paired samples. Among tested housekeeping genes, PPIA and RPS13, especially in combination, proved best suitable to normalize gene expression in ccRCC tissues as compared to classical reference genes such as beta-Actin, GAPDH, 18S or B2M. Using this pair as reference, YBX3 expression level among a collection of 16 ccRCC tumors was not significantly increased as compared to normal adjacent tissues. However, stratification according to Fuhrman grade disclosed higher YBX3 expression levels in low-grade tumors and lower in high-grade tumors. Immunoperoxidase confirmed homogeneous nuclear staining for YBX3 in low-grade but revealed nuclear heterogeneity in high-grade tumors.<h4>Conclusions</h4>This paper underlines that special attention to reference gene products in the design of real-time PCR analysis of tumoral tissue is crucial to avoid misleading conclusions. Furthermore, we found that global YBX3/ZONAB/CSDA mRNA expression level may be considered within a \"signature\" of RCC grading.",
+    "openalex_id": ""
+  },
+  {
+    "title": "M6A-mediated-upregulation of lncRNA BLACAT3 promotes bladder cancer angiogenesis and hematogenous metastasis through YBX3 nuclear shuttling and enhancing NCF2 transcription.",
+    "doi": "10.1038/s41388-023-02814-3",
+    "pmid": "37612524",
+    "authors": [
+      "Xie J, Zhang H, Wang K, Ni J, Ma X, Khoury CJ, Prifti V, Hoard B, Cerenzia EG, Yin L, Zhang H, Wang R, Zhuo D, Mao W, Peng B."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-23",
+    "cited_by_count": 40,
+    "journal": "",
+    "abstract": "Lymphatic metastasis is recognized as the leading manner of metastasis in bladder cancer (BLCa), but hematogenous metastasis accounts for a majority of cancer-associated deaths. The past two decades have witnessed tremendous attention in long non-coding RNAs (lncRNAs), which are a new hope for the development of targeted drug therapy for metastatic cancers; however, the underlying mechanism of lncRNAs involved in BLCa hematogenous metastasis remains to be elucidated. Here, we identified BLCa-associated transcript 3 (BLACAT3), a lncRNA, which was aberrantly upregulated in BLCa and corelated with poor prognosis of patients with muscle-invasive bladder cancer. Methodologically, m6A epitranscriptomic microarray, RNA sequencing and mass spectrometry (MS) were used to screen the key molecules of the regulatory axis. Functional assays, animal models and clinical samples were used to explore the roles of BLACAT3 in BLCa in vitro and in vivo. Mechanistically, m6A modification contributes to BLACAT3 upregulation by stabilizing RNA structure. BLACAT3 recruits YBX3 to shuttle into the nucleus, synergistically enhances NCF2 transcription, and promotes BLCa angiogenesis and hematogenous metastasis by activating downstream NF-κB signaling. Our findings will develop prognosis prediction tools for BLCa patients and discover novel therapeutic biological targets for metastatic BLCa.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization of Tumor-Associated Macrophages and the Immune Microenvironment in Limited-Stage Neuroendocrine-High and -Low Small Cell Lung Cancer.",
+    "doi": "10.3390/biology10060502",
+    "pmid": "34200100",
+    "authors": [
+      "Dora D, Rivard C, Yu H, Pickard SL, Laszlo V, Harko T, Megyesfalvi Z, Dinya E, Gerdan C, Szegvari G, Hirsch FR, Dome B, Lohinai Z."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-04",
+    "cited_by_count": 30,
+    "journal": "",
+    "abstract": "This study aims to characterize tumor-infiltrating macrophages (TAMs), myeloid-derived suppressor cells (MDSC), and the related molecular milieu regulating anti-tumor immunity in limited-stage neuroendocrine (NE)-high and NE-low small cell lung cancer. Primary tumors and matched lymph node (LN) metastases of 32 resected, early-stage SCLC patients were analyzed by immunohistochemistry (IHC) with antibodies against pan-macrophage marker CD68, M2-macrophage marker CD163, and MDSC marker CD33. Area-adjusted cell counting on TMAs showed that TAMs are the most abundant cell type in the TME, and their number in tumor nests exceeds the number of CD3 + T-cells (64% vs. 38% in NE-low and 71% vs. 18% in NE-high). Furthermore, the ratio of CD163-expressing M2-polarized TAMs in tumor nests was significantly higher in NE-low vs. NE-high tumors (70% vs. 31%). TAM density shows a strong positive correlation with CD45 and CD3 in tumor nests, but not in the stroma. fGSEA analysis on a targeted RNAseq oncological panel of 2560 genes showed that NE-high tumors exhibited increased enrichment in pathways related to cell proliferation, whereas in NE-low tumors, immune response pathways were significantly upregulated. Interestingly, we identified a subset of NE-high tumors representing an immune-oasis phenotype, but with a different gene expression profile compared to NE-low tumors. In contrast, we found that a limited subgroup of NE-low tumors is immune-deserted and express distinct cellular pathways from NE-high tumors. Furthermore, we identified potential molecular targets based on our expression data in NE-low and immune-oasis tumor subsets, including CD70, ANXA1, ITGB6, TP63, IFI27, YBX3 and CXCR2.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circulating Coding and Long Non-Coding RNAs as Potential Biomarkers of Idiopathic Pulmonary Fibrosis.",
+    "doi": "10.3390/ijms21228812",
+    "pmid": "33233868",
+    "authors": [
+      "Di Mauro S, Scamporrino A, Fruciano M, Filippello A, Fagone E, Gili E, Scionti F, Purrazzo G, Di Pino A, Scicali R, Di Martino MT, Malaguarnera R, Malatino L, Purrello F, Vancheri C, Piro S."
+    ],
+    "year": "2020",
+    "publication_date": "2020-11-20",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Idiopathic Pulmonary Fibrosis (IPF) is a chronic degenerative disease with a median survival of 2-5 years after diagnosis. Therefore, IPF patient identification represents an important and challenging clinical issue. Current research is still searching for novel reliable non-invasive biomarkers. Therefore, we explored the potential use of long non-coding RNAs (lncRNAs) and mRNAs as biomarkers for IPF.<h4>Methods</h4>We first performed a whole transcriptome analysis using microarray (<i>n</i> = 14: 7 Control, 7 IPF), followed by the validation of selected transcripts through qPCRs in an independent cohort of 95 subjects (<i>n</i> = 95: 45 Control, 50 IPF). Diagnostic performance and transcript correlation with functional/clinical data were also analyzed.<h4>Results</h4>1059 differentially expressed transcripts were identified. We confirmed the downregulation of FOXF1 adjacent non-coding developmental regulatory RNA (FENDRR) lncRNA, hsa_circ_0001924 circularRNA, utrophin (UTRN) and Y-box binding protein 3 (YBX3) mRNAs. The two analyzed non-coding RNAs correlated with Forced Vital Capacity (FVC)% and Diffusing Capacity of the Lung for carbon monoxide (DLCO)% functional data, while coding RNAs correlated with smock exposure. All analyzed transcripts showed excellent performance in IPF identification with Area Under the Curve values above 0.87; the most outstanding one was YBX3: AUROC 0.944, CI 95% = 0.895-0.992, sensitivity = 90%, specificity = 88.9%, <i>p</i>-value = 1.02 × 10<sup>-13</sup>.<h4>Conclusions</h4>This study has identified specific transcript signatures in IPF suggesting that validated transcripts and microarray data could be useful for the potential future identification of RNA molecules as non-invasive biomarkers for IPF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "piRNA PROPER Suppresses DUSP1 Translation by Targeting N&lt;sup&gt;6&lt;/sup&gt;-Methyladenosine-Mediated RNA Circularization to Promote Oncogenesis of Prostate Cancer.",
+    "doi": "10.1002/advs.202402954",
+    "pmid": "38962952",
+    "authors": [
+      "Ben S, Ding Z, Xin J, Li F, Cheng Y, Chen S, Fan L, Zhang Q, Li S, Du M, Zhang Z, Wei GH, Cheng G, Wang M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-04",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "Genetic and epigenetic alterations occur in many physiological and pathological processes. The existing knowledge regarding the association of PIWI-interacting RNAs (piRNAs) and their genetic variants on risk and progression of prostate cancer (PCa) is limited. In this study, three genome-wide association study datasets are combined, including 85,707 PCa cases and 166,247 controls, to uncover genetic variants in piRNAs. Functional investigations involved manipulating piRNA expression in cellular and mouse models to study its oncogenetic role in PCa. A specific genetic variant, rs17201241 is identified, associated with increased expression of PROPER (piRNA overexpressed in prostate cancer) in tumors and are located within the gene, conferring an increased risk and malignant progression of PCa. Mechanistically, PROPER coupled with YTHDF2 to recognize N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) and facilitated RNA-binding protein interactions between EIF2S3 at 5'-untranslated region (UTR) and YTHDF2/YBX3 at 3'-UTR to promote DUSP1 circularization. This m<sup>6</sup>A-dependent mRNA-looping pattern enhanced DUSP1 degradation and inhibited DUSP1 translation, ultimately reducing DUSP1 expression and promoting PCa metastasis via the p38 mitogen-activated protein kinase (MAPK) signaling pathway. Inhibition of PROPER expression using antagoPROPER effectively suppressed xenograft growth, suggesting its potential as a therapeutic target. Thus, targeting piRNA PROPER-mediated genetic and epigenetic fine control is a promising strategy for the concurrent prevention and treatment of PCa.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SARS-CoV-2 RNA stabilizes host mRNAs to elicit immunopathogenesis.",
+    "doi": "10.1016/j.molcel.2023.11.032",
+    "pmid": "38128540",
+    "authors": [
+      "Zhao H, Cai Z, Rao J, Wu D, Ji L, Ye R, Wang D, Chen J, Cao C, Hu N, Shu T, Zhu P, Wang J, Zhou X, Xue Y."
+    ],
+    "year": "2024",
+    "publication_date": "2023-12-20",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "SARS-CoV-2 RNA interacts with host factors to suppress interferon responses and simultaneously induces cytokine release to drive the development of severe coronavirus disease 2019 (COVID-19). However, how SARS-CoV-2 hijacks host RNAs to elicit such imbalanced immune responses remains elusive. Here, we analyzed SARS-CoV-2 RNA in situ structures and interactions in infected cells and patient lung samples using RIC-seq. We discovered that SARS-CoV-2 RNA forms 2,095 potential duplexes with the 3' UTRs of 205 host mRNAs to increase their stability by recruiting RNA-binding protein YBX3 in A549 cells. Disrupting the SARS-CoV-2-to-host RNA duplex or knocking down YBX3 decreased host mRNA stability and reduced viral replication. Among SARS-CoV-2-stabilized host targets, NFKBIZ was crucial for promoting cytokine production and reducing interferon responses, probably contributing to cytokine storm induction. Our study uncovers the crucial roles of RNA-RNA interactions in the immunopathogenesis of RNA viruses such as SARS-CoV-2 and provides valuable host targets for drug development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Artificial Intelligence Analysis of Gene Expression Predicted the Overall Survival of Mantle Cell Lymphoma and a Large Pan-Cancer Series.",
+    "doi": "10.3390/healthcare10010155",
+    "pmid": "35052318",
+    "authors": [
+      "Carreras J, Nakamura N, Hamoudi R."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-14",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Mantle cell lymphoma (MCL) is a subtype of mature B-cell non-Hodgkin lymphoma characterized by a poor prognosis. First, we analyzed a series of 123 cases (GSE93291). An algorithm using multilayer perceptron artificial neural network, radial basis function, gene set enrichment analysis (GSEA), and conventional statistics, correlated 20,862 genes with 28 MCL prognostic genes for dimensionality reduction, to predict the patients' overall survival and highlight new markers. As a result, 58 genes predicted survival with high accuracy (area under the curve = 0.9). Further reduction identified 10 genes: <i>KIF18A</i>, <i>YBX3</i>, <i>PEMT</i>, <i>GCNA</i>, and <i>POGLUT3</i> that associated with a poor survival; and <i>SELENOP</i>, <i>AMOTL2</i>, <i>IGFBP7</i>, <i>KCTD12</i>, and <i>ADGRG2</i> with a favorable survival. Correlation with the proliferation index (Ki67) was also made. Interestingly, these genes, which were related to cell cycle, apoptosis, and metabolism, also predicted the survival of diffuse large B-cell lymphoma (GSE10846, <i>n</i> = 414), and a pan-cancer series of The Cancer Genome Atlas (TCGA, <i>n</i> = 7289), which included the most relevant cancers (lung, breast, colorectal, prostate, stomach, liver, etcetera). Secondly, survival was predicted using 10 oncology panels (transcriptome, cancer progression and pathways, metabolic pathways, immuno-oncology, and host response), and <i>TYMS</i> was highlighted. Finally, using machine learning, C5 tree and Bayesian network had the highest accuracy for prediction and correlation with the LLMPP MCL35 proliferation assay and RGS1 was made. In conclusion, artificial intelligence analysis predicted the overall survival of MCL with high accuracy, and highlighted genes that predicted the survival of a large pan-cancer series.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YBX3 Mediates the Metastasis of Nasopharyngeal Carcinoma <i>via</i> PI3K/AKT Signaling.",
+    "doi": "10.3389/fonc.2021.617621",
+    "pmid": "33816248",
+    "authors": [
+      "Fan X, Xie X, Yang M, Wang Y, Wu H, Deng T, Weng X, Wen W, Nie G."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-17",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "The metastasis of nasopharyngeal carcinoma (NPC) is a complex process associated with oncogenic dysfunction, the deciphering of which remains a challenge and requires more in-depth studies. Y-box protein 3 (YBX3) is a DNA/RNA binding protein associated with gene transcription, DNA repair, and the progression of various diseases. However, whether and how YBX3 affects the metastasis of NPC remains unknown. Thus, in this study, we aimed to investigate the role of YBX3 in the metastasis of NPC and determine its underlying mechanism. Interestingly, it was found that the expression of YBX3, which was associated with NPC metastasis, was upregulated in the clinical NPC tissues and cell lines. Moreover, we found that knockdown of YBX3 expression by lentivirus shRNA significantly suppressed NPC cells migration <i>in vitro</i> and metastasis <i>in vivo.</i> Mechanistically, RNA sequencing results suggested that the genes regulated by YBX3 were significantly enriched in cell adhesion molecules, cAMP signaling pathway, calcium signaling pathway, focal adhesion, PI3K/AKT signaling pathway, Ras signaling pathway, Rap1 signaling pathway, NF-κB signaling pathway, and Chemokine signaling pathway. Of these, PI3K/AKT signaling pathway contained the most genes. Accordingly, YBX3 knockdown decreased the activation of PI3K/AKT signaling pathway, thereby inhibit epithelial-to-mesenchymal transition (EMT) and MMP1. These results have demonstrated that YBX3 are involved in the metastasis of NPC through regulating PI3K/AKT signaling pathway, and serve as a potential therapeutic target for patients with NPC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive pan-cancer analysis of YBX family reveals YBX2 as a potential biomarker in liver cancer.",
+    "doi": "10.3389/fimmu.2024.1382520",
+    "pmid": "38698857",
+    "authors": [
+      "Yuan Z, Li B, Liao W, Kang D, Deng X, Tang H, Xie J, Hu D, Chen A."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-18",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The Y-box-binding proteins (YBX) act as a multifunctional role in tumor progression, metastasis, drug resistance by regulating the transcription and translation process. Nevertheless, their functions in a pan-cancer setting remain unclear.<h4>Methods</h4>This study examined the clinical features expression, prognostic value, mutations, along with methylation patterns of three genes from the YBX family (YBX1, YBX2, and YBX3) in 28 different types of cancer. Data used for analysis were obtained from Cancer Genome Atlas (TCGA) and Genotype-Tissue Expression (GTEx) databases. A novel YBXs score was created using the ssGSEA algorithm for the single sample gene set enrichment analysis. Additionally, we explored the YBXs score's association with the tumor microenvironment (TME), response to various treatments, and drug resistance.<h4>Results</h4>Our analysis revealed that YBX family genes contribute to tumor progression and are indicative of prognosis in diverse cancer types. We determined that the YBXs score correlates significantly with numerous malignant pathways in pan-cancer. Moreover, this score is also linked with multiple immune-related characteristics. The YBXs score proved to be an effective predictor for the efficacy of a range of treatments in various cancers, particularly immunotherapy. To summarize, the involvement of YBX family genes is vital in pan-cancer and exhibits a significant association with TME. An elevated YBXs score indicates an immune-activated TME and responsiveness to diverse therapies, highlighting its potential as a biomarker in individuals with tumors. Finally, experimental validations were conducted to explore that YBX2 might be a potential biomarker in liver cancer.<h4>Conclusion</h4>The creation of YBXs score in our study offered new insights into further studies. Besides, YBX2 was found as a potential therapeutic target, significantly contributing to the improvement of HCC diagnosis and treatment strategies.",
+    "openalex_id": ""
+  }
+]

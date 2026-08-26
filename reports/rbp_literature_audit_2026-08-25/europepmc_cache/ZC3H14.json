@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Antagonistic roles by the conserved nuclear poly(A)-binding proteins PABPN1 and ZC3H14 in nuclear RNA surveillance.",
+    "doi": "10.1093/nar/gkaf060",
+    "pmid": "39898550",
+    "authors": [
+      "Latour M, Kwiatek L, Landry-Voyer AM, Bachand F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Most eukaryotic genomes are transcribed pervasively, thereby producing an array of long non-coding RNAs (lncRNAs) in addition to protein-coding mRNAs. A large fraction of these lncRNAs is targeted by polyadenylation-dependent decay via the poly(A)-binding protein nuclear 1 (PABPN1) and the RNA exosome. Yet, how PABPN1 contributes to nuclear RNA surveillance by facilitating lncRNA turnover by the RNA exosome remains largely unclear. Here, we show that PABPN1 is important for the nuclear retention of polyadenylated lncRNAs, such that PABPN1 loss of function allows target lncRNAs to evade nuclear decay, leading to cytoplasmic accumulation. Interestingly, we found that another nuclear PABP, ZC3H14, functions antagonistically to PABPN1 and the poly(A)-tail exosome targeting (PAXT) connection in the control of nuclear lncRNA turnover. Collectively, our findings disclose the critical interplay between two conserved nuclear PABPs, PABPN1 and ZC3H14, in RNA surveillance via the control of nuclear RNA export.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Nab2 regulates levels of the RhoGEF Trio to govern axon and dendrite morphology.",
+    "doi": "10.1091/mbc.e24-04-0150",
+    "pmid": "38985523",
+    "authors": [
+      "Lancaster CL, Yalamanchili PS, Goldy JN, Leung SW, Corbett AH, Moberg KH."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-10",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "The <i>Drosophila</i> RNA-binding protein (RBP) Nab2 acts in neurons to regulate neurodevelopment and is orthologous to the human intellectual disability-linked RBP, ZC3H14. Nab2 governs axon projection in mushroom body neurons and limits dendritic arborization of class IV sensory neurons in part by regulating splicing events in ∼150 mRNAs. Analysis of the <i>Sex-lethal</i> (<i>Sxl</i>) mRNA revealed that Nab2 promotes an exon-skipping event and regulates m<sup>6</sup>A methylation on <i>Sxl</i> pre-mRNA by the Mettl3 methyltransferase. Mettl3 heterozygosity broadly rescues <i>Nab2<sup>null</sup></i> phenotypes implying that Nab2 acts through similar mechanisms on other RNAs, including unidentified targets involved in neurodevelopment. Here, we show that Nab2 and Mettl3 regulate the removal of a 5'UTR (untranslated region) intron in the <i>trio</i> pre-mRNA. Trio utilizes two GEF domains to balance Rac and RhoGTPase activity. Intriguingly, an isoform of Trio containing only the RhoGEF domain, GEF2, is depleted in <i>Nab2<sup>null</sup></i> nervous tissue. Expression of Trio-GEF2 rescues projection defects in <i>Nab2<sup>null</sup></i> axons and dendrites, while the GEF1 Rac1-regulatory domain exacerbates these defects, suggesting Nab2-mediated regulation Trio-GEF activities. Collectively, these data indicate that Nab2-regulated processing of <i>trio</i> is critical for balancing Trio-GEF1 and -GEF2 activity and show that Nab2, Mettl3, and Trio function in a common pathway that shapes axon and dendrite morphology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ZC3H14 facilitates backsplicing by binding to exon-intron boundary and 3' UTR.",
+    "doi": "10.1016/j.molcel.2024.10.001",
+    "pmid": "39461343",
+    "authors": [
+      "Li Q, Yang G, Ren B, Liu X, Tang LQ, Shi Q, Shan G, Wang X."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-25",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "Circular RNAs (circRNAs) are natural outputs of eukaryotic transcription and RNA processing and have emerged as critical regulators in physiology and diseases. Although multiple cis-elements and trans-factors are reported to modulate the backsplicing of circRNA biogenesis, most of these regulations play roles in flanking introns of circRNAs. Here, using a genome-wide CRISPR knockout screen, we have identified an evolutionarily conserved RNA-binding protein ZC3H14 in regulating circRNA biogenesis. ZC3H14 binds to 3' and 5' exon-intron boundaries and 3' UTRs of cognate mRNAs to promote circRNA biogenesis through dimerization and the association with spliceosome. Yeast knockout of the ZC3H14 ortholog Nab2 has significantly lower levels of circRNAs. Zc3h14<sup>-/-</sup> mice exhibit disrupted spermatogenesis and reduced testicular circRNA levels. Additionally, expression levels of human ZC3H14 are associated with non-obstructive azoospermia. Our findings reveal a conserved requirement for ZC3H14 in the modulation of backsplicing and link ZC3H14 and circRNA biogenesis to male fertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "In silico analysis of gene expression signatures and drug repurposing associated with metastatic progression in melanoma (skin cancer).",
+    "doi": "10.1007/s00210-026-05403-9",
+    "pmid": "42068380",
+    "authors": [
+      "Majeed KA, Majeed RA, Ibrahim TK, Khan NU."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Metastatic melanoma is an aggressive, heterogeneous cancer with early spread and poor prognosis. Transcriptomic analysis identifies potential therapeutic targets. In silico analysis of the GEO dataset GSE7553 compared primary vs metastatic melanoma using differential expression, enrichment (GO/KEGG/Reactome), PPI network construction, and hub-gene prioritization. Candidates were validated through survival analysis, mutation-associated analyses, and virtual screening using molecular docking with FDA-approved compounds. Transcriptomic results show divergence between primary and metastatic melanoma samples, with principal component analysis supporting clear group separation. In a total of 54,675 probe-level entries, 4868 were classified as upregulated and 10,269 as downregulated, indicating a predominance of downregulated transcriptional events in metastatic melanoma. Prioritized upregulated genes included CUL5, ZC3H14, SON, BRCC3, and H3-3B, whereas notable downregulated genes included ZNF709, CD84, STARD8, EPOR, and HAVCR2. The high-confidence PPI network comprised 625 nodes and 2661 edges, with a significant enrichment score. Enrichment analysis implicated immune/adhesion and translation pathways (e.g., Rap1, focal adhesion, T-cell activation). Survival: CUL5 (HR = 0.26) and ZC3H14 (HR = 0.60) are protective, while SON (HR = 2.4) is adverse. Mutation-linked transcriptomic analysis identified 10 significantly altered genes, including downregulated SNHG18 and upregulated LPCAT2. Virtual screening results show repurposable compounds, with Floxacrine showing strong predicted affinity for CUL5 and Dihydroergocristine showing favorable interaction with LPCAT2/ZC3H14-related targets. In silico docking results further supported CUL5-Floxacrine and LPCAT2-Dihydroergocristine as notable candidate interactions. Results show key transcriptomic drivers and targets (CUL5, ZC3H14, SON, BRCC3, LPCAT2) in metastatic melanoma. Results highlight a useful hypothesis-generating framework for biomarker prioritization and drug repurposing in melanoma. However, independent cohort validation and experimental confirmation are required before clinical translation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The disease-associated proteins Drosophila Nab2 and Ataxin-2 interact with shared RNAs and coregulate neuronal morphology.",
+    "doi": "10.1093/genetics/iyab175",
+    "pmid": "34791182",
+    "authors": [
+      "Rounds JC, Corgiat EB, Ye C, Behnke JA, Kelly SM, Corbett AH, Moberg KH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-01",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "Nab2 encodes the Drosophila melanogaster member of a conserved family of zinc finger polyadenosine RNA-binding proteins (RBPs) linked to multiple steps in post-transcriptional regulation. Mutation of the Nab2 human ortholog ZC3H14 gives rise to an autosomal recessive intellectual disability but understanding of Nab2/ZC3H14 function in metazoan nervous systems is limited, in part because no comprehensive identification of metazoan Nab2/ZC3H14-associated RNA transcripts has yet been conducted. Moreover, many Nab2/ZC3H14 functional protein partnerships remain unidentified. Here, we present evidence that Nab2 genetically interacts with Ataxin-2 (Atx2), which encodes a neuronal translational regulator, and that these factors coordinately regulate neuronal morphology, circadian behavior, and adult viability. We then present the first high-throughput identifications of Nab2- and Atx2-associated RNAs in Drosophila brain neurons using RNA immunoprecipitation-sequencing (RIP-Seq). Critically, the RNA interactomes of each RBP overlap, and Nab2 exhibits high specificity in its RNA associations in neurons in vivo, associating with a small fraction of all polyadenylated RNAs. The identities of shared associated transcripts (e.g., drk, me31B, stai) and of transcripts specific to Nab2 or Atx2 (e.g., Arpc2 and tea) promise insight into neuronal functions of, and genetic interactions between, each RBP. Consistent with prior biochemical studies, Nab2-associated neuronal RNAs are overrepresented for internal A-rich motifs, suggesting these sequences may partially mediate Nab2 target selection. These data support a model where Nab2 functionally opposes Atx2 in neurons, demonstrate Nab2 shares associated neuronal RNAs with Atx2, and reveal Drosophila Nab2 associates with a more specific subset of polyadenylated mRNAs than its polyadenosine affinity alone may suggest.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of diabetes-related signatures as prognostic and therapeutic biomarkers in colon cancer.",
+    "doi": "10.1007/s12672-025-03476-1",
+    "pmid": "40849867",
+    "authors": [
+      "Yao M, Wang R, Cui R, Lou F, Chen Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Diabetes is considered to be a risk factor for colon cancer (CC), and CC patients with diabetes tend to have a worse prognosis. However, the underlying mechanism of this condition remains unclear. This study aims to elucidate the relationship between diabetes and CC further, and to find effective therapeutic targets.<h4>Methods</h4>Transcription and clinical information data were acquired from the Gene Expression Omnibus (GEO) database, accessed differentially expressed genes (DEGs) between different groups, and enriched function and pathway by Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) analyses. We conducted a weighted gene co-expression network analysis (WGCNA) to obtain significant modules and hub genes of diabetic-related CC. A receiver operating characteristic curve (ROC) analysis and Kaplan-Meier plotter were performed to diagnosis and prognosis prediction. Using the Connectivity Map (CMap) database to predict small molecule compounds, and employed molecular docking to simulate the binding conformation of the potential agent and key targets. Moreover, CIBERSORT was used to depict the immune infiltration in diabetic-related CC. The correlations between tumor mutation burden score, microsatellite instability score, and hub DEGs expression were performed by Spearman's correlation.<h4>Results</h4>In this study, 633 DEGs were identified from the tumor (n = 42) and the normal colon mucosa samples (n = 42), and 133 DEGs were identified from type 2 diabetes mellitus (T2DM) (n = 46) and non-T2DM samples (n = 38). We obtained a gene module including 1183 genes significantly related to CC patients with diabetes, and finally, the intersection of tumor-associated DEGs, diabetes-associated DEGs, and WGCNA identified 11 hub DEGs. The hub DEGs had great diagnostic and prognostic values for CC and diabetes. We found the small-molecule compound NVP-BEZ235 according to its high binding affinity to the targets and exhibited the molecular docking landscape including CDC42BPA, COX6A1, PON2, TM9SF2, UBBE2K, UBR2, ZC3H14, and ZNF106. In addition, we found the immune-infiltrating differences between CC patients with diabetes and those without diabetes. The expression of hub DEGs was significantly correlated with tumor mutation burden and microsatellite instability.<h4>Conclusion</h4>Diabetes plays an important role in CC pathogenesis, and NVP-BEZ235 may be a promising therapeutic drug for CC patients with diabetes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The polyadenosine RNA-binding protein ZC3H14 interacts with the THO complex and coordinately regulates the processing of neuronal transcripts.",
+    "doi": "10.1093/nar/gky446",
+    "pmid": "29912477",
+    "authors": [
+      "Morris KJ, Corbett AH."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-01",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "The polyadenosine RNA-binding protein ZC3H14 is important in RNA processing. Although ZC3H14 is ubiquitously expressed, mutation of the ZC3H14 gene causes a non-syndromic form of intellectual disability. Here, we examine the function of ZC3H14 in the brain by identifying ZC3H14-interacting proteins using unbiased mass spectrometry. Through this analysis, we identified physical interactions between ZC3H14 and multiple RNA processing factors. Notably, proteins that comprise the THO complex were amongst the most enriched proteins. We demonstrate that ZC3H14 physically interacts with THO components and that these proteins are required for proper RNA processing, as loss of ZC3H14 or THO components leads to extended bulk poly(A) tail length. Furthermore, we identified the transcripts Atp5g1 and Psd95 as shared RNA targets of ZC3H14 and the THO complex. Our data suggest that ZC3H14 and the THO complex are important for proper processing of Atp5g1 and Psd95 RNA, as depletion of ZC3H14 or THO components leads to decreased steady-state levels of each mature transcript accompanied by accumulation of Atp5g1 and Psd95 pre-mRNA in the cytoplasm. Taken together, this work provides the first unbiased identification of nuclear ZC3H14-interacting proteins from the brain and links the functions of ZC3H14 and the THO complex in the processing of RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Nab2 RNA-binding protein patterns dendritic and axonal projections through a planar cell polarity-sensitive mechanism.",
+    "doi": "10.1093/g3journal/jkac100",
+    "pmid": "35471546",
+    "authors": [
+      "Corgiat EB, List SM, Rounds JC, Yu D, Chen P, Corbett AH, Moberg KH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-05-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "RNA-binding proteins support neurodevelopment by modulating numerous steps in post-transcriptional regulation, including splicing, export, translation, and turnover of mRNAs that can traffic into axons and dendrites. One such RNA-binding protein is ZC3H14, which is lost in an inherited intellectual disability. The Drosophila melanogaster ZC3H14 ortholog, Nab2, localizes to neuronal nuclei and cytoplasmic ribonucleoprotein granules and is required for olfactory memory and proper axon projection into brain mushroom bodies. Nab2 can act as a translational repressor in conjunction with the Fragile-X mental retardation protein homolog Fmr1 and shares target RNAs with the Fmr1-interacting RNA-binding protein Ataxin-2. However, neuronal signaling pathways regulated by Nab2 and their potential roles outside of mushroom body axons remain undefined. Here, we present an analysis of a brain proteomic dataset that indicates that multiple planar cell polarity proteins are affected by Nab2 loss, and couple this with genetic data that demonstrate that Nab2 has a previously unappreciated role in restricting the growth and branching of dendrites that elaborate from larval body-wall sensory neurons. Further analysis confirms that Nab2 loss sensitizes sensory dendrites to the genetic dose of planar cell polarity components and that Nab2-planar cell polarity genetic interactions are also observed during Nab2-dependent control of axon projection in the central nervous system mushroom bodies. Collectively, these data identify the conserved Nab2 RNA-binding protein as a likely component of post-transcriptional mechanisms that limit dendrite growth and branching in Drosophila sensory neurons and genetically link this role to the planar cell polarity pathway. Given that mammalian ZC3H14 localizes to dendritic spines and controls spine density in hippocampal neurons, these Nab2-planar cell polarity genetic data may highlight a conserved path through which Nab2/ZC3H14 loss affects morphogenesis of both axons and dendrites in diverse species.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein Nab2 regulates the proteome of the developing Drosophila brain.",
+    "doi": "10.1016/j.jbc.2021.100877",
+    "pmid": "34139237",
+    "authors": [
+      "Corgiat EB, List SM, Rounds JC, Corbett AH, Moberg KH."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-15",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "The human ZC3H14 gene, which encodes a ubiquitously expressed polyadenosine zinc finger RNA-binding protein, is mutated in an inherited form of autosomal recessive, nonsyndromic intellectual disability. To gain insight into neurological functions of ZC3H14, we previously developed a Drosophila melanogaster model of ZC3H14 loss by deleting the fly ortholog, Nab2. Studies in this invertebrate model revealed that Nab2 controls final patterns of neuron projection within fully developed adult brains, but the role of Nab2 during development of the Drosophila brain is not known. Here, we identify roles for Nab2 in controlling the dynamic growth of axons in the developing brain mushroom bodies, which support olfactory learning and memory, and regulating abundance of a small fraction of the total brain proteome. The group of Nab2-regulated brain proteins, identified by quantitative proteomic analysis, includes the microtubule-binding protein Futsch, the neuronal Ig-family transmembrane protein turtle, the glial:neuron adhesion protein contactin, the Rac GTPase-activating protein tumbleweed, and the planar cell polarity factor Van Gogh, which collectively link Nab2 to the processes of brain morphogenesis, neuroblast proliferation, circadian sleep/wake cycles, and synaptic development. Overall, these data indicate that Nab2 controls the abundance of a subset of brain proteins during the active process of wiring the pupal brain mushroom body and thus provide a window into potentially conserved functions of the Nab2/ZC3H14 RNA-binding proteins in neurodevelopment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Evolutionarily-conserved Polyadenosine RNA Binding Protein, Nab2, Cooperates with Splicing Machinery to Regulate the Fate of pre-mRNA.",
+    "doi": "10.1128/mcb.00402-16",
+    "pmid": "27528618",
+    "authors": [
+      "Soucek S, Zeng Y, Bellur DL, Bergkessel M, Morris KJ, Deng Q, Duong D, Seyfried NT, Guthrie C, Staley JP, Fasken MB, Corbett AH."
+    ],
+    "year": "2016",
+    "publication_date": "2016-08-15",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Numerous RNA binding proteins are deposited onto an mRNA transcript to modulate post-transcriptional processing events ensuring proper mRNA maturation. Defining the interplay between RNA binding proteins that couple mRNA biogenesis events is crucial for understanding how gene expression is regulated. To explore how RNA binding proteins control mRNA processing, we investigated a role for the evolutionarily conserved polyadenosine RNA binding protein, Nab2, in mRNA maturation within the nucleus. This work reveals that nab2 mutant cells accumulate intron-containing pre-mRNA in vivo We extend this analysis to identify genetic interactions between mutant alleles of nab2 and genes encoding the splicing factor, MUD2, and the RNA exosome, RRP6, with in vivo consequences of altered pre-mRNA splicing and poly(A) tail length control. As further evidence linking Nab2 proteins to splicing, an unbiased proteomic analysis of vertebrate Nab2, ZC3H14, identifies physical interactions with numerous components of the spliceosome. We validated the interaction between ZC3H14 and U2AF2/U2AF<sup>65</sup> Taking all the findings into consideration, we present a model where Nab2/ZC3H14 interacts with spliceosome components to allow proper coupling of splicing with subsequent mRNA processing steps contributing to a kinetic proofreading step that allows properly processed mRNA to exit the nucleus and escape Rrp6-dependent degradation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Genetic Screen Links the Disease-Associated Nab2 RNA-Binding Protein to the Planar Cell Polarity Pathway in &lt;i&gt;Drosophila melanogaster&lt;/i&gt;.",
+    "doi": "10.1534/g3.120.401637",
+    "pmid": "32817074",
+    "authors": [
+      "Lee WH, Corgiat E, Rounds JC, Shepherd Z, Corbett AH, Moberg KH."
+    ],
+    "year": "2020",
+    "publication_date": "2020-10-05",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Mutations in the gene encoding the ubiquitously expressed RNA-binding protein ZC3H14 result in a non-syndromic form of autosomal recessive intellectual disability in humans. Studies in <i>Drosophila</i> have defined roles for the ZC3H14 ortholog, Nab2 (aka <i>Drosophila</i> Nab2 or dNab2), in axon guidance and memory due in part to interaction with a second RNA-binding protein, the fly Fragile X homolog Fmr1, and coregulation of shared Nab2-Fmr1 target mRNAs. Despite these advances, neurodevelopmental mechanisms that underlie defective axonogenesis in <i>Nab2</i> mutants remain undefined. <i>Nab2</i> null phenotypes in the brain mushroom bodies (MBs) resemble defects caused by alleles that disrupt the planar cell polarity (PCP) pathway, which regulates planar orientation of static and motile cells via a non-canonical arm of the Wnt/Wg pathway. A kinked bristle phenotype in surviving <i>Nab2</i> mutant adults additionally suggests a defect in F-actin polymerization and bundling, a PCP-regulated processes. To test for Nab2-PCP genetic interactions, a collection of PCP mutant alleles was screened for modification of a rough-eye phenotype produced by Nab2 overexpression in the eye (<i>GMR></i><i>Nab2</i>) and, subsequently, for modification of a viability defect among <i>Nab2</i> nulls. Multiple PCP alleles dominantly modify <i>GMR></i><i>Nab2</i> eye roughening and a subset rescue low survival and thoracic bristle kinking in <i>Nab2</i> zygotic nulls. Collectively, these genetic interactions identify the PCP pathway as a potential target of the Nab2 RNA-binding protein in developing eye and wing tissues and suggest that altered PCP signaling could contribute to neurological defects that result from loss of <i>Drosophila</i> Nab2 or its vertebrate ortholog ZC3H14.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An endogenous PI3K interactome promoting astrocyte-mediated neuroprotection identifies a novel association with RNA-binding protein ZC3H14.",
+    "doi": "10.1074/jbc.ra120.015389",
+    "pmid": "33234594",
+    "authors": [
+      "Alqawlaq S, Livne-Bar I, Williams D, D'Ercole J, Leung SW, Chan D, Tuccitto A, Datti A, Wrana JL, Corbett AH, Schmitt-Ulms G, Sivak JM."
+    ],
+    "year": "2021",
+    "publication_date": "2020-12-03",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Astrocytes can support neuronal survival through a range of secreted signals that protect against neurotoxicity, oxidative stress, and apoptotic cascades. Thus, analyzing the effects of the astrocyte secretome may provide valuable insight into these neuroprotective mechanisms. Previously, we characterized a potent neuroprotective activity mediated by retinal astrocyte conditioned media (ACM) on retinal and cortical neurons in metabolic stress models. However, the molecular mechanism underlying this complex activity in neuronal cells has remained unclear. Here, a chemical genetics screen of kinase inhibitors revealed phosphoinositide 3-kinase (PI3K) as a central player transducing ACM-mediated neuroprotection. To identify additional proteins contributing to the protective cascade, endogenous PI3K was immunoprecipitated from neuronal cells exposed to ACM or control media, followed by MS/MS proteomic analyses. These data pointed toward a relatively small number of proteins that coimmunoprecipitated with PI3K, and surprisingly only five were regulated by the ACM signal. These hits included expected PI3K interactors, such as the platelet-derived growth factor receptor A (PDGFRA), as well as novel RNA-binding protein interactors ZC3H14 (zinc finger CCCH-type containing 14) and THOC1 (THO complex protein 1). In particular, ZC3H14 has recently emerged as an important RNA-binding protein with multiple roles in posttranscriptional regulation. In validation studies, we show that PI3K recruitment of ZC3H14 is necessary for PDGF-induced neuroprotection and that this interaction is present in primary retinal ganglion cells. Thus, we identified a novel non-cell autonomous neuroprotective signaling cascade mediated through PI3K that requires recruitment of ZC3H14 and may present a promising strategy to promote astrocyte-secreted prosurvival signals.",
+    "openalex_id": ""
+  }
+]

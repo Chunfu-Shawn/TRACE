@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Identification of genome-wide non-canonical spliced regions and analysis of biological functions for spliced sequences using Read-Split-Fly",
+    "doi": "10.1186/s12859-017-1801-y",
+    "authors": [
+      "Yongsheng Bai",
+      "Jeff Kinne",
+      "Lizhong Ding",
+      "Ethan Rath",
+      "Aaron R. Cox"
+    ],
+    "year": 2017,
+    "publication_date": "2017-10-01",
+    "cited_by_count": 7,
+    "journal": "BMC Bioinformatics",
+    "abstract": "BACKGROUND: It is generally thought that most canonical or non-canonical splicing events involving U2- and U12 spliceosomes occur within nuclear pre-mRNAs. However, the question of whether at least some U12-type splicing occurs in the cytoplasm is still unclear. In recent years next-generation sequencing technologies have revolutionized the field. The \"Read-Split-Walk\" (RSW) and \"Read-Split-Run\" (RSR) methods were developed to identify genome-wide non-canonical spliced regions including special ",
+    "openalex_id": "https://openalex.org/W2761653766",
+    "relevance_score": 18.462547
+  },
+  {
+    "title": "The function and regulation of the U11-48K protein in U12-dependent splicing",
+    "doi": null,
+    "authors": [
+      "Janne J. Turunen"
+    ],
+    "year": 2012,
+    "publication_date": "2012-01-20",
+    "cited_by_count": 2,
+    "journal": "Työväentutkimus Vuosikirja",
+    "abstract": "The removal of noncoding sequences, or introns, from the eukaryotic messenger RNA precursors is catalyzed by a ribonucleoprotein complex known as the spliceosome. In most eukaryotes, two distinct classes of introns exist, each removed by a specific type of spliceosome. The major, U2-type introns account for over 99 % of all introns, and are almost ubiquitous. The minor, U12-type introns are found in most but not all eukaryotes, and reside in conserved locations in a specific set of genes. Due to",
+    "openalex_id": "https://openalex.org/W786909797",
+    "relevance_score": 12.4354515
+  },
+  {
+    "title": "Abstracts from the 52nd European Society of Human Genetics (ESHG) Conference: Oral Presentations",
+    "doi": "10.1038/s41431-019-0492-4",
+    "authors": [
+      "Almaraz Postigo, S.",
+      "Gestoso Uzal, N.",
+      "Sánchez Tapia, Eva María ",
+      "Martín Gómez, María Teresa",
+      "Pascual Rodríguez, A."
+    ],
+    "year": 2019,
+    "publication_date": "2019-10-01",
+    "cited_by_count": 1,
+    "journal": "European Journal of Human Genetics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W2991086655",
+    "relevance_score": 7.8853774
+  },
+  {
+    "title": "Regulation of the minor spliceosome through alternative splicing and nuclear retention of the U11/U12-65K mRNA",
+    "doi": null,
+    "authors": [
+      "Jens Verbeeren"
+    ],
+    "year": 2016,
+    "publication_date": "2016-01-29",
+    "cited_by_count": 0,
+    "journal": "Työväentutkimus Vuosikirja",
+    "abstract": "The protein coding information in our genome is located on genes which are very often interrupted by non-coding regions called introns. For proper gene expression, introns must be removed accurately and the remaining protein coding parts, the exons, must be rejoined. This reaction, termed splicing, is carried out by an enormous macromolecular machine called the spliceosome, and is one of the most crucial steps in gene expression. Two different intron types have been identified in eukaryotes, eac",
+    "openalex_id": "https://openalex.org/W2259076624",
+    "relevance_score": 2.671874
+  }
+]

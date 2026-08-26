@@ -1,0 +1,114 @@
+[
+  {
+    "title": "Inhibition of RBM23 induces ferroptosis in colon cancer cells via c-Myc regulation.",
+    "doi": "10.1186/s12935-026-04262-x",
+    "pmid": "41857570",
+    "authors": [
+      "Oh JJ, Lee YJ, Han YJ, Park J, Kim W, Lee IS, Lee S, Jo MG, Jung JH."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: RNA binding motif protein 23 (RBM23) is a member of the RNA binding motif gene family, functioning as a transcriptional cofactor and pre-mRNA splicing factor. While RBM23 is known to activate the NF-κB pathway in hepatocellular carcinoma, its role in other cancers remains unclear. In this study, we report for the first time that RBM23 inhibition induces ferroptosis via c-Myc regulation in colon cancer cells. METHODS: RBM23 overexpression in CRC was assessed using qRT-PCR and Western blotting. Functional assays, including CCK-8 and colony formation, were conducted to examine cell viability. To investigate the regulatory role of RBM23 in c-Myc expression, siRNA knockdown was followed by nuclear fractionation, cycloheximide chase, and serum stimulation assays. Immunofluorescence confirmed subcellular localization. RBM23’s role in glucose metabolism was analyzed through qRT-PCR, Western blotting, and glucose uptake assays. Oxidative stress and ferroptosis were evaluated using C11-BODIPY, DCFH-DA staining, and Western blotting. Bioinformatic analyses supported experimental data. RESULTS: RBM23 knockdown significantly reduced c-Myc protein levels and stability. This led to decreased expression of glycolytic enzymes and impaired glucose uptake. As a result, metabolic suppression triggered oxidative stress, which was further amplified by c-Myc deficiency. Elevated ROS levels regulated the expression of ferroptosis-related factors such as GPX4 and KEAP1, leading to ferroptotic cell death. These findings suggest that RBM23 maintains metabolic homeostasis and cell survival through c-Myc stabilization. CONCLUSIONS: RBM23 inhibits ferroptosis in CRC cells by regulating c-Myc-mediated metabolic pathways. Our findings suggest that RBM23 serves as a potential biomarker and therapeutic target in colorectal cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aryl Sulfonamides Degrade RBM39 and RBM23 by Recruitment to CRL4-DCAF15.",
+    "doi": "10.1016/j.celrep.2019.09.079",
+    "pmid": "31693891",
+    "authors": [
+      "Ting TC, Goralski M, Klein K, Wang B, Kim J, Xie Y, Nijhawan D."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-01",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "Indisulam and related sulfonamides recruit the splicing factor RBM39 to the CRL4-DCAF15 E3 ubiquitin ligase, resulting in RBM39 ubiquitination and degradation. Here, we used a combination of domain mapping and random mutagenesis to identify domains or residues that are necessary for indisulam-dependent RBM39 ubiquitination. DCAF15 mutations at Q232 or D475 prevent RBM39 recruitment by indisulam. RBM39 is recruited to DCAF15 by its RRM2 (RNA recognition motif 2) and is ubiquitinated on its N terminus. RBM23, which is an RBM39 paralog, is also recruited to the CRL4-DCAF15 ligase through its RRM2 domain and undergoes sulfonamide-dependent degradation. Indisulam alters the expression of more than 3,000 genes and causes widespread intron retention and exon skipping. All of these changes can be attributed to RBM39, and none are the consequence of RBM23 degradation. Our findings demonstrate that indisulam selectively degrades RBM23 and RBM39, the latter of which is critically important for splicing and gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A new cell-free therapeutic strategy for liver regeneration: Human placental mesenchymal stem cell-derived extracellular vesicles.",
+    "doi": "10.1177/20417314221132093",
+    "pmid": "36313857",
+    "authors": [
+      "Li T, Fu Y, Guo Z, Zhu H, Liao H, Niu X, Zhou L, Fu S, Li Y, Li S, Wang L, Zheng Y, Feng L, Gao Y, He G."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-01",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "Mesenchymal stem cells (MSCs) have potential role in organ regeneration therapy. Previous work indicating that MSCs confer protection against liver disease. Here, we aimed to determine the potential application in liver regeneration of human placenta-derived MSCs extracellular vesicles (hPMSCs-EVs) via experimental hepatectomy. hPMSCs-EVs were administered intravenously 24 h before 70% partial hepatectomy, the specific composition of hPMSCs-EVs was identified by sequencing and validated by the quantitative polymerase chain reaction, including circ-RBM23. The role of circ-RBM23 in L02 cell was evaluated and it was found that circ-RBM23 knockdown inhibited L02 cell proliferation both in vitro and in vivo. The competing endogenous RNA function of circ-RBM23 was evaluated by the RNA immunoprecipitation assay and found that circ-RBM23 shares miRNA response elements with RRM2. Overexpressed circ-RBM23 bound competitively to miR-139-5p, preventing the miRNA-mediated degradation of RRM2, activating the expression of eIF4G and AKT/mTOR, and facilitating liver regeneration. These results indicate that hPMSCs-EVs prevent hepatic dysfunction and improve liver regeneration in vivo and hepatocytes proliferation in vitro, potentially via circ-RBM23 delivery.",
+    "openalex_id": ""
+  },
+  {
+    "title": "E3-Specific Degrader Discovery by Dynamic Tracing of Substrate Receptor Abundance.",
+    "doi": "10.1021/jacs.2c10784",
+    "pmid": "36602777",
+    "authors": [
+      "Hanzl A, Barone E, Bauer S, Yue H, Nowak RP, Hahn E, Pankevich EV, Koren A, Kubicek S, Fischer ES, Winter GE."
+    ],
+    "year": "2023",
+    "publication_date": "2023-01-05",
+    "cited_by_count": 39,
+    "journal": "",
+    "abstract": "Targeted protein degradation (TPD) is a new pharmacology based on small-molecule degraders that induce proximity between a protein of interest (POI) and an E3 ubiquitin ligase. Of the approximately 600 E3s encoded in the human genome, only around 2% can be co-opted with degraders. This underrepresentation is caused by a paucity of discovery approaches to identify degraders for defined E3s. This hampers a rational expansion of the druggable proteome and stymies critical advancements in the field, such as tissue- and cell-specific degradation. Here, we focus on dynamic NEDD8 conjugation, a post-translational, regulatory circuit that controls the activity of 250 cullin RING E3 ligases (CRLs). Leveraging this regulatory layer enabled us to develop a scalable assay to identify compounds that alter the interactome of an E3 of interest by tracing their abundance after pharmacologically induced auto-degradation. Initial validation studies are performed for CRBN and VHL, but proteomics studies indicate broad applicability for many CRLs. Among amenable ligases, we select CRL<sup>DCAF15</sup> for a proof-of-concept screen, leading to the identification of a novel DCAF15-dependent molecular glue degrader inducing the degradation of RBM23 and RBM39. Together, this strategy empowers the scalable identification of degraders specific to a ligase of interest.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The gene expression patterns of neuronal cells reveal the pathogenesis of autism.",
+    "doi": "",
+    "pmid": "34540009",
+    "authors": [
+      "Ding M, Wang P, Cheng L, Cheng P, Yang H."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-15",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To explore the effects of early comprehensive and specific behavioral interventions on improving social communication and attenuating anxiety in autism patients.<h4>Methods</h4>This study was based on the modular comprehensive analysis method and explored the neurotransmitter conduction mechanism in the pathogenesis of autism. We downloaded autism-related data from the Gene Expression Omnibus (GEO) database and performed a differential analysis, a co-expression Network Analysis (WGCNA) analysis, a GO function, and a KEGG pathway enrichment analysis. Finally, we predicted the non-coding RNAs (ncRNAs) and transcription factors (TFs) that regulate the module on the basis of hypergeometric testing.<h4>Results</h4>We obtained five co-expression modules, in which the active regulatory effects of the MTA3, PHB2, TNXB, DCTN2, and RBM23 genes in the dysfunction modules were obtained. The module genes were predominantly involved in biological processes and significantly regulated the mRNA monitoring and calcium signaling pathways. In addition, we identified a prominent regulation effect of the ncRNA and TF pivots on the dysfunction modules.<h4>Conclusions</h4>This study deciphered a comprehensive network of key genes involved in autism, and it reveals the main dysfunction modules, the latent regulatory factors, and the driver genes for autism, contributing to our further understanding of the mechanisms of autism neuronal conduction disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural basis of indisulam-mediated RBM39 recruitment to DCAF15 E3 ligase complex.",
+    "doi": "10.1038/s41589-019-0411-6",
+    "pmid": "31819272",
+    "authors": [
+      "Bussiere DE, Xie L, Srinivas H, Shu W, Burke A, Be C, Zhao J, Godbole A, King D, Karki RG, Hornak V, Xu F, Cobb J, Carte N, Frank AO, Frommlet A, Graff P, Knapp M, Fazal A, Okram B, Jiang S, Michellys PY, Beckwith R, Voshol H, Wiesmann C, Solomon JM, Paulk J."
+    ],
+    "year": "2020",
+    "publication_date": "2019-12-09",
+    "cited_by_count": 198,
+    "journal": "",
+    "abstract": "The anticancer agent indisulam inhibits cell proliferation by causing degradation of RBM39, an essential mRNA splicing factor. Indisulam promotes an interaction between RBM39 and the DCAF15 E3 ligase substrate receptor, leading to RBM39 ubiquitination and proteasome-mediated degradation. To delineate the precise mechanism by which indisulam mediates the DCAF15-RBM39 interaction, we solved the DCAF15-DDB1-DDA1-indisulam-RBM39(RRM2) complex structure to a resolution of 2.3 Å. DCAF15 has a distinct topology that embraces the RBM39(RRM2) domain largely via non-polar interactions, and indisulam binds between DCAF15 and RBM39(RRM2), coordinating additional interactions between the two proteins. Studies with RBM39 point mutants and indisulam analogs validated the structural model and defined the RBM39 α-helical degron motif. The degron is found only in RBM23 and RBM39, and only these proteins were detectably downregulated in indisulam-treated HCT116 cells. This work further explains how indisulam induces RBM39 degradation and defines the challenge of harnessing DCAF15 to degrade additional targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural complementarity facilitates E7820-mediated degradation of RBM39 by DCAF15.",
+    "doi": "10.1038/s41589-019-0378-3",
+    "pmid": "31686031",
+    "authors": [
+      "Faust TB, Yoon H, Nowak RP, Donovan KA, Li Z, Cai Q, Eleuteri NA, Zhang T, Gray NS, Fischer ES."
+    ],
+    "year": "2020",
+    "publication_date": "2019-11-04",
+    "cited_by_count": 174,
+    "journal": "",
+    "abstract": "The investigational drugs E7820, indisulam and tasisulam (aryl-sulfonamides) promote the degradation of the splicing factor RBM39 in a proteasome-dependent mechanism. While the activity critically depends on the cullin RING ligase substrate receptor DCAF15, the molecular details remain elusive. Here we present the cryo-EM structure of the DDB1-DCAF15-DDA1 core ligase complex bound to RBM39 and E7820 at a resolution of 4.4 Å, together with crystal structures of engineered subcomplexes. We show that DCAF15 adopts a new fold stabilized by DDA1, and that extensive protein-protein contacts between the ligase and substrate mitigate low affinity interactions between aryl-sulfonamides and DCAF15. Our data demonstrate how aryl-sulfonamides neo-functionalize a shallow, non-conserved pocket on DCAF15 to selectively bind and degrade RBM39 and the closely related splicing factor RBM23 without the requirement for a high-affinity ligand, which has broad implications for the de novo discovery of molecular glue degraders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aryl Sulfonamides Induce Degradation of Aryl Hydrocarbon Receptor Nuclear Translocator through CRL4<sup>DCAF15</sup> E3 Ligase.",
+    "doi": "10.14348/molcells.2020.0122",
+    "pmid": "33168788",
+    "authors": [
+      "Kim SA, Jo SH, Cho JH, Yu MY, Shin HC, Kim JA, Park SG, Park BC, Kim S, Kim JH."
+    ],
+    "year": "2020",
+    "publication_date": "2020-11-01",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Aryl hydrocarbon receptor nuclear translocator (ARNT) plays an essential role in maintaining cellular homeostasis in response to environmental stress. Under conditions of hypoxia or xenobiotic exposure, ARNT regulates the subset of genes involved in adaptive responses, by forming heterodimers with hypoxia-inducible transcription factors (HIF1α and HIF2α) or aryl hydrocarbon receptor (AhR). Here, we have shown that ARNT interacts with DDB1 and CUL4-associated factor 15 (DCAF15), and the aryl sulfonamides, indisulam and E7820, induce its proteasomal degradation through Cullin-RING finger ligase 4 containing DCAF15 (CRL4<sup>DCAF15</sup>) E3 ligase. Moreover, the two known neo-substrates of aryl sulfonamide, RNA-binding motif protein 39 (RBM39) and RNA-binding motif protein 23 (RBM23), are not required for ARNT degradation. In line with this finding, aryl sulfonamides inhibited the transcriptional activities of HIFs and AhR associated with ARNT. Our results collectively support novel regulatory roles of aryl sulfonamides in both hypoxic and xenobiotic responses.",
+    "openalex_id": ""
+  }
+]

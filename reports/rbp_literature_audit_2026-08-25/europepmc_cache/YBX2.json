@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Knockdown of Y-box-binding protein 2 induces mitochondrial dysfunction to interrupt zygotic genome activation in porcine embryos.",
+    "doi": "10.5187/jast.2024.e87",
+    "pmid": "41426208",
+    "authors": [
+      "Jiang WJ, Lee SH, Song HJ, Cui XS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-30",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Y-box-binding protein 2 (YBX2) is a germ cell-specific protein that plays important roles in mRNA stability, transcription, and translation. However, the effects of YBX2 on porcine embryos development remain unclear. To investigate the function of YBX2 in early porcine embryonic development, YBX2 knockdown (KD) was performed via siRNA microinjection at the single-cell stage. The expression level of YBX2 gene was measured by quantitative real-time polymerase chain reaction (qRT-PCR). The effect of YBX2 on mitochondrial function and zygotic genome activation were detected by qRT-PCR, western blot, immunofluorescence staining. The results showed that YBX2 is essential for early embryonic development. YBX2 KD decreased the blastocyst rate, mitochondrial activity, and the expression levels of NRF1, NRF2, and SIRT1, thereby reducing mitochondrial biogenesis. In addition, YBX2 KD led to an increase in maternal mRNA levels and a decrease in zygotic genome activation mRNA levels. However, maternal protein levels were reduced, indicating that YBX2 can affect the maternal-to-zygotic transition. Meanwhile, H3K9ac levels decreased and H3K9me3 levels increased following YBX2 KD, suggesting that YBX2 regulates gene transcription. YBX2 affected embryonic development by regulating mitochondrial biogenesis and ZGA expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Biological functions of 5-methylcytosine RNA-binding proteins and their potential mechanisms in human cancers.",
+    "doi": "10.3389/fonc.2025.1534948",
+    "pmid": "39990690",
+    "authors": [
+      "Zhao T, Zhang Z, Chen Z, Xu G, Wang Y, Wang F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-07",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "The 5-methylcytosine (m5C) modification is a crucial epigenetic RNA modification, which is involved in the post-transcriptional regulation of genes. It plays an important role in various biological processes, including cell metabolism, growth, apoptosis, and tumorigenesis. By affecting the proliferation, migration, invasion, and drug sensitivity of tumor cells, m5C methylation modification plays a vital part in the initiation and progression of tumors and is closely associated with the poor tumor prognosis. m5C-related proteins are categorized into three functional groups: m5C methyltransferases (m5C writers), m5C demethylases (m5C erasers), and m5C methyl-binding proteins (m5C readers). This paper introduces several common methodologies for detecting m5C methylation; and reviews the molecular structure and biological functions of m5C readers, including ALYREF, YBX1, YBX2, RAD52, YTHDF2, FMRP, and SRSF2. It further summarizes their roles and regulatory mechanisms in tumors, offering novel targets and insights for tumor treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NSUN5 Attenuates Renal Injury and Ferroptosis in Hyperuricaemic Nephropathy Through YBX2-Dependent Stabilisation of SCD1 m5C Methylation.",
+    "doi": "10.1002/advs.202521459",
+    "pmid": "42011916",
+    "authors": [
+      "Song XX, Suo XG, Yu Y, Zhang K, Li CA, Wang J, Xu HX, Niu SY, Lv DX, He ZH, Li FH, Meng XM, Jin J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA 5-methylcytosine (m5C) modification plays a critical role in multiple diseases; however, its function in hyperuricaemic nephropathy (HN) remains unclear. Here, we show that renal m5C levels are markedly decreased and the m5C methyltransferase NOP2/Sun RNA methyltransferase 5 (NSUN5) is downregulated in HN mice. Conditional knock-in (cKI) mice and mouse tubular epithelial cells overexpressing NSUN5 exhibit resistance to uric acid (UA), thereby alleviating kidney injury, inflammation, and fibrosis in HN. Bisulphite sequencing coupled with RNA sequencing identifies stearoyl-CoA desaturase-1 (SCD1) as a direct NSUN5 target and reveals the involvement of NSUN5 in ferroptosis regulation. Mechanistically, NSUN5 installs m5C on SCD1 mRNA. The m5C reader YBX2 binds to the modified transcript, prolonging the half-life of SCD1 mRNA and enhancing its stability, thereby suppressing ferroptosis. Elevated SCD1 also inhibits NF-κB p65 phosphorylation and nuclear translocation, dampens inflammatory responses and promotes ABCG2-dependent UA excretion. Recombinant NSUN5 further ameliorates renal injury in HN. Our findings revealed a novel NSUN5-mediated mechanism and highlight a potential therapeutic target for HN.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Analysis of the mRNA modification machinery alterations in breast cancer through the SCAN-B cohort.",
+    "doi": "10.1093/narcan/zcaf027",
+    "pmid": "40918643",
+    "authors": [
+      "Peula C, Esteva-Socias M, Kumari K, Dassi E, Aguilo F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-03",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Epitranscriptomic modifications regulate gene expression and have been implicated in cancer, including breast cancer. Using the SCAN-B cohort, we analyzed 49 messenger RNA modification regulators (mRMPs) across breast cancer subtypes. In the basal subtype, we found significant overexpression of m<sup>6</sup>A readers (IGF2BP1-3), m<sup>5</sup>C regulators (NSUN5, ALYREF, YBX1, YBX2), pseudouridine [PUS1, MARS (or MetRS), RPUSD2], and RNA editing enzymes [APOBEC3A (A3A), A3G, ADAR1], all linked to poor survival. Conversely, the m<sup>6</sup>A writer METTL14 was downregulated. Our findings highlight key mRMPs as potential biomarkers and therapeutic targets, underscoring the role of RNA modifications in breast cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "IGF2BP3 recognizes m&lt;sup&gt;6&lt;/sup&gt;A to regulate histone-to-protamine replacement during mouse sperm development.",
+    "doi": "10.1038/s44318-025-00659-y",
+    "pmid": "41350940",
+    "authors": [
+      "Wang D, Huang Z, Zhou Y, Chen P, Chang G, Ke L, Jing C, Yang H, Zhao J, Ren S, Zheng Y, Chen Y, Xiang Y, Liu J, Wang M."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-05",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Post-meiotic development of spermatids is under the control of a sophisticated RNA metabolic network, wherein the N6-methyladenosine (m<sup>6</sup>A) modification of mRNA, and proteins that bind to it, exert crucial functions in regulating sperm development from spermatogonia to spermatocytes. However, which m<sup>6</sup>A recognition proteins are involved in male post-meiotic spermiogenesis, and via which regulatory mechanisms, remains largely unknown. Here, we uncover the involvement of the m<sup>6</sup>A reader protein IGF2BP3 in the regulation of post-meiotic spermatid development. Genetic ablation of Igf2bp3 results in spermatogenesis defects, leading to male sub-fertility or even infertility. Mechanistically, IGF2BP3 loss-of-function leads to the excessive translation of its target RNAs associated with histone-to-protamine replacement, particularly Dot1l and Hdac11. IGF2BP3 translationally represses these targets through its m<sup>6</sup>A-binding property and through its interaction with its binding partner YBX2. Sperm developmental defects of IGF2BP3 knockout mouse can be rescued by siRNAs targeting Dot1l and Hdac11. Collectively, our findings define the essential role of IGF2BP3-dependent regulation of protein biosynthesis in histone-to-protamine replacement during spermiogenesis, helping to understand the functions of m<sup>6</sup>A RNA modification in sperm development and male fertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-Binding Proteins in the Regulation of Adipogenesis and Adipose Function.",
+    "doi": "10.3390/cells11152357",
+    "pmid": "35954201",
+    "authors": [
+      "Zhang P, Wu W, Ma C, Du C, Huang Y, Xu H, Li C, Cheng X, Hao R, Xu Y."
+    ],
+    "year": "2022",
+    "publication_date": "2022-07-31",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "The obesity epidemic represents a critical public health issue worldwide, as it is a vital risk factor for many diseases, including type 2 diabetes (T2D) and cardiovascular disease. Obesity is a complex disease involving excessive fat accumulation. Proper adipose tissue accumulation and function are highly transcriptional and regulated by many genes. Recent studies have discovered that post-transcriptional regulation, mainly mediated by RNA-binding proteins (RBPs), also plays a crucial role. In the lifetime of RNA, it is bound by various RBPs that determine every step of RNA metabolism, from RNA processing to alternative splicing, nucleus export, rate of translation, and finally decay. In humans, it is predicted that RBPs account for more than 10% of proteins based on the presence of RNA-binding domains. However, only very few RBPs have been studied in adipose tissue. The primary aim of this paper is to provide an overview of RBPs in adipogenesis and adipose function. Specifically, the following best-characterized RBPs will be discussed, including HuR, PSPC1, Sam68, RBM4, Ybx1, Ybx2, IGF2BP2, and KSRP. Characterization of these proteins will increase our understanding of the regulatory mechanisms of RBPs in adipogenesis and provide clues for the etiology and pathology of adipose-tissue-related diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YBX2 modulates mRNA stability via interaction with YTHDF2 in endometrial cancer cells.",
+    "doi": "10.1016/j.yexcr.2023.113586",
+    "pmid": "37030331",
+    "authors": [
+      "Cai Y, Li N, Li H."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-06",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) fine-tune gene expression by modulating RNA stability, translation, and degradation. RBPs are involved in the development of endometrial cancer. In particular, Y-box-binding protein 2 (YBX2), a germ cell-specific member of the YBX family, has been reported to maintain cancer stem cell-like phenotypes in endometrial cancer. However, the mechanism by which YBX2 modulates mRNA stability in endometrial cancer cells remains unknown. In this study, we examined the effects of the ectopic expression of YBX2 in endometrial adenocarcinoma-derived Ishikawa cells. We found that elevated levels of YBX2 delayed cell proliferation, without increasing cell apoptosis. Transcriptomic analysis revealed disturbances in gene expression caused by YBX2. Interestingly, heat shock protein family A (Hsp70) member 6 (HSPA6) levels were downregulated due to the reduced mRNA stability after YBX2 binding. YBX2 facilitated the formation of relatively stable cytoplasmic granules in tumor cells via its mRNA binding domain. Moreover, N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) reader proteins are recruited by YBX2 granules via the cold-shock domain. Notably, knockdown of YTH N<sup>6</sup>-methyladenosine RNA-binding protein F2 (YTHDF2), an m<sup>6</sup>A reader, ameliorated the reduction in HSPA6 mRNA levels induced by YBX2, indicating the synergistic effects of YBX2 and YTHDF2 on mRNA stability. Therefore, YBX2 regulates RNA stability by interacting with the m<sup>6</sup>A reader proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphorylated YBX2 is stabilized to promote glycolysis in brown adipocytes.",
+    "doi": "10.1016/j.isci.2023.108091",
+    "pmid": "37860762",
+    "authors": [
+      "Zhao Q, Yu C, Xu X, Jin W, Zhang Z, Huang H, Gao Y, Pan D."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-28",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Y-box binding protein 2 (YBX2) is an essential modulator of brown adipose tissue activation, yet the regulation on its own expression and the involved mechanism remains largely unknown. Herein, we report the YBX2 protein level, but not mRNA level, is induced in response to acute β-adrenergic signaling. In this context, YBX2 is a dual substrate for both AMPK and Akt2. The phosphorylation at Thr115 by AMPK or at Ser137 by Akt2 facilitates YBX2 accumulation in brown adipocytes by decreasing ubiquitination-mediated degradation. Beyond stabilizing PGC1α mRNA, increased YBX2 upon thermogenic activation assists the expression of glycolytic enzymes, promotes glucose utilization and lactate production. Mechanistically, YBX2 modulates translation of glycolytic genes via direct binding to 5'-UTRs of these genes. Together these findings suggest YBX2 is responsive to thermogenic stimuli by phosphorylation modification, and stabilized YBX2 helps to boost glycolysis and thermogenesis in brown adipocytes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Uremic toxin receptor NR1H3 contributes to hyperlipidemia- and chronic kidney disease-accelerated vascular inflammation, which is partially suppressed by novel YBX2 anti-ROS pathway.",
+    "doi": "10.1016/j.redox.2025.103724",
+    "pmid": "40505347",
+    "authors": [
+      "Lu Y, Sun Y, Saaoud F, Xu K, Shao Y, Han B, Jiang X, Martinez L, Vazquez-Padron RI, Mohsin S, Zhao H, Wang H, Yang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-09",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hyperlipidemia and chronic kidney disease (CKD) are well-established risk factors for cardiovascular disease and act synergistically to promote vascular inflammation and disease progression. However, the mechanisms underlying this synergetic effect remain largely unknown. Using a mouse model combining hyperlipidemia (via high-fat diet feeding, HFD) with 5/6 nephrectomy-induced CKD, we made the following significant findings: 1) HFD + CKD upregulated 1179 genes in mouse aortas and induced prominent reactive oxygen species (ROS), far more than either HFD or CKD alone. 2) HFD + CKD upregulated 86 CRISPRi-identified mitochondrial ROS regulators, 36 CRISPRi-identified cellular ROS regulators, and 19 GSEA-collected ROS regulators. These changes were associated with the upregulations of 48 cytokines, 7 highest toxicity uremic toxin receptors-including CD1D, FCGRT, AHR, IL6RA AGER, NR1H3 and NPY5R-in aortas. 3) These uremic toxin receptors emerged as novel promoters of inflammation and trained immunity. Deficiencies in CD1D, AHR, AGER, and the trained immunity promoter SET7 each downregulated up to 5.5 % of the genes upregulated by HFD + CKD. Conversely, activation of NR1H3 using an agonist upregulated up to 12.2 % of these genes. 4) The expression of 46 cytokine genes was strongly associated with NR1H3 upregulation. 5) The NR1H3 agonist also induced the expression of 28 ROS regulators, including YBX2, a novel anti-ROS transcription factor and RNA-binding protein, suggesting a potential negative feedback mechanism. YBX2 deficiency increased the cellular ROS level, while YBX2 overexpression suppressed 27 proinflammatory genes induced by HFD + CKD. Our findings provide novel insights into the role of the NR1H3-YBX2 axis in regulating inflammation accelerated by hyperlipidemia and CKD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YBX2-dependent stabilization of oocyte mRNA through a reversible sponge-like cortical partition.",
+    "doi": "10.1038/s41422-023-00824-0",
+    "pmid": "37231128",
+    "authors": [
+      "Zhang Z, Liu R, Zhou H, Luo Y, Mu J, Fu J, Wu T, Chen B, Sang Q, Wang L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-25",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive pan-cancer analysis of YBX family reveals YBX2 as a potential biomarker in liver cancer.",
+    "doi": "10.3389/fimmu.2024.1382520",
+    "pmid": "38698857",
+    "authors": [
+      "Yuan Z, Li B, Liao W, Kang D, Deng X, Tang H, Xie J, Hu D, Chen A."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-18",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The Y-box-binding proteins (YBX) act as a multifunctional role in tumor progression, metastasis, drug resistance by regulating the transcription and translation process. Nevertheless, their functions in a pan-cancer setting remain unclear.<h4>Methods</h4>This study examined the clinical features expression, prognostic value, mutations, along with methylation patterns of three genes from the YBX family (YBX1, YBX2, and YBX3) in 28 different types of cancer. Data used for analysis were obtained from Cancer Genome Atlas (TCGA) and Genotype-Tissue Expression (GTEx) databases. A novel YBXs score was created using the ssGSEA algorithm for the single sample gene set enrichment analysis. Additionally, we explored the YBXs score's association with the tumor microenvironment (TME), response to various treatments, and drug resistance.<h4>Results</h4>Our analysis revealed that YBX family genes contribute to tumor progression and are indicative of prognosis in diverse cancer types. We determined that the YBXs score correlates significantly with numerous malignant pathways in pan-cancer. Moreover, this score is also linked with multiple immune-related characteristics. The YBXs score proved to be an effective predictor for the efficacy of a range of treatments in various cancers, particularly immunotherapy. To summarize, the involvement of YBX family genes is vital in pan-cancer and exhibits a significant association with TME. An elevated YBXs score indicates an immune-activated TME and responsiveness to diverse therapies, highlighting its potential as a biomarker in individuals with tumors. Finally, experimental validations were conducted to explore that YBX2 might be a potential biomarker in liver cancer.<h4>Conclusion</h4>The creation of YBXs score in our study offered new insights into further studies. Besides, YBX2 was found as a potential therapeutic target, significantly contributing to the improvement of HCC diagnosis and treatment strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The m6A reader PRRC2A is essential for meiosis I completion during spermatogenesis.",
+    "doi": "10.1038/s41467-023-37252-y",
+    "pmid": "36964127",
+    "authors": [
+      "Tan X, Zheng C, Zhuang Y, Jin P, Wang F."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-24",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "N6-methyladenosine (m6A) and its reader proteins YTHDC1, YTHDC2, and YTHDF2 have been shown to exert essential functions during spermatogenesis. However, much remains unknown about m6A regulation mechanisms and the functions of specific readers during the meiotic cell cycle. Here, we show that the m6A reader Proline rich coiled-coil 2A (PRRC2A) is essential for male fertility. Germ cell-specific knockout of Prrc2a causes XY asynapsis and impaired meiotic sex chromosome inactivation in late-prophase spermatocytes. Moreover, PRRC2A-null spermatocytes exhibit delayed metaphase entry, chromosome misalignment, and spindle disorganization at metaphase I and are finally arrested at this stage. Sequencing data reveal that PRRC2A decreases the RNA abundance or improves the translation efficiency of targeting transcripts. Specifically, PRRC2A recognizes spermatogonia-specific transcripts and downregulates their RNA abundance to maintain the spermatocyte expression pattern during the meiosis prophase. For genes involved in meiotic cell division, PRRC2A improves the translation efficiency of their transcripts. Further, co-immunoprecipitation data show that PRRC2A interacts with several proteins regulating mRNA metabolism or translation (YBX1, YBX2, PABPC1, FXR1, and EIF4G3). Our study reveals post-transcriptional functions of PRRC2A and demonstrates its critical role in the completion of meiosis I in spermatogenesis.",
+    "openalex_id": ""
+  }
+]

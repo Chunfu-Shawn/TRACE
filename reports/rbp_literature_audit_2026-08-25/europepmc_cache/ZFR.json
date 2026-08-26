@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Multiple Roles of Protamine Kinase SRPK1 and Phosphatase PP1γ in Sperm Development.",
+    "doi": "10.1002/pmic.70121",
+    "pmid": "41913519",
+    "authors": [
+      "de la Iglesia A, Blanco M, Jodar M, Feudjio O, Leduc M, Castillo J, Cocquet J, Oliva R."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-30",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Protein phosphorylation regulates key events of male germ cell differentiation. In the testis, SRPK1 and PP1γ are involved in protamine phosphorylation and dephosphorylation, respectively, and their deregulation is linked to defective chromatin structure and male infertility. The aim of this study was to expand our knowledge on the molecular role of these phosphorylation-modulating proteins through the identification of novel partners in the testis, potentially supporting additional roles in sperm development. Using immunoprecipitation followed by LC-MS/MS, we identified yet undescribed interactions of SRPK1 and PP1γ with proteins involved in sperm formation and regulation of spermatogenic gene expression. We reported that SRPK1 interacts with the key splicing regulator ASF/SF2, as well as with other proteins involved in posttranscriptional regulation such as PABP1 or IGF2BP3. We showed that the testis-enriched isoform 2 of PP1γ (PP1γ2) interacts with PIHI1D1, part of the R2TP chaperone complex, and predicted that ZFR, NDUFB10 and ILF2 interactions with PP1γ2 happen within the C-terminal sequence which is specific of PP1γ2 proteoform. Both SRPK1 and PP1γ interactomes include ILF2 and TBLX1R1, with roles in gene expression regulation. Most of the identified proteins are known phosphoproteins in male germ cells, supporting a functional interaction. Overall, our results suggest additional roles for SRPK1 and PP1γ during spermatogenesis, shedding light into the orchestrated regulation of the complex mechanisms driving sperm formation. Data are available via ProteomeXchange with identifiers PXD054959 and PXD054960. SIGNIFICANCE OF THE STUDY: In the present work, we report the first testicular protein interactome of two broad phosphorylation-modulating proteins, the kinase SRPK1 and the phosphatase PP1γ, known to be essential regulators of chromatin remodeling during male germ cell development. Our novel protein-protein interactions reveal additional roles for SRPK1 and PP1γ in male germ cells, in key processes including splicing, gene expression, protein homeostasis, or formation of sperm-specific structures. Our data will therefore contribute to a better understanding of the complex and orchestrated molecular mechanisms controlling testicular activity and proper sperm formation. The lack of male germ cell-specific protein-protein interaction datasets currently challenges the research on the still largely unknown molecular mechanisms driving male germ cell differentiation. This jeopardizes exploratory approaches and in silico validations in a testis-specific manner, as most available datasets have been obtained in somatic cells. Thus, our protein-protein interaction data will be a useful resource to those interested in identifying the origins of male reproductive health problems related to protein phosphorylation. Furthermore, our analyses suggesting that some of these interactions may also occur in other organs extend the relevance of our findings to the broader scientific community.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CircZFR functions in cancer from molecular networks to precision therapy.",
+    "doi": "10.3389/fgene.2025.1694220",
+    "pmid": "41158508",
+    "authors": [
+      "Nan J, Li M, Li X, Guo Y, Cai Z, Deng Z, Zhan C, Li J, Liu S, Chen Z, Huang Z, Yang Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-14",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "CircRNAs are a class of covalently closed circular non-coding RNAs formed through back-splicing of precursor mRNAs, lacking 5' caps and 3' poly(A) tails, and are widely present in eukaryotic cells. Advances in high-throughput sequencing have revealed that circRNAs regulate gene expression and participate in disease pathogenesis, often exhibiting dual oncogenic or tumor-suppressive roles in cancer. CircZFR primarily comprises two subtypes-hsa_circ_0072088 and hsa_circ_0000345-which are derived from exons of the ZFR gene located on chromosome 5q13.3. CircZFR plays a critical regulatory role in the progression of multiple malignancies. This review systematically summarizes recent research progress on circZFR across different cancer types, elucidating its molecular mechanisms in influencing tumor proliferation, invasion, metastasis, and drug resistance through acting as a miRNA sponge, modulating signaling pathways, or directly binding to proteins. Furthermore, this review integrates the interaction networks between circZFR and key regulatory factors, unveiling its multifaceted functions in remodeling the tumor microenvironment. This review emphasizes the aberrant expression patterns of circZFR and their clinical prognostic relevance in multiple cancers, including colorectal, pancreatic, thyroid, bladder, hepatocellular, breast, lung, and cervical carcinomas, discusses its potential as a novel diagnostic biomarker or therapeutic target, and aims to provide a theoretical basis for precision cancer therapy while highlighting its translational research prospects.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A network of DZF proteins controls alternative splicing regulation and fidelity.",
+    "doi": "10.1093/nar/gkad351",
+    "pmid": "37144502",
+    "authors": [
+      "Haque N, Will A, Cook AG, Hogg JR."
+    ],
+    "year": "2023",
+    "publication_date": "2023-07-01",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "Proteins containing DZF (domain associated with zinc fingers) modules play important roles throughout gene expression, from transcription to translation. Derived from nucleotidyltransferases but lacking catalytic residues, DZF domains serve as heterodimerization surfaces between DZF protein pairs. Three DZF proteins are widely expressed in mammalian tissues, ILF2, ILF3 and ZFR, which form mutually exclusive ILF2-ILF3 and ILF2-ZFR heterodimers. Using eCLIP-Seq, we find that ZFR binds across broad intronic regions to regulate the alternative splicing of cassette and mutually exclusive exons. ZFR preferentially binds dsRNA in vitro and is enriched on introns containing conserved dsRNA elements in cells. Many splicing events are similarly altered upon depletion of any of the three DZF proteins; however, we also identify independent and opposing roles for ZFR and ILF3 in alternative splicing regulation. Along with widespread involvement in cassette exon splicing, the DZF proteins control the fidelity and regulation of over a dozen highly validated mutually exclusive splicing events. Our findings indicate that the DZF proteins form a complex regulatory network that leverages dsRNA binding by ILF3 and ZFR to modulate splicing regulation and fidelity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF2AK2 Globally Binds and Regulates the Expression and Alternative Splicing of T2D-Related Genes in INS1 Cell.",
+    "doi": "10.1111/cbdd.70242",
+    "pmid": "41531124",
+    "authors": [
+      "Ning L, Liu T, Lv Y, Cheng Y, Yang M, Cai H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "This study aimed to investigate the impact of the RNA-binding protein eukaryotic translation initiation factor 2-alpha kinase 2 (EIF2AK2) gene, also known as PKR, on the condition of islet beta cells. In this study, EIF2AK2 was overexpressed in INS1 cells, and transcriptome data following EIF2AK2 overexpression were obtained using RNA-seq technology. Additionally, potential target genes that bind to EIF2AK2 were identified through iRIP-seq technology. The proteins interacting with EIF2AK2 were characterized using co-immunoprecipitation (CO-IP) combined with mass spectrometry to elucidate the molecular regulatory mechanisms of EIF2AK2 in INS1 cells. RNA-seq results indicated that in INS1 cells overexpressing EIF2AK2, 1171 genes were differentially expressed, and 2161 alternative splicing events were significantly altered. iRIP-seq data demonstrated that reads from the immunoprecipitated samples were significantly enriched in the intronic and coding sequence (CDS) regions. EIF2AK2 preferentially binds to the GCGGCGG motif in RNA. Comprehensive analysis suggests that EIF2AK2 may directly bind to and regulate the expression of Dusp8, Btg1, and Prkce, thereby affecting pancreatic islet cell functions. Furthermore, EIF2AK2 may influence islet cell function by modulating the alternative splicing of Zfr and Pias2. Additionally, combined with Co-IP mass spectrometry data, it was discovered that EIF2AK2 can interact with 649 proteins, including various differentially expressed RNA-binding proteins, transcription factors, and histones, which may be associated with diabetes. Our results indicate that EIF2AK2 may regulate the expression or alternative splicing of mRNA related to type 2 diabetes through direct or indirect binding. Additionally, it may influence the progression of type 2 diabetes by interacting with other proteins. We propose that EIF2AK2 plays a significant role in diabetic islet beta cells, and its aberrant regulatory pattern is closely associated with the onset and progression of type 2 diabetes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Engineered zinc finger repressors induce a prolonged and selective repression of &lt;i&gt;SCN9A&lt;/i&gt; in nociceptors of nonhuman primates.",
+    "doi": "10.1126/scitranslmed.adu0217",
+    "pmid": "41880518",
+    "authors": [
+      "Samie M, Parman T, Jalan M, Lee J, Dunn P, Eshleman J, Vidales DB, Kennard K, Holter J, Jones B, Pan Y, Falaleeva M, Hinkley S, Goodwin A, Chen T, Bhardwaj S, Ward A, Trias M, Chikere A, Som M, Lu Y, Yadav S, Fontenot J, Zeitler B, Pooler A, Meyer K."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Peripheral neuropathies are estimated to affect several million patients in the US, with no long-lasting therapy currently available. In humans, the Nav1.7 sodium channel, encoded by the <i>SCN9A</i> gene, is involved in a spectrum of inherited neuropathies and has emerged as a promising target for analgesic drug development. The development of a selective Nav1.7 inhibitor has been challenging, in part because of structural similarities with other Nav channels. Here, we present preclinical studies for a genomic medicine approach using engineered zinc finger repressors (ZFRs) specifically targeting the human/nonhuman primate (NHP) <i>SCN9A</i> gene. Adeno-associated virus (AAV)-mediated delivery of ZFRs in human induced pluripotent stem cell (iPSC)-derived neurons resulted in the reduction of <i>SCN9A</i> with no detectable off-target activity. In the spared nerve injury (SNI) neuropathic pain mouse model, AAV-ZFR administration resulted in ≤70% repression of <i>Scn9a</i> in mouse dorsal root ganglia (DRGs) and was associated with reduction in pain hypersensitivity. AAV9-mediated intrathecal-lumbar (IT-lumbar) delivery of ZFRs in NHPs demonstrated repression of <i>SCN9A</i> in bulk DRG tissue and single-cell levels in nociceptors 1 month after treatment. A lead AAV9-ZFR investigational product, ST-503, was developed and further evaluated in a 6-month study in NHPs. ST-503 administration by IT-lumbar infusion resulted in 50% repression of <i>SCN9A</i> in bulk DRG tissue at 6 months without findings of dose-limiting toxicity or impact on neurological and cardiac safety pharmacology. Together, our results support further development of an AAV-delivered ZFR as a potential therapy for patients with peripheral neuropathies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A reduction in A-to-I RNA editing by ADAR disrupts Pumilio-mediated inhibition of MAPK signaling to drive intestinal stem cell aging.",
+    "doi": "10.1126/scisignal.aee6812",
+    "pmid": "42520108",
+    "authors": [
+      "Zhang Q, Zhu Y, Chen Y, Hou W, Sun A, Yan, Liu X, Yuan Y, Gao C, Xie J, Zhang R, Chen H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-28",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Aging impairs intestinal stem cell (ISC) function, disrupting epithelial homeostasis and regenerative repair. Loss of ISC quiescence promotes intestinal dysfunction and contributes to organismal aging. Here, we report an epitranscriptomic mechanism through which a decrease in adenosine-to-inosine (A-to-I) RNA editing by the adenosine deaminase ADAR in ISCs during aging disrupts a conserved signaling axis that maintains ISC quiescence. In <i>Drosophila melanogaster</i>, ISC-specific loss of dADAR triggered hyperproliferation and tissue aging, whereas dADAR overexpression reduced age-related gut dysfunction and extended life span. Intestinal injury induced a decrease in dADAR, which was necessary for tissue regeneration, and in the zinc finger protein dZn72D, which stabilized dADAR to support intestinal homeostasis during aging. dADAR edited transcripts encoding the RNA binding protein Pumilio (dPUM) to generate an isoform that inhibited translation of two components of the mitogen-activated protein kinase (MAPK), dEGFR and dERK, thereby maintaining ISC quiescence. The abundance of ADAR2 and of the dZn72D ortholog ZFR decreased in human colonic crypts with aging and in mouse colon after injury, suggesting that attenuation of ADAR activity may play a conserved role in ISC aging and in facilitating colonic regeneration. Our work identifies a conserved mechanism of epitranscriptomic regulation that safeguards tissues and the decay of ADAR-mediated RNA editing as a form of age-related epigenetic information loss that disrupts ISC homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ZFR coordinates crosstalk between RNA decay and transcription in innate immunity.",
+    "doi": "10.1038/s41467-018-03326-5",
+    "pmid": "29559679",
+    "authors": [
+      "Haque N, Ouda R, Chen C, Ozato K, Hogg JR."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-20",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "Control of type I interferon production is crucial to combat infection while preventing deleterious inflammatory responses, but the extent of the contribution of post-transcriptional mechanisms to innate immune regulation is unclear. Here, we show that human zinc finger RNA-binding protein (ZFR) represses the interferon response by regulating alternative pre-mRNA splicing. ZFR expression is tightly controlled during macrophage development; monocytes express truncated ZFR isoforms, while macrophages induce full-length ZFR to modulate macrophage-specific alternative splicing. Interferon-stimulated genes are constitutively activated by ZFR depletion, and immunostimulation results in hyper-induction of interferon β (IFNβ/IFNB1). Through whole-genome analyses, we show that ZFR controls interferon signaling by preventing aberrant splicing and nonsense-mediated decay of histone variant macroH2A1/H2AFY mRNAs. Together, our data suggest that regulation of ZFR in macrophage differentiation guards against aberrant interferon responses and reveal a network of mRNA processing and decay that shapes the transcriptional response to infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Estimation of static and dynamic functional connectivity in resting-state fMRI using zero-frequency resonator.",
+    "doi": "10.1002/hbm.26606",
+    "pmid": "38895977",
+    "authors": [
+      "Das SK, Sao AK, Biswal BB."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Resting-state functional magnetic resonance imaging (rs-fMRI) is increasingly being used to infer the functional organization of the brain. Blood oxygen level-dependent (BOLD) features related to spontaneous neuronal activity, are yet to be clearly understood. Prior studies have hypothesized that rs-fMRI is spontaneous event-related and these events convey crucial information about the neuronal activity in estimating resting state functional connectivity (FC). Attempts have been made to extract these temporal events using a predetermined threshold. However, the thresholding methods in addition to being very sensitive to noise, may consider redundant events or exclude the low-valued inflection points. Here, we extract the event-related temporal onsets from the rs-fMRI time courses using a zero-frequency resonator (ZFR). The ZFR reflects the transient behavior of the BOLD events at its output. The conditional rate (CR) of the BOLD events occurring in a time course with respect to a seed time course is used to derive static FC. The temporal activity around the estimated events called high signal-to-noise ratio (SNR) segments are also obtained in the rs-fMRI time course and are then used to compute static and dynamic FCs during rest. Coactivation pattern (CAP) is the dynamic FC obtained using the high SNR segments driven by the ZFR. The static FC demonstrates that the ZFR-based CR distinguishes the coactivation and non-coactivation scores well in the distribution. CAP analysis demonstrated the stable and longer dwell time dominant resting state functional networks with high SNR segments driven by the ZFR. Static and dynamic FC analysis underpins that the ZFR-driven temporal onsets of BOLD events derive reliable and consistent FCs in the resting brain using a subset of the time points.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Differential Expression Analyses on Human Aortic Tissue Reveal Novel Genes and Pathways Associated With Abdominal Aortic Aneurysm Onset and Progression.",
+    "doi": "10.1161/jaha.124.036082",
+    "pmid": "39655704",
+    "authors": [
+      "Temprano-Sagrera G, Peypoch O, Soto B, Dilmé J, Calsina Juscafresa L, Davtian D, de la Rosa Estadella M, Nieto L, Brown A, Escudero JR, Viñuela A, Camacho M, Sabater-Lleal M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-10",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Abdominal aortic aneurysms (AAAs) are focal dilatations of the abdominal aorta that expand progressively, increasing their risk of rupture. Rupture of an AAA is associated with high mortality rates, but the mechanisms underlying the initiation, expansion, and rupture of AAAs are not yet fully understood. We aimed to characterize the pathophysiology of AAAs and identify new genes associated with AAA initiation and progression.<h4>Methods and results</h4>This study used RNA sequencing data on 140 samples, becoming the largest RNA sequencing data set for differential expression studies of AAAs. We performed differential expression analyses and analyses of differential splicing between dilated and nondilated aortic tissue samples, and between AAAs of different diameters. We identified 3002 differentially expressed genes between AAAs and controls that were independent of ischemic time, 1425 of which were new. Additionally, 8 genes (<i>EXTL3</i>, <i>ZFR</i>, <i>DUSP8</i>, <i>DISP1</i>, <i>USP33</i>, <i>VPS37C</i>, <i>ZNF784</i>, <i>RFX1</i>) were differentially expressed between AAAs of varying diameters and between AAAs and control samples. Finally, 7 genes (<i>SPP1</i>, <i>FHL1</i>, <i>GNAS</i>, <i>MORF4L2</i>, <i>HMGN1</i>, <i>ARL1</i>, <i>RNASE4</i>) with differential splicing patterns were also differentially expressed genes between AAAs and controls, suggesting that splicing differences in these genes may contribute to the observed expression changes and disease development.<h4>Conclusions</h4>This study identifies new genes and splicing patterns associated with AAAs and validates previous relevant pathways on AAAs. These findings contribute to the understanding of the complex mechanisms underlying AAAs and may provide potential targets to limit AAA progression and mortality risk.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide polygenic risk score for estimated glomerular filtration slope predicts chronic kidney disease in a Taiwanese population.",
+    "doi": "10.1007/s40620-025-02380-9",
+    "pmid": "40906351",
+    "authors": [
+      "Chuang GT, Hsiung CN, Che TP, Oh KH, Park SK, Moon S, Lee S, Robinson-Cohen C, Hung AM, Li WY, Chang YC."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-04",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Kidney function decline is associated with cardiovascular disease and various other morbidities. Previous studies regarding polygenic risk scores of estimated glomerular filtration rate (eGFR) change were generally based on individuals of European ancestry and not validated on populations of East Asian ancestry.<h4>Methods</h4>We conducted a genome-wide association study for eGFR slope among 26,755 non-diabetic individuals from the Taiwan Biobank. We developed an eGFR slope polygenic risk score and validated its prediction power on chronic kidney disease (CKD) in another sample with 58,777 non-diabetic individuals.<h4>Results</h4>Eight candidate loci associated with eGFR slope (P-value ranging from 1.56 × 10<sup>-6</sup> to 8.73 × 10<sup>-6</sup>) located in the SLC9A9, SLC26A8, DEPTOR, OBP2B, PRMT8, C19orf44 genes and an intergenic locus between MTMR12-ZFR genes were identified and a polygenic risk score for eGFR slope was constructed. The polygenic risk score was validated externally to be significantly associated with CKD in another set of individuals (P-value = 0.0182; odds ratio = 0.753; 95% confidence interval: 0.5936-0.9504).<h4>Conclusions</h4>We constructed a genome-wide polygenic risk score for eGFR decline and externally validated its use in predicting CKD in another Taiwan population. Our eGFR slope polygenic risk score might be useful for clinical CKD risk assessment in future, especially for East Asians.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Enhancing Predictive Tools for Skeletal Growth and Craniofacial Morphology in Syndromic Craniosynostosis: A Focus on Cranial Base Variables.",
+    "doi": "10.3390/diagnostics15131640",
+    "pmid": "40647639",
+    "authors": [
+      "Zheng L, Abdullah NA, Ramli NM, Mohamed NA, Hisam MNF, Hariri F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<b>Background/Objectives</b>: Patients with syndromic craniosynostosis (SC) pose a significant challenge for post-operational outcomes due to the variability in craniofacial deformities and gain-of-function characteristics. This study aims to develop validated predictive tools using stable cranial base variables to predict changes in the midfacial region and explore the craniofacial morphology among patients with SC. <b>Methods</b>: This study involved 17 SC patients under 12 years old, 17 age-matched controls for morphological analysis, and 21 normal children for developing craniofacial predictive models. A stable cranial base and changeable midfacial variables were analyzed using the Mann-Whitney U test. Pearson correlation identified linear relationships between the midface and cranial base variables. Multicollinearity was checked before fitting the data with multiple linear regression for growth prediction. Model adequacy was confirmed and the 3-fold cross-validation ensured results reliability. <b>Results</b>: Patients with SC exhibited a shortened cranial base, particularly in the middle cranial fossa (S-SO), and a sharper N-S-SO and N-SO-BA angle, indicating a downward rotation and kyphosis. The midface length (ANS-PNS) and zygomatic length (ZMs-ZTi) were significantly reduced, while the midface width (ZFL-ZFR) was increased. Regression models for the midface length, width, and zygomatic length were given as follows: ANS-PNS = 23.976 + 0.139 S-N + 0.545 SO-BA - 0.120 N-S-BA + 0.078 S-SO-BA + 0.051 age (R<sup>2</sup> = 0.978, RMSE = 1.058); ZFL-ZFR = -15.618 + 0.666 S-N + 0.241 N-S-BA + 0.155 S-SO-BA + 0.121 age (R<sup>2</sup> = 0.903, RMSE = 3.158); and ZMs-ZTi = -14.403 + 0.765 SO-BA + 0.266 N-S-BA + 0.111 age (R<sup>2</sup> = 0.878, RMSE = 3.720), respectively. <b>Conclusions</b>: The proposed models have potential applications for midfacial growth estimation in children with SC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An Update on the Roles of circRNA-ZFR in Human Malignant Tumors.",
+    "doi": "10.3389/fcell.2021.806181",
+    "pmid": "35186956",
+    "authors": [
+      "Liu L, Wang H, Yu S, Gao X, Liu G, Sun D, Jiang X."
+    ],
+    "year": "2021",
+    "publication_date": "2022-02-02",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "CircRNAs (circular RNAs) are single-stranded RNAs that form covalently closed loops and function as important regulatory elements of the genome through multiple mechanisms. Increasing evidence had indicated that circRNAs, which might serve as either oncogenes or tumor suppressors, played vital roles in the pathophysiology of human diseases, especially in tumorigenesis and progression. CircRNA-ZFR (circular RNA zinc finger RNA binding protein) is a circular RNA that had attracted much attention in recent years. It has been found that circRNA-ZFR was abnormally expressed in a variety of malignant tumors, and its dysregulated expression was closely related to tumor stage, cancer metastasis and patients' prognosis. Recent studies had shown that aberrantly expressed circRNA-ZFR could regulate the malignant biological behaviors of tumors through various mechanisms; further exploration of circRNA-ZFR expression in tumors and its regulation on malignant biological behaviors such as tumor proliferation, invasion and drug resistance will provide new ideas for clinical tumors diagnosis and treatment.",
+    "openalex_id": ""
+  }
+]

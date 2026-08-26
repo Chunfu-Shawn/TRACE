@@ -1,0 +1,128 @@
+[
+  {
+    "title": "RNA-binding protein MEX3D promotes cervical carcinoma tumorigenesis by destabilizing TSC22D1 mRNA.",
+    "doi": "10.1038/s41420-022-01049-7",
+    "pmid": "35513372",
+    "authors": [
+      "Zheng Z, Chen X, Cai X, Lin H, Xu J, Cheng X."
+    ],
+    "year": "2022",
+    "publication_date": "2022-05-05",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) have been related to cancer development. Their functions in cervical cancer, however, are virtually unknown. One of these proteins, Mex-3 RNA-binding family member D (MEX3D), has been recently found to exhibit oncogenic properties in a variety of cancer types. In this present study, the functional roles and the regulatory mechanisms underlying MEX3D were examined in cervical cancer. The detection of MEX3D mRNA expression levels in cervical tissues was performed using reverse transcription-quantitative PCR. For functional analysis, for detecting apoptosis and cell proliferation in cervical cancer cells, the Cell Counting Kit-8, colony formation, and flow cytometry were utilized (SiHa and CaSki). The potential mechanisms of MEX3D were assessed and elucidated utilizing western blot analysis, RNA pull-down, RNA immunoprecipitation, and mRNA stability assays. For verification of MEX3D role in vivo, mouse xenograft models were established. When compared to normal cervical tissues, MEX3D expression was observed to be higher in cervical cancer tissues. MEX3D expression was increased in human papillomavirus (HPV) 16 positive cervical cancer tissues and positively regulated by HPV16 E7. When MEX3D expression was knocked down in cervical cancer cells, cell proliferation was decreased, colony formation was inhibited, and apoptosis was promoted. Furthermore, in a mouse xenograft model, knocking down MEX3D expression reduced cervical cancer tumor growth. In addition, MEX3D acted as an RBP to reduce TSC22 domain family protein 1 (TSC22D1) mRNA stability by directly binding to TSC22D1 mRNA. The findings revealed that MEX3D is upregulated by HPV16 E7 and has a crucial oncogenic in cervical cancer development via sponging TSC22D1 for destabilizing its mRNA levels. According to the findings of this study, MEX3D may be a potential therapeutic target for treating cervical cancer patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulated gene expressions of MEX3D, FOS and BCL2 in human induced-neuronal (iN) cells from NF1 patients: a pilot study.",
+    "doi": "10.1038/s41598-017-14440-7",
+    "pmid": "29066822",
+    "authors": [
+      "Sagata N, Kato TA, Kano SI, Ohgidani M, Shimokawa N, Sato-Kasai M, Hayakawa K, Kuwano N, Wilson AM, Ishizuka K, Kato S, Nakahara T, Nakahara-Kido M, Setoyama D, Sakai Y, Ohga S, Furue M, Sawa A, Kanba S."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-24",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Direct conversion technique to produce induced-neuronal (iN) cells from human fibroblasts within 2 weeks is expected to discover unknown neuronal phenotypes of neuropsychiatric disorders. Here, we present unique gene expression profiles in iN cells from patients with neurofibromatosis type 1 (NF1), a single-gene multifaceted disorder with comparatively high co-occurrence of autism spectrum disorder (ASD). Microarray-based transcriptomic analysis on iN cells from male healthy controls and male NF1 patients (NF1-iN cells) revealed that 149 genes expressions were significantly different (110 upregulated and 39 downregulated). We validated that mRNA of MEX3D (mex-3 RNA binding family member D) was lower in NF1-iN cells by real-time PCR with 12 sex-mixed samples. In NF1-iN cells on day 14, higher expression of FOS mRNA was observed with lower expression of MEX3D mRNA. Interestingly, BCL2 mRNA was higher in NF1-iN cells on day 5 (early-period) but not on day 14. Our data suggest that aberrant molecular signals due to NF1 mutations may disturb gene expressions, a subset of which defines continuum of the neuronal phenotypes of NF1 with ASD. Further translational studies using induced pluripotent stem (iPS) cell-derived neuronal cells are needed to validate our preliminary findings especially confirming meanings of analysis using early-period iN cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3D is an oncogenic driver in prostate cancer.",
+    "doi": "10.1002/pros.24216",
+    "pmid": "34455614",
+    "authors": [
+      "Shao L, Wang J, Karatas O, Ittmann M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-29",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Prostate cancer (PCa) is the most common visceral malignancy and the second leading cause of cancer deaths in US men. The two most common genetic alterations in PCa are expression of the TMPRSS2/ERG (TE) fusion gene and loss of the PTEN tumor suppressor. These genetic alterations act cooperatively to transform prostatic epithelium but the exact mechanisms involved are unclear.<h4>Methods</h4>Microarray expression analysis of immortalized prostate epithelial cells transformed by loss of PTEN and expression of the TE fusion revealed MEX3D as one of the most highly upregulated genes. MEX3D expression in prostate cancer was examined in patient samples and in silico. In vitro and in vivo studies to characterize the biological impact of MEX3D were carried out. Analysis of the TCGA PanCancer database revealed TCF3 as a major target of MEX3D. The induction of TCF3 by MEX3D was confirmed and the biological impact of TCF3 examined by in vitro studies.<h4>Results</h4>MEX3D is expressed at increased levels in prostate cancer and is increased by decreased PTEN and/or expression of the TE fusion gene and drives soft agar colony formation, invasion and tumor formation in vivo. The known oncogenic transcription factor TCF3 is highly correlated with MEX3D in prostate cancer. MEX3D expression strongly induces TCF3, which promotes soft agar colony formation and invasion in vitro.<h4>Conclusions</h4>Loss of PTEN and expression of the TE fusion gene in prostate cancer strongly upregulates expression of MEX3D and its target TCF3 and promotes transformation associated phenotypes via this pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Investigation of the Potential Correlation Between RNA-Binding Proteins in the Evolutionarily Conserved MEX3 Family and Non-small-Cell Lung Cancer.",
+    "doi": "10.1007/s12033-022-00638-2",
+    "pmid": "36507941",
+    "authors": [
+      "Zhang M, Cao L, Hou G, Lv X, Deng J."
+    ],
+    "year": "2023",
+    "publication_date": "2022-12-12",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Members of the MEX3 (muscle excess 3) family, uniquely characterised as mRNA binding proteins, play emerging roles in the post-transcriptional regulation of programmed biological processes, including tumour cell death and immune mechanisms, and have been shown to be involved in a variety of diseases. However, the role of MEX3 in non-small cell lung cancer (NSCLC) has not been fully elucidated. In this study, we found no significant changes in the sequence and copy number of the MEX3 gene through analysis using the COSMIC database, revealing its stability during malignancy development. Its expression in NSCLC was examined using the Oncomine™ database, and the prognosis of each member gene was analysed by Kaplan-Meier. The results showed that overexpression of MEX3A, MEX3B, MEX3C and MEX3D was associated with significantly worse OS in patients with LUAD, while overexpression of MEX3D was also associated with significantly worse OS in patients with LUSC. Afterwards, we applied the Tumour Immunology Estimation Resource (TIMER) tool to assess the correlation between different MEX3 and infiltrative immune cell infiltration. Ultimately, we found that most MEX3 members were highly expressed in NSCLC, with high expression suggesting poor prognosis and correlating with immune cell infiltration. The complexity and heterogeneity of NSCLC was understood through MEX3, setting the framework for the prognostic impact of MEX3 in NSCLC patients and the development of new targeted therapeutic strategies in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Gene Network of Susceptibility to Atypical Femoral Fractures Related to Bisphosphonate Treatment.",
+    "doi": "10.3390/genes13010146",
+    "pmid": "35052486",
+    "authors": [
+      "Garcia-Giralt N, Roca-Ayats N, Abril JF, Martinez-Gil N, Ovejero D, Castañeda S, Nogues X, Grinberg D, Balcells S, Rabionet R."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-14",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Atypical femoral fractures (AFF) are rare fragility fractures in the subtrocantheric or diaphysis femoral region associated with long-term bisphosphonate (BP) treatment. The etiology of AFF is still unclear even though a genetic basis is suggested. We performed whole exome sequencing (WES) analysis of 12 patients receiving BPs for at least 5 years who sustained AFFs and 4 controls, also long-term treated with BPs but without any fracture. After filtration and prioritization of rare variants predicted to be damaging and present in genes shared among at least two patients, a total of 272 variants in 132 genes were identified. Twelve of these genes were known to be involved in bone metabolism and/or AFF, highlighting <i>DAAM2</i> and <i>LRP5</i>, both involved in the Wnt pathway, as the most representative. Afterwards, we intersected all mutated genes with a list of 34 genes obtained from a previous study of three sisters with BP-related AFF, identifying nine genes. One of these (<i>MEX3D</i>) harbored damaging variants in two AFF patients from the present study and one shared among the three sisters. Gene interaction analysis using the AFFNET web suggested a complex network among bone-related genes as well as with other mutated genes. BinGO biological function analysis highlighted cytoskeleton and cilium organization. In conclusion, several genes and their interactions could provide genetic susceptibility to AFF, that along with BPs treatment and in some cases with glucocorticoids may trigger this so feared complication.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of the circRNA-miRNA-mRNA Regulatory Network in Pterygium-Associated Conjunctival Epithelium.",
+    "doi": "10.1155/2022/2673890",
+    "pmid": "36398070",
+    "authors": [
+      "Yu J, Luo J, Li P, Chen X, Zhang G, Guan H."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-08",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "To investigate the regulatory mechanism of pterygium formation, we detected differentially expressed messenger RNAs (DE-mRNAs) and differentially expressed circular RNAs (DE-circRNAs) in pterygium-associated conjunctival epithelium (PCE) and normal conjunctival epithelium (NCE). Genome-wide mRNA and circRNA expression profiles of PCE and NCE were determined using high-throughput sequencing. Bioinformatics analyses, including Gene Ontology (GO) analysis, Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway analysis, gene set enrichment analysis (GSEA), and protein-protein interaction (PPI) analysis, were conducted. The microRNAs (miRNAs) interacting with the hub DE-mRNAs and DE-circRNAs were predicted and verified using real-time quantitative PCR (RT-qPCR). The data showed that there were 536 DE-mRNAs (280 upregulated and 256 downregulated mRNAs) and 78 DE-circRNAs (20 upregulated and 58 downregulated circRNAs) in PCE. KEGG enrichment analysis indicated that the DE-mRNAs were mainly involved in the following biological processes: IL-17 signalling pathway, viral protein interaction with cytokine and cytokine receptor, cytokine-cytokine receptor interaction, ECM-receptor interaction, and focal adhesion. The GSEA results revealed that the epithelial mesenchymal transition (EMT) process was significantly enriched in upregulated mRNAs. The pterygium-associated circRNA-miRNA-mRNA network was established based on the top 10 DE-circRNAs, 4 validated miRNAs (upregulated miR-376a-5p and miR-208a-5p,downregulated miR-203a-3p and miR-200b-3p), and 31 DE-mRNAs. We found that miR-200b-3p, as a regulator of <i>FN1</i>, <i>SDC2</i>, and <i>MEX3D</i>, could be regulated by 5 upregulated circRNAs. In addition, we screened out EMT-related DE-mRNAs, including 6 upregulated DE-mRNAs and 6 downregulated DE-mRNAs. The EMT-related circRNA-miRNA-mRNA network was established with the top 10 circRNAs, 8 validated miRNAs (upregulated miR-17-5p, miR-181a-5p, and miR-106a-5p, downregulated miR-124-3p, miR-9-5p, miR-130b-5p, miR-1-3p, and miR-26b-5P), and 12 EMT-related DE-mRNAs. We found that hsa_circ_0002406 might upregulate <i>FN1</i> and <i>ADAM12</i> by sponging miR-26b-5p and miR-1-3p, respectively, thus promoting EMT in pterygium. Briefly, the study provides a novel viewpoint on the molecular pathological mechanisms in pterygium formation. CircRNA-miRNA-mRNA regulatory networks participate in the pathogenesis of pterygium and might become promising targets for pterygium prevention and treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive bioinformatics analysis of MEX3 family genes in hepatocellular carcinoma.",
+    "doi": "10.1038/s41598-025-02057-0",
+    "pmid": "40374855",
+    "authors": [
+      "Zhang X, Sun P, Chu T, Feng Y, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-15",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is a highly lethal malignancy associated with poor prognosis due to late-stage diagnosis and high recurrence rates. The MEX3 family genes has been implicated in various cancers; however, their roles in HCC remain largely unexplored. This study aims to systematically analyze the expression patterns, prognostic significance, and immune-related functions of MEX3A, MEX3B, MEX3C, and MEX3D in HCC using comprehensive bioinformatics approaches. We conducted a multi-level bioinformatics analysis to investigate the expression, prognostic significance, clinicopathological correlations, genetic alterations, immune associations, and functional mechanisms of MEX3 family members in HCC. Transcriptomic data from TCGA and GEO databases, along with experimental validation via qRT-PCR and Western blotting, were used to assess expression profiles. Kaplan-Meier, ROC curve, and Cox regression analyses were employed for prognostic evaluation. Co-expression, enrichment, and immune infiltration analyses further elucidated the functional and immunological relevance of MEX3 family genes. A prognostic model based on co-expressed genes was constructed and validated using LASSO and time-dependent ROC analyses. MEX3A, MEX3B, MEX3C, and MEX3D were significantly upregulated in HCC tissues compared to normal liver tissues (P < 0.05). ROC curve analysis demonstrated high diagnostic accuracy, particularly for MEX3A (AUC = 0.915). Kaplan-Meier survival analysis indicated that elevated MEX3A and MEX3C expression was associated with poorer overall survival (OS) and disease-specific survival (DSS) (P < 0.05). Mutation analysis revealed that MEX3A exhibited the highest alteration frequency (11%), primarily through gene amplifications. Immune infiltration analysis demonstrated significant correlations between MEX3 expression and multiple immune cell populations, including regulatory T cells (Tregs), cytotoxic T cells, and macrophages. Moreover, MEX3B, MEX3C, and MEX3D expression correlated with key immune checkpoint genes, including PDCD1, CD274, and CTLA4. Functional enrichment analysis revealed that MEX3 co-expressed genes were significantly involved in RNA metabolism, immune response regulation, and oncogenic signaling pathways. A 17-gene MEX3 co-expression-based prognostic model stratified patients into high- and low-risk groups with significantly different survival outcomes (AUC = 0.791 at 1 year). This study highlights the oncogenic potential of MEX3 family members in HCC and their associations with immune regulation. The findings suggest that MEX3 family genes could serve as potential biomarkers for HCC prognosis and immunotherapy responsiveness. Further experimental validation is warranted to elucidate the mechanistic roles of MEX3 family genes in HCC progression and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative bioinformatic and experimental analysis reveals prognostic and immunological roles of MEX3 family genes in glioma.",
+    "doi": "10.3389/fimmu.2025.1654036",
+    "pmid": "41613120",
+    "authors": [
+      "Zhang X, Shang H, Chu T, Sha K."
+    ],
+    "year": "2025",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is a highly heterogeneous and aggressive malignancy of the central nervous system, and reliable molecular biomarkers are urgently needed to improve prognostic stratification and guide therapeutic decision-making. The MEX3 family of RNA-binding proteins has been implicated in tumorigenesis and post-transcriptional regulation; however, their comprehensive roles in glioma remain poorly understood.<h4>Methods</h4>Integrated bioinformatic analyses were performed using transcriptomic and clinical data from TCGA, CGGA, and GEO cohorts to evaluate the expression profiles, diagnostic and prognostic value, genetic alterations, molecular interactions, immune infiltration characteristics, and functional pathways associated with MEX3A, MEX3B, MEX3C, and MEX3D. Protein-protein interaction networks, gene set enrichment, and co-expression analyses were conducted to explore potential biological mechanisms. A MEX3-related prognostic risk model was constructed and validated in independent datasets. Drug sensitivity correlations were analyzed using public pharmacogenomic resources. In addition, <i>in vitro</i> experiments, including qRT-PCR, western blotting, proliferation, migration, and invasion assays, were performed in U251 and LN229 glioma cell lines to functionally validate the bioinformatic findings.<h4>Results</h4>All four MEX3 family members were significantly upregulated in glioma tissues compared with normal controls and demonstrated strong diagnostic performance. Distinct prognostic patterns were observed, with MEX3D consistently identified as an independent predictor of poor overall, disease-specific, and progression-free survival. MEX3 genes were associated with diverse genetic alterations and were enriched in pathways related to RNA processing, cell cycle regulation, and cancer-associated signaling. Immune analyses revealed significant correlations between MEX3 expression and multiple immune cell populations as well as immune checkpoint molecules, suggesting potential roles in shaping the glioma immune microenvironment. A MEX3-related co-expression-based prognostic model showed robust survival-predictive ability and remained effective in external validation cohorts. Functional assays confirmed that silencing individual MEX3 genes significantly inhibited glioma cell proliferation, migration, and invasion <i>in vitro</i>.<h4>Conclusions</h4>This study provides a comprehensive characterization of the MEX3 family in glioma, demonstrating their dysregulation, prognostic relevance, immune associations, and functional contributions to malignant phenotypes. Among them, MEX3D emerges as a particularly promising prognostic biomarker. These findings establish a foundation for future mechanistic and translational studies exploring MEX3 family members as potential biomarkers or therapeutic targets in glioma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A germline-specific vesicular structure licenses mRNA activation during spermiogenesis and is hijacked in gastric cancer.",
+    "doi": "10.1016/j.scib.2026.02.056",
+    "pmid": "41925442",
+    "authors": [
+      "Liu M, Wang Z, Li Y, Xie Q, Xiao Z, He X, Wang G, Gao Y, Zhang Y, Zheng L, Xia X, Chen L, Dong Y, Liu S, Zhang X, Xu C, Bian S, Yuan Y, Wu H, Cao Y, Zhang J, Hua R, He X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Post-transcriptional regulation is pivotal for cellular differentiation, yet how translationally silent mRNAs are selectively reactivated remains elusive. Here, we identify the MEX3D-HIP1 (MX-H) pathway and its associated organelle, the MEX3D-associated lysosomal vesicle (MXLV), as a shared system governing mRNA activation during spermiogenesis. Our data support a model in which MEX3D acts as an RNA-associated E3 ligase that selectively promotes ubiquitination of RBPs within RBP-mRNA complexes. This ubiquitination signal recruits HIP1, triggering the formation of MXLV, an autophagic vesicle that degrades translationally silent mRNP complexes. Genetic ablation of MX-H components in male germ cells disrupts spermiogenesis, leading to the accumulation of mRNP aggregates and male infertility. Intriguingly, we discovered that this germline-restricted pathway is aberrantly activated in gastric cancer cells, where MXLV biogenesis promotes tumor progression. The strict restriction of MXLV to male germ cells under physiological conditions may provide a unique therapeutic window, suggesting that targeting this pathway could suppress tumor progression while minimizing adverse effects on normal physiological functions. Our work establishes MXLV as a specialized vesicular structure essential for cellular remodeling during development and reveals how a germline-specific membrane trafficking system is co-opted in pathological proteome remodeling in gastric cancer.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "SRC Kinase Isoforms Regulate mRNA Splicing during Neural Development.",
+    "doi": "10.1523/jneurosci.1705-24.2025",
+    "pmid": "40750357",
+    "authors": [
+      "Pizzey AR, West LC, Elberfeld SJ, Lewis PA, Walker H, Cowell L, Newling K, Dowle A, Evans GJO, Isaacs HV."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alternative mRNA splicing generates transcriptomic diversity to direct tissue-specific functions. There is a high level of alternative splicing in the brain during embryonic development, but the master regulators of this process are poorly understood. One key splicing event in neuronal differentiation is the inclusion of a microexon in the SH3 domain of the ubiquitous tyrosine kinase, C-SRC, to yield the constitutively active, neural-specific N1-SRC kinase. We previously demonstrated that specific inhibition of N1-SRC in developing <i>Xenopus</i> embryos inhibits neurogenesis, but the targets and mode of action of N1-SRC were unknown. In the current study, we screened for N1-SRC SH3 domain interactors, surprisingly finding no unique targets compared with the C-SRC SH3 domain, but rather a subset of binding partners, enriched in splicing regulators. Analysis of public phosphoproteomic data revealed that SRC-dependent phosphorylation of the splicing machinery is widespread and enriched in RNA-binding proteins (RBPs). To investigate whether N1-SRC-dependent regulation of splicing underpins its role in neurogenesis, we undertook long- and short-read RNA-seq analysis of N1-SRC knockdown <i>Xenopus</i> embryos. We observed an upregulation of splicing factor expression and aberrant splicing of splicing regulators, principally HNRNPA1 and TRA2A. The affected splice junctions in both genes are in their glycine-rich C-termini, and junctions contain putative binding sites for SFPQ/NONO and FUS RBPs. Both SFPQ and FUS are SRC substrates, suggesting a mechanism by which N1-SRC knockdown leads to mis-splicing of HNRNPA1 and TRA2A. Thus, the neuronal splicing of C-SRC to generate N1-SRC regulates the alternative splicing landscape during neurogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing factor TRA2B enhances synthesis of androgen receptor variant AR-V7 in prostate cancer cells.",
+    "doi": "10.1172/jci198264",
+    "pmid": "41919500",
+    "authors": [
+      "Brittain N, Paschalis A, Nelson R, Adamson B, Walker L, Duncan R, Smith GR, McGill S, Burchmore RJ, Bogdan D, Jiménez-Vacas JM, Welti J, Yuan W, Robson CN, Rescigno P, Luzzi S, Sharp A, de Bono J, Gaughan L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Treatment of locally advanced and metastatic prostate cancer (PC) with androgen receptor-targeting (AR-targeting) therapies has limited durability, with disease eventually progressing to castrate-resistant PC (CRPC). Constitutively active AR splice variants (AR-Vs), such as AR-V7, play a key role in driving treatment resistance and disease progression. Importantly, the failure to attenuate AR-V function represents a major unmet clinical need, and as such, defining how AR-Vs are generated is likely to yield new therapeutic targets. Our knowledge of factors that mediate splicing of AR-V-encoding mRNAs remains limited. Here, we have employed an RNA-targeting CasRx approach to identify selective protein interactors of AR-V7 mRNA in PC. TRA2B and its ortholog, TRA2A, were identified as splicing regulators of AR transcripts that facilitate AR-V synthesis at the expense of full-length AR isoforms. TRA2B expression correlated with AR-V7 transcript in CRPC and attenuation of TRA2-mediated splicing diminished PC cell growth. Exploiting TRA2B function may therefore provide new therapeutic opportunities in advanced disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRA2A negatively regulates HIV-1-induced macrophage pyroptosis by mediating TXNIP expression in an m6A-dependent manner.",
+    "doi": "10.1038/s41420-026-03236-2",
+    "pmid": "42362526",
+    "authors": [
+      "Tao X, Su J, Qin T, Chen X, Chen R, Liao Y, Duan R, Lai S, Huang Y, Li J, Ye L, Liang H, Jiang J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Human Immunodeficiency Virus (HIV) infection remains a global health challenge, with the roles of N6-methyladenosine (m6A) RNA modification and Transformer 2 Alpha Homolog (TRA2A) in viral regulation yet to be fully elucidated; this study aimed to investigate how TRA2A-mediated m6A modification of Thioredoxin Interacting Protein (TXNIP) regulates macrophage pyroptosis during HIV-1 infection. Lentiviral-mediated knockdown and overexpression of TRA2A were employed to evaluate its effects on TXNIP expression, m6A modifications, and HIV-1 replication, while pyroptosis and inflammatory responses were assessed through LDH release assays, cytokine measurements, and analysis of the NLRP3/Caspase-1/GSDMD signaling pathway. Results showed significant downregulation of TRA2A in macrophages from HIV-1 patients, and TRA2A knockdown promoted viral replication while activating NLRP3/Caspase-1/GSDMD-mediated pyroptosis; mechanistically, TRA2A recognized m6A sites on TXNIP mRNA to reduce its stability, thereby inhibiting inflammasome activation, with these effects reversed by TRA2A overexpression or TXNIP/pyroptosis inhibitors, confirming TRA2A's critical role in balancing antiviral defense and inflammation control. Collectively, TRA2A functions as an m6A regulator to balance antiviral defense and inflammation via the TXNIP-mediated NLRP3 pathway, establishing a novel regulatory axis and highlighting TRA2A as a potential dual-target therapeutic candidate.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The CTSZ-TRA2A-IL32 axis defines a targetable macrophage-dependent pathway in metastatic prostate cancer.",
+    "doi": "10.1186/s12967-025-06865-w",
+    "pmid": "40764928",
+    "authors": [
+      "Chen S, Deng B, Liu Y, Xie L, Xu J, Hu R, Zhao F, Song G, Ni R, Liu H, Zhou Z, Huang G, Shen W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-05",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Emerging evidence underscores the pivotal role of M2-polarized tumor-associated macrophages (M2-TAMs) in orchestrating immunosuppressive tumor microenvironments that fuel metastatic dissemination in prostate cancer (PCa), yet the fundamental mechanisms governing M2-TAM trafficking in lethal PCa progression remain poorly understood.<h4>Methods</h4>Multi-cohort transcriptomic analyses were performed to identify metastasis-associated genes, with CTSZ prioritized as a key cathepsin linked to prostate cancer progression. Circulating tumor and bone metastatic mouse models were employed to investigate CTSZ-driven M2-TAM infiltration and metastatic behavior. Mechanistic studies included proteasomal degradation assays, IL32 pre-mRNA splicing analysis, and IL-32 binding experiments using RGD motif-dependent interactions. Therapeutic efficacy was tested with the ITGA5 inhibitor GLPG0187 in preclinical models.<h4>Results</h4>Elevated CTSZ expression shows strong clinical association with advanced pathological progression. CTSZ overexpression in PCa cells drives lung metastasis dissemination and bone metastatic in vivo model but fails to enhance cell-intrinsic oncogenic behaviors in vitro systems. Overexpression of CTSZ promotes M2-TAM infiltration and metastasis by inducing TRA2A degradation via the proteasome pathway, which alleviates TRA2A-mediated suppression of IL32 alternative splicing. Enhanced IL-32 secretion facilitates M2-TAM recruitment through binding to macrophage integrin ITGA5. Pharmacological inhibition of ITGA5 with GLPG0187 significantly reduced metastatic burden and M2-TAM infiltration in vivo.<h4>Conclusions</h4>The CTSZ/TRA2A/IL-32/ITGA5 axis orchestrates protumoral immunity in PCa metastasis by driving M2-TAM recruitment. Targeting this pathway, particularly through ITGA5 blockade, represents a promising therapeutic strategy to inhibit metastatic progression and remodel the immunosuppressive tumor microenvironment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-Binding Proteins Alter Redox Gene Splicing in Biliary Atresia: Insights from Expression Profiling.",
+    "doi": "10.1021/acsomega.6c00317",
+    "pmid": "42040470",
+    "authors": [
+      "Cheng J, Zhao P, Cao P, Hui J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Biliary atresia (BA), the most common cause of extrahepatic obstructive jaundice in infants, is a severe infant disease with a poor prognosis and unclear etiology. RNA-binding proteins (RBPs) are key regulators of alternative splicing and are implicated in various liver pathologies. However, whether RBP dysfunction and resultant aberrant splicing contribute to BA pathogenesis remains unknown.<h4>Methods</h4>We performed an integrated transcriptomic analysis using RNA-seq data from BA patients and normal donor livers (GEO: GSE159720). This encompassed systematic identification of differentially expressed genes (DEGs) and alternative splicing events (ASEs), followed by construction of RBP-ASE coexpression networks to infer underlying regulatory mechanisms. Key bioinformatic predictions were subsequently validated via qRT-PCR in an independent cohort using congenital choledochal cyst (CCC) tissues as controls.<h4>Results</h4>Our analysis identified 2022 DEGs and revealed extensive RBP dysregulation, with 135 RBPs showing abnormal expression and 182 exhibiting altered splicing patterns. Notably, 15 RBPs were perturbed at both levels. Coexpression network and functional enrichment analyses demonstrated that RBP-mediated splicing events are significantly involved in metabolic processes, redox homeostasis, and RNA splicing and transport, underscoring their central role in BA pathogenesis. The expression of several RBPs (e.g., FUS, RBM15B) and coexpressed DEGs (e.g., AOX1, ADH6, UGDH) was markedly altered in BA. Similarly, validation of differentially spliced RBPs (e.g., CCNT2, YBX3, TRA2A) and their coexpressed targets (e.g., CFHR2, PRKACB) further corroborated the dysregulation of the RBP-splicing axis.<h4>Conclusion</h4>In summary, our study links RBP dysregulation and aberrant splicing to biliary atresia, primarily through their association with disrupted redox and metabolic pathways. These findings point to the RBP-splicing axis as a potential contributor to BA pathogenesis and a candidate target for further investigation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Incomplete paralog compensation generates selective dependency on TRA2A in cancer.",
+    "doi": "10.1371/journal.pgen.1011685",
+    "pmid": "40367120",
+    "authors": [
+      "Lee AR, Tangiyan A, Singh I, Choi PS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-14",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Paralogs often exhibit functional redundancy, allowing them to effectively compensate for each other's loss. However, this buffering mechanism is frequently disrupted in cancer, exposing unique paralog-specific vulnerabilities. Here, we identify a selective dependency on the splicing factor TRA2A. We find that TRA2A and its paralog TRA2B are synthetic lethal partners that function as widespread and largely redundant activators of both alternative and constitutive splicing. While loss of TRA2A alone is typically neutral due to compensation by TRA2B, we discover that a subset of cancer cell lines are highly TRA2A-dependent. Upon TRA2A depletion, these cell lines exhibit a lack of paralog buffering specifically on shared splicing targets, leading to defects in mitosis and cell death. Notably, TRA2B overexpression rescues both the aberrant splicing and lethality associated with TRA2A loss, indicating that paralog compensation is dosage-sensitive. Together, these findings reveal a complex dosage-dependent relationship between paralogous splicing factors, and highlight how dysfunctional paralog buffering can create a selective dependency in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "H3K18la Facilitates TRA2A-Mediated Alternative Splicing of STIL, Suppressing Ferroptosis and Cisplatin Treatment Sensitivity in Ovarian Cancer.",
+    "doi": "10.4143/crt.2025.752",
+    "pmid": "40907573",
+    "authors": [
+      "Gao M, Wang S, Huang Z, Wang T, Yu Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-01",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Ovarian cancer (OC) is a common and highly lethal malignant tumor in women. Due to its hidden early symptoms, most patients are diagnosed at an advanced stage, and the tumor often develops resistance to chemotherapy, making treatment challenging. Elucidating the mechanisms of OC development and identifying new therapeutic targets, are crucial for improving treatment outcomes.<h4>Materials and methods</h4>We used bioinformatics analysis combined with qRT-PCR, WB, and IHC to study TRA2A expression and histone lactylation in OC samples. CCK8, clone formation, EdU, and Transwell experiments were used to assess OC cells proliferation. RT-PCR analyzed TRA2A-mediated alternative splicing. And the nude mouse xenograft model was constructed to validate TRA2A's molecular function in vivo.<h4>Results</h4>This study reveals a novel mechanism by which OC cells evade ferroptosis through the TRA2A-STIL signaling axis. Specifically, H3K18la is significantly enriched at the promoter region of the TRA2A gene, activating its transcription and upregulating expression. The upregulated TRA2A protein, functioning as a key splicing factor, specifically regulates alternative splicing (AS) of the STIL mRNA. This promotes expression of the STIL-L isoform, which inhibits ferroptosis in OC cells by modulating iron metabolism. Furthermore, targeted knockdown of TRA2A combined with cisplatin treatment significantly enhanced the therapeutic efficacy against OC. Consequently, targeting TRA2A-mediated AS represents a promising novel therapeutic target for OC.<h4>Conclusion</h4>This study uncovers for the first time a novel mechanism by which OC cells evade ferroptosis via an H3K18la-modified TRA2A-STIL signaling axis, thereby establishing a promising new therapeutic target for OC treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRA2: The dominant power of alternative splicing in tumors.",
+    "doi": "10.1016/j.heliyon.2023.e15516",
+    "pmid": "37151663",
+    "authors": [
+      "Xue J, Ma T, Zhang X."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-15",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "The dysregulation of alternative splicing (AS) is frequently found in cancer and considered as key markers for cancer progression and therapy. Transformer 2 (TRA2), a nuclear RNA binding protein, consists of transformer 2 alpha homolog (TRA2A) and transformer 2 beta homolog (TRA2B), and plays a role in the regulation of pre-mRNA splicing. Growing evidence has been provided that TRA2A and TRA2B are dysregulated in several types of tumors, and participate in the regulation of proliferation, migration, invasion, and chemotherapy resistance in cancer cells through alteration of AS of cancer-related genes. In this review, we highlight the role of TRA2 in tumorigenesis and metastasis, and discuss potential molecular mechanisms how TRA2 influences tumorigenesis and metastasis via controlling AS of pre-mRNA. We propose that TRA2Ais a novel biomarker and therapeutic target for cancer progression and therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CHK1-S, a splicing variant of CHK1, suppresses chronic myeloid leukemia.",
+    "doi": "10.1016/j.leukres.2025.107922",
+    "pmid": "40706411",
+    "authors": [
+      "Lei H, Xu H, Wang Y, Wu Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Checkpoint kinase 1 (CHK1) is a crucial protein involved in the cell cycle checkpoint during the DNA damage response and is essential for sustaining leukemia cell activity. CHK1-S (excluded exon 3) is an alternative splice variant of CHK1. Here, we demonstrate that CHK1-S is highly expressed in wild-type mouse bone marrow, and the ratio of CHK1-S to CHK1 is significantly higher compared to other tissues. The BCR-ABL protein reduces the expression of CHK1-S while increasing CHK1 levels in vitro and in vivo. Furthermore, the expression of CHK1-S is significantly reduced in the bone marrow mononuclear cells of newly diagnosed chronic myeloid leukemia (CML) patients. Inhibition of BCR-ABL activity with imatinib or knockdown of BCR-ABL can restore the expression of CHK1-S in K562 cells. Additionally, restoring CHK1-S can inhibit the proliferation of K562 cells and increase the proportion of cells in the G2/M phase. Mechanistically, the splicing factors transformer 2α (TRA2A) and TRA2B are associated with the selective splicing of CHK1-S in K562 cells. Our findings demonstrate that CHK1-S functions in opposition to CHK1, acting as a suppressor of CML.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing factor TRA2A contributes to esophageal cancer progression via a noncanonical role in lncRNA m<sup>6</sup> A methylation.",
+    "doi": "10.1111/cas.15870",
+    "pmid": "37317053",
+    "authors": [
+      "Bei M, Hao S, Lin K, Chen Q, Cai Y, Zhao X, Jiang L, Lin L, Dong G, Xu J."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-14",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Transformer 2 alpha homolog (TRA2A), a member of the serine/arginine-rich splicing factor family, has been shown to control mRNA splicing in development and cancers. However, it remains unclear whether TRA2A is involved in lncRNA regulation. In the present study, we found that TRA2A was upregulated and correlated with poor prognosis in esophageal cancer. Downregulation of TRA2A suppressed the tumor growth in xenograft nude mice. Epitranscriptomic microarray showed that depletion of TRA2A affected global lncRNA methylation similarly to the key m<sup>6</sup> A methyltransferase, METTL3, by silencing. MeRIP-qPCR, RNA pull-down, CLIP analyses, and stability assays indicated that ablation of TRA2A reduced m<sup>6</sup> A-modification of the oncogenic lncRNA MALAT1, thus inducing structural alterations and reduced stability. Furthermore, Co-IP experiments showed TRA2A directly interacted with METTL3 and RBMX, which also affected the writer KIAA1429 expression. Knockdown of TRA2A inhibited cell proliferation in a manner restored by RBMX/KIAA1429 overexpression. Clinically, MALAT1, RBMX, and KIAA1429 were prognostic factors of worse survival in ESCA patients. Structural similarity-based virtual screening in FDA-approved drugs repurposed nebivolol, a β<sub>1</sub> -adrenergic receptor antagonist, as a potent compound to suppress the proliferation of esophageal cancer cells. Cellular thermal shift and RIP assay indicated that nebivolol may compete with MALAT1 to bind TRA2A. In conclusion, our study revealed the noncanonical function of TRA2A, which coordinates with multiple methylation proteins to promote oncogenic MALAT1 during ESCA carcinogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of hub genes and potential molecular mechanisms in MSS/MSI classifier primary colorectal cancer based on multiple datasets.",
+    "doi": "10.1007/s12672-024-01148-0",
+    "pmid": "39023715",
+    "authors": [
+      "Qiao X, Ma D, Zhang X."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-18",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>MSI has a better prognosis than MSS in colorectal cancer patients, and the main objective of this study was to screen for differentially expressed molecules between MSI and MSS primary colorectal cancers using bioinformatics.<h4>Material and methods</h4>Two gene expression datasets (GSE13294 and GSE13067) were downloaded from GEO, and differential expressed genes (DEGs) were analyzed using GEO2R. Gene Ontology, Kyoto Encyclopedia of Genomes, and Gene Set Enrichment Analysis were conducted using the DEGs. Furthermore, a Protein-Protein Interaction Networks (PPI) was constructed to screen for significant modules and identify hub genes. The hub genes were analyzed in colorectal cancer using GEPIA. The expression of hub genes in clinical samples was visualized using the online Human Protein Atlas (HPA).<h4>Results</h4>A total of 265 common DEGs were identified in MSS primary colorectal cancer compared to MSI primary colorectal cancer. Among these, 178 DEGs were upregulated, and 87 DEGs were downregulated. Enrichment analysis showed that these DEGs were associated with the response to mechanical stimulus, regulation of cellular response to stress, G protein-coupled receptor binding, and other processes. A total of 5 hub genes was identified by cytoHubba: HNRNPL, RBM39, HNRNPH1, TRA2A, SRSF6. GEPIA software online analysis, 5 hub gene expression in colorectal cancer survival curve did not have significant differences. The expression of RBM39 was significantly different in different stages of colorectal cancer. The HPA online database results showed that the expression of the five hub proteins varied widely in CRC patients.<h4>Conclusion</h4>The hub genes, such as HNRNPH1and RBM39, and the spliceosome resulting from DEGs, which may provide novel insights and evidence for the future diagnosis and targeted therapy of MSS/MSI PCRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Histone modification clocks for robust cross-species biological age prediction and elucidating senescence regulation.",
+    "doi": "10.1073/pnas.2533687123",
+    "pmid": "41805570",
+    "authors": [
+      "Niu Z, Liu C, Fan Y, Gu L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-10",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Histone modifications represent an untapped resource for biological age prediction that overcomes limitations of traditional DNA methylation-based epigenetic clocks. Here, we developed and validated histone modification-based epigenetic clocks by systematically analyzing publicly available ChIP-seq datasets spanning six tissue types and six histone marks. We identified age-associated loci and constructed 36 tissue-specific epigenetic clocks that demonstrated strong resilience to technical and biological noise, with performance comparable to established DNA methylation clocks. Our models successfully detected biological age acceleration in leukemia samples and captured age reversal following therapeutic interventions. Importantly, we found that many aging-associated loci follow nonlinear trajectories with peak modification levels at midlife, revealing previously unrecognized dynamics in epigenetic aging. We observed age-related fragmentation of super enhancer regions, suggesting progressive chromatin disorganization during aging. Functional validation of a model-selected H3K27ac peak near IGF2BP3 confirmed its causal role in cellular senescence through regulation of TRA2A expression. Extending beyond mammals, we demonstrated the applicability of histone-based clocks in <i><i>Drosophila melanogaster</i></i>, a species lacking DNA methylation, highlighting the evolutionary conservation and broader utility of histone modifications as aging biomarkers. Our findings establish histone modifications as accurate, biologically meaningful, and robust indicators of biological age with potential applications in aging research, disease monitoring, and therapeutic development across diverse species.",
+    "openalex_id": ""
+  }
+]

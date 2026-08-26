@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A unifying model for mTORC1-mediated regulation of mRNA translation.",
+    "doi": "10.1038/nature11083",
+    "pmid": "22552098",
+    "authors": [
+      "Thoreen CC, Chantranupong L, Keys HR, Wang T, Gray NS, Sabatini DM."
+    ],
+    "year": "2012",
+    "publication_date": "2012-05-02",
+    "cited_by_count": 1300,
+    "journal": "",
+    "abstract": "The mTOR complex 1 (mTORC1) kinase nucleates a pathway that promotes cell growth and proliferation and is the target of rapamycin, a drug with many clinical uses. mTORC1 regulates messenger RNA translation, but the overall translational program is poorly defined and no unifying model exists to explain how mTORC1 differentially controls the translation of specific mRNAs. Here we use high-resolution transcriptome-scale ribosome profiling to monitor translation in mouse cells acutely treated with the mTOR inhibitor Torin 1, which, unlike rapamycin, fully inhibits mTORC1 (ref. 2). Our data reveal a surprisingly simple model of the mRNA features and mechanisms that confer mTORC1-dependent translation control. The subset of mRNAs that are specifically regulated by mTORC1 consists almost entirely of transcripts with established 5' terminal oligopyrimidine (TOP) motifs, or, like Hsp90ab1 and Ybx1, with previously unrecognized TOP or related TOP-like motifs that we identified. We find no evidence to support proposals that mTORC1 preferentially regulates mRNAs with increased 5' untranslated region length or complexity. mTORC1 phosphorylates a myriad of translational regulators, but how it controls TOP mRNA translation is unknown. Remarkably, loss of just the 4E-BP family of translational repressors, arguably the best characterized mTORC1 substrates, is sufficient to render TOP and TOP-like mRNA translation resistant to Torin 1. The 4E-BPs inhibit translation initiation by interfering with the interaction between the cap-binding protein eIF4E and eIF4G1. Loss of this interaction diminishes the capacity of eIF4E to bind TOP and TOP-like mRNAs much more than other mRNAs, explaining why mTOR inhibition selectively suppresses their translation. Our results clarify the translational program controlled by mTORC1 and identify 4E-BPs and eIF4G1 as its master effectors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Endogenous tRNA-Derived Fragments Suppress Breast Cancer Progression via YBX1 Displacement.",
+    "doi": "10.1016/j.cell.2015.02.053",
+    "pmid": "25957686",
+    "authors": [
+      "Goodarzi H, Liu X, Nguyen HC, Zhang S, Fish L, Tavazoie SF."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-01",
+    "cited_by_count": 780,
+    "journal": "",
+    "abstract": "Upon exposure to stress, tRNAs are enzymatically cleaved, yielding distinct classes of tRNA-derived fragments (tRFs), yielding distinct classes of tRFs. We identify a novel class of tRFs derived from tRNA(Glu), tRNA(Asp), tRNA(Gly), and tRNA(Tyr) that, upon induction, suppress the stability of multiple oncogenic transcripts in breast cancer cells by displacing their 3' untranslated regions (UTRs) from the RNA-binding protein YBX1. This mode of post-transcriptional silencing is sequence specific, as these fragments all share a common motif that matches the YBX1 recognition sequence. Loss-of-function and gain-of-function studies, using anti-sense locked-nucleic acids (LNAs) and synthetic RNA mimetics, respectively, revealed that these fragments suppress growth under serum-starvation, cancer cell invasion, and metastasis by breast cancer cells. Highly metastatic cells evade this tumor-suppressive pathway by attenuating the induction of these tRFs. Our findings reveal a tumor-suppressive role for specific tRNA-derived fragments and describe a molecular mechanism for their action. This transcript displacement-based mechanism may generalize to other tRNA, ribosomal-RNA, and sno-RNA fragments.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of Super-Enhancer-Regulated circRNA Nfix Induces Cardiac Regeneration After Myocardial Infarction in Adult Mice.",
+    "doi": "10.1161/circulationaha.118.038361",
+    "pmid": "30947518",
+    "authors": [
+      "Huang S, Li X, Zheng H, Si X, Li B, Wei G, Li C, Chen Y, Chen Y, Liao W, Liao Y, Bin J."
+    ],
+    "year": "2019",
+    "publication_date": "2019-04-05",
+    "cited_by_count": 388,
+    "journal": "",
+    "abstract": "<h4>Background</h4>circRNAs (circular RNAs) are emerging as powerful regulators of cardiac development and disease, but their roles in cardiac regeneration are still unknown. This study used superenhancers to distinguish key circRNAs in the regulation of cardiac regeneration and explored the mechanisms underlying circRNA functions.<h4>Methods</h4>We used integrated bioinformatics analysis of RNA sequencing data and superenhancer catalogs to identify superenhancer-associated circRNAs. Quantitative polymerase chain reactions and in situ hybridization were performed to determine the circRNA expression patterns in hearts. Gain- and loss-of-function assays were conducted to detect the role of circRNAs in cardiomyocyte proliferation and cardiac repair after myocardial infarction. Chromatin immunoprecipitation (ChIP) and electrophoretic mobility shift assays were used to determine the binding of Meis1 (Meis homeobox 1) on circNfix-associated superenhancers. RNA pulldown and luciferase reporter assays were used to study circRNA interactions with proteins and miRNAs (micro RNAs).<h4>Results</h4>We identified a circRNA, Nfix circRNA (circNfix), that was regulated by a superenhancer and overexpressed in the adult heart in humans, rats, and mice. The transcription factor Meis1 bound to the superenhancer at the circNfix locus, and increased its expression. In vitro and in vivo, cardiomyocyte proliferation was increased by knockdown of circNfix, whereas it was inhibited by circNfix overexpression. Moreover, circNfix downregulation promoted cardiomyocyte proliferation and angiogenesis and inhibited cardiomyocyte apoptosis after myocardial infarction, attenuating cardiac dysfunction and improving the prognosis. Mechanistically, circNfix reinforced the interaction of Ybx1 (Y-box binding protein 1) with Nedd4l (an E3 ubiquitin ligase), and induced Ybx1 degradation through ubiquitination, repressing cyclin A2 and cyclin B1 expression. In addition, circNfix acted as a sponge for miR-214 to promote Gsk3β (glycogen synthase kinase 3 β) expression and repress β-catenin activity.<h4>Conclusions</h4>Loss of superenhancer-regulated circNfix promotes cardiac regenerative repair and functional recovery after myocardial infarction by suppressing Ybx1 ubiquitin-dependent degradation and increasing miR-214 activity and thus may be a promising strategy for improving the prognosis after MI.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CircRNA-SORE mediates sorafenib resistance in hepatocellular carcinoma by stabilizing YBX1.",
+    "doi": "10.1038/s41392-020-00375-5",
+    "pmid": "33361760",
+    "authors": [
+      "Xu J, Ji L, Liang Y, Wan Z, Zheng W, Song X, Gorshkov K, Sun Q, Lin H, Zheng X, Chen J, Jin RA, Liang X, Cai X."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-26",
+    "cited_by_count": 371,
+    "journal": "",
+    "abstract": "Sorafenib is the first-line chemotherapeutic therapy for advanced hepatocellular carcinoma (HCC). However, sorafenib resistance significantly limits its therapeutic efficacy, and the mechanisms underlying resistance have not been fully clarified. Here we report that a circular RNA, circRNA-SORE (a circular RNA upregulated in sorafenib-resistant HCC cells), plays a significant role in sorafenib resistance in HCC. We found that circRNA-SORE is upregulated in sorafenib-resistant HCC cells and depletion of circRNA-SORE substantially increases the cell-killing ability of sorafenib. Further studies revealed that circRNA-SORE binds the master oncogenic protein YBX1 in the cytoplasm, which prevents YBX1 nuclear interaction with the E3 ubiquitin ligase PRP19 and thus blocks PRP19-mediated YBX1 degradation. Moreover, our in vitro and in vivo results suggest that circRNA-SORE is transported by exosomes to spread sorafenib resistance among HCC cells. Using different HCC mouse models, we demonstrated that silencing circRNA-SORE by injection of siRNA could substantially overcome sorafenib resistance. Our study provides a proof-of-concept demonstration for a potential strategy to overcome sorafenib resistance in HCC patients by targeting circRNA-SORE or YBX1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA 5-Methylcytosine Facilitates the Maternal-to-Zygotic Transition by Preventing Maternal mRNA Decay.",
+    "doi": "10.1016/j.molcel.2019.06.033",
+    "pmid": "31399345",
+    "authors": [
+      "Yang Y, Wang L, Han X, Yang WL, Zhang M, Ma HL, Sun BF, Li A, Xia J, Chen J, Heng J, Wu B, Chen YS, Xu JW, Yang X, Yao H, Sun J, Lyu C, Wang HL, Huang Y, Sun YP, Zhao YL, Meng A, Ma J, Liu F, Yang YG."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-06",
+    "cited_by_count": 350,
+    "journal": "",
+    "abstract": "The maternal-to-zygotic transition (MZT) is a conserved and fundamental process during which the maternal environment is converted to an environment of embryonic-driven development through dramatic reprogramming. However, how maternally supplied transcripts are dynamically regulated during MZT remains largely unknown. Herein, through genome-wide profiling of RNA 5-methylcytosine (m<sup>5</sup>C) modification in zebrafish early embryos, we found that m<sup>5</sup>C-modified maternal mRNAs display higher stability than non-m<sup>5</sup>C-modified mRNAs during MZT. We discovered that Y-box binding protein 1 (Ybx1) preferentially recognizes m<sup>5</sup>C-modified mRNAs through π-π interactions with a key residue, Trp45, in Ybx1's cold shock domain (CSD), which plays essential roles in maternal mRNA stability and early embryogenesis of zebrafish. Together with the mRNA stabilizer Pabpc1a, Ybx1 promotes the stability of its target mRNAs in an m<sup>5</sup>C-dependent manner. Our study demonstrates an unexpected mechanism of RNA m<sup>5</sup>C-regulated maternal mRNA stabilization during zebrafish MZT, highlighting the critical role of m<sup>5</sup>C mRNA modification in early development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YB-1 protein: functions and regulation.",
+    "doi": "10.1002/wrna.1200",
+    "pmid": "24217978",
+    "authors": [
+      "Lyabin DN, Eliseeva IA, Ovchinnikov LP."
+    ],
+    "year": "2014",
+    "publication_date": "2013-11-11",
+    "cited_by_count": 334,
+    "journal": "",
+    "abstract": "The Y-box binding protein 1 (YB-1, YBX1) is a member of the family of DNA- and RNA-binding proteins with an evolutionarily ancient and conserved cold shock domain. It falls into a group of intrinsically disordered proteins that do not follow the classical rule 'one protein-one function' but introduce a novel principle stating that a disordered structure suggests many functions. YB-1 participates in a wide variety of DNA/RNA-dependent events, including DNA reparation, pre-mRNA transcription and splicing, mRNA packaging, and regulation of mRNA stability and translation. At the cell level, the multiple activities of YB-1 are manifested as its involvement in cell proliferation and differentiation, stress response, and malignant cell transformation. WIREs RNA 2014, 5:95-110. doi: 10.1002/wrna.1200 CONFLICT OF INTEREST: The authors have declared no conflicts of interest for this article. For further resources related to this article, please visit the WIREs website.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Broad role for YBX1 in defining the small noncoding RNA composition of exosomes.",
+    "doi": "10.1073/pnas.1712108114",
+    "pmid": "29073095",
+    "authors": [
+      "Shurtleff MJ, Yao J, Qin Y, Nottingham RM, Temoche-Diaz MM, Schekman R, Lambowitz AM."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-10",
+    "cited_by_count": 290,
+    "journal": "",
+    "abstract": "RNA is secreted from cells enclosed within extracellular vesicles (EVs). Defining the RNA composition of EVs is challenging due to their coisolation with contaminants, lack of knowledge of the mechanisms of RNA sorting into EVs, and limitations of conventional RNA-sequencing methods. Here we present our observations using thermostable group II intron reverse transcriptase sequencing (TGIRT-seq) to characterize the RNA extracted from HEK293T cell EVs isolated by flotation gradient ultracentrifugation and from exosomes containing the tetraspanin CD63 further purified from the gradient fractions by immunoisolation. We found that EV-associated transcripts are dominated by full-length, mature transfer RNAs (tRNAs) and other small noncoding RNAs (ncRNAs) encapsulated within vesicles. A substantial proportion of the reads mapping to protein-coding genes, long ncRNAs, and antisense RNAs were due to DNA contamination on the surface of vesicles. Nevertheless, sequences mapping to spliced mRNAs were identified within HEK293T cell EVs and exosomes, among the most abundant being transcripts containing a 5' terminal oligopyrimidine (5' TOP) motif. Our results indicate that the RNA-binding protein YBX1, which is required for the sorting of selected miRNAs into exosomes, plays a role in the sorting of highly abundant small ncRNA species, including tRNAs, Y RNAs, and Vault RNAs. Finally, we obtained evidence for an EV-specific tRNA modification, perhaps indicating a role for posttranscriptional modification in the sorting of some RNA species into EVs. Our results suggest that EVs and exosomes could play a role in the purging and intercellular transfer of excess free RNAs, including full-length tRNAs and other small ncRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Control of c-myc mRNA stability by IGF2BP1-associated cytoplasmic RNPs.",
+    "doi": "10.1261/rna.1175909",
+    "pmid": "19029303",
+    "authors": [
+      "Weidensdorfer D, Stöhr N, Baude A, Lederer M, Köhn M, Schierhorn A, Buchmeier S, Wahle E, Hüttelmaier S."
+    ],
+    "year": "2009",
+    "publication_date": "2008-11-24",
+    "cited_by_count": 279,
+    "journal": "",
+    "abstract": "The RNA-binding protein IGF2BP1 (IGF-II mRNA binding protein 1) stabilizes the c-myc RNA by associating with the Coding Region instability Determinant (CRD). If and how other proteins cooperate with IGF2BP1 in promoting stabilization of the c-myc mRNA via the CRD remained elusive. Here, we identify various RNA-binding proteins that associate with IGF2BP1 in an RNA-dependent fashion. Four of these proteins (HNRNPU, SYNCRIP, YBX1, and DHX9) were essential to ensure stabilization of the c-myc mRNA via the CRD. These factors associate with IGF2BP1 in a CRD-dependent manner, co-distribute with IGF2BP1 in non-polysomal fractions comprising c-myc mRNA, and colocalize with IGF2BP1 in the cytoplasm. A selective shift of relative c-myc mRNA levels to the polysomal fraction is observed upon IGF2BP1 knockdown. These findings suggest that IGF2BP1 in complex with at least four proteins promotes CRD-mediated mRNA stabilization. Complex formation at the CRD presumably limits the transfer of c-myc mRNA to the polysomal fraction and subsequent translation-coupled decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA packaging into extracellular vesicles: An orchestra of RNA-binding proteins?",
+    "doi": "10.1002/jev2.12043",
+    "pmid": "33391635",
+    "authors": [
+      "Fabbiano F, Corsi J, Gurrieri E, Trevisan C, Notarangelo M, D'Agostino VG."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-28",
+    "cited_by_count": 248,
+    "journal": "",
+    "abstract": "Extracellular vesicles (EVs) are heterogeneous membranous particles released from the cells through different biogenetic and secretory mechanisms. We now conceive EVs as shuttles mediating cellular communication, carrying a variety of molecules resulting from intracellular homeostatic mechanisms. The RNA is a widely detected cargo and, impressively, a recognized functional intermediate that elects EVs as modulators of cancer cell phenotypes, determinants of disease spreading, cell surrogates in regenerative medicine, and a source for non-invasive molecular diagnostics. The mechanistic elucidation of the intracellular events responsible for the engagement of RNA into EVs will significantly improve the comprehension and possibly the prediction of EV \"quality\" in association with cell physiology. Interestingly, the application of multidisciplinary approaches, including biochemical as well as cell-based and computational strategies, is increasingly revealing an active RNA-packaging process implicating RNA-binding proteins (RBPs) in the sorting of coding and non-coding RNAs. In this review, we provide a comprehensive view of RBPs recently emerging as part of the EV biology, considering the scenarios where: <i>(i)</i> individual RBPs were detected in EVs along with their RNA substrates, <i>(ii)</i> RBPs were detected in EVs with inferred RNA targets, and <i>(iii)</i> EV-transcripts were found to harbour sequence motifs mirroring the activity of RBPs. Proteins so far identified are members of the hnRNP family (hnRNPA2B1, hnRNPC1, hnRNPG, hnRNPH1, hnRNPK, and hnRNPQ), as well as YBX1, HuR, AGO2, IGF2BP1, MEX3C, ANXA2, ALIX, NCL, FUS, TDP-43, MVP, LIN28, SRP9/14, QKI, and TERT. We describe the RBPs based on protein domain features, current knowledge on the association with human diseases, recognition of RNA consensus motifs, and the need to clarify the functional significance in different cellular contexts. We also summarize data on previously identified RBP inhibitor small molecules that could also be introduced in EV research as potential modulators of vesicular RNA sorting.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic transcriptomic m<sup>5</sup> C and its regulatory role in RNA processing.",
+    "doi": "10.1002/wrna.1639",
+    "pmid": "33438329",
+    "authors": [
+      "Chen YS, Yang WL, Zhao YL, Yang YG."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-13",
+    "cited_by_count": 247,
+    "journal": "",
+    "abstract": "RNA 5-methylcytosine (m<sup>5</sup> C) is a prevalent RNA modification in multiple RNA species, including messenger RNAs (mRNAs), transfer RNAs (tRNAs), ribosomal RNAs (rRNAs), and noncoding RNAs (ncRNAs), and broadly distributed from archaea, prokaryotes to eukaryotes. The multiple detecting techniques of m<sup>5</sup> C have been developed, such as m<sup>5</sup> C-RIP-seq, miCLIP-seq, AZA-IP-seq, RNA-BisSeq, TAWO-seq, and Nanopore sequencing. These high-throughput techniques, combined with corresponding analysis pipeline, provide a precise m<sup>5</sup> C landscape contributing to the deciphering of its biological functions. The m<sup>5</sup> C modification is distributed along with mRNA and enriched around 5'UTR and 3'UTR, and conserved in tRNAs and rRNAs. It is dynamically regulated by its related enzymes, including methyltransferases (NSUN, DNMT, and TRDMT family members), demethylases (TET families and ALKBH1), and binding proteins (ALYREF and YBX1). So far, accumulative studies have revealed that m<sup>5</sup> C participates in a variety of RNA metabolism, including mRNA export, RNA stability, and translation. Depletion of m<sup>5</sup> C modification in the organism could cause dysfunction of mitochondria, drawback of stress response, frustration of gametogenesis and embryogenesis, abnormality of neuro and brain development, and has been implicated in cell migration and tumorigenesis. In this review, we provide a comprehensive summary of dynamic regulatory elements of RNA m<sup>5</sup> C, including methyltransferases (writers), demethylases (erasers), and binding proteins (readers). We also summarized the related detecting technologies and biological functions of the RNA 5-methylcytosine, and provided future perspectives in m<sup>5</sup> C research. This article is categorized under: RNA Processing > RNA Editing and Modification.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel long noncoding RNA HOXC-AS3 mediates tumorigenesis of gastric cancer by binding to YBX1.",
+    "doi": "10.1186/s13059-018-1523-0",
+    "pmid": "30286788",
+    "authors": [
+      "Zhang E, He X, Zhang C, Su J, Lu X, Si X, Chen J, Yin D, Han L, De W."
+    ],
+    "year": "2018",
+    "publication_date": "2018-10-04",
+    "cited_by_count": 234,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Recently, increasing evidence shows that long noncoding RNAs (lncRNAs) play a significant role in human tumorigenesis. However, the function of lncRNAs in human gastric cancer remains largely unknown.<h4>Results</h4>By using publicly available expression profiling data from gastric cancer and integrating bioinformatics analyses, we screen and identify a novel lncRNA, HOXC-AS3. HOXC-AS3 is significantly increased in gastric cancer tissues and is correlated with clinical outcomes of gastric cancer. In addition, HOXC-AS3 regulates cell proliferation and migration both in vitro and in vivo. RNA-seq analysis reveals that HOXC-AS3 knockdown preferentially affects genes that are linked to proliferation and migration. Mechanistically, we find that HOXC-AS3 is obviously activated by gain of H3K4me3 and H3K27ac, both in cells and in tissues. RNA pull-down mass spectrometry analysis identifies that YBX1 interacts with HOXC-AS3, and RNA-seq analysis finds a marked overlap in genes differentially expressed after YBX1 knockdown and those transcriptionally regulated by HOXC-AS3, suggesting that YBX1 participates in HOXC-AS3-mediated gene transcriptional regulation in the tumorigenesis of gastric cancer.<h4>Conclusions</h4>Together, our data demonstrate that abnormal histone modification-activated HOXC-AS3 may play important roles in gastric cancer oncogenesis and may serve as a target for gastric cancer diagnosis and therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated analysis of single-cell and bulk RNA sequencing data reveals a pan-cancer stemness signature predicting immunotherapy response.",
+    "doi": "10.1186/s13073-022-01050-w",
+    "pmid": "35488273",
+    "authors": [
+      "Zhang Z, Wang ZX, Chen YX, Wu HX, Yin L, Zhao Q, Luo HY, Zeng ZL, Qiu MZ, Xu RH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-04-29",
+    "cited_by_count": 230,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Although immune checkpoint inhibitor (ICI) is regarded as a breakthrough in cancer therapy, only a limited fraction of patients benefit from it. Cancer stemness can be the potential culprit in ICI resistance, but direct clinical evidence is lacking.<h4>Methods</h4>Publicly available scRNA-Seq datasets derived from ICI-treated patients were collected and analyzed to elucidate the association between cancer stemness and ICI response. A novel stemness signature (Stem.Sig) was developed and validated using large-scale pan-cancer data, including 34 scRNA-Seq datasets, The Cancer Genome Atlas (TCGA) pan-cancer cohort, and 10 ICI transcriptomic cohorts. The therapeutic value of Stem.Sig genes was further explored using 17 CRISPR datasets that screened potential immunotherapy targets.<h4>Results</h4>Cancer stemness, as evaluated by CytoTRACE, was found to be significantly associated with ICI resistance in melanoma and basal cell carcinoma (both P < 0.001). Significantly negative association was found between Stem.Sig and anti-tumor immunity, while positive correlations were detected between Stem.Sig and intra-tumoral heterogenicity (ITH) / total mutational burden (TMB). Based on this signature, machine learning model predicted ICI response with an AUC of 0.71 in both validation and testing set. Remarkably, compared with previous well-established signatures, Stem.Sig achieved better predictive performance across multiple cancers. Moreover, we generated a gene list ranked by the average effect of each gene to enhance tumor immune response after genetic knockout across different CRISPR datasets. Then we matched Stem.Sig to this gene list and found Stem.Sig significantly enriched 3% top-ranked genes from the list (P = 0.03), including EMC3, BECN1, VPS35, PCBP2, VPS29, PSMF1, GCLC, KXD1, SPRR1B, PTMA, YBX1, CYP27B1, NACA, PPP1CA, TCEB2, PIGC, NR0B2, PEX13, SERF2, and ZBTB43, which were potential therapeutic targets.<h4>Conclusions</h4>We revealed a robust link between cancer stemness and immunotherapy resistance and developed a promising signature, Stem.Sig, which showed increased performance in comparison to other signatures regarding ICI response prediction. This signature could serve as a competitive tool for patient selection of immunotherapy. Meanwhile, our study potentially paves the way for overcoming immune resistance by targeting stemness-associated genes.",
+    "openalex_id": ""
+  }
+]

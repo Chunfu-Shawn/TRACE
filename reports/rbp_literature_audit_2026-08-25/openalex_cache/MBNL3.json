@@ -1,0 +1,199 @@
+[
+  {
+    "title": "Structural Characteristics of Simple RNA Repeats Associated with Disease and their Deleterious Protein Interactions",
+    "doi": "10.3389/fncel.2017.00097",
+    "authors": [
+      "Adam Ciesiołka",
+      "Magdalena Jazurek",
+      "Karolina Drążkowska",
+      "Włodzimierz J. Krzyżosiak"
+    ],
+    "year": 2017,
+    "publication_date": "2017-04-11",
+    "cited_by_count": 82,
+    "journal": "Frontiers in Cellular Neuroscience",
+    "abstract": "Short Tandem Repeats (STRs) are frequent entities in many transcripts, however, in some cases, pathological events occur when a critical repeat length is reached. This phenomenon is observed in various neurological disorders, such as myotonic dystrophy type 1 (DM1), fragile X-associated tremor/ataxia syndrome, C9orf72-related amyotrophic lateral sclerosis and frontotemporal dementia (C9ALS/FTD), and polyglutamine diseases, such as Huntington's disease (HD) and spinocerebellar ataxias (SCA). The ",
+    "openalex_id": "https://openalex.org/W2606661870",
+    "relevance_score": 49.101715
+  },
+  {
+    "title": "RNA processing in skeletal muscle biology and disease",
+    "doi": "10.1080/21541264.2018.1558677",
+    "authors": [
+      "Emma R. Hinkle",
+      "Hannah J. Wiedner",
+      "Adam J. Black",
+      "Jimena Giudice"
+    ],
+    "year": 2018,
+    "publication_date": "2018-12-18",
+    "cited_by_count": 50,
+    "journal": "Transcription",
+    "abstract": "RNA processing encompasses the capping, cleavage, polyadenylation and alternative splicing of pre-mRNA. Proper muscle development relies on precise RNA processing, driven by the coordination between RNA-binding proteins. Recently, skeletal muscle biology has been intensely investigated in terms of RNA processing. High throughput studies paired with deletion of RNA-binding proteins have provided a high-level understanding of the molecular mechanisms controlling the regulation of RNA-processing in",
+    "openalex_id": "https://openalex.org/W2905427611",
+    "relevance_score": 40.610466
+  },
+  {
+    "title": "RNAs as Regulators of Cellular Matchmaking",
+    "doi": "10.3389/fmolb.2021.634146",
+    "authors": [
+      "Nikita Fernandes",
+      "J. Ross Buchan"
+    ],
+    "year": 2021,
+    "publication_date": "2021-04-09",
+    "cited_by_count": 20,
+    "journal": "Frontiers in Molecular Biosciences",
+    "abstract": "RNA molecules are increasingly being identified as facilitating or impeding the interaction of proteins and nucleic acids, serving as so-called scaffolds or decoys. Long non-coding RNAs have been commonly implicated in such roles, particularly in the regulation of nuclear processes including chromosome topology, regulation of chromatin state and gene transcription, and assembly of nuclear biomolecular condensates such as paraspeckles. Recently, an increased awareness of cytoplasmic RNA scaffolds",
+    "openalex_id": "https://openalex.org/W3156974703",
+    "relevance_score": 29.621252
+  },
+  {
+    "title": "Posttranscriptional Regulation of Insulin Family Ligands and Receptors",
+    "doi": "10.3390/ijms140919202",
+    "authors": [
+      "Amaresh C. Panda",
+      "Ioannis Grammatikakis",
+      "Je‐Hyun Yoon",
+      "Kotb Abdelmohsen"
+    ],
+    "year": 2013,
+    "publication_date": "2013-09-18",
+    "cited_by_count": 18,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "Insulin system including ligands (insulin and IGFs) and their shared receptors (IR and IGFR) are critical regulators of insulin signaling and glucose homeostasis. Altered insulin system is associated with major pathological conditions like diabetes and cancer. The mRNAs encoding for these ligands and their receptors are posttranscriptionally controlled by three major groups of regulators; (i) alternative splicing regulatory factors; (ii) turnover and translation regulator RNA-binding proteins (T",
+    "openalex_id": "https://openalex.org/W2121475753",
+    "relevance_score": 29.555555
+  },
+  {
+    "title": "The roles and mechanisms of coding and noncoding RNA variations in cancer",
+    "doi": "10.1038/s12276-024-01307-x",
+    "authors": [
+      "Sang Yean Kim",
+      "Min Jeong Na",
+      "Sungpil Yoon",
+      "Eunbi Shin",
+      "Jin Woong Ha"
+    ],
+    "year": 2024,
+    "publication_date": "2024-09-01",
+    "cited_by_count": 22,
+    "journal": "Experimental & Molecular Medicine",
+    "abstract": "Functional variations in coding and noncoding RNAs are crucial in tumorigenesis, with cancer-specific alterations often resulting from chemical modifications and posttranscriptional processes mediated by enzymes. These RNA variations have been linked to tumor cell proliferation, growth, metastasis, and drug resistance and are valuable for identifying diagnostic or prognostic cancer biomarkers. The diversity of posttranscriptional RNA modifications, such as splicing, polyadenylation, methylation,",
+    "openalex_id": "https://openalex.org/W4402144044",
+    "relevance_score": 28.631529
+  },
+  {
+    "title": "Comprehensive landscape and future perspective of long noncoding RNAs in non-small cell lung cancer: it takes a village",
+    "doi": "10.1016/j.ymthe.2023.09.015",
+    "authors": [
+      "Yong-Qiang Ao",
+      "Jian Gao",
+      "Jia-Hao Jiang",
+      "Haikun Wang",
+      "Shuai Wang"
+    ],
+    "year": 2023,
+    "publication_date": "2023-09-21",
+    "cited_by_count": 23,
+    "journal": "Molecular Therapy",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4386914333",
+    "relevance_score": 26.014044
+  },
+  {
+    "title": "Towards Understanding RNA-Mediated Neurological Disorders",
+    "doi": "10.1016/j.jgg.2014.08.003",
+    "authors": [
+      "Ranhui Duan",
+      "Sumeet K. Sharma",
+      "Qiuping Xia",
+      "Kathryn B. Garber",
+      "Peng Jin"
+    ],
+    "year": 2014,
+    "publication_date": "2014-08-23",
+    "cited_by_count": 17,
+    "journal": "Journal of genetics and genomics/Journal of Genetics and Genomics",
+    "abstract": "RNA-mediated mechanisms of disease pathogenesis in neurological disorders have been recognized in the context of certain repeat expansion disorders. This RNA-initiated neurodegeneration may play a more pervasive role in disease pathology beyond the classic dynamic mutation disorders. Here, we review the mechanisms of RNA toxicity and aberrant RNA processing that have been implicated in ageing-related neurological disorders. We focus on diseases with aberrant sequestration of RNA-binding proteins",
+    "openalex_id": "https://openalex.org/W2046231498",
+    "relevance_score": 25.667841
+  },
+  {
+    "title": "Regulation and intervention of stem cell differentiation by long non-coding RNAs: Mechanisms and therapeutic potential",
+    "doi": "10.4252/wjsc.v17.i7.107688",
+    "authors": [
+      "Yehua Li",
+      "Yi-Ning Yao",
+      "Shen-Ao Zhou",
+      "Yang Wang"
+    ],
+    "year": 2025,
+    "publication_date": "2025-07-24",
+    "cited_by_count": 4,
+    "journal": "World Journal of Stem Cells",
+    "abstract": "Long non-coding RNAs (lncRNAs) play pivotal roles in the regulation of gene expression, particularly in maintaining pluripotency and directing stem cell. By orchestrating stem cell fate decisions and lineage commitment through epigenetic, transcriptional, and post-transcriptional mechanisms, lncRNAs have emerged as key modulators in developmental biology. Their therapeutic potential has garnered increasing interest, especially in the contexts of regenerative medicine, disease modeling, targeted ",
+    "openalex_id": "https://openalex.org/W4412639939",
+    "relevance_score": 16.630104
+  },
+  {
+    "title": "Long non-coding RNA GAS5 promotes neuronal apoptosis in spinal cord injury via the miR-21/PTEN axis",
+    "doi": "10.5312/wjo.v16.i5.106183",
+    "authors": [
+      "Yingjie Wang",
+      "Zhongzheng Zhi",
+      "Tao Liu",
+      "Jian Kang",
+      "Guanghui Xu"
+    ],
+    "year": 2025,
+    "publication_date": "2025-05-16",
+    "cited_by_count": 1,
+    "journal": "World Journal of Orthopedics",
+    "abstract": "BACKGROUND Spinal cord injury (SCI) is a severe and permanent trauma that often leads to significant motor, sensory, and autonomic dysfunction. Neuronal apoptosis is a major pathomechanism underlying secondary injury in SCI. Long non-coding RNAs (lncRNAs) have emerged as key regulators of gene expression and cellular processes, including apoptosis. However, the role of lncRNA growth arrest-specific transcript 5 (GAS5) in SCI-induced neuronal apoptosis remains unclear. AIM To investigate the role",
+    "openalex_id": "https://openalex.org/W4410386259",
+    "relevance_score": 11.225532
+  },
+  {
+    "title": "Auto- and cross-regulation of the hnRNPs D and DL & Hypoxia-driven gene expression changes in human cancer cells",
+    "doi": "10.25534/tuprints-00009139",
+    "authors": [
+      "Sandra E. Fischer"
+    ],
+    "year": 2020,
+    "publication_date": "2020-01-01",
+    "cited_by_count": 0,
+    "journal": "Technischen Universität Darmstadt",
+    "abstract": "RNA-binding proteins (RBPs) control all steps of mRNA processing, including pre-mRNA splicing, mRNA localization, stability and translation efficiency. Auto- and cross-regulation of RBPs is essential for RBP homeostasis and the prevention of pathologies. Consequently, deregulation of RBPs is prevalent in diseases, in particular during tumorigenesis. A profound understanding of RBP regulation is thus indispensible to open up new approaches in cancer therapy. HnRNP DL is a ubiquitous RBP that is o",
+    "openalex_id": "https://openalex.org/W3024286022",
+    "relevance_score": 2.7198687
+  },
+  {
+    "title": "Investigating the Role of Muscleblind-Like 1 in the Suppression of Breast Cancer Progression",
+    "doi": "10.48496/fcwf-9t52",
+    "authors": [
+      "Lisa Fish"
+    ],
+    "year": 2025,
+    "publication_date": "2025-09-08",
+    "cited_by_count": 0,
+    "journal": "Digital Commons - RU (Rockefeller University)",
+    "abstract": "Breast cancer is a prevalent disease. Metastatic disease accounts for the majority of deaths from breast cancer, as patients with distant metastatic disease have a much worse prognosis than those with localized disease. In order to better understand why some breast cancers metastasize and others do not, it is critical to identify and elucidate the determinants of breast cancer progression. Post-transcriptional control of gene expression plays a central role in modulating transcriptional output. ",
+    "openalex_id": "https://openalex.org/W2788160357",
+    "relevance_score": 2.6459658
+  },
+  {
+    "title": "Taal in grenscorrectiegebied - De taalsituatie in het Duitse Elten onder Nederlands bestuur 1949-1963",
+    "doi": null,
+    "authors": [
+      "N.E. Steeghs"
+    ],
+    "year": 2014,
+    "publication_date": "2014-10-03",
+    "cited_by_count": 0,
+    "journal": "Utrecht University Repository (Utrecht University)",
+    "abstract": "In deze scriptie focus ik me op de talige kant van het Nederlandse bestuur in de Duitse grensplaats Elten tussen 1949 en 1963. Op welke manier staats- en taalgrenzen zich tot elkaar verhouden wordt besproken in het theoretisch kader om zodoende een beter beeld te krijgen van de invloed van de Nederlandse annexatie op de taalsituatie. Dit raamwerk is specifiek gericht op de taalsituatie van de Nederrijn — de regio waarin Elten ligt —, nabij het Duitse Kleef en Nijmegen. In deze regio wordt het Kl",
+    "openalex_id": "https://openalex.org/W30556762",
+    "relevance_score": 2.50006
+  }
+]

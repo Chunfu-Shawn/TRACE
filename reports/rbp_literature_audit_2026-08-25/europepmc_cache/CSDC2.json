@@ -1,0 +1,128 @@
+[
+  {
+    "title": "Identification and multi-layered validation of seven diagnostic biomarkers for dilated cardiomyopathy via integrative machine learning, single-cell transcriptomics, and Mendelian randomization.",
+    "doi": "10.3389/fcell.2026.1851275",
+    "pmid": "42343898",
+    "authors": [
+      "Li J, Song Z, Wang G, Chen Y, Cheng J, Zhang Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-09",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Dilated cardiomyopathy (DCM) is the most common non-ischemic cardiomyopathy and a major cause of heart failure, but disease-specific molecular biomarkers remain limited. This study aimed to identify and prioritize tissue-level, disease-responsive candidate biomarkers for DCM using an integrative multi-omics bioinformatics framework.<h4>Methods</h4>Bulk myocardial transcriptomic data from GSE57338 were used as the discovery cohort, and GSE26887, GSE42955, and GSE79962 served as external microarray validation cohorts. GSE116250 was used for independent RNA-seq validation. Differentially expressed genes were intersected with WGCNA hub genes to define candidate genes. Four machine-learning algorithms, including LASSO, random forest, SVM-RFE, and XGBoost, were applied to identify core diagnostic candidates. Tissue-level model performance was evaluated by ROC analysis, calibration assessment, nomogram visualization, and decision curve analysis. Orthogonal validation was performed using GTEx, HPA, and snRNA-seq data. Immune infiltration, bidirectional Mendelian randomization, and CellOracle-based GRN analysis with a co-expression-based functional importance score were used as hypothesis-generating analyses. The workflow explicitly separated diagnostic performance, localization evidence, and exploratory mechanistic context in myocardial tissue.<h4>Results</h4>Integration of 309 DEGs and 2,093 WGCNA hub genes yielded 270 candidates. Seven candidates-HMGN2, AQP3, SERPINA3, FREM1, HMOX2, CSDC2, and TUBA3E-were selected by at least three algorithms. In the discovery cohort, the RF model achieved an AUC of 0.985 and the logistic model achieved a C-statistic of 0.993; however, these estimates were interpreted as potentially optimistic upper bounds because feature selection was not nested within cross-validation. External validation showed uneven robustness: SERPINA3, HMOX2, FREM1, and HMGN2 were consistently supported across microarray and RNA-seq cohorts, whereas AQP3, CSDC2, and TUBA3E were exploratory. GTEx, HPA, and snRNA-seq supported cardiac expression and cell-type localization, including cardiomyocyte enrichment of CSDC2/HMOX2 and fibroblast enrichment of FREM1. MR and GRN analyses suggested disease-responsive rather than disease-driving biology, including possible heart failure-associated AQP3 downregulation and a putative PPARGC1A-CSDC2/HMOX2 regulatory context.<h4>Conclusion</h4>This study identifies seven prioritized, predominantly disease-responsive tissue-level molecular candidates for DCM. These findings provide candidates and testable hypotheses for future translational research, rather than disease-driving therapeutic targets or a directly applicable clinical test.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrating multi-omics analysis and machine learning to refine molecular subtypes and prognostic assessment of lower-grade glioma.",
+    "doi": "10.1016/j.omton.2026.201227",
+    "pmid": "42222348",
+    "authors": [
+      "Jiang Q, Yang AY, Mo GL, Mo LG, Deng T, Huang SN, Hou ST, Huang QR."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-07",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Lower-grade glioma (LGG) is a highly heterogeneous disease, making accurate prognosis prediction and the development of precise, personalized treatment plans for patients challenging. The multi-omics data from patients with LGG were analyzed using 10 clustering algorithms to identify subgroups at very high resolution. Ten machine learning algorithms were subsequently integrated to develop a robust artificial intelligence model (AIM). We identified two cancer subtypes (CSs) linked to prognosis through multi-omics clustering. After screening 46 hub genes, we integrated 10 machine learning algorithms into 117 combinations to select the AIM with the highest average C-index. The gradient boosting machine (GBM)-based AIM outperformed previous prognostic signatures in nearly all cohorts. Patients in the low-AIM group had a better prognosis and greater sensitivity to immunotherapy, whereas those in the high-AIM group had a poorer prognosis and lower immunotherapy sensitivity. However, MG132 showed promise as a potential therapeutic agent. <i>In vitro</i> studies confirmed the oncogenic role of the hub gene <i>CSDC2</i> in LGG cells; its knockdown reduced the proliferation, invasion, and migration of these cells. In summary, the AIM we developed is highly valuable for predicting the prognosis of patients with LGG and identifying those who are sensitive to immunotherapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "GOLPH3 modulates expression and alternative splicing of transcription factors associated with endometrial decidualization in human endometrial stromal cells.",
+    "doi": "10.7717/peerj.15048",
+    "pmid": "36967990",
+    "authors": [
+      "Zhu S, Lin D, Ye Z, Chen X, Jiang W, Xu H, Quan S, Zheng B."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-20",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Endometrial decidualization is a decidual tissue formed by the proliferation and re-differentiation of endometrial stroma stimulated by decidualization inducing factors. It is very important for the proper maintenance of pregnancy. Previous studies speculated that Golgi phosphoprotein 3 (GOLPH3) may have a regulatory role in the process of endometrial decidualization, while the specific molecular mechanisms of GOLPH3 is unclear. In this part, GOLPH3 was silenced in human endometrial stromal cells (hESCs), and the transcriptome data (RNA-seq) by GOLPH3 knockdown (siGOLPH3) was obtained by high-throughput sequencing technology so as to analyze the potential targets of GOLPH3 at expression and alternative splicing levels in hESCs. Through bioinformatics analysis, we found that siGOLPH3 can significantly affect the overall transcriptional level of hESCs. A total of 6,025 differentially expressed genes (DEGs) and 4,131 differentially alternative splicing events (DASEs) were identified. Through functional cluster analysis of these DEGs and genes where differential alternative splicing events are located, it is found that they are enriched in the PI3K/Akt signaling pathway, RNA splicing and processing, transcription factors and other pathways related to endometrial decidualization and important biological processes, indicating the important biological function of GOLPH3. At the same time, we focused on the analysis of the transcription factors regulated by GOLPH3, including gene expression regulation and the regulation of variable splicing. We found that GOLPH3can regulate the expression of transcription factors such as LD1, FOSL2, GATA2, CSDC2 and CREB3L1. At the same time, it affects the variable splicing mode of FOXM1 and TCF3. The function of these transcription factors is directly related to decidualization of endometrium. Therefore, we infer that GOLPH3 may participate in endometrial de membrane by regulating expression and alternative splicing levels of transcription factors. We further identified the role of GOLPH3 in the transcriptional mechanism. At the same time, it also expands the function mode of GOLPH3 protein molecule, and provides a theoretical basis for downstream targeted drug research and development and clinical application.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Gene Expression Profiling Regulated by lncRNA H19 Using Bioinformatic Analyses in Glioma Cell Lines.",
+    "doi": "10.21873/cgp.20477",
+    "pmid": "39467632",
+    "authors": [
+      "Chae Y, Roh J, Im M, Jang W, Kim B, Kang J, Youn B, Kim W."
+    ],
+    "year": "2024",
+    "publication_date": "2024-11-01",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background/aim</h4>Glioma, the most common type of primary brain tumor, is characterized by high malignancy, recurrence, and mortality. Long non-coding RNA (lncRNA) H19 is a potential biomarker for glioma diagnosis and treatment due to its overexpression in human glioma tissues and its involvement in cell division and metastasis regulation. This study aimed to identify potential therapeutic targets involved in glioma development by analyzing gene expression profiles regulated by H19.<h4>Materials and methods</h4>To elucidate the role of H19 in A172 and U87MG glioma cell lines, cell counting, colony formation, and wound healing assays were conducted. RNA-seq data analysis and bioinformatics analyses were performed to reveal the molecular interactions of H19.<h4>Results</h4>Cell-based experiments showed that elevated H19 levels were related to cancer cell survival, proliferation, and migration. Bioinformatics analyses identified 2,084 differentially expressed genes (DEGs) influenced by H19 which are involved in cancer progression. Specifically, ANXA5, CLEC18B, RAB42, CXCL8, OASL, USP18, and CDCP1 were positively correlated with H19 expression, while CSDC2 and FOXO4 were negatively correlated. These DEGs were predicted to function as oncogenes or tumor suppressors in gliomas, in association with H19.<h4>Conclusion</h4>These findings highlight H19 and its associated genes as potential diagnostic and therapeutic targets for gliomas, emphasizing their clinical significance in patient survival.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Construction and analysis of a joint diagnosis model of random forest and artificial neural network for heart failure.",
+    "doi": "10.18632/aging.202405",
+    "pmid": "33401250",
+    "authors": [
+      "Tian Y, Yang J, Lan M, Zou T."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-26",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "Heart failure is a global health problem that affects approximately 26 million people worldwide. As conventional diagnostic techniques for heart failure have been in practice with various limitations, it is necessary to develop novel diagnostic models to supplement existing methods. With advances and improvements in gene sequencing technology in recent years, more heart failure-related genes have been identified. Using existing gene expression data in the Gene Expression Omnibus (GEO) database, we screened differentially expressed genes (DEGs) of heart failure and identified six key genes (<i>HMOX2</i>, <i>SERPINA3</i>, <i>LCN6</i>, <i>CSDC2</i>, <i>FREM1</i>, and <i>ZMAT1</i>) by random forest classifier. Of these genes, <i>CSDC2</i>, <i>FREM1</i>, and <i>ZMAT1</i> have never been associated with heart failure. We also successfully constructed a new diagnostic model of heart failure using an artificial neural network and verified its diagnostic efficacy in public datasets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of key genes involved in the development and progression of early-onset colorectal cancer by co-expression network analysis.",
+    "doi": "10.3892/ol.2019.11073",
+    "pmid": "31897128",
+    "authors": [
+      "Mo X, Su Z, Yang B, Zeng Z, Lei S, Qiao H."
+    ],
+    "year": "2020",
+    "publication_date": "2019-11-08",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "A number of studies have revealed that there is an increasing incidence of early-onset colorectal cancer (CRC) in young adults (before the age of 50 years) and a progressive decline in CRC among older patients, after the age of 50 years (late-onset CRC). However, the etiology of early-onset CRC is not fully understood. The aim of the present study was to identify key genes associated with the development of early-onset CRC through weighted gene co-expression network analysis (WGCNA). The GSE39582 dataset was downloaded from the Gene Expression Omnibus database, and the data profiles of tissues from patients diagnosed before the age of 50 years were selected. The top 10,000 genes with the highest variability were used to construct the WGCNA. Hub genes were identified from the modules associated with clinical traits using gene significance >0.2 and module membership >0.8 as the cut-off criteria. Gene Ontology and pathway analyses were subsequently performed on the hub genes and a protein-protein interaction network (PPI) was constructed. The diagnostic value of module hub genes with a degree score >5 in the PPI network was verified in samples from patients with CRC diagnosed before the age of 50 years obtained from The Cancer Genome Atlas. Eight co-expressed gene modules were identified in the WGCNA and two modules (blue and turquoise) were associated with the tumor-node-metastasis stage. A total of 140 module hub genes were identified and found to be enriched in 'mitochondrial large ribosomal subunit', 'structural constituent of ribosome', 'poly (A) RNA binding', 'collagen binding', 'protein ubiquitination' and 'ribosome pathway'. Twenty-six module hub genes were found to have a degree score >5 in the PPI network, seven of which [secreted protein acidic and cysteine rich (SPARC), decorin (DCN), fibrillin 1 (FBN1), WW domain containing transcription regulator 1 (WWTR1), transgelin (TAGLN), DEAD-box helicase 28 (DDX28) and cold shock domain containing C2 (CSDC2)], had good prognostic values for patients with early-onset CRC, but not late-onset CRC. Therefore, SPARC, DCN, FBN1, WWTR1, TAGLN, DDX28 and CSDC2 may contribute to the development of early-onset CRC and may serve as potential diagnostic biomarkers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Purification and Identification of miRNA Target Sites in Genome Using DNA Affinity Precipitation.",
+    "doi": "10.3389/fgene.2019.00778",
+    "pmid": "31572429",
+    "authors": [
+      "Xun Y, Tang Y, Hu L, Xiao H, Long S, Gong M, Wei C, Wei K, Xiang S."
+    ],
+    "year": "2019",
+    "publication_date": "2019-09-12",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Combination with genomic DNA is one of the important ways for microRNAs (miRNAs) to perform biological processes. However, because of lack of an experimental method, the identified genomic sites targeted by microRNA were only located in the promoter and enhancer regions. In this study, based on affinity purification of labeled biotin at the 3'-end of miRNAs, we established an efficiently experimental method to screen miRNA binding sequences in the whole genomic regions <i>in vivo</i>. Biotinylated miR-373 was used to test our approach in MCF-7 cells, and then Sanger and next-generation sequencing were used to screen miR-373 binding sequences. Our results demonstrated that the genomic fragments precipitated by miR-373 were located not only in promoter but also in intron, exon, and intergenic. Eleven potentially miR-373 targeting genes were selected for further study, and all of these genes were significantly regulated by miR-373. Furthermore, the targeting sequences located in E-cadherin, cold-shock domain-containing protein C2 (CSDC2), and PDE4D genes could interact with miR-373 in MCF-7 cells rather than HeLa cells, which is consistent with our data that these three genes can be regulated by miR-373 in MCF-7 cells while not in HeLa cells. On the whole, this is an efficient method to identify miRNA targeting sequences in the whole genome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MicroRNA-373 induces expression of genes with complementary promoter sequences.",
+    "doi": "10.1073/pnas.0707594105",
+    "pmid": "18227514",
+    "authors": [
+      "Place RF, Li LC, Pookot D, Noonan EJ, Dahiya R."
+    ],
+    "year": "2008",
+    "publication_date": "2008-01-28",
+    "cited_by_count": 937,
+    "journal": "",
+    "abstract": "Recent studies have shown that microRNA (miRNA) regulates gene expression by repressing translation or directing sequence-specific degradation of complementary mRNA. Here, we report new evidence in which miRNA may also function to induce gene expression. By scanning gene promoters in silico for sequences complementary to known miRNAs, we identified a putative miR-373 target site in the promoter of E-cadherin. Transfection of miR-373 and its precursor hairpin RNA (pre-miR-373) into PC-3 cells readily induced E-cadherin expression. Knockdown experiments confirmed that induction of E-cadherin by pre-miR-373 required the miRNA maturation protein Dicer. Further analysis revealed that cold-shock domain-containing protein C2 (CSDC2), which possesses a putative miR-373 target site within its promoter, was also readily induced in response to miR-373 and pre-miR-373. Furthermore, enrichment of RNA polymerase II was detected at both E-cadherin and CSDC2 promoters after miR-373 transfection. Mismatch mutations to miR-373 indicated that gene induction was specific to the miR-373 sequence. Transfection of promoter-specific dsRNAs revealed that the concurrent induction of E-cadherin and CSDC2 by miR-373 required the miRNA target sites in both promoters. In conclusion, we have identified a miRNA that targets promoter sequences and induces gene expression. These findings reveal a new mode by which miRNAs may regulate gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Changes in global gene expression during in vitro decidualization of rat endometrial stromal cells.",
+    "doi": "10.1002/jcp.21929",
+    "pmid": "19780023",
+    "authors": [
+      "Vallejo G, Maschi D, Mestre-Citrinovitz AC, Aiba K, Maronna R, Yohai V, Ko MS, Beato M, Saragüeta P."
+    ],
+    "year": "2010",
+    "publication_date": "2010-01-01",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "During the preimplantation phase of pregnancy the endometrial stroma differentiates into decidua, a process that implies numerous morphological changes and is an example of physiological transdifferentiation. Here we show that UIII rat endometrial stromal cells cultured in the presence of calf serum acquired morphological features of decidual cells and expressed decidual markers. To identify genes involved in decidualization we compared gene expression patterns of control and decidualized UIII cells using cDNA microarray. We found 322 annotated genes exhibiting significant differences in expression (>3-fold, fold discovery rate (FDR) >0.005), of which 312 have not been previously related to decidualization. Analysis of overrepresented functions revealed that protein synthesis, gene expression, and chromatin architecture and remodeling are the most relevant modified functions during decidualization. Relevant genes are also found in the functional terms differentiation, cell proliferation, signal transduction, and matrix/structural proteins. Several of these new genes involved in decidualization (Csdc2, Trim27, Eef1a1, Bmp1, Wt1, Aes, Gna12, and Men1) are shown to be also regulated in uterine decidua during normal pregnancy. Thus, the UIII cell culture model will allow future mechanistic studies to define the transcriptional network regulating reprogramming of stromal cells into decidual cells.",
+    "openalex_id": ""
+  }
+]

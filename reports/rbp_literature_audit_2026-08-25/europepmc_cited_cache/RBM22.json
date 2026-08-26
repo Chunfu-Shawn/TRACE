@@ -1,0 +1,170 @@
+[
+  {
+    "title": "An Atomic Structure of the Human Spliceosome.",
+    "doi": "10.1016/j.cell.2017.04.033",
+    "pmid": "28502770",
+    "authors": [
+      "Zhang X, Yan C, Hang J, Finci LI, Lei J, Shi Y."
+    ],
+    "year": "2017",
+    "publication_date": "2017-05-11",
+    "cited_by_count": 228,
+    "journal": "",
+    "abstract": "Mechanistic understanding of pre-mRNA splicing requires detailed structural information on various states of the spliceosome. Here we report the cryo electron microscopy (cryo-EM) structure of the human spliceosome just before exon ligation (the C<sup>∗</sup> complex) at an average resolution of 3.76 Å. The splicing factor Prp17 stabilizes the active site conformation. The step II factor Slu7 adopts an extended conformation, binds Prp8 and Cwc22, and is poised for selection of the 3'-splice site. Remarkably, the intron lariat traverses through a positively charged central channel of RBM22; this unusual organization suggests mechanisms of intron recruitment, confinement, and release. The protein PRKRIP1 forms a 100-Å α helix linking the distant U2 snRNP to the catalytic center. A 35-residue fragment of the ATPase/helicase Prp22 latches onto Prp8, and the quaternary exon junction complex (EJC) recognizes upstream 5'-exon sequences and associates with Cwc22 and the GTPase Snu114. These structural features reveal important mechanistic insights into exon ligation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing machinery dysregulation drives glioblastoma development/aggressiveness: oncogenic role of SRSF3.",
+    "doi": "10.1093/brain/awaa273",
+    "pmid": "33141183",
+    "authors": [
+      "Fuentes-Fayos AC, Vázquez-Borrego MC, Jiménez-Vacas JM, Bejarano L, Pedraza-Arévalo S, L-López F, Blanco-Acevedo C, Sánchez-Sánchez R, Reyes O, Ventura S, Solivera J, Breunig JJ, Blasco MA, Gahete MD, Castaño JP, Luque RM."
+    ],
+    "year": "2020",
+    "publication_date": "2020-12-01",
+    "cited_by_count": 93,
+    "journal": "",
+    "abstract": "Glioblastomas remain the deadliest brain tumour, with a dismal ∼12-16-month survival from diagnosis. Therefore, identification of new diagnostic, prognostic and therapeutic tools to tackle glioblastomas is urgently needed. Emerging evidence indicates that the cellular machinery controlling the splicing process (spliceosome) is altered in tumours, leading to oncogenic splicing events associated with tumour progression and aggressiveness. Here, we identify for the first time a profound dysregulation in the expression of relevant spliceosome components and splicing factors (at mRNA and protein levels) in well characterized cohorts of human high-grade astrocytomas, mostly glioblastomas, compared to healthy brain control samples, being SRSF3, RBM22, PTBP1 and RBM3 able to perfectly discriminate between tumours and control samples, and between proneural-like or mesenchymal-like tumours versus control samples from different mouse models with gliomas. Results were confirmed in four additional and independent human cohorts. Silencing of SRSF3, RBM22, PTBP1 and RBM3 decreased aggressiveness parameters in vitro (e.g. proliferation, migration, tumorsphere-formation, etc.) and induced apoptosis, especially SRSF3. Remarkably, SRSF3 was correlated with patient survival and relevant tumour markers, and its silencing in vivo drastically decreased tumour development and progression, likely through a molecular/cellular mechanism involving PDGFRB and associated oncogenic signalling pathways (PI3K-AKT/ERK), which may also involve the distinct alteration of alternative splicing events of specific transcription factors controlling PDGFRB (i.e. TP73). Altogether, our results demonstrate a drastic splicing machinery-associated molecular dysregulation in glioblastomas, which could potentially be considered as a source of novel diagnostic and prognostic biomarkers as well as therapeutic targets for glioblastomas. Remarkably, SRSF3 is directly associated with glioblastoma development, progression, aggressiveness and patient survival and represents a novel potential therapeutic target to tackle this devastating pathology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cwc2 and its human homologue RBM22 promote an active conformation of the spliceosome catalytic centre.",
+    "doi": "10.1038/emboj.2011.502",
+    "pmid": "22246180",
+    "authors": [
+      "Rasche N, Dybkov O, Schmitzová J, Akyildiz B, Fabrizio P, Lührmann R."
+    ],
+    "year": "2012",
+    "publication_date": "2012-01-13",
+    "cited_by_count": 65,
+    "journal": "",
+    "abstract": "RNA-structural elements play key roles in pre-mRNA splicing catalysis; yet, the formation of catalytically competent RNA structures requires the assistance of spliceosomal proteins. We show that the S. cerevisiae Cwc2 protein functions prior to step 1 of splicing, and it is not required for the Prp2-mediated spliceosome remodelling that generates the catalytically active B complex, suggesting that Cwc2 plays a more sophisticated role in the generation of a functional catalytic centre. In active spliceosomes, Cwc2 contacts catalytically important RNA elements, including the U6 internal stem-loop (ISL), and regions of U6 and the pre-mRNA intron near the 5' splice site, placing Cwc2 at/near the spliceosome's catalytic centre. These interactions are evolutionarily conserved, as shown by studies with Cwc2's human counterpart RBM22, indicating that Cwc2/RBM22-RNA contacts are functionally important. We propose that Cwc2 induces an active conformation of the spliceosome's catalytic RNA elements. Thus, the function of RNA-RNA tertiary interactions within group II introns, namely to induce an active conformation of domain V, may be fulfilled by proteins that contact the functionally analogous U6-ISL, within the spliceosome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM22, a Key Player of Pre-mRNA Splicing and Gene Expression Regulation, Is Altered in Cancer.",
+    "doi": "10.3390/cancers14030643",
+    "pmid": "35158909",
+    "authors": [
+      "Soubise B, Jiang Y, Douet-Guilbert N, Troadec MB."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-27",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "RNA-Binding Proteins (RBP) are very diverse and cover a large number of functions in the cells. This review focuses on RBM22, a gene encoding an RBP and belonging to the RNA-Binding Motif (RBM) family of genes. RBM22 presents a Zinc Finger like and a Zinc Finger domain, an RNA-Recognition Motif (RRM), and a Proline-Rich domain with a general structure suggesting a fusion of two yeast genes during evolution: <i>Cwc2</i> and <i>Ecm2</i>. RBM22 is mainly involved in pre-mRNA splicing, playing the essential role of maintaining the conformation of the catalytic core of the spliceosome and acting as a bridge between the catalytic core and other essential protein components of the spliceosome. RBM22 is also involved in gene regulation, and is able to bind DNA, acting as a bona fide transcription factor on a large number of target genes. Undoubtedly due to its wide scope in the regulation of gene expression, RBM22 has been associated with several pathologies and, notably, with the aggressiveness of cancer cells and with the phenotype of a myelodysplastic syndrome. Mutations, enforced expression level, and haploinsufficiency of <i>RBM22</i> gene are observed in those diseases. RBM22 could represent a potential therapeutic target in specific diseases, and, notably, in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PPWD1 is associated with the occurrence of postmenopausal osteoporosis as determined by weighted gene co‑expression network analysis.",
+    "doi": "10.3892/mmr.2019.10570",
+    "pmid": "31432133",
+    "authors": [
+      "Qian GF, Yuan LS, Chen M, Ye D, Chen GP, Zhang Z, Li CJ, Vijayan V, Xiao Y."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-07",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "Postmenopausal osteoporosis (PMO) is the most common type of primary osteoporosis (OP), a systemic skeletal disease. Although many factors have been revealed to contribute to the occurrence of PMO, specific biomarkers for the early diagnosis and therapy of PMO are not available. In the present study, a weighted gene co‑expression network analysis (WGCNA) was performed to screen gene modules associated with menopausal status. The turquoise module was verified as the clinically significant module, and 12 genes (NUP133, PSMD12, PPWD1, RBM8A, CRNKL1, PPP2R5C, RBM22, PIK3CB, SKIV2L2, PAPOLA, SRSF1 and COPS2) were identified as 'real' hub genes in both the protein‑protein interaction (PPI) network and co‑expression network. Furthermore, gene expression analysis by microarray in blood monocytes from pre‑ and post‑menopausal women revealed an increase in the expression of these hub genes in postmenopausal women. However, only the expression of peptidylprolyl isomerase domain and WD repeat containing 1 (PPWD1) was correlated with bone mineral density (BMD) in postmenopausal women. In the validation set, a similar expression pattern of PPWD1 was revealed. Functional enrichment analysis revealed that the fatty acid metabolism pathway was significantly abundant in the samples that exhibited a higher expression of PPWD1. Collectively, PPWD1 is indicated as a potential diagnostic biomarker for the occurrence of PMO.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The influence of calcium signaling on the regulation of alternative splicing.",
+    "doi": "10.1016/j.bbamcr.2008.12.006",
+    "pmid": "19133299",
+    "authors": [
+      "Krebs J."
+    ],
+    "year": "2009",
+    "publication_date": "2008-12-24",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "In this review the influence of calcium signaling on the regulation of alternative splicing is discussed with respect to its influence on cell- and developmental-specific expression of different isoforms of the plasma membrane calcium pump (PMCA). In a second part the possibility is discussed that due to the interaction of the calcium-binding protein ALG-2 with a spliceosomal regulator of alternative splicing, RBM22, Ca2+-signaling may thus influence its regulatory property.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress induced subcellular distribution of ALG-2, RBM22 and hSlu7.",
+    "doi": "10.1016/j.bbamcr.2010.11.010",
+    "pmid": "21122810",
+    "authors": [
+      "Janowicz A, Michalak M, Krebs J."
+    ],
+    "year": "2011",
+    "publication_date": "2010-11-29",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "ALG-2 is a highly conserved calcium binding protein in the cytoplasm which belongs to the family of penta-EF hand proteins. Recently, we showed that ALG-2 is interacting with RBM22, a highly conserved spliceosomal nuclear protein (Montaville et al. Biochim. Biophys. Acta 1763, 1335, 2006; Krebs, Biochim. Biophys. Acta 1793, 979, 2009). In NIH 3T3 cells expressing both proteins a significant amount of ALG-2mRFP is translocated to the nucleus due to the interaction with RBM22-EGFP. hSlu7, another spliceosomal nuclear protein, known to interact with RBM22 in yeast, has been shown to translocate to the cytoplasm under cellular stress conditions. Here we provide evidence that the 2 spliceosomal proteins differ significantly in their subcellular distributions under stress conditions, and that RBM22 enhances the cytoplasmic translocation of hSlu7 under stress, especially a stress induced by thapsigargin. On the other hand, in NIH 3T3 cells expressing RBM22-EGFP and ALG-2-mRFP, ALG-2 remains translocated into the nucleus under both stress conditions, i.e. heat shock or treatment with thapsigargin. We could further demonstrate that these stress conditions had a different influence on the splicing pattern of XBP-1, a marker for the unfolded protein response indicating that ER stress may play a role in stress-induced translocation of spliceosomal proteins. The article is part of a Special Issue entitled: 11th European Symposium on Calcium.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tumor suppressor role of RBM22 in prostate cancer acting as a dual-factor regulating alternative splicing and transcription of key oncogenic genes.",
+    "doi": "10.1016/j.trsl.2022.08.016",
+    "pmid": "36089245",
+    "authors": [
+      "Jiménez-Vacas JM, Montero-Hidalgo AJ, Gómez-Gómez E, Sáez-Martínez P, Fuentes-Fayos AC, Closa A, González-Serrano T, Martínez-López A, Sánchez-Sánchez R, López-Casas PP, Sarmento-Cabral A, Olmos D, Eyras E, Castaño JP, Gahete MD, Luque RM."
+    ],
+    "year": "2023",
+    "publication_date": "2022-09-09",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Prostate cancer (PCa) is one of the leading causes of cancer-related deaths among men. Consequently, the identification of novel molecular targets for treatment is urgently needed to improve patients' outcomes. Our group recently reported that some elements of the cellular machinery controlling alternative-splicing might be useful as potential novel therapeutic tools against advanced PCa. However, the presence and functional role of RBM22, a key spliceosome component, in PCa remains unknown. Therefore, RBM22 levels were firstly interrogated in 3 human cohorts and 2 preclinical mouse models (TRAMP/Pbsn-Myc). Results were validated in in silico using 2 additional cohorts. Then, functional effects in response to RBM22 overexpression (proliferation, migration, tumorspheres/colonies formation) were tested in PCa models in vitro (LNCaP, 22Rv1, and PC-3 cell-lines) and in vivo (xenograft). High throughput methods (ie, RNA-seq, nCounter PanCancer Pathways Panel) were performed in RBM22 overexpressing cells and xenograft tumors. We found that RBM22 levels were down-regulated (mRNA and protein) in PCa samples, and were inversely associated with key clinical aggressiveness features. Consistently, a gradual reduction of RBM22 from non-tumor to poorly differentiated PCa samples was observed in transgenic models (TRAMP/Pbsn-Myc). Notably, RBM22 overexpression decreased aggressiveness features in vitro, and in vivo. These actions were associated with the splicing dysregulation of numerous genes and to the downregulation of critical upstream regulators of cell-cycle (i.e., CDK1/CCND1/EPAS1). Altogether, our data demonstrate that RBM22 plays a critical pathophysiological role in PCa and invites to suggest that targeting negative regulators of RBM22 expression/activity could represent a novel therapeutic strategy to tackle this disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM22 regulates RNA polymerase II 5' pausing, elongation rate, and termination by coordinating 7SK-P-TEFb complex and SPT5.",
+    "doi": "10.1186/s13059-024-03242-6",
+    "pmid": "38641822",
+    "authors": [
+      "Du X, Qin W, Yang C, Dai L, San M, Xia Y, Zhou S, Wang M, Wu S, Zhang S, Zhou H, Li F, He F, Tang J, Chen JY, Zhou Y, Xiao R."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-19",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Splicing factors are vital for the regulation of RNA splicing, but some have also been implicated in regulating transcription. The underlying molecular mechanisms of their involvement in transcriptional processes remain poorly understood.<h4>Results</h4>Here, we describe a direct role of splicing factor RBM22 in coordinating multiple steps of RNA Polymerase II (RNAPII) transcription in human cells. The RBM22 protein widely occupies the RNAPII-transcribed gene locus in the nucleus. Loss of RBM22 promotes RNAPII pause release, reduces elongation velocity, and provokes transcriptional readthrough genome-wide, coupled with production of transcripts containing sequences from downstream of the gene. RBM22 preferentially binds to the hyperphosphorylated, transcriptionally engaged RNAPII and coordinates its dynamics by regulating the homeostasis of the 7SK-P-TEFb complex and the association between RNAPII and SPT5 at the chromatin level.<h4>Conclusions</h4>Our results uncover the multifaceted role of RBM22 in orchestrating the transcriptional program of RNAPII and provide evidence implicating a splicing factor in both RNAPII elongation kinetics and termination control.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cytogenetic and Genetic Abnormalities with Diagnostic Value in Myelodysplastic Syndromes (MDS): Focus on the Pre-Messenger RNA Splicing Process.",
+    "doi": "10.3390/diagnostics12071658",
+    "pmid": "35885562",
+    "authors": [
+      "Douet-Guilbert N, Soubise B, Bernard DG, Troadec MB."
+    ],
+    "year": "2022",
+    "publication_date": "2022-07-07",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Myelodysplastic syndromes (MDS) are considered to be diseases associated with splicing defects. A large number of genes involved in the pre-messenger RNA splicing process are mutated in MDS. Deletion of 5q and 7q are of diagnostic value, and those chromosome regions bear the numbers of splicing genes potentially deleted in del(5q) and del(7q)/-7 MDS. In this review, we present the splicing genes already known or suspected to be implicated in MDS pathogenesis. First, we focus on the splicing genes located on chromosome 5 (<i>HNRNPA0</i>, <i>RBM27</i>, <i>RBM22</i>, <i>SLU7</i>, <i>DDX41</i>), chromosome 7 (<i>LUC7L2</i>), and on the <i>SF3B1</i> gene since both chromosome aberrations and the <i>SF3B1</i> mutation are the only genetic abnormalities in splicing genes with clear diagnostic values. Then, we present and discuss other splicing genes that are showing a prognostic interest (<i>SRSF2</i>, <i>U2AF1</i>, <i>ZRSR2</i>, <i>U2AF2</i>, and <i>PRPF8</i>). Finally, we discuss the haploinsufficiency of splicing genes, especially from chromosomes 5 and 7, the important amplifier process of splicing defects, and the cumulative and synergistic effect of splicing genes defects in the MDS pathogenesis. At the time, when many authors suggest including the sequencing of some splicing genes to improve the diagnosis and the prognosis of MDS, a better understanding of these cooperative defects is needed.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-Binding Motif Protein 22 Induces Apoptosis via c-Myc Pathway in Colon Cancer Cells.",
+    "doi": "10.3390/molecules30061227",
+    "pmid": "40142004",
+    "authors": [
+      "Park YR, Park SM, Kim N, Jung J, Kim S, Kim KI, Jang HJ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-09",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "RNA-binding motif 22 (RBM22) is an RNA-binding protein involved in gene regulation, with the capacity to bind DNA and function as a transcription factor for various target genes. Recent studies demonstrated that RBM22 depletion affects cell viability and proliferation of glioblastoma and breast cancer cells. However, the role of RBM22 in colon cancer and the molecular mechanisms underlying its tumor-suppressive function remain largely unclear. In this study, we demonstrate that RBM22 induces apoptosis and suppresses colon cancer cell viability and proliferation by modulating c-Myc expression. Furthermore, RBM22 knockdown reduces c-Myc stability. Therefore, our findings suggest that RBM22 depletion regulates cancer cell proliferation and induces apoptosis via the c-Myc pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "StoatyDive: Evaluation and classification of peak profiles for sequencing data.",
+    "doi": "10.1093/gigascience/giab045",
+    "pmid": "34143874",
+    "authors": [
+      "Heyl F, Backofen R."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The prediction of binding sites (peak-calling) is a common task in the data analysis of methods such as cross-linking immunoprecipitation in combination with high-throughput sequencing (CLIP-Seq). The predicted binding sites are often further analyzed to predict sequence motifs or structure patterns. When looking at a typical result of such high-throughput experiments, the obtained peak profiles differ largely on a genomic level. Thus, a tool is missing that evaluates and classifies the predicted peaks on the basis of their shapes. We hereby present StoatyDive, a tool that can be used to filter for specific peak profile shapes of sequencing data such as CLIP.<h4>Findings</h4>With StoatyDive we are able to classify peak profile shapes from CLIP-seq data of the histone stem-loop-binding protein (SLBP). We compare the results to existing tools and show that StoatyDive finds more distinct peak shape clusters for CLIP data. Furthermore, we present StoatyDive's capabilities as a quality control tool and as a filter to pick different shapes based on biological or technical questions for other CLIP data from different RNA binding proteins with different biological functions and numbers of RNA recognition motifs. We finally show that proteins involved in splicing, such as RBM22 and U2AF1, have potentially sharper-shaped peaks than other RNA binding proteins.<h4>Conclusion</h4>StoatyDive finally fills the demand for a peak shape clustering tool for CLIP-Seq data that fine-tunes downstream analysis steps such as structure or sequence motif predictions and that acts as a quality control.",
+    "openalex_id": ""
+  }
+]

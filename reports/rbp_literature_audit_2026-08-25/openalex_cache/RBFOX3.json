@@ -1,0 +1,189 @@
+[
+  {
+    "title": "Post-transcriptional control of miRNA biogenesis",
+    "doi": "10.1261/rna.068692.118",
+    "authors": [
+      "Gracjan Michlewski",
+      "Javier F. Cáceres"
+    ],
+    "year": 2018,
+    "publication_date": "2018-10-17",
+    "cited_by_count": 591,
+    "journal": "RNA",
+    "abstract": "MicroRNAs (miRNAs) are important regulators of gene expression that bind complementary target mRNAs and repress their expression. Precursor miRNA molecules undergo nuclear and cytoplasmic processing events, carried out by the endoribonucleases DROSHA and DICER, respectively, to produce mature miRNAs that are loaded onto the RISC (RNA-induced silencing complex) to exert their biological function. Regulation of mature miRNA levels is critical in development, differentiation, and disease, as demons",
+    "openalex_id": "https://openalex.org/W2896019639",
+    "relevance_score": 129.20924
+  },
+  {
+    "title": "Unraveling the Pathways to Neuronal Homeostasis and Disease: Mechanistic Insights into the Role of RNA-Binding Proteins and Associated Factors",
+    "doi": "10.3390/ijms19082280",
+    "authors": [
+      "Stylianos Ravanidis",
+      "Fedon-Giasin Kattan",
+      "Epaminondas Doxakis"
+    ],
+    "year": 2018,
+    "publication_date": "2018-08-03",
+    "cited_by_count": 68,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The timing, dosage and location of gene expression are fundamental determinants of brain architectural complexity. In neurons, this is, primarily, achieved by specific sets of trans-acting RNA-binding proteins (RBPs) and their associated factors that bind to specific cis elements throughout the RNA sequence to regulate splicing, polyadenylation, stability, transport and localized translation at both axons and dendrites. Not surprisingly, misregulation of RBP expression or disruption of its funct",
+    "openalex_id": "https://openalex.org/W2887769003",
+    "relevance_score": 47.039173
+  },
+  {
+    "title": "Decoding protein–RNA interactions using CLIP-based methodologies",
+    "doi": "10.1038/s41576-024-00749-3",
+    "authors": [
+      "Joy S. Xiang",
+      "Danielle Schafer",
+      "Katherine Rothamel",
+      "G Yeo"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-09",
+    "cited_by_count": 44,
+    "journal": "Nature Reviews Genetics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4400454456",
+    "relevance_score": 44.564053
+  },
+  {
+    "title": "Genome annotation for clinical genomic diagnostics: strengths and weaknesses",
+    "doi": "10.1186/s13073-017-0441-1",
+    "authors": [
+      "Charles A. Steward",
+      "Alasdair Parker",
+      "Berge A. Minassian",
+      "Sanjay M. Sisodiya",
+      "Adam Frankish"
+    ],
+    "year": 2017,
+    "publication_date": "2017-05-30",
+    "cited_by_count": 52,
+    "journal": "Genome Medicine",
+    "abstract": "The Human Genome Project and advances in DNA sequencing technologies have revolutionized the identification of genetic disorders through the use of clinical exome sequencing. However, in a considerable number of patients, the genetic basis remains unclear. As clinicians begin to consider whole-genome sequencing, an understanding of the processes and tools involved and the factors to consider in the annotation of the structure and function of genomic elements that might influence variant identifi",
+    "openalex_id": "https://openalex.org/W2618126900",
+    "relevance_score": 43.74199
+  },
+  {
+    "title": "Visualizing the life of mRNA in T cells",
+    "doi": "10.1042/bst20170003",
+    "authors": [
+      "Benoît P. Nicolet",
+      "Fiamma Salerno",
+      "Monika C. Wolkers"
+    ],
+    "year": 2017,
+    "publication_date": "2017-04-13",
+    "cited_by_count": 7,
+    "journal": "Biochemical Society Transactions",
+    "abstract": "T cells release ample amounts of cytokines during infection. This property is critical to prevent pathogen spreading and persistence. Nevertheless, whereas rapid and ample cytokine production supports the clearance of pathogens, the production must be restricted in time and location to prevent detrimental effects of chronic inflammation and immunopathology. Transcriptional and post-transcriptional processes determine the levels of cytokine production. How these regulatory mechanisms are intercon",
+    "openalex_id": "https://openalex.org/W2606699497",
+    "relevance_score": 22.287455
+  },
+  {
+    "title": "Linking RNA Processing and Function",
+    "doi": "10.1101/sqb.2019.84.039495",
+    "authors": [
+      "Run-Wen Yao",
+      "Chu‐Xiao Liu",
+      "Ling‐Ling Chen"
+    ],
+    "year": 2019,
+    "publication_date": "2019-01-01",
+    "cited_by_count": 7,
+    "journal": "Cold Spring Harbor Symposia on Quantitative Biology",
+    "abstract": "RNA processing is critical for eukaryotic mRNA maturation and function. It appears there is no exception for other types of RNAs. Long noncoding RNAs (lncRNAs) represent a subclass of noncoding RNAs, have sizes of >200 nucleotides (nt), and participate in various aspects of gene regulation. Although many lncRNAs are capped, polyadenylated, and spliced just like mRNAs, others are derived from primary transcripts of RNA polymerase II and stabilized by forming circular structures or by ending with ",
+    "openalex_id": "https://openalex.org/W3004567385",
+    "relevance_score": 19.13316
+  },
+  {
+    "title": "RNA binding proteins in cardiovascular development and disease",
+    "doi": "10.1016/bs.ctdb.2024.01.007",
+    "authors": [
+      "Sunil K. Verma",
+      "Muge N. Kuyumcu‐Martinez"
+    ],
+    "year": 2024,
+    "publication_date": "2024-01-01",
+    "cited_by_count": 7,
+    "journal": "Current topics in developmental biology/Current Topics in Developmental Biology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4392860674",
+    "relevance_score": 18.253462
+  },
+  {
+    "title": "The Role of mRNA Alternative Processing in Mammalian Neurodevelopment",
+    "doi": "10.3390/ijms262211075",
+    "authors": [
+      "Xian Liu",
+      "Jian Zuo",
+      "G.-Y. Zhang",
+      "Xiaoyu Han",
+      "Yao Tian"
+    ],
+    "year": 2025,
+    "publication_date": "2025-11-16",
+    "cited_by_count": 2,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The mammalian brain undergoes a series of orderly developmental events, including neurogenesis, neuronal migration, axon guidance, and synaptic connection. These neurodevelopmental mechanisms have traditionally been characterized through studies focused on transcriptional control; however, a growing body of evidence highlights the critical roles of co- or post-transcriptional steps like alternative splicing, alternative polyadenylation, and RNA chemical modification in orchestrating brain develo",
+    "openalex_id": "https://openalex.org/W4416274125",
+    "relevance_score": 12.187222
+  },
+  {
+    "title": "Systematic Investigations of the Regulation and Nuclear Organization of Alternative Splicing",
+    "doi": null,
+    "authors": [
+      "Mingkun Wu"
+    ],
+    "year": 2023,
+    "publication_date": "2023-06-01",
+    "cited_by_count": 0,
+    "journal": "TSpace (University of Toronto)",
+    "abstract": "Alternative splicing is a key process by which precursor (pre)-mRNAs generate multiple mRNA isoforms and greatly expands transcriptomic and proteomic diversity. It is often precisely regulated by intricate RNA-protein interaction network, and tightly coordinated on a global level to modulate gene activities and interactions in diverse cellular, developmental, and pathological processes. Therefore, comprehensively dissecting the regulatory landscape of alternative splicing and its organization in",
+    "openalex_id": "https://openalex.org/W7132925717",
+    "relevance_score": 2.8393815
+  },
+  {
+    "title": "Regulation of alternative splicing by a splicing factor complex and functional annotation of alternative splicing",
+    "doi": null,
+    "authors": [
+      "Delong. Zhou"
+    ],
+    "year": 2022,
+    "publication_date": "2022-01-01",
+    "cited_by_count": 0,
+    "journal": "Knowledge UdeS (Institutional Deposit of the University of Sherbrooke)",
+    "abstract": "L'épissage alternatif est un mécanisme important pour réguler l'expression et l’activité des gènes en permettant à un gène de produire plusieurs isoformes de stabilité différente et de fonctions divergentes, parfois même opposées. De nombreuses isoformes d'épissage aberrantes sont liées à des maladies incluant des cancers. Actuellement, la conséquence de l'épissage alternatif est généralement déterminée gène par gène, ce qui limite considérablement la compréhension de l'impact biologique et cell",
+    "openalex_id": "https://openalex.org/W7200153327",
+    "relevance_score": 2.5558114
+  },
+  {
+    "title": "Spring Studies and A Decision-Making Process to Guide Groundwater Contamination Prevention in an Agricultural Karst Basin",
+    "doi": "10.33915/etd.6282",
+    "authors": [
+      "Erin D. Murphy"
+    ],
+    "year": 2013,
+    "publication_date": "2013-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alternative pre-mRNA splicing provides an important mechanism for generating the diverse array of proteins required to generate complex tissue and cell types from a limited genome. Therefore, the proper regulation of alternative splicing is vital to shape cellular identity and function. As consequence, defects in alternative splicing are associated with disease phenotypes that can range from systemic syndromes to the dysfunction of single cell types. For example, heterozygous mutations in ubiqui",
+    "openalex_id": "https://openalex.org/W2626335997",
+    "relevance_score": 2.1723187
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.159558
+  }
+]

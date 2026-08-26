@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The major reverse transcriptase-incompetent splice variant of the human telomerase protein inhibits telomerase activity but protects from apoptosis.",
+    "doi": "10.1158/0008-5472.can-12-3082",
+    "pmid": "23610451",
+    "authors": [
+      "Listerman I, Sun J, Gazzaniga FS, Lukas JL, Blackburn EH."
+    ],
+    "year": "2013",
+    "publication_date": "2013-04-22",
+    "cited_by_count": 125,
+    "journal": "",
+    "abstract": "Human telomerase reverse transcriptase (hTERT; the catalytic protein subunit of telomerase) is subjected to numerous alternative splicing events, but the regulation and function of these splice variants is obscure. Full-length hTERT includes conserved domains that encode reverse transcriptase activity, RNA binding, and other functions. The major splice variant termed α+β- or β-deletion is highly expressed in stem and cancer cells, where it codes for a truncated protein lacking most of the reverse transcriptase domain but retaining the known RNA-binding motifs. In a breast cancer cell panel, we found that β-deletion was the hTERT transcript that was most highly expressed. Splicing of this transcript was controlled by the splice regulators SRSF11, HNRNPH2, and HNRNPL, and the β-deletion transcript variant was associated with polyribosomes in cells. When ectopically overexpressed, β-deletion protein competed for binding to telomerase RNA (hTR/TERC), thereby inhibiting endogenous telomerase activity. Overexpressed β-deletion protein localized to the nucleus and mitochondria and protected breast cancer cells from cisplatin-induced apoptosis. Our results reveal that a major hTERT splice variant can confer a growth advantage to cancer cells independent of telomere maintenance, suggesting that hTERT makes multiple contributions to cancer pathophysiology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide CRISPR-Cas9 Interrogation of Splicing Networks Reveals a Mechanism for Recognition of Autism-Misregulated Neuronal Microexons.",
+    "doi": "10.1016/j.molcel.2018.10.008",
+    "pmid": "30388412",
+    "authors": [
+      "Gonatopoulos-Pournatzis T, Wu M, Braunschweig U, Roth J, Han H, Best AJ, Raj B, Aregger M, O'Hanlon D, Ellis JD, Calarco JA, Moffat J, Gingras AC, Blencowe BJ."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-01",
+    "cited_by_count": 123,
+    "journal": "",
+    "abstract": "Alternative splicing is crucial for diverse cellular, developmental, and pathological processes. However, the full networks of factors that control individual splicing events are not known. Here, we describe a CRISPR-based strategy for the genome-wide elucidation of pathways that control splicing and apply it to microexons with important functions in nervous system development and that are commonly misregulated in autism. Approximately 200 genes associated with functionally diverse regulatory layers and enriched in genetic links to autism control neuronal microexons. Remarkably, the widely expressed RNA binding proteins Srsf11 and Rnps1 directly, preferentially, and frequently co-activate these microexons. These factors form critical interactions with the neuronal splicing regulator Srrm4 and a bi-partite intronic splicing enhancer element to promote spliceosome formation. Our study thus presents a versatile system for the identification of entire splicing regulatory pathways and further reveals a common mechanism for the definition of neuronal microexons that is disrupted in autism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Chromatin-mediated alternative splicing regulates cocaine-reward behavior.",
+    "doi": "10.1016/j.neuron.2021.08.008",
+    "pmid": "34480866",
+    "authors": [
+      "Xu SJ, Lombroso SI, Fischer DK, Carpenter MD, Marchione DM, Hamilton PJ, Lim CJ, Neve RL, Garcia BA, Wimmer ME, Pierce RC, Heller EA."
+    ],
+    "year": "2021",
+    "publication_date": "2021-09-03",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "Neuronal alternative splicing is a key gene regulatory mechanism in the brain. However, the spliceosome machinery is insufficient to fully specify splicing complexity. In considering the role of the epigenome in activity-dependent alternative splicing, we and others find the histone modification H3K36me3 to be a putative splicing regulator. In this study, we found that mouse cocaine self-administration caused widespread differential alternative splicing, concomitant with the enrichment of H3K36me3 at differentially spliced junctions. Importantly, only targeted epigenetic editing can distinguish between a direct role of H3K36me3 in splicing and an indirect role via regulation of splice factor expression elsewhere on the genome. We targeted Srsf11, which was both alternatively spliced and H3K36me3 enriched in the brain following cocaine self-administration. Epigenetic editing of H3K36me3 at Srsf11 was sufficient to drive its alternative splicing and enhanced cocaine self-administration, establishing the direct causal relevance of H3K36me3 to alternative splicing of Srsf11 and to reward behavior.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Jumonji domain containing protein 6 (Jmjd6) modulates splicing and specifically interacts with arginine-serine-rich (RS) domains of SR- and SR-like proteins.",
+    "doi": "10.1093/nar/gku488",
+    "pmid": "24914048",
+    "authors": [
+      "Heim A, Grimm C, Müller U, Häußler S, Mackeen MM, Merl J, Hauck SM, Kessler BM, Schofield CJ, Wolf A, Böttger A."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-09",
+    "cited_by_count": 58,
+    "journal": "",
+    "abstract": "The Fe(II) and 2-oxoglutarate dependent oxygenase Jmjd6 has been shown to hydroxylate lysine residues in the essential splice factor U2 auxiliary factor 65 kDa subunit (U2AF65) and to act as a modulator of alternative splicing. We describe further evidence for the role of Jmjd6 in the regulation of pre-mRNA processing including interactions of Jmjd6 with multiple arginine-serine-rich (RS)-domains of SR- and SR-related proteins including U2AF65, Luc7-like protein 3 (Luc7L3), SRSF11 and Acinus S', but not with the bona fide RS-domain of SRSF1. The identified Jmjd6 target proteins are involved in different mRNA processing steps and play roles in exon dependent alternative splicing and exon definition. Moreover, we show that Jmjd6 modifies splicing of a constitutive splice reporter, binds RNA derived from the reporter plasmid and punctually co-localises with nascent RNA. We propose that Jmjd6 exerts its splice modulatory function by interacting with specific SR-related proteins during splicing in a RNA dependent manner.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Evidence for differential alternative splicing in blood of young boys with autism spectrum disorders.",
+    "doi": "10.1186/2040-2392-4-30",
+    "pmid": "24007566",
+    "authors": [
+      "Stamova BS, Tian Y, Nordahl CW, Shen MD, Rogers S, Amaral DG, Sharp FR."
+    ],
+    "year": "2013",
+    "publication_date": "2013-09-04",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Since RNA expression differences have been reported in autism spectrum disorder (ASD) for blood and brain, and differential alternative splicing (DAS) has been reported in ASD brains, we determined if there was DAS in blood mRNA of ASD subjects compared to typically developing (TD) controls, as well as in ASD subgroups related to cerebral volume.<h4>Methods</h4>RNA from blood was processed on whole genome exon arrays for 2-4-year-old ASD and TD boys. An ANCOVA with age and batch as covariates was used to predict DAS for ALL ASD (n=30), ASD with normal total cerebral volumes (NTCV), and ASD with large total cerebral volumes (LTCV) compared to TD controls (n=20).<h4>Results</h4>A total of 53 genes were predicted to have DAS for ALL ASD versus TD, 169 genes for ASD_NTCV versus TD, 1 gene for ASD_LTCV versus TD, and 27 genes for ASD_LTCV versus ASD_NTCV. These differences were significant at P <0.05 after false discovery rate corrections for multiple comparisons (FDR <5% false positives). A number of the genes predicted to have DAS in ASD are known to regulate DAS (SFPQ, SRPK1, SRSF11, SRSF2IP, FUS, LSM14A). In addition, a number of genes with predicted DAS are involved in pathways implicated in previous ASD studies, such as ROS monocyte/macrophage, Natural Killer Cell, mTOR, and NGF signaling. The only pathways significant after multiple comparison corrections (FDR <0.05) were the Nrf2-mediated reactive oxygen species (ROS) oxidative response (superoxide dismutase 2, catalase, peroxiredoxin 1, PIK3C3, DNAJC17, microsomal glutathione S-transferase 3) and superoxide radical degradation (SOD2, CAT).<h4>Conclusions</h4>These data support differences in alternative splicing of mRNA in blood of ASD subjects compared to TD controls that differ related to head size. The findings are preliminary, need to be replicated in independent cohorts, and predicted alternative splicing differences need to be confirmed using direct analytical methods.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural Mechanism of the Oxygenase JMJD6 Recognition by the Extraterminal (ET) Domain of BRD4.",
+    "doi": "10.1038/s41598-017-16588-8",
+    "pmid": "29176719",
+    "authors": [
+      "Konuma T, Yu D, Zhao C, Ju Y, Sharma R, Ren C, Zhang Q, Zhou MM, Zeng L."
+    ],
+    "year": "2017",
+    "publication_date": "2017-11-24",
+    "cited_by_count": 49,
+    "journal": "",
+    "abstract": "Jumonji domain-containing protein 6 (JMJD6) is a member of the Jumonji C family of Fe(II) and 2-oxoglutarate (2OG) dependent oxygenases. It possesses unique bi-functional oxygenase activities, acting as both an arginine demethylase and a lysyl-hydroxylase. JMJD6 has been reported to be over-expressed in oral, breast, lung, and colon cancers and plays important roles in regulation of transcription through interactions with transcription regulator BRD4, histones, U2AF65, Luc7L3, and SRSF11. Here, we report a structural mechanism revealed by NMR of JMJD6 recognition by the extraterminal (ET) domain of BRD4 in that a JMJD6 peptide (Lys84-Asn96) adapts an α-helix when bound to the ET domain. This intermolecular recognition is established through JMJD6 interactions with the conserved hydrophobic core of the ET domain, and reinforced by electrostatic interactions of JMJD6 with residues in the inter-helical α1-α2 loop of the ET domain. Notably, this mode of ligand recognition is different from that of ET domain recognition of NSD3, LANA of herpesvirus, and integrase of MLV, which involves formation of an intermolecular amphipathic two- or three- strand antiparallel β sheet. Furthermore, we demonstrate that the association between the BRD4 ET domain and JMJD6 likely requires a protein conformational change induced by single-stranded RNA binding.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting SR proteins improves SMN expression in spinal muscular atrophy cells.",
+    "doi": "10.1371/journal.pone.0115205",
+    "pmid": "25506695",
+    "authors": [
+      "Wee CD, Havens MA, Jodelka FM, Hastings ML."
+    ],
+    "year": "2014",
+    "publication_date": "2014-12-15",
+    "cited_by_count": 49,
+    "journal": "",
+    "abstract": "Spinal muscular atrophy (SMA) is one of the most common inherited causes of pediatric mortality. SMA is caused by deletions or mutations in the survival of motor neuron 1 (SMN1) gene, which results in SMN protein deficiency. Humans have a centromeric copy of the survival of motor neuron gene, SMN2, which is nearly identical to SMN1. However, SMN2 cannot compensate for the loss of SMN1 because SMN2 has a single-nucleotide difference in exon 7, which negatively affects splicing of the exon. As a result, most mRNA produced from SMN2 lacks exon 7. SMN2 mRNA lacking exon 7 encodes a truncated protein with reduced functionality. Improving SMN2 exon 7 inclusion is a goal of many SMA therapeutic strategies. The identification of regulators of exon 7 inclusion may provide additional therapeutic targets or improve the design of existing strategies. Although a number of regulators of exon 7 inclusion have been identified, the function of most splicing proteins in exon 7 inclusion is unknown. Here, we test the role of SR proteins and hnRNP proteins in SMN2 exon 7 inclusion. Knockdown and overexpression studies reveal that SRSF1, SRSF2, SRSF3, SRSF4, SRSF5, SRSF6, SRSF7, SRSF11, hnRNPA1/B1 and hnRNP U can inhibit exon 7 inclusion. Depletion of two of the most potent inhibitors of exon 7 inclusion, SRSF2 or SRSF3, in cell lines derived from SMA patients, increased SMN2 exon 7 inclusion and SMN protein. Our results identify novel regulators of SMN2 exon 7 inclusion, revealing potential targets for SMA therapeutics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing acts as an independent prognosticator in ovarian carcinoma.",
+    "doi": "10.1038/s41598-021-89778-0",
+    "pmid": "34001978",
+    "authors": [
+      "Ouyang Y, Xia K, Yang X, Zhang S, Wang L, Ren S, Zhou H, Liu Y, Tang F."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-17",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) events associated with oncogenic processes present anomalous perturbations in many cancers, including ovarian carcinoma. There are no reliable features to predict survival outcomes for ovarian cancer patients. In this study, comprehensive profiling of AS events was conducted by integrating AS data and clinical information of ovarian serous cystadenocarcinoma (OV). Survival-related AS events were identified by Univariate Cox regression analysis. Then, least absolute shrinkage and selection operator (LASSO) and multivariate Cox regression analysis were used to construct the prognostic signatures within each AS type. Furthermore, we established a splicing-related network to reveal the potential regulatory mechanisms between splicing factors and candidate AS events. A total of 730 AS events were identified as survival-associated splicing events, and the final prognostic signature based on all seven types of AS events could serve as an independent prognostic indicator and had powerful efficiency in distinguishing patient outcomes. In addition, survival-related AS events might be involved in tumor-related pathways including base excision repair and pyrimidine metabolism pathways, and some splicing factors might be correlated with prognosis-related AS events, including SPEN, SF3B5, RNPC3, LUC7L3, SRSF11 and PRPF38B. Our study constructs an independent prognostic signature for predicting ovarian cancer patients' survival outcome and contributes to elucidating the underlying mechanism of AS in tumor development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Involvement of SRSF11 in cell cycle-specific recruitment of telomerase to telomeres at nuclear speckles.",
+    "doi": "10.1093/nar/gkv844",
+    "pmid": "26286192",
+    "authors": [
+      "Lee JH, Jeong SA, Khadka P, Hong J, Chung IK."
+    ],
+    "year": "2015",
+    "publication_date": "2015-08-18",
+    "cited_by_count": 21,
+    "journal": "",
+    "abstract": "Telomerase, a unique ribonucleoprotein complex that contains the telomerase reverse transcriptase (TERT), the telomerase RNA component (TERC) and the TERC-binding protein dyskerin, is required for continued cell proliferation in stem cells and cancer cells. Here we identify SRSF11 as a novel TERC-binding protein that localizes to nuclear speckles, subnuclear structures that are enriched in pre-messenger RNA splicing factors. SRSF11 associates with active telomerase enzyme through an interaction with TERC and directs it to nuclear speckles specifically during S phase of the cell cycle. On the other hand, a subset of telomeres is shown to be constitutively present at nuclear speckles irrespective of cell cycle phase, suggesting that nuclear speckles could be the nuclear sites for telomerase recruitment to telomeres. SRSF11 also associates with telomeres through an interaction with TRF2, which facilitates translocation of telomerase to telomeres. Depletion of SRSF11 prevents telomerase from associating with nuclear speckles and disrupts telomerase recruitment to telomeres, thereby abrogating telomere elongation by telomerase. These findings suggest that SRSF11 acts as a nuclear speckle-targeting factor that is essential for telomerase association with telomeres through the interactions with TERC and TRF2, and provides a potential target for modulating telomerase activity in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing of HSPA12A pre-RNA by SRSF11 contributes to metastasis potential of colorectal cancer.",
+    "doi": "10.1002/ctm2.1113",
+    "pmid": "36394206",
+    "authors": [
+      "Pan YJ, Huo FC, Kang MJ, Liu BW, Wu MD, Pei DS."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-01",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Dysregulation of alternative splicing (AS) induced by serine/arginine-rich proteins has recently been linked to cancer metastasis. Nonetheless, as a member of the serine/arginine-rich protein family, the involvement of SRSF11 in colorectal cancer (CRC) is unknown.<h4>Methods</h4>The TCGA dataset and clinical samples were used to assess SRSF11 expression levels in CRC. For SRSF11, functional experiments were conducted both in vitro and in vivo. RNA-seq technology was used to analyze and screen SRSF11-triggered AS events, which were then confirmed by in vivo UV crosslinking and immunoprecipitation (CLIP) and mini-gene reporter assays. Jalview software was used to determine the preferential binding motif with relation to exon skipping (ES) events. Furthermore, coimmunoprecipitation (Co-IP) and Phospho-tag SDS-PAGE experiments were used to investigate PAK5-mediated phosphorylation regulation on SRSF11, and in vitro kinase experiments validated the interaction.<h4>Results</h4>In CRC, SRSF11 was discovered to be overexpressed and associated with a poor prognosis. And SRSF11 played a pro-metastatic role in vitro and in vivo. By screening SRSF11-regulated AS events, we identified the binding motif of SRSF11-triggered splicing-switching of HSPA12A AS, which specifically regulated HSPA12A AS by directly binding to a motif in exon 2. Mechanistically, the HSPA12A transcript with exon 2 retention increased N-cadherin expression by promoting RNA stability. Furthermore, the oncogenic kinase PAK5 phosphorylated SRSF11 at serine 287, protecting it from ubiquitination degradation.<h4>Conclusions</h4>SRSF11 exerts pro-metastatic effects in CRC by inhibiting the AS of HSPA12A pre-RNA. Our findings point to SRSF11-regulated HSPA12A splicing as a novel relationship between SRSF11-regulated splicing and CRC metastasis and suggest a PAK5/SRSF11/HSPA12A axis as a potential therapeutic target and prognostic biomarker in CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Discovering transcription and splicing networks in myelodysplastic syndromes.",
+    "doi": "10.1371/journal.pone.0079118",
+    "pmid": "24244432",
+    "authors": [
+      "Wang H, Wen J, Chang CC, Zhou X."
+    ],
+    "year": "2013",
+    "publication_date": "2013-11-14",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "More and more transcription factors and their motifs have been reported and linked to specific gene expression levels. However, focusing only on transcription is not sufficient for mechanism research. Most genes, especially in eukaryotes, are alternatively spliced to different isoforms. Some of these isoforms increase the biodiversity of proteins. From this viewpoint, transcription and splicing are two of important mechanisms to modulate expression levels of isoforms. To integrate these two kinds of regulation, we built a linear regression model to select a subset of transcription factors and splicing factors for each co-expressed isoforms using least-angle regression approach. Then, we applied this method to investigate the mechanism of myelodysplastic syndromes (MDS), a precursor lesion of acute myeloid leukemia. Results suggested that expression levels of most isoforms were regulated by a set of selected regulatory factors. Some of the detected factors, such as EGR1 and STAT family, are highly correlated with progression of MDS. We discovered that the splicing factor SRSF11 experienced alternative splicing switch, and in turn induced different amino acid sequences between MDS and controls. This splicing switch causes two different splicing mechanisms. Polymerase Chain Reaction experiments also confirmed that one of its isoforms was over-expressed in MDS. We analyzed the regulatory networks constructed from the co-expressed isoforms and their regulatory factors in MDS. Many of these networks were enriched in the herpes simplex infection pathway which involves many splicing factors, and pathways in cancers and acute or chronic myeloid leukemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "It is not just about transcription: involvement of brain RNA splicing in substance use disorders.",
+    "doi": "10.1007/s00702-024-02740-y",
+    "pmid": "38396082",
+    "authors": [
+      "Carvalho L, Lasek AW."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-24",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Alternative splicing is a co-transcriptional process that significantly contributes to the molecular landscape of the cell. It plays a multifaceted role in shaping gene transcription, protein diversity, and functional adaptability in response to environmental cues. Recent studies demonstrate that drugs of abuse have a profound impact on alternative splicing patterns within different brain regions. Drugs like alcohol and cocaine modify the expression of genes responsible for encoding splicing factors, thereby influencing alternative splicing of crucial genes involved in neurotransmission, neurogenesis, and neuroinflammation. Notable examples of these alterations include alcohol-induced changes in splicing factors such as HSPA6 and PCBP1, as well as cocaine's impact on PTBP1 and SRSF11. Beyond the immediate effects of drug exposure, recent research has shed light on the role of alternative splicing in contributing to the risk of substance use disorders (SUDs). This is exemplified by exon skipping events in key genes like ELOVL7, which can elevate the risk of alcohol use disorder. Lastly, drugs of abuse can induce splicing alterations through epigenetic modifications. For example, cocaine exposure leads to alterations in levels of trimethylated lysine 36 of histone H3, which exhibits a robust association with alternative splicing and serves as a reliable predictor for exon exclusion. In summary, alternative splicing has emerged as a critical player in the complex interplay between drugs of abuse and the brain, offering insights into the molecular underpinnings of SUDs.",
+    "openalex_id": ""
+  }
+]

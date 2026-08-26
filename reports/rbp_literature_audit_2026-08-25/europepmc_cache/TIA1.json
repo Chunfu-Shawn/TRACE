@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Expression Patterns of T-Cell Intracellular Antigen 1 in Neurodegenerative Disorders and Stroke.",
+    "doi": "10.3390/ijms27052252",
+    "pmid": "41828481",
+    "authors": [
+      "Han J, Yu H, Zheng T, Huang Z, Wang L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-27",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "T-cell intracellular antigen 1 (TIA1) is a multifunctional RNA-binding protein (RBP) belonging to the RNA recognition motif (RRM) family. Under steady-state conditions, it is predominantly localized in the nucleus and highly expressed in the nervous system, where it regulates neuronal and glial functions. TIA1 modulates mRNA splicing, stability, and translation and promotes stress granule (SG) assembly under cellular stress. Recent studies indicate that the spatiotemporal dynamics of TIA1 in neurodegenerative contexts influence disease progression by regulating inflammatory responses, apoptosis, and related pathways. This review discusses the molecular structure and functions of TIA1, focusing on its expression in neurons and glia, as well as its implications in neurodegenerative disorders and stroke. The findings highlight TIA1 as a promising target for novel neuroprotective therapeutic strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Welander TIA1 mutation dedifferentiates insulin-producing cells: Reversal by a GLP-1 receptor agonist.",
+    "doi": "10.1016/j.jbc.2026.111336",
+    "pmid": "41786146",
+    "authors": [
+      "Zhao T, Cen J, Wang X, Yang M, Lau J, Tengholm A, Sjöholm Å, Welsh N."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-03",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The RNA-binding proteins TIAR and TIA1 have been reported to affect beta-cell insulin production and viability. The missense E384K TIA1 autosomal dominant mutation is known to cause Welander distal myopathy. This study aimed to study the effects of the TIA1 E384K mutation in human insulin-producing EndoC-βH1 cells. The prime editing technique was used to generate EndoC-βH1 cell clones with the homozygous E384K TIA1 mutation. The E384K TIA1 mutation did not affect high glucose + palmitate-induced stress granule formation and cell death. Instead, the mutated cells respired and proliferated faster than wild-type cells. This was paralleled by a higher MYC mRNA and protein level, a profoundly reduced GLP-1 receptor mRNA expression, increased expression of \"disallowed\" beta cell genes, a proinsulin-to-insulin processing defect, a decreased insulin content and release, a decreased PAX4/ARX mRNA ratio, and an increased glucagon production. The TIA1 mutation reduced MYC mRNA binding to TIA1. Downregulation of MYC mRNA levels normalized insulin/glucagon and PAX4/ARX mRNA ratios. Long-term treatment of TIA1-mutated cells with the GLP-1R agonist liraglutide restored insulin production and reversed beta cell dedifferentiation. It is concluded that the TIA1 E384K mutation, via increased MYC levels and cell proliferation rates, causes beta cell dedifferentiation. Thus, dysfunction of RNA-binding proteins may, at least in certain cases, contribute to the impaired insulin production observed in diabetes. A better understanding of RNA-binding protein-mediated control of beta cell differentiation, and the protective impact of GLP-1 receptor agonism, could facilitate the development of new treatment strategies in diabetes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hepatocyte TIA1 constrains metabolic steatohepatitis by translationally suppressing Srebf1 mRNA in stress granules.",
+    "doi": "10.1038/s41419-026-08682-5",
+    "pmid": "41876477",
+    "authors": [
+      "Liu R, Chen J, Wang J, Zhang T, Xia Y, Feng J, Guo C, Xue L, Zhou Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-24",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Metabolic dysfunction-associated steatotic liver disease (MASLD) and its inflammatory sequel, metabolic dysfunction-associated steatohepatitis (MASH), pose escalating global health burdens, underscoring the urgent need to elucidate their molecular mechanisms and identify novel therapeutic targets. T-cell intracellular antigen 1 (TIA1), an RNA-binding protein and core organizer of stress granules (SGs), regulates post-transcriptional gene expression during cellular stress. However, its functional role in MASLD pathogenesis remains poorly understood. Hepatocyte-specific TIA1-knockout (TIA1-HKO) and wild-type control mice were subjected to three distinct diet-induced MASLD models. Parallel gain- and loss-of-function studies were conducted in PA-treated AML12 hepatocytes. RNA immunoprecipitation sequencing (RIP-seq), RIP-qPCR, fluorescence in situ hybridization (FISH), dual-luciferase reporter assays, and mRNA stability measurements were employed to map TIA1-sterol regulatory element binding transcription factor 1 (Srebf1) mRNA interactions and quantify translational repression. Pharmacological and genetic rescue experiments confirmed mechanistic findings. Integrated transcriptomic analysis of clinical specimens and murine models revealed significant TIA1 upregulation during MASLD progression. Hepatocyte-specific TIA1 deletion exacerbated dietary-induced steatosis, inflammation, and fibrosis. In vitro, TIA1 was essential for SGs assembly and maintenance of lipid homeostasis under lipotoxic stress. Mechanistically, TIA1 directly binds the 3' UTR of Srebf1 mRNA, sequestering it within SGs and repressing the translation of sterol regulatory element binding protein 1 (SREBP1)-a master transcriptional regulator of lipogenesis. Inhibition of SREBP1 activity rescued the metabolic perturbations induced by TIA1 ablation. This study identifies TIA1 as a crucial hepatoprotective factor that attenuates MASLD progression by orchestrating SGs-dependent translational control of Srebf1 mRNA. Impairment of the TIA1-SGs-SREBP1 axis accelerates steatohepatitis, highlighting its potential as a therapeutic target for metabolic liver diseases. TIA1 Constrains MASH Progression by Assembling Stress Granules to Suppress SREBP1-Driven Lipogenesis. This study delineates a hepatoprotective pathway centered on the RNA-binding protein TIA1. In response to metabolic stress. TIA1 nucleates SGs assembly and sequesters Srebf1 mRNA, leading to translational repression of the master lipogenic transcription factor SREBP1 and its downstream lipogenic program, thereby mitigating steatosis and subsequent inflammatory and fibrotic response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DHX9 helicase impacts on splicing decisions by modulating U2 snRNP recruitment in Ewing sarcoma cells.",
+    "doi": "10.1093/nar/gkaf068",
+    "pmid": "39950342",
+    "authors": [
+      "Frezza V, Chellini L, Riccioni V, Bonvissuto D, Palombo R, Paronetto MP."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Ewing sarcomas (ESs) are biologically aggressive tumours of bone and soft tissues caused by chromosomal translocations yielding in-frame fusion proteins driving the neoplastic transformation. The DNA/RNA helicase DHX9 is an important regulator of cellular processes often deregulated in cancer. Using transcriptome profiling, our study reveals cancer-relevant genes whose splicing is modulated by DHX9. Immunodepletion experiments demonstrate that DHX9 impacts on the recruitment of U2 small nuclear RNP (snRNP) onto the pre-mRNA. Analysis of structure and sequence features of DHX9 target exons reveal that DHX9-sensitive exons display shorter flanking introns and contain HNRNPC and TIA1 consensus motifs. A prominent target of DHX9 is exon 11 in the Cortactin (CTTN) gene, which is alternatively spliced to generate isoforms with different activities in cell migration and tumour invasion. Alternative inclusion of the exon 11 in CTTN gene is one of the most recurrent isoform switches in multiple cancer types, thus highlighting the pivotal role of DHX9 in defining the tumour phenotype. Biochemical analyses reveal that DHX9 binding promotes the recruitment of U2snRNP, SF3B1, and SF3A2 to the splice sites flanking exon 11. These findings uncover a new role of DHX9 in the control of co-transcriptional splicing in ES, which may represent a new druggable target to counteract ES malignancy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Yeast TIA1 coordinates with Npl3 to promote ATG1 translation during starvation.",
+    "doi": "10.1016/j.celrep.2025.115316",
+    "pmid": "39954250",
+    "authors": [
+      "Metur SP, Song X, Mehta S, Dialynaki D, Bhattacharyya D, Yin Z, Tang D, Klionsky DJ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-14",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Macroautophagy/autophagy is crucial for cell survival during nutrient starvation. Autophagy requires the coordinated function of several Atg proteins, including the Atg1 kinase, for efficient induction and execution. Recently, several RNA-binding proteins (RBPs) have been shown to post-transcriptionally regulate ATG1. However, a comprehensive understanding of autophagy regulation by RBPs via ATG1 is yet to be elucidated. Here, we utilize an in vitro approach to identify RBPs that specifically interact with ATG1 untranslated regions. We show that Npl3 and Pub1 interact with the ATG1 5' and 3' untranslated regions during nitrogen starvation. Furthermore, Npl3 and Pub1 coordinate to facilitate ATG1 mRNA export to the cytoplasm and its subsequent interaction with the translational machinery. Significantly, in non-small cell lung cancer cell lines, mammalian Pub1, TIA1, also positively regulates ULK1 protein expression and autophagy during serum starvation. Overall, our study highlights the regulatory landscape that fine-tunes Atg1 protein expression to sustain autophagy during nutrient starvation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TIA1 depletion enhances CLSTN1 exon 11 inclusion to facilitate Epithelial-to-Mesenchymal transition and breast cancer metastasis.",
+    "doi": "10.1038/s41388-026-03831-8",
+    "pmid": "42225952",
+    "authors": [
+      "Sun Y, Feng R, Zhou X, Xu W, Du H, Hu X, Chen L, Cai Y, Hu X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alternative RNA splicing is a fundamental mechanism for enhancing proteomic diversity, and its dysregulation is a hallmark of cancer progression. However, the dynamic regulatory networks controlling oncogenic splicing events remain poorly understood. Our previous work identified the inclusion of CLSTN1 exon 11 as critical for the epithelial-to-mesenchymal transition (EMT). Here, we demonstrate that this splicing event promotes breast cancer metastasis by enhancing cell migration, invasion, and the generation of circulating tumor cells (CTCs) in vivo. To translate this finding into a therapeutic strategy, we developed splice-switching antisense oligonucleotides (ASOs) that effectively reverse exon 11 inclusion and suppress cancer cell migration. Furthermore, through systematic screening, we identified the RNA-binding protein TIA1 as a key suppressor of exon 11 inclusion. TIA1 inhibits EMT and metastasis, but its function is antagonized during EMT by phosphorylation mediated by the kinase DAPK3, which is upregulated in this process. This work defines a novel DAPK3-TIA1-CLSTN1 splicing axis that drives breast cancer metastasis, revealing new layers of post-transcriptional regulation and presenting promising therapeutic avenues for targeting pro-metastatic splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Welander Distal Myopathy-Associated TIA1 E384K Mutation Disrupts Stress Granule Dynamics Under Distinct Stress Conditions.",
+    "doi": "10.3390/biology14091288",
+    "pmid": "41007432",
+    "authors": [
+      "Ramos-Velasco B, Alcalde J, Izquierdo JM."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Cellular stress triggers the formation of diverse RNA-protein aggregates, which can be associated with physiological responses, pathological conditions, or even detrimental outcomes. Under stress-induced proteostasis disruption, these RNA-protein assemblies are known as stress granules (SGs). Targeting such condensates-while sparing functional RNAs and proteins-remains a major therapeutic challenge in protein aggregation disorders such as myopathies and neuropathies. In this study, we investigated the cellular response to various stress conditions in the context of the TIA1 E384K mutation, a founder variant implicated in both Welander distal myopathy (WDM) and amyotrophic lateral sclerosis (ALS). Cells were exposed to different stressors, including proteotoxic, proteostatic, chemotoxic, and osmotic insults, and the behavior of TIA1-related SGs was analyzed. Our findings reveal a distinct yet conserved pattern in the dynamics of TIA1-dependent SG formation and clearance, influenced by the specific type of stressor and modulated by eIF2α Ser35 phosphorylation. These results indicate that the WDM-associated TIA1 mutation leads to aberrant SG dynamics across different stress conditions. Collectively, these observations support the idea that TIA1 E384K-associated SG dysregulation plays a role in WDM and ALS pathogenesis and underscores the importance of multiple stress contexts in disease progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Astrocytic TIA1-Mediated Stress Granules Promote the Demyelination of Optic Neuritis by Sequestering mRNA of Cholesterol Synthesis Genes in an Experimental Autoimmune Encephalomyelitis Model.",
+    "doi": "10.1002/advs.202520299",
+    "pmid": "41758721",
+    "authors": [
+      "Fang Z, Hua X, Fan Z, Zhao J, Zhang Y, Zhang Q, Qu X, Pan S, Wan B, Yang S, Li J, Zhang X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Optic neuritis (ON) is a common manifestation of multiple sclerosis (MS), characterized by inflammation and demyelination of the optic nerves. Recent studies indicate increased expression of genes associated with stress granules (SGs) in MS, with T cell intracellular antigen 1 (TIA1) being a key component of SGs. However, the role of TIA1-mediated SGs in MS-ON remains unclear. In experimental autoimmune encephalomyelitis (EAE) mice, a model of MS, TIA1 and G3BP1<sup>+</sup> (a cell marker of SGs) SGs were upregulated in retinal neurons and optic nerve astrocytes. Knockout of Tia1 in the CNS (Tia1<sup>Nestin</sup>-CKO mice) suppressed demyelination, inflammatory infiltration, and retinal ganglion cells (RGCs) loss in EAE mice. Mechanically, RNA-sequencing analysis revealed upregulation of cholesterol synthesis genes such as hmgcs1 in Tia1<sup>Nestin</sup>-CKO EAE mice. Furthermore, deletion of Tia1 in astrocytes (Tia1<sup>GFAP</sup>-CKO mice) also alleviated demyelination in optic nerves in EAE mice through decreasing SG formation and increasing HMGCS1 expression in Tia1<sup>-/-</sup> astrocytes by decreasing the sequestration of hmgcs1 mRNA into SGs. Treatment with diarylpropionitrile (DPN), an ERβ-ligand, partially restored demyelination in Tia1<sup>GFAP</sup>-CKO EAE mice. These findings uncover the role of TIA1-mediated SG dynamics in MS-ON, highlighting a novel mechanism and potential therapeutic target for treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phase Separation Competent TIA1 Couples Glycolytic Shutdown to CD8&lt;sup&gt;+&lt;/sup&gt; T-Cell Activation and Shapes the Efficacy of Intravesical BCG in Bladder Cancer.",
+    "doi": "10.3390/biology14111576",
+    "pmid": "41300366",
+    "authors": [
+      "Zhang W, Zhou K, Chen P, Du X, Liu M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Metabolic immune evasion is a major factor limiting the long-term efficacy of intravesical Bacillus Calmette-Guérin (BCG) therapy in non-muscle-invasive bladder cancer (NMIBC). TIA1 is a stress granule RNA-binding protein with liquid-liquid phase separation (LLPS) capacity. Its role in tumor metabolism and immunotherapy response has been unclear. Here, we demonstrated that high TIA1 expression was independently associated with favorable survival across multiple cohorts. Full-length TIA1 formed cytoplasmic condensates, repressed LDHA/PKM2/HK2, reduced lactate, and lowered extracellular acidification. A condensate-defective ΔLCD (deletion of the low-complexity domain) mutant was inactive. TIA1 showed physical association with these glycolytic mRNAs in human cells, consistent with mRNA-linked control. Condensate-competent TIA1 promoted CD8<sup>+</sup> T-cell proliferation, increased CD69 and Granzyme-B, and reduced PD-1 in co-culture. TIMER (Tumor Immune Estimation Resource) and spatial-omics supported co-localization with tumoral CD8A. BCG induced this metabolic-immune signature in cell lines, murine models, and patient explants, but the effects were abolished by TIA1 knock-down. Conversely, TIA1 over-expression alone limited tumor growth and recapitulated BCG-mediated glycolytic restraint and T-cell activation. Together, these results support an LLPS-linked, mRNA-associated regulation of tumor glycolysis. BCG-driven glycolytic suppression and CD8<sup>+</sup> T cell activation track with the condensate-forming capacity of TIA1. TIA1 emerges as a prognostic biomarker and a potential therapeutic axis to improve intravesical immunotherapy in NMIBC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An unrecognized mechanism of neuroprotection by microglial TIA1-mediated stress granules to prevent neuroinflammation and demyelination in experimental autoimmune encephalomyelitis mice through sequestering ApoE mRNA.",
+    "doi": "10.1186/s12974-026-03833-z",
+    "pmid": "42071235",
+    "authors": [
+      "Fu Q, Liu Y, Li F, Wang Y, Yue J, Chen Y, Wu S, Zhang J, Jia M, He Y, Wang J, Huang Z, Wang Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Microglia contribute to the pathogenesis of multiple sclerosis (MS) by promoting inflammatory cascades, mediating demyelination and regulating autoimmune responses, however, the molecular mechanisms connecting cellular stress to microglia-mediated immune responses in MS remain elusive. Stress granules (SGs) serve as an adaptive response of cells to various stressors such as viral infection and oxidative stress. In this study, we found that microglial T-cell intracellular antigen 1 (TIA1), a core SG component, was upregulated in MS patients and experimental autoimmune encephalomyelitis (EAE) mice. The neuroinflammation, demyelination and clinical deficits were exacerbated in Tia1<sup>Cx3cr1</sup>-CKO (TIA1 knockout in microglia and monocyte-derived macrophages) EAE mice. Furthermore, TIA1<sup>-/-</sup> microglia exhibited the heightened activation characterized by increased proliferation, enhanced phagocytic activity, and a sustained polarization toward a pro-inflammatory phenotype. Notably, in an in vitro model of NaAsO<sub>2</sub>-induced stress, TIA1 deficiency in BV2 cells and primary cultured microglia resulted in both enhanced phagocytic capacity and a pro-inflammatory phenotypic shift. Mechanistically, upon to stresses, microglial TIA1-mediated SGs formation was enhanced, leading to sequester ApoE mRNA into SGs to reduce ApoE expression, which in turn prevented excessive activation of microglia and inhibited demyelination in EAE mice. These findings uncover a previously unrecognized neuroprotective mechanism wherein TIA1-mediated SGs in microglia dynamically restrain neuroinflammation via post-transcriptional control of ApoE, revealing a new therapeutic avenue for MS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Microglial TIA1 in lateral septum facilitates chronic inflammatory pain by suppressing IκBα translation to activate NF-κB signaling.",
+    "doi": "10.1016/j.bbi.2026.106768",
+    "pmid": "42031179",
+    "authors": [
+      "Liu F, Xue X, Li H, He Z, Wang R, Guo Y, Wang Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Chronic pain is a widespread and debilitating condition, presenting significant clinical, socio-economic, and public health challenges. Microglia, the resident immune cells of the central nervous system (CNS), are implicated in the regulation of chronic pain, but the precise mechanisms, particularly brain region-specific contributions, remain poorly understood. In this study, we used a mouse model of complete Freund's adjuvant (CFA)-induced inflammatory pain to explore the role of T-cell intracellular antigen 1 (TIA1), an RNA-binding protein, in microglia. We found that conditional knockout of Tia1 in microglia (Tia1<sup>CX3CR1</sup>-CKO mice) resulted in a significant reduction in pain sensitivity. Notably, the lateral septum (LS) emerged as a key brain region, where microglial activation was most significantly elevated in response to CFA-induced inflammation. Mechanistically, we discovered that TIA1 binds to and suppresses the translation of IκBα mRNA, triggering NF-κB signaling that contributes to neuroinflammation and neuronal hyperexcitability in the LS. In Tia1<sup>CX3CR1</sup>-CKO mice, chronic pain was alleviated, accompanied by restored IκBα expression and reduced NF-κB activation in the LS. In contrast, forced degradation of IκBα in the LS of these pain-resistant mice reinstated NF-κB activity and reversed the analgesic effects. These findings uncover a previously unknown post-transcriptional mechanism in microglia, where TIA1 links RNA-binding protein activity to NF-κB-driven neuroinflammation. Our results underscore the lateral septum as a critical region in chronic pain persistence and highlight TIA1 as a promising therapeutic target for intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PRPF4B drives hepatocellular carcinoma progression by modulating NF-κB signaling via TIA1-regulated alternative splicing.",
+    "doi": "10.1016/j.cellsig.2026.112518",
+    "pmid": "41932413",
+    "authors": [
+      "Zhang C, Huang Z, Su Y, Liu Y, Zhang C, Ge C, Tian W, Yang Y, Tian H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The splicing kinase family contributes significantly to tumor progression. As a member of this family, PRPF4B has been directly implicated in oncogenic processes. However, little is known about the precise role and underlying mechanisms of PRPF4B in hepatocellular carcinoma (HCC). In this study, we found that the expression of PRPF4B was upregulated and associated with a poor prognosis in HCC patients. PRPF4B knockdown significantly suppressed HCC cell proliferation, migration, and invasion while concurrently inducing apoptosis. Knockdown of PRPF4B induced DNA damage via reactive oxygen species (ROS) accumulation, leading to cell cycle arrest at the G2/M phase. This arrest was associated with increased phosphorylation of CDC2, elevated γ-H2AX levels, and downregulation of CDC25C and cyclin B1. In addition, we found that expression of PRPF4B was upregulated in sorafenib no-responders (NR) compared with sorafenib responders (R). PRPF4B knockdown sensitizes HCC cells to sorafenib treatment. Mechanistically, we demonstrated that knockdown of PRPF4B inhibited HCC proliferation through NF-κB pathway. Furthermore, PRPF4B interacts with TIA1. Knockdown of PRPF4B promotes the expression of a specific TIA1 splice variant, leading to altered mRNA splicing that inhibits NF-κB activity. Our findings reveal that PRPF4B interacts with TIA1 and modulates its splicing. Knockdown of PRPF4B triggers ROS-dependent DNA damage, cell cycle arrest, and suppression of HCC proliferation, while enhancing sorafenib sensitivity via inhibition of the NF-κB pathway. Therefore, PPRF4B may be a potential therapeutic target for HCC treatment and sorafenib sensitization.",
+    "openalex_id": ""
+  }
+]

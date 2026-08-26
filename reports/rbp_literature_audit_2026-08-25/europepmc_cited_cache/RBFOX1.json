@@ -1,0 +1,170 @@
+[
+  {
+    "title": "HITS-CLIP and integrative modeling define the Rbfox splicing-regulatory network linked to brain development and autism.",
+    "doi": "10.1016/j.celrep.2014.02.005",
+    "pmid": "24613350",
+    "authors": [
+      "Weyn-Vanhentenryck SM, Mele A, Yan Q, Sun S, Farny N, Zhang Z, Xue C, Herre M, Silver PA, Zhang MQ, Krainer AR, Darnell RB, Zhang C."
+    ],
+    "year": "2014",
+    "publication_date": "2014-03-06",
+    "cited_by_count": 322,
+    "journal": "",
+    "abstract": "The RNA binding proteins Rbfox1/2/3 regulate alternative splicing in the nervous system, and disruption of Rbfox1 has been implicated in autism. However, comprehensive identification of functional Rbfox targets has been challenging. Here, we perform HITS-CLIP for all three Rbfox family members in order to globally map, at a single-nucleotide resolution, their in vivo RNA interaction sites in the mouse brain. We find that the two guanines in the Rbfox binding motif UGCAUG are critical for protein-RNA interactions and crosslinking. Using integrative modeling, these interaction sites, combined with additional datasets, define 1,059 direct Rbfox target alternative splicing events. Over half of the quantifiable targets show dynamic changes during brain development. Of particular interest are 111 events from 48 candidate autism-susceptibility genes, including syndromic autism genes Shank3, Cacna1c, and Tsc2. Alteration of Rbfox targets in some autistic brains is correlated with downregulation of all three Rbfox proteins, supporting the potential clinical relevance of the splicing-regulatory network.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing regulator Rbfox1 (A2BP1) controls neuronal excitation in the mammalian brain.",
+    "doi": "10.1038/ng.841",
+    "pmid": "21623373",
+    "authors": [
+      "Gehman LT, Stoilov P, Maguire J, Damianov A, Lin CH, Shiue L, Ares M, Mody I, Black DL."
+    ],
+    "year": "2011",
+    "publication_date": "2011-05-29",
+    "cited_by_count": 309,
+    "journal": "",
+    "abstract": "The Rbfox family of RNA binding proteins regulates alternative splicing of many important neuronal transcripts, but its role in neuronal physiology is not clear. We show here that central nervous system-specific deletion of the gene encoding Rbfox1 results in heightened susceptibility to spontaneous and kainic acid-induced seizures. Electrophysiological recording revealed a corresponding increase in neuronal excitability in the dentate gyrus of the knockout mice. Whole-transcriptome analyses identified multiple splicing changes in the Rbfox1(-/-) brain with few changes in overall transcript abundance. These splicing changes alter proteins that mediate synaptic transmission and membrane excitation. Thus, Rbfox1 directs a genetic program required in the prevention of neuronal hyperexcitation and seizures. The Rbfox1 knockout mice provide a new model to study the post-transcriptional regulation of synaptic function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Novel Alzheimer Disease Risk Loci and Pathways in African American Individuals Using the African Genome Resources Panel: A Meta-analysis.",
+    "doi": "10.1001/jamaneurol.2020.3536",
+    "pmid": "33074286",
+    "authors": [
+      "Kunkle BW, Schmidt M, Klein HU, Naj AC, Hamilton-Nelson KL, Larson EB, Evans DA, De Jager PL, Crane PK, Buxbaum JD, Ertekin-Taner N, Barnes LL, Fallin MD, Manly JJ, Go RCP, Obisesan TO, Kamboh MI, Bennett DA, Hall KS, Goate AM, Foroud TM, Martin ER, Wang LS, Byrd GS, Farrer LA, Haines JL, Schellenberg GD, Mayeux R, Pericak-Vance MA, Reitz C, Writing Group for the Alzheimer’s Disease Genetics Consortium (ADGC), Graff-Radford NR, Martinez I, Ayodele T, Logue MW, Cantwell LB, Jean-Francois M, Kuzma AB, Adams LD, Vance JM, Cuccaro ML, Chung J, Mez J, Lunetta KL, Jun GR, Lopez OL, Hendrie HC, Reiman EM, Kowall NW, Leverenz JB, Small SA, Levey AI, Golde TE, Saykin AJ, Starks TD, Albert MS, Hyman BT, Petersen RC, Sano M, Wisniewski T, Vassar R, Kaye JA, Henderson VW, DeCarli C, LaFerla FM, Brewer JB, Miller BL, Swerdlow RH, Van Eldik LJ, Paulson HL, Trojanowski JQ, Chui HC, Rosenberg RN, Craft S, Grabowski TJ, Asthana S, Morris JC, Strittmatter SM, Kukull WA."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-01",
+    "cited_by_count": 258,
+    "journal": "",
+    "abstract": "<h4>Importance</h4>Compared with non-Hispanic White individuals, African American individuals from the same community are approximately twice as likely to develop Alzheimer disease. Despite this disparity, the largest Alzheimer disease genome-wide association studies to date have been conducted in non-Hispanic White individuals. In the largest association analyses of Alzheimer disease in African American individuals, ABCA7, TREM2, and an intergenic locus at 5q35 were previously implicated.<h4>Objective</h4>To identify additional risk loci in African American individuals by increasing the sample size and using the African Genome Resource panel.<h4>Design, setting, and participants</h4>This genome-wide association meta-analysis used case-control and family-based data sets from the Alzheimer Disease Genetics Consortium. There were multiple recruitment sites throughout the United States that included individuals with Alzheimer disease and controls of African American ancestry. Analysis began October 2018 and ended September 2019.<h4>Main outcomes and measures</h4>Diagnosis of Alzheimer disease.<h4>Results</h4>A total of 2784 individuals with Alzheimer disease (1944 female [69.8%]) and 5222 controls (3743 female [71.7%]) were analyzed (mean [SD] age at last evaluation, 74.2 [13.6] years). Associations with 4 novel common loci centered near the intracellular glycoprotein trafficking gene EDEM1 (3p26; P = 8.9 × 10-7), near the immune response gene ALCAM (3q13; P = 9.3 × 10-7), within GPC6 (13q31; P = 4.1 × 10-7), a gene critical for recruitment of glutamatergic receptors to the neuronal membrane, and within VRK3 (19q13.33; P = 3.5 × 10-7), a gene involved in glutamate neurotoxicity, were identified. In addition, several loci associated with rare variants, including a genome-wide significant intergenic locus near IGF1R at 15q26 (P = 1.7 × 10-9) and 6 additional loci with suggestive significance (P ≤ 5 × 10-7) such as API5 at 11p12 (P = 8.8 × 10-8) and RBFOX1 at 16p13 (P = 5.4 × 10-7) were identified. Gene expression data from brain tissue demonstrate association of ALCAM, ARAP1, GPC6, and RBFOX1 with brain β-amyloid load. Of 25 known loci associated with Alzheimer disease in non-Hispanic White individuals, only APOE, ABCA7, TREM2, BIN1, CD2AP, FERMT2, and WWOX were implicated at a nominal significance level or stronger in African American individuals. Pathway analyses strongly support the notion that immunity, lipid processing, and intracellular trafficking pathways underlying Alzheimer disease in African American individuals overlap with those observed in non-Hispanic White individuals. A new pathway emerging from these analyses is the kidney system, suggesting a novel mechanism for Alzheimer disease that needs further exploration.<h4>Conclusions and relevance</h4>While the major pathways involved in Alzheimer disease etiology in African American individuals are similar to those in non-Hispanic White individuals, the disease-associated loci within these pathways differ.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Novel Insights into NeuN: from Neuronal Marker to Splicing Regulator.",
+    "doi": "10.1007/s12035-015-9122-5",
+    "pmid": "25680637",
+    "authors": [
+      "Duan W, Zhang YP, Hou Z, Huang C, Zhu H, Zhang CQ, Yin Q."
+    ],
+    "year": "2016",
+    "publication_date": "2015-02-14",
+    "cited_by_count": 250,
+    "journal": "",
+    "abstract": "Neuronal nuclei (NeuN) is a well-recognized \"marker\" that is detected exclusively in post-mitotic neurons and was initially identified through an immunological screen to produce neuron-specific antibodies. Immunostaining evidence indicates that NeuN is distributed in the nuclei of mature neurons in nearly all parts of the vertebrate nervous system. NeuN is highly conserved among species and is stably expressed during specific stages of development. Therefore, NeuN has been considered to be a reliable marker of mature neurons for the past two decades. However, this role has been challenged by recent studies indicating that NeuN staining is variable and even absent during certain diseases and specific physiological states. More importantly, despite the widespread use of the anti-NeuN antibody, the natural identity of the NeuN protein remained elusive for 17 years. NeuN was recently eventually identified as an epitope of Rbfox3, which is a novel member of the Rbfox1 family of splicing factors. This identification might provide a novel perspective on NeuN expression during both physiological and pathological conditions. This review summarizes the current progress on the biochemical identity and biological significance of NeuN and recommends caution when applying NeuN immunoreactivity as a definitive marker of mature neurons in certain diseases and specific physiological states.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cytoplasmic Rbfox1 Regulates the Expression of Synaptic and Autism-Related Genes.",
+    "doi": "10.1016/j.neuron.2015.11.025",
+    "pmid": "26687839",
+    "authors": [
+      "Lee JA, Damianov A, Lin CH, Fontes M, Parikshak NN, Anderson ES, Geschwind DH, Black DL, Martin KC."
+    ],
+    "year": "2016",
+    "publication_date": "2015-12-10",
+    "cited_by_count": 226,
+    "journal": "",
+    "abstract": "Human genetic studies have identified the neuronal RNA binding protein, Rbfox1, as a candidate gene for autism spectrum disorders. While Rbfox1 functions as a splicing regulator in the nucleus, it is also alternatively spliced to produce cytoplasmic isoforms. To investigate the function of cytoplasmic Rbfox1, we knocked down Rbfox proteins in mouse neurons and rescued with cytoplasmic or nuclear Rbfox1. Transcriptome profiling showed that nuclear Rbfox1 rescued splicing changes, whereas cytoplasmic Rbfox1 rescued changes in mRNA levels. iCLIP-seq of subcellular fractions revealed that Rbfox1 bound predominantly to introns in nascent RNA, while cytoplasmic Rbox1 bound to 3' UTRs. Cytoplasmic Rbfox1 binding increased target mRNA stability and translation, and Rbfox1 and miRNA binding sites overlapped significantly. Cytoplasmic Rbfox1 target mRNAs were enriched in genes involved in cortical development and autism. Our results uncover a new Rbfox1 regulatory network and highlight the importance of cytoplasmic RNA metabolism to cortical development and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBFOX1 regulates both splicing and transcriptional networks in human neuronal development.",
+    "doi": "10.1093/hmg/dds240",
+    "pmid": "22730494",
+    "authors": [
+      "Fogel BL, Wexler E, Wahnich A, Friedrich T, Vijayendran C, Gao F, Parikshak N, Konopka G, Geschwind DH."
+    ],
+    "year": "2012",
+    "publication_date": "2012-06-23",
+    "cited_by_count": 199,
+    "journal": "",
+    "abstract": "RNA splicing plays a critical role in the programming of neuronal differentiation and, consequently, normal human neurodevelopment, and its disruption may underlie neurodevelopmental and neuropsychiatric disorders. The RNA-binding protein, fox-1 homolog (RBFOX1; also termed A2BP1 or FOX1), is a neuron-specific splicing factor predicted to regulate neuronal splicing networks clinically implicated in neurodevelopmental disease, including autism spectrum disorder (ASD), but only a few targets have been experimentally identified. We used RNA sequencing to identify the RBFOX1 splicing network at a genome-wide level in primary human neural stem cells during differentiation. We observe that RBFOX1 regulates a wide range of alternative splicing events implicated in neuronal development and maturation, including transcription factors, other splicing factors and synaptic proteins. Downstream alterations in gene expression define an additional transcriptional network regulated by RBFOX1 involved in neurodevelopmental pathways remarkably parallel to those affected by splicing. Several of these differentially expressed genes are further implicated in ASD and related neurodevelopmental diseases. Weighted gene co-expression network analysis demonstrates a high degree of connectivity among these disease-related genes, highlighting RBFOX1 as a key factor coordinating the regulation of both neurodevelopmentally important alternative splicing events and clinically relevant neuronal transcriptional programs in the development of human neurons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing regulator Rbfox2 is required for both cerebellar development and mature motor function.",
+    "doi": "10.1101/gad.182477.111",
+    "pmid": "22357600",
+    "authors": [
+      "Gehman LT, Meera P, Stoilov P, Shiue L, O'Brien JE, Meisler MH, Ares M, Otis TS, Black DL."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-22",
+    "cited_by_count": 193,
+    "journal": "",
+    "abstract": "The Rbfox proteins (Rbfox1, Rbfox2, and Rbfox3) regulate the alternative splicing of many important neuronal transcripts and have been implicated in a variety of neurological disorders. However, their roles in brain development and function are not well understood, in part due to redundancy in their activities. Here we show that, unlike Rbfox1 deletion, the CNS-specific deletion of Rbfox2 disrupts cerebellar development. Genome-wide analysis of Rbfox2(-/-) brain RNA identifies numerous splicing changes altering proteins important both for brain development and mature neuronal function. To separate developmental defects from alterations in the physiology of mature cells, Rbfox1 and Rbfox2 were deleted from mature Purkinje cells, resulting in highly irregular firing. Notably, the Scn8a mRNA encoding the Na(v)1.6 sodium channel, a key mediator of Purkinje cell pacemaking, is improperly spliced in RbFox2 and Rbfox1 mutant brains, leading to highly reduced protein expression. Thus, Rbfox2 protein controls a post-transcriptional program required for proper brain development. Rbfox2 is subsequently required with Rbfox1 to maintain mature neuronal physiology, specifically Purkinje cell pacemaking, through their shared control of sodium channel transcript splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Chronic cocaine-regulated epigenomic changes in mouse nucleus accumbens.",
+    "doi": "10.1186/gb-2014-15-4-r65",
+    "pmid": "24758366",
+    "authors": [
+      "Feng J, Wilkinson M, Liu X, Purushothaman I, Ferguson D, Vialou V, Maze I, Shao N, Kennedy P, Koo J, Dias C, Laitman B, Stockman V, LaPlant Q, Cahill ME, Nestler EJ, Shen L."
+    ],
+    "year": "2014",
+    "publication_date": "2014-04-22",
+    "cited_by_count": 158,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Increasing evidence supports a role for altered gene expression in mediating the lasting effects of cocaine on the brain, and recent work has demonstrated the involvement of chromatin modifications in these alterations. However, all such studies to date have been restricted by their reliance on microarray technologies that have intrinsic limitations.<h4>Results</h4>We use next generation sequencing methods, RNA-seq and ChIP-seq for RNA polymerase II and several histone methylation marks, to obtain a more complete view of cocaine-induced changes in gene expression and associated adaptations in numerous modes of chromatin regulation in the mouse nucleus accumbens, a key brain reward region. We demonstrate an unexpectedly large number of pre-mRNA splicing alterations in response to repeated cocaine treatment. In addition, we identify combinations of chromatin changes, or signatures, that correlate with cocaine-dependent regulation of gene expression, including those involving pre-mRNA alternative splicing. Through bioinformatic prediction and biological validation, we identify one particular splicing factor, A2BP1(Rbfox1/Fox-1), which is enriched at genes that display certain chromatin signatures and contributes to drug-induced behavioral abnormalities. Together, this delineation of the cocaine-induced epigenome in the nucleus accumbens reveals several novel modes of regulation by which cocaine alters the brain.<h4>Conclusions</h4>We establish combinatorial chromatin and transcriptional profiles in mouse nucleus accumbens after repeated cocaine treatment. These results serve as an important resource for the field and provide a template for the analysis of other systems to reveal new transcriptional and epigenetic mechanisms of neuronal regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MicroRNA-132 provides neuroprotection for tauopathies via multiple signaling pathways.",
+    "doi": "10.1007/s00401-018-1880-5",
+    "pmid": "29982852",
+    "authors": [
+      "El Fatimy R, Li S, Chen Z, Mushannen T, Gongala S, Wei Z, Balu DT, Rabinovsky R, Cantlon A, Elkhal A, Selkoe DJ, Sonntag KC, Walsh DM, Krichevsky AM."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-07",
+    "cited_by_count": 151,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNA) regulate fundamental biological processes, including neuronal plasticity, stress response, and survival. Here, we describe a neuroprotective function of miR-132, the miRNA most significantly downregulated in neurons in Alzheimer's disease. We demonstrate that miR-132 protects primary mouse and human wild-type neurons and more vulnerable Tau-mutant neurons against amyloid β-peptide (Aβ) and glutamate excitotoxicity. It lowers the levels of total, phosphorylated, acetylated, and cleaved forms of Tau implicated in tauopathies, promotes neurite elongation and branching, and reduces neuronal death. Similarly, miR-132 attenuates PHF-Tau pathology and neurodegeneration, and enhances long-term potentiation in the P301S Tau transgenic mice. The neuroprotective effects are mediated by direct regulation of the Tau modifiers acetyltransferase EP300, kinase GSK3β, RNA-binding protein Rbfox1, and proteases Calpain 2 and Caspases 3/7. These data suggest miR-132 as a master regulator of neuronal health and indicate that miR-132 supplementation could be of therapeutic benefit for the treatment of Tau-associated neurodegenerative disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Clinically relevant single gene or intragenic deletions encompassing critical neurodevelopmental genes in patients with developmental delay, mental retardation, and/or autism spectrum disorders.",
+    "doi": "10.1002/ajmg.a.34177",
+    "pmid": "22031302",
+    "authors": [
+      "Mikhail FM, Lose EJ, Robin NH, Descartes MD, Rutledge KD, Rutledge SL, Korf BR, Carroll AJ."
+    ],
+    "year": "2011",
+    "publication_date": "2011-10-01",
+    "cited_by_count": 147,
+    "journal": "",
+    "abstract": "Recent studies suggest that copy number variations (CNVs) encompassing several genes involved in neurodevelopmental pathways are associated with a variety of neuropsychiatric phenotypes, including developmental delay (DD), mental retardation (MR), and autism spectrum disorders (ASDs). Here we present eight patients in a cohort of approximately 1,200 patients referred for clinical array CGH testing for various neurodevelopmental phenotypes,whowere identified to carry small (<1.0Mb with the majority <500 kb) either total gene or intragenic deletions encompassing critical synaptic and other neurodevelopmental genes. The presentations of these patients included variable degrees of DD, speech problems, learning disabilities, MR, autistic-like features, and mild non-specific dysmorphic features. These genes belong to four functional categories, including neuronal transcription factor genes (NFIA at 1p31.3, MEF2C at 5q14.3, andCAMAT1at 1p36.23p36.31), neuron-specific splicing factor genes (RBFOX1 at 16p13.2p13.3), genes involved in synapse formation and maintenance (CNTNAP2 at 7q35 and LRFN5 at 14q21.2), and genes involved in neurotransmission (CHRNA7 at 15q13.3 and IL1RAPL1 at Xp21.2p21.3). Our report expands the list of neurodevelopmental genes deleted in various neurobehavioral phenotypes, expands the phenotypes caused by haploinsufficiency of previously reported critical neurodevelopmental genes, and elucidates the clinical relevance and need for careful clinical interpretation of some small CNVs<500 kb. This report also suggests that small clinically relevant deletions encompassing critical synaptic and other neurodevelopmental genes can present clinically with various neurobehavioral phenotypes, which implies the existence of overlapping neuronal pathways in the pathogenesis of these phenotypes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-PROTACs: Degraders of RNA-Binding Proteins.",
+    "doi": "10.1002/anie.202012330",
+    "pmid": "33108679",
+    "authors": [
+      "Ghidini A, Cléry A, Halloy F, Allain FHT, Hall J."
+    ],
+    "year": "2021",
+    "publication_date": "2020-12-10",
+    "cited_by_count": 142,
+    "journal": "",
+    "abstract": "Defects in the functions of RNA binding proteins (RBPs) are at the origin of many diseases; however, targeting RBPs with conventional drugs has proven difficult. PROTACs are a new class of drugs that mediate selective degradation of a target protein through a cell's ubiquitination machinery. PROTACs comprise a moiety that binds the selected protein, conjugated to a ligand of an E3 ligase. Herein, we introduce RNA-PROTACs as a new concept in the targeting of RBPs. These chimeric structures employ small RNA mimics as targeting groups that dock the RNA-binding site of the RBP, whereupon a conjugated E3-recruiting peptide derived from the HIF-1α protein directs the RBP for proteasomal degradation. We performed a proof-of-concept demonstration with the degradation of two RBPs-a stem cell factor LIN28 and a splicing factor RBFOX1-and showed their use in cancer cell lines. The RNA-PROTAC approach opens the way to rapid, selective targeting of RBPs in a rational and general fashion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBFox1-mediated RNA splicing regulates cardiac hypertrophy and heart failure.",
+    "doi": "10.1172/jci84015",
+    "pmid": "26619120",
+    "authors": [
+      "Gao C, Ren S, Lee JH, Qiu J, Chapski DJ, Rau CD, Zhou Y, Abdellatif M, Nakano A, Vondriska TM, Xiao X, Fu XD, Chen JN, Wang Y."
+    ],
+    "year": "2016",
+    "publication_date": "2015-11-30",
+    "cited_by_count": 136,
+    "journal": "",
+    "abstract": "RNA splicing is a major contributor to total transcriptome complexity; however, the functional role and regulation of splicing in heart failure remain poorly understood. Here, we used a total transcriptome profiling and bioinformatic analysis approach and identified a muscle-specific isoform of an RNA splicing regulator, RBFox1 (also known as A2BP1), as a prominent regulator of alternative RNA splicing during heart failure. Evaluation of developing murine and zebrafish hearts revealed that RBFox1 is induced during postnatal cardiac maturation. However, we found that RBFox1 is markedly diminished in failing human and mouse hearts. In a mouse model, RBFox1 deficiency in the heart promoted pressure overload-induced heart failure. We determined that RBFox1 is a potent regulator of RNA splicing and is required for a conserved splicing process of transcription factor MEF2 family members that yields different MEF2 isoforms with differential effects on cardiac hypertrophic gene expression. Finally, induction of RBFox1 expression in murine pressure overload models substantially attenuated cardiac hypertrophy and pathological manifestations. Together, this study identifies regulation of RNA splicing by RBFox1 as an important player in transcriptome reprogramming during heart failure that influence pathogenesis of the disease.",
+    "openalex_id": ""
+  }
+]

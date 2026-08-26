@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Alternative polyadenylation releases PCBP1-mediated suppression of CFIm25 during macrophage differentiation.",
+    "doi": "10.1002/1873-3468.70313",
+    "pmid": "41830116",
+    "authors": [
+      "Del Pilar Mendoza-Martín M, Mostafa SM, Barua A, Moore CL, Mukherjee S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-13",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "CFIm25, a key component of the cleavage factor Im (CFIm) complex needed for mRNA 3' end processing, shows increased protein expression during monocyte-to-macrophage differentiation despite stable mRNA levels. We demonstrate that poly(C)-binding protein 1 (PCBP1) suppresses CFIm25 translation in monocytes by binding to its long 3' untranslated region (UTR). During differentiation, alternative polyadenylation generates a shorter CFIm25 3'UTR lacking PCBP1 binding sites. RNA immunoprecipitation confirms PCBP1 binding to the long 3'UTR, while ribosome association analysis shows enhanced ribosome recruitment upon PCBP1 depletion. PCBP1 knockdown increases CFIm25 protein in undifferentiated cells and induces macrophage differentiation markers without stimulation. These findings reveal how alternative polyadenylation controls CFIm25 expression during immune cell differentiation by modulating RNA-binding protein interactions and provide insight into post-transcriptional regulation of RNA processing factors. Impact statement This work reveals how a key regulator of mRNA processing is itself controlled through a previously uncharacterized mechanism during immune cell differentiation. Our findings provide insights into the molecular circuits governing macrophage development and identify potential therapeutic targets for inflammatory disorders where myeloid cell differentiation is dysregulated.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PCBP1 regulates alternative splicing of AARS2 in congenital cardiomyopathy.",
+    "doi": "10.1038/s44161-026-00798-3",
+    "pmid": "42010330",
+    "authors": [
+      "Lu YW, Liang Z, Dorr K, Ruiz S, Huang X, Fangnibo Hanvi D, Juntilla SM, Beutner G, Lyu S, Guo H, Fernandes T, Espinoza-Lewis RA, Wang T, Li K, Li X, Bir Singh G, Wang Y, Deng R, Cowan D, Mably JD, Pu WT, Huang J, Porter GA, Conlon F, Chen H, Wang DZ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-20",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Mutations in the AARS2 gene are linked to infantile cardiomyopathy; however, the underlying molecular mechanism remains unknown. Here we report that PCBP1, a poly(rC) binding protein, interacts with the AARS2 transcript to mediate its alternative splicing. Cardiomyocyte-specific deletion of Pcbp1 in mice impairs normal splicing and causes premature termination of Aars2, leading to defects in heart development and postnatal lethality. Similarly, mice with a deletion in Aars2 that mimics a disease-causing splicing lesion display heart developmental abnormalities, reminiscent of those in patients with infantile mitochondrial cardiomyopathy. Mechanistically, loss of Pcbp1 or Aars2 in the heart reduces oxidative phosphorylation, a hallmark of patients with AARS2 mutations. This reduction in mitochondrial-encoded proteome activates mitonuclear communication and the unfolded protein response pathway, thereby inducing a compensatory nuclear-encoded mitochondrial gene program. Our findings provide insights into the PCBP1-AARS2 regulatory axis in mitochondrial cardiomyopathy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hypoxia-Induced circPRELID2 Promotes Gastric Cancer Metastasis by Facilitating ZEB2 Translation via PCBP1 O-GlcNAcylation.",
+    "doi": "10.1002/advs.202505396",
+    "pmid": "41117067",
+    "authors": [
+      "Zhang P, Luo Z, Xu Y, Zhang Y, Zhang R, Paerhati N, Zhang S, Cai Q, Qiu Z, Huang C."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-21",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Circular RNAs (circRNAs) are involved in the occurrence and development of various carcinomas. However, the biogenesis, function and underlying mechanism of hypoxia-induced circRNA in gastric cancer (GC) are poorly understood. Here, a novel circRNA, circPRELID2, which is upregulated by HIF1A under hypoxic conditions, is identified. circPRELID2 is highly expressed in GC tissues, and positively correlates with lymph node invasion, vascular invasion in GC patients. Elevated circPRELID2 promotes the epithelial-mesenchymal transition (EMT) and metastasis of GC cells both in vitro and in vivo under hypoxic conditions. Mechanistically, HIF1A directly binds to the PRELID2 promoter to transcriptionally increase the expression of PRELID2 pre-mRNA in response to hypoxia. Moreover, protein kinase DYRK1A mediates SFPQ phosphorylation to promote the interaction between SFPQ and SAM68, further forming a DYRK1A-SFPQ-SAM68 ternary complex. Subsequently, the DYRK1A-SFPQ-SAM68 complex binds to Alu-containing introns flanking the circPRELID2-forming exons in the PRELID2 pre-mRNA to promote circPRELID2 circularization. Furthermore, circPRELID2 interacts with PCBP1 and promotes the cytoplasmic retention of PCBP1. CircPRELID2 enhances OGT-mediated PCBP1 O-GlcNAcylation at Threonine 99 site in the cytoplasm, which disrupts the binding of PCBP1 to the 3'-UTR of ZEB2, resulting in the reversal of ZEB2 translation silencing, and ultimately promoting the EMT and metastasis of GC cells. These findings reveal a new regulatory mechanism of circRNA biogenesis, and also uncover that circPRELID2 participates in the translation of ZEB2 during GC metastasis via the modulation of PCBP1 O-GlcNAcylation, which provides a promising prognostic biomarker and therapeutic target for GC metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NAT10-mediated N4-acetylcytidine modification drives RNA splicing of PML to alleviate adipose-derived stem cell senescence and promote diabetic wound healing.",
+    "doi": "10.1002/ctm2.70711",
+    "pmid": "42281170",
+    "authors": [
+      "Wei W, Jiang C, Zhu D, Han X, Ma X, Jia X, Ling J, Zhang R, Li F, Yin N."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Cellular senescence of adipose-derived stem cells (ADSCs) compromises their therapeutic potential in diabetic wound healing. Alternative splicing produces functionally different variants and serves as a critical regulator of senescence. N-acetyltransferase 10 (NAT10) is known to catalyse N4-acetylcytidine (ac4C) RNA modification, and ac4C modification has been involved in RNA splicing. Nevertheless, how NAT10 functions in ADSCs remain unexplored. The aim of this study was to investigate the involvement of NAT10 in ADSC senescence and its impact on RNA splicing.<h4>Methods</h4>Senescence was assessed by β-galactosidase staining, western blot analysis of p21 and p16 and qRT-PCR detection of senescence-associated secretory phenotype (SASP) genes. The role of NAT10 in splicing regulation was examined by RT‑PCR.<h4>Results</h4>NAT10 overexpression mitigated ADSC senescence under high-glucose conditions and augmented the wound repair capability of ADSCs. Mechanistically, NAT10 facilitated ac4C-dependent AS of the PML transcript, driving a switch from the long isoform (PML-FL) to the short isoform (PML-S). PML-FL accelerated cellular senescence, whereas PML-S suppressed it. NAT10 recruited SRSF1 to PML pre-mRNA, leading to ac4C-SRSF1-mediated exon skipping and increased PML-S production. Concurrently, NAT10 reduced the binding of PCBP1 to PML, thereby inhibiting PML-FL generation.<h4>Conclusions</h4>Our findings uncover a previously unrecognised mechanism by which NAT10 regulates ADSC senescence through ac4C-dependent alternative splicing and suggest a potential strategy to improve ADSC-based therapies for diabetic wounds.<h4>Key points</h4>NAT10 catalyzes ac4C-dependent alternative splicing of PML pre-mRNA, shifting the balance from the pro-senescence PML-FL isoform to the protective PML-S isoform.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding protein &lt;i&gt;Pcbp1&lt;/i&gt; maintains mitochondria integrity to promote antibody production and germinal center response.",
+    "doi": "10.1126/sciadv.adz9095",
+    "pmid": "41961935",
+    "authors": [
+      "Zhu L, Lin L, Qi T, Li G, Liang Z, Yu J, Fu Y, Peng Y, Chang X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "B cells are crucial for adaptive immunity, orchestrating humoral responses by producing antibodies essential for pathogen clearance. Here, we show that Poly(rC) binding protein 1 (<i>Pcbp1</i>), a multifunctional RNA binding protein, is a key regulator of antibody production in B cells. <i>Pcbp1</i> deficiency in B cells resulted in significant reductions in immunoglobulin M expression at steady state and compromised differentiation of germinal center B cells and production of high-affinity antibodies upon immunization. These effects were caused by defective mitochondrial integrity in <i>Pcbp1</i>-deficient B cells, including impaired mitochondrial electron transport chain complex I and elevated mitochondrial reactive oxygen species production. Mechanistically, <i>Pcbp1</i> binds to the 3' untranslated region of <i>Fdxr</i> messenger RNA to promote its expression, thereby supporting iron-sulfur cluster biogenesis, the assembly of mitochondrial complex I, and other Fdxr-dependent processes. Our findings reveal a previously unidentified role for <i>Pcbp1</i> in regulating mitochondrial function, protein synthesis, and antibody responses in B cells, providing insight into posttranscriptional regulation and mitochondrial functions in adaptive immunity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Iron-sensitive RNA regulation by poly C-binding proteins.",
+    "doi": "10.1093/nar/gkaf942",
+    "pmid": "41036621",
+    "authors": [
+      "Goda GA, Forbes K, Sullivan ME, Eramo GA, Breen C, Porter DF, Khavari PA, Dominguez D, Aleman MM."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-01",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Iron is essential for normal cellular function. Homeostatic responses to low iron availability have long been known to rely on posttranscriptional mechanisms. Poly C-binding proteins (PCBPs) are essential RNA-binding proteins that regulate alternative splicing (AS), translation, and RNA stability. They also serve as critical iron chaperones that manage intracellular iron flux. However, the impact of cellular iron levels on the PCBP-directed transcriptome has not been globally evaluated. We found broad transcriptome changes, including AS, in response to low iron availability consistent with numerous operant posttranscriptional mechanisms that sense iron. By comparing AS directed by PCBP1 and PCBP2 to the iron-sensitive transcriptome, we found genes with iron-sensitive PCBP-mediated splicing regulation. We also found that iron chelation-induced splicing changes were attenuated with knockdown of PCBPs. Further, we demonstrate that iron chelation or mutation of PCBP1 iron binding residues enhances PCBP1 RNA association. This work highlights widespread iron-sensitive RNA regulation and identifies PCBP1 and PCBP2 as critical splicing factors contributing to this response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Conserved role for PCBP1 in altered RNA splicing in the hippocampus after chronic alcohol exposure.",
+    "doi": "10.1038/s41380-023-02184-y",
+    "pmid": "37537282",
+    "authors": [
+      "Carvalho L, Chen H, Maienschein-Cline M, Glover EJ, Pandey SC, Lasek AW."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-03",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "We previously discovered using transcriptomics that rats undergoing withdrawal after chronic ethanol exposure had increased expression of several genes encoding RNA splicing factors in the hippocampus. Here, we examined RNA splicing in the rat hippocampus during withdrawal from chronic ethanol exposure and in postmortem hippocampus of human subjects diagnosed with alcohol use disorder (AUD). We found that expression of the gene encoding the splicing factor, poly r(C) binding protein 1 (PCBP1), was elevated in the hippocampus of rats during withdrawal after chronic ethanol exposure and AUD subjects. We next analyzed the rat RNA-Seq data for differentially expressed (DE) exon junctions. One gene, Hapln2, had increased usage of a novel 3' splice site in exon 4 during withdrawal. This splice site was conserved in human HAPLN2 and was used more frequently in the hippocampus of AUD compared to control subjects. To establish a functional role for PCBP1 in HAPLN2 splicing, we performed RNA immunoprecipitation (RIP) with a PCBP1 antibody in rat and human hippocampus, which showed enriched PCBP1 association near the HAPLN2 exon 4 3' splice site in the hippocampus of rats during ethanol withdrawal and AUD subjects. Our results indicate a conserved role for the splicing factor PCBP1 in aberrant splicing of HAPLN2 after chronic ethanol exposure. As the HAPLN2 gene encodes an extracellular matrix protein involved in nerve conduction velocity, use of this alternative splice site is predicted to result in loss of protein function that could negatively impact hippocampal function in AUD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding proteins PCBP1 and PCBP2 regulate pancreatic β cell translation.",
+    "doi": "10.1016/j.molmet.2025.102175",
+    "pmid": "40451383",
+    "authors": [
+      "Haemmerle MW, Batmanov K, Sen S, Varney MJ, Utecht AT, Good AL, Scota AV, Tersey SA, Ghanem LR, Philpott CC, Stoffers DA."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-30",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>Tight control of β cell mRNA translation plays a central role in regulating glucose homoeostasis and β cell health. RNA binding proteins (RBPs) impact translational dynamics and function in networks to achieve their regulatory outcomes, yet an understanding of the RBPs and nature of their interplay in directing β cell translation remain limited. We recently established that the RBP PCBP2 is a key post-transcriptional regulator of β cell function. Here, we investigate the relationship of PCBP2 and its sister-isoform PCBP1 in shaping β cell homeostasis and translation.<h4>Methods</h4>Mice with β cell-specific deletion of Pcbp1 and combined Pcbp1/2 were generated to examine the influence of these factors on blood glucose and β cell homeostasis. Gene expression was interrogated with single-cell RNA sequencing, qRT-PCR, and western blot. RNA-protein interactions were measured using RNA immunoprecipitation. Gene depletion studies were performed using CRISPR-Cas9 or shRNAs. Puromycin labeling was used to monitor global translation.<h4>Results</h4>Pcbp1 deletion preserved glucose homeostasis whereas Pcbp co-deletion resulted in severe diabetes due to compromised β cell viability. Single-cell RNA sequencing of Pcbp co-deficient β cells revealed downregulation of a network of core translation initiation factors and ribosomal mRNAs. Motif enrichment analysis, mRNA-protein interaction, and mRNA stability studies identified that the PCBPs co-impact these mRNAs in part through binding and stabilization. Accordingly, protein translational monitoring demonstrated a requirement for the PCBPs in sustaining global mRNA translation in β cells.<h4>Conclusions</h4>Our findings demonstrate a requirement for the PCBPs in sustaining the global rates of mRNA translation critical for β cell control of glucose homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Overexpression of NSUN3 suppresses ferroptosis in osteoarthritis chondrocytes by reducing m5C modification and expression of PCBP1 mRNA.",
+    "doi": "10.1080/03008207.2026.2668589",
+    "pmid": "42101179",
+    "authors": [
+      "Mahan W, Ayiheng Y, Xie Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-08",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Osteoarthritis (OA) is a degenerative joint disease, with chondrocyte ferroptosis a key pathogenic mechanism in its progression. The role of RNA 5-methylcytosine (m5C) modification in OA chondrocyte ferroptosis remains unclear. This study investigates the involvement and mechanisms of m5C-related regulatory factors in OA chondrocyte ferroptosis.<h4>Materials and methods</h4>Differentially expressed genes (DEGs) between healthy and damaged knee cartilages were analyzed using GSE129147. Mouse chondrocytes were treated with Interleukin-1β (IL-1β) to induce in vitro OA model. Ferroptosis was evaluated by measuring malondialdehyde (MDA), Fe2+, glutathione peroxidase 4 (GPX4), superoxide dismutase (SOD), glutathione (GSH) levels, and ACSL4, SLC7A11, GPX4 protein levels. The mechanism was investigated via methylated RNA immunoprecipitation (MeRIP), RIP, and dual luciferase activity.<h4>Results</h4>NSUN3 was downregulated in damaged human knee cartilage and IL-1β-induced mouse chondrocytes. IL-1β promoted chondrocyte death and ferroptosis, which was reversed by NSUN3 overexpression. NSUN3 expression positively correlated with PCBP1. NSUN3 increased PCBP1 expression and RNA stability via m5C modification. PCBP1 knockdown abolished the enhancing effects of NSUN3 on ferroptosis and cell death under IL-1β stimulation.<h4>Conclusions</h4>NSUN3 overexpression inhibited ferroptosis in IL-1β-induced mouse chondrocytes by promoting PCBP1 expression via increased m5C modification on PCBP1. These in vitro findings offer preliminary insights into potential epigenetic regulatory mechanisms underlying chondrocyte ferroptosis in OA, although further in vivo validation is required.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Single-cell RNA sequencing reveals the critical role of alternative splicing in cattle testicular spermatagonia.",
+    "doi": "10.1186/s13062-024-00579-7",
+    "pmid": "39726007",
+    "authors": [
+      "Wang X, Yang C, Wei X, Zhang Y, Xiao Y, Wang J, Jiang Q, Ju Z, Gao Y, Li Y, Gao Y, Huang J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-26",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Spermatogonial stem cells (SSCs) form haploid gametes through the precisely regulated process of spermatogenesis. Within the testis, SSCs undergo self-renewal through mitosis, differentiation, and then enter meiosis to generate mature spermatids. This study utilized single-cell RNA sequencing on 26,888 testicular cells obtained from five Holstein bull testes, revealing the presence of five distinct germ cell types and eight somatic cell types in cattle testes. Gene expression profiling and enrichment analysis were utilized to uncover the varied functional roles of different cell types involved in cattle spermatogenesis. Additionally, unique gene markers specific to each testicular cell type were identified. Moreover, differentially expressed genes in spermatogonia exhibited notable enrichment in GO terms and KEGG pathway linked to alternative splicing. Notably, our study has shown that the activity of the YY1 regulation displays distinct expression patterns in spermatogonia, specifically targeting spliceosome proteins including RBM39, HNRNPA2B1, HNRNPH3, CPSF1, PCBP1, SRRM1, and SRRM2, which play essential roles in mRNA splicing. These results emphasize the importance of mRNA processing in spermatogonia within cattle testes, providing a basis for further investigation into their involvement in spermatogonial development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Early alternative splicing signatures and RBP networks in MASLD progression to cirrhosis.",
+    "doi": "10.1186/s12920-025-02233-1",
+    "pmid": "41257843",
+    "authors": [
+      "Chen L, Ma W, Hu Y, Qin Y, Zhao S, Yang J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Non-alcoholic fatty liver disease (MASLD) affects approximately 32.4% of adults globally, progressing from simple steatosis to non-alcoholic steatohepatitis (MASH), cirrhosis, and hepatocellular carcinoma (HCC). Alternative splicing (AS) is crucial for gene expression regulation, and its dysregulation is linked to disease progression. To identify early molecular signatures indicative of cirrhosis in MASLD, we analyzed RNA sequencing data from liver tissues of healthy controls (n = 10), MASLD patients (n = 9), and cirrhosis patients (n = 10) obtained from the SRA database (accession ERP146053). Utilizing SUVA for splicing event detection and k-means clustering, we examined dynamic changes in alternative splicing events and constructed regulatory networks of RNA-binding proteins (RBPs). Integration with immunological profiles enabled us to explore the interplay between splicing variants and immune responses during disease progression. We identified 671 differential alternative splicing events. Clustering revealed dynamic splicing patterns across disease stages, with two key patterns associated with DNA damage response (DDR) and epithelial-mesenchymal transition (EMT) processes, showing early progressive alterations correlating with disease severity. Twelve immune-related splicing events were significantly associated with changes in immune cell populations, highlighting their role in immune regulation during Liver disease progression. Additionally, 11 RBPs, including CELF5 and PCBP1, showed expression changes that correlate with splicing events associated with MASLD progression. Identifying early alternative splicing signatures and understanding RBP networks enhance our ability to predict disease progression and present potential therapeutic targets for early intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KAT8-mediated PCBP1 acetylation drives neutrophil recruitment in papain-induced airway inflammation.",
+    "doi": "10.1093/ajrcmb/aanag121",
+    "pmid": "42244110",
+    "authors": [
+      "Huang R, Feng Z, Zhang W, Zhong Y, Su G, Lai X, Li H, Fang Z, Zhao Z, Zhang M, Li S, Yang R, Gao X, Xiao H, Jiang Y, Duan J, Lai T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Macrophages play central role in driving airway inflammation during asthma pathogenesis, though the molecular mechanism governing their function remains incompletely understood. Here, we demonstrate that lysine acetyltransferase 8 (KAT8) plays a critical role in papain-induced neutrophilic airway inflammation through post-translational modification of poly(C)-binding protein 1 (PCBP1). We show that papain exposure significantly upregulates KAT8 expression in lung macrophages both in vivo and in vitro. Myeloid-specific Kat8 deficiency conferred protection against papain-induced airway inflammation, reducing CXCL1 and CXCL2 production and consequent neutrophil recruitment. Mechanistically, KAT8 interacted with PCBP1 via its C2HC zinc finger domain and acetylated it at lysine 119 (K119), an essential modification for CXCL1 and CXCL2 secretion. Moreover, KAT8 enhanced M1 macrophage polarization in papain-exposed mice. Importantly, pharmacological inhibition of KAT8 significantly attenuated neutrophil infiltration and allergic airway inflammation in vivo. Our findings establish KAT8 as a pivotal regulator of neutrophilic airway inflammation through PCBP1 acetylation and highlight the KAT8-PCBP1 axis as a promising therapeutic target for severe asthma.",
+    "openalex_id": ""
+  }
+]

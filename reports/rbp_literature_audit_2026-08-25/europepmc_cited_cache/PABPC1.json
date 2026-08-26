@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Interactions between UPF1, eRFs, PABP and the exon junction complex suggest an integrated model for mammalian NMD pathways.",
+    "doi": "10.1038/emboj.2008.17",
+    "pmid": "18256688",
+    "authors": [
+      "Ivanov PV, Gehring NH, Kunz JB, Hentze MW, Kulozik AE."
+    ],
+    "year": "2008",
+    "publication_date": "2008-02-07",
+    "cited_by_count": 266,
+    "journal": "",
+    "abstract": "Nonsense-mediated mRNA decay (NMD) represents a key mechanism to control the expression of wild-type and aberrant mRNAs. Phosphorylation of the protein UPF1 in the context of translation termination contributes to committing mRNAs to NMD. We report that translation termination is inhibited by UPF1 and stimulated by cytoplasmic poly(A)-binding protein (PABPC1). UPF1 binds to eRF1 and to the GTPase domain of eRF3 both in its GTP- and GDP-bound states. Importantly, mutation studies show that UPF1 can interact with the exon junction complex (EJC) alternatively through either UPF2 or UPF3b to become phosphorylated and to activate NMD. On this basis, we discuss an integrated model where UPF1 halts translation termination and is phosphorylated by SMG1 if the termination-promoting interaction of PABPC1 with eRF3 cannot readily occur. The EJC, with UPF2 or UPF3b as a cofactor, interferes with physiological termination through UPF1. This model integrates previously competing models of NMD and suggests a mechanistic basis for alternative NMD pathways.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Uridylation by TUT4 and TUT7 marks mRNA for degradation.",
+    "doi": "10.1016/j.cell.2014.10.055",
+    "pmid": "25480299",
+    "authors": [
+      "Lim J, Ha M, Chang H, Kwon SC, Simanshu DK, Patel DJ, Kim VN."
+    ],
+    "year": "2014",
+    "publication_date": "2014-12-01",
+    "cited_by_count": 259,
+    "journal": "",
+    "abstract": "Uridylation occurs pervasively on mRNAs, yet its mechanism and significance remain unknown. By applying TAIL-seq, we identify TUT4 and TUT7 (TUT4/7), also known as ZCCHC11 and ZCCHC6, respectively, as mRNA uridylation enzymes. Uridylation readily occurs on deadenylated mRNAs in cells. Consistently, purified TUT4/7 selectively recognize and uridylate RNAs with short A-tails (less than ∼ 25 nt) in vitro. PABPC1 antagonizes uridylation of polyadenylated mRNAs, contributing to the specificity for short A-tails. In cells depleted of TUT4/7, the vast majority of mRNAs lose the oligo-U-tails, and their half-lives are extended. Suppression of mRNA decay factors leads to the accumulation of oligo-uridylated mRNAs. In line with this, microRNA induces uridylation of its targets, and TUT4/7 are required for enhanced decay of microRNA targets. Our study explains the mechanism underlying selective uridylation of deadenylated mRNAs and demonstrates a fundamental role of oligo-U-tail as a molecular mark for global mRNA decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Posttranscriptional gene regulation by spatial rearrangement of the 3' untranslated region.",
+    "doi": "10.1371/journal.pbio.0060092",
+    "pmid": "18447580",
+    "authors": [
+      "Eberle AB, Stalder L, Mathys H, Orozco RZ, Mühlemann O."
+    ],
+    "year": "2008",
+    "publication_date": "2008-04-01",
+    "cited_by_count": 255,
+    "journal": "",
+    "abstract": "Translation termination at premature termination codons (PTCs) triggers degradation of the aberrant mRNA, but the mechanism by which a termination event is defined as premature is still unclear. Here we show that the physical distance between the termination codon and the poly(A)-binding protein PABPC1 is a crucial determinant for PTC recognition in human cells. \"Normal\" termination codons can trigger nonsense-mediated mRNA decay (NMD) when this distance is extended; and vice versa, NMD can be suppressed by folding the poly(A) tail into proximity of a PTC or by tethering of PABPC1 nearby a PTC, indicating an evolutionarily conserved function of PABPC1 in promoting correct translation termination and antagonizing activation of NMD. Most importantly, our results demonstrate that spatial rearrangements of the 3' untranslated region can modulate the NMD pathway and thereby provide a novel mechanism for posttranscriptional gene regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Systematic profiling of poly(A)+ transcripts modulated by core 3' end processing and splicing factors reveals regulatory rules of alternative cleavage and polyadenylation.",
+    "doi": "10.1371/journal.pgen.1005166",
+    "pmid": "25906188",
+    "authors": [
+      "Li W, You B, Hoque M, Zheng D, Luo W, Ji Z, Park JY, Gunderson SI, Kalsotra A, Manley JL, Tian B."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-23",
+    "cited_by_count": 240,
+    "journal": "",
+    "abstract": "Alternative cleavage and polyadenylation (APA) results in mRNA isoforms containing different 3' untranslated regions (3'UTRs) and/or coding sequences. How core cleavage/polyadenylation (C/P) factors regulate APA is not well understood. Using siRNA knockdown coupled with deep sequencing, we found that several C/P factors can play significant roles in 3'UTR-APA. Whereas Pcf11 and Fip1 enhance usage of proximal poly(A) sites (pAs), CFI-25/68, PABPN1 and PABPC1 promote usage of distal pAs. Strong cis element biases were found for pAs regulated by CFI-25/68 or Fip1, and the distance between pAs plays an important role in APA regulation. In addition, intronic pAs are substantially regulated by splicing factors, with U1 mostly inhibiting C/P events in introns near the 5' end of gene and U2 suppressing those in introns with features for efficient splicing. Furthermore, PABPN1 inhibits expression of transcripts with pAs near the transcription start site (TSS), a property possibly related to its role in RNA degradation. Finally, we found that groups of APA events regulated by C/P factors are also modulated in cell differentiation and development with distinct trends. Together, our results support an APA code where an APA event in a given cellular context is regulated by a number of parameters, including relative location to the TSS, splicing context, distance between competing pAs, surrounding cis elements and concentrations of core C/P factors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Iws1:Spt6:CTD complex controls cotranscriptional mRNA biosynthesis and HYPB/Setd2-mediated histone H3K36 methylation.",
+    "doi": "10.1101/gad.1720008",
+    "pmid": "19141475",
+    "authors": [
+      "Yoh SM, Lucas JS, Jones KA."
+    ],
+    "year": "2008",
+    "publication_date": "2008-12-01",
+    "cited_by_count": 216,
+    "journal": "",
+    "abstract": "Many steps in gene expression and mRNA biosynthesis are coupled to transcription elongation and organized through the C-terminal domain (CTD) of the large subunit of RNA polymerase II (RNAPII). We showed recently that Spt6, a transcription elongation factor and histone H3 chaperone, binds to the Ser2P CTD and recruits Iws1 and the REF1/Aly mRNA export adaptor to facilitate mRNA export. Here we show that Iws1 also recruits the HYPB/Setd2 histone methyltransferase to the RNAPII elongation complex and is required for H3K36 trimethylation (H3K36me3) across the transcribed region of the c-Myc, HIV-1, and PABPC1 genes in vivo. Interestingly, knockdown of either Iws1 or HYPB/Setd2 also enhanced H3K27me3 at the 5' end of the PABPC1 gene, and depletion of Iws1, but not HYPB/Setd2, increased histone acetylation across the coding regions at the HIV-1 and PABPC1 genes in vivo. Knockdown of HYPB/Setd2, like Iws1, induced bulk HeLa poly(A)+ mRNAs to accumulate in the nucleus. In vitro, recombinant Spt6 binds selectively to a stretch of uninterrupted consensus repeats located in the N-terminal half of the CTD and recruits Iws1. Thus Iws1 connects two distinct CTD-binding proteins, Spt6 and HYPB/Setd2, in a megacomplex that affects mRNA export as well as the histone modification state of active genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Affinity proteomics reveals human host factors implicated in discrete stages of LINE-1 retrotransposition.",
+    "doi": "10.1016/j.cell.2013.10.021",
+    "pmid": "24267889",
+    "authors": [
+      "Taylor MS, Taylor MS, LaCava J, Mita P, Molloy KR, Huang CR, Li D, Adney EM, Jiang H, Burns KH, Chait BT, Rout MP, Boeke JD, Dai L."
+    ],
+    "year": "2013",
+    "publication_date": "2013-11-01",
+    "cited_by_count": 199,
+    "journal": "",
+    "abstract": "LINE-1s are active human DNA parasites that are agents of genome dynamics in evolution and disease. These streamlined elements require host factors to complete their life cycles, whereas hosts have developed mechanisms to combat retrotransposition's mutagenic effects. As such, endogenous L1 expression levels are extremely low, creating a roadblock for detailed interactomic analyses. Here, we describe a system to express and purify highly active L1 RNP complexes from human suspension cell culture and characterize the copurified proteome, identifying 37 high-confidence candidate interactors. These data sets include known interactors PABPC1 and MOV10 and, with in-cell imaging studies, suggest existence of at least three types of compositionally and functionally distinct L1 RNPs. Among the findings, UPF1, a key nonsense-mediated decay factor, and PCNA, the polymerase-delta-associated sliding DNA clamp, were identified and validated. PCNA interacts with ORF2p via a PIP box motif; mechanistic studies suggest that this occurs during or immediately after target-primed reverse transcription.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved role for cytoplasmic poly(A)-binding protein 1 (PABPC1) in nonsense-mediated mRNA decay.",
+    "doi": "10.1038/sj.emboj.7601588",
+    "pmid": "17318186",
+    "authors": [
+      "Behm-Ansmant I, Gatfield D, Rehwinkel J, Hilgers V, Izaurralde E."
+    ],
+    "year": "2007",
+    "publication_date": "2007-02-22",
+    "cited_by_count": 197,
+    "journal": "",
+    "abstract": "The nonsense-mediated mRNA decay (NMD) pathway degrades mRNAs with premature translation termination codons (PTCs). The mechanisms by which PTCs and natural stop codons are discriminated remain unclear. We show that the position of stops relative to the poly(A) tail (and thus of PABPC1) is a critical determinant for PTC definition in Drosophila melanogaster. Indeed, tethering of PABPC1 downstream of a PTC abolishes NMD. Conversely, natural stops trigger NMD when the length of the 3' UTR is increased. However, many endogenous transcripts with exceptionally long 3' UTRs escape NMD, suggesting that the increase in 3' UTR length has co-evolved with the acquisition of features that suppress NMD. We provide evidence for the existence of 3' UTRs conferring immunity to NMD. We also show that PABPC1 binding is sufficient for PTC recognition, regardless of cleavage or polyadenylation. The role of PABPC1 in NMD must go beyond that of providing positional information for PTC definition, because its depletion suppresses NMD under conditions in which translation efficiency is not affected. These findings reveal a conserved role for PABPC1 in mRNA surveillance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA-PAGBC acts as a microRNA sponge and promotes gallbladder tumorigenesis.",
+    "doi": "10.15252/embr.201744147",
+    "pmid": "28887321",
+    "authors": [
+      "Wu XS, Wang F, Li HF, Hu YP, Jiang L, Zhang F, Li ML, Wang XA, Jin YP, Zhang YJ, Lu W, Wu WG, Shu YJ, Weng H, Cao Y, Bao RF, Liang HB, Wang Z, Zhang YC, Gong W, Zheng L, Sun SH, Liu YB, Liu YB."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-08",
+    "cited_by_count": 183,
+    "journal": "",
+    "abstract": "Long noncoding RNAs (lncRNAs) play roles in the development and progression of many cancers; however, the contributions of lncRNAs to human gallbladder cancer (GBC) remain largely unknown. In this study, we identify a group of differentially expressed lncRNAs in human GBC tissues, including prognosis-associated gallbladder cancer lncRNA (lncRNA-PAGBC), which we find to be an independent prognostic marker in GBC Functional analysis indicates that lncRNA-PAGBC promotes tumour growth and metastasis of GBC cells. More importantly, as a competitive endogenous RNA (ceRNA), lncRNA-PAGBC competitively binds to the tumour suppressive microRNAs miR-133b and miR-511. This competitive role of lncRNA-PAGBC is required for its ability to promote tumour growth and metastasis and to activate the AKT/mTOR pathway. Moreover, lncRNA-PAGBC interacts with polyadenylate binding protein cytoplasmic 1 (PABPC1) and is stabilized by this interaction. This work provides novel insight on the molecular pathogenesis of GBC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "IGF2BP1 overexpression stabilizes PEG10 mRNA in an m6A-dependent manner and promotes endometrial cancer progression.",
+    "doi": "10.7150/thno.49345",
+    "pmid": "33391523",
+    "authors": [
+      "Zhang L, Wan Y, Zhang Z, Jiang Y, Gu Z, Ma X, Nie S, Yang J, Lang J, Cheng W, Cheng W, Zhu L."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-01",
+    "cited_by_count": 177,
+    "journal": "",
+    "abstract": "<b>Rationale:</b> N6-methyladenosine (m<sup>6</sup>A) mRNA methylation is the most abundant chemical posttranscriptional modification in mRNA and is involved in the regulation of a number of biological processes. Insulin-like growth factor 2 mRNA-binding protein 1 (IGF2BP1) has recently been reported as having the capacity to recognize m<sup>6</sup>A sites in mRNA and plays a role in regulating mRNA metabolization. However, it is unclear which genes IGF2BP1 targets to identify m<sup>6</sup>A sites and what are their respective functions in endometrial cancer (EC). <b>Methods:</b> Quantitative PCR, western blot and immunohistochemistry were used to measure IGF2BP1 expression in EC cell lines and tissues. Xenograft experiments were performed to examine the <i>in vivo</i> role of IGF2BP1 in EC cell growth. RNA-binding protein immunoprecipitation sequencing, methylated RNA-binding protein immunoprecipitation sequencing and RNA-sequencing were also conducted to identify potential IGF2BP1 targets involved in EC regulation. Co-immunoprecipitation and mass spectrometry were used to identify IGF2BP1-interacting proteins. <b>Results:</b> IGF2BP1 expression increased in EC, and high expression of this protein correlated with poor prognosis. IGF2BP1 overexpression/knockdown can promote (and inhibit) cell proliferation and regulate the tumor cell cycle and cancer progression, both <i>in vivo</i> and <i>in vitro</i>. Mechanistically, IGF2BP1 can recognize m<sup>6</sup>A sites in the 3' untranslated region (3'UTR) of Paternally Expressed Gene 10 (PEG10) mRNA and recruits polyadenylate-binding protein 1 (PABPC1) to enhance PEG10 mRNA stability, which consequently promotes PEG10 protein expression. Additionally, it would appear that a large number of PEG10 proteins bind p16 and p18 gene promoter sequences, thereby repressing expression and accelerating the cell cycle. <b>Conclusion:</b> This investigation found that IGF2BP1 has a crucial role in the m<sup>6</sup>A-dependent regulatory mechanism for endometrial cancer. This study provides new insights into our understanding of disease progression and provides another potential route for understanding biological functions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanism of mRNA deadenylation: evidence for a molecular interplay between translation termination factor eRF3 and mRNA deadenylases.",
+    "doi": "10.1101/gad.1597707",
+    "pmid": "18056425",
+    "authors": [
+      "Funakoshi Y, Doi Y, Hosoda N, Uchida N, Osawa M, Shimada I, Tsujimoto M, Suzuki T, Katada T, Hoshino S."
+    ],
+    "year": "2007",
+    "publication_date": "2007-12-01",
+    "cited_by_count": 147,
+    "journal": "",
+    "abstract": "In eukaryotes, shortening of the 3'-poly(A) tail is the rate-limiting step in the degradation of most mRNAs, and two major mRNA deadenylase complexes--Caf1-Ccr4 and Pan2-Pan3--play central roles in this process, referred to as deadenylation. However, the molecular mechanism triggering deadenylation remains elusive. Previously, we demonstrated that eukaryotic releasing factor eRF3 mediates deadenylation and decay of mRNA in a manner coupled to translation termination. Here, we report the mechanism of mRNA deadenylation. The eRF3-mediated deadenylation is catalyzed by both Caf1-Ccr4 and Pan2-Pan3. Interestingly, translation termination complexes eRF1-eRF3, Pan2-Pan3, and Caf1-Ccr4 competitively interact with polyadenylate-binding protein PABPC1. In each complex, eRF3, Pan3, and Tob, respectively, mediate PABPC1 binding, and a combination of a PAM2 motif and a PABC domain is commonly utilized for their contacts. A translation-dependent exchange of eRF1-eRF3 for the deadenylase occurs on PABPC1. Consequently, PABPC1 binding leads to the activation of Pan2-Pan3 and Caf1-Ccr4. From these results, we suggest a mechanism of mRNA deadenylation by Pan2-Pan3 and Caf1-Ccr4 in cooperation with eRF3 and PABPC1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The N6-methyladenosine modification enhances ferroptosis resistance through inhibiting SLC7A11 mRNA deadenylation in hepatoblastoma.",
+    "doi": "10.1002/ctm2.778",
+    "pmid": "35522946",
+    "authors": [
+      "Liu L, He J, Sun G, Huang N, Bian Z, Xu C, Zhang Y, Cui Z, Xu W, Sun F, Zhuang C, Man Q, Gu S."
+    ],
+    "year": "2022",
+    "publication_date": "2022-05-01",
+    "cited_by_count": 138,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Solute carrier family 7 member 11 (SLC7A11) is overexpressed in multiple human tumours and functions as a transporter importing cystine for glutathione biosynthesis. It promotes tumour development in part by suppressing ferroptosis, a newly identified form of cell death that plays a pivotal role in the suppression of tumorigenesis. However, the role and underlying mechanisms of SLC7A11-mediated ferroptosis in hepatoblastoma (HB) remain largely unknown.<h4>Methods</h4>Reverse transcription quantitative real-time PCR (RT-qPCR) and western blotting were used to measure SLC7A11 levels. Cell proliferation, colony formation, lipid reactive oxygen species (ROS), MDA concentration, 4-HNE, GSH/GSSG ratio and cell death assays as well as subcutaneous xenograft experiments were used to elucidate the effects of SLC7A11 in HB cell proliferation and ferroptosis. Furthermore, MeRIP-qPCR, dual luciferase reporter, RNA pulldown, RNA immunoprecipitation (RIP) and RACE-PAT assays were performed to elucidate the underlying mechanism through which SLC7A11 was regulated by the m6A modification in HB.<h4>Results</h4>SLC7A11 expression was highly upregulated in HB. SLC7A11 upregulation promoted HB cell proliferation in vitro and in vivo, inhibiting HB cell ferroptosis. Mechanistically, SLC7A11 mRNA exhibited abnormal METTL3-mediated m6A modification, which enhanced its stability and expression. IGF2 mRNA-binding protein 1 (IGF2BP1) was identified as the m6A reader of SLC7A11, enhancing SLC7A11 mRNA stability and expression by inhibiting SLC7A11 mRNA deadenylation in an m6A-dependent manner. Moreover, IGF2BP1 was found to block BTG2/CCR4-NOT complex recruitment via competitively binding to PABPC1, thereby suppressing SLC7A11 mRNA deadenylation.<h4>Conclusions</h4>Our findings demonstrated that the METTL3-mediated SLC7A11 m6A modification enhances HB ferroptosis resistance. The METTL3/IGF2BP1/m6A modification promotes SLC7A11 mRNA stability and upregulates its expression by inhibiting the deadenylation process. Our study highlights a critical role of the m6A modification in SLC7A11-mediated ferroptosis, providing a potential strategy for HB therapy through blockade of the m6A-SLC7A11 axis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The silencing domain of GW182 interacts with PABPC1 to promote translational repression and degradation of microRNA targets and is required for target release.",
+    "doi": "10.1128/mcb.01081-09",
+    "pmid": "19797087",
+    "authors": [
+      "Zekri L, Huntzinger E, Heimstädt S, Izaurralde E."
+    ],
+    "year": "2009",
+    "publication_date": "2009-09-21",
+    "cited_by_count": 135,
+    "journal": "",
+    "abstract": "GW182 family proteins are essential in animal cells for microRNA (miRNA)-mediated gene silencing, yet the molecular mechanism that allows GW182 to promote translational repression and mRNA decay remains largely unknown. Previous studies showed that while the GW182 N-terminal domain interacts with Argonaute proteins, translational repression and degradation of miRNA targets are promoted by a bipartite silencing domain comprising the GW182 middle and C-terminal regions. Here we show that the GW182 C-terminal region is required for GW182 to release silenced mRNPs; moreover, GW182 dissociates from miRNA targets at a step of silencing downstream of deadenylation, indicating that GW182 is required to initiate but not to maintain silencing. In addition, we show that the GW182 bipartite silencing domain competes with eukaryotic initiation factor 4G for binding to PABPC1. The GW182-PABPC1 interaction is also required for miRNA target degradation; accordingly, we observed that PABPC1 associates with components of the CCR4-NOT deadenylase complex. Finally, we show that PABPC1 overexpression suppresses the silencing of miRNA targets. We propose a model in which the GW182 silencing domain promotes translational repression, at least in part, by interfering with mRNA circularization and also recruits the deadenylase complex through the interaction with PABPC1.",
+    "openalex_id": ""
+  }
+]

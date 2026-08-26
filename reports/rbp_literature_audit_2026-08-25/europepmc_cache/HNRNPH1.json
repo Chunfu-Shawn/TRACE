@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Roles of RNA-Binding Nuclear Proteins in Alzheimer's Disease Pathophysiology.",
+    "doi": "10.1021/acsptsci.6c00028",
+    "pmid": "42130721",
+    "authors": [
+      "Kumar S, Upadhyay A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alzheimer's disease (AD) is a neurodegenerative disorder associated with cognitive decline. Pathologically, AD is characterized by the accumulation of amyloid β (Aβ) monomers that may generate oligomers or fibrils in the extracellular space and inside the neurons. With time, the oligomers and fibrils aggregate into insoluble plaques, which may trigger a cascade of molecular events. These include altering gene expression at a broader level, implicating cross-talk with the nuclear machinery, including transcription. There is now emerging evidence implicating the role of RNAs and other nuclear proteins in AD pathogenesis, especially those associated with RNA splicing and ribonucleoproteins, which, along with post-transcriptional modifications, give rise to multiple functional proteoforms. Notably, RBPs themselves exist as multiple proteoforms, adding complexity to the proteome involved in AD. Therefore, in this review, we limit the discussion to the canonical protein forms of RBPs already established to have some role in AD pathophysiology. Recently, our proteomic study identified three such RBPs (SRSF2, hnRNPH1, and hnRNPA2B1) copurifying with amyloid, suggesting a possible interaction with Aβ and contribution to AD pathology. SRSF2 is a splicing factor involved in tau exon splicing, while hnRNPH1 and hnRNPA2B1 are both heterogeneous nuclear RBPs (hnRNPs) involved in mRNA processing. Some of the other hnRNPs have previously been implicated in AD and tau pathology. This review focuses on some of the recent evidence that suggests a possible involvement of RNA-associated nuclear proteins in dysregulation of widespread RNA processing affecting the AD pathogenesis pathways. We discuss how their dysfunction could modulate Aβ and tau-associated changes with an emphasis on understanding the linkage between nuclear RNA machinery and AD pathophysiology. Understanding this crosstalk may offer new insights into our understanding of AD and could provide RNA-centric therapeutic avenues.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PCID2 is essential for spermatogonial differentiation by regulating alternative splicing.",
+    "doi": "10.1007/s00018-025-05840-4",
+    "pmid": "41526677",
+    "authors": [
+      "Zhu F, Zhang Y, Xi Y, Gong C, Tang Y, Chen Y, Yan L, Qiao J, Liu Q."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-13",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The progression of spermatogenesis is under dynamic transcriptional regulation. As a subunit of the transcription-export complex 2 (TREX-2), PCI domain-containing protein 2 (PCID2), participates in RNA processing. However, the physiological functions of PCID2 in spermatogenesis remain poorly understood. Here, we generate germline conditional knockout (Pcid2-SKO) mice using Stra8-Cre, and it is found that Pcid2-SKO mice are infertile, exhibit extensive germ cell apoptosis, impaired spermatogonial differentiation, and failure of meiosis initiation. Single-cell transcriptome analysis reveals developmental arrest at the transition from type A to type B spermatogonia in Pcid2-SKO mice. Gene Set Enrichment Analysis (GSEA) demonstrates a significant decrease in the enrichment of mRNA splicing pathway in Pcid2-SKO germ cells. IP-MS results indicate candidate proteins interacting with PCID2 are significantly enriched in RNA splicing pathway. Co-IP results indicate that PCID2 interacts with SNRPG, hnRNPH1 and SF3B1 to modulate alternative splicing in germ cells. Combining RNA sequencing and PCR identifies four key genes (Prpf3, Nek3, Dvl2, and Slc30a9) as splicing targets of PCID2. Collectively, PCID2 is essential for normal spermatogenesis and male fertility by regulating the alternative splicing (AS) of genes critical for cell cycle progression, spliceosome assembly, and mitochondrial homeostasis. This study provides novel insights into the molecular mechanisms underlying spermatogenesis and highlights the importance of AS in germ cell development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HNRNPH1 drives glioblastoma progression by regulating the splicing of cell cycle genes.",
+    "doi": "10.1038/s41419-026-08576-6",
+    "pmid": "41872153",
+    "authors": [
+      "Villa GR, Alimonti P, Toker JS, Piranlioglu R, Karkoski MA, Mazzetti D, Ben Mrid R, El Guendouzi S, Lauinger A, Chiocca AN, El Fatimy R, Chiocca EA, Mineo M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-24",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Although glioblastoma (GBM) harbors multiple genetic abnormalities leading to cell cycle deregulation, a functional mitotic checkpoint is essential to prevent mitotic catastrophe and tumor cell death. Here, we identify the RNA-binding protein HNRNPH1 as a key post-transcriptional modulator of G2/M checkpoint-associated genes in GBM. HNRNPH1 is overexpressed in malignant cells, especially in the neural- and oligodendrocyte-progenitor-like state, and its expression levels are higher in non-hypoxic regions of the tumor. Knocking out HNRNPH1 causes aberrant splicing and downregulation of several genes involved in cell division. These molecular alterations are associated with G2/M cell cycle arrest, reduced cell proliferation, abnormal cell morphology, and increased nuclear fragmentation. Silencing HNRNPH1 in vivo inhibits the tumor growth of patient-derived GBM cell-originated intracranial xenografts and has significant survival benefits. Together, our results show the critical importance of HNRNPH1 in cell cycle progression and tumor growth, potentially impacting the development of novel strategies to treat GBM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative RNA-seq and iRIP-seq analysis links SNRPA overexpression to transcriptomic and splicing alterations in hepatocellular carcinoma cells.",
+    "doi": "10.3389/fonc.2026.1800728",
+    "pmid": "42147247",
+    "authors": [
+      "Chang Q, Wang Y, Xu J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Small Nuclear Ribonucleoprotein Polypeptide A (SNRPA), an RNA-binding protein associated with HCC survival, emerges as a key regulator requiring mechanistic study.<h4>Methods</h4>To delineate SNRPA's functions, we generated SNRPA-overexpressing HepG2 cells and performed RNA-seq to identify SNRPA-regulated transcripts and alternative splicing events(RASEs). Improved RNA Immunoprecipitation Sequencing (iRIP-seq) mapped RNA interactomes, combined with integrative bioinformatics to define SNRPA-bound RNAs and splicing targets.<h4>Results</h4>RNA-seq revealed extensive transcriptomic alterations driven by SNRPA overexpression, including 498 differentially expressed genes(DEGs) and 2316 RASEs. iRIP-seq identified a subset of SNRPA-bound transcripts that also exhibited changes in expression and/or alternative splicing upon SNRPA overexpression, and many of these genes have been previously implicated in hepatocellular carcinoma (HCC)-related biological processes. Among the 498 DEGs identified, 12 RNA-binding proteins (RBPs) with known roles in HCC were found to be regulated by SNRPA overexpression, including PCBP2, HNRNPH1, and EIF4A2; these RBPs are involved in alternative splicing, mRNA stability and translational regulation, and their dysregulation further expands the regulatory network of SNRPA in HCC. Functional annotation of these overlapping genes indicated enrichment in pathways related to RNA processing, transcription-related processes, and cell division. SNRPA may play dual roles in RNA transcript binding and the regulation of splicing, particularly in pathways associated with tumorigenesis and cellular proliferation.<h4>Conclusions</h4>These findings suggest that SNRPA overexpression is associated with HCC progression-related transcriptomic and splicing alterations, and may be involved in HCC progression through regulating the expression of DEGs and the splicing patterns of carcinogenic targets, with direct causal effects requiring further functional validation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Biological relevance of alternative splicing in hematologic malignancies.",
+    "doi": "10.1186/s10020-024-00839-2",
+    "pmid": "38760666",
+    "authors": [
+      "Szelest M, Giannopoulos K."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-17",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) is a strictly regulated process that generates multiple mRNA variants from a single gene, thus contributing to proteome diversity. Transcriptome-wide sequencing studies revealed networks of functionally coordinated splicing events, which produce isoforms with distinct or even opposing functions. To date, several mechanisms of AS are deregulated in leukemic cells, mainly due to mutations in splicing and/or epigenetic regulators and altered expression of splicing factors (SFs). In this review, we discuss aberrant splicing events induced by mutations affecting SFs (SF3B1, U2AF1, SRSR2, and ZRSR2), spliceosome components (PRPF8, LUC7L2, DDX41, and HNRNPH1), and epigenetic modulators (IDH1 and IDH2). Finally, we provide an extensive overview of the biological relevance of aberrant isoforms of genes involved in the regulation of apoptosis (e. g. BCL-X, MCL-1, FAS, and c-FLIP), activation of key cellular signaling pathways (CASP8, MAP3K7, and NOTCH2), and cell metabolism (PKM).",
+    "openalex_id": ""
+  },
+  {
+    "title": "hnRNPH1: A Multifaceted Regulator in RNA Processing and Disease Pathogenesis.",
+    "doi": "10.3390/ijms26115159",
+    "pmid": "40507967",
+    "authors": [
+      "Zhu L, Yi W, Zhang L, Qiu C, Sun N, He J, Feng P, Wu Q, Wang G, Wu G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-28",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Heterogeneous nuclear ribonucleoprotein H1 (hnRNPH1) is a multifunctional RNA-binding protein (RBP) that plays a central role in post-transcriptional regulation. Through its quasi-RNA recognition motifs and low-complexity domains, hnRNPH1 specifically binds guanine-rich RNA sequences, including G-quadruplex structures, to precisely modulate multiple aspects of RNA metabolism, such as alternative splicing, mRNA stability, translation, and subcellular localization. Accumulating evidence has implicated hnRNPH1 dysfunction in the pathogenesis of several human diseases. In cancer, hnRNPH1 often acts as a pro-tumorigenic factor, albeit in a context-dependent manner, influencing the alternative splicing of crucial oncogenes, mRNA stability, and tumor cell sensitivity to therapeutic agents. In the nervous system, hnRNPH1 is involved in neurodevelopment, neurodegenerative diseases, and drug addiction and plays an essential role in maintaining neuronal function and homeostasis. Furthermore, it exerts regulatory functions in reproductive system development and fertility and in non-neoplastic pathologies, including cardiovascular diseases, autoimmune disorders, and viral hepatitis. Given its pathophysiological significance, hnRNPH1 has emerged as a promising biomarker and therapeutic target. This review provides an overview of the structural basis and core molecular function of hnRNPH1. Its mechanisms of action and pathological significance in various diseases have also been detailed. Additionally, this review summarizes the current therapeutic strategies targeting hnRNPH1, discusses the associated challenges, outlines optimization approaches, and considers future research directions. Overall, this review aims to deepen our understanding of hnRNPH1 biology and inspire the development of novel diagnostic and therapeutic interventions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative Splicing: A Potential Therapeutic Target in Hematological Malignancies.",
+    "doi": "10.3390/hematolrep16040066",
+    "pmid": "39584923",
+    "authors": [
+      "Temaj G, Chichiarelli S, Saha S, Telkoparan-Akillilar P, Nuhii N, Hadziselimovic R, Saso L."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-29",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Leukemia represents the most prevalent malignancy in children, constituting 30% of childhood cancer cases, with acute lymphoblastic leukemia (ALL) being particularly heterogeneous. This paper explores the role of alternative splicing in leukemia, highlighting its significance in cancer development and progression. Aberrant splicing is often driven by mutations in splicing-factor genes, which can lead to the production of variant proteins that contribute to oncogenesis. The spliceosome, a complex of small nuclear RNAs and proteins, facilitates RNA splicing, a process critical for generating diverse mRNA and protein products from single genes. Mutations in splicing factors, such as U2AF1, SF3B1, SRSF2, ZRSR2, and HNRNPH1, are frequently observed across various hematological malignancies and are associated with poor prognosis and treatment resistance. This research underscores the necessity of understanding the mechanisms of RNA splicing dysregulation in order to develop targeted therapies to correct these aberrant processes, thereby improving outcomes for patients with leukemia and related disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Preclinical evaluation of antisense oligonucleotide therapy in a mouse model of &lt;i&gt;HNRNPH2&lt;/i&gt;-related neurodevelopmental disorder.",
+    "doi": "10.1126/scitranslmed.adx3491",
+    "pmid": "42018666",
+    "authors": [
+      "Korff A, Yang X, Ozdemir O, Samanta A, Wang YD, Patni T, Lavado AJ, Kavirayani AM, Ochaba J, Powers B, Bennett CF, Kim HJ, Taylor JP."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Mutations in <i>HNRNPH2</i> cause an X-linked disorder characterized by developmental delay, intellectual disability, motor and gait disturbances, and seizures. Murine models that reproduce key clinical features of <i>HNRNPH2</i>-related neurodevelopmental disorder suggest that it may result from a toxic gain of function of the mutant protein or a complex loss of normal HNRNPH2 function with impaired compensation by its paralog, HNRNPH1. In this study, we tested gapmer antisense oligonucleotides (ASOs) that target murine <i>Hnrnph2</i> in a non-allele-specific manner. The lead ASO reduced <i>Hnrnph2</i> messenger RNA (mRNA) and protein expression while inducing compensatory up-regulation of <i>Hnrnph1</i> expression in both wild-type and <i>Hnrnph2</i> mutant mouse brains. A single intracerebroventricular injection of the <i>Hnrnph2</i> ASO into neonatal mutant <i>Hnrnph2</i> mice rescued molecular and audiogenic seizure phenotypes and improved certain motor and cognitive phenotypes. ASO treatment at the juvenile stage also rescued audiogenic seizures. In contrast, <i>Hnrnph2</i> ASO administration did not alter survival, body weight, or the incidence of hydrocephalus. In human induced pluripotent stem cell-derived neurons, a human-specific <i>HNRNPH2</i> research ASO reduced <i>HNRNPH2</i> mRNA and up-regulated <i>HNRNPH1</i> mRNA. Mechanistically, we found that <i>HNRNPH1</i> expression is regulated by alternative splicing and that HNRNPH2 modulates this process. These findings provide a preclinical proof of concept for <i>HNRNPH2</i> ASO therapy and offer insights into its underlying molecular mechanism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Eukaryotic RNA binding protein hnRNPH1 suppresses influenza A virus replication through interaction with virus NS1 protein.",
+    "doi": "10.1080/22221751.2025.2477645",
+    "pmid": "40052960",
+    "authors": [
+      "Wang J, Zhang Y, Sun L, Wang Z, Hao C, Wang W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-17",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "The NS1 protein of influenza A virus (IAV) is a multi-functional protein which can antagonize host immune system and facilitate viral replication by interacting with host factors. However, the novel partners in host cells interacting with NS1 need to be fully elucidated. In the current study, we identified hnRNPH1 as a novel binding partner of NS1 to regulate IAV replication. Notably, overexpression of hnRNPH1 decreased IAV multiplication, while knockdown of hnRNPH1 enhanced IAV replication. hnRNPH1 can interact with NS1 to change the intracellular localization and splicing function of NS1, and impact IAV replication through interacting with p53 to regulate cell apoptosis. In addition, the RBD domain of NS1 and the RRM and NLS regions of hnRNPH1 may be the major sites for their interaction. In summary, our studies identified hnRNPH1 as a novel NS1-binding protein and elucidated its regulatory roles in IAV replication, which will provide new insights into the roles of NS1 binding proteins, and give a reference for anti-IAV therapy based on NS1-host interaction.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SARS-CoV-2 Selectively Induces the Expression of Unproductive Splicing Isoforms of Interferon, Class I MHC, and Splicing Machinery Genes.",
+    "doi": "10.3390/ijms25115671",
+    "pmid": "38891862",
+    "authors": [
+      "Dias TL, Mamede I, de Toledo NE, Queiroz LR, Castro Í, Polidoro R, Del-Bem LE, Nakaya H, Franco GR."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-23",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "RNA processing is a highly conserved mechanism that serves as a pivotal regulator of gene expression. Alternative processing generates transcripts that can still be translated but lead to potentially nonfunctional proteins. A plethora of respiratory viruses, including severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), strategically manipulate the host's RNA processing machinery to circumvent antiviral responses. We integrated publicly available omics datasets to systematically analyze isoform-level expression and delineate the nascent peptide landscape of SARS-CoV-2-infected human cells. Our findings explore a suggested but uncharacterized mechanism, whereby SARS-CoV-2 infection induces the predominant expression of unproductive splicing isoforms in key IFN signaling, interferon-stimulated (ISGs), class I MHC, and splicing machinery genes, including <i>IRF7</i>, <i>HLA-B</i>, and <i>HNRNPH1</i>. In stark contrast, cytokine and chemokine genes, such as <i>IL6</i> and <i>TNF</i>, predominantly express productive (protein-coding) splicing isoforms in response to SARS-CoV-2 infection. We postulate that SARS-CoV-2 employs an unreported tactic of exploiting the host splicing machinery to bolster viral replication and subvert the immune response by selectively upregulating unproductive splicing isoforms from antigen presentation and antiviral response genes. Our study sheds new light on the molecular interplay between SARS-CoV-2 and the host immune system, offering a foundation for the development of novel therapeutic strategies to combat COVID-19.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CHTOP regulates the NRF2/HO-1 axis to modulate chemoresistance in colorectal cancer.",
+    "doi": "10.1016/j.redox.2026.104353",
+    "pmid": "42617575",
+    "authors": [
+      "Li J, Li X, Zhao C, Wu P, Hu W, Zhao X, Ma Y, Dong Z, Yuan H, Chen S, Chen Z, Lu J, Wang W, Sun X, Zhang Q, Mu M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-15",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Chemotherapy resistance remains a significant challenge in colorectal cancer (CRC) treatment, with disrupted redox balance playing a central role. Here we identify CHTOP as a key regulator of oxidative stress and chemoresistance in CRC. Mechanistically, CHTOP promotes NRF2 transcriptional activity by recruiting the SENP3-containing 5FMC complex to deSUMOylate NRF2, thereby sustaining HO-1 expression and redox balance. Notably, CHTOP expression itself is tightly controlled by a feedback mechanism. The p52 isoform of PSIP1 inhibits CHTOP expression by interfering with HNRNPH1-mediated splicing, leading to CHTOP degradation via nonsense-mediated decay (NMD). Conversely, elevated oxidative stress stabilizes SENP3, which promotes deSUMOylation and degradation of p52, thereby relieving p52-mediated suppression of CHTOP expression. This establishes an oxidative stress-SENP3-p52-CHTOP feedback loop that fine-tunes CHTOP levels. In 5-FU-resistant CRC cells, CHTOP downregulation shifts cells into an elevated oxidative stress state, which correlates with reduced 5-FU sensitivity. Notably, either restoring CHTOP expression or further depleting CHTOP disrupts this redox balance and resensitizes resistant cells to 5-FU. These findings suggest that modulating CHTOP expression may offer a therapeutic strategy to overcome chemoresistance in CRC through redox regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PTK6 drives HNRNPH1 phase separation to activate autophagy and suppress apoptosis in colorectal cancer.",
+    "doi": "10.1080/15548627.2025.2481001",
+    "pmid": "40103198",
+    "authors": [
+      "Chen B, Liu B, Chen J, Li W, Ma N, Liu J, Fan R, Hu Q, Song H, Xu Y, Jiang T, Song J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-24",
+    "cited_by_count": 14,
+    "journal": "",
+    "abstract": "Macroautophagy/autophagy is the principal mechanism that mediates the delivery of various cellular cargoes to lysosomes for degradation and recycling, and has been reported to play a crucial role in colorectal cancer (CRC) pathogenesis and progression. Targeting autophagy may be a promising therapeutic strategy for CRC. However, the specific functions and potential mechanisms of autophagy in CRC remain unclear. In the present study, we discovered that PTK6 (protein tyrosine kinase 6) could activate autophagy and inhibit CRC apoptosis. PTK6 physically interacted with HNRNPH1 and mediated tyrosine phosphorylation at Y210 of HNRNPH1, which promoted the latter's liquid-liquid phase separation (LLPS). Furthermore, LLPS of HNRNPH1 formed biomolecular condensates and triggered splicing-switching of the <i>NBR1</i> exon 10 inclusion transcript, thereby activating autophagy and suppressing apoptosis of CRC. Additionally, PDO and CDX models indicated that tilfrinib, an inhibitor targeting PTK6, could inhibit CRC growth. Overall, our findings reveal the novel PTK6-HNRNPH1-NBR1 regulatory autophagy axis and provide a potential therapy target for CRC.<b>Abbreviation</b>: 1,6HD: 1,6-hexanediol, CQ: chloroquine, CRC: colorectal cancer, DFS: disease-free survival, FRAP: fluorescence recovery afterphotobleaching, GSEA: Gene Set Enrichment Analysis, GTEx: Genotype-Tissue Expression, HNRNPH1: heterogeneous nuclearribonucleoprotein H1, IDRs: intrinsically disordered regions, IHC: immunohistochemical, KEGG: Kyoto Encyclopedia of Genes and Genomes,LLPS: liquid-liquid phase separation, NBR1: NBR1 autophagy cargoreceptor, OS: overall survival, PDO: patient-derivedorganoid, PTK6: protein tyrosine kinase 6, PTMs: post-translationalmodifications, SE: skipped exon, TCGA: The Cancer Genome Atlas, TEM: transmission electron microscopy, TMA: tissue microarray, TyrKc: tyrosine kinase catalytic.",
+    "openalex_id": ""
+  }
+]

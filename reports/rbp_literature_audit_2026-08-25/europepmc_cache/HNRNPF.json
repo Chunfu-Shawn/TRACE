@@ -1,0 +1,170 @@
+[
+  {
+    "title": "PFV Tas protein recruits hnRNPF to promote the splicing of tas/bet pre-mRNA.",
+    "doi": "10.1186/s13578-026-01567-2",
+    "pmid": "41935299",
+    "authors": [
+      "Wu S, Liu C, Qiu M, Tan J, Qiao W."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Foamy viruses (FVs) are capable of cross-species transmission to humans and establish latent infections without causing diseases. The transition between latent and lytic FV replication is regulated by the viral proteins Bet and Tas, which are expressed predominantly from the internal promoter (IP). Bet suppresses basal IP activity and initiates latency, whereas Tas activates the IP and the long terminal repeat (LTR) promoter and enables lytic infection. However, the mechanisms regulating the relative levels of Tas and Bet are not completely understood.<h4>Results</h4>We performed a yeast two-hybrid screen to identify Tas-interacting proteins and discovered an association of the splicing factor heterogeneous nuclear ribonucleoprotein F (hnRNPF) with Tas. We found that hnRNPF inhibits prototype foamy virus (PFV) replication by shifting the viral expression profile from Tas to Bet. Importantly, hnRNPF specifically recognizes a G-cluster II cis-acting element (GC-II) within the tas/bet pre-mRNA to promote its splicing into bet mRNA, thereby reducing the levels of the unspliced tas transcript. The viral Tas protein, which interacts with hnRNPF, also possesses this splicing-promoting activity. Tas acts by binding to its DNA target, the Tas responsive element (TRE), thereby recruiting the hnRNPF to nascent viral RNA to enhance splicing efficiency.<h4>Conclusions</h4>We conclude that PFV Tas regulates the expression of itself and the viral Bet protein through splicing of tas/bet pre-mRNA by recruiting the cellular splicing factor hnRNPF. We further propose that hnRNPF may play an important role in establishing PFV latency by assisting Tas in decreasing Tas levels and increasing Bet expression to shut down viral gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ERK phosphorylates HNRNPF to promote the proliferation and suppress the differentiation of embryonic stem cells.",
+    "doi": "10.1093/nar/gkaf1490",
+    "pmid": "41495911",
+    "authors": [
+      "Duan X, Wang Y, Zhang J, Zhao N, Hao Q, Yang X, Du X, Yang H, Liang H, Chen L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The mitogen-activated extracellular signal-regulated kinase/extracellular signal-regulated kinase (MEK/ERK) signaling plays a dual role in regulating the self-renewal and differentiation of embryonic stem cells (ESCs). How MEK/ERK promotes ESC self-renewal remains elusive, while the mechanisms for MEK/ERK to stimulate ESC differentiation have been investigated extensively. Here, we demonstrated that ERK2 phosphorylates heterogenous nuclear ribonucleoprotein F (HNRNPF) on Ser346 and Tyr356. Hnrnpf knockout reduces ESC proliferation rate, through downregulating CDK1 and CCNB1, and promotes ESC differentiation, attributed to reduced EED. Moreover, compared with the unphospho-mimetic mutant, the phospho-mimetic HNRNPF is more potent in rescuing ESC growth, as well as suppressing the mesodermal and trophectodermal differentiation. Mechanistically, HNRNPF binds to Cdk1, Ccnb1, and Eed messenger RNAs (mRNAs), thereby enhancing their translation efficiency. Additionally, phosphorylation of HNRNPF enhances its binding to these mRNAs and promotes their translation. Taken together, ERK may facilitate ESC proliferation and suppress lineage differentiation through phosphorylating HNRNPF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Discovery of novel circular RNAs of the apoptosis-related BAX gene in breast cancer, by combining nanopore and next-generation sequencing.",
+    "doi": "10.1007/s00438-026-02388-1",
+    "pmid": "41843205",
+    "authors": [
+      "Katsaraki K, Vatsellas G, Kontos CK."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-17",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Circular RNAs (circRNAs) have emerged as significant regulators of cancer biology. However, the characterization and the regulatory potential of circRNAs deriving from key apoptotic genes remain poorly understood in breast cancer. We aimed to comprehensively characterize circRNAs originating from the pro-apoptotic BAX gene and predict their regulatory potential in BC signaling. Targeted amplification of circular BAX transcripts was conducted in eleven cancerous and one non-cancerous breast cell lines, followed by third-generation (nanopore) and next-generation sequencing. Finally, extensive bioinformatic analysis was conducted. Therefore, we identified 106 circRNAs, 82 of which were novel. These circRNAs exhibited diverse biogenesis features, including exon skipping, intron retention, and rare inclusion of exon 5. Expression profiling revealed subtype-specific patterns, with several circRNAs being detected only in triple-negative or luminal BC subtypes, while circ-BAX-55b was detected exclusively in the non-cancerous cell line. Many circRNAs were predicted to sponge miRNAs such as miR-152-5p, miR-4802-5p, and miR-3619-5p, potentially modulating signaling pathways including MAPK, PI3K/AKT, and NFκB. Extensive sponging of miR-152-5p, which targets BAX mRNA, suggests a feedback mechanism modulating apoptosis. Several circRNAs also contain binding sites for RNA-binding proteins (RBPs) such as RBM6 and HNRNPF, possibly dictating RNA fate. Overlapping miRNA and RBP-binding sites imply complex competitive or cooperative interactions. Additionally, multiple circRNAs, such as circ-BAX-6c, displayed translation-related features. In conclusion, these findings reveal a novel repertoire of BAX circRNAs with putative roles in BC signaling and apoptosis regulation. Moreover, they constitute a valuable resource for functional studies as well as potential biomarkers or therapeutic targets in breastcancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HNRNPF-driven retention of exon 14 in HIF1A pre-mRNA promotes breast cancer metastasis.",
+    "doi": "10.1016/j.bbadis.2026.168379",
+    "pmid": "42480772",
+    "authors": [
+      "Huang M, Lei J, Wu W, Yu L, Yu P, Yu Z, Qu S, Wang F."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Hypoxia-inducible factor 1-alpha (HIF1A) is a core regulator of cellular adaptation to hypoxic environments and is extensively involved in various cancer processes. Although it is known that HIF1A produces two isoforms, HIF1A-L and HIF1A-S, through the alternative splicing of exon 14, the specific functional differences between these isoforms in cancer development and progression remain unclear, and the molecular mechanisms regulating this exon skipping event have yet to be elucidated. Clinical IHC and FISH analyses demonstrate that HIF1A-L expression is elevated in high-grade breast cancer tissues and correlates with malignant progression. Using transcriptomics and functional assays, we demonstrate that HIF1A-L enhances, while HIF1A-S inhibits, cancer cell proliferation, migration, and invasion. Mechanistically, through luciferase reporter and Western blot analyses, we found that HIF1A-L upregulates CXCR4 to activate the AKT pathway, whereas HIF1A-S antagonizes this axis. Furthermore, via CL-RIP, MS2-RIP, and RNA-pull down assays, we identify the RNA-binding protein HNRNPF as the key upstream regulator that specifically binds to a conserved G-rich sequence (gggaggtggaggttgcgatgagctgagatcagg) within intron 13 of HIF1A pre-mRNA to promote exon 14 retention and HIF1A-L production. Critically, in vivo metastasis assays in nude mice reveal that knockdown of HNRNPF or HIF1A-L suppresses lung metastasis, along with reduced CXCR4 in lung tissues and lower serum levels of the pro-metastatic cytokines IL-6 and CXCL12, whereas knockdown of HIF1A-S exacerbates metastasis. This study elucidates the HNRNPF/HIF1A-L/CXCR4/AKT axis as a central regulatory circuit controlling breast cancer metastasis and suggests that correcting the aberrant splicing of HIF1A may represent a novel therapeutic strategy for cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and functional characterization of splicing factors implicated in mantle cell lymphoma aggressiveness.",
+    "doi": "10.1038/s41598-025-27512-w",
+    "pmid": "41388034",
+    "authors": [
+      "Yosudjai J, Poohadsuan J, Samart P, Rodboon N, Issaragrisil S, Luanpitpong S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-12",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Mantle cell lymphoma (MCL) is a clinically aggressive and incurable form of non-Hodgkin lymphoma with very heterogeneous clinical and biological behaviors. Dysregulation of RNA splicing machinery is common in various types of cancer, including hematologic malignancies, and is associated with cancer progression. However, whether and how splicing factors, the spliceosome components responsible for pre-mRNA splicing, regulate MCL aggressive behaviors remain largely unknown. Bioinformatics analyses were employed to profile the mRNA expression of two key families of splicing factors, that are serine/arginine-rich (SR) and heterogenous nuclear ribonucleoprotein (hnRNP) families, in clinical specimens of MCL patients in comparison to normal B cells. Functional roles of splicing factors in MCL aggressive phenotypes defined as hallmarks of cancer were investigated in MCL cell lines. Kaplan-Meier survival analyses were performed to determine the clinical significance of splicing factors according to their gene expression level. Depletion of SRSF1, hnRNP F, and PTBP1, which are highly expressed in MCL clinical specimens, by CRISPR/Cas9 system significantly inhibit cell growth and proliferation, motility, and angiogenesis of MCL cells. SRSF1, hnRNP F (for Z-138 cells), and PTBP1 were found to mediate BTZ sensitivity in MCL cells, in agreement with an increase in caspase-3 activation and the occurrence of splicing events that favor the expression of pro-apoptotic isoforms of apoptosis regulatory genes. We also found that depletion of SRSF1, hnRNP F, and PTBP1 induces the expression of autophagy-related genes and the accumulation of autophagic vacuoles, which may act as one of the tumor-suppressive mechanisms. Survival analyses revealed that co-high expression of SRSF1, HNRNPF, or PTBP1 and oncogenic MYC predicts poor clinical outcomes in MCL patients. Our data describe the clinical significance of aberrant SRSF1, hnRNP F, and PTBP1 in MCL and their tumor-promoting roles via the regulation of cancer hallmarks, which could be important in understanding MCL pathogenesis and therapeutic development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HNRNPF Increases MAF and CCNB2 Levels To Promote Cancer Cell Stemness and Progression of Pancreatic Ductal Adenocarcinoma.",
+    "doi": "10.1007/s12015-026-11066-z",
+    "pmid": "41612011",
+    "authors": [
+      "Dong S, Teng Y, Li X, Sun X, Zhu H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Tumor stemness, the capacity of a subset of cancer cells to self‑renew and drive tumor growth, has been implicated in pancreatic ductal adenocarcinoma (PDAC) aggressiveness. Heterogeneous nuclear ribonucleoprotein F (HNRNPF) is an RNA‑binding protein involved in mRNA processing, but its role in regulating stemness in PDAC remains unclear. This paper investigates the impact of HNRNPF on tumor stemness by regulating musculoaponeurotic fibrosarcoma (MAF) stability and cyclin B2 (CCNB2) transcription in PDAC. METHODS: The expression of HNRNPF, MAF, and CCNB2 in tumor and paracancerous tissues of PDAC patients was detected. The proliferative and invasive potential of PDAC was examined in vitro and in vivo after lentiviral intervention. A sphere formation assay was performed to analyze the self-renewal capacity of PDAC cells, and the expression of tumor stemness markers was detected. ChIP-qPCR and dual-luciferase assays were conducted to explore the transcriptional regulation between MAF and CCNB2. RNA immunoprecipitation and RNA decay assays were used to examine the regulation of HNRNPF on MAF. RESULTS: HNRNPF, MAF, and CCNB2 were highly expressed in tumor tissues of PDAC patients. The transcription factor MAF was enriched in the CCNB2 promoter to activate its expression. HNRNPF stabilized MAF mRNA and upregulated MAF mRNA expression. Knockdown of either MAF or HNRNPF significantly inhibited PDAC progression and self-renewal ability, whereas combined CCNB2 or MAF overexpression reversed this trend. CONCLUSION: Overexpression of HNRNPF in PDAC stabilizes MAF to transcriptionally activate CCNB2, thereby enhancing tumor stemness and promoting PDAC malignancy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Unraveling the impact of VHL exon 2 mutations in erythrocytosis or von Hippel-Lindau disease identified RNA-binding proteins involved in VHL splicing.",
+    "doi": "10.1016/j.ajhg.2025.09.002",
+    "pmid": "40997803",
+    "authors": [
+      "Karaghiannis V, Schmitt L, Chesnel F, Gautier EF, Leduc M, Le Gall M, Idriss S, Couvé S, Barlier A, Sarrabay G, Maaziz N, Cassinat B, Legros L, Thibaud V, Richard S, Girodon F, Miro J, Tuffery-Giraud S, Arlot Y, Gardie B."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "This study explores the impact of mutations in the exon 2 of the von Hippel-Lindau (VHL) gene, associated with erythrocytosis or von Hippel-Lindau disease. We analyzed 15 missense and synonymous genetic variants to assess their effects on splicing and VHL protein stability. Using in silico predictions and functional assays, we found that some specific mutations impact splicing and reduce protein stability, allowing their clinical classification as pathogenic. This study revealed exonic-splicing regulatory regions. Notably, by performing RNA-protein pull-down, we identified two RNA-binding proteins, hnRNPF and hnRNPAB, as key regulators of VHL splicing. Our findings reveal the limitations of current splicing-prediction tools in recognizing exonic-splicing enhancer (ESE) or silencer (ESS) sequences and suggest that mutations can differentially affect disease phenotypes by influencing both splicing and protein stability. These insights enhance our understanding of the molecular mechanisms underlying VHL-associated disorders and expand the landscape of regulatory elements and protein factors involved in VHL splicing regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LINC03047 promotes mitophagy by recruiting hnRNPF to enhance CTGF mRNA stability in hypoxic pulmonary hypertension.",
+    "doi": "10.1016/j.freeradbiomed.2025.11.017",
+    "pmid": "41232621",
+    "authors": [
+      "Zhang B, Li P, Huang L, Wang C, Han R, Wang W, Li M, Cao C, Wang R."
+    ],
+    "year": "2026",
+    "publication_date": "2025-11-11",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Pulmonary hypertension (PH) is a progressive and debilitating vascular disorder characterized by pulmonary vascular remodeling, primarily driven by the excessive proliferation of pulmonary artery smooth muscle cells (PASMCs). In this pathogenic process, mitophagy, a selective form of autophagy, has been identified as playing a pivotal role. Long non-coding RNAs (lncRNAs) are increasingly recognized as significant regulatory elements in various diseases; however, their specific functions in the context of PASMCs mitophagy and proliferation remain largely unexplored. This study aims to investigate the role of a hypoxia-associated lncRNA, long intergenic non-protein coding RNA 3047 (LINC03047), in modulating mitophagy and cellular proliferation in hypoxia-induced PASMCs. Our findings reveal that LINC03047 is significantly upregulated in PASMCs under hypoxic conditions and promotes cell proliferation by activating mitophagy. Mechanistically, we demonstrate that LINC03047, which is transcriptionally regulated by the signal transducer and activator of transcription 3 (STAT3), physically binds to heterogeneous nuclear ribonucleoprotein F (hnRNPF). This interaction inhibits the nuclear translocation of hnRNPF and enhances the stability of connective tissue growth factor (CTGF) mRNA, thereby amplifying its downstream effects. Furthermore, in vivo experiments confirmed that targeted inhibition of hnRNPF effectively mitigates the development of hypoxia-induced PH in model systems. Collectively, these findings elucidate a novel regulatory axis and demonstrate that targeting the STAT3/LINC03047/hnRNPF/CTGF signaling pathway offers a promising therapeutic strategy for the treatment of PH.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear and cytoplasmic USP30-AS1 coordinately regulate breast cancer progression through HnRNPF/p21 and EZH2/c-Myc/p21 axes.",
+    "doi": "10.1016/j.gendis.2025.101684",
+    "pmid": "41492473",
+    "authors": [
+      "Jiang Y, Liao W, Xin Q, Wang R, Lin G, Li J, Yang Z, Yang S, Zhang H, Li X, Peng Q, Zhang Y, Xie W, Xu N."
+    ],
+    "year": "2026",
+    "publication_date": "2025-05-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Emerging evidence suggests that aberrant expression of long non-coding RNAs (lncRNAs) is strongly associated with the occurrence and progression of breast cancer. Herein, we identified ubiquitin specific peptidase 30 antisense RNA 1 (USP30-AS1) as a markedly upregulated lncRNA in breast cancer tissues, and the transcription factor SPI1 functions upstream to regulate the expression of USP30-AS1. Gene set enrichment analysis suggests that USP30-AS1 may regulate cell proliferation. Knockdown of USP30-AS1 suppresses breast cancer cell proliferation and tumor growth by up-regulating CDKN1A/p21. Mechanistically, USP30-AS1 exhibits dual localization within breast cancer cells. In the cytoplasm, it interacts with HnRNPF, disrupting its binding to the p21 3'UTR, which destabilizes p21 mRNA and ultimately reduces p21 expression. In the nucleus, USP30-AS1 suppresses p21 transcription by enhancing the activity of c-Myc, a known transcriptional repressor of p21. USP30-AS1 binds to enhancer of zeste homolog 2 (EZH2), a histone methyltransferase, and prevents EZH2 from binding to the c-Myc promoter. This promotes epigenetic up-regulation of c-Myc by reducing H3K27 trimethylation. Together, these findings demonstrate the critical role of USP30-AS1 in breast cancer progression through HnRNPF/p21 and EZH2/c-Myc/p21 axes, highlighting its potential as a therapeutic target for breast cancer treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Androgen-targeted hsa_circ_0085121 encodes a novel protein and improves the development of prostate cancer through facilitating the activity of PI3K/Akt/mTOR pathway and enhancing AR-V7 alternative splicing.",
+    "doi": "10.1038/s41419-024-07246-9",
+    "pmid": "39567496",
+    "authors": [
+      "Li J, Qiu H, Dong Q, Yu H, Piao C, Li Z, Sun Y, Cui X."
+    ],
+    "year": "2024",
+    "publication_date": "2024-11-20",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "Prostate cancer (PCa) is the most prevalent type of cancer and the second leading cause of mortality in males, with a marked increase in incidence observed across the globe. In the present study, whole-transcriptome analysis was conducted to identify differentially expressed circular RNAs (DE-circRNAs). The coding abilities of the DE-circRNAs were analyses, and it was found that hsa_circ_0085121 (circRNF19A) not only exhibited overexpression in PCa cells and tumor samples, but also encoded a 490 amino acid polypeptide designated circRNF19A-490aa. The knockdown of circRNF19A was observed to notably inhibit the proliferation, invasion, migration and docetaxel resistance of PCa cells. In contrast, mutation of the IRES significantly impaired the tumor-promoting function of circRNF19A, indicating that circRNF19A-490aa is the primary form that regulates the malignant behaviors of PCa cells. Mechanistically, circRNF19A-490aa was demonstrated to interact with HSP90AA1, thereby enhancing AR activity and facilitating the activation of the Akt/mTOR and PLK1 pathways. Furthermore, circRNF19A-490aa was observed to interact with HNRNPF, facilitating the recruitment of HNRNPF to the splicing site of AR-V7 and enhancing its alternative splicing. Finally, the androgen receptor (AR) was observed to bind to the promoter region of the RNF19A gene, subsequently regulating the expression of circRNF19A and circRNF19A-490aa. These data indicate that circRNF19A plays a pivotal role in AR activation and AR-V7 generation by encoding a novel protein, circRNF19A-490aa, and targeting circRNF19A may prove an effective strategy for impeding the progression of CRPC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear PKM2 binds pre-mRNA at folded G-quadruplexes and reveals their gene regulatory role.",
+    "doi": "10.1016/j.molcel.2024.07.025",
+    "pmid": "39153475",
+    "authors": [
+      "Anastasakis DG, Apostolidi M, Garman KA, Polash AH, Umar MI, Meng Q, Scutenaire J, Jarvis JE, Wang X, Haase AD, Brownell I, Rinehart J, Hafner M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-16",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Nuclear localization of the metabolic enzyme PKM2 is widely observed in various cancer types. We identify nuclear PKM2 as a non-canonical RNA-binding protein (RBP) that specifically interacts with folded RNA G-quadruplex (rG4) structures in precursor mRNAs (pre-mRNAs). PKM2 occupancy at rG4s prevents the binding of repressive RBPs, such as HNRNPF, and promotes the expression of rG4-containing pre-mRNAs (the \"rG4ome\"). We observe an upregulation of the rG4ome during epithelial-to-mesenchymal transition and a negative correlation of rG4 abundance with patient survival in different cancer types. By preventing the nuclear accumulation of PKM2, we could repress the rG4ome in triple-negative breast cancer cells and reduce migration and invasion of cancer cells in vitro and in xenograft mouse models. Our data suggest that the balance of folded and unfolded rG4s controlled by RBPs impacts gene expression during tumor progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The HNRNPF/H RNA binding proteins and disease.",
+    "doi": "10.1002/wrna.1788",
+    "pmid": "37042074",
+    "authors": [
+      "Brownmiller T, Caplen NJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-11",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "The members of the HNRNPF/H family of heterogeneous nuclear RNA proteins-HNRNPF, HNRNPH1, HNRNPH2, HNRNPH3, and GRSF1, are critical regulators of RNA maturation. Documented functions of these proteins include regulating splicing, particularly alternative splicing, 5' capping and 3' polyadenylation of RNAs, and RNA export. The assignment of these proteins to the HNRNPF/H protein family members relates to differences in the amino acid composition of their RNA recognition motifs, which differ from those of other RNA binding proteins (RBPs). HNRNPF/H proteins typically bind RNA sequences enriched with guanine (G) residues, including sequences that, in the presence of a cation, have the potential to form higher-order G-quadruplex structures. The need to further investigate members of the HNRNPF/H family of RBPs has intensified with the recent descriptions of their involvement in several disease states, including the pediatric tumor Ewing sarcoma and the hematological malignancy mantle cell lymphoma; newly described groups of developmental syndromes; and neuronal-related disorders, including addictive behavior. Here, to foster the study of the HNRNPF/H family of RBPs, we discuss features of the genes encoding these proteins, their structures and functions, and emerging contributions to disease. This article is categorized under: RNA in Disease and Development > RNA in Disease RNA Processing > Splicing Regulation/Alternative Splicing RNA Interactions with Proteins and Other Molecules > Protein-RNA Interactions: Functional Implications.",
+    "openalex_id": ""
+  }
+]

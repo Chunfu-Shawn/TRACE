@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Shwachman-Diamond syndromes: clinical, genetic, and biochemical insights from the rare variants.",
+    "doi": "10.3324/haematol.2023.282949",
+    "pmid": "37226705",
+    "authors": [
+      "Kawashima N, Oyarbide U, Cipolli M, Bezzerri V, Corey SJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-01",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "Shwachman-Diamond syndrome is a rare inherited bone marrow failure syndrome characterized by neutropenia, exocrine pancreatic insufficiency, and skeletal abnormalities. In 10-30% of cases, transformation to a myeloid neoplasm occurs. Approximately 90% of patients have biallelic pathogenic variants in the SBDS gene located on human chromosome 7q11. Over the past several years, pathogenic variants in three other genes have been identified to cause similar phenotypes; these are DNAJC21, EFL1, and SRP54. Clinical manifestations involve multiple organ systems and those classically associated with the Shwachman-Diamond syndrome (bone, blood, and pancreas). Neurocognitive, dermatologic, and retinal changes may also be found. There are specific gene-phenotype differences. To date, SBDS, DNAJC21, and SRP54 variants have been associated with myeloid neoplasia. Common to SBDS, EFL1, DNAJC21, and SRP54 is their involvement in ribosome biogenesis or early protein synthesis. These four genes constitute a common biochemical pathway conserved from yeast to humans that involve early stages of protein synthesis and demonstrate the importance of this synthetic pathway in myelopoiesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Flaviviruses induce ER-specific remodelling of protein synthesis.",
+    "doi": "10.1371/journal.ppat.1012766",
+    "pmid": "39621795",
+    "authors": [
+      "Wong HH, Crudgington DRK, Siu L, Sanyal S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-02",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Flaviviruses orchestrate a unique remodelling of the endoplasmic reticulum (ER) to facilitate translation and processing of their polyprotein, giving rise to virus replication compartments. While the signal recognition particle (SRP)-dependent pathway is the canonical route for ER-targeting of nascent cellular membrane proteins, it is unknown whether flaviviruses rely on this mechanism. Here we show that Zika virus bypasses the SRP receptor via extensive interactions between the viral non-structural proteins and the host translational machinery. Remarkably, Zika virus appears to maintain ER-localised translation via NS3-SRP54 interaction instead, unlike other viruses such as influenza. Viral proteins engage SRP54 and the translocon, selectively enriching for factors supporting membrane expansion and lipid metabolism while excluding RNA binding and antiviral stress granule proteins. Our findings reveal a sophisticated viral strategy to rewire host protein synthesis pathways and create a replication-favourable subcellular niche, providing insights into viral adaptation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive co-expression analysis reveals candidate regulatory genes associated with carcass and meat quality traits in Neijiang and Large White pigs.",
+    "doi": "10.5713/ab.25.0259",
+    "pmid": "40575980",
+    "authors": [
+      "Tecku PKM, Chen D, Wang K, Yu S, Chen J, Tang G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-24",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>The Neijiang indigenous pig breed of China and the Western Large White pig breed have unique meat quality and carcass characteristics. However, the genetic factors and mechanisms influencing their distinct meat and carcass traits are still not well understood. Therefore, using weighted gene co-expression network analysis (WGCNA), this study aimed to identify key genes influencing these traits.<h4>Methods</h4>Transcriptome data from 17 Neijiang and 22 Large White pigs, along with their carcass weight, backfat thickness, eye muscle area, meat color, and muscle pH phenotypic data, were analyzed using WGCNA. A total of 9,249 genes were used to construct a weighted gene co-expression network.<h4>Results</h4>Twenty-two co-expression gene modules were identified. Genes in the top modules were enriched in processes relevant to carcass and meat quality, such as protein transport. Further analysis identified six key genes, including HSPH1, HSPA4, DNAJA4, MRPL3, SEC63, and SRP54, for the Neijiang breed. Also, five key genes, consisting of EP300, SETD2, NIPBL, NAT10, and VCP, were identified for the Large White population. These genes were involved in biological processes related to mitochondrial function, protein targeting, chromatin organization, and morphogenesis.<h4>Conclusion</h4>The findings from this study elucidate the regulatory mechanisms influencing the carcass and meat characteristics of the Neijiang and Large White pigs. The key genes could serve as potential biomarkers for enhancing breeding strategies aimed at improving pork quality.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Loss of Preproinsulin Interaction with Signal Recognition Particle Activates Protein Quality Control, Decreasing mRNA Stability.",
+    "doi": "10.1016/j.jmb.2024.168492",
+    "pmid": "38360088",
+    "authors": [
+      "Miller SC, Tikhonova EB, Hernandez SM, Dufour JM, Karamyshev AL."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-14",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Many insulin gene variants alter the protein sequence and result in monogenic diabetes due to insulin insufficiency. However, the molecular mechanisms of various disease-causing mutations are unknown. Insulin is synthesized as preproinsulin containing a signal peptide (SP). SPs of secreted proteins are recognized by the signal recognition particle (SRP) or by another factor in a SRP-independent pathway. If preproinsulin uses SRP-dependent or independent pathways is still debatable. We demonstrate by the use of site-specific photocrosslinking that the SRP subunit, SRP54, interacts with the preproinsulin SP. Moreover, SRP54 depletion leads to the decrease of insulin mRNA and protein expression, supporting the involvement of the RAPP protein quality control in insulin biogenesis. RAPP regulates the quality of secretory proteins through degradation of their mRNA. We tested five disease-causing mutations in the preproinsulin SP on recognition by SRP and on their effects on mRNA and protein levels. We demonstrate that the effects of mutations are associated with their position in the SP and their severity. The data support diverse molecular mechanisms involved in the pathogenesis of these mutations. We show for the first time the involvement of the RAPP protein quality control pathway in insulin biogenesis that is implicated in the development of neonatal diabetes caused by the Leu13Arg mutation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "STIC2 selectively binds ribosome-nascent chain complexes in the cotranslational sorting of Arabidopsis thylakoid proteins.",
+    "doi": "10.1038/s44318-024-00211-4",
+    "pmid": "39192033",
+    "authors": [
+      "Stolle DS, Osterhoff L, Treimer P, Lambertz J, Karstens M, Keller JM, Gerlach I, Bischoff A, Dünschede B, Rödiger A, Herrmann C, Baginsky S, Hofmann E, Zoschke R, Armbruster U, Nowaczyk MM, Schünemann D."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-27",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Chloroplast-encoded multi-span thylakoid membrane proteins are crucial for photosynthetic complexes, yet the coordination of their biogenesis remains poorly understood. To identify factors that specifically support the cotranslational biogenesis of the reaction center protein D1 of photosystem (PS) II, we generated and affinity-purified stalled ribosome-nascent chain complexes (RNCs) bearing D1 nascent chains. Stalled RNCs translating the soluble ribosomal subunit uS2c were used for comparison. Quantitative tandem-mass spectrometry of the purified RNCs identified around 140 proteins specifically associated with D1 RNCs, mainly involved in protein and cofactor biogenesis, including chlorophyll biosynthesis, and other metabolic pathways. Functional analysis of STIC2, a newly identified D1 RNC interactor, revealed its cooperation with chloroplast protein SRP54 in the de novo biogenesis and repair of D1, and potentially other cotranslationally-targeted reaction center subunits of PSII and PSI. The primary binding interface between STIC2 and the thylakoid insertase Alb3 and its homolog Alb4 was mapped to STIC2's β-sheet region, and the conserved Motif III in the C-terminal regions of Alb3/4.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural and mechanistic basis for the regulation of the chloroplast signal recognition particle by (p)ppGpp.",
+    "doi": "10.1002/1873-3468.70008",
+    "pmid": "39935135",
+    "authors": [
+      "Zegarra V, Weiland P, Plitzko PA, Thiery J, Czech L, Willmund F, Bedrunka P, Bange G."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-11",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "The alarmones (p)ppGpp play a critical role in chloroplasts by acting as signalling molecules that regulate gene expression, protein synthesis and chloroplast (cp) development, particularly in response to stress and nutrient availability. However, the underlying molecular mechanisms are still poorly understood. Here, we show that (p)ppGpp binds to the GTPase-containing NG domains of the chloroplast signal recognition particle (SRP) and its receptor, preventing their GTP-dependent association through a competitive mechanism. The structure of (cp)FtsY bound to ppGpp reveals that the alarmone employs the same binding mode as its GDP counterpart and hinders chloroplast SRP:FtsY complex formation via its pyrophosphate moiety. Consequently, (p)ppGpp also inhibits the mutual stimulation of the two GTPases present in the (cp)SRP54:FtsY complex. Taken together, our findings provide the first description of how the alarmones (p)ppGpp may regulate the SRP-dependent protein trafficking pathway in plants.",
+    "openalex_id": ""
+  },
+  {
+    "title": "GET3B is involved in chloroplast biogenesis and interacts with the thylakoidal ALB3 and ALB4 insertases.",
+    "doi": "10.1007/s00299-025-03500-2",
+    "pmid": "40299103",
+    "authors": [
+      "Bodensohn US, Dünschede B, Kuhlmann C, Kumari K, Ladig R, Grefen C, Schleiff E, Fernandez D, Schünemann D."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-29",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Key message</h4>Proteomic, functional physiological analyses of get3b mutant plants highlight GET3B's role in chloroplast function. Genetic and interaction analyses indicate get3b and srp54 as mutual potentiators that might share terminal insertases. Protein targeting and insertion into membranes are essential for cellular organization and organelle function. The Guided Entry of Tail-anchored (GET) pathway facilitates the post-translational targeting and insertion of tail-anchored (TA) membrane proteins. Arabidopsis thaliana has four GET3 homologues, including AtGET3B and AtGET3D localized to chloroplasts. These photosynthetic organelles possess complex membrane systems, and the mechanisms underlying their protein targeting and membrane biogenesis are not fully understood. This study conducted a comprehensive proteomic analysis of get3b mutant plastids, which displayed significant alterations. Fluorometric based complex assembly as well as CO<sub>2</sub> assimilation analyses confirmed that disruption of GET3B function displayed a significant impact on photosystem II assembly as well as carbon fixation, respectively, indicating a functional role in chloroplast biogenesis. Additionally, genetic interactions were found between GET3B and the two component STIC system, which cooperates with the cpSRP pathway which is involved in the co-translational sorting of thylakoid proteins. Further, physical interactions were observed between GET3B and the C-terminus of ALB3 and ALB4 in vitro and the full length proteins in vivo, indicating a role of GET3B in protein targeting and membrane integration within chloroplasts. These findings enhance our understanding of GET3B's involvement in stromal protein targeting and thylakoidal biogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRP54 of black carp negatively regulates MDA5-mediated antiviral innate immunity.",
+    "doi": "10.1016/j.dci.2024.105252",
+    "pmid": "39173725",
+    "authors": [
+      "Chu J, Chen Y, Wu Y, Qin W, Yan J, Xiao J, Feng H."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-21",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Signal Recognition Particle 54 kDa (SRP54) is a subunit of the signal recognition particle (SRP), a cytoplasmic ribonucleoprotein complex guiding the transportation of newly synthesized proteins from polyribosomes to endoplasmic reticulum. In mammals, it has been reported to regulate the RLR signaling pathway negatively by impairing the association between MAVS and MDA5/RIG-I. However, the role of SRP54 in teleost antiviral innate immune response remains obscure. In this study, the SRP54 homolog of black carp (bcSRP54) has been cloned, and its function in antiviral innate immunity has been elucidated. The CDS of bcSRP54 gene consists of 1515 nucleotides and encodes 504 amino acids. Immunofluorescence (IF) showed that bcSRP54 was mainly distributed in the cytoplasm. Overexpressed bcSRP54 significantly reduced bcMDA5-mediated transcription of interferon (IFN) promoter in reporter assay. Co-expression of bcSRP54 and bcMDA5 significantly suppressed bcMDA5-mediated IFN signaling and antiviral activity, while bcSRP54 knockdown increased the antiviral ability of host cells. In addition, the results of the immunofluorescence staining demonstrated the subcellular overlapping between bcSRP54 and bcMDA5, and the co-immunoprecipitation (co-IP) experiment identified their association. Furthermore, the over-expression of bcSRP54 did not influence the protein expression and ubiquitination modification level of bcMDA5, however, hindered the binding of bcMDA5 to bcMAVS. In summary, our results conclude that bcSRP54 targets bcMDA5 and inhibits the interaction between bcMDA5 and bcMAVS, thereby negatively regulating antiviral innate immunity, which provides insight into how teleost SRP54 regulates IFN signaling.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The role of chloroplast SRP54 domains and its C-terminal tail region in post- and co-translational protein transport in vivo.",
+    "doi": "10.1093/jxb/erae293",
+    "pmid": "38989593",
+    "authors": [
+      "Bischoff A, Ortelt J, Dünschede B, Zegarra V, Bedrunka P, Bange G, Schünemann D."
+    ],
+    "year": "2024",
+    "publication_date": "2024-09-01",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "In the chloroplast, the 54 kDa subunit of the signal recognition particle (cpSRP54) is involved in the post-translational transport of the light-harvesting chlorophyll a/b-binding proteins (LHCPs) and the co-translational transport of plastid-encoded subunits of the photosynthetic complexes to the thylakoid membrane. It forms a high-affinity complex with plastid-specific cpSRP43 for post-translational transport, while a ribosome-associated pool coordinates its co-translational function. CpSRP54 constitutes a conserved multidomain protein, comprising a GTPase (NG) and a methionine-rich (M) domain linked by a flexible region. It is further characterized by a plastid-specific C-terminal tail region containing the cpSRP43-binding motif. To characterize the physiological role of the various regions of cpSRP54 in thylakoid membrane protein transport, we generated Arabidopsis cpSRP54 knockout (ffc1-2) lines producing truncated cpSRP54 variants or a GTPase point mutation variant. Phenotypic characterization of the complementation lines demonstrated that the C-terminal tail region of cpSRP54 plays an important role exclusively in post-translational LHCP transport. Furthermore, we show that the GTPase activity of cpSRP54 plays an essential role in the transport pathways for both nuclear as well as plastid-encoded proteins. In addition, our data revealed that plants expressing cpSRP54 without the C-terminal region exhibit a strongly increased accumulation of a photosystem I assembly intermediate.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Defective Human SRP Induces Protein Quality Control and Triggers Stress Response.",
+    "doi": "10.1016/j.jmb.2022.167832",
+    "pmid": "36210597",
+    "authors": [
+      "Tikhonova EB, Gutierrez Guarnizo SA, Kellogg MK, Karamyshev A, Dozmorov IM, Karamysheva ZN, Karamyshev AL."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-19",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "Regulation of Aberrant Protein Production (RAPP) is a protein quality control in mammalian cells. RAPP degrades mRNAs of nascent proteins not able to associate with their natural interacting partners during synthesis at the ribosome. However, little is known about the molecular mechanism of the pathway, its substrates, or its specificity. The Signal Recognition Particle (SRP) is the first interacting partner for secretory proteins. It recognizes signal sequences of the nascent polypeptides when they are exposed from the ribosomal exit tunnel. Here, we reveal the generality of the RAPP pathway on the whole transcriptome level through depletion of human SRP54, an SRP subunit. This depletion triggers RAPP and leads to decreased expression of the mRNAs encoding a number of secretory and membrane proteins. The loss of SRP54 also leads to the dramatic upregulation of a specific network of HSP70/40/90 chaperones (HSPA1A, DNAJB1, HSP90AA1, and others), increased ribosome associated ubiquitination, and change in expression of RPS27 and RPS27L suggesting ribosome rearrangement. These results demonstrate the complex nature of defects in protein trafficking, mRNA and protein quality control, and provide better understanding of their mechanisms at the ribosome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Noncanonical Functions and Cellular Dynamics of the Mammalian Signal Recognition Particle Components.",
+    "doi": "10.3389/fmolb.2021.679584",
+    "pmid": "34113652",
+    "authors": [
+      "Faoro C, Ataide SF."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-25",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "The signal recognition particle (SRP) is a ribonucleoprotein complex fundamental for co-translational delivery of proteins to their proper membrane localization and secretory pathways. Literature of the past two decades has suggested new roles for individual SRP components, 7SL RNA and proteins SRP9, SRP14, SRP19, SRP54, SRP68 and SRP72, outside the SRP cycle. These noncanonical functions interconnect SRP with a multitude of cellular and molecular pathways, including virus-host interactions, stress response, transcriptional regulation and modulation of apoptosis in autoimmune diseases. Uncovered novel properties of the SRP components present a new perspective for the mammalian SRP as a biological modulator of multiple cellular processes. As a consequence of these findings, SRP components have been correlated with a growing list of diseases, such as cancer progression, myopathies and bone marrow genetic diseases, suggesting a potential for development of SRP-target therapies of each individual component. For the first time, here we present the current knowledge on the SRP noncanonical functions and raise the need of a deeper understanding of the molecular interactions between SRP and accessory cellular components. We examine diseases associated with SRP components and discuss the development and feasibility of therapeutics targeting individual SRP noncanonical functions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRP54 mediates circadian rhythm-related, temperature-dependent gene expression in Drosophila.",
+    "doi": "10.1016/j.ygeno.2022.110512",
+    "pmid": "36273743",
+    "authors": [
+      "Li Y, Yang X, Zhao Z, Du J."
+    ],
+    "year": "2022",
+    "publication_date": "2022-10-20",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Recent studies have shown that alternative splicing (AS) plays an important role in regulating circadian rhythm. However, it is not clear whether clock neuron-specific AS is circadian rhythm dependent and what genetic and environmental factors mediate the circadian control of AS. By genome-wide RNA sequencing, we identified SRP54 is one of the Clock (Clk) dependent alternative splicing factors. Genetic interaction between Clock and SRP54 alleles showed that the enhancement of the circadian phenotype increased with temperature, being strongest at 29 °C and weakest at 18 °C. The alternative splicing and differential gene expression profile of Clock and SRP54 overlapped with the circadian-related gene profiles identified in various genome-wide studies, indicating that SRP54 is involved in circadian rhythm. By analyzing of the RNA-seq results at different temperatures, we found the roles of Clock and SRP54 are temperature dependent. We also found multiple novel temperature-dependent transcripts not documented in current databases.",
+    "openalex_id": ""
+  }
+]

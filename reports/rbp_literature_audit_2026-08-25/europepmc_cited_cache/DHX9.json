@@ -1,0 +1,170 @@
+[
+  {
+    "title": "DHX9 suppresses RNA processing defects originating from the Alu invasion of the human genome.",
+    "doi": "10.1038/nature21715",
+    "pmid": "28355180",
+    "authors": [
+      "Aktaş T, Avşar Ilık İ, Maticzka D, Bhardwaj V, Pessoa Rodrigues C, Mittler G, Manke T, Backofen R, Akhtar A."
+    ],
+    "year": "2017",
+    "publication_date": "2017-03-29",
+    "cited_by_count": 489,
+    "journal": "",
+    "abstract": "Transposable elements are viewed as 'selfish genetic elements', yet they contribute to gene regulation and genome evolution in diverse ways. More than half of the human genome consists of transposable elements. Alu elements belong to the short interspersed nuclear element (SINE) family of repetitive elements, and with over 1 million insertions they make up more than 10% of the human genome. Despite their abundance and the potential evolutionary advantages they confer, Alu elements can be mutagenic to the host as they can act as splice acceptors, inhibit translation of mRNAs and cause genomic instability. Alu elements are the main targets of the RNA-editing enzyme ADAR and the formation of Alu exons is suppressed by the nuclear ribonucleoprotein HNRNPC, but the broad effect of massive secondary structures formed by inverted-repeat Alu elements on RNA processing in the nucleus remains unknown. Here we show that DHX9, an abundant nuclear RNA helicase, binds specifically to inverted-repeat Alu elements that are transcribed as parts of genes. Loss of DHX9 leads to an increase in the number of circular-RNA-producing genes and amount of circular RNAs, translational repression of reporters containing inverted-repeat Alu elements, and transcriptional rewiring (the creation of mostly nonsensical novel connections between exons) of susceptible loci. Biochemical purifications of DHX9 identify the interferon-inducible isoform of ADAR (p150), but not the constitutively expressed ADAR isoform (p110), as an RNA-independent interaction partner. Co-depletion of ADAR and DHX9 augments the double-stranded RNA accumulation defects, leading to increased circular RNA production, revealing a functional link between these two enzymes. Our work uncovers an evolutionarily conserved function of DHX9. We propose that it acts as a nuclear RNA resolvase that neutralizes the immediate threat posed by transposon insertions and allows these elements to evolve as tools for the post-transcriptional regulation of gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DExD/H box RNA helicases: multifunctional proteins with important roles in transcriptional regulation.",
+    "doi": "10.1093/nar/gkl460",
+    "pmid": "16935882",
+    "authors": [
+      "Fuller-Pace FV."
+    ],
+    "year": "2006",
+    "publication_date": "2006-08-25",
+    "cited_by_count": 370,
+    "journal": "",
+    "abstract": "The DExD/H box family of proteins includes a large number of proteins that play important roles in RNA metabolism. Members of this family have been shown to act as RNA helicases or unwindases, using the energy from ATP hydrolysis to unwind RNA structures or dissociate RNA-protein complexes in cellular processes that require modulation of RNA structures. However, it is clear that several members of this family are multifunctional and, in addition to acting as RNA helicases in processes such as pre-mRNA processing, play important roles in transcriptional regulation. In this review I shall concentrate on RNA helicase A (Dhx9), DP103 (Ddx20), p68 (Ddx5) and p72 (Ddx17), proteins for which there is a strong body of evidence showing that they play important roles in transcription, often as coactivators or corepressors through their interaction with key components of the transcriptional machinery, such as CREB-binding protein, p300, RNA polymerase II and histone deacetylases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA/DNA Hybrid Interactome Identifies DXH9 as a Molecular Player in Transcriptional Termination and R-Loop-Associated DNA Damage.",
+    "doi": "10.1016/j.celrep.2018.04.025",
+    "pmid": "29742442",
+    "authors": [
+      "Cristini A, Groh M, Kristiansen MS, Gromak N."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-01",
+    "cited_by_count": 358,
+    "journal": "",
+    "abstract": "R-loops comprise an RNA/DNA hybrid and displaced single-stranded DNA. They play important biological roles and are implicated in pathology. Even so, proteins recognizing these structures are largely undefined. Using affinity purification with the S9.6 antibody coupled to mass spectrometry, we defined the RNA/DNA hybrid interactome in HeLa cells. This consists of known R-loop-associated factors SRSF1, FACT, and Top1, and yet uncharacterized interactors, including helicases, RNA processing, DNA repair, and chromatin factors. We validate specific examples of these interactors and characterize their involvement in R-loop biology. A top candidate DHX9 helicase promotes R-loop suppression and transcriptional termination. DHX9 interacts with PARP1, and both proteins prevent R-loop-associated DNA damage. DHX9 and other interactome helicases are overexpressed in cancer, linking R-loop-mediated DNA damage and disease. Our RNA/DNA hybrid interactome provides a powerful resource to study R-loop biology in health and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nlrp9b inflammasome restricts rotavirus infection in intestinal epithelial cells.",
+    "doi": "10.1038/nature22967",
+    "pmid": "28636595",
+    "authors": [
+      "Zhu S, Ding S, Wang P, Wei Z, Pan W, Palm NW, Yang Y, Yu H, Li HB, Wang G, Lei X, de Zoete MR, Zhao J, Zheng Y, Chen H, Zhao Y, Jurado KA, Feng N, Shan L, Kluger Y, Lu J, Abraham C, Fikrig E, Greenberg HB, Flavell RA."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-21",
+    "cited_by_count": 323,
+    "journal": "",
+    "abstract": "Rotavirus, a leading cause of severe gastroenteritis and diarrhoea in young children, accounts for around 215,000 deaths annually worldwide. Rotavirus specifically infects the intestinal epithelial cells in the host small intestine and has evolved strategies to antagonize interferon and NF-κB signalling, raising the question as to whether other host factors participate in antiviral responses in intestinal mucosa. The mechanism by which enteric viruses are sensed and restricted in vivo, especially by NOD-like receptor (NLR) inflammasomes, is largely unknown. Here we uncover and mechanistically characterize the NLR Nlrp9b that is specifically expressed in intestinal epithelial cells and restricts rotavirus infection. Our data show that, via RNA helicase Dhx9, Nlrp9b recognizes short double-stranded RNA stretches and forms inflammasome complexes with the adaptor proteins Asc and caspase-1 to promote the maturation of interleukin (Il)-18 and gasdermin D (Gsdmd)-induced pyroptosis. Conditional depletion of Nlrp9b or other inflammasome components in the intestine in vivo resulted in enhanced susceptibility of mice to rotavirus replication. Our study highlights an important innate immune signalling pathway that functions in intestinal epithelial cells and may present useful targets in the modulation of host defences against viral pathogens.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Control of c-myc mRNA stability by IGF2BP1-associated cytoplasmic RNPs.",
+    "doi": "10.1261/rna.1175909",
+    "pmid": "19029303",
+    "authors": [
+      "Weidensdorfer D, Stöhr N, Baude A, Lederer M, Köhn M, Schierhorn A, Buchmeier S, Wahle E, Hüttelmaier S."
+    ],
+    "year": "2009",
+    "publication_date": "2008-11-24",
+    "cited_by_count": 279,
+    "journal": "",
+    "abstract": "The RNA-binding protein IGF2BP1 (IGF-II mRNA binding protein 1) stabilizes the c-myc RNA by associating with the Coding Region instability Determinant (CRD). If and how other proteins cooperate with IGF2BP1 in promoting stabilization of the c-myc mRNA via the CRD remained elusive. Here, we identify various RNA-binding proteins that associate with IGF2BP1 in an RNA-dependent fashion. Four of these proteins (HNRNPU, SYNCRIP, YBX1, and DHX9) were essential to ensure stabilization of the c-myc mRNA via the CRD. These factors associate with IGF2BP1 in a CRD-dependent manner, co-distribute with IGF2BP1 in non-polysomal fractions comprising c-myc mRNA, and colocalize with IGF2BP1 in the cytoplasm. A selective shift of relative c-myc mRNA levels to the polysomal fraction is observed upon IGF2BP1 knockdown. These findings suggest that IGF2BP1 in complex with at least four proteins promotes CRD-mediated mRNA stabilization. Complex formation at the CRD presumably limits the transfer of c-myc mRNA to the polysomal fraction and subsequent translation-coupled decay.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aspartate-glutamate-alanine-histidine box motif (DEAH)/RNA helicase A helicases sense microbial DNA in human plasmacytoid dendritic cells.",
+    "doi": "10.1073/pnas.1006539107",
+    "pmid": "20696886",
+    "authors": [
+      "Kim T, Pazhoor S, Bao M, Zhang Z, Hanabuchi S, Facchinetti V, Bover L, Plumas J, Chaperot L, Qin J, Liu YJ."
+    ],
+    "year": "2010",
+    "publication_date": "2010-08-09",
+    "cited_by_count": 272,
+    "journal": "",
+    "abstract": "Toll-like receptor 9 (TLR9) senses microbial DNA and triggers type I IFN responses in plasmacytoid dendritic cells (pDCs). Previous studies suggest the presence of myeloid differentiation primary response gene 88 (MyD88)-dependent DNA sensors other than TLR9 in pDCs. Using MS, we investigated C-phosphate-G (CpG)-binding proteins from human pDCs, pDC-cell lines, and interferon regulatory factor 7 (IRF7)-expressing B-cell lines. CpG-A selectively bound the aspartate-glutamate-any amino acid-aspartate/histidine (DExD/H)-box helicase 36 (DHX36), whereas CpG-B selectively bound DExD/H-box helicase 9 (DHX9). Although the aspartate-glutamate-alanine-histidine box motif (DEAH) domain of DHX36 was essential for CpG-A binding, the domain of unknown function 1605 (DUF1605 domain) of DHX9 was required for CpG-B binding. DHX36 is associated with IFN-alpha production and IRF7 nuclear translocation in response to CpG-A, but DHX9 is important for TNF-alpha and IL-6 production and NF-kappaB activation in response to CpG-B. Knocking down DHX9 or DHX36 significantly reduced the cytokine responses of pDCs to a DNA virus but had no effect on the cytokine responses to an RNA virus. We further showed that both DHX9 and DHX36 are localized within the cytosol and are directly bound to the Toll-interleukin receptor domain of MyD88 via their helicase-associated domain 2 and DUF domains. This study demonstrates that DHX9/DHX36 represent the MyD88-dependent DNA sensors in the cytosol of pDCs and suggests a much broader role for DHX helicases in viral sensing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MOV10 RNA helicase is a potent inhibitor of retrotransposition in cells.",
+    "doi": "10.1371/journal.pgen.1002941",
+    "pmid": "23093941",
+    "authors": [
+      "Goodier JL, Cheung LE, Kazazian HH."
+    ],
+    "year": "2012",
+    "publication_date": "2012-10-18",
+    "cited_by_count": 189,
+    "journal": "",
+    "abstract": "MOV10 protein, a putative RNA helicase and component of the RNA-induced silencing complex (RISC), inhibits retrovirus replication. We show that MOV10 also severely restricts human LINE1 (L1), Alu, and SVA retrotransposons. MOV10 associates with the L1 ribonucleoprotein particle, along with other RNA helicases including DDX5, DHX9, DDX17, DDX21, and DDX39A. However, unlike MOV10, these other helicases do not strongly inhibit retrotransposition, an activity dependent upon intact helicase domains. MOV10 association with retrotransposons is further supported by its colocalization with L1 ORF1 protein in stress granules, by cytoplasmic structures associated with RNA silencing, and by the ability of MOV10 to reduce endogenous and ectopic L1 expression. The majority of the human genome is repetitive DNA, most of which is the detritus of millions of years of accumulated retrotransposition. Retrotransposons remain active mutagens, and their insertion can disrupt gene function. Therefore, the host has evolved defense mechanisms to protect against retrotransposition, an arsenal we are only beginning to understand. With homologs in other vertebrates, insects, and plants, MOV10 may represent an ancient and innate form of immunity against both infective viruses and endogenous retroelements.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LINC00460/DHX9/IGF2BP2 complex promotes colorectal cancer proliferation and metastasis by mediating HMGA1 mRNA stability depending on m6A modification.",
+    "doi": "10.1186/s13046-021-01857-2",
+    "pmid": "33526059",
+    "authors": [
+      "Hou P, Meng S, Li M, Lin T, Chu S, Li Z, Zheng J, Gu Y, Bai J."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-01",
+    "cited_by_count": 168,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Increasing studies have shown that long noncoding RNAs (lncRNAs) are pivotal regulators participating in carcinogenic progression and tumor metastasis in colorectal cancer (CRC). Although lncRNA long intergenic noncoding RNA 460 (LINC00460) has been reported in CRC, the role and molecular mechanism of LINC00460 in CRC progression still requires exploration.<h4>Methods</h4>The expression levels of LINC00460 were analyzed by using a tissue microarray containing 498 CRC tissues and their corresponding non-tumor adjacent tissues. The correlations between the LINC00460 expression level and clinicopathological features were evaluated. The functional characterization of the role and molecular mechanism of LINC00460 in CRC was investigated through a series of in vitro and in vivo experiments.<h4>Results</h4>LINC00460 expression was increased in human CRC, and high LINC00460 expression was correlated with poor five-year overall survival and disease-free survival. LINC00460 overexpression sufficiently induced the epithelial-mesenchymal transition and promoted tumor cell proliferation, migration, and invasion in vitro and tumor growth and metastasis in vivo. In addition, LINC00460 enhanced the protein expression of high-mobility group AT-hook 1 (HMGA1) by directly interacting with IGF2BP2 and DHX9 to bind the 3' untranslated region (UTR) of HMGA1 mRNA and increased the stability of HMGA1 mRNA. In addition, the N6-methyladenosine (m6A) modification of HMGA1 mRNA by METTL3 enhanced HMGA1 expression in CRC. Finally, it suggested that HMGA1 was essential for LINC00460-induced cell proliferation, migration, and invasion.<h4>Conclusions</h4>LINC00460 may be a novel oncogene of CRC through interacting with IGF2BP2 and DHX9 and bind to the m6A modified HMGA1 mRNA to enhance the HMGA1 mRNA stability. LINC00460 can serve as a promising predictive biomarker for the diagnosis and prognosis among patients with CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CircRNA-CREIT inhibits stress granule assembly and overcomes doxorubicin resistance in TNBC by destabilizing PKR.",
+    "doi": "10.1186/s13045-022-01345-w",
+    "pmid": "36038948",
+    "authors": [
+      "Wang X, Chen T, Li C, Li W, Zhou X, Li Y, Luo D, Zhang N, Chen B, Wang L, Zhao W, Fu S, Yang Q."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-29",
+    "cited_by_count": 163,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs (circRNAs) represent a novel type of regulatory RNA characterized by high evolutionary conservation and stability. CircRNAs are expected to be potential diagnostic biomarkers and therapeutic targets for a variety of malignancies. However, the regulatory functions and underlying mechanisms of circRNAs in triple-negative breast cancer (TNBC) are largely unknown.<h4>Methods</h4>By using RNA high-throughput sequencing technology, qRT-PCR and in situ hybridization assays, we screened dysregulated circRNAs in breast cancer and TNBC tissues. Then in vitro assays, animal models and patient-derived organoids (PDOs) were utilized to explore the roles of the candidate circRNA in TNBC. To investigate the underlying mechanisms, RNA pull-down, RNA immunoprecipitation (RIP), co immunoprecipitation (co-IP) and Western blotting assays were carried out.<h4>Results</h4>In this study, we demonstrated that circRNA-CREIT was aberrantly downregulated in doxorubicin resistant triple-negative breast cancer (TNBC) cells and associated with a poor prognosis. The RNA binding protein DHX9 was responsible for the reduction in circRNA-CREIT by interacting with the flanking inverted repeat Alu (IRAlu) sequences and inhibiting back-splicing. By utilizing in vitro assays, animal models and patient-derived organoids, we revealed that circRNA-CREIT overexpression significantly enhanced the doxorubicin sensitivity of TNBC cells. Mechanistically, circRNA-CREIT acted as a scaffold to facilitate the interaction between PKR and the E3 ligase HACE1 and promoted proteasomal degradation of PKR protein via K48-linked polyubiquitylation. A reduced PKR/eIF2α signaling axis was identified as a critical downstream effector of circRNA-CREIT, which attenuated the assembly of stress granules (SGs) to activate the RACK1/MTK1 apoptosis signaling pathway. Further investigations revealed that a combination of the SG inhibitor ISRIB and doxorubicin synergistically inhibited TNBC tumor growth. Besides, circRNA-CREIT could be packaged into exosomes and disseminate doxorubicin sensitivity among TNBC cells.<h4>Conclusions</h4>Our study demonstrated that targeting circRNA-CREIT and SGs could serve as promising therapeutic strategies against TNBC chemoresistance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DHX9 helicase promotes R-loop formation in cells with impaired RNA splicing.",
+    "doi": "10.1038/s41467-018-06677-1",
+    "pmid": "30341290",
+    "authors": [
+      "Chakraborty P, Huang JTJ, Hiom K."
+    ],
+    "year": "2018",
+    "publication_date": "2018-10-19",
+    "cited_by_count": 159,
+    "journal": "",
+    "abstract": "R-loops are stable nucleic acid structures that have important physiological functions, but which also pose a significant threat to genomic stability. Increased R-loops cause replication stress and chromosome fragility and have been associated with diseases such as neurodegeneration and cancer. Although excessive R-loops are a feature of cells that are defective in RNA processing, what causes them to form is unclear. Here, we demonstrate that DHX9 (RNA helicase A) promotes the formation of pathological and non-pathological R-loops. In the absence of splicing factors, formation of R-loops correlates with the prolonged association of DHX9 with RNA Polymerase II (RNA Pol II). This leads to the production of DNA-RNA hybrid, which traps RNA Pol II on chromatin with the potential to block DNA replication. Our data provide a molecular mechanism for the formation of R-loops that is relevant to neurodegenerative diseases and cancers in which deregulated RNA processing is a feature.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DHX9 pairs with IPS-1 to sense double-stranded RNA in myeloid dendritic cells.",
+    "doi": "10.4049/jimmunol.1101307",
+    "pmid": "21957149",
+    "authors": [
+      "Zhang Z, Yuan B, Lu N, Facchinetti V, Liu YJ."
+    ],
+    "year": "2011",
+    "publication_date": "2011-09-28",
+    "cited_by_count": 151,
+    "journal": "",
+    "abstract": "The innate immune system is equipped with many molecular sensors for microbial DNA/RNA to quickly mount antimicrobial host immune responses. In this paper, we identified DHX9, a DExDc helicase family member, as an important viral dsRNA sensor in myeloid dendritic cells (mDCs). Knockdown of DHX9 expression by small heteroduplex RNA dramatically blocked the ability of mDCs to produce IFN-α/β and proinflammatory cytokines in response to polyinosine-polycytidylic acid, influenza A, and reovirus. DHX9 could specifically bind polyinosine-polycytidylic acid via its double-strand RNA binding motifs. DHX9 interacted with IPS-1 via the HelicC-HA2-DUF and CARD domains of DHX9 and IPS-1, respectively. Knockdown of DHX9 expression in mDCs blocked the activation of NF-κB and IFN regulatory factor 3 by dsRNA. Collectively, these results suggest that DHX9 is an important RNA sensor that is dependent on IPS-1 to sense pathogenic RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNAs are abundantly expressed and upregulated during human epidermal stem cell differentiation.",
+    "doi": "10.1080/15476286.2017.1409931",
+    "pmid": "29283313",
+    "authors": [
+      "Kristensen LS, Okholm TLH, Venø MT, Kjems J."
+    ],
+    "year": "2018",
+    "publication_date": "2017-12-28",
+    "cited_by_count": 150,
+    "journal": "",
+    "abstract": "The expression patterns of endogenous circular RNA (circRNA) molecules during epidermal stem cell (EpSC) differentiation have not previously been explored. Here, we show that circRNAs are abundantly expressed in EpSCs and that their expression change dramatically during differentiation in a coordinated manner. Overall, circRNAs are expressed at higher levels in the differentiated cells, and many upregulated circRNAs are derived from developmental genes, including four different circRNAs from DLG1. The observed changes in circRNA expression were largely independent of host gene expression, and circRNAs independently upregulated upon differentiation are more prone to AGO2 binding and have more predicted miRNA binding sites compared to stably expressed circRNAs. In particular, upregulated circRNAs from the HECTD1 and ZNF91 genes have exceptionally high numbers of AGO2 binding sites and predicted miRNA target sites, and circZNF91 contains 24 target sites for miR-23b-3p, which is known to play important roles in keratinocyte differentiation. We also observed that upregulated circRNAs are less likely to be flanked by homologues inverted Alu repeats compared to stably expressed circRNAs. This coincide with DHX9 being upregulated in the differentiated keratinocytes. Finally, none of the circRNAs upregulated upon differentiation were also upregulated upon DNMT3A or DNMT3B knockdown, making it unlikely that epigenetic mechanisms are governing the observed circRNA expression changes. Together, we provide a map of circRNA expression in EpSCs and their differentiated counterparts and shed light on potential function and regulation of differentially expressed circRNAs.",
+    "openalex_id": ""
+  }
+]

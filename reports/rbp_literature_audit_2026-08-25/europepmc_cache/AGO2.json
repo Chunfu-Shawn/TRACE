@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Oncogenic KRAS Rewires mRNA Stability and Translation through AGO2-Mediated Disruption of the miRNA pathway.",
+    "doi": "10.1158/0008-5472.can-25-1047",
+    "pmid": "42635442",
+    "authors": [
+      "Yang ZZ, Bortoletto AS, Cardenas MG, Bartels MD, Mwesigwa S, Le Roux CA, Snider CG, Wang MT, Fan H, Van Nostrand EL, McCormick F, Parchem RJ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "KRAS mutations occur in over 90% of pancreatic ductal adenocarcinomas (PDACs). Despite recent advances in targeting oncogenic KRAS, tumors eventually acquire resistance. A more comprehensive understanding of the mechanisms connecting KRAS signaling to tumor progression could facilitate the development of effective therapies to improve the treatment of KRAS-driven malignancies. Here, we dissected how oncogenic KRAS reprograms post-transcriptional regulation in PDAC. Oncogenic KRAS altered AGO2 phosphorylation at tyrosine 393, expanded the miRNA-mRNA interaction network, and impaired both mRNA destabilization and translational repression. Mapping endogenous miRNA-mRNA interactions using AGO2 chimeric eCLIP combined with genome-wide measurements of mRNA stability and translational efficiency using SLAM-seq and Ribo-eCLIP revealed that miRNA targets in KRAS-mutant cells exhibited increased stability and translational efficiency, even when cognate miRNA levels were unchanged. The rewiring enriched pro-tumorigenic transcripts involved in GTPase signaling, autophagy, and metabolism, and it was accompanied by the assembly of enlarged, static processing bodies (P-bodies) in cell lines, mouse models, and patient tumors, an effect that could be reversed by inhibiting oncogenic KRAS. Expression of a phospho-mimetic AGO2 Y393E reproduced the effects of oncogenic KRAS, while a phospho-deficient AGO2 Y393A blocked them. These findings identify a mechanistically distinct post-transcriptional effector arm of KRAS signaling, link AGO2 Y393 phosphorylation to both silencing dysfunction and condensate remodeling, and reveal opportunities to target RNA regulation in PDAC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-centered regulation in SFTSV infection: mechanisms, host interactions, and translational implications.",
+    "doi": "10.1016/j.virs.2026.08.011",
+    "pmid": "42632455",
+    "authors": [
+      "Wang A, Li J, Chen L, Su B, Han J, Zhang K, Chen Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Severe fever with thrombocytopenia syndrome virus (SFTSV) is an emerging tick-borne pathogen that causes substantial morbidity and high case fatality in severe cases, representing a major public health concern in East Asia. Although protein-mediated mechanisms of SFTSV replication and immune evasion have been extensively studied, accumulating evidence indicates that viral infection is also influenced by RNA-centered regulatory processes. These processes include viral RNA transcription and replication, epitranscriptomic modification, host RNA-binding proteins, RNA interference-related pathways, small RNA responses, and NSs-driven inclusion bodies. Current evidence is strongest for L protein-mediated viral RNA transcription and replication, m<sup>6</sup>A-related regulation of viral RNA stability and translation, selected host RNA-binding proteins involved in viral RNA metabolism, and NSs-mediated antagonism of AGO2-dependent RNA interference and antiviral signaling. In contrast, the direct role of m<sup>6</sup>A in innate immune sensing, the functional significance of virus-derived microRNA-like small RNAs, and the physical protection of viral RNA within NSs-driven condensates remain incompletely established. In this review, we summarize current knowledge of how RNA-centered mechanisms regulate SFTSV RNA fate, viral replication, host adaptation, immune antagonism, and cross-host transmission. We further discuss their potential implications for biomarker discovery and antiviral development, while emphasizing the uneven strength of evidence and the mechanistic and translational barriers that remain. An evidence-stratified RNA-centered framework may help prioritize future studies and guide the rational exploration of RNA-based diagnostic and therapeutic strategies for SFTSV infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Global mapping of circRNA-target RNA interactions reveal P-body-mediated translational repression.",
+    "doi": "10.1016/j.molcel.2026.01.018",
+    "pmid": "41702405",
+    "authors": [
+      "Li P, Zhang H, Cai Z, Zhang Y, Yang R, Ye R, Li J, Zhao H, Liu B, Yuan Z, Li X, Wang X, Zhu P, Xue Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-16",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Circular RNAs (circRNAs) are primarily produced through pre-mRNA back-splicing, yet their target repertoire and functional mechanisms remain elusive. Here, we present circTargetMap, a computational framework for globally mapping circRNA targets using RNA-RNA interactomes obtained via RNA in situ conformation sequencing (RIC-seq) in the hippocampus and ten human cell lines. This approach identified 117,163 high-confidence circRNA-target RNA interactions, with 83% of target mRNAs bound by multiple circRNAs. Functionally, CDR1as and circRMST repress target mRNA translation by sequestering them into processing bodies (P-bodies)-membraneless granules-through sequence-specific base-pairing, probably independent of AGO2, DICER, and microRNA (miRNAs). To directly capture granule-associated interactions, we developed the granule RIC-seq (GRIC-seq) method, revealing the broad role of circRNA-target RNA interactions in translational repression. Moreover, pathogenic variants are significantly enriched around circRNA-target RNA interaction sites, suggesting potential roles in disease. Our study provides valuable resources for circRNA functional exploration and a framework for investigating RNA-RNA interactions within membraneless organelles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The roles of subcellular Argonaute 2 in cardiovascular diseases.",
+    "doi": "10.1515/jtim-2025-0036",
+    "pmid": "40861070",
+    "authors": [
+      "Cai Y, Hang W, Xie R, Li H, Chen C, Wang F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-30",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Argonaute 2 (Ago2), the core component of the microRNA-induced silencing complex (miRNA-RISC), is a pivotal protein with a well-established and potent role in gene expression regulation. Traditionally, Ago2 functions at the post-transcriptional level by binding to non-coding RNAs in the cytoplasm, facilitating gene expression via cleavage, deadenylation, or repression of target messenger RNA (mRNA) translation. Emerging evidence indicates that Ago2 can be transported from the cytoplasm to the nucleus or mitochondria, where it performs its critical functions. We observed that nuclear and mitochondrial Ago2 have been increasingly implicated in the pathogenesis of various cardiovascular diseases, such as hypertension, diabetic cardiomyopathy, and heart failure. These findings suggest a potential novel therapeutic strategy for targeting Ago2 in cardiovascular conditions. In this review, we aim to provide a comprehensive overview of recent studies elucidating the transport mechanisms of mammalian Ago2 into various subcellular organelles and summarise the functional roles and molecular mechanisms of subcellular Ago2 in cardiovascular diseases, offering a theoretical framework for Ago2-related therapeutic strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "IRES-like element-mediated translation of vsp1S4(-) suppresses BmCPV replication via RNAi antagonism.",
+    "doi": "10.1371/journal.ppat.1014402",
+    "pmid": "42497223",
+    "authors": [
+      "Chen X, Teng Q, Xue H, Li L, Du X, Zhu M, Zhang X, Gong C, Hu X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Double-stranded RNA (dsRNA) viruses are thought to express proteins exclusively from their sense strand, while the antisense strand serves primarily as a replication template. Whether the antisense strand harbors hidden coding potential remains largely unexplored. Here, by integrating ribosome profiling and mass spectrometry, we identify a conserved 78-amino acid microprotein, vsp1S4(-), encoded by an antisense small open reading frame (sORFs) of the Bombyx mori cypovirus (BmCPV) genome. We demonstrate that vsp1S4(-) translation is driven by a previously unrecognized IRES-like element. Functional characterizations reveal that vsp1S4(-) localizes to the plasma membrane and acts as a negative regulator of viral replication. Mechanistically, vsp1S4(-) interacts directly with the viral RNAi suppressor NSP8, competitively disrupting the NSP8-AGO2 complex. This action restores the host's antiviral RNAi response, thereby limiting viral proliferation. Our findings challenge the conventional view of dsRNA virus coding capacity, unveil a novel viral immune evasion and replication control mechanism, and highlight antisense-encoded microproteins as potential targets for antiviral therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear Argonaute:miRNA complexes recognize target sequences within chromatin-associated RNA and silence gene expression.",
+    "doi": "10.1093/nar/gkaf800",
+    "pmid": "40867050",
+    "authors": [
+      "Hofman CR, Hu J, Bryl R, Tse V, Corey DR."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "The action of microRNAs (miRNAs) in mammalian cells involves recognition of messenger RNA (mRNA) in the cytoplasm and inhibition of translation. Both miRNAs and their associated protein factors, however, are present in mammalian cell nuclei. It is unclear how this nuclear localization affects endogenous gene expression. Here, we use chimeric eCLIP to identify complexes of Argonaute 2 (AGO2) and miRNAs. We identify the most abundant miRNAs associated with chromatin and their chromatin-associated RNA targets. Chimeric eCLIP revealed that high mobility group AT-Hook 2 (HMGA2) was the most compelling target for miRNA-mediated gene regulation. There are four confirmed let-7 miRNA sites within the 3'-UTR in the cytoplasm or nucleus and three within chromatin-associated RNA. The expression of mature HMGA2 mRNA was repressed by let-7 in both the cytoplasm and the nucleus. let-7 had little effect on HMGA2 transcription or splicing. Our data validate chimeric eCLIP as a powerful method for experimentally identifying promising miRNA:RNA interactions. Rather than a solely cytoplasmic event, binding of miRNA-associated protein factors to mRNA targets may begin in the nucleus. Gene silencing reduces RNA levels in both the cytoplasm and the nucleus. miRNA-mediated silencing of mRNAs may be influenced by both nuclear and cytoplasmic interactions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CSDE1 stabilizes AGO2 in embryonic stem cells.",
+    "doi": "10.3389/fmolb.2025.1745258",
+    "pmid": "41624769",
+    "authors": [
+      "Jiang Y, Waye M, Kakumani PK."
+    ],
+    "year": "2025",
+    "publication_date": "2026-01-15",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The cold shock domain (CSD)-containing protein, CSDE1, interacts with AGO2 and regulates miRNA function in post-transcriptional gene silencing. While the individual roles of CSDE1 and AGO2 in regulating gene expression underlying stem cell pluripotency and differentiation are well known, the effects of their interaction remain unclear. Here, we demonstrate that CSDE1 stabilizes AGO2 and key pluripotent proteins, NANOG, SOX2, and Oct4, in mouse embryonic stem cells. CSDE1 stabilizes AGO2 and the stem cell markers, preventing their ubiquitination. Further, the N-terminal domain, CSD1, which is necessary for CSDE1 interaction with AGO2, is crucial for maintaining AGO2 levels and the pluripotent proteins, thereby revealing an additional layer of control over AGO2 function and gene expression associated with stem cell fate at the post-translational level.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanisms of microRNA trafficking to mitochondria in the heart.",
+    "doi": "10.1016/j.cophys.2025.100848",
+    "pmid": "41624380",
+    "authors": [
+      "Quiroga D, Daniel R, Das S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-29",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs) are essential post-transcriptional regulators of gene expression, and accumulating evidence supports their presence and function within mitochondria. These mitochondrial microRNAs (MitomiRs) modulate key processes such as oxidative phosphorylation, ATP production, calcium homeostasis, and reactive oxygen species balance in cardiac tissue. Despite growing recognition of their importance, the mechanisms governing miRNA trafficking to mitochondria remain incompletely understood. This review explores the current knowledge on miRNA biogenesis, mitochondrial import pathways - including the roles of Argonaute 2 (AGO2), the Translocase of the Outer/Inner Mitochondrial Membrane (TOM/TIM) complexes, and Polynucleotide Phosphorylase (PNPase) - and the regulatory impact of specific MitomiRs, such as miR-181c, miR-210, miR-378, let-7b, and miR-1. Understanding how these molecules influence mitochondrial function provides insight into their therapeutic potential in cardiovascular disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "tRNA-Derived Small RNAs in Digestive Cancers: From Translational Regulation to Immune and Extracellular Communication.",
+    "doi": "10.1111/cas.70494",
+    "pmid": "42549704",
+    "authors": [
+      "Xitan W, Han L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Transfer RNA-derived small RNAs (tsRNAs), comprising tRNA-derived fragments (tRFs) and stress-induced tRNA halves (tiRNAs), have increasingly been recognized as an important regulatory class in gastric cancer (GC), colorectal cancer (CRC), hepatocellular carcinoma (HCC), and pancreatic cancer/pancreatic ductal adenocarcinoma (PC/PDAC). Research in this field has expanded from expression profiling and liquid biopsy to non-canonical translational control, metabolic adaptation, therapy resistance, immune-associated remodeling, and extracellular-vesicle (EV)-related communication. The most intensively studied and mechanistically developed area currently lies at the intracellular level. In digestive system tumors, tsRNAs can act through EIF4 displacement, AGO2/RISC-dependent silencing, direct target repression, and ribosome-associated interactions, with some of these mechanisms validated in animal models. Beyond direct regulation of gene expression, tsRNAs can also influence tumor metabolic state and thereby contribute to chemo- and radio-resistance. By contrast, studies directly examining the effects of tsRNAs on immune-cell populations remain relatively limited, and work on EV-mediated systemic propagation still largely focuses on vesicle association and biomarker value. Functional delivery and recipient-cell effects require further clarification. Among the currently summarized studies, pancreatic-derived signaling that conditions the hepatic niche represents one of the few examples approaching a cross-organ functional model. This review discusses the major functional layers of tsRNAs in digestive system tumors, beginning with the relatively mature intracellular mechanisms and then extending to emerging immune, extracellular/systemic, and host-microbe research. We also identify key unresolved problems, including nomenclature standardization, modification-aware sequencing, criteria for EV functional delivery, causal validation of microbiota-derived tsRNAs, and prospective biomarker validation against benign and inflammatory disease controls.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Argonaute and small RNAs in the nucleus: Mediators of gene silencing and activation.",
+    "doi": "10.1016/j.omtn.2026.102938",
+    "pmid": "42112100",
+    "authors": [
+      "Shcherbinina E, Fong M, Biscans A, Sarshad AA."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA molecules are dynamic regulators of gene expression, with duplex RNAs such as siRNAs and saRNAs functioning as versatile effectors that can both silence and activate gene expression through Argonaute (AGO) proteins. While cytoplasmic RNA interference (RNAi) is well established, the mechanisms and outcomes of nuclear RNAi and RNA activation (RNAa) are only emerging. This review integrates recent discoveries on nuclear RNAi and RNAa, outlining how siRNAs can target nuclear long noncoding RNAs, promoter-associated transcripts, and pre-mRNAs to mediate silencing, transcriptional repression, or alternative splicing. Conversely, saRNAs can recruit AGO2 and transcriptional cofactors to activate gene expression through chromatin remodeling and RNA polymerase II engagement. Beyond their mechanistic roles, we highlight the growing therapeutic potential of duplex RNAs, which can be harnessed to selectively silence or activate gene expression, offering new strategies for RNA-based precision medicine.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Disrupting KRAS-AGO2 interaction: a dual-pronged strategy to sensitize chemo-immunotherapy in KRAS-mutated colorectal cancer.",
+    "doi": "10.1007/s10495-026-02429-5",
+    "pmid": "42622908",
+    "authors": [
+      "Xie J, Wang S, Liu J, Zhang Y, Zhu H, Cui R, Yao Y, Yu W, Hou P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "KRAS mutations are among the most common genetic alterations in colorectal cancer (CRC) and are strongly linked to poor prognosis and therapeutic resistance. However, current treatments targeting KRAS-mutated CRC have shown limited clinical efficacy. Argonaute 2 (AGO2) is a critical component in microRNA (miRNA)-mediated gene silencing complex, which is involved in the maturation of miRNAs and the regulation of target genes. It has been reported that mutated KRAS can interact with AGO2 and impair its function, thereby amplifying the oncogenic potency of mutant KRAS and accelerating tumor progression. To explore the therapeutic implications of this interaction, we developed a peptide inhibitor and engineered peptide-gold nanoparticles (Au-pep) that specifically disrupted KRAS-AGO2 interaction, which dramatically attenuated the malignant phenotype of KRAS-mutated CRC cells. Mechanistically, Au-pep-mediated disruption of the KRAS-AGO2 complex led to partial restoration of the miRNA expression landscape, with let‑7c‑5p emerging as the most significantly up‑regulated effector. As a result, restored let-7c-5p caused a significant down-regulation of key oncogenic drivers (KRAS, c-Myc and Bcl2) to suppress the growth of KRAS-mutated CRC cells and induce their apoptosis. Furthermore, this miRNA restoration conferred dual therapeutic benefits by sensitizing KRAS-mutated CRC cells to 5-fluorouracil (5-FU) via ABCC5 repression and augmenting immunotherapy responsiveness via PD-L1 down-regulation. Our findings, taken together, delineate a new therapeutic paradigm with significant translational potential for improving clinical outcomes in this recalcitrant patient population.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The clinical and molecular spectrum of AGO2-associated Lessel-Kreienkamp neurodevelopmental syndrome. ",
+    "doi": "10.1186/s13073-026-01745-4",
+    "pmid": "42638108",
+    "authors": [
+      "Tibbe D, Kiel C, Ielesicheva O, Robles de Maruri K, Mahboobi H, Züghart J, Hönck HH, Meier C, Biasella F, Legüe M, Lopez Avaria MF, Blair E, Lester T, Banos-Pinero B, Pulido JS, Schneider A, Procopio R, Quelin C, Leal BJ, Martinez-Agosto JA, Bottomley SA, Till Á, Hadzsiev K, Szalai R, Weaver KN, Fluss J, Margot H, Almoguera B, Lorda-Sánchez I, López-López L, Hamm JA, Goel H, Alanay Y, Akgun Doğan O, Ozkose-Iyigel GŞ, Baujat G, Lesieur-Sebellin M, Rondeau S, Schon K, Christopher J, Isidor B, Cogne B, Agrawal NS, Dahlhauser R, Furuta Y, Rabin R, Pappas J, Patel C, Järvelä I, Rauhala M, Schrauwen I, Leal SM, Banka S, Tharakan R, Pebrel-Richard C, Laffargue F, Durand N, Celse T, Hempel M, Valentin I, Gregorova A, Noskova L, Baumgartner S, Überbacher C, Muru K, Murumets Ü, Lilles S, Steindl K, Rauch A, Ruscitti F, Verloes A, Levy J, Park J, Haack TB, Bader I, Julia S, Banneau G, Muir AM, Lessel D, Kreienkamp HJ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-22",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Pathogenic variants in AGO2, encoding a central component of the RNA-induced silencing complex (RISC), cause the neurodevelopmental disorder Lessel-Kreienkamp syndrome (LESKRES). The variant spectrum and associated molecular mechanisms underlying phenotypic variability and disease severity remain incompletely understood. We investigated 45 newly identified individuals carrying 33 distinct AGO2 variants, 30 of which were previously unreported. Phenotypic data from these and previously reported cases (n = 70) were integrated to delineate the LESKRES-associated clinical spectrum and genotype-phenotype correlations. Functional studies included shRNA-based silencing, co-immunoprecipitation, subcellular localization, and sequencing of AGO2-bound miRNAs. All individuals presented with a neurodevelopmental disorder of variable severity. Delayed speech and language development (97%), intellectual disability (97%), and motor delay (93%) were the most consistent features, frequently accompanied by muscular hypotonia, autistic traits, attention deficit hyperactivity disorder, visual impairment and structural brain anomalies. Systemic manifestations, including skeletal, craniofacial, cardiac, and male urogenital anomalies were common, underscoring AGO2's multisystemic role. Moreover, we report occurrence of gonadal mosaicism and reveal the presence of interfamilial and variant-specific clinical heterogeneity. Variants clustered in defined regions of AGO2, including the L1 loop, helix-7, and multiple loops of the PIWI domain, highlight structural hotspots critical for RISC activity. Not all pathogenic variants impaired shRNA-mediated silencing; this was restricted to p.(Arg714Trp) and p.(Asn729His). Biochemical analyses revealed that p.(Asp619Asn) impaired GW182 binding and P-body assembly. Variants p.(Arg506Gln), p.(Glu531Gln) p.(Gly604Arg) and p.(Asp619Asn), reduced C-terminal phosphorylation, implicating defective AGO2 recycling. AGO2-miRNA co-immunoprecipitation and sequencing demonstrated variant-specific perturbations in miRNA association, strand selectivity, and isomiR generation. Variants near the hinge of the helix-7 region, especially p.(Phe182del), induced extensive changes in miRNA association and 3'-end modification, suggesting impaired anchoring within the miRNA-binding pocket. Our findings substantially broaden the clinical and molecular landscape of LESKRES, establishing AGO2 as a pivotal regulator of neurodevelopment whose structural integrity is essential for precise miRNA-mediated gene regulation. Pathogenic variants disrupt distinct interconnected processes: P-body association, phosphorylation-dependent turnover, and miRNA interactions, culminating in dysregulated post-transcriptional gene silencing. These mechanistic insights link specific structural perturbations in AGO2 to graded clinical outcomes and underscore the critical role of AGO2 conformational dynamics in human neurodevelopment.",
+    "openalex_id": ""
+  }
+]

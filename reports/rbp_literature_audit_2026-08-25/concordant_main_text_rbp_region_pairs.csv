@@ -1,0 +1,11 @@
+Evidence_Group,RBP_Name,Region,Expected_Direction,Model_Median_Delta_Log2_TE,Model_FDR_BH,Model_N_Transcripts,Evidence_Strength,Interpretation
+Direct_translation_or_abundance,YBX3,3UTR,Positive,0.0038107501324737,2.24253056346484e-28,1257,Direct_region_matched,3UTR binding and stabilization/translation are concordant
+Direct_translation_or_abundance,SRSF9,CDS,Positive,0.0864286502145379,6.67134643309771e-221,2800,Direct_direction_only,Translation activation is supported but the literature does not establish a CDS motif
+Direct_translation_or_abundance,SRSF1,CDS,Positive,0.0038884514558389,7.667094987813448e-09,2800,Direct_direction_only,Translation activation is supported but the literature does not establish a CDS motif
+Direct_translation_or_abundance,MEX3C,3UTR,Negative,-0.0102778264178305,2.2797032489058225e-23,819,Direct_region_matched,3UTR-directed deadenylation and RNA decay are concordant
+Direct_translation_or_abundance,PUM2,3UTR,Negative,-0.0011079808565273,1.9596412213947077e-08,1783,Direct_region_matched,3UTR repression and deadenylation are concordant
+Direct_translation_or_abundance,RBM4,5UTR,Negative,-0.0140205588762985,8.700901053501246e-65,2303,Context_specific,Consistent with cap-dependent translation repression but RBM4 can activate IRES-dependent translation
+RNA_maturation_or_nuclear_retention,PABPN1,3UTR,Negative,-0.0018948857383395,2.1766264130098186e-10,1847,Indirect_region_plausible,Consistent with 3-end surveillance and restriction of unspliced RNA export/translation
+RNA_maturation_or_nuclear_retention,YTHDC1,CDS,Positive,0.0082367439833745,4.461106784879754e-17,2800,Indirect_direction_only,Consistent with m6A-dependent splicing and nuclear export
+RNA_maturation_or_nuclear_retention,SFPQ,3UTR,Negative,-0.003464604697067,6.148740308583268e-20,2665,Indirect_direction_only,Consistent with paraspeckle-associated nuclear RNA retention
+RNA_maturation_or_nuclear_retention,NONO,5UTR,Negative,-0.0013459145089261,0.0134160568967977,908,Indirect_direction_only,Consistent with paraspeckle-associated nuclear RNA retention while avoiding CDS mutation confounding

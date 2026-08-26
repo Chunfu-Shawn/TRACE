@@ -1,0 +1,170 @@
+[
+  {
+    "title": "CD44 splice isoform switching in human  and mouse epithelium is essential  for epithelial-mesenchymal transition  and breast cancer progression.",
+    "doi": "10.1172/jci44540",
+    "pmid": "21393860",
+    "authors": [
+      "Brown RL, Reinke LM, Damerow MS, Perez D, Chodosh LA, Yang J, Cheng C."
+    ],
+    "year": "2011",
+    "publication_date": "2011-03-01",
+    "cited_by_count": 529,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT) is a tightly regulated process that is critical for embryogenesis but is abnormally activated during cancer metastasis and recurrence. Here we show that a switch in CD44 alternative splicing is required for EMT. Using both in vitro and in vivo systems, we have demonstrated a shift in CD44 expression from variant isoforms (CD44v) to the standard isoform (CD44s) during EMT. This isoform switch to CD44s was essential for cells to undergo EMT and was required for the formation of breast tumors that display EMT characteristics in mice. Mechanistically, the splicing factor epithelial splicing regulatory protein 1 (ESRP1) controlled the CD44 isoform switch and was critical for regulating the EMT phenotype. Additionally, the CD44s isoform activated Akt signaling, providing a mechanistic link to a key pathway that drives EMT. Finally, CD44s expression was upregulated in high-grade human breast tumors and was correlated with the level of the mesenchymal marker N-cadherin in these tumors. Together, our data suggest that regulation of CD44 alternative splicing causally contributes to EMT and breast cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP1 and ESRP2 are epithelial cell-type-specific regulators of FGFR2 splicing.",
+    "doi": "10.1016/j.molcel.2009.01.025",
+    "pmid": "19285943",
+    "authors": [
+      "Warzecha CC, Sato TK, Nabet B, Hogenesch JB, Carstens RP."
+    ],
+    "year": "2009",
+    "publication_date": "2009-03-01",
+    "cited_by_count": 491,
+    "journal": "",
+    "abstract": "Cell-type-specific expression of epithelial and mesenchymal isoforms of Fibroblast Growth Factor Receptor 2 (FGFR2) is achieved through tight regulation of mutually exclusive exons IIIb and IIIc, respectively. Using an application of cell-based cDNA expression screening, we identified two paralogous epithelial cell-type-specific RNA-binding proteins that are essential regulators of FGFR2 splicing. Ectopic expression of either protein in cells that express FGFR2-IIIc caused a switch in endogenous FGFR2 splicing to the epithelial isoform. Conversely, knockdown of both factors in cells that express FGFR2-IIIb by RNA interference caused a switch from the epithelial to mesenchymal isoform. These factors also regulate splicing of CD44, p120-Catenin (CTNND1), and hMena (ENAH), three transcripts that undergo changes in splicing during the epithelial-to-mesenchymal transition (EMT). These studies suggest that Epithelial Splicing Regulatory Proteins 1 and 2 (ESRP1 and ESRP2) are coordinators of an epithelial cell-type-specific splicing program.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An EMT-driven alternative splicing program occurs in human breast cancer and modulates cellular phenotype.",
+    "doi": "10.1371/journal.pgen.1002218",
+    "pmid": "21876675",
+    "authors": [
+      "Shapiro IM, Cheng AW, Flytzanis NC, Balsamo M, Condeelis JS, Oktay MH, Burge CB, Gertler FB."
+    ],
+    "year": "2011",
+    "publication_date": "2011-08-18",
+    "cited_by_count": 398,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT), a mechanism important for embryonic development, plays a critical role during malignant transformation. While much is known about transcriptional regulation of EMT, alternative splicing of several genes has also been correlated with EMT progression, but the extent of splicing changes and their contributions to the morphological conversion accompanying EMT have not been investigated comprehensively. Using an established cell culture model and RNA-Seq analyses, we determined an alternative splicing signature for EMT. Genes encoding key drivers of EMT-dependent changes in cell phenotype, such as actin cytoskeleton remodeling, regulation of cell-cell junction formation, and regulation of cell migration, were enriched among EMT-associated alternatively splicing events. Our analysis suggested that most EMT-associated alternative splicing events are regulated by one or more members of the RBFOX, MBNL, CELF, hnRNP, or ESRP classes of splicing factors. The EMT alternative splicing signature was confirmed in human breast cancer cell lines, which could be classified into basal and luminal subtypes based exclusively on their EMT-associated splicing pattern. Expression of EMT-associated alternative mRNA transcripts was also observed in primary breast cancer samples, indicating that EMT-dependent splicing changes occur commonly in human tumors. The functional significance of EMT-associated alternative splicing was tested by expression of the epithelial-specific splicing factor ESRP1 or by depletion of RBFOX2 in mesenchymal cells, both of which elicited significant changes in cell morphology and motility towards an epithelial phenotype, suggesting that splicing regulation alone can drive critical aspects of EMT-associated phenotypic changes. The molecular description obtained here may aid in the development of new diagnostic and prognostic markers for analysis of breast cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rearrangements of the RAF kinase pathway in prostate cancer, gastric cancer and melanoma.",
+    "doi": "10.1038/nm.2166",
+    "pmid": "20526349",
+    "authors": [
+      "Palanisamy N, Ateeq B, Kalyana-Sundaram S, Pflueger D, Ramnarayanan K, Shankar S, Han B, Cao Q, Cao X, Suleman K, Kumar-Sinha C, Dhanasekaran SM, Chen YB, Esgueva R, Banerjee S, LaFargue CJ, Siddiqui J, Demichelis F, Moeller P, Bismar TA, Kuefer R, Fullen DR, Johnson TM, Greenson JK, Giordano TJ, Tan P, Tomlins SA, Varambally S, Rubin MA, Maher CA, Chinnaiyan AM."
+    ],
+    "year": "2010",
+    "publication_date": "2010-06-06",
+    "cited_by_count": 376,
+    "journal": "",
+    "abstract": "Although recurrent gene fusions involving erythroblastosis virus E26 transformation-specific (ETS) family transcription factors are common in prostate cancer, their products are considered 'undruggable' by conventional approaches. Recently, rare targetable gene fusions involving the anaplastic lymphoma receptor tyrosine kinase (ALK) gene, have been identified in 1-5% of lung cancers, suggesting that similar rare gene fusions may occur in other common epithelial cancers, including prostate cancer. Here we used paired-end transcriptome sequencing to screen ETS rearrangement-negative prostate cancers for targetable gene fusions and identified the SLC45A3-BRAF (solute carrier family 45, member 3-v-raf murine sarcoma viral oncogene homolog B1) and ESRP1-RAF1 (epithelial splicing regulatory protein-1-v-raf-1 murine leukemia viral oncogene homolog-1) gene fusions. Expression of SLC45A3-BRAF or ESRP1-RAF1 in prostate cells induced a neoplastic phenotype that was sensitive to RAF and mitogen-activated protein kinase kinase (MAP2K1) inhibitors. Screening a large cohort of patients, we found that, although rare, recurrent rearrangements in the RAF pathway tend to occur in advanced prostate cancers, gastric cancers and melanoma. Taken together, our results emphasize the key role of RAF family gene rearrangements in cancer, suggest that RAF and MEK inhibitors may be useful in a subset of gene fusion-harboring solid tumors and demonstrate that sequencing of tumor transcriptomes and genomes may lead to the identification of rare targetable fusions across cancer types.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An ESRP-regulated splicing programme is abrogated during the epithelial-mesenchymal transition.",
+    "doi": "10.1038/emboj.2010.195",
+    "pmid": "20711167",
+    "authors": [
+      "Warzecha CC, Jiang P, Amirikian K, Dittmar KA, Lu H, Shen S, Guo W, Xing Y, Carstens RP."
+    ],
+    "year": "2010",
+    "publication_date": "2010-08-13",
+    "cited_by_count": 323,
+    "journal": "",
+    "abstract": "Alternative splicing achieves coordinated changes in post-transcriptional gene expression programmes through the activities of diverse RNA-binding proteins. Epithelial splicing regulatory proteins 1 and 2 (ESRP1 and ESRP2) are cell-type-specific regulators of transcripts that switch splicing during the epithelial-mesenchymal transition (EMT). To define a comprehensive programme of alternative splicing that is regulated during the EMT, we identified an extensive ESRP-regulated splicing network of hundreds of alternative splicing events within numerous genes with functions in cell-cell adhesion, polarity, and migration. Loss of this global ESRP-regulated epithelial splicing programme induces the phenotypic changes in cell morphology that are observed during the EMT. Components of this splicing signature provide novel molecular markers that can be used to characterize the EMT. Bioinformatics and experimental approaches revealed a high-affinity ESRP-binding motif and a predictive RNA map that governs their activity. This work establishes the ESRPs as coordinators of a complex alternative splicing network that adds an important post-transcriptional layer to the changes in gene expression that underlie epithelial-mesenchymal transitions during development and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing of CD44 mRNA by ESRP1 enhances lung colonization of metastatic cancer cell.",
+    "doi": "10.1038/ncomms1892",
+    "pmid": "22673910",
+    "authors": [
+      "Yae T, Tsuchihashi K, Ishimoto T, Motohara T, Yoshikawa M, Yoshida GJ, Wada T, Masuko T, Mogushi K, Tanaka H, Osawa T, Kanki Y, Minami T, Aburatani H, Ohmura M, Kubo A, Suematsu M, Takahashi K, Saya H, Nagano O."
+    ],
+    "year": "2012",
+    "publication_date": "2012-06-06",
+    "cited_by_count": 319,
+    "journal": "",
+    "abstract": "In cancer metastasis, various environmental stressors attack the disseminating cells. The successful colonization of cancer cells in secondary sites therefore requires the ability of the cells to avoid the consequences of such exposure to the stressors. Here we show that orthotopic transplantation of a CD44 variant isoform-expressing (CD44v(+)) subpopulation of 4T1 breast cancer cells, but not that of a CD44v(-) subpopulation, in mice results in efficient lung metastasis accompanied by expansion of stem-like cancer cells. Such metastasis is dependent on the activity of the cystine transporter xCT, and the stability of this protein is controlled by CD44v. We find that epithelial splicing regulatory protein 1 regulates the expression of CD44v, and knockdown of epithelial splicing regulatory protein 1 in CD44v(+) cells results in an isoform switch from CD44v to CD44 standard (CD44s), leading to reduced cell surface expression of xCT and suppression of lung colonization. The epithelial splicing regulatory protein 1-CD44v-xCT axis is thus a potential therapeutic target for the prevention of metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MATS: a Bayesian framework for flexible detection of differential alternative splicing from RNA-Seq data.",
+    "doi": "10.1093/nar/gkr1291",
+    "pmid": "22266656",
+    "authors": [
+      "Shen S, Park JW, Huang J, Dittmar KA, Lu ZX, Zhou Q, Carstens RP, Xing Y."
+    ],
+    "year": "2012",
+    "publication_date": "2012-01-20",
+    "cited_by_count": 302,
+    "journal": "",
+    "abstract": "Ultra-deep RNA sequencing has become a powerful approach for genome-wide analysis of pre-mRNA alternative splicing. We develop MATS (multivariate analysis of transcript splicing), a bayesian statistical framework for flexible hypothesis testing of differential alternative splicing patterns on RNA-Seq data. MATS uses a multivariate uniform prior to model the between-sample correlation in exon splicing patterns, and a Markov chain Monte Carlo (MCMC) method coupled with a simulation-based adaptive sampling procedure to calculate the P-value and false discovery rate (FDR) of differential alternative splicing. Importantly, the MATS approach is applicable to almost any type of null hypotheses of interest, providing the flexibility to identify differential alternative splicing events that match a given user-defined pattern. We evaluated the performance of MATS using simulated and real RNA-Seq data sets. In the RNA-Seq analysis of alternative splicing events regulated by the epithelial-specific splicing factor ESRP1, we obtained a high RT-PCR validation rate of 86% for differential exon skipping events with a MATS FDR of <10%. Additionally, over the full list of RT-PCR tested exons, the MATS FDR estimates matched well with the experimental validation rate. Our results demonstrate that MATS is an effective and flexible approach for detecting differential alternative splicing from RNA-Seq data.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ZEB1 drives epithelial-to-mesenchymal transition in lung cancer.",
+    "doi": "10.1172/jci76725",
+    "pmid": "27500490",
+    "authors": [
+      "Larsen JE, Nathan V, Osborne JK, Farrow RK, Deb D, Sullivan JP, Dospoy PD, Augustyn A, Hight SK, Sato M, Girard L, Behrens C, Wistuba II, Gazdar AF, Hayward NK, Minna JD."
+    ],
+    "year": "2016",
+    "publication_date": "2016-08-08",
+    "cited_by_count": 276,
+    "journal": "",
+    "abstract": "Increased expression of zinc finger E-box binding homeobox 1 (ZEB1) is associated with tumor grade and metastasis in lung cancer, likely due to its role as a transcription factor in epithelial-to-mesenchymal transition (EMT). Here, we modeled malignant transformation in human bronchial epithelial cells (HBECs) and determined that EMT and ZEB1 expression are early, critical events in lung cancer pathogenesis. Specific oncogenic mutations in TP53 and KRAS were required for HBECs to engage EMT machinery in response to microenvironmental (serum/TGF-β) or oncogenetic (MYC) factors. Both TGF-β- and MYC-induced EMT required ZEB1, but engaged distinct TGF-β-dependent and vitamin D receptor-dependent (VDR-dependent) pathways, respectively. Functionally, we found that ZEB1 causally promotes malignant progression of HBECs and tumorigenicity, invasion, and metastases in non-small cell lung cancer (NSCLC) lines. Mechanistically, ZEB1 expression in HBECs directly repressed epithelial splicing regulatory protein 1 (ESRP1), leading to increased expression of a mesenchymal splice variant of CD44 and a more invasive phenotype. In addition, ZEB1 expression in early stage IB primary NSCLC correlated with tumor-node-metastasis stage. These findings indicate that ZEB1-induced EMT and associated molecular changes in ESRP1 and CD44 contribute to early pathogenesis and metastatic potential in established lung cancer. Moreover, TGF-β and VDR signaling and CD44 splicing pathways associated with ZEB1 are potential EMT chemoprevention and therapeutic targets in NSCLC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular Evolution of Early-Onset Prostate Cancer Identifies Molecular Risk Markers and Clinical Trajectories.",
+    "doi": "10.1016/j.ccell.2018.10.016",
+    "pmid": "30537516",
+    "authors": [
+      "Gerhauser C, Favero F, Risch T, Simon R, Feuerbach L, Assenov Y, Heckmann D, Sidiropoulos N, Waszak SM, Hübschmann D, Urbanucci A, Girma EG, Kuryshev V, Klimczak LJ, Saini N, Stütz AM, Weichenhan D, Böttcher LM, Toth R, Hendriksen JD, Koop C, Lutsik P, Matzk S, Warnatz HJ, Amstislavskiy V, Feuerstein C, Raeder B, Bogatyrova O, Schmitz EM, Hube-Magg C, Kluth M, Huland H, Graefen M, Lawerenz C, Henry GH, Yamaguchi TN, Malewska A, Meiners J, Schilling D, Reisinger E, Eils R, Schlesner M, Strand DW, Bristow RG, Boutros PC, von Kalle C, Gordenin D, Sültmann H, Brors B, Sauter G, Plass C, Yaspo ML, Korbel JO, Schlomm T, Weischenfeldt J."
+    ],
+    "year": "2018",
+    "publication_date": "2018-12-01",
+    "cited_by_count": 269,
+    "journal": "",
+    "abstract": "Identifying the earliest somatic changes in prostate cancer can give important insights into tumor evolution and aids in stratifying high- from low-risk disease. We integrated whole genome, transcriptome and methylome analysis of early-onset prostate cancers (diagnosis ≤55 years). Characterization across 292 prostate cancer genomes revealed age-related genomic alterations and a clock-like enzymatic-driven mutational process contributing to the earliest mutations in prostate cancer patients. Our integrative analysis identified four molecular subgroups, including a particularly aggressive subgroup with recurrent duplications associated with increased expression of ESRP1, which we validate in 12,000 tissue microarray tumors. Finally, we combined the patterns of molecular co-occurrence and risk-based subgroup information to deconvolve the molecular and clinical trajectories of prostate cancer from single patient samples.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The circular RNA circBIRC6 participates in the molecular circuitry controlling human pluripotency.",
+    "doi": "10.1038/s41467-017-01216-w",
+    "pmid": "29074849",
+    "authors": [
+      "Yu CY, Li TC, Wu YY, Yeh CH, Chiang W, Chuang CY, Kuo HC."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-27",
+    "cited_by_count": 268,
+    "journal": "",
+    "abstract": "Accumulating evidence indicates that circular RNAs (circRNAs) are abundant in the human transcriptome. However, their involvement in biological processes, including pluripotency, remains mostly undescribed. We identified a subset of circRNAs that are enriched in undifferentiated human embryonic stem cells (hESCs) and demonstrated that two, circBIRC6 and circCORO1C, are functionally associated with the pluripotent state. Mechanistically, we found that circBIRC6 is enriched in the AGO2 complex and directly interacts with microRNAs, miR-34a, and miR-145, which are known to modulate target genes that maintain pluripotency. Correspondingly, circBIRC6 attenuates the downregulation of these target genes and suppresses hESC differentiation. We further identified hESC-enriched splicing factors (SFs) and demonstrated that circBIRC6 biogenesis in hESCs is promoted by the SF ESRP1, whose expression is controlled by the core pluripotency-associated factors, OCT4 and NANOG. Collectively, our data suggest that circRNA serves as a microRNA \"sponge\" to regulate the molecular circuitry, which modulates human pluripotency and differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The pro-metastasis effect of circANKS1B in breast cancer.",
+    "doi": "10.1186/s12943-018-0914-x",
+    "pmid": "30454010",
+    "authors": [
+      "Zeng K, He B, Yang BB, Xu T, Chen X, Xu M, Liu X, Sun H, Pan Y, Wang S."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-19",
+    "cited_by_count": 247,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Recent studies indicate that circular RNA (circRNA) plays a pivotal role in cancer progression. Here, we sought to investigate its role in breast cancer.<h4>Methods</h4>CircANKS1B (a circRNA originated from exons 5 to 8 of the ANKS1B gene, hsa_circ_0007294) was identified by RNA-sequencing and validated by qRT-PCR and Sanger sequencing. Clinical breast cancer samples were used to evaluate the expression of circANKS1B and its associations with clinicopathological features and prognosis. Gain- and loss-of-function experiments in cell lines and mouse xenograft models were performed to support clinical findings and elucidate the function and underlying mechanisms of circANKS1B in breast cancer.<h4>Results</h4>CircANKS1B was significantly up-regulated in triple-negative breast cancer (TNBC) compared with non-TNBC tissues and cell lines. Increased circANKS1B expression was closely associated with lymph node metastasis and advanced clinical stage and served as an independent risk factor for overall survival of breast cancer patients. Functional studies revealed that circANKS1B promoted breast cancer invasion and metastasis both in vitro and in vivo by inducing epithelial-to-mesenchymal transition (EMT), while had no effect on breast cancer growth. Mechanistically, circANKS1B abundantly sponged miR-148a-3p and miR-152-3p to increase the expression of transcription factor USF1, which could transcriptionally up-regulate TGF-β1 expression, resulting in activating TGF-β1/Smad signaling to promote EMT. Moreover, we found that circANKS1B biogenesis in breast cancer was promoted by splicing factor ESRP1, whose expression was also regulated by USF1.<h4>Conclusions</h4>Our data uncover an essential role of the novel circular RNA circANKS1B in the metastasis of breast cancer, which demonstrate that therapeutic targeting of circANKS1B may better prevent breast cancer metastasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcription factors OVOL1 and OVOL2 induce the mesenchymal to epithelial transition in human cancer.",
+    "doi": "10.1371/journal.pone.0076773",
+    "pmid": "24124593",
+    "authors": [
+      "Roca H, Hernandez J, Weidner S, McEachin RC, Fuller D, Sud S, Schumann T, Wilkinson JE, Zaslavsky A, Li H, Maher CA, Daignault-Newton S, Healy PN, Pienta KJ."
+    ],
+    "year": "2013",
+    "publication_date": "2013-10-04",
+    "cited_by_count": 211,
+    "journal": "",
+    "abstract": "Cell plasticity regulated by the balance between the mesenchymal to epithelial transition (MET) and the opposite program, EMT, is critical in the metastatic cascade. Several transcription factors (TFs) are known to regulate EMT, though the mechanisms of MET remain unclear. We demonstrate a novel function of two TFs, OVOL1 and OVOL2, as critical inducers of MET in human cancers. Our findings indicate that the OVOL-TFs control MET through a regulatory feedback loop with EMT-inducing TF ZEB1, and the regulation of mRNA splicing by inducing Epithelial Splicing Regulatory Protein 1 (ESRP1). Using mouse prostate tumor models we show that expression of OVOL-TFs in mesenchymal prostate cancer cells attenuates their metastatic potential. The role of OVOL-TFs as inducers of MET is further supported by expression analyses in 917 cancer cell lines, suggesting their role as crucial regulators of epithelial-mesenchymal cell plasticity in cancer.",
+    "openalex_id": ""
+  }
+]

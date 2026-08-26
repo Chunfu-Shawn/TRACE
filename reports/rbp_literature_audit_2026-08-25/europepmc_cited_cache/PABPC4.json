@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Identification and Characterization of Potential Biomarkers by Quantitative Tissue Proteomics of Primary Lung Adenocarcinoma.",
+    "doi": "10.1074/mcp.m115.057026",
+    "pmid": "27161446",
+    "authors": [
+      "Hsu CH, Hsu CW, Hsueh C, Wang CL, Wu YC, Wu CC, Liu CC, Yu JS, Chang YS, Yu CJ."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-09",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "Lung cancer is the leading cause of cancer-related death worldwide. Both diagnostic and prognostic biomarkers are urgently needed to increase patient survival. In this study, we identified/quantified 1763 proteins from paired adenocarcinoma (ADC) tissues with different extents of lymph node (LN) involvement using an iTRAQ-based quantitative proteomic analysis. Based on a bioinformatics analysis and literature search, we selected six candidates (ERO1L, PABPC4, RCC1, RPS25, NARS, and TARS) from a set of 133 proteins that presented a 1.5-fold increase in expression in ADC tumors without LN metastasis compared with adjacent normal tissues. These six proteins were further verified using immunohistochemical staining and Western blot analyses. The protein levels of these six candidates were higher in tumor tissues compared with adjacent normal tissues. The ERO1L and NARS levels were positively associated with LN metastasis. Importantly, ERO1L overexpression in patients with early-stage ADC was positively correlated with poor survival, suggesting that ERO1L overexpression in primary sites of early-stage cancer tissues indicates a high risk for cancer micrometastasis. Moreover, we found that knockdown of either ERO1L or NARS reduced the viability and migration ability of ADC cells. Our results collectively provide a potential biomarker data set for ADC diagnosis/prognosis and reveal novel roles of ERO1L and NARS in ADC progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MKRN3-mediated ubiquitination of Poly(A)-binding proteins modulates the stability and translation of GNRH1 mRNA in mammalian puberty.",
+    "doi": "10.1093/nar/gkab155",
+    "pmid": "33744966",
+    "authors": [
+      "Li C, Han T, Li Q, Zhang M, Guo R, Yang Y, Lu W, Li Z, Peng C, Wu P, Tian X, Wang Q, Wang Y, Zhou V, Han Z, Li H, Wang F, Hu R."
+    ],
+    "year": "2021",
+    "publication_date": "2021-04-01",
+    "cited_by_count": 69,
+    "journal": "",
+    "abstract": "The family of Poly(A)-binding proteins (PABPs) regulates the stability and translation of messenger RNAs (mRNAs). Here we reported that the three members of PABPs, including PABPC1, PABPC3 and PABPC4, were identified as novel substrates for MKRN3, whose deletion or loss-of-function mutations were genetically associated with human central precocious puberty (CPP). MKRN3-mediated ubiquitination was found to attenuate the binding of PABPs to the poly(A) tails of mRNA, which led to shortened poly(A) tail-length of GNRH1 mRNA and compromised the formation of translation initiation complex (TIC). Recently, we have shown that MKRN3 epigenetically regulates the transcription of GNRH1 through conjugating poly-Ub chains onto methyl-DNA bind protein 3 (MBD3). Therefore, MKRN3-mediated ubiquitin signalling could control both transcriptional and post-transcriptional switches of mammalian puberty initiation. While identifying MKRN3 as a novel tissue-specific translational regulator, our work also provided new mechanistic insights into the etiology of MKRN3 dysfunction-associated human CPP.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-192-5p Silencing by Genetic Aberrations Is a Key Event in Hepatocellular Carcinomas with Cancer Stem Cell Features.",
+    "doi": "10.1158/0008-5472.can-18-1675",
+    "pmid": "30530815",
+    "authors": [
+      "Gu Y, Wei X, Sun Y, Gao H, Zheng X, Wong LL, Jin L, Liu N, Hernandez B, Peplowska K, Zhao X, Zhan QM, Feng XH, Tang ZY, Ji J."
+    ],
+    "year": "2019",
+    "publication_date": "2018-12-07",
+    "cited_by_count": 69,
+    "journal": "",
+    "abstract": "Various cancer stem cell (CSC) biomarkers have been identified for hepatocellular carcinoma (HCC), but little is known about the implications of heterogeneity and shared molecular networks within the CSC population. Through miRNA profile analysis in an HCC cohort (<i>n</i> = 241) for five groups of CSC<sup>+</sup> HCC tissues, i.e., EpCAM<sup>+</sup>, CD90<sup>+</sup>, CD133<sup>+</sup>, CD44<sup>+</sup>, and CD24<sup>+</sup> HCC, we identified a 14-miRNA signature commonly altered among these five groups of CSC<sup>+</sup> HCC. miR-192-5p, the top-ranked CSC miRNA, was liver-abundant and -specific and markedly downregulated in all five groups of CSC<sup>+</sup> HCC from two independent cohorts (<i>n</i> = 613). Suppressing miR-192-5p in HCC cells significantly increased multiple CSC populations and CSC-related features through targeting PABPC4. Both <i>TP53</i> mutation and hypermethylation of the mir-192 promoter impeded transcriptional activation of miR-192-5p in HCC cell lines and primary CSC<sup>+</sup> HCC. This study reveals the circuit from hypermethylation of the mir-192 promoter through the increase in PABPC4 as a shared genetic regulatory pathway in various groups of primary CSC<sup>+</sup> HCC. This circuit may be the driver that steers liver cells toward hepatic CSC cells, leading to hepatic carcinogenesis. SIGNIFICANCE: miR-192-5p and its regulatory pathway is significantly abolished in multiple groups of HCC expressing high levels of CSC markers, which may represent a key event for hepatic carcinogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cytoplasmic poly(A) binding protein C4 serves a critical role in erythroid differentiation.",
+    "doi": "10.1128/mcb.01683-13",
+    "pmid": "24469397",
+    "authors": [
+      "Kini HK, Kong J, Liebhaber SA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-27",
+    "cited_by_count": 49,
+    "journal": "",
+    "abstract": "The expression of an mRNA is strongly impacted by its 3' poly(A) tail and associated poly(A)-binding proteins (PABPs). Vertebrates encode six PABP isoforms that vary in abundance, distribution, developmental control, and subcellular localization. Here we demonstrate that the minor PABP isoform PABPC4 is expressed in erythroid cells and impacts the steady-state expression of a subset of erythroid mRNAs. Motif analyses reveal a high-value AU-rich motif in the 3' untranslated regions (UTRs) of PABPC4-impacted mRNAs. This motif enhances the association of PABPC4 with mRNAs containing critically shortened poly(A) tails. This association may serve to protect a subset of mRNAs from accelerated decay. Finally, we demonstrate that selective depletion of PABPC4 in an erythroblast cell line inhibits terminal erythroid maturation with corresponding alterations in the erythroid gene expression. These observations lead us to conclude that PABPC4 plays an essential role in posttranscriptional control of a major developmental pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPC4 Broadly Inhibits Coronavirus Replication by Degrading Nucleocapsid Protein through Selective Autophagy.",
+    "doi": "10.1128/spectrum.00908-21",
+    "pmid": "34612687",
+    "authors": [
+      "Jiao Y, Kong N, Wang H, Sun D, Dong S, Chen X, Zheng H, Tong W, Yu H, Yu L, Huang Y, Wang H, Sui B, Zhao L, Liao Y, Zhang W, Tong G, Shan T."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-06",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Emerging coronaviruses (CoVs) can cause severe diseases in humans and animals, and, as of yet, none of the currently available broad-spectrum drugs or vaccines can effectively control these diseases. Host antiviral proteins play an important role in inhibiting viral proliferation. One of the isoforms of cytoplasmic poly(A)-binding protein (PABP), PABPC4, is an RNA-processing protein, which plays an important role in promoting gene expression by enhancing translation and mRNA stability. However, its function in viruses remains poorly understood. Here, we report that the host protein, PABPC4, could be regulated by transcription factor SP1 and broadly inhibits the replication of CoVs, covering four genera (<i>Alphacoronavirus</i>, <i>Betacoronavirus</i>, <i>Gammacoronavirus</i>, and <i>Deltacoronavirus</i>) of the <i>Coronaviridae</i> family by targeting the nucleocapsid (N) protein through the autophagosomes for degradation. PABPC4 recruited the E3 ubiquitin ligase MARCH8/MARCHF8 to the N protein for ubiquitination. Ubiquitinated N protein was recognized by the cargo receptor NDP52/CALCOCO2, which delivered it to the autolysosomes for degradation, resulting in impaired viral proliferation. In addition to regulating gene expression, these data demonstrate a novel antiviral function of PABPC4, which broadly suppresses CoVs by degrading the N protein via the selective autophagy pathway. This study will shed light on the development of broad anticoronaviral therapies. <b>IMPORTANCE</b> Emerging coronaviruses (CoVs) can cause severe diseases in humans and animals, but none of the currently available drugs or vaccines can effectively control these diseases. During viral infection, the host will activate the interferon (IFN) signaling pathways and host restriction factors in maintaining the innate antiviral responses and suppressing viral replication. This study demonstrated that the host protein, PABPC4, interacts with the nucleocapsid (N) proteins from eight CoVs covering four genera (<i>Alphacoronavirus</i>, <i>Betacoronavirus</i>, <i>Gammacoronavirus</i>, and <i>Deltacoronavirus</i>) of the <i>Coronaviridae</i> family. PABPC4 could be regulated by SP1 and broadly inhibits the replication of CoVs by targeting the nucleocapsid (N) protein through the autophagosomes for degradation. This study significantly increases our understanding of the novel host restriction factor PABPC4 against CoV replication and will help develop novel antiviral strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LINC00493-encoded microprotein SMIM26 exerts anti-metastatic activity in renal cell carcinoma.",
+    "doi": "10.15252/embr.202256282",
+    "pmid": "37009826",
+    "authors": [
+      "Meng K, Lu S, Li YY, Hu LL, Zhang J, Cao Y, Wang Y, Zhang CZ, He QY."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-03",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "Human microproteins encoded by long non-coding RNAs (lncRNA) have been increasingly discovered, however, complete functional characterization of these emerging proteins is scattered. Here, we show that LINC00493-encoded SMIM26, an understudied microprotein localized in mitochondria, is tendentiously downregulated in clear cell renal cell carcinoma (ccRCC) and correlated with poor overall survival. LINC00493 is recognized by RNA-binding protein PABPC4 and transferred to ribosomes for translation of a 95-amino-acid protein SMIM26. SMIM26, but not LINC00493, suppresses ccRCC growth and metastatic lung colonization by interacting with acylglycerol kinase (AGK) and glutathione transport regulator SLC25A11 via its N-terminus. This interaction increases the mitochondrial localization of AGK and subsequently inhibits AGK-mediated AKT phosphorylation. Moreover, the formation of the SMIM26-AGK-SCL25A11 complex maintains mitochondrial glutathione import and respiratory efficiency, which is abrogated by AGK overexpression or SLC25A11 knockdown. This study functionally characterizes the LINC00493-encoded microprotein SMIM26 and establishes its anti-metastatic role in ccRCC, and therefore illuminates the importance of hidden proteins in human cancers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Elucidation of TRIM25 ubiquitination targets involved in diverse cellular and antiviral processes.",
+    "doi": "10.1371/journal.ppat.1010743",
+    "pmid": "36067236",
+    "authors": [
+      "Yang E, Huang S, Jami-Alahmadi Y, McInerney GM, Wohlschlegel JA, Li MMH."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-06",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "The tripartite motif (TRIM) family of E3 ubiquitin ligases is well known for its roles in antiviral restriction and innate immunity regulation, in addition to many other cellular pathways. In particular, TRIM25-mediated ubiquitination affects both carcinogenesis and antiviral response. While individual substrates have been identified for TRIM25, it remains unclear how it regulates diverse processes. Here we characterized a mutation, R54P, critical for TRIM25 catalytic activity, which we successfully utilized to \"trap\" substrates. We demonstrated that TRIM25 targets proteins implicated in stress granule formation (G3BP1/2), nonsense-mediated mRNA decay (UPF1), nucleoside synthesis (NME1), and mRNA translation and stability (PABPC4). The R54P mutation abolishes TRIM25 inhibition of alphaviruses independently of the host interferon response, suggesting that this antiviral effect is a direct consequence of ubiquitination. Consistent with that, we observed diminished antiviral activity upon knockdown of several TRIM25-R54P specific interactors including NME1 and PABPC4. Our findings highlight that multiple substrates mediate the cellular and antiviral activities of TRIM25, illustrating the multi-faceted role of this ubiquitination network in modulating diverse biological processes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translational regulation in the brain by TDP-43 phase separation.",
+    "doi": "10.1083/jcb.202101019",
+    "pmid": "34427634",
+    "authors": [
+      "Gao J, Wang L, Ren X, Dunn JR, Peters A, Miyagi M, Fujioka H, Zhao F, Askwith C, Liang J, Wang X."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-24",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "The in vivo physiological function of liquid-liquid phase separation (LLPS) that governs non-membrane-bound structures remains elusive. Among LLPS-prone proteins, TAR DNA-binding protein of 43 kD (TDP-43) is under intense investigation because of its close association with neurological disorders. Here, we generated mice expressing endogenous LLPS-deficient murine TDP-43. LLPS-deficient TDP-43 mice demonstrate impaired neuronal function and behavioral abnormalities specifically related to brain function. Brain neurons of these mice, however, did not show TDP-43 proteinopathy or neurodegeneration. Instead, the global rate of protein synthesis was found to be greatly enhanced by TDP-43 LLPS loss. Mechanistically, TDP-43 LLPS ablation increased its association with PABPC4, RPS6, RPL7, and other translational factors. The physical interactions between TDP-43 and translational factors relies on a motif, the deletion of which abolished the impact of LLPS-deficient TDP-43 on translation. Our findings show a specific physiological role for TDP-43 LLPS in the regulation of brain function and uncover an intriguing novel molecular mechanism of translational control by LLPS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel long non-coding RNA RP11-286H15.1 represses hepatocellular carcinoma progression by promoting ubiquitination of PABPC4.",
+    "doi": "10.1016/j.canlet.2020.11.038",
+    "pmid": "33259899",
+    "authors": [
+      "Jiang X, Wang G, Liu Y, Mei C, Yao Y, Wu X, Chen X, Ma W, Li K, Zhang Z, Yuan Y."
+    ],
+    "year": "2021",
+    "publication_date": "2020-11-28",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is a malignancy found at high frequency around the world. Unfortunately, the scarcity of effective early diagnostic methods invariably results in poor outcomes. Long noncoding RNAs (lncRNAs) are known to regulate the progression of hepatocellular carcinoma (HCC). A novel lncRNA RP11-286H15.1(OTTHUMG00000186042) has been identified and associated with HCC; however, the potential role of RP11-286H15.1 in HCC remains undefined. The transcript abundance of RP11-286H15.1 in 80 pairs of HCC samples and cell lines was evaluated by qRT-PCR analysis. The functional role of RP11-286H15.1 in HCC was tested in vivo and in vitro. The mechanisms underlying the role of RP11-286H15.1 in HCC were explored by RNA pulldown, transcriptome sequencing, and RNA immunoprecipitation (RIP), ubiquitination and fluorescence in situ hybridization (FISH) assays as well as Western blot analysis. The qRT-PCR and FISH assays revealed that RP11-286H15.1 was significantly decreased in HCC, and implied a shorter survival time. RP11-286H15.1 overexpression inhibited HCC cell proliferation and metastasis in vitro and in vivo, whereas RP11-286H15.1 knockdown produced the opposite results. Furthermore, we confirmed that RP11-286H15.1 (620-750 nucleotides) binds to poly(A) binding protein 4 (PABPC4) and promotes its ubiquitination, thus, reducing the stability of TRIM37 and CDC27 mRNAs. Our study demonstrates that a novel lncRNA, RP11-286H15.1, represses HCC progression by promoting PABPC4 ubiquitination. These findings highlight potential therapeutic targets for HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cytoplasmic poly(A) binding proteins regulate telomerase activity and cell growth in human papillomavirus type 16 E6-expressing keratinocytes.",
+    "doi": "10.1128/jvi.01377-10",
+    "pmid": "20943973",
+    "authors": [
+      "Katzenellenbogen RA, Vliet-Gregg P, Xu M, Galloway DA."
+    ],
+    "year": "2010",
+    "publication_date": "2010-10-13",
+    "cited_by_count": 34,
+    "journal": "",
+    "abstract": "The high-risk human papillomavirus (HPV) E6 and E7 oncoproteins are critical to the immortalization of keratinocytes. HPV type 16 (HPV16) E6 interacts with endogenous proteins to activate hTERT, the catalytic subunit of telomerase, thus avoiding cellular senescence signals. NFX1-123, the longer splice variant of NFX1, interacts with HPV16 E6, as well as cytoplasmic poly(A) binding proteins 1 and 4 (PABPC1 and PABPC4). HPV16 E6 affects hTERT expression posttranscriptionally through NFX1-123, as NFX1-123 interacts with hTERT mRNA and stabilizes it, leading to greater telomerase activity. The PAM2 motif of NFX1-123, with which it binds PABPCs, is required for the posttranscriptional regulation of hTERT by HPV16 E6 and NFX1-123. There is increasing evidence that RNA and DNA viruses utilize RNA-processing proteins, and specifically PABPCs, in the normal virus life cycle, and there is also evidence that RNA-processing proteins are perturbed in cancers. Here, we show that PABPCs are critical in hTERT regulation by HPV16 E6. Although the amount and cellular localization of PABPCs were largely unchanged in cervical cancer cell lines with or without HPV16 and in human foreskin keratinocytes (HFKs) with or without HPV16 E6, knockdown of PABPCs decreased hTERT mRNA and telomerase activity and overexpression of PABPC4 increased these in HPV16 E6-expressing HFKs. In contrast, knockdown of PABPCs in C33A cells had no effect on hTERT mRNA or telomerase activity. Additionally, overexpression of PABPC4 and hTERT led to greater growth of cultured HPV16 E6-expressing HFKs. This is the first evidence that PABPCs have a targeted role in hTERT regulation leading to a growth advantage in cells expressing HPV16 E6.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Linking spermatid ribonucleic acid (RNA) binding protein and retrogene diversity to reproductive success.",
+    "doi": "10.1074/mcp.m113.030585",
+    "pmid": "23938467",
+    "authors": [
+      "Chapman KM, Powell HM, Chaudhary J, Shelton JM, Richardson JA, Richardson TE, Hamra FK."
+    ],
+    "year": "2013",
+    "publication_date": "2013-08-12",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Spermiogenesis is a postmeiotic process that drives development of round spermatids into fully elongated spermatozoa. Spermatid elongation is largely controlled post-transcriptionally after global silencing of mRNA synthesis from the haploid genome. Here, rats that differentially express EGFP from a lentiviral transgene during early and late steps of spermiogenesis were used to flow sort fractions of round and elongating spermatids. Mass-spectral analysis of 2D gel protein spots enriched >3-fold in each fraction revealed a heterogeneous RNA binding proteome (hnRNPA2/b1, hnRNPA3, hnRPDL, hnRNPK, hnRNPL, hnRNPM, PABPC1, PABPC4, PCBP1, PCBP3, PTBP2, PSIP1, RGSL1, RUVBL2, SARNP2, TDRD6, TDRD7) abundantly expressed in round spermatids prior to their elongation. Notably, each protein within this ontology cluster regulates alternative splicing, sub-cellular transport, degradation and/or translational repression of mRNAs. In contrast, elongating spermatid fractions were enriched with glycolytic enzymes, redox enzymes and protein synthesis factors. Retrogene-encoded proteins were over-represented among the most abundant elongating spermatid factors identified. Consistent with these biochemical activities, plus corresponding histological profiles, the identified RNA processing factors are predicted to collectively drive post-transcriptional expression of an alternative exome that fuels finishing steps of sperm maturation and fitness.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>circFAM134B</i> is a key factor regulating reticulophagy-mediated ferroptosis in hepatocellular carcinoma.",
+    "doi": "10.1080/15384101.2023.2249302",
+    "pmid": "37603831",
+    "authors": [
+      "Bi T, Lu Q, Pan X, Dong F, Hu Y, Xu Z, Xiu P, Liu Z, Li J."
+    ],
+    "year": "2023",
+    "publication_date": "2023-08-21",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Ferroptosis is an important mode of regulated cell death (RCD). Its inhibition is closely related to therapeutic resistance and poor prognosis in hepatocellular carcinoma (HCC). Previous reports have demonstrated ferroptosis as a biological process highly dependent on selective autophagy, such as ferritinophagy, lipophagy, and clockophagy. Our study also revealed a role for ER-phagy-mediated ferroptosis in HCC cells treated with multi-targeted tyrosine kinase inhibitors (TKIs). In the current study, we found that the homologous circular RNA (circRNA) of the family with sequence similarity 134, member B (<i>FAM134B</i>), hsa_circ_0128505 (was abbreviated as <i>circFAM134B</i> in the present study), was identified to specifically target ER-phagy to promote lenvatinib (LV)-induced ferroptosis using reactive oxygen species (ROS), Fe<sup>2+</sup>, malondialdehyde (MDA), and western blot (WB) assays in HCC cells. RNA pull-down and mass spectrometry analyses suggested that <i>circFAM134B</i> and <i>FAM134B</i> mRNA were enriched with several common interacting proteins. Among them, poly (A) binding protein cytoplasmic 4 (PABPC4) was identified as the most enriched binding partner. It was proven to be a novel antagonist against the nonsense-mediated mRNA decay (NMD) mechanism. We then applied RNA immunoprecipitation (RIP), RNA pull-down, luciferase reporter, and NMD reporter gene assays to further explore the exact role and underlying mechanism of <i>circFAM134B-</i>PABPC4-FAM134B axis in HCC cells. <i>circFAM134B</i> was confirmed as a sponge that competitively interacted with PABPC4, thereby influencing <i>FAM134B</i> mRNA nonsense decay. Our results provide novel evidences and strategies for the comprehensive treatment of HCC.",
+    "openalex_id": ""
+  }
+]

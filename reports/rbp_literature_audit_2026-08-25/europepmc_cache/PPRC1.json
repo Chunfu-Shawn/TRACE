@@ -1,0 +1,128 @@
+[
+  {
+    "title": "PPRC1 is a prognostic biomarker and key regulator of mitochondrial oxidative phosphorylation in multiple myeloma.",
+    "doi": "10.1080/07853890.2026.2639658",
+    "pmid": "41814677",
+    "authors": [
+      "Liu Y, Yan S, Shu X, Xu Q, Zhang M, Wang Y, Wang D, Guo T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Multiple myeloma (MM) remains an incurable haematological malignancy, underscoring the need for novel prognostic biomarkers and therapeutic targets. This study aimed to investigate the clinical and biological significance of peroxisome proliferator-activated receptor gamma coactivator-related protein 1 (PPRC1) in MM.<h4>Methods</h4>Expression and clinical data were obtained from public databases and an independent local cohort. Kaplan-Meier and Cox regression analyses were performed to evaluate prognostic value. Differential expression analysis, pathway enrichment analysis and single-cell RNA-seq data analysis were used to explore biological functions. PPRC1 was silenced in MM cell lines using siRNA to assess its effects on cell survival and oxidative phosphorylation.<h4>Results</h4>PPRC1 was significantly upregulated in MM and was associated with advanced disease stage and poor overall survival. Multivariate Cox analysis identified PPRC1 as an independent prognostic factor. A nomogram incorporating PPRC1 and revised-ISS improved survival prediction. Functional analyses revealed that PPRC1 was positively correlated with oxidative phosphorylation and oncogenic signalling pathways. A potential connection between PPRC1 expression and immune cell infiltration was observed. PPRC1 knockdown inhibited cell proliferation, induced cell cycle arrest and apoptosis and impaired oxidative phosphorylation in MM.<h4>Conclusions</h4>PPRC1 acts as a prognostic biomarker and metabolic regulator in MM by sustaining mitochondrial oxidative phosphorylation. These findings highlight PPRC1 as a potential therapeutic target in MM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Eugenol Promotes Apoptosis in Leukemia Cells via Targeting the Mitochondrial Biogenesis PPRC1 Gene.",
+    "doi": "10.3390/cells14040260",
+    "pmid": "39996733",
+    "authors": [
+      "Al-Harbi S, Alkholiwy EMA, Ali Ahmed SO, Aljurf M, Al-Hejailan R, Aboussekhra A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-12",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Acute myeloid leukemia (AML) is a highly heterogenous and aggressive myeloid neoplasm. To sustain growth and survival, AML cells, like other neoplasms, require energy. This process is orchestrated by mitochondria and is under the control of several genes, such as PPRC1 (PRC), a member of the PGC-1 family, which is a key player in the transcription control of mitochondrial biogenesis. We have shown here that eugenol inhibits cell growth and promotes apoptosis through the mitochondrial pathway in AML cell lines as well as in cells from AML patients but not in cells from healthy donors. Similar effects were also observed on cytarabine-resistant AML cells. Interestingly, eugenol downregulated PPRC1 at both the protein and mRNA levels and reduced mitochondrial membrane potential in AML cells. We have also shown that PPRC1 expression is higher in cancer cells from blood, breast, and other types of cancer relative to normal cells, and high PPRC1 levels correlate significantly with short overall survival (OS). In addition, PPRC1 gene mutations significantly correlate with short OS and/or disease-free survival in several cancers. PPRC1 mutations also correlated significantly with poor OS (<i>p</i> < 0.0001) when tested in a total of 23,456 cancer patients. These findings suggest an oncogenic role of PPRC1 in various types of cancer and the possible eugenol-targeting of this gene for the treatment of AML patients, especially those exhibiting resistance to cytarabine.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide identification and functional analysis of dysregulated alternative splicing profiles in sepsis.",
+    "doi": "10.1186/s12950-023-00355-w",
+    "pmid": "37749550",
+    "authors": [
+      "Tuerdimaimaiti D, Abuduaini B, Kang S, Jiao J, Li M, Madeniyati W, Tuerdi B, Aili G, Tuerhong R, Kulaxi A."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-25",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "<h4>Background</h4>An increasing body of evidence now shows that the long-term mortality of patients with sepsis are associated with various sepsis-related immune cell defects. Alternative splicing (AS), as a sepsis-related immune cell defect, is considered as a potential immunomodulatory therapy target to improve patient outcomes. However, our understanding of the role AS plays in sepsis is currently insufficient.<h4>Aim</h4>This study investigated possible associations between AS and the gene regulatory networks affecting immune cells. We also investigated apoptosis and AS functionality in sepsis pathophysiology.<h4>Methods</h4>In this study, we assessed publicly available mRNA-seq data that was obtained from the NCBI GEO dataset (GSE154918), which included a healthy group (HLTY), a mild infection group (INF1), asepsis group (Seps), and a septic shock group (Shock). A total of 79 samples (excluding significant outliers) were identified by a poly-A capture method to generate RNA-seq data. The variable splicing events and highly correlated RNA binding protein (RBP) genes in each group were then systematically analyzed.<h4>Results</h4>For the first time, we used systematic RNA-seq analysis of sepsis-related AS and identified 1505 variable AS events that differed significantly (p <= 0.01) across the four groups. In the sepsis group, the genes related to significant AS events, such as, SHISA5 and IFI27, were mostly enriched in the cell apoptosis pathway. Furthermore, we identified differential splicing patterns within each of the four groups. Significant differences in the expression of RNA Binding Protein(RBP) genes were observed between the control group and the sepsis group. RBP gene expression was highly correlated with variant splicing events in sepsis, as determined by co-expression analysis; The expression of DDX24, CBFA2T2, NOP, ILF3, DNMT1, FTO, PPRC1, NOLC1 RBPs were significant reduced in sepsis compared to the healthy group. Finally, we constructed an RBP-AS functional network.<h4>Conclusion</h4>Analysis indicated that the RBP-AS functional network serves as a critical post-transcriptional mechanism that regulates the development of sepsis. AS dysregulation is associated with alterations in the regulatory gene expression network that is involved in sepsis. Therefore, the RBP-AS expression network could be useful in refining biomarker predictions in the development of new therapeutic targets for the pathogenesis of sepsis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alterations in the molecular control of mitochondrial turnover in COPD lung and airway epithelial cells.",
+    "doi": "10.1038/s41598-024-55335-8",
+    "pmid": "38413800",
+    "authors": [
+      "Tulen CBM, van de Wetering C, Schiffers CHJ, Weltjens E, Benedikter BJ, Leermakers PA, Boukhaled JH, Drittij MJ, Schmeck BT, Reynaert NL, Opperhuizen A, van Schooten FJ, Remels AHV."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-27",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Abnormal mitochondria have been observed in bronchial- and alveolar epithelial cells of patients with chronic obstructive pulmonary disease (COPD). However, it is unknown if alterations in the molecular pathways regulating mitochondrial turnover (mitochondrial biogenesis vs mitophagy) are involved. Therefore, in this study, the abundance of key molecules controlling mitochondrial turnover were assessed in peripheral lung tissue from non-COPD patients (n = 6) and COPD patients (n = 11; GOLDII n = 4/11; GOLDIV n = 7/11) and in both undifferentiated and differentiated human primary bronchial epithelial cells (PBEC) from non-COPD patients and COPD patients (n = 4-7 patients/group). We observed significantly decreased transcript levels of key molecules controlling mitochondrial biogenesis (PPARGC1B, PPRC1, PPARD) in peripheral lung tissue from severe COPD patients. Interestingly, mRNA levels of the transcription factor TFAM (mitochondrial biogenesis) and BNIP3L (mitophagy) were increased in these patients. In general, these alterations were not recapitulated in undifferentiated and differentiated PBECs with the exception of decreased PPARGC1B expression in both PBEC models. Although these findings provide valuable insight in these pathways in bronchial epithelial cells and peripheral lung tissue of COPD patients, whether or not these alterations contribute to COPD pathogenesis, underlie changes in mitochondrial function or may represent compensatory mechanisms remains to be established.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Type V collagen alpha 1 chain promotes the malignancy of glioblastoma through PPRC1-ESM1 axis activation and extracellular matrix remodeling.",
+    "doi": "10.1038/s41420-021-00661-3",
+    "pmid": "34702798",
+    "authors": [
+      "Tsai HF, Chang YC, Li CH, Chan MH, Chen CL, Tsai WC, Hsiao M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-26",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "Glioblastoma (GBM) is a fatal cancer. Existing therapies do not have significant efficacy for GBM patients. Previous studies have shown that the collagen family is involved in the regulation of the extracellular environment of cancer cells, and these conditions could become an important factor for effective treatment. Therefore, we screened various collagen types and observed that the type V collagen α1 chain (COL5A1) gene plays a pivotal role in GBM. We further examined whether the overexpression of COL5A1 is common in mesenchymal subtypes and is related to the survival rate of GBM patients through several in silico cohorts. In addition, our cohort also showed a consistent trend in COL5A1 protein levels. Most importantly, we validated the cell mobility, metastatic ability and actin polymerization status caused by COL5A1 with two-way models. Based on these results, we established a transcriptomics dataset based on COL5A1. Moreover, PPRC1, GK and ESM1 were predicted by ingenuity pathway analysis (IPA) to be transcription factors or to participate downstream. We investigated the involvement of COL5A1 in extracellular remodeling and the regulation of actin filaments in the metastasis of GBM. Our results indicate that the COL5A1-PPRC1-ESM1 axis may represent a novel therapeutic target in GBM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PPRC1, but not PGC-1α, levels directly correlate with expression of mitochondrial proteins in human dermal fibroblasts.",
+    "doi": "10.1590/1678-4685-gmb-2019-0083",
+    "pmid": "32639509",
+    "authors": [
+      "Mori MP, Souza-Pinto NC."
+    ],
+    "year": "2020",
+    "publication_date": "2020-07-03",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "The XPC protein, which is mutated in xeroderma pigmentosum (XP) complementation group C (XP-C), is a lesion recognition factor in NER, but it has also been shown to interact with and stimulate DNA glycosylases, to act as transcriptional co-activator and on energy metabolism adaptation. We have previously demonstrated that XP-C cells show increased mitochondrial H2O2 production with a shift between respiratory complexes I and II, leading to sensitivity to mitochondrial stress. Here we report a marked decrease in expression of the transcriptional co-activator PGC-1α, a master regulator of mitochondrial biogenesis, in XP-C cells. A transcriptional role for XPC in PGC-1α expression was discarded, as XPC knockdown did not downregulate PGC-1α expression and XPC-corrected cells still showed lower PGC-1α expression. DNA methylation alone did not explain PGC-1α silencing. In four different XP-C cell lines tested, reduction of PGC-1α expression was detected in three, all of them carrying the c.1643_1644delTG mutation (ΔTG) in XPC. Indeed, all cell lines carrying XPC ΔTG mutation, whether homozygous or heterozygous, presented decreased PGC-1α expression. However, this alteration in gene expression was not exclusive to XPC ΔTG cell lines, for other non-related cell lines also showed altered PGC-1α expression. Moreover, PGC1-α expression did not correlate with expression levels of TFAM and SDHA, known PGC-1α target-genes. In turn, PPRC1, another member of the PGC family of transcription co-activators controlling mitochondrial biogenesis, displayed a good correlation between its expression in 10 cell lines and TFAM and SDHA. Nonetheless, PGC-1α knockdown led to a slight decrease of its target-gene protein level, TFAM, and subsequently of a mtDNA-encoded gene, MT-CO2. These results indicate that PGC-1α and PPRC1 cooperate as regulators of mitochondrial biogenesis and maintenance in fibroblasts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Blood DNA methylation and liver cancer in American Indians: evidence from the Strong Heart Study.",
+    "doi": "10.1007/s10552-023-01822-8",
+    "pmid": "38010586",
+    "authors": [
+      "Slowly M, Domingo-Relloso A, Santella RM, Haack K, Fallin DM, Terry MB, Rhoades DA, Herreros-Martinez M, Garcia-Esquinas E, Cole SA, Tellez-Plaza M, Navas-Acien A, Wu HC."
+    ],
+    "year": "2024",
+    "publication_date": "2023-11-27",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Liver cancer incidence among American Indians/Alaska Natives has risen over the past 20 years. Peripheral blood DNA methylation may be associated with liver cancer and could be used as a biomarker for cancer risk. We evaluated the association of blood DNA methylation with risk of liver cancer.<h4>Methods</h4>We conducted a prospective cohort study in 2324 American Indians, between age 45 and 75 years, from Arizona, Oklahoma, North Dakota and South Dakota who participated in the Strong Heart Study between 1989 and 1991. Liver cancer deaths (n = 21) were ascertained using death certificates obtained through 2017. The mean follow-up duration (SD) for non-cases was 25.1 (5.6) years and for cases, 11.0 (8.8) years. DNA methylation was assessed from blood samples collected at baseline using MethylationEPIC BeadChip 850 K arrays. We used Cox regression models adjusted for age, sex, center, body mass index, low-density lipoprotein cholesterol, smoking, alcohol consumption, and immune cell proportions to examine the associations.<h4>Results</h4>We identified 9 CpG sites associated with liver cancer. cg16057201 annotated to MRFAP1) was hypermethylated among cases vs. non-cases (hazard ratio (HR) for one standard deviation increase in methylation was 1.25 (95% CI 1.14, 1.37). The other eight CpGs were hypomethylated and the corresponding HRs (95% CI) ranged from 0.58 (0.44, 0.75) for cg04967787 (annotated to PPRC1) to 0.77 (0.67, 0.88) for cg08550308. We also assessed 7 differentially methylated CpG sites associated with liver cancer in previous studies. The adjusted HR for cg15079934 (annotated to LPS1) was 1.93 (95% CI 1.10, 3.39).<h4>Conclusions</h4>Blood DNA methylation may be associated with liver cancer mortality and may be altered during the development of liver cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-Wide Association Study to Identify Genes Related to Renal Mercury Concentrations in Mice.",
+    "doi": "10.1289/ehp.1409284",
+    "pmid": "26942574",
+    "authors": [
+      "Alkaissi H, Ekstrand J, Jawad A, Nielsen JB, Havarinasab S, Soderkvist P, Hultman P."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-04",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Following human mercury (Hg) exposure, the metal accumulates in considerable concentrations in kidney, liver, and brain. Although the toxicokinetics of Hg have been studied extensively, factors responsible for interindividual variation in humans are largely unknown. Differences in accumulation of renal Hg between inbred mouse strains suggest a genetic interstrain variation regulating retention or/and excretion of Hg. A.SW, DBA/2 and BALB/C mouse strains accumulate higher amounts of Hg than B10.S.<h4>Objectives</h4>We aimed to find candidate genes associated with regulation of renal Hg concentrations.<h4>Methods</h4>A.SW, B10.S and their F1 and F2 offspring were exposed for 6 weeks to 2.0 mg Hg/L drinking water. Genotyping with microsatellites was conducted on 84 F2 mice for genome-wide scanning with ion pair reverse-phase high-performance liquid chromatography (IP RP HPLC). Quantitative trait loci (QTL) were established. Denaturing HPLC was used to detect single nucleotide polymorphisms for haplotyping and fine mapping in 184 and 32 F2 mice, respectively. Candidate genes (Pprc1, Btrc and Nfkb2) verified by fine mapping and QTL were further investigated by real-time polymerase chain reaction. Genes enhanced by Pprc1 (Nrf1 and Nrf2) were included for gene expression analysis.<h4>Results</h4>Renal Hg concentrations differed significantly between A.SW and B10.S mice and between males and females within each strain. QTL analysis showed a peak logarithm of odds ratio score 5.78 on chromosome 19 (p = 0.002). Haplotype and fine mapping associated the Hg accumulation with Pprc1, which encodes PGC-1-related coactivator (PRC), a coactivator for proteins involved in detoxification. Pprc1 and two genes coactivated by Pprc1 (Nrf1 and Nrf2) had significantly lower gene expression in the A.SW strain than in the B10.S strain.<h4>Conclusions</h4>This study supports Pprc1 as a key regulator for renal Hg excretion.<h4>Citation</h4>Alkaissi H, Ekstrand J, Jawad A, Nielsen JB, Havarinasab S, Soderkvist P, Hultman P. 2016. Genome-wide association study to identify genes related to renal mercury concentrations in mice. Environ Health Perspect 124:920-926; http://dx.doi.org/10.1289/ehp.1409284.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Histone H3K27me3 demethylases regulate human Th17 cell development and effector functions by impacting on metabolism.",
+    "doi": "10.1073/pnas.1919893117",
+    "pmid": "32123118",
+    "authors": [
+      "Cribbs AP, Terlecki-Zaniewicz S, Philpott M, Baardman J, Ahern D, Lindow M, Obad S, Oerum H, Sampey B, Mander PK, Penn H, Wordsworth P, Bowness P, de Winther M, Prinjha RK, Feldmann M, Oppermann U."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-02",
+    "cited_by_count": 81,
+    "journal": "",
+    "abstract": "T helper (Th) cells are CD4<sup>+</sup> effector T cells that play a critical role in immunity by shaping the inflammatory cytokine environment in a variety of physiological and pathological situations. Using a combined chemico-genetic approach, we identify histone H3K27 demethylases KDM6A and KDM6B as central regulators of human Th subsets. The prototypic KDM6 inhibitor GSK-J4 increases genome-wide levels of the repressive H3K27me3 chromatin mark and leads to suppression of the key transcription factor RORγt during Th17 differentiation. In mature Th17 cells, GSK-J4 induces an altered transcriptional program with a profound metabolic reprogramming and concomitant suppression of IL-17 cytokine levels and reduced proliferation. Single-cell analysis reveals a specific shift from highly inflammatory cell subsets toward a resting state upon demethylase inhibition. The root cause of the observed antiinflammatory phenotype in stimulated Th17 cells is reduced expression of key metabolic transcription factors, such as PPRC1. Overall, this leads to reduced mitochondrial biogenesis, resulting in a metabolic switch with concomitant antiinflammatory effects. These data are consistent with an effect of GSK-J4 on Th17 T cell differentiation pathways directly related to proliferation and include regulation of effector cytokine profiles. This suggests that inhibiting KDM6 demethylases may be an effective, even in the short term, therapeutic target for autoimmune diseases, including ankylosing spondylitis.",
+    "openalex_id": ""
+  }
+]

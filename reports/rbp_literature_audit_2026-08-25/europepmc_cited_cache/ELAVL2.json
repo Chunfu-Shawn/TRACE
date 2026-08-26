@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Competing interactions between micro-RNAs determine neural progenitor survival and proliferation after ethanol exposure: evidence from an ex vivo model of the fetal cerebral cortical neuroepithelium.",
+    "doi": "10.1523/jneurosci.1269-07.2007",
+    "pmid": "17687032",
+    "authors": [
+      "Sathyan P, Golden HB, Miranda RC."
+    ],
+    "year": "2007",
+    "publication_date": "2007-08-01",
+    "cited_by_count": 218,
+    "journal": "",
+    "abstract": "The fetal brain is sensitive to a variety of teratogens, including ethanol. We showed previously that ethanol induced mitosis and stem cell maturation, but not death, in fetal cerebral cortex-derived progenitors. We tested the hypothesis that micro-RNAs (miRNAs) could mediate the teratogenic effects of ethanol in a fetal mouse cerebral cortex-derived neurosphere culture model. Ethanol, at a level attained by alcoholics, significantly suppressed the expression of four miRNAs, miR-21, -335, -9, and -153, whereas a lower ethanol concentration, attainable during social drinking, induced miR-335 expression. A GABA(A) receptor-dependent mechanism mediated miR-21, but not miR-335 suppression, suggesting that divergent mechanisms regulate ethanol-sensitive miRNAs. Antisense-mediated suppression of miR-21 expression resulted in apoptosis, suggesting that miR-21 is an antiapoptotic factor. miR-335 knockdown promoted cell proliferation and prevented death induced by concurrently suppressing miR-21, indicating that miR-335 is a proapoptotic, antimitogenic factor whose actions are antagonistic to miR-21. Computational analyses identified two genes, Jagged-1, a Notch-receptor ligand, and embryonic-lethal abnormal vision, Drosophila-like 2 (ELAVL2), a brain-specific regulator of RNA stability, as presumptive targets of three of four ethanol-sensitive micro-RNAs. Combined knockdown of miR-335, -21, and -153 significantly increased Jagged-1 mRNA. Furthermore, ethanol induced both Jagged-1 and ELAVL2 mRNA. The collective suppression of micro-RNAs is consistent with ethanol induction of cell cycle and neuroepithelial maturation in the absence of apoptosis. These data identify a role for micro-RNAs as epigenetic intermediaries, which permit teratogens to shape complex, divergent developmental processes, and additionally demonstrate that coordinately regulated miRNAs exhibit both functional synergy and antagonism toward each other.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Complexity and graded regulation of neuronal cell-type-specific alternative splicing revealed by single-cell RNA sequencing.",
+    "doi": "10.1073/pnas.2013056118",
+    "pmid": "33674385",
+    "authors": [
+      "Feng H, Moakley DF, Chen S, McKenzie MG, Menon V, Zhang C."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-01",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "The enormous cellular diversity in the mammalian brain, which is highly prototypical and organized in a hierarchical manner, is dictated by cell-type-specific gene-regulatory programs at the molecular level. Although prevalent in the brain, the contribution of alternative splicing (AS) to the molecular diversity across neuronal cell types is just starting to emerge. Here, we systematically investigated AS regulation across over 100 transcriptomically defined neuronal types of the adult mouse cortex using deep single-cell RNA-sequencing data. We found distinct splicing programs between glutamatergic and GABAergic neurons and between subclasses within each neuronal class. These programs consist of overlapping sets of alternative exons showing differential splicing at multiple hierarchical levels. Using an integrative approach, our analysis suggests that RNA-binding proteins (RBPs) Celf1/2, Mbnl2, and Khdrbs3 are preferentially expressed and more active in glutamatergic neurons, while Elavl2 and Qk are preferentially expressed and more active in GABAergic neurons. Importantly, these and additional RBPs also contribute to differential splicing between neuronal subclasses at multiple hierarchical levels, and some RBPs contribute to splicing dynamics that do not conform to the hierarchical structure defined by the transcriptional profiles. Thus, our results suggest graded regulation of AS across neuronal cell types, which may provide a molecular mechanism to specify neuronal identity and function that are orthogonal to established classifications based on transcriptional regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long 3'UTRs predispose neurons to inflammation by promoting immunostimulatory double-stranded RNA formation.",
+    "doi": "10.1126/sciimmunol.adg2979",
+    "pmid": "37862432",
+    "authors": [
+      "Dorrity TJ, Shin H, Wiegand KA, Aruda J, Closser M, Jung E, Gertie JA, Leone A, Polfer R, Culbertson B, Yu L, Wu C, Ito T, Huang Y, Steckelberg AL, Wichterle H, Chung H."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-20",
+    "cited_by_count": 72,
+    "journal": "",
+    "abstract": "Loss of RNA homeostasis underlies numerous neurodegenerative and neuroinflammatory diseases. However, the molecular mechanisms that trigger neuroinflammation are poorly understood. Viral double-stranded RNA (dsRNA) triggers innate immune responses when sensed by host pattern recognition receptors (PRRs) present in all cell types. Here, we report that human neurons intrinsically carry exceptionally high levels of immunostimulatory dsRNAs and identify long 3'UTRs as giving rise to neuronal dsRNA structures. We found that the neuron-enriched ELAVL family of genes (<i>ELAVL2</i>, <i>ELAVL3</i>, and <i>ELAVL4</i>) can increase (i) 3'UTR length, (ii) dsRNA load, and (iii) activation of dsRNA-sensing PRRs such as MDA5, PKR, and TLR3. In wild-type neurons, neuronal dsRNAs signaled through PRRs to induce tonic production of the antiviral type I interferon. Depleting <i>ELAVL2</i> in WT neurons led to global shortening of 3'UTR length, reduced immunostimulatory dsRNA levels, and rendered WT neurons susceptible to herpes simplex virus and Zika virus infection. Neurons deficient in ADAR1, a dsRNA-editing enzyme mutated in the neuroinflammatory disorder Aicardi-Goutières syndrome, exhibited intolerably high levels of dsRNA that triggered PRR-mediated toxic inflammation and neuronal death. Depleting <i>ELAVL2</i> in ADAR1 knockout neurons led to prolonged neuron survival by reducing immunostimulatory dsRNA levels. In summary, neurons are specialized cells where PRRs constantly sense \"self\" dsRNAs to preemptively induce protective antiviral immunity, but maintaining RNA homeostasis is paramount to prevent pathological neuroinflammation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ELAVL2-regulated transcriptional and splicing networks in human neurons link neurodevelopment and autism.",
+    "doi": "10.1093/hmg/ddw110",
+    "pmid": "27260404",
+    "authors": [
+      "Berto S, Usui N, Konopka G, Fogel BL."
+    ],
+    "year": "2016",
+    "publication_date": "2016-06-03",
+    "cited_by_count": 72,
+    "journal": "",
+    "abstract": "The role of post-transcriptional gene regulation in human brain development and neurodevelopmental disorders remains mostly uncharacterized. ELAV-like RNA-binding proteins (RNAbps) are a family of proteins that regulate several aspects of neuronal function including neuronal excitability and synaptic transmission, both critical to the normal function of the brain in cognition and behavior. Here, we identify the downstream neuronal transcriptional and splicing networks of ELAVL2, an RNAbp with previously unknown function in the brain. Expression of ELAVL2 was reduced in human neurons and RNA-sequencing was utilized to identify networks of differentially expressed and alternatively spliced genes resulting from haploinsufficient levels of ELAVL2. These networks contain a number of autism-relevant genes as well as previously identified targets of other important RNAbps implicated in autism spectrum disorder (ASD) including RBFOX1 and FMRP. ELAVL2-regulated co-expression networks are also enriched for neurodevelopmental and synaptic genes, and include genes with human-specific patterns of expression in the frontal pole. Together, these data suggest that ELAVL2 regulation of transcript expression is critical for neuronal function and clinically relevant to ASD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genetic landscape of a large cohort of Primary Ovarian Insufficiency: New genes and pathways and implications for personalized medicine.",
+    "doi": "10.1016/j.ebiom.2022.104246",
+    "pmid": "36099812",
+    "authors": [
+      "Heddar A, Ogur C, Da Costa S, Braham I, Billaud-Rist L, Findikli N, Beneteau C, Reynaud R, Mahmoud K, Legrand S, Marchand M, Cedrin-Durnerin I, Cantalloube A, Peigne M, Bretault M, Dagher-Hayeck B, Perol S, Droumaguet C, Cavkaytar S, Nicolas-Bonne C, Elloumi H, Khrouf M, Rougier-LeMasle C, Fradin M, Le Boette E, Luigi P, Guerrot AM, Ginglinger E, Zampa A, Fauconnier A, Auger N, Paris F, Brischoux-Boucher E, Cabrol C, Brun A, Guyon L, Berard M, Riviere A, Gruchy N, Odent S, Gilbert-Dussardier B, Isidor B, Piard J, Lambert L, Hamamah S, Guedj AM, Brac de la Perriere A, Fernandez H, Raffin-Sanson ML, Polak M, Letur H, Epelboin S, Plu-Bureau G, Wołczyński S, Hieronimus S, Aittomaki K, Catteau-Jonard S, Misrahi M."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-10",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Primary Ovarian Insufficiency (POI), a public health problem, affects 1-3.7% of women under 40 yielding infertility and a shorter lifespan. Most causes are unknown. Recently, genetic causes were identified, mostly in single families. We studied an unprecedented large cohort of POI to unravel its molecular pathophysiology.<h4>Methods</h4>375 patients with 70 families were studied using targeted (88 genes) or whole exome sequencing with pathogenic/likely-pathogenic variant selection. Mitomycin-induced chromosome breakages were studied in patients' lymphocytes if necessary.<h4>Findings</h4>A high-yield of 29.3% supports a clinical genetic diagnosis of POI. In addition, we found strong evidence of pathogenicity for nine genes not previously related to a Mendelian phenotype or POI: ELAVL2, NLRP11, CENPE, SPATA33, CCDC150, CCDC185, including DNA repair genes: C17orf53(HROB), HELQ, SWI5 yielding high chromosomal fragility. We confirmed the causal role of BRCA2, FANCM, BNC1, ERCC6, MSH4, BMPR1A, BMPR1B, BMPR2, ESR2, CAV1, SPIDR, RCBTB1 and ATG7 previously reported in isolated patients/families. In 8.5% of cases, POI is the only symptom of a multi-organ genetic disease. New pathways were identified: NF-kB, post-translational regulation, and mitophagy (mitochondrial autophagy), providing future therapeutic targets. Three new genes have been shown to affect the age of natural menopause supporting a genetic link.<h4>Interpretation</h4>We have developed high-performance genetic diagnostic of POI, dissecting the molecular pathogenesis of POI and enabling personalized medicine to i) prevent/cure comorbidities for tumour/cancer susceptibility genes that could affect life-expectancy (37.4% of cases), or for genetically-revealed syndromic POI (8.5% of cases), ii) predict residual ovarian reserve (60.5% of cases). Genetic diagnosis could help to identify patients who may benefit from the promising in vitro activation-IVA technique in the near future, greatly improving its success in treating infertility.<h4>Funding</h4>Université Paris Saclay, Agence Nationale de Biomédecine.",
+    "openalex_id": ""
+  },
+  {
+    "title": "High-resolution epitope mapping of anti-Hu and anti-Yo autoimmunity by programmable phage display.",
+    "doi": "10.1093/braincomms/fcaa059",
+    "pmid": "32954318",
+    "authors": [
+      "O'Donovan B, Mandel-Brehm C, Vazquez SE, Liu J, Parent AV, Anderson MS, Kassimatis T, Zekeridou A, Hauser SL, Pittock SJ, Chow E, Wilson MR, DeRisi JL."
+    ],
+    "year": "2020",
+    "publication_date": "2020-08-03",
+    "cited_by_count": 62,
+    "journal": "",
+    "abstract": "Paraneoplastic neurological disorders are immune-mediated diseases understood to manifest as part of a misdirected anti-tumor immune response. Paraneoplastic neurological disorder-associated autoantibodies can assist with diagnosis and enhance our understanding of tumor-associated immune processes. We designed a comprehensive library of 49-amino-acid overlapping peptides spanning the entire human proteome, including all splicing isoforms and computationally predicted coding regions. Using this library, we optimized a phage immunoprecipitation and sequencing protocol with multiple rounds of enrichment to create high-resolution epitope profiles in serum and cerebrospinal fluid (CSF) samples from patients suffering from two common paraneoplastic neurological disorders, the anti-Yo (<i>n</i> = 36 patients) and anti-Hu (<i>n</i> = 44 patients) syndromes. All (100%) anti-Yo patient samples yielded enrichment of peptides from the canonical anti-Yo (CDR2 and CDR2L) antigens, while 38% of anti-Hu patients enriched peptides deriving from the nELAVL (neuronal embryonic lethal abnormal vision like) family of proteins, the anti-Hu autoantigenic target. Among the anti-Hu patient samples that were positive for nELAVL, we noted a restricted region of immunoreactivity. To achieve single amino acid resolution, we designed a novel deep mutational scanning phage library encoding all possible single-point mutants targeting the reactive nELAVL region. This analysis revealed a distinct preference for the degenerate motif, RLDxLL, shared by ELAVL2, 3 and 4. Lastly, phage immunoprecipitation sequencing identified several known autoantigens in these same patient samples, including peptides deriving from the cancer-associated antigens ZIC and SOX families of transcription factors. Overall, this optimized phage immunoprecipitation sequencing library and protocol yielded the high-resolution epitope mapping of the autoantigens targeted in anti-Yo and anti-Hu encephalitis patients to date. The results presented here further demonstrate the utility and high-resolution capability of phage immunoprecipitation sequencing for both basic science and clinical applications and for better understanding the antigenic targets and triggers of paraneoplastic neurological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide association study of schizophrenia in Japanese population.",
+    "doi": "10.1371/journal.pone.0020468",
+    "pmid": "21674006",
+    "authors": [
+      "Yamada K, Iwayama Y, Hattori E, Iwamoto K, Toyota T, Ohnishi T, Ohba H, Maekawa M, Kato T, Yoshikawa T."
+    ],
+    "year": "2011",
+    "publication_date": "2011-06-06",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Schizophrenia is a devastating neuropsychiatric disorder with genetically complex traits. Genetic variants should explain a considerable portion of the risk for schizophrenia, and genome-wide association study (GWAS) is a potentially powerful tool for identifying the risk variants that underlie the disease. Here, we report the results of a three-stage analysis of three independent cohorts consisting of a total of 2,535 samples from Japanese and Chinese populations for searching schizophrenia susceptibility genes using a GWAS approach. Firstly, we examined 115,770 single nucleotide polymorphisms (SNPs) in 120 patient-parents trio samples from Japanese schizophrenia pedigrees. In stage II, we evaluated 1,632 SNPs (1,159 SNPs of p<0.01 and 473 SNPs of p<0.05 that located in previously reported linkage regions). The second sample consisted of 1,012 case-control samples of Japanese origin. The most significant p value was obtained for the SNP in the ELAVL2 [(embryonic lethal, abnormal vision, Drosophila)-like 2] gene located on 9p21.3 (p = 0.00087). In stage III, we scrutinized the ELAVL2 gene by genotyping gene-centric tagSNPs in the third sample set of 293 family samples (1,163 individuals) of Chinese descent and the SNP in the gene showed a nominal association with schizophrenia in Chinese population (p = 0.026). The current data in Asian population would be helpful for deciphering ethnic diversity of schizophrenia etiology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-Wide Profiling of Cervical RNA-Binding Proteins Identifies Human Papillomavirus Regulation of RNASEH2A Expression by Viral E7 and E2F1.",
+    "doi": "10.1128/mbio.02687-18",
+    "pmid": "30696738",
+    "authors": [
+      "Xu J, Liu H, Yang Y, Wang X, Liu P, Li Y, Meyers C, Banerjee NS, Wang HK, Cam M, Lu W, Chow LT, Xie X, Zhu J, Zheng ZM."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-29",
+    "cited_by_count": 55,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) control mRNA processing, stability, transport, editing, and translation. We recently conducted transcriptome analyses comparing normal (i.e., healthy) cervical tissue samples with human papillomavirus (HPV)-positive cervical cancer tissue samples and identified 614 differentially expressed protein-coding transcripts which are enriched in cancer-related pathways and consist of 95 known RBPs. We verified the altered expression of 26 genes with a cohort of 72 cervical samples, including 24 normal cervical samples, 25 cervical intraepithelial neoplasia grade 2 (CIN2) and CIN3 samples, and 23 cervical cancer tissue samples. LY6K (lymphocyte antigen 6 complex locus K), FAM83A (family member with sequence similarity 83), CELSR3, ASF1B, IQGAP3, SEMA3F, CLDN10, MSX1, CXCL5, ASRGL1, ELAVL2, GRB7, KHSRP, NOVA1, PTBP1, and RNASEH2A were identified as novel candidate genes associated with cervical lesion progression and carcinogenesis. HPV16 or HPV18 infection was found to alter the expression of 8 RBP genes (CDKN2A, ELAVL2, GRB7, HSPB1, KHSRP, NOVA1, PTBP1, and RNASEH2A) in human vaginal and foreskin keratinocytes. Both viral E6 and E7 decreased NOVA1 expression, but only E7 increased the expression of RNASEH2A in an E2F1-dependent manner. Proliferating cell nuclear antigen (PCNA) directs RNASEH2 activity with respect to DNA replication by removing the RNA primers to promote Okazaki fragment maturation, and two factors are closely associated with neoplasia progression. Therefore, we predict that the induction of expression of RNASEH2A via viral E7 and E2F1 may promote DNA replication and cancer cell proliferation.<b>IMPORTANCE</b> High-risk HPV infections lead to development of cervical cancer. This study identified the differential expression of 16 novel genes (LY6K, FAM83A, CELSR3, ASF1B, IQGAP3, SEMA3F, CLDN10, MSX1, CXCL5, ASRGL1, ELAVL2, GRB7, KHSRP, NOVA1, PTBP1, and RNASEH2A) in HPV-infected cervical tissue samples and keratinocytes. Eight of these genes (CDKN2A, ELAVL2, GRB7, HSPB1, KHSRP, NOVA1, PTBP1, and RNASEH2A) encode RNA-binding proteins. Further studies indicated that both HPV16 and HPV18 infections lead to the aberrant expression of selected RBP-encoding genes. We found that viral E6 and E7 decrease NOVA1 expression but that E7 increases RNASEH2A expression via E2F1. The altered expression of these genes may be utilized as biomarkers for high-risk (HR)-HPV carcinogenesis and progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The molecular genetics of nELAVL in brain development and disease.",
+    "doi": "10.1038/s41431-023-01456-z",
+    "pmid": "37697079",
+    "authors": [
+      "Mulligan MR, Bicknell LS."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-12",
+    "cited_by_count": 47,
+    "journal": "",
+    "abstract": "Embryonic development requires tight control of gene expression levels, activity, and localisation. This control is coordinated by multiple levels of regulation on DNA, RNA and protein. RNA-binding proteins (RBPs) are recognised as key regulators of post-transcriptional gene regulation, where their binding controls splicing, polyadenylation, nuclear export, mRNA stability, translation rate and decay. In brain development, the ELAVL family of RNA binding proteins undertake essential functions across spatiotemporal windows to help regulate and specify transcriptomic programmes for cell specialisation. Despite their recognised importance in neural tissues, their molecular roles and connections to pathology are less explored. Here we provide an overview of the neuronal ELAVL family, noting commonalities and differences amongst different species, their molecular characteristics, and roles in the cell. We bring together the available molecular genetics evidence to link different ELAVL proteins to phenotypes and disease, in both the brain and beyond, including ELAVL2, which is the least studied ELAVL family member. We find that ELAVL-related pathology shares a common neurological theme, but different ELAVL proteins are more strongly connected to different phenotypes, reflecting their specialised expression across time and space.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ELAVL2-directed RNA regulatory network drives the formation of quiescent primordial follicles.",
+    "doi": "10.15252/embr.201948251",
+    "pmid": "31657143",
+    "authors": [
+      "Kato Y, Iwamori T, Ninomiya Y, Kohda T, Miyashita J, Sato M, Saga Y."
+    ],
+    "year": "2019",
+    "publication_date": "2019-10-28",
+    "cited_by_count": 44,
+    "journal": "",
+    "abstract": "Formation of primordial follicles is a fundamental, early process in mammalian oogenesis. However, little is known about the underlying mechanisms. We herein report that the RNA-binding proteins ELAVL2 and DDX6 are indispensable for the formation of quiescent primordial follicles in mouse ovaries. We show that Elavl2 knockout females are infertile due to defective primordial follicle formation. ELAVL2 associates with mRNAs encoding components of P-bodies (cytoplasmic RNP granules involved in the decay and storage of RNA) and directs the assembly of P-body-like granules by promoting the translation of DDX6 in oocytes prior to the formation of primordial follicles. Deletion of Ddx6 disturbs the assembly of P-body-like granules and severely impairs the formation of primordial follicles, indicating the potential importance of P-body-like granules in the formation of primordial follicles. Furthermore, Ddx6-deficient oocytes are abnormally enlarged due to misregulated PI3K-AKT signaling. Our data reveal that an ELAVL2-directed post-transcriptional network is essential for the formation of quiescent primordial follicles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Systemic Neurodegeneration and Brain Aging: Multi-Omics Disintegration, Proteostatic Collapse, and Network Failure Across the CNS.",
+    "doi": "10.3390/biomedicines13082025",
+    "pmid": "40868276",
+    "authors": [
+      "Voicu V, Toader C, Șerban M, Covache-Busuioc RA, Ciurea AV."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-20",
+    "cited_by_count": 39,
+    "journal": "",
+    "abstract": "Neurodegeneration is increasingly recognized not as a linear trajectory of protein accumulation, but as a multidimensional collapse of biological organization-spanning intracellular signaling, transcriptional identity, proteostatic integrity, organelle communication, and network-level computation. This review intends to synthesize emerging frameworks that reposition neurodegenerative diseases (ND) as progressive breakdowns of interpretive cellular logic, rather than mere terminal consequences of protein aggregation or synaptic attrition. The discussion aims to provide a detailed mapping of how critical signaling pathways-including PI3K-AKT-mTOR, MAPK, Wnt/β-catenin, and integrated stress response cascades-undergo spatial and temporal disintegration. Special attention is directed toward the roles of RNA-binding proteins (e.g., TDP-43, FUS, ELAVL2), m6A epitranscriptomic modifiers (METTL3, YTHDF1, IGF2BP1), and non-canonical post-translational modifications (SUMOylation, crotonylation) in disrupting translation fidelity, proteostasis, and subcellular targeting. At the organelle level, the review seeks to highlight how the failure of ribosome-associated quality control (RQC), autophagosome-lysosome fusion machinery (STX17, SNAP29), and mitochondrial import/export systems (TIM/TOM complexes) generates cumulative stress and impairs neuronal triage. These dysfunctions are compounded by mitochondrial protease overload (LONP1, CLPP), UPR maladaptation, and phase-transitioned stress granules that sequester nucleocytoplasmic transport proteins and ribosomal subunits, especially in ALS and FTD contexts. Synaptic disassembly is treated not only as a downstream event, but as an early tipping point, driven by impaired PSD scaffolding, aberrant endosomal recycling (Rab5, Rab11), complement-mediated pruning (C1q/C3-CR3 axis), and excitatory-inhibitory imbalance linked to parvalbumin interneuron decay. Using insights from single-cell and spatial transcriptomics, the review illustrates how regional vulnerability to proteostatic and metabolic stress converges with signaling noise to produce entropic attractor collapse within core networks such as the DMN, SN, and FPCN. By framing neurodegeneration as an active loss of cellular and network \"meaning-making\"-a collapse of coordinated signal interpretation, triage prioritization, and adaptive response-the review aims to support a more integrative conceptual model. In this context, therapeutic direction may shift from damage containment toward restoring high-dimensional neuronal agency, via strategies that include the following elements: reprogrammable proteome-targeting agents (e.g., PROTACs), engineered autophagy adaptors, CRISPR-based BDNF enhancers, mitochondrial gatekeeping stabilizers, and glial-exosome neuroengineering. This synthesis intends to offer a translational scaffold for viewing neurodegeneration as not only a disorder of accumulation but as a systems-level failure of cellular reasoning-a perspective that may inform future efforts in resilience-based intervention and precision neurorestoration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HuR (Elavl1) and HuB (Elavl2) Stabilize Matrix Metalloproteinase-9 mRNA During Seizure-Induced Mmp-9 Expression in Neurons.",
+    "doi": "10.3389/fnins.2018.00224",
+    "pmid": "29686606",
+    "authors": [
+      "Zybura-Broda K, Wolder-Gontarek M, Ambrozek-Latecka M, Choros A, Bogusz A, Wilemska-Dziaduszycka J, Rylski M."
+    ],
+    "year": "2018",
+    "publication_date": "2018-04-09",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "Matrix metalloproteinase-9 (Mmp-9) is involved in different general and cell-type-specific processes, both in neuronal and non-neuronal cells. Moreover, it is implicated in an induction or progression of various human disorders, including diseases of the central nervous system. Mechanisms regulating activity-driven Mmp-9 expression in neurons are still not fully understood. Here, we show that stabilization of Mmp-9 mRNA is one of the factors responsible for the neuronal activity-evoked upregulation of Mmp-9 mRNA expression in hippocampal neurons. Furthermore, we demonstrate that the molecular mechanism related to this stabilization is dependent on the neuronal seizure-triggered transiently increased binding of the mRNA stability-inducing protein, HuR, to ARE1 and ARE4 motifs of the 3'UTR for Mmp-9 mRNA as well as the stably augmented association of another mRNA-stabilizing protein, HuB, to the ARE1 element of the 3'UTR. Intriguingly, we demonstrate further that both HuR and HuB are crucial for an incidence of Mmp-9 mRNA stabilization after neuronal activation. This study identifies Mmp-9 mRNA as the first HuB target regulated by mRNA stabilization in neurons. Moreover, these results are the first to describe an existence of HuR-dependent mRNA stabilization in neurons of the brain.",
+    "openalex_id": ""
+  }
+]

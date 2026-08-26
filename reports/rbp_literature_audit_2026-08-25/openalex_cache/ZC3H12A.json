@@ -1,0 +1,199 @@
+[
+  {
+    "title": "Circular RNA: metabolism, functions and interactions with proteins",
+    "doi": "10.1186/s12943-020-01286-3",
+    "authors": [
+      "Zhou Wei-yi",
+      "Zerong Cai",
+      "Jia Liu",
+      "De‐Shen Wang",
+      "Huai‐Qiang Ju"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-01",
+    "cited_by_count": 1608,
+    "journal": "Molecular Cancer",
+    "abstract": "Circular RNAs (CircRNAs) are single-stranded, covalently closed RNA molecules that are ubiquitous across species ranging from viruses to mammals. Important advances have been made in the biogenesis, regulation, localization, degradation and modification of circRNAs. CircRNAs exert biological functions by acting as transcriptional regulators, microRNA (miR) sponges and protein templates. Moreover, emerging evidence has revealed that a group of circRNAs can serve as protein decoys, scaffolds and r",
+    "openalex_id": "https://openalex.org/W3112047397",
+    "relevance_score": 248.77362
+  },
+  {
+    "title": "RNA modifications: importance in immune cell biology and related diseases",
+    "doi": "10.1038/s41392-022-01175-9",
+    "authors": [
+      "Lian Cui",
+      "Rui Ma",
+      "Jiangluyi Cai",
+      "Chunyuan Guo",
+      "Zeyu Chen"
+    ],
+    "year": 2022,
+    "publication_date": "2022-09-22",
+    "cited_by_count": 400,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Abstract RNA modifications have become hot topics recently. By influencing RNA processes, including generation, transportation, function, and metabolization, they act as critical regulators of cell biology. The immune cell abnormality in human diseases is also a research focus and progressing rapidly these years. Studies have demonstrated that RNA modifications participate in the multiple biological processes of immune cells, including development, differentiation, activation, migration, and pol",
+    "openalex_id": "https://openalex.org/W4296808020",
+    "relevance_score": 106.84211
+  },
+  {
+    "title": "Pattern recognition receptors: function, regulation and therapeutic potential",
+    "doi": "10.1038/s41392-025-02264-1",
+    "authors": [
+      "Ruochan Chen",
+      "Ju Zou",
+      "Jiawang Chen",
+      "Xiao Yan Zhong",
+      "Rui Kang"
+    ],
+    "year": 2025,
+    "publication_date": "2025-07-10",
+    "cited_by_count": 246,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Pattern recognition receptors (PRRs) are sensors in the immune system, detecting pathogen-associated molecular patterns (PAMPs) and damage-associated molecular patterns (DAMPs). They serve as essential links between the innate and adaptive immune responses, initiating defense mechanisms against pathogens and maintaining immune homeostasis. This review examines the classification, structure, and signaling cascades of key PRR families, including toll-like receptors (TLRs), C-type lectin receptors ",
+    "openalex_id": "https://openalex.org/W4412170483",
+    "relevance_score": 74.20691
+  },
+  {
+    "title": "Novel endoribonucleases as central players in various pathways of eukaryotic RNA metabolism",
+    "doi": "10.1261/rna.2237610",
+    "authors": [
+      "Rafał Tomecki",
+      "Andrzej Dziembowski"
+    ],
+    "year": 2010,
+    "publication_date": "2010-07-30",
+    "cited_by_count": 83,
+    "journal": "RNA",
+    "abstract": "For a long time it has been assumed that the decay of RNA in eukaryotes is mainly carried out by exoribonucleases, which is in contrast to bacteria, where endoribonucleases are well documented to initiate RNA degradation. In recent years, several as yet unknown endonucleases have been described, which has changed our view on eukaryotic RNA metabolism. Most importantly, it was shown that the primary eukaryotic 3' --> 5' exonuclease, the exosome complex has the ability to endonucleolytically cleav",
+    "openalex_id": "https://openalex.org/W2097701212",
+    "relevance_score": 61.607014
+  },
+  {
+    "title": "RNA modification in cardiovascular disease: implications for therapeutic interventions",
+    "doi": "10.1038/s41392-023-01638-7",
+    "authors": [
+      "Cong Wang",
+      "Xuyang Hou",
+      "Qing Guan",
+      "Huiling Zhou",
+      "Zhou Li"
+    ],
+    "year": 2023,
+    "publication_date": "2023-10-26",
+    "cited_by_count": 95,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Abstract Cardiovascular disease (CVD) is the leading cause of death in the world, with a high incidence and a youth-oriented tendency. RNA modification is ubiquitous and indispensable in cell, maintaining cell homeostasis and function by dynamically regulating gene expression. Accumulating evidence has revealed the role of aberrant gene expression in CVD caused by dysregulated RNA modification. In this review, we focus on nine common RNA modifications: N 6 -methyladenosine (m 6 A), N 1 -methylad",
+    "openalex_id": "https://openalex.org/W4387953843",
+    "relevance_score": 58.932354
+  },
+  {
+    "title": "Uncovering the Role of RNA-Binding Proteins in Gene Expression in the Immune System",
+    "doi": "10.3389/fimmu.2018.01094",
+    "authors": [
+      "Manuel D. Díaz‐Muñoz",
+      "Martin Turner"
+    ],
+    "year": 2018,
+    "publication_date": "2018-05-23",
+    "cited_by_count": 88,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Fighting external pathogens requires an ever-changing immune system that relies on tight regulation of gene expression. Transcriptional control is the first step to build efficient responses while preventing immunodeficiencies and autoimmunity. Post-transcriptional regulation of RNA editing, location, stability, and translation are the other key steps for final gene expression, and they are all controlled by RNA-binding proteins (RBPs). Nowadays we have a deep understanding of how transcription ",
+    "openalex_id": "https://openalex.org/W2804378101",
+    "relevance_score": 58.33631
+  },
+  {
+    "title": "Sequence determinants as key regulators in gene expression of T cells",
+    "doi": "10.1111/imr.13021",
+    "authors": [
+      "Benoît P. Nicolet",
+      "Nordin D. Zandhuis",
+      "Veronica M. T. Lattanzio",
+      "Monika C. Wolkers"
+    ],
+    "year": 2021,
+    "publication_date": "2021-09-05",
+    "cited_by_count": 31,
+    "journal": "Immunological Reviews",
+    "abstract": "T cell homeostasis, T cell differentiation, and T cell effector function rely on the constant fine-tuning of gene expression. To alter the T cell state, substantial remodeling of the proteome is required. This remodeling depends on the intricate interplay of regulatory mechanisms, including post-transcriptional gene regulation. In this review, we discuss how the sequence of a transcript influences these post-transcriptional events. In particular, we review how sequence determinants such as seque",
+    "openalex_id": "https://openalex.org/W3198892272",
+    "relevance_score": 40.15092
+  },
+  {
+    "title": "Shaping the Innate Immune Response Through Post-Transcriptional Regulation of Gene Expression Mediated by RNA-Binding Proteins",
+    "doi": "10.3389/fimmu.2021.796012",
+    "authors": [
+      "Anissa Guillemin",
+      "Anuj Kumar",
+      "Mélanie Wencker",
+      "Emiliano P. Ricci"
+    ],
+    "year": 2022,
+    "publication_date": "2022-01-11",
+    "cited_by_count": 42,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Innate immunity is the frontline of defense against infections and tissue damage. It is a fast and semi-specific response involving a myriad of processes essential for protecting the organism. These reactions promote the clearance of danger by activating, among others, an inflammatory response, the complement cascade and by recruiting the adaptive immunity. Any disequilibrium in this functional balance can lead to either inflammation-mediated tissue damage or defense inefficiency. A dynamic and ",
+    "openalex_id": "https://openalex.org/W4205634616",
+    "relevance_score": 39.170498
+  },
+  {
+    "title": "Targeting DDX3X suppresses progression of KRAS-driven lung cancer by disrupting antioxidative homeostasis and inducing ferroptosis",
+    "doi": "10.1038/s41419-025-07980-8",
+    "authors": [
+      "Meijuan Dian",
+      "Liang Yun",
+      "Qingyu Meng",
+      "Songwen Lin",
+      "Ming Ji"
+    ],
+    "year": 2025,
+    "publication_date": "2025-08-30",
+    "cited_by_count": 6,
+    "journal": "Cell Death and Disease",
+    "abstract": "Abstract Approximately 30% of human cancers carry various RAS mutations, including KRAS, NRAS, and HRAS. Among these mutations, KRAS is the most prevalent isoform detected in lung cancer. While several small molecular inhibitors targeting specifically KRAS G12C have been developed and tested clinically, alternative approaches are still necessary due to expected drug resistance. In this study, we present evidence that the loss of DDX3X significantly delays tumor progression in various KRAS-driven",
+    "openalex_id": "https://openalex.org/W4413843359",
+    "relevance_score": 17.24886
+  },
+  {
+    "title": "Help or Hinder: Protein Host Factors That Impact HIV-1 Replication",
+    "doi": "10.3390/v16081281",
+    "authors": [
+      "Michael Rameen Moezpoor",
+      "Mario Stevenson"
+    ],
+    "year": 2024,
+    "publication_date": "2024-08-10",
+    "cited_by_count": 4,
+    "journal": "Viruses",
+    "abstract": "Interactions between human immunodeficiency virus type 1 (HIV-1) and the host factors or restriction factors of its target cells determine the cell's susceptibility to, and outcome of, infection. Factors intrinsic to the cell are involved at every step of the HIV-1 replication cycle, contributing to productive infection and replication, or severely attenuating the chances of success. Furthermore, factors unique to certain cell types contribute to the differences in infection between these cell t",
+    "openalex_id": "https://openalex.org/W4401520615",
+    "relevance_score": 13.007698
+  },
+  {
+    "title": "POST-TRANSCRIPTIONAL REGULATION OF THE INNATE IMMUNE RESPONSE BY RNA-BINDING PROTEINS",
+    "doi": null,
+    "authors": [
+      "Kelsi O West"
+    ],
+    "year": 2020,
+    "publication_date": "2020-10-09",
+    "cited_by_count": 0,
+    "journal": "OakTrust (Texas A&M University Libraries)",
+    "abstract": "While transcriptional control of innate immune gene expression is well characterized, almost nothing is known about how pre-mRNA splicing decisions influence, or are influenced by, macrophage activation. I believe each step of RNA processing is just as important, if not more important than the initial transcription of an immune response gene, and RNA-processing can act as a major regulatory node of the innate immune response. Here, I demonstrate that splicing factors belonging to hnRNP and SRSF ",
+    "openalex_id": "https://openalex.org/W3167147116",
+    "relevance_score": 2.7630098
+  },
+  {
+    "title": "Identification of regulatory RNA elements based on structural conservation",
+    "doi": "10.26083/tuprints-00008827",
+    "authors": [
+      "Johannes Braun"
+    ],
+    "year": 2019,
+    "publication_date": "2019-01-01",
+    "cited_by_count": 0,
+    "journal": "TUbilio (Technical University of Darmstadt)",
+    "abstract": "The posttranscriptional regulation of gene expression determines the amount of a protein produced from a specific mRNA. All stages of the mRNA life cycle are posttranscriptionally regulated. The untranslated regions (UTRs) of mRNA play an important role in this process. UTRs encode cis-regulatory elements that interact with trans-acting factors such as RNA binding proteins or non-coding RNAs. These interactions are based on the specific recognition of sequence or structured motifs. Similar to th",
+    "openalex_id": "https://openalex.org/W2970069352",
+    "relevance_score": 2.6720781
+  }
+]

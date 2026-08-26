@@ -1,0 +1,205 @@
+[
+  {
+    "title": "Circular RNA: metabolism, functions and interactions with proteins",
+    "doi": "10.1186/s12943-020-01286-3",
+    "authors": [
+      "Zhou Wei-yi",
+      "Zerong Cai",
+      "Jia Liu",
+      "De‐Shen Wang",
+      "Huai‐Qiang Ju"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-01",
+    "cited_by_count": 1608,
+    "journal": "Molecular Cancer",
+    "abstract": "Circular RNAs (CircRNAs) are single-stranded, covalently closed RNA molecules that are ubiquitous across species ranging from viruses to mammals. Important advances have been made in the biogenesis, regulation, localization, degradation and modification of circRNAs. CircRNAs exert biological functions by acting as transcriptional regulators, microRNA (miR) sponges and protein templates. Moreover, emerging evidence has revealed that a group of circRNAs can serve as protein decoys, scaffolds and r",
+    "openalex_id": "https://openalex.org/W3112047397",
+    "relevance_score": 245.86699
+  },
+  {
+    "title": "The emerging role of RNA modifications in the regulation of mRNA stability",
+    "doi": "10.1038/s12276-020-0407-z",
+    "authors": [
+      "Sung Ho Boo",
+      "Yoon Ki Kim"
+    ],
+    "year": 2020,
+    "publication_date": "2020-03-01",
+    "cited_by_count": 613,
+    "journal": "Experimental & Molecular Medicine",
+    "abstract": "Abstract Many studies have highlighted the importance of the tight regulation of mRNA stability in the control of gene expression. mRNA stability largely depends on the mRNA nucleotide sequence, which affects the secondary and tertiary structures of the mRNAs, and the accessibility of various RNA-binding proteins to the mRNAs. Recent advances in high-throughput RNA-sequencing techniques have resulted in the elucidation of the important roles played by mRNA modifications and mRNA nucleotide seque",
+    "openalex_id": "https://openalex.org/W3012685647",
+    "relevance_score": 148.85252
+  },
+  {
+    "title": "Modulating biomolecular condensates: a novel approach to drug discovery",
+    "doi": "10.1038/s41573-022-00505-4",
+    "authors": [
+      "Diana M. Mitrea",
+      "Matthäus Mittasch",
+      "Beatriz Ferreira Gomes",
+      "Isaac A. Klein",
+      "Mark A. Murcko"
+    ],
+    "year": 2022,
+    "publication_date": "2022-08-16",
+    "cited_by_count": 425,
+    "journal": "Nature Reviews Drug Discovery",
+    "abstract": "In the past decade, membraneless assemblies known as biomolecular condensates have been reported to play key roles in many cellular functions by compartmentalizing specific proteins and nucleic acids in subcellular environments with distinct properties. Furthermore, growing evidence supports the view that biomolecular condensates often form by phase separation, in which a single-phase system demixes into a two-phase system consisting of a condensed phase and a dilute phase of particular biomolec",
+    "openalex_id": "https://openalex.org/W4291991763",
+    "relevance_score": 105.35533
+  },
+  {
+    "title": "Biogenesis and Regulatory Roles of Circular RNAs",
+    "doi": "10.1146/annurev-cellbio-120420-125117",
+    "authors": [
+      "Li Yang",
+      "Jeremy E. Wilusz",
+      "Ling‐Ling Chen"
+    ],
+    "year": 2022,
+    "publication_date": "2022-05-25",
+    "cited_by_count": 314,
+    "journal": "Annual Review of Cell and Developmental Biology",
+    "abstract": "Covalently closed, single-stranded circular RNAs can be produced from viral RNA genomes as well as from the processing of cellular housekeeping noncoding RNAs and precursor messenger RNAs. Recent transcriptomic studies have surprisingly uncovered that many protein-coding genes can be subjected to backsplicing, leading to widespread expression of a specific type of circular RNAs (circRNAs) in eukaryotic cells. Here, we discuss experimental strategies used to discover and characterize diverse circ",
+    "openalex_id": "https://openalex.org/W4281482071",
+    "relevance_score": 103.62434
+  },
+  {
+    "title": "The roles and implications of RNA m6A modification in cancer",
+    "doi": "10.1038/s41571-023-00774-x",
+    "authors": [
+      "Xiaolan Deng",
+      "Ying Qing",
+      "David Horne",
+      "Huilin Huang",
+      "Jianjun Chen"
+    ],
+    "year": 2023,
+    "publication_date": "2023-05-23",
+    "cited_by_count": 353,
+    "journal": "Nature Reviews Clinical Oncology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4377820759",
+    "relevance_score": 93.23975
+  },
+  {
+    "title": "Role of main RNA modifications in cancer: N6-methyladenosine, 5-methylcytosine, and pseudouridine",
+    "doi": "10.1038/s41392-022-01003-0",
+    "authors": [
+      "Chen Xue",
+      "Qingfei Chu",
+      "Qiuxian Zheng",
+      "Shiman Jiang",
+      "Zhengyi Bao"
+    ],
+    "year": 2022,
+    "publication_date": "2022-04-28",
+    "cited_by_count": 181,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Abstract Cancer is one of the major diseases threatening human life and health worldwide. Epigenetic modification refers to heritable changes in the genetic material without any changes in the nucleic acid sequence and results in heritable phenotypic changes. Epigenetic modifications regulate many biological processes, such as growth, aging, and various diseases, including cancer. With the advancement of next-generation sequencing technology, the role of RNA modifications in cancer progression h",
+    "openalex_id": "https://openalex.org/W4225006955",
+    "relevance_score": 70.719955
+  },
+  {
+    "title": "The Proteins of mRNA Modification: Writers, Readers, and Erasers",
+    "doi": "10.1146/annurev-biochem-052521-035330",
+    "authors": [
+      "Mathieu N. Flamand",
+      "Matthew Tegowski",
+      "Kate D. Meyer"
+    ],
+    "year": 2023,
+    "publication_date": "2023-04-17",
+    "cited_by_count": 158,
+    "journal": "Annual Review of Biochemistry",
+    "abstract": "Over the past decade, mRNA modifications have emerged as important regulators of gene expression control in cells. Fueled in large part by the development of tools for detecting RNA modifications transcriptome wide, researchers have uncovered a diverse epitranscriptome that serves as an additional layer of gene regulation beyond simple RNA sequence. Here, we review the proteins that write, read, and erase these marks, with a particular focus on the most abundant internal modification, N 6 -methy",
+    "openalex_id": "https://openalex.org/W4366138140",
+    "relevance_score": 69.82139
+  },
+  {
+    "title": "Emerging complexity of the HuD/ELAVl4 gene; implications for neuronal development, function, and dysfunction",
+    "doi": "10.1261/rna.039164.113",
+    "authors": [
+      "Lucas Bronicki",
+      "Bernard J. Jasmin"
+    ],
+    "year": 2013,
+    "publication_date": "2013-07-16",
+    "cited_by_count": 134,
+    "journal": "RNA",
+    "abstract": "Precise control of messenger RNA (mRNA) processing and abundance are increasingly being recognized as critical for proper spatiotemporal gene expression, particularly in neurons. These regulatory events are governed by a large number of trans-acting factors found in neurons, most notably RNA-binding proteins (RBPs) and micro-RNAs (miRs), which bind to specific cis-acting elements or structures within mRNAs. Through this binding mechanism, trans-acting factors, particularly RBPs, control all aspe",
+    "openalex_id": "https://openalex.org/W2152333262",
+    "relevance_score": 64.65391
+  },
+  {
+    "title": "RNA modification in cardiovascular disease: implications for therapeutic interventions",
+    "doi": "10.1038/s41392-023-01638-7",
+    "authors": [
+      "Cong Wang",
+      "Xuyang Hou",
+      "Qing Guan",
+      "Huiling Zhou",
+      "Zhou Li"
+    ],
+    "year": 2023,
+    "publication_date": "2023-10-26",
+    "cited_by_count": 95,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Abstract Cardiovascular disease (CVD) is the leading cause of death in the world, with a high incidence and a youth-oriented tendency. RNA modification is ubiquitous and indispensable in cell, maintaining cell homeostasis and function by dynamically regulating gene expression. Accumulating evidence has revealed the role of aberrant gene expression in CVD caused by dysregulated RNA modification. In this review, we focus on nine common RNA modifications: N 6 -methyladenosine (m 6 A), N 1 -methylad",
+    "openalex_id": "https://openalex.org/W4387953843",
+    "relevance_score": 61.060432
+  },
+  {
+    "title": "RNA methylation influences TDP43 binding and disease pathogenesis in models of amyotrophic lateral sclerosis and frontotemporal dementia",
+    "doi": "10.1016/j.molcel.2022.12.019",
+    "authors": [
+      "Michael McMillan",
+      "Nicolás Gómez",
+      "Caroline Hsieh",
+      "Michael E. Bekier",
+      "Xingli Li"
+    ],
+    "year": 2023,
+    "publication_date": "2023-01-01",
+    "cited_by_count": 115,
+    "journal": "Molecular Cell",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4315928462",
+    "relevance_score": 59.14903
+  },
+  {
+    "title": "Uncovering the Role of RNA-Binding Proteins in Gene Expression in the Immune System",
+    "doi": "10.3389/fimmu.2018.01094",
+    "authors": [
+      "Manuel D. Díaz‐Muñoz",
+      "Martin Turner"
+    ],
+    "year": 2018,
+    "publication_date": "2018-05-23",
+    "cited_by_count": 88,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Fighting external pathogens requires an ever-changing immune system that relies on tight regulation of gene expression. Transcriptional control is the first step to build efficient responses while preventing immunodeficiencies and autoimmunity. Post-transcriptional regulation of RNA editing, location, stability, and translation are the other key steps for final gene expression, and they are all controlled by RNA-binding proteins (RBPs). Nowadays we have a deep understanding of how transcription ",
+    "openalex_id": "https://openalex.org/W2804378101",
+    "relevance_score": 56.456375
+  },
+  {
+    "title": "Methylation across the central dogma in health and diseases: new therapeutic strategies",
+    "doi": "10.1038/s41392-023-01528-y",
+    "authors": [
+      "Ruochen Liu",
+      "Erhu Zhao",
+      "Huijuan Yu",
+      "Chaoyu Yuan",
+      "Muhammad Nadeem Abbas"
+    ],
+    "year": 2023,
+    "publication_date": "2023-08-24",
+    "cited_by_count": 135,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "The proper transfer of genetic information from DNA to RNA to protein is essential for cell-fate control, development, and health. Methylation of DNA, RNAs, histones, and non-histone proteins is a reversible post-synthesis modification that finetunes gene expression and function in diverse physiological processes. Aberrant methylation caused by genetic mutations or environmental stimuli promotes various diseases and accelerates aging, necessitating the development of therapies to correct the dis",
+    "openalex_id": "https://openalex.org/W4386125701",
+    "relevance_score": 55.875248
+  }
+]

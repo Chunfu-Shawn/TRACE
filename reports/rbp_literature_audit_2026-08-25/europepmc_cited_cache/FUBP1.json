@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Comprehensive, Integrative Genomic Analysis of Diffuse Lower-Grade Gliomas.",
+    "doi": "10.1056/nejmoa1402121",
+    "pmid": "26061751",
+    "authors": [
+      "Cancer Genome Atlas Research Network, Brat DJ, Verhaak RG, Aldape KD, Yung WK, Salama SR, Cooper LA, Rheinbay E, Miller CR, Vitucci M, Morozova O, Robertson AG, Noushmehr H, Laird PW, Cherniack AD, Akbani R, Huse JT, Ciriello G, Poisson LM, Barnholtz-Sloan JS, Berger MS, Brennan C, Colen RR, Colman H, Flanders AE, Giannini C, Grifford M, Iavarone A, Jain R, Joseph I, Kim J, Kasaian K, Mikkelsen T, Murray BA, O'Neill BP, Pachter L, Parsons DW, Sougnez C, Sulman EP, Vandenberg SR, Van Meir EG, von Deimling A, Zhang H, Crain D, Lau K, Mallery D, Morris S, Paulauskis J, Penny R, Shelton T, Sherman M, Yena P, Black A, Bowen J, Dicostanzo K, Gastier-Foster J, Leraas KM, Lichtenberg TM, Pierson CR, Ramirez NC, Taylor C, Weaver S, Wise L, Zmuda E, Davidsen T, Demchok JA, Eley G, Ferguson ML, Hutter CM, Mills Shaw KR, Ozenberger BA, Sheth M, Sofia HJ, Tarnuzzer R, Wang Z, Yang L, Zenklusen JC, Ayala B, Baboud J, Chudamani S, Jensen MA, Liu J, Pihl T, Raman R, Wan Y, Wu Y, Ally A, Auman JT, Balasundaram M, Balu S, Baylin SB, Beroukhim R, Bootwalla MS, Bowlby R, Bristow CA, Brooks D, Butterfield Y, Carlsen R, Carter S, Chin L, Chu A, Chuah E, Cibulskis K, Clarke A, Coetzee SG, Dhalla N, Fennell T, Fisher S, Gabriel S, Getz G, Gibbs R, Guin R, Hadjipanayis A, Hayes DN, Hinoue T, Hoadley K, Holt RA, Hoyle AP, Jefferys SR, Jones S, Jones CD, Kucherlapati R, Lai PH, Lander E, Lee S, Lichtenstein L, Ma Y, Maglinte DT, Mahadeshwar HS, Marra MA, Mayo M, Meng S, Meyerson ML, Mieczkowski PA, Moore RA, Mose LE, Mungall AJ, Pantazi A, Parfenov M, Park PJ, Parker JS, Perou CM, Protopopov A, Ren X, Roach J, Sabedot TS, Schein J, Schumacher SE, Seidman JG, Seth S, Shen H, Simons JV, Sipahimalani P, Soloway MG, Song X, Sun H, Tabak B, Tam A, Tan D, Tang J, Thiessen N, Triche T, Van Den Berg DJ, Veluvolu U, Waring S, Weisenberger DJ, Wilkerson MD, Wong T, Wu J, Xi L, Xu AW, Yang L, Zack TI, Zhang J, Aksoy BA, Arachchi H, Benz C, Bernard B, Carlin D, Cho J, DiCara D, Frazer S, Fuller GN, Gao J, Gehlenborg N, Haussler D, Heiman DI, Iype L, Jacobsen A, Ju Z, Katzman S, Kim H, Knijnenburg T, Kreisberg RB, Lawrence MS, Lee W, Leinonen K, Lin P, Ling S, Liu W, Liu Y, Liu Y, Lu Y, Mills G, Ng S, Noble MS, Paull E, Rao A, Reynolds S, Saksena G, Sanborn Z, Sander C, Schultz N, Senbabaoglu Y, Shen R, Shmulevich I, Sinha R, Stuart J, Sumer SO, Sun Y, Tasman N, Taylor BS, Voet D, Weinhold N, Weinstein JN, Yang D, Yoshihara K, Zheng S, Zhang W, Zou L, Abel T, Sadeghi S, Cohen ML, Eschbacher J, Hattab EM, Raghunathan A, Schniederjan MJ, Aziz D, Barnett G, Barrett W, Bigner DD, Boice L, Brewer C, Calatozzolo C, Campos B, Carlotti CG, Chan TA, Cuppini L, Curley E, Cuzzubbo S, Devine K, DiMeco F, Duell R, Elder JB, Fehrenbach A, Finocchiaro G, Friedman W, Fulop J, Gardner J, Hermes B, Herold-Mende C, Jungk C, Kendler A, Lehman NL, Lipp E, Liu O, Mandt R, McGraw M, Mclendon R, McPherson C, Neder L, Nguyen P, Noss A, Nunziata R, Ostrom QT, Palmer C, Perin A, Pollo B, Potapov A, Potapova O, Rathmell WK, Rotin D, Scarpace L, Schilero C, Senecal K, Shimmel K, Shurkhay V, Sifri S, Singh R, Sloan AE, Smolenski K, Staugaitis SM, Steele R, Thorne L, Tirapelli DP, Unterberg A, Vallurupalli M, Wang Y, Warnick R, Williams F, Wolinsky Y, Bell S, Rosenberg M, Stewart C, Huang F, Grimsby JL, Radenbaugh AJ, Zhang J."
+    ],
+    "year": "2015",
+    "publication_date": "2015-06-10",
+    "cited_by_count": 2413,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Diffuse low-grade and intermediate-grade gliomas (which together make up the lower-grade gliomas, World Health Organization grades II and III) have highly variable clinical behavior that is not adequately predicted on the basis of histologic class. Some are indolent; others quickly progress to glioblastoma. The uncertainty is compounded by interobserver variability in histologic diagnosis. Mutations in IDH, TP53, and ATRX and codeletion of chromosome arms 1p and 19q (1p/19q codeletion) have been implicated as clinically relevant markers of lower-grade gliomas.<h4>Methods</h4>We performed genomewide analyses of 293 lower-grade gliomas from adults, incorporating exome sequence, DNA copy number, DNA methylation, messenger RNA expression, microRNA expression, and targeted protein expression. These data were integrated and tested for correlation with clinical outcomes.<h4>Results</h4>Unsupervised clustering of mutations and data from RNA, DNA-copy-number, and DNA-methylation platforms uncovered concordant classification of three robust, nonoverlapping, prognostically significant subtypes of lower-grade glioma that were captured more accurately by IDH, 1p/19q, and TP53 status than by histologic class. Patients who had lower-grade gliomas with an IDH mutation and 1p/19q codeletion had the most favorable clinical outcomes. Their gliomas harbored mutations in CIC, FUBP1, NOTCH1, and the TERT promoter. Nearly all lower-grade gliomas with IDH mutations and no 1p/19q codeletion had mutations in TP53 (94%) and ATRX inactivation (86%). The large majority of lower-grade gliomas without an IDH mutation had genomic aberrations and clinical behavior strikingly similar to those found in primary glioblastoma.<h4>Conclusions</h4>The integration of genomewide data from multiple platforms delineated three molecular classes of lower-grade gliomas that were more concordant with IDH, 1p/19q, and TP53 status than with histologic class. Lower-grade gliomas with an IDH mutation either had 1p/19q codeletion or carried a TP53 mutation. Most lower-grade gliomas without an IDH mutation were molecularly and clinically similar to glioblastoma. (Funded by the National Institutes of Health.).",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oligodendroglioma: pathology, molecular mechanisms and markers.",
+    "doi": "10.1007/s00401-015-1424-1",
+    "pmid": "25943885",
+    "authors": [
+      "Wesseling P, van den Bent M, Perry A."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-06",
+    "cited_by_count": 146,
+    "journal": "",
+    "abstract": "For nearly a century, the diagnosis and grading of oligodendrogliomas and oligoastrocytomas has been based on histopathology alone. Roughly 20 years ago, the first glioma-associated molecular signature was found with complete chromosome 1p and 19q codeletion being particularly common in histologically classic oligodendrogliomas. Subsequently, this codeletion appeared to not only carry diagnostic, but also prognostic and predictive information, the latter aspect only recently resolved after carefully constructed clinical trials with very long follow-up times. More recently described biomarkers, including the non-balanced translocation leading to 1p/19q codeletion, promoter hypermethylation of the MGMT gene, mutations of the IDH1 or IDH2 gene, and mutations of FUBP1 (on 1p) or CIC (on 19q), have greatly enhanced our understanding of oligodendroglioma biology, although their diagnostic, prognostic, and predictive roles are less clear. It has therefore been suggested that complete 1p/19q codeletion be required for the diagnosis of 'canonical oligodendroglioma'. This transition to an integrated morphological and molecular diagnosis may result in the disappearance of oligoastrocytoma as an entity, but brings new challenges as well. For instance it needs to be sorted out how (histopathological) criteria for grading of 'canonical oligodendrogliomas' should be adapted, how pediatric oligodendrogliomas (known to lack codeletions) should be defined, which platforms and cut-off levels should ideally be used for demonstration of particular molecular aberrations, and how the diagnosis of oligodendroglioma should be made in centers/countries where molecular diagnostics is not available. Meanwhile, smart integration of morphological and molecular information will lead to recognition of biologically much more uniform groups within the spectrum of diffuse gliomas and thereby facilitate tailored treatments for individual patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cross-ancestry genome-wide meta-analysis of 61,047 cases and 947,237 controls identifies new susceptibility loci contributing to lung cancer.",
+    "doi": "10.1038/s41588-022-01115-x",
+    "pmid": "35915169",
+    "authors": [
+      "Byun J, Han Y, Li Y, Xia J, Long E, Choi J, Xiao X, Zhu M, Zhou W, Sun R, Bossé Y, Song Z, Schwartz A, Lusk C, Rafnar T, Stefansson K, Zhang T, Zhao W, Pettit RW, Liu Y, Li X, Zhou H, Walsh KM, Gorlov I, Gorlova O, Zhu D, Rosenberg SM, Pinney S, Bailey-Wilson JE, Mandal D, de Andrade M, Gaba C, Willey JC, You M, Anderson M, Wiencke JK, Albanes D, Lam S, Tardon A, Chen C, Goodman G, Bojeson S, Brenner H, Landi MT, Chanock SJ, Johansson M, Muley T, Risch A, Wichmann HE, Bickeböller H, Christiani DC, Rennert G, Arnold S, Field JK, Shete S, Le Marchand L, Melander O, Brunnstrom H, Liu G, Andrew AS, Kiemeney LA, Shen H, Zienolddiny S, Grankvist K, Johansson M, Caporaso N, Cox A, Hong YC, Yuan JM, Lazarus P, Schabath MB, Aldrich MC, Patel A, Lan Q, Rothman N, Taylor F, Kachuri L, Witte JS, Sakoda LC, Spitz M, Brennan P, Lin X, McKay J, Hung RJ, Amos CI."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-01",
+    "cited_by_count": 113,
+    "journal": "",
+    "abstract": "To identify new susceptibility loci to lung cancer among diverse populations, we performed cross-ancestry genome-wide association studies in European, East Asian and African populations and discovered five loci that have not been previously reported. We replicated 26 signals and identified 10 new lead associations from previously reported loci. Rare-variant associations tended to be specific to populations, but even common-variant associations influencing smoking behavior, such as those with CHRNA5 and CYP2A6, showed population specificity. Fine-mapping and expression quantitative trait locus colocalization nominated several candidate variants and susceptibility genes such as IRF4 and FUBP1. DNA damage assays of prioritized genes in lung fibroblasts indicated that a subset of these genes, including the pleiotropic gene IRF4, potentially exert effects by promoting endogenous DNA damage.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LCAT3, a novel m6A-regulated long non-coding RNA, plays an oncogenic role in lung cancer via binding with FUBP1 to activate c-MYC.",
+    "doi": "10.1186/s13045-021-01123-0",
+    "pmid": "34274028",
+    "authors": [
+      "Qian X, Yang J, Qiu Q, Li X, Jiang C, Li J, Dong L, Ying K, Lu B, Chen E, Liu P, Lu Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-07-17",
+    "cited_by_count": 110,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Long non-coding RNAs (lncRNAs) are important epigenetic regulators, which play critical roles in diverse physiological and pathological processes. However, the regulatory mechanism of lncRNAs in lung carcinogenesis remains elusive. Here, we characterized a novel oncogenic lncRNA, designated as Lung Cancer Associated Transcript 3 (LCAT3).<h4>Methods</h4>We predicted and validated LCAT3 by analyzing RNA-sequencing (RNA-seq) data of lung cancer tissues from TCGA. Methylated RNA immunoprecipitation was performed to assess m6A modification on LCAT3. The LCAT3-FUBP1-MYC axis was assessed by dual-luciferase reporter, RNA immunoprecipitation and Chromatin immunoprecipitation assays. Signaling pathways altered by LCAT3 knockdown were identified using RNA-seq. Furthermore, the mechanism of LCAT3 was investigated using loss-of-function and gain-of-function assays in vivo and in vitro.<h4>Results</h4>LCAT3 was found to be up-regulated in lung adenocarcinomas (LUAD), and its over-expression was associated with the poor prognosis of LUAD patients. LCAT3 upregulation is attributable to N6-methyladenosine (m6A) modification mediated by methyltransferase like 3 (METTL3), leading to LCAT3 stabilization. Biologically, loss-of-function assays revealed that LCAT3 knockdown significantly suppressed lung cancer cell proliferation, migration and invasion in vitro, and inhibited tumor growth and metastasis in vivo. LCAT3 knockdown induced cell cycle arrest at the G1 phase. Mechanistically, LCAT3 recruited Far Upstream Element Binding Protein 1 (FUBP1) to the MYC far-upstream element (FUSE) sequence, thereby activating MYC transcription to promote proliferation, survival, invasion and metastasis of lung cancer cells.<h4>Conclusions</h4>Taken together, we identified and characterized LCAT3 as a novel oncogenic lncRNA in the lung, and validated the LCAT3-FUBP1-MYC axis as a potential therapeutic target for LUAD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanistic studies of a small-molecule modulator of SMN2 splicing.",
+    "doi": "10.1073/pnas.1800260115",
+    "pmid": "29712837",
+    "authors": [
+      "Wang J, Schultz PG, Johnson KA."
+    ],
+    "year": "2018",
+    "publication_date": "2018-04-30",
+    "cited_by_count": 110,
+    "journal": "",
+    "abstract": "RG-7916 is a first-in-class drug candidate for the treatment of spinal muscular atrophy (SMA) that functions by modulating pre-mRNA splicing of the <i>SMN2</i> gene, resulting in a 2.5-fold increase in survival of motor neuron (SMN) protein level, a key protein lacking in SMA patients. RG-7916 is currently in three interventional phase 2 clinical trials for various types of SMA. In this report, we show that SMN-C2 and -C3, close analogs of RG-7916, act as selective RNA-binding ligands that modulate pre-mRNA splicing. Chemical proteomic and genomic techniques reveal that SMN-C2 directly binds to the AGGAAG motif on exon 7 of the SMN2 pre-mRNA, and promotes a conformational change in two to three unpaired nucleotides at the junction of intron 6 and exon 7 in both in vitro and in-cell models. This change creates a new functional binding surface that increases binding of the splicing modulators, far upstream element binding protein 1 (FUBP1) and its homolog, KH-type splicing regulatory protein (KHSRP), to the SMN-C2/C3-SMN2 pre-mRNA complex and enhances SMN2 splicing. These findings underscore the potential of small-molecule drugs to selectively bind RNA and modulate pre-mRNA splicing as an approach to the treatment of human disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The circACTN4 interacts with FUBP1 to promote tumorigenesis and progression of breast cancer by regulating the expression of proto-oncogene MYC.",
+    "doi": "10.1186/s12943-021-01383-x",
+    "pmid": "34116677",
+    "authors": [
+      "Wang X, Xing L, Yang R, Chen H, Wang M, Jiang R, Zhang L, Chen J."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-11",
+    "cited_by_count": 85,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Recent studies have revealed that circular RNAs (circRNAs) play significant roles in the occurrence and development of many kinds of cancers including breast cancer (BC). However, the potential functions of most circRNAs and the molecular mechanisms underlying progression of BC remain elusive.<h4>Method</h4>Here, Circular RNA microarray was executed in 4 pairs of breast cancer tissues and para-cancer tissues. The expression and prognostic significance of circACTN4 in BC cells and tissues were determined by qRT-PCR and in situ hybridization. Gain-and loss-of-function experiments were implemented to observe the impacts of circACTN4 on the growth, invasion, and metastasis of BC cells in vitro and in vivo. Mechanistically, chromatin immunoprecipitation, luciferase reporter, RNA pulldown, mass spectrum, RNA immunoprecipitation, fluorescence in situ hybridization and co-immunoprecipitation assays were executed.<h4>Results</h4>CircACTN4 was significantly upregulated in breast cancer tissues and cells, its expression was correlated with clinical stage and poor prognosis of patients with BC. Ectopic expression of circACTN4 strikingly facilitated the growth, invasion, and metastasis of breast cancer cells in vitro and in vivo. Whereas knockdown of circACTN4 revealed opposite roles. CircACTN4 was mainly distributed in the nucleus. Further mechanistic research proved that circACTN4 could competitively bind to far upstream element binding protein 1 (FUBP1) to prevent the combination between FUBP1 and FIR, thereby activating MYC transcription and facilitating tumor progression of breast cancer. Furthermore, we found that upstream transcription factor 2 (USF2) might promote the biogenesis of circACTN4.<h4>Conclusion</h4>Our findings uncover a pivotal mechanism that circACTN4 mediated by USF2 might interact with FUBP1 to promote the occurrence and development of breast cancer via enhancing the expression of MYC. CircACTN4 could be a novel potential target for diagnosis and treatment of breast cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MiR-16 mediates trastuzumab and lapatinib response in ErbB-2-positive breast and gastric cancer via its novel targets CCNJ and FUBP1.",
+    "doi": "10.1038/onc.2016.151",
+    "pmid": "27157613",
+    "authors": [
+      "Venturutti L, Cordo Russo RI, Rivas MA, Mercogliano MF, Izzo F, Oakley RH, Pereyra MG, De Martino M, Proietti CJ, Yankilevich P, Roa JC, Guzmán P, Cortese E, Allemand DH, Huang TH, Charreau EH, Cidlowski JA, Schillaci R, Elizalde PV."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-09",
+    "cited_by_count": 71,
+    "journal": "",
+    "abstract": "ErbB-2 amplification/overexpression accounts for an aggressive breast cancer (BC) subtype (ErbB-2-positive). Enhanced ErbB-2 expression was also found in gastric cancer (GC) and has been correlated with poor clinical outcome. The ErbB-2-targeted therapies trastuzumab (TZ), a monoclonal antibody, and lapatinib, a tyrosine kinase inhibitor, have proved highly beneficial. However, resistance to such therapies remains a major clinical challenge. We here revealed a novel mechanism underlying the antiproliferative effects of both agents in ErbB-2-positive BC and GC. TZ and lapatinib ability to block extracellular signal-regulated kinases 1/2 and phosphatidylinositol-3 kinase (PI3K)/AKT in sensitive cells inhibits c-Myc activation, which results in upregulation of miR-16. Forced expression of miR-16 inhibited in vitro proliferation in BC and GC cells, both sensitive and resistant to TZ and lapatinib, as well as in a preclinical BC model resistant to these agents. This reveals miR-16 role as tumor suppressor in ErbB-2-positive BC and GC. Using genome-wide expression studies and miRNA target prediction algorithms, we identified cyclin J and far upstream element-binding protein 1 (FUBP1) as novel miR-16 targets, which mediate miR-16 antiproliferative effects. Supporting the clinical relevance of our results, we found that high levels of miR-16 and low or null FUBP1 expression correlate with TZ response in ErbB-2-positive primary BCs. These findings highlight a potential role of miR-16 and FUBP1 as biomarkers of sensitivity to TZ therapy. Furthermore, we revealed miR-16 as an innovative therapeutic agent for TZ- and lapatinib-resistant ErbB-2-positive BC and GC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The NR_109/FUBP1/c-Myc axis regulates TAM polarization and remodels the tumor microenvironment to promote cancer development.",
+    "doi": "10.1136/jitc-2022-006230",
+    "pmid": "37217247",
+    "authors": [
+      "Zhang C, Wei S, Dai S, Li X, Wang H, Zhang H, Sun G, Shan B, Zhao L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-05-01",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Tumor-associated macrophages (TAMs) are a major component of the tumor microenvironment (TME) and exert an important role in tumor progression. Due to the heterogeneity and plasticity of TAMs, modulating the polarization states of TAMs is considered as a potential therapeutic strategy for tumors. Long noncoding RNAs (lncRNAs) have been implicated in various physiological and pathological processes, yet the underlying mechanism on how lncRNAs manipulate the polarization states of TAMs is still unclear and remains to be further investigated.<h4>Methods</h4>Microarray analyses were employed to characterize the lncRNA profile involved in THP-1-induced M0, M1 and M2-like macrophage. Among those differentially expressed lncRNAs, NR_109 was further studied, for its function in M2-like macrophage polarization and the effects of the condition medium or macrophages mediated by NR_109 on tumor proliferation, metastasis and TME remodeling both in vitro and in vivo. Moreover, we revealed how NR_109 interacted with far upstream element-binding protein 1 (FUBP1) to regulate the protein stability through hindering ubiquitination modification by competitively binding with JVT-1. Finally, we examined sections of tumor patients to probe the correlation among the expression of NR_109 and related proteins, showing the clinical significance of NR_109.<h4>Results</h4>We found that lncRNA NR_109 was highly expressed in M2-like macrophages. Knockdown NR_109 impeded IL-4 induced M2-like macrophage polarization and significantly reduced the activity of M2-like macrophages to support the proliferation and metastasis of tumor cells in vitro and in vivo. Mechanistically, NR_109 competed with JVT-1 to bind FUBP1 at its C-terminus domain, impeded the ubiquitin-mediated degradation of FUBP1, activated <i>c-Myc</i> transcription and thus promoted M2-like macrophages polarization. Meanwhile, as a transcription factor, c-Myc could bind to the promoter of NR_109 and enhance the transcription of NR_109. Clinically, high NR_109 expression was found in CD163<sup>+</sup> TAMs from tumor tissues and was positively correlated with poor clinical stages of patients with gastric cancer and breast cancer.<h4>Conclusions</h4>Our work revealed for the first time that NR_109 exerted a crucial role in regulating the phenotype-remodeling and function of M2-like macrophages via a NR_109/FUBP1/c-Myc positive feedback loop. Thus, NR_109 has great translational potentials in the diagnosis, prognosis and immunotherapy of cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "In vitro iCLIP-based modeling uncovers how the splicing factor U2AF2 relies on regulation by cofactors.",
+    "doi": "10.1101/gr.229757.117",
+    "pmid": "29643205",
+    "authors": [
+      "Sutandy FXR, Ebersberger S, Huang L, Busch A, Bach M, Kang HS, Fallmann J, Maticzka D, Backofen R, Stadler PF, Zarnack K, Sattler M, Legewie S, König J."
+    ],
+    "year": "2018",
+    "publication_date": "2018-04-11",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "Alternative splicing generates distinct mRNA isoforms and is crucial for proteome diversity in eukaryotes. The RNA-binding protein (RBP) U2AF2 is central to splicing decisions, as it recognizes 3' splice sites and recruits the spliceosome. We establish \"in vitro iCLIP\" experiments, in which recombinant RBPs are incubated with long transcripts, to study how U2AF2 recognizes RNA sequences and how this is modulated by <i>trans</i>-acting RBPs. We measure U2AF2 affinities at hundreds of binding sites and compare in vitro and in vivo binding landscapes by mathematical modeling. We find that <i>trans</i>-acting RBPs extensively regulate U2AF2 binding in vivo, including enhanced recruitment to 3' splice sites and clearance of introns. Using machine learning, we identify and experimentally validate novel <i>trans</i>-acting RBPs (including FUBP1, CELF6, and PCBP1) that modulate U2AF2 binding and affect splicing outcomes. Our study offers a blueprint for the high-throughput characterization of in vitro mRNP assembly and in vivo splicing regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The master regulator FUBP1: its emerging role in normal cell function and malignant development.",
+    "doi": "10.1007/s00018-018-2933-6",
+    "pmid": "30343319",
+    "authors": [
+      "Debaize L, Troadec MB."
+    ],
+    "year": "2019",
+    "publication_date": "2018-10-20",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "The human Far Upstream Element (FUSE) Binding Protein 1 (FUBP1) is a multifunctional DNA- and RNA-binding protein involved in diverse cellular processes. FUBP1 is a master regulator of transcription, translation, and RNA splicing. FUBP1 has been identified as a potent pro-proliferative and anti-apoptotic factor by modulation of complex networks. FUBP1 is also described either as an oncoprotein or a tumor suppressor. Especially, FUBP1 overexpression is observed in a growing number of cancer and leads to a deregulation of targets that includes the fine-tuned MYC oncogene. Moreover, recent loss-of-function analyses of FUBP1 establish its essential functions in hematopoietic stem cell maintenance and survival. Therefore, FUBP1 appears as an emerging suspect in hematologic disorders in addition to solid tumors. The scope of the present review is to describe the advances in our understanding of the molecular basis of FUBP1 functions in normal cells and carcinogenesis. We also delineate the recent progresses in the understanding of the master role of FUBP1 in normal and pathological hematopoiesis. We conclude that FUBP1 is not only worth studying biologically but is also of clinical relevance through its pivotal role in regulating multiple cellular processes and its involvement in oncogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Kaempferol inhibits enterovirus 71 replication and internal ribosome entry site (IRES) activity through FUBP and HNRP proteins.",
+    "doi": "10.1016/j.foodchem.2011.03.022",
+    "pmid": "25212137",
+    "authors": [
+      "Tsai FJ, Lin CW, Lai CC, Lan YC, Lai CH, Hung CH, Hsueh KC, Lin TH, Chang HC, Wan L, Sheu JJ, Lin YJ."
+    ],
+    "year": "2011",
+    "publication_date": "2011-03-13",
+    "cited_by_count": 63,
+    "journal": "",
+    "abstract": "Flavonoids are associated with multiple biological and pharmacological activities, including anti-enterovirus activity. An internal ribosomal entry site (IRES) required for viral protein translation is a potential drug target for enterovirus 71 (EV71). Regulation translation initiation requires the interaction of IRES specific trans-acting host factors with viral IRES element. By evaluation of 12 flavonoids against EV71 infection, we found that (a) 7,8-dihydroxyflavone, kaempferol, quercetin, hesperetin and hesperidin exhibited more than 80% of cell survival and inhibition of EV71 infection; however, no anti-oxidative effects were noted from these flavonoids; (b) among them, only 7,8-dihydroxyflavone, kaempferol and hesperetin showed 40% of viral IRES activity; (c) kaempferol interfered with EV71 virus replication and pseudotyped virus production; and (d) FUBP1, FUBP3, HNRPD, HNRH1 and HNRPF proteins are associated with EV71 5'-UTR as shown using RNA affinity pull-down assay coupled with LC-MS/MS analysis. We firstly found that kaempferol may change the composition of these IRES associated trans-acting factors, and affect IRES function and EV71 virus replication. These studies help not only to understand the IRES function but also the mechanism by which drug induced cellular proteins are acting against EV71 infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel long intergenic noncoding RNA indispensable for the cleavage of mouse two-cell embryos.",
+    "doi": "10.15252/embr.201642051",
+    "pmid": "27496889",
+    "authors": [
+      "Wang J, Li X, Wang L, Li J, Zhao Y, Bou G, Li Y, Jiao G, Shen X, Wei R, Liu S, Xie B, Lei L, Li W, Zhou Q, Liu Z."
+    ],
+    "year": "2016",
+    "publication_date": "2016-08-05",
+    "cited_by_count": 58,
+    "journal": "",
+    "abstract": "Endogenous retroviruses (ERVs) are transcriptionally active in cleavage stage embryos, yet their functions are unknown. ERV sequences are present in the majority of long intergenic noncoding RNAs (lincRNAs) in mouse and humans, playing key roles in many cellular processes and diseases. Here, we identify LincGET as a nuclear lincRNA that is GLN-, MERVL-, and ERVK-associated and essential for mouse embryonic development beyond the two-cell stage. LincGET is expressed in late two- to four-cell mouse embryos. Its depletion leads to developmental arrest at the late G2 phase of the two-cell stage and to MAPK signaling pathway inhibition. LincGET forms an RNA-protein complex with hnRNP U, FUBP1, and ILF2, promoting the cis-regulatory activity of long terminal repeats (LTRs) in GLN, MERVL, and ERVK (GLKLTRs), and inhibiting RNA alternative splicing, partially by downregulating hnRNP U, FUBP1, and ILF2 protein levels. Hnrnpu or Ilf2 mRNA injection at the pronuclear stage also decreases the preimplantation developmental rate, and Fubp1 mRNA injection at the pronuclear stage causes a block at the two-cell stage. Thus, as the first functional ERV-associated lincRNA, LincGET provides clues for ERV functions in cleavage stage embryonic development.",
+    "openalex_id": ""
+  }
+]

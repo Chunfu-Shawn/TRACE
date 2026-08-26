@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Role of MEX3A in tumorigenesis: Mechanisms, tumor‑specific effects and therapeutic implications (Review).",
+    "doi": "10.3892/ijmm.2025.5579",
+    "pmid": "40641106",
+    "authors": [
+      "Tang L, Zhang L, Yao S, Li X, Wang Y, Liu Q, Li J, Wen G, An J, Jin H, Zhu J, Tuo B."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-11",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Muscle excess 3A (MEX3A), a dual‑function RNA‑binding protein with E3 ubiquitin ligase activity, is a pivotal regulator of tumorigenesis. By modulating mRNA stability, translation and targeted protein degradation, MEX3A orchestrates key oncogenic processes, including tumor stemness maintenance, proliferation, migration and immune evasion. MEX3A is aberrantly expressed in various malignancies, such as colorectal and breast cancer, hepatocellular carcinoma and glioblastoma, where it engages key signaling pathways, including the Wnt/β‑catenin, PI3K/AKT and NF‑κB pathways. Mechanistically, MEX3A directly regulates oncogenic and tumor suppressor transcripts, influencing the cell dynamics within the tumor microenvironment. Furthermore, MEX3A upregulation is associated with a poor prognosis and therapy resistance, highlighting its potential as a prognostic biomarker and therapeutic target. The present review aimed to summarize the molecular functions, tumor‑specific roles and translational relevance of MEX3A, bridging the gap between mechanistic insight and clinical applications. Future studies exploring MEX3A‑targeted interventions may reveal novel strategies for precision oncology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative bioinformatic and experimental analysis reveals prognostic and immunological roles of MEX3 family genes in glioma.",
+    "doi": "10.3389/fimmu.2025.1654036",
+    "pmid": "41613120",
+    "authors": [
+      "Zhang X, Shang H, Chu T, Sha K."
+    ],
+    "year": "2025",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is a highly heterogeneous and aggressive malignancy of the central nervous system, and reliable molecular biomarkers are urgently needed to improve prognostic stratification and guide therapeutic decision-making. The MEX3 family of RNA-binding proteins has been implicated in tumorigenesis and post-transcriptional regulation; however, their comprehensive roles in glioma remain poorly understood.<h4>Methods</h4>Integrated bioinformatic analyses were performed using transcriptomic and clinical data from TCGA, CGGA, and GEO cohorts to evaluate the expression profiles, diagnostic and prognostic value, genetic alterations, molecular interactions, immune infiltration characteristics, and functional pathways associated with MEX3A, MEX3B, MEX3C, and MEX3D. Protein-protein interaction networks, gene set enrichment, and co-expression analyses were conducted to explore potential biological mechanisms. A MEX3-related prognostic risk model was constructed and validated in independent datasets. Drug sensitivity correlations were analyzed using public pharmacogenomic resources. In addition, <i>in vitro</i> experiments, including qRT-PCR, western blotting, proliferation, migration, and invasion assays, were performed in U251 and LN229 glioma cell lines to functionally validate the bioinformatic findings.<h4>Results</h4>All four MEX3 family members were significantly upregulated in glioma tissues compared with normal controls and demonstrated strong diagnostic performance. Distinct prognostic patterns were observed, with MEX3D consistently identified as an independent predictor of poor overall, disease-specific, and progression-free survival. MEX3 genes were associated with diverse genetic alterations and were enriched in pathways related to RNA processing, cell cycle regulation, and cancer-associated signaling. Immune analyses revealed significant correlations between MEX3 expression and multiple immune cell populations as well as immune checkpoint molecules, suggesting potential roles in shaping the glioma immune microenvironment. A MEX3-related co-expression-based prognostic model showed robust survival-predictive ability and remained effective in external validation cohorts. Functional assays confirmed that silencing individual MEX3 genes significantly inhibited glioma cell proliferation, migration, and invasion <i>in vitro</i>.<h4>Conclusions</h4>This study provides a comprehensive characterization of the MEX3 family in glioma, demonstrating their dysregulation, prognostic relevance, immune associations, and functional contributions to malignant phenotypes. Among them, MEX3D emerges as a particularly promising prognostic biomarker. These findings establish a foundation for future mechanistic and translational studies exploring MEX3 family members as potential biomarkers or therapeutic targets in glioma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mex-3 RNA-binding family member A limits macrophage ferroptosis-associated injury linked to the SLC7A11/GPX4 pathway in diabetic atherosclerosis.",
+    "doi": "10.1002/ctm2.70725",
+    "pmid": "42333008",
+    "authors": [
+      "Ma Y, Liu J, Xing Y, Pan S, Annayev BH, Wu W, Wang X, Liu Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Diabetes accelerates atherosclerotic plaque expansion and loss of stability, but the plaque-resident mechanisms through which the diabetic milieu promotes macrophage lipid-oxidative injury are not fully understood.<h4>Methods</h4>We used apolipoprotein E-deficient (ApoE<sup>-/-</sup>) mice with Mex-3 RNA-binding family member A (MEX3A) deficiency and primary bone marrow-derived macrophage (BMDM) experiments under diabetic conditions to investigate the role of MEX3A in diabetic atherosclerosis and macrophage lipid-peroxidation injury.<h4>Results</h4>MEX3A loss worsened diabetic atherosclerosis while leaving body weight, glycaemia and lipid measurements largely unchanged relative to diabetes alone. MEX3A deficiency enlarged aortic lesions, enhanced lipid deposition, increased macrophage content, expanded necrotic cores and thinned fibrous caps, while reducing collagen content. In lesional macrophages, loss of MEX3A coincided with increased lipid reactive oxygen species, malondialdehyde, increased labile iron, 4-hydroxynonenal, a disturbed glutathione redox state, mitochondrial abnormalities compatible with ferroptotic stress, lower GPX4/SLC7A11 and higher ACSL4. CRISPR/Cas9-mediated Mex3a knockout in BMDMs recapitulated this phenotype, whereas restoring MEX3A blunted it. RNA immunoprecipitation-qPCR together with actinomycin D decay analyses demonstrated preferential recovery of Slc7a11 and Gpx4 transcripts with MEX3A and decreased stability of Slc7a11 and Gpx4 mRNAs after Mex3a knockout. GPX4 or SLC7A11 overexpression reduced lipid-peroxidation injury in Mex3a-knockout macrophages, whereas Gpx4 or Slc7a11 knockdown weakened the protection conferred by MEX3A re-expression. Ferrostatin-1 partially attenuated macrophage lipid peroxidation and plaque injury.<h4>Conclusions</h4>Together, these results place MEX3A among the protective regulators of diabetic plaque stability and support a MEX3ASLC7A11/GPX4-linked ferroptosis-associated mechanism in plaque macrophages.<h4>Key points</h4>MEX3A deficiency worsens diabetic atherosclerosis without further aggravating systemic metabolic indices. Loss of MEX3A promotes plaque lipid deposition, macrophage accumulation, necrotic core expansion and fibrous cap thinning. MEX3A limits macrophage lipid-peroxidation injury linked to the SLC7A11/GPX4 pathway. Ferrostatin-1 partially attenuates macrophage lipid peroxidation and plaque injury associated with MEX3A deficiency.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mex3a-dependent post-transcriptional silencing ensures olfactory receptor diversity and axon guidance specificity.",
+    "doi": "10.1016/j.celrep.2025.115979",
+    "pmid": "40668674",
+    "authors": [
+      "Duffié R, Shayya H, Escamilla Del Arenal M, Wang M, Kahiapo J, Ugurbil A, Keskin A, Clowney F, Bashkirova EV, Pourmorady AD, Schieren I, Avila HI, Berchowitz LE, Barriga FM, Batlle E, Jovanovic M, Lomvardas S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-15",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Olfactory sensory neurons (OSNs) use olfactory receptor (OR)-specific patterns of endoplasmic reticulum (ER) stress to transform OR sequence identity into axon guidance precision. However, during neuronal differentiation, OSNs transiently co-express random combinations of OR genes, which could generate unpredictable ER stress signatures that could lead to axon miswiring. Here, we show that post-transcriptional OR silencing by the transiently expressed and cytoplasmic RING and KH domain protein Mex3a, decouples OR transcription from OR protein-induced ER stress, until the onset of singular OR transcription. Consequently, conditional Mex3a deletion results in premature ER stress during the polygenic stage of OR transcription, which biases OR choice toward the OR alleles that are transcribed first and perturbs the specificity of OR-regulated axon targeting, disrupting the glomerular map of odor representation in the olfactory bulb. Our experiments reveal the critical role of post-transcriptional gene regulation in a fundamental cellular pathway that influences the assembly of neuronal circuits.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Copy Number Amplification and c-Myc Transcriptional Activation-Mediated RNA-Binding Protein MEX3A Promotes EGFR-TKI Resistance in Non-Small-Cell Lung Cancer.",
+    "doi": "10.1111/1759-7714.70284",
+    "pmid": "42080737",
+    "authors": [
+      "Xiling S, Lin D, Jiali D, Chen Z, Ruohan H, Chang Z, Renhua G, Jun L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To investigate the functional role and activation mechanisms of RNA-binding protein MEX3A in acquired resistance to epidermal growth factor receptor tyrosine kinase inhibitors (EGFR-TKIs) in non-small-cell lung cancer (NSCLC).<h4>Methods</h4>Paired tumor specimens were from 18 advanced NSCLC patients with sensitizing EGFR mutations before treatment and after developing TKI resistance. In vitro functional assays, including CCK-8 and colony formation, were conducted to evaluate the impact of MEX3A on EGFR-TKI sensitivity. At the genomic level, copy number variation (CNV) analysis and quantitative real-time PCR (qRT-PCR) validated the genomic relationship between MEX3A copy number and expression. Transcriptional regulation by c-Myc was examined via qRT-PCR, Western blotting, and chromatin immunoprecipitation (ChIP). Finally, the in vivo effects of MEX3A knockdown on tumor growth and TKI sensitivity were evaluated using a xenograft tumor model.<h4>Results</h4>MEX3A was significantly upregulated in TKI-resistant tissues, correlating with poorer survival. MEX3A promoted EGFR-TKI resistance of NSCLC, both in vitro and in vivo. Mechanistically, at the genomic level, copy number amplification can drive the activation of MEX3A, and at the transcriptional level, the transcription factor c-Myc can activate its expression.<h4>Conclusion</h4>MEX3A is a key molecule that promotes acquired EGFR-TKI resistance in NSCLC. Its activation is mediated by both genomic copy number amplification and c-Myc-dependent transcriptional regulation, thereby clarifying the activation reasons of MEX3A in TKI resistance at two levels. Our findings suggest that MEX3A may serve as a potential therapeutic target for overcoming TKI resistance in NSCLC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pan-cancer analysis reveals the prognostic and therapeutic relevance of MEX3A with a focus on chromophobe renal cell carcinoma.",
+    "doi": "10.3389/fonc.2026.1802679",
+    "pmid": "42137155",
+    "authors": [
+      "Wang S, Zhang J, Zheng M, Feng Y, Li T."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>MEX3A is an RNA-binding protein implicated in post-transcriptional regulation; however, its role across cancers, particularly in chromophobe renal cell carcinoma (chRCC), remains unclear.<h4>Methods</h4>We performed a comprehensive pan-cancer analysis using TCGA and related databases to evaluate MEX3A expression, prognostic significance, immune associations, genomic alterations, and drug sensitivity. Functional experiments were conducted in chRCC cell lines.<h4>Results</h4>MEX3A was significantly upregulated in multiple cancers and was associated with poor prognosis. Its expression correlated with immune cell infiltration, immune checkpoint molecules, tumor mutational burden, and microsatellite instability. High MEX3A expression was linked to reduced drug sensitivity. Functional assays confirmed its oncogenic role in chRCC.<h4>Conclusion</h4>MEX3A serves as a potential prognostic biomarker and therapeutic target in chRCC and may play a critical role in tumor progression and immune regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive bioinformatics analysis of MEX3 family genes in hepatocellular carcinoma.",
+    "doi": "10.1038/s41598-025-02057-0",
+    "pmid": "40374855",
+    "authors": [
+      "Zhang X, Sun P, Chu T, Feng Y, Zhang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-15",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Hepatocellular carcinoma (HCC) is a highly lethal malignancy associated with poor prognosis due to late-stage diagnosis and high recurrence rates. The MEX3 family genes has been implicated in various cancers; however, their roles in HCC remain largely unexplored. This study aims to systematically analyze the expression patterns, prognostic significance, and immune-related functions of MEX3A, MEX3B, MEX3C, and MEX3D in HCC using comprehensive bioinformatics approaches. We conducted a multi-level bioinformatics analysis to investigate the expression, prognostic significance, clinicopathological correlations, genetic alterations, immune associations, and functional mechanisms of MEX3 family members in HCC. Transcriptomic data from TCGA and GEO databases, along with experimental validation via qRT-PCR and Western blotting, were used to assess expression profiles. Kaplan-Meier, ROC curve, and Cox regression analyses were employed for prognostic evaluation. Co-expression, enrichment, and immune infiltration analyses further elucidated the functional and immunological relevance of MEX3 family genes. A prognostic model based on co-expressed genes was constructed and validated using LASSO and time-dependent ROC analyses. MEX3A, MEX3B, MEX3C, and MEX3D were significantly upregulated in HCC tissues compared to normal liver tissues (P < 0.05). ROC curve analysis demonstrated high diagnostic accuracy, particularly for MEX3A (AUC = 0.915). Kaplan-Meier survival analysis indicated that elevated MEX3A and MEX3C expression was associated with poorer overall survival (OS) and disease-specific survival (DSS) (P < 0.05). Mutation analysis revealed that MEX3A exhibited the highest alteration frequency (11%), primarily through gene amplifications. Immune infiltration analysis demonstrated significant correlations between MEX3 expression and multiple immune cell populations, including regulatory T cells (Tregs), cytotoxic T cells, and macrophages. Moreover, MEX3B, MEX3C, and MEX3D expression correlated with key immune checkpoint genes, including PDCD1, CD274, and CTLA4. Functional enrichment analysis revealed that MEX3 co-expressed genes were significantly involved in RNA metabolism, immune response regulation, and oncogenic signaling pathways. A 17-gene MEX3 co-expression-based prognostic model stratified patients into high- and low-risk groups with significantly different survival outcomes (AUC = 0.791 at 1 year). This study highlights the oncogenic potential of MEX3 family members in HCC and their associations with immune regulation. The findings suggest that MEX3 family genes could serve as potential biomarkers for HCC prognosis and immunotherapy responsiveness. Further experimental validation is warranted to elucidate the mechanistic roles of MEX3 family genes in HCC progression and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3A Modulates PPARγ Pathway Activity and Colorectal Cancer Growth.",
+    "doi": "10.1016/j.jcmgh.2026.101771",
+    "pmid": "41881339",
+    "authors": [
+      "Silva AR, Coelho A, Machado V, Russel M, Mexieiro D, Amaral AL, Cavadas B, Mendes N, Carvalho-Maia C, Gigliano D, Jerónimo C, Almeida R, Pereira B."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background & aims</h4>RNA-binding proteins (RBPs) are major effectors of post-transcriptional regulation. Recently, we described the role of Mex-3 RNA binding family member A (MEX3A) in maintaining leucine-rich repeat-containing G-protein coupled receptor 5 (LGR5)+ intestinal stem cells identity and epithelial renewal. This work aimed to study MEX3A functional impact in colorectal cancer (CRC).<h4>Methods</h4>We characterized MEX3A expression profile in CRC mouse models and a cohort of CRC cases (n = 172). Mouse CRC tissues were used for the establishment of tumoroids and CRISPR/Cas9-mediated MEX3A knockout was performed in patient-derived CRC tumoroids to further understand its biological and therapeutic relevance. Simultaneously, we implemented the high-throughput technique HyperTRIBE to uncover MEX3A RNA targets.<h4>Results</h4>Intestinal adenomas from Apc<sup>+/fl</sup> mice have increased Mex3a expression, and Apc<sup>+/fl</sup>;Mex3a<sup>+/-</sup> animals presented a significant reduction in tumor burden. Apc<sup>+/fl</sup>;Kras<sup>+/G12D</sup>;Mex3a<sup>+/-</sup> compound mice exhibited reduced tumor area, whereas corresponding tumoroids had reduced growth ability and enhanced differentiation potential associated with increased peroxisome proliferator-activated receptor gamma (PPARγ) signaling. MEX3A overexpression was observed in 85% of human CRC cases, whereas 72% presented PPARγ downregulation, with a significant inverse correlation (P = .039). Accordingly, MEX3A-depleted patient-derived CRC tumoroids showed decreased LGR5 expression, accompanied by increased PPARγ expression and higher sensitivity to 5-fluorouracil/oxaliplatin (FOLFOX)-based chemotherapy. HyperTRIBE results revealed a direct interaction between MEX3A and PPARG transcripts.<h4>Conclusions</h4>MEX3A contributes to colorectal carcinogenesis, in association with PPARγ signaling modulation, impacting tumor development and therapeutic response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3A promotes hepatocellular carcinoma cell proliferation and migration &lt;i&gt;via&lt;/i&gt; the Wnt/β-catenin and EMT pathways.",
+    "doi": "10.4251/wjgo.v17.i10.106410",
+    "pmid": "41114094",
+    "authors": [
+      "Xiao FK, Li P, Li XM, Mi Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "In this paper, we focus on compelling evidence showing that MEX3A is significantly overexpressed in hepatocellular carcinoma (HCC) and correlates with poor prognosis. A recent study by Ji <i>et al</i> highlights MEX3A's role in driving proliferation and migration <i>via</i> the RORA/β-catenin axis and epithelial-mesenchymal transition, positioning it as a potential biomarker and therapeutic target. This study addresses a critical gap in understanding HCC pathogenesis and offers valuable mechanistic insights.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3A-mediated super-enhancer RNA m6A methylation promotes aggressiveness of breast cancer via regulating RBM15B/IGF2BP3/KMT2C signaling.",
+    "doi": "10.1016/j.tranon.2025.102580",
+    "pmid": "41161249",
+    "authors": [
+      "Zhang Y, Song S, Yu X, Li J."
+    ],
+    "year": "2026",
+    "publication_date": "2025-10-28",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "N6-methyladenosine (m6A) modification is implicated in the tumorigenesis of breast cancer. This study aims to investigate super-enhancer RNA (seRNA) m6A modification in breast cancer and unveil the molecular mechanisms underlying seRNA m6A and H3K4me1 modification. Gene expression is analyzed by reverse transcription-quantitative PCR, Western blot, immunofluorescence, and immunohistochemistry. Co-localization between insulin like growth factor 2 mRNA binding protein 3 (IGF2BP3) and lysine methyltransferase 2C (KMT2C) is determined using fluorescence in situ hybridization assay. RNA binding motif protein 15B (RBM15B)-binding levels of seRNA m6A are analyzed by methylated RNA immunoprecipitation assay. The mex-3 RNA binding family member A (MEX3A)-RBM15B interaction is determined using co-immunoprecipitation assay. Cellular functions are determined using Cell Counting Kit-8, colony formation, and transwell assays. In vivo assays are performed to further verify the role of MEX3A in breast cancer. The results show that MEX3A is overexpressed in breast cancer and promotes seRNA m6A methylation formation. Interestingly, MEX3A deficiency inhibits the proliferation and metastasis of breast cancer in vivo and in vitro. Increased seRNA m6A modification is recognized by the reader protein IGF2BP3. MEX3A interacts with RBM15B/IGF2BP3 to maintain KMT2C mRNA expression and stability, enhancing seRNA m6A modification. Furthermore, RBM15B/IGF2BP3 recruits the H3K4 methyltransferase KMT2C to promote H3K4me1 formation. KMT2C overexpression promotes breast cancer proliferation and metastasis. In summary, MEX3A promotes the aggressiveness of breast cancer via regulating the seRNA m6A/RBM15B/IGF2BP3/KMT2C axis. Therefore, targeting the MEX3A/seRNA m6A/RBM15B-IGF2BP3/KMT2C axis may be a therapeutic target for breast cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MEX3A is a diagnostic, independent prognostic biomarker and a promising therapeutic target in glioblastoma.",
+    "doi": "10.3389/fonc.2025.1585592",
+    "pmid": "40958871",
+    "authors": [
+      "Bufalieri F, Armocida D, Cucinotta A, Familiari P, Di Magno L, Serraino A, Adabbo G, Agnoli F, Lospinoso Severini L, Antonelli M, Frati A, Canettieri G, Infante P, Santoro A, D'Angelo L, Di Marcotullio L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>Gliomas are the most common malignant brain tumors with a poor prognosis. Despite advances in molecular profiling, no targeted therapies significantly improve survival. Recently, it has been demonstrated that high expression of Muscle Excess 3A (MEX3A) correlates with poor overall survival (OS) in gliomas, generating interest in its potential as a biomarker and therapeutic target. This study analyzes the correlation between <i>MEX3A</i> expression and clinical-molecular features, assessing its diagnostic, prognostic, and therapeutic value in glioblastoma (GB), the most aggressive glioma subtype.<h4>Methods</h4>We performed a retrospective study on a consecutive series of surgically-treated glioma patients. The values of <i>MEX3A</i> mRNA levels for the discrete variables examined has been reported by boxplots. Chi-square tests were carried out to analyze the correlation between <i>MEX3A</i> expression and patient features. Receiver operating characteristic (ROC) curve, Kaplan-Meier survival and Cox regression analysis were applied to assess the diagnostic and independent prognostic values of MEX3A in GB. Finally, the effect of <i>MEX3A</i> genetic knockdown on human primary GB both <i>in vitro</i> and <i>in vivo</i> orthotopic xenograft model cell has been evaluated.<h4>Results</h4>Elevated MEX3A expression associates with more severe clinicopathological and molecular features of glioma patients. MEX3A exhibits high diagnostic accuracy (AUC > 0.9) and correlates with poor OS (HR=2.068, p=0.0018) and progression-free survival (PFS) (HR=2.209, p=0.0005) in GB. Multivariate Cox regression identified MEX3A as an independent prognostic factor for OS and PFS. Notably, <i>MEX3A</i> knockdown inhibits tumor growth <i>in vitro</i> and <i>in vivo.</i><h4>Conclusions</h4>Our findings highlight MEX3A as a novel diagnostic and prognostic biomarker and a promising therapeutic target for GB.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of the MEX3 family as potential biomarkers of hepatocellular carcinoma based on bioinformatics and experiments.",
+    "doi": "10.21037/tcr-24-2095",
+    "pmid": "40530133",
+    "authors": [
+      "Xian J, Jin A, Zhou M, Shao W, Zhu J, Pan B, Wang B, Guo W, Yang W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-27",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Members of the MEX3 RNA-binding protein family have been widely recognized as critical in the development and progression of cancer. However, the specific role of MEX3 in liver hepatocellular carcinoma (LIHC) remains largely unexplored. This study aims to exploring the potential functions and mechanisms of MEX3 family genes in LIHC.<h4>Methods</h4>To address this gap, we performed a comprehensive bioinformatics analysis using various tools and databases, including the The Cancer Genome Atlas (TCGA) dataset, R software, Kaplan-Meier Plotter, cBioPortal, LinkedOmics, Metascape, TIMER, receiver operating characteristic (ROC) curve, and nomogram. Furthermore, the protein levels of MEX3 family were assessed by Western blot and the Human Protein Atlas.<h4>Results</h4>Our analyses revealed that MEX3 family genes were significantly overexpressed in multiple types of tumor tissues, particularly in LIHC. Specifically, MEX3A was highly expressed in Asian populations, while MEX3B/C/D showed increased expression in tumors of higher grades and advanced clinical stages. High expression of MEX3A correlated with poor survival outcomes; MEX3C/D showed partial associations with poor survival, whereas MEX3B indicated a favorable trend. Mutations in the <i>MEX3A</i> gene were frequently observed and were strongly associated with hypoxic conditions, increased incidence of adverse clinical symptoms, and a poorer prognosis. The enrichment analysis of co-expressed genes within the MEX3 family revealed involvement in cell cycle regulation, transcriptional control, and various oncogenic pathways. Additionally, correlations were observed between the expression levels of MEX3 family genes and key driver genes such as <i>MMP14</i>, <i>TET3</i>, <i>SENP1</i>, <i>GTSE1</i>, and <i>KIF18A</i>. Furthermore, upregulation of MEX3 family gene expression was associated with increased T helper cells, Th2 cells, and other infiltrating immune lymphocytes. The ROC curve indicated that MEX3A had optimal predictive value for LIHC. Moreover, there were differences in the expression levels of MEX3 family genes and proteins, suggesting that post-translational modifications may play a crucial role in regulating their protein levels.<h4>Conclusions</h4>Our findings suggest that the MEX3 family is associated with the prognosis of hepatocellular carcinoma patients and contributes to disease progression by modulating the cell cycle and protein post-transcriptional modifications. Furthermore, this family is related to the tumor microenvironment, particularly in hypoxia and immune responses, which holds significant value for predicting liver cancer outcomes.",
+    "openalex_id": ""
+  }
+]

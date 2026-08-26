@@ -1,0 +1,170 @@
+[
+  {
+    "title": "OstemiR: a novel panel of microRNA biomarkers in osteoblastic and osteocytic differentiation from mesencymal stem cells.",
+    "doi": "10.1371/journal.pone.0058796",
+    "pmid": "23533592",
+    "authors": [
+      "Eguchi T, Watanabe K, Hara ES, Ono M, Kuboki T, Calderwood SK."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-22",
+    "cited_by_count": 137,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs) are small RNA molecules of 21-25 nucleotides that regulate cell behavior through inhibition of translation from mRNA to protein, promotion of mRNA degradation and control of gene transcription. In this study, we investigated the miRNA expression signatures of cell cultures undergoing osteoblastic and osteocytic differentiation from mesenchymal stem cells (MSC) using mouse MSC line KUSA-A1 and human MSCs. Ninety types of miRNA were quantified during osteoblastic/osteocytic differentiation in KUSA-A1 cells utilizing miRNA PCR arrays. Coincidently with mRNA induction of the osteoblastic and osteocytic markers, the expression levels of several dozen miRNAs including miR-30 family, let-7 family, miR-21, miR-16, miR-155, miR-322 and Snord85 were changed during the differentiation process. These miRNAs were predicted to recognize osteogenic differentiation-, stemness-, epinegetics-, and cell cycle-related mRNAs, and were thus designated OstemiR. Among those OstemiR, the miR-30 family was classified into miR-30b/c and miR-30a/d/e groups on the basis of expression patterns during osteogenesis as well as mature miRNA structures. In silico prediction and subsequent qRT-PCR in stable miR-30d transfectants clarified that context-dependent targeting of miR-30d on known regulators of bone formation including osteopontin/spp1, lifr, ccn2/ctgf, ccn1/cyr61, runx2, sox9 as well as novel key factors including lin28a, hnrnpa3, hspa5/grp78, eed and pcgf5. In addition, knockdown of human OstemiR miR-541 increased Osteopontin/SPP1 expression and calcification in hMSC osteoblastic differentiation, indicating that miR-541 is a negative regulator of osteoblastic differentiation. These observations indicate stage-specific roles of OstemiR especially miR-541 and the miR-30 family on novel targets in osteogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The microRNA-200 family targets multiple non-small cell lung cancer prognostic markers in H1299 cells and BEAS-2B cells.",
+    "doi": "10.3892/ijo.2013.1963",
+    "pmid": "23708087",
+    "authors": [
+      "Pacurari M, Addison JB, Bondalapati N, Wan YW, Luo D, Qian Y, Castranova V, Ivanov AV, Guo NL."
+    ],
+    "year": "2013",
+    "publication_date": "2013-05-27",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "Lung cancer remains the leading cause of cancer-related mortality for both men and women. Tumor recurrence and metastasis is the major cause of lung cancer treatment failure and death. The microRNA‑200 (miR-200) family is a powerful regulator of the epithelial-mesenchymal transition (EMT) process, which is essential in tumor metastasis. Nevertheless, miR-200 family target genes that promote metastasis in non-small cell lung cancer (NSCLC) remain largely unknown. Here, we sought to investigate whether the microRNA-200 family regulates our previously identified NSCLC prognostic marker genes associated with metastasis, as potential molecular targets. Novel miRNA targets were predicted using bioinformatics tools based on correlation analyses of miRNA and mRNA expression in 57 squamous cell lung cancer tumor samples. The predicted target genes were validated with quantitative RT-PCR assays and western blot analysis following re-expression of miR-200a, -200b and -200c in the metastatic NSCLC H1299 cell line. The results show that restoring miR-200a or miR-200c in H1299 cells induces downregulation of DLC1, ATRX and HFE. Reinforced miR-200b expression results in downregulation of DLC1, HNRNPA3 and HFE. Additionally, miR-200 family downregulates HNRNPR3, HFE and ATRX in BEAS-2B immortalized lung epithelial cells in quantitative RT-PCR and western blot assays. The miR-200 family and these potential targets are functionally involved in canonical pathways of immune response, molecular mechanisms of cancer, metastasis signaling, cell-cell communication, proliferation and DNA repair in Ingenuity pathway analysis (IPA). These results indicate that re-expression of miR-200 downregulates our previously identified NSCLC prognostic biomarkers in metastatic NSCLC cells. These results provide new insights into miR-200 regulation in lung cancer metastasis and consequent clinical outcome, and may provide a potential basis for innovative therapeutic approaches for the treatment of this deadly disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Poly-glycine-alanine exacerbates C9orf72 repeat expansion-mediated DNA damage via sequestration of phosphorylated ATM and loss of nuclear hnRNPA3.",
+    "doi": "10.1007/s00401-019-02082-0",
+    "pmid": "31642962",
+    "authors": [
+      "Nihei Y, Mori K, Werner G, Arzberger T, Zhou Q, Khosravi B, Japtok J, Hermann A, Sommacal A, Weber M, German Consortium for Frontotemporal Lobar Degeneration, Bavarian Brain Banking Alliance, Kamp F, Nuscher B, Edbauer D, Haass C."
+    ],
+    "year": "2020",
+    "publication_date": "2019-10-23",
+    "cited_by_count": 55,
+    "journal": "",
+    "abstract": "Repeat expansion in C9orf72 causes amyotrophic lateral sclerosis and frontotemporal lobar degeneration. Expanded sense and antisense repeat RNA transcripts in C9orf72 are translated into five dipeptide-repeat proteins (DPRs) in an AUG-independent manner. We previously identified the heterogeneous ribonucleoprotein (hnRNP) A3 as an interactor of the sense repeat RNA that reduces its translation into DPRs. Furthermore, we found that hnRNPA3 is depleted from the nucleus and partially mislocalized to cytoplasmic poly-GA inclusions in C9orf72 patients, suggesting that poly-GA sequesters hnRNPA3 within the cytoplasm. We now demonstrate that hnRNPA3 also binds to the antisense repeat RNA. Both DPR production and deposition from sense and antisense RNA repeats are increased upon hnRNPA3 reduction. All DPRs induced DNA double strand breaks (DSB), which was further enhanced upon reduction of hnRNPA3. Poly-glycine-arginine and poly-proline-arginine increased foci formed by phosphorylated Ataxia Telangiectasia Mutated (pATM), a major sensor of DSBs, whereas poly-glycine-alanine (poly-GA) evoked a reduction of pATM foci. In dentate gyri of C9orf72 patients, lower nuclear hnRNPA3 levels were associated with increased DNA damage. Moreover, enhanced poly-GA deposition correlated with reduced pATM foci. Since cytoplasmic pATM deposits partially colocalized with poly-GA deposits, these results suggest that poly-GA, the most frequent DPR observed in C9orf72 patients, differentially causes DNA damage and that poly-GA selectively sequesters pATM in the cytoplasm inhibiting its recruitment to sites of DNA damage. Thus, mislocalization of nuclear hnRNPA3 caused by poly-GA leads to increased poly-GA production, which partially depletes pATM, and consequently enhances DSB.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TDP-43 aggregation mirrors TDP-43 knockdown, affecting the expression levels of a common set of proteins.",
+    "doi": "10.1038/srep33996",
+    "pmid": "27665936",
+    "authors": [
+      "Prpar Mihevc S, Baralle M, Buratti E, Rogelj B."
+    ],
+    "year": "2016",
+    "publication_date": "2016-09-26",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "TDP-43 protein plays an important role in regulating transcriptional repression, RNA metabolism, and splicing. Typically it shuttles between the nucleus and the cytoplasm to perform its functions, while abnormal cytoplasmic aggregation of TDP-43 has been associated with neurodegenerative diseases amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD). For the purpose of this study we selected a set of proteins that were misregulated following silencing of TDP-43 and analysed their expression in a TDP-43-aggregation model cell line HEK293 Flp-in Flag-TDP-43-12x-Q/N F4L. Following TDP-43 sequestration in insoluble aggregates, we observed higher nuclear levels of EIF4A3, and POLDIP3β, whereas nuclear levels of DNMT3A, HNRNPA3, PABPC1 and POLDIP3α dropped, and cytoplasmic levels of RANBP1 dropped. In addition, immunofluorescence signal intensity quantifications showed increased nuclear expression of HNRNPL and YARS, and downregulation of cytoplasmic DPCD. Furthermore, cytoplasmic levels of predominantly nuclear protein ALYREF increased. In conclusion, by identifying a common set of proteins that are differentially expressed in a similar manner in these two different conditions, we show that TDP-43 aggregation has a comparable effect to TDP-43 knockdown.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Reduced hnRNPA3 increases C9orf72 repeat RNA levels and dipeptide-repeat protein deposition.",
+    "doi": "10.15252/embr.201541724",
+    "pmid": "27461252",
+    "authors": [
+      "Mori K, Nihei Y, Arzberger T, Zhou Q, Mackenzie IR, Hermann A, Hanisch F, German Consortium for Frontotemporal Lobar Degeneration, Bavarian Brain Banking Alliance, Kamp F, Nuscher B, Orozco D, Edbauer D, Haass C."
+    ],
+    "year": "2016",
+    "publication_date": "2016-07-26",
+    "cited_by_count": 45,
+    "journal": "",
+    "abstract": "Intronic hexanucleotide (G4C2) repeat expansions in C9orf72 are genetically associated with frontotemporal lobar degeneration (FTLD) and amyotrophic lateral sclerosis (ALS). The repeat RNA accumulates within RNA foci but is also translated into disease characterizing dipeptide repeat proteins (DPR). Repeat-dependent toxicity may affect nuclear import. hnRNPA3 is a heterogeneous nuclear ribonucleoprotein, which specifically binds to the G4C2 repeat RNA We now report that a reduction of nuclear hnRNPA3 leads to an increase of the repeat RNA as well as DPR production and deposition in primary neurons and a novel tissue culture model that reproduces features of the C9orf72 pathology. In fibroblasts derived from patients carrying extended C9orf72 repeats, nuclear RNA foci accumulated upon reduction of hnRNPA3. Neurons in the hippocampus of C9orf72 patients are frequently devoid of hnRNPA3. Reduced nuclear hnRNPA3 in the hippocampus of patients with extended C9orf72 repeats correlates with increased DPR deposition. Thus, reduced hnRNPA3 expression in C9orf72 cases leads to increased levels of the repeat RNA as well as enhanced production and deposition of DPR proteins and RNA foci.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of Key Candidate Proteins and Pathways Associated with Temozolomide Resistance in Glioblastoma Based on Subcellular Proteomics and Bioinformatical Analysis.",
+    "doi": "10.1155/2018/5238760",
+    "pmid": "29687002",
+    "authors": [
+      "Yi GZ, Xiang W, Feng WY, Chen ZY, Li YM, Deng SZ, Guo ML, Zhao L, Sun XG, He MY, Qi ST, Liu YW."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-01",
+    "cited_by_count": 38,
+    "journal": "",
+    "abstract": "TMZ resistance remains one of the main reasons why treatment of glioblastoma (GBM) fails. In order to investigate the underlying proteins and pathways associated with TMZ resistance, we conducted a cytoplasmic proteome research of U87 cells treated with TMZ for 1 week, followed by differentially expressed proteins (DEPs) screening, KEGG pathway analysis, protein-protein interaction (PPI) network construction, and validation of key candidate proteins in TCGA dataset. A total of 161 DEPs including 65 upregulated proteins and 96 downregulated proteins were identified. Upregulated DEPs were mainly related to regulation in actin cytoskeleton, focal adhesion, and phagosome and PI3K-AKT signaling pathways which were consistent with our previous studies. Further, the most significant module consisted of 28 downregulated proteins that were filtered from the PPI network, and 9 proteins (DHX9, HNRNPR, RPL3, HNRNPA3, SF1, DDX5, EIF5B, BTF3, and RPL8) among them were identified as the key candidate proteins, which were significantly associated with prognosis of GBM patients and mainly involved in ribosome and spliceosome pathway. Taking the above into consideration, we firstly identified candidate proteins and pathways associated with TMZ resistance in GBM using proteomics and bioinformatic analysis, and these proteins could be potential biomarkers for prevention or prediction of TMZ resistance in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "WGCNA reveals key gene modules regulated by the combined treatment of colon cancer with PHY906 and CPT11.",
+    "doi": "10.1042/bsr20200935",
+    "pmid": "32812032",
+    "authors": [
+      "Xing S, Wang Y, Hu K, Wang F, Sun T, Li Q."
+    ],
+    "year": "2020",
+    "publication_date": "2020-09-01",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "Irinotecan (CPT11) is one of the most effective drugs for treating colon cancer, but its severe side effects limit its application. Recently, a traditional Chinese herbal preparation, named PHY906, has been proved to be effective for improving therapeutic effect and reducing side effects of CPT11. The aim of the present study was to provide novel insight to understand the molecular mechanism underlying PHY906-CPT11 intervention of colon cancer. Based on the GSE25192 dataset, for different three treatments (PHY906, CPT11, and PHY906-CPT11), we screened out differentially expressed genes (DEGs) and constructed a co-expression network by weighted gene co-expression network analysis (WGCNA) to identify hub genes. The key genes of the three treatments were obtained by merging the DEGs and hub genes. For the PHY906-CPT11 treatment, a total of 18 key genes including Eif4e, Prr15, Anxa2, Ddx5, Tardbp, Skint5, Prss12 and Hnrnpa3, were identified. The results of functional enrichment analysis indicated that the key genes associated with PHY906-CPT11 treatment were mainly enriched in 'superoxide anion generation' and 'complement and coagulation cascades'. Finally, we validated the key genes by Gene Expression Profiling Interactive Analysis (GEPIA) and RT-PCR analysis, the results indicated that EIF4E, PRR15, ANXA2, HNRNPA3, NCF1, C3AR1, PFDN2, RGS10, GNG11, and TMSB4X might play an important role in the treatment of colon cancer with PHY906-CPT11. In conclusion, a total of 18 key genes were identified in the present study. These genes showed strong correlation with PHY906-CPT11 treatment in colon cancer, which may help elucidate the underlying molecular mechanism of PHY906-CPT11 treatment in colon cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Global spliceosome activity regulates entry into cellular senescence.",
+    "doi": "10.1096/fj.202000395rr",
+    "pmid": "33337569",
+    "authors": [
+      "Kwon SM, Min S, Jeoun UW, Sim MS, Jung GH, Hong SM, Jee BA, Woo HG, Lee C, Yoon G."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-01",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "Cellular senescence is a state of permanent growth arrest that can ultimately contribute to aging. Senescence can be induced by various stressors and is associated with a myriad of cellular functions and phenotypic markers. Alternative splicing is emerging as a critical contributor to senescence and aging. However, it is unclear how the composition and function of the spliceosome are involved in senescence. Here, using replicative and oxidative stress-induced senescence models in primary human fibroblasts, we report a common shift in the expression of 58 spliceosomal genes at the pre-senescence stage, prior to the detection of senescence-associated β-galactosidase (SA-β-gal) activity. Spliceosomal perturbation, induced by pharmacologic and genetic inhibition of splicesomal genes, triggered cells to enter senescence, suggesting a key role as a gatekeeper. Association analysis of transcription factors based on the 58 splicesomal genes revealed Sp1 as a key regulator of senescence entry. Indeed, Sp1 depletion suppressed the expression of downstream spliceosomal genes (HNRNPA3, SRSF7, and SRSF4) and effectively induced senescence. These results indicate that spliceosomal gene sets, rather than a single spliceosomal gene, regulate the early transition into senescence prior to SA-β-gal expression. Furthermore, our study provides a spliceosome signature that may be used as an early senescence marker.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epidermal progenitors suppress GRHL3-mediated differentiation through intronic polyadenylation promoted by CPSF-HNRNPA3 collaboration.",
+    "doi": "10.1038/s41467-020-20674-3",
+    "pmid": "33469008",
+    "authors": [
+      "Chen X, Lloyd SM, Kweon J, Gamalong GM, Bao X."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-19",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "In self-renewing somatic tissue such as skin epidermis, terminal differentiation genes must be suppressed in progenitors to sustain regenerative capacity. Here we show that hundreds of intronic polyadenylation (IpA) sites are differentially used during keratinocyte differentiation, which is accompanied by downregulation of the Cleavage and Polyadenylation Specificity Factor (CPSF) complex. Sustained CPSF expression in undifferentiated keratinocytes requires the contribution from the transcription factor MYC. In keratinocytes cultured in undifferentiation condition, CSPF knockdown induces premature differentiation and partially affects dynamically used IpA sites. These sites include an IpA site located in the first intron of the differentiation activator GRHL3. CRISPR knockout of GRHL3 IpA increased full-length GRHL3 mRNA expression. Using a targeted genetic screen, we identify that HNRNPA3 interacts with CPSF and enhances GRHL3 IpA. Our data suggest a model where the interaction between CPSF and RNA-binding proteins, such as HNRNPA3, promotes site-specific IpA and suppresses premature differentiation in progenitors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Analysis of hnRNPA1, A2/B1, and A3 genes in patients with amyotrophic lateral sclerosis.",
+    "doi": "10.1016/j.neurobiolaging.2013.05.025",
+    "pmid": "23827524",
+    "authors": [
+      "Calini D, Corrado L, Del Bo R, Gagliardi S, Pensato V, Verde F, Corti S, Mazzini L, Milani P, Castellotti B, Bertolin C, Sorarù G, Cereda C, Comi GP, D'Alfonso S, Gellera C, Ticozzi N, Landers JE, Ratti A, Silani V, SLAGEN Consortium."
+    ],
+    "year": "2013",
+    "publication_date": "2013-07-02",
+    "cited_by_count": 25,
+    "journal": "",
+    "abstract": "Mutations in the prion-like domain (PrLD) of hnRNPA1 and A2/B1 genes were recently identified in 2 families with inclusion body myopathy associated with Paget disease of bone, frontotemporal dementia (FTD), and amyotrophic lateral sclerosis, and in ALS patients. These mutations were shown to increase the propensity of hnRNPA1 and A2/B1 proteins, which are TDP-43-binding partners, to self-aggregate. hnRNPA3 protein contains a similar PrLD and was recently described in the p62-positive/TDP-43-negative inclusions in affected tissues of C9orf72-mutated ALS/FTD patients. We screened hnRNPA1, A2/B1, and A3 genes in a cohort of 113 familial ALS (FALS) individuals without mutations in other known ALS-causative genes. We extended our analysis to 108 FALS with mutations in other ALS-associated genes and to 622 sporadic cases by screening specifically the PrLDs of hnRNPA1, A2/B1, and A3. We failed to find variants in each cohort. Our results suggest that mutations in hnRNPA1, A2/B1, and A3 genes are a rare finding in ALS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ALS-linked cytoplasmic FUS assemblies are compositionally different from physiological stress granules and sequester hnRNPA3, a novel modifier of FUS toxicity.",
+    "doi": "10.1016/j.nbd.2021.105585",
+    "pmid": "34915152",
+    "authors": [
+      "An H, Litscher G, Watanabe N, Wei W, Hashimoto T, Iwatsubo T, Buchman VL, Shelkovnikova TA."
+    ],
+    "year": "2022",
+    "publication_date": "2021-12-14",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "Formation of cytoplasmic RNA-protein structures called stress granules (SGs) is a highly conserved cellular response to stress. Abnormal metabolism of SGs may contribute to the pathogenesis of (neuro)degenerative diseases such as amyotrophic lateral sclerosis (ALS). Many SG proteins are affected by mutations causative of these conditions, including fused in sarcoma (FUS). Mutant FUS variants have high affinity to SGs and also spontaneously form de novo cytoplasmic RNA granules. Mutant FUS-containing assemblies (mFAs), often called \"pathological SGs\", are proposed to play a role in ALS-FUS pathogenesis. However, structural differences between mFAs and physiological SGs remain largely unknown therefore it is unclear whether mFAs can functionally substitute for SGs and how they affect cellular stress responses. Here we used affinity purification to isolate mFAs and physiological SGs and compare their protein composition. We found that proteins within mFAs form significantly more physical interactions than those in SGs however mFAs fail to recruit many factors involved in signal transduction. Furthermore, we found that proteasome subunits and certain nucleocytoplasmic transport factors are depleted from mFAs, whereas translation elongation, mRNA surveillance and splicing factors as well as mitochondrial proteins are enriched in mFAs, as compared to SGs. Validation experiments for a mFA-specific protein, hnRNPA3, confirmed its RNA-dependent interaction with FUS and its sequestration into FUS inclusions in cultured cells and in a FUS transgenic mouse model. Silencing of the Drosophila hnRNPA3 ortholog was deleterious and potentiated human FUS toxicity in the retina of transgenic flies. In conclusion, we show that SG-like structures formed by mutant FUS are structurally distinct from SGs, prone to persistence, likely cannot functionally replace SGs, and affect a spectrum of cellular pathways in stressed cells. Results of our study support a pathogenic role for cytoplasmic FUS assemblies in ALS-FUS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Linking spermatid ribonucleic acid (RNA) binding protein and retrogene diversity to reproductive success.",
+    "doi": "10.1074/mcp.m113.030585",
+    "pmid": "23938467",
+    "authors": [
+      "Chapman KM, Powell HM, Chaudhary J, Shelton JM, Richardson JA, Richardson TE, Hamra FK."
+    ],
+    "year": "2013",
+    "publication_date": "2013-08-12",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Spermiogenesis is a postmeiotic process that drives development of round spermatids into fully elongated spermatozoa. Spermatid elongation is largely controlled post-transcriptionally after global silencing of mRNA synthesis from the haploid genome. Here, rats that differentially express EGFP from a lentiviral transgene during early and late steps of spermiogenesis were used to flow sort fractions of round and elongating spermatids. Mass-spectral analysis of 2D gel protein spots enriched >3-fold in each fraction revealed a heterogeneous RNA binding proteome (hnRNPA2/b1, hnRNPA3, hnRPDL, hnRNPK, hnRNPL, hnRNPM, PABPC1, PABPC4, PCBP1, PCBP3, PTBP2, PSIP1, RGSL1, RUVBL2, SARNP2, TDRD6, TDRD7) abundantly expressed in round spermatids prior to their elongation. Notably, each protein within this ontology cluster regulates alternative splicing, sub-cellular transport, degradation and/or translational repression of mRNAs. In contrast, elongating spermatid fractions were enriched with glycolytic enzymes, redox enzymes and protein synthesis factors. Retrogene-encoded proteins were over-represented among the most abundant elongating spermatid factors identified. Consistent with these biochemical activities, plus corresponding histological profiles, the identified RNA processing factors are predicted to collectively drive post-transcriptional expression of an alternative exome that fuels finishing steps of sperm maturation and fitness.",
+    "openalex_id": ""
+  }
+]

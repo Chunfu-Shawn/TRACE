@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Analysis of the Porcine Reproductive and Respiratory Syndrome Virus Nucleocapsid Interactome.",
+    "doi": "10.1021/acs.jproteome.5c00121",
+    "pmid": "40994299",
+    "authors": [
+      "Kovanich D, Ketsuwan K, Hengphasatporn K, Thepparit C, Sittipaisankul P, Wongkongkathep P, Sirisereewan C, Techakriengkrai N, Nedumpun T, Shigeta Y, Pisitkun T, Suradhat S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-25",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Porcine reproductive and respiratory syndrome virus (PRRSV) is a major swine pathogen that causes significant economic losses worldwide. The nucleocapsid (N) protein, the most abundant viral protein in infected cells, plays roles beyond its structural function, influencing various host cellular processes. Here, we report the identification of 301 cellular protein candidates interacting with PRRSV N using EGFP immunoprecipitation combined with label-free quantitative mass spectrometry. The analysis underscores the versatile nature of the N protein in targeting a wide range of cellular proteins and processes across multiple subcellular compartments. We observed strong enrichment of ribosomal proteins, nucleolar proteins involved in ribosome biogenesis, splicing factors, RNA helicases, and DNA-binding proteins involved in chromatin remodeling and DNA damage response. Additionally, we identified proteins involved in viral RNA sensing and intrinsic antiviral mechanisms that may contribute to the immunosuppressive properties of the viral protein. Several interactions were validated and further characterized for RNA dependence, including MYBBP1A, NCL, IGF2BP1, UPF3B, G3BP1, EIF2S1, RFC4, ABCF1, PPM1G, NSUN2, and NOP2. Notably, RTCB and MYBBP1A were identified as host dependency factors for PRRSV infection. Our findings expand the current understanding of PRRSV-host interactions and reveal novel N-interacting proteins that may contribute to viral pathogenesis and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dual relevance of &lt;i&gt;EIF2S1&lt;/i&gt; in acute myeloid leukemia: linking poor prognosis to immune-metabolic states and leukemic cell fitness.",
+    "doi": "10.3389/fonc.2026.1922910",
+    "pmid": "42620389",
+    "authors": [
+      "Hong X, Huang Y, Wu W, Jiang X, Lin Y, Xue Y, Lin D."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-05",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Most transcriptomic studies in acute myeloid leukemia (AML) have focused on transcriptional regulation, whereas the clinical and biological relevance of translation initiation factors remains insufficiently defined. Eukaryotic translation initiation factor 2 subunit alpha (<i>EIF2S1</i>) is a key regulator of translation initiation, but its prognostic significance and association with AML remain unclear.<h4>Methods</h4>Bulk RNA-seq data from the TCGA-LAML and GTEx cohorts were analyzed to evaluate <i>EIF2S1</i> expression, prognostic value, associated biological programs, ssGSEA-derived immune-cell-associated signature scores, and quanTIseq-estimated immune-cell proportions. Single-cell RNA sequencing data were further examined to characterize the cellular distribution of <i>EIF2S1</i> and subset-specific immune and metabolic transcriptional features. Finally, siRNA-mediated <i>EIF2S1</i> knockdown assays were performed in THP-1 monocytic AML cells to assess its functional relevance.<h4>Results</h4><i>EIF2S1</i> was significantly upregulated in AML and independently associated with shorter overall survival in the TCGA-LAML cohort. High <i>EIF2S1</i> expression was linked to translation initiation-related programs and immune- and myeloid-lineage-related transcriptional features, including stronger myeloid-lineage signals, weaker cytotoxic T-cell-related signatures, and increased expression of immune checkpoint and immunoregulatory genes, including <i>LGALS9</i> and <i>TGFB1</i>. Single-cell analysis localized <i>EIF2S1</i> enrichment primarily to monocyte-like subsets and associated it with mitochondrial metabolic and innate immune transcriptional programs. Functionally, <i>EIF2S1</i> knockdown induced G0/G1 cell-cycle arrest, suppressed THP-1 cell proliferation, migration, and invasion, and promoted apoptosis.<h4>Conclusions</h4><i>EIF2S1</i> is associated with adverse prognosis, translation initiation-related programs, and monocyte-like immune-metabolic transcriptional states in AML. Functional findings further suggest that <i>EIF2S1</i> contributes to leukemic cell fitness. These results support <i>EIF2S1</i> as a potential therapeutic target requiring further experimental and clinical validation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Inhibition of EIF2S1 expression regulates the PI3K/AKT pathway to mediate apoptosis in glioma cells: an in vitro study.",
+    "doi": "10.1007/s10048-026-00911-5",
+    "pmid": "42213196",
+    "authors": [
+      "Li G, Wang M, Wei N, Qiu Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Glioma is a malignant central nervous system tumor that poses a threat to patient survival. Eukaryotic translation initiation factor 2 subunit alpha (EIF2S1) is closely associated with the progression of multiple human cancers. This study aimed to investigate the effects of EIF2S1 on glioma cells and the underlying molecular mechanisms. We analyzed EIF2S1 expression in glioma tissues and cell lines. Small interfering RNA (siRNA) targeting EIF2S1 was constructed and transfected into glioma cell lines to silence EIF2S1 expression. We then evaluated cell proliferation, apoptosis, and metastatic capacity. Western blotting (WB) was used to determine the effect of EIF2S1 knockdown on the phosphorylation levels of PI3K and AKT. Finally, glioma cells were co-treated with the PI3K activator 740 Y-P to verify whether the PI3K/AKT pathway mediates the function of EIF2S1 in glioma cells. EIF2S1 was significantly up-regulated in glioma. Knockdown of EIF2S1 markedly inhibited glioma cell proliferation, promoted apoptosis, and suppressed metastatic potential. Western blot analysis indicated that EIF2S1 silencing significantly reduced the phosphorylation levels of PI3K and AKT. Moreover, 740 Y-P significantly reversed the inhibitory effect of si-EIF2S1 on glioma cells. Our in vitro findings suggeste that EIF2S1 contributes the malignant progression of glioma cells by regulating the PI3K/AKT pathway, providing a theoretical basis for future exploring EIF2S1 as a potentical therapeutic target for glioma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF2S1 Silencing Impedes Neuroblastoma Development Through GPX4 Inactivation and Ferroptosis Induction.",
+    "doi": "10.1155/2024/6594426",
+    "pmid": "39465005",
+    "authors": [
+      "Li Z, Wang Y, Liang S, Yuan T, Liu J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-19",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<b>Background:</b> Neuroblastoma (NB) is one of the most devastating malignancies in children, accounting for a high mortality rate due to limited treatment options. This study is aimed at elucidating the role of the ferroptosis-related EIF2S1 gene in NB pathogenesis and exploring its potential as a therapeutic target. <b>Methods:</b> We conducted comprehensive bioinformatics analyses utilizing the FerrDb database and NB-related transcriptomics data to investigate the role of EIF2S1 in NB. Changes in EIF2S1 expression were subsequently validated in NB tissues and cell lines. Loss-of-function experiments were performed in SK-N-SH and IMR-32 cell lines through shRNA-mediated EIF2S1 knockdown. The impact of EIF2S1 knockdown on the tumorigenesis of SK-N-SH cells was assessed in nude mice. <b>Results:</b> Bioinformatics analyses revealed a significant association between elevated EIF2S1 expression and poor prognosis in NB patients. The increased levels of EIF2S1 expression were confirmed in NB tissues and cancerous cell lines. Furthermore, EIF2S1 overexpression was linked to translational regulation and immune cell infiltration modulation. Silencing of EIF2S1 resulted in the suppression of cell proliferation, migration, and tumorigenicity in NB cells. Additionally, EIF2S1 knockdown led to an accumulation of iron and oxidative stress, as well as a reduction in GPX4 and SLC7A11 expression. <b>Conclusion:</b> Our findings indicate that EIF2S1 appears to facilitate the progression of NB by protecting tumor cells from ferroptosis through modulating GPX4 and SLC7A11 expression. Consequently, EIF2S1 may serve as a potential therapeutic target for the management of NB.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Eukaryotic translation initiation factor 2A protects pancreatic beta cells during endoplasmic reticulum stress while rescuing global translation inhibition.",
+    "doi": "10.1007/s00125-025-06431-5",
+    "pmid": "40304759",
+    "authors": [
+      "Panzhinskiy E, Skovsø S, Cen HH, Rahardjo A, Zhang JA, Chu KY, MacDonald K, Soukhatcheva G, Dionne DA, Hallmaier-Wacker LK, Wildi JS, Marcil S, Noursadeghi N, Taghizadeh F, Verchere CB, Jan E, Johnson JD."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-30",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Aims/hypothesis</h4>The endoplasmic reticulum (ER) stress-induced unfolded protein response helps determine beta cell survival rate in diabetes. The alternative eukaryotic translation initiation factor 2A (EIF2A) has been proposed to mediate translation initiation independent of the α subunit of EIF2 (EIF2S1) during cellular stress, but its role in beta cells has not been comprehensively examined.<h4>Methods</h4>For in vitro experiments, we used MIN6 cells, primary mouse pancreatic islets, and human islets obtained under informed consent. Thapsigargin (1 µmol/l) or palmitate complexed with BSA (0.5 mmol/l) was used to induce ER stress. Transient transfection and lentiviral infection were used for transgene delivery. For in vivo experiments, adeno-associated viral particles expressing EIF2A or GFP under the control of a rat insulin promoter were delivered via intraductal injection to 6-week-old female Akita mice randomised into three groups (two cohorts, n=10-11). Tail blood was collected for blood glucose measurements for single time points as well as during glucose and insulin tolerance tests.<h4>Results</h4>EIF2A protein abundance and specificity was high in human and mouse islets relative to other tissues. We used STRING and AlphaFold pulldown to predict interacting proteins and binding partners, verifying EIF1AX with co-immunoprecipitation. Both thapsigargin and palmitate significantly increased EIF2A mRNA and EIF2A protein levels in MIN6 cells, mouse islets and human islets. Knockdowns of EIF2A, the related factor EIF2D or both EIF2A and EIF2D were not sufficient to cause apoptosis. On the other hand, transient or stable EIF2A overexpression protected MIN6 cells, primary mouse islets and human islets from ER stress-induced, caspase-3-dependent apoptosis. Mechanistically, EIF2A overexpression decreased endoplasmic reticulum to nucleus signalling 1 (ERN1, also known as inositol-requiring enzyme 1 α or IRE1α) expression in thapsigargin-treated MIN6 cells or human islets. In vivo, beta cell-specific EIF2A viral overexpression reduced ER stress and improved insulin secretion and glucose tolerance in Ins2<sup>Akita/WT</sup> mice. EIF2A overexpression significantly increased expression of genes involved in mRNA translation and reduced expression of pro-apoptotic genes (e.g. Aldh1a3). Proteomic analysis of EIF2A-overexpressing human islets revealed significant changes in pathways associated with ribosomes and protein processing in ER. Remarkably, the decrease in global protein synthesis during unfolded protein response was prevented by EIF2A, despite ER stress-induced EIF2S1 phosphorylation. The protective effects of EIF2A were additive to those of ISRIB, a drug that counteracts the effects of EIF2S1 phosphorylation. Cells overexpressing EIF2A showed higher expression of translation factor EIF2B5, which may contribute to the lack of translational inhibition in these cells.<h4>Conclusions/interpretation</h4>We conclude that EIF2A is a novel target for beta cell protection and the circumvention of EIF2S1-mediated translational repression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "USP8-EIF2S1 signaling enhances CML cell survival under TKI-induced stress.",
+    "doi": "10.1111/febs.70372",
+    "pmid": "41454439",
+    "authors": [
+      "Mohan CG, Pavithran K."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "CML is primarily driven by the oncogenic BCR-ABL fusion kinase; however, tyrosine kinase inhibitor (TKI) resistance remains a significant clinical challenge. A study by Zang et al. identified USP8 as a critical mediator of this resistance. USP8, a deubiquitinase, stabilizes the stress-response regulator EIF2S1 (eIF2α) by removing K48-linked ubiquitin chains. This stabilization sustains PERK-EIF2S1-mediated unfolded protein response (UPR) signaling. The UPR suppresses general protein translation while promoting the expression of adaptive stress-response genes, allowing CML cells to survive TKI-induced stress. Consequently, targeting the USP8-EIF2S1 axis is proposed as a key therapeutic strategy to overcome resistance and enhance patient outcomes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The deubiquitinating enzyme USP8 promotes tyrosine kinase inhibitors resistance in chronic myeloid leukemia by stabilizing EIF2S1 protein.",
+    "doi": "10.1111/febs.70300",
+    "pmid": "41147744",
+    "authors": [
+      "Zhang S, Lai H, Bao W, Liao C, Li J."
+    ],
+    "year": "2026",
+    "publication_date": "2025-10-28",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Tyrosine kinase inhibitors (TKIs), targeted therapeutic agents, have significantly improved survival outcomes in patients with chronic myeloid leukemia (CML). However, the emergence of drug resistance remains a challenge, with the underlying mechanisms still largely unknown. Deubiquitinating enzymes (DUBs) have been reported as potential targets in many human cancers. In this study, we identified ubiquitin-specific protease 8 (USP8) as a potential prognostic target for CML drug resistance through bioinformatics analysis and validation in clinical samples. Functionally, knockdown of USP8 inhibited proliferation and increased apoptosis and TKI sensitivity in various CML cell lines. Mechanistically, immunoprecipitation-mass spectrometry analysis and molecular docking demonstrated an interaction between USP8 and eukaryotic translation initiation factor 2 subunit alpha (EIF2S1). USP8 stabilizes EIF2S1 protein by inhibiting its K48-linked ubiquitination, thereby preventing its degradation via the proteasome pathway. In other words, USP8 knockdown suppressed EIF2S1 protein expression and inhibited tumor growth both in vitro and in vivo, further suppressing TKI resistance. In summary, our results suggest that USP8 is overexpressed in CML and linked to resistance to TKIs. We have unveiled a previously unknown mechanism of CML drug resistance, which may provide novel perspectives on the advancement of targeted therapeutic strategies and clinical interventions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oocyte-specific knockout of eIF2 subunits causes apoptosis of mouse oocytes within the early growing follicles via mitochondrial dysfunctions and DNA damage.",
+    "doi": "10.1038/s41419-026-08449-y",
+    "pmid": "41629280",
+    "authors": [
+      "Liu H, Wang W, Li B, Liu S, Wei H, Zhou W, Hao T, Wei Y, Zhang X, Zhang M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Mutations in several translation initiation factors are closely associated with premature ovarian insufficiency (POI). In this study, we demonstrated that the conditional knockout of eukaryotic initiation factor 2 (eIF2) subunits Eif2s1 and Eif2s2 in mouse oocytes caused oocyte apoptosis within the early growing follicles. Subsequent research indicated that the depletion of Eif2s2 in oocytes reduced the levels of mitochondrial fission-related proteins (p-DRP1, FIS1 and MFF) and increased the mRNA and protein levels of the integrated stress response (ISR)-related factors (ASNS, SLC7A1, GRB10 and PSAT1). Consistent with this, the depletion of Eif2s2 in oocytes resulted in mitochondrial dysfunction characterized by elongated form, aggregated distribution beneath the oocyte membrane, decreased mitochondrial membrane potential and ATP content, and excessive accumulation of reactive oxygen species (ROS). At the same time, the depletion of Eif2s2 in oocytes led to increased levels of DNA damage response proteins (γH2AX, p-CHK2 and p53) and proapoptotic proteins (BAX and PARP1), as well as decreased the levels of anti-apoptotic protein BCL-xL. Collectively, these findings indicate that the depletion of eIF2 subunits in mouse oocytes leads to oocyte apoptosis within the early growing follicles, attributed to the impaired translation of mitochondrial dynamics regulatory proteins and then the upregulated ROS levels and DNA damage. This study provides new insights into pathogenesis and genetic diagnosis for POI.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF2S1 in Urinary Extracellular Vesicles as a Novel Diagnostic Marker for Bladder Cancer.",
+    "doi": "10.1002/cam4.70964",
+    "pmid": "40365898",
+    "authors": [
+      "Tomiyama E, Fujita K, Matsuzaki K, Narumi R, Matsushita M, Hayashi Y, Hashimoto M, Kato T, Hatano K, Kawashima A, Minami T, Takao T, Takada S, Uemura H, Adachi J, Tomonaga T, Nonomura N."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Urinary extracellular vesicles (uEVs), directly secreted from bladder cancer (BCa) cells, harbor potential for biomarker discovery.<h4>Methods</h4>We performed proteomic analysis to explore and validate uEV-based diagnostic markers for BCa, with a focus on cytoplasmic EV proteins. Among the 1960 proteins identified by shotgun proteomics (tandem mass tag-labeled liquid chromatography-tandem mass spectrometry [LC-MS/MS]) of uEVs from seven patients with BCa and four healthy individuals, 17 cytoplasmic EV proteins were significantly elevated in the patients' urine (fold change > 1.5; p < 0.05). These 17 proteins were subsequently validated using targeted proteomics (selected reaction monitoring/multiple reaction monitoring) using urine samples from 49 and 48 patients with and without BCa, respectively, including those with non-BCa hematuria.<h4>Results</h4>Ten measurable EV proteins remained significantly elevated in the urine of patients with BCa, with EV-EIF2S1 demonstrating the best diagnostic performance (area under the receiver operating characteristic [ROC] curve [AUC] [ROCAUC]: 0.83). Additionally, EV-EIF2S1 distinguished patients with BCa from those without BCa and hematuria in a suitable manner (ROCAUC: 0.92). Functional analysis of EIF2S1 in the BCa cell lines (T24 and 5637) showed that EIF2S1 knockdown markedly inhibited cell proliferation and induced cell cycle arrest and apoptosis, suggesting its essentiality for BCa cell growth and survival.<h4>Conclusions</h4>This study identified EV-EIF2S1 as a novel, uEV-based BCa diagnostic marker and demonstrated its functional significance in BCa cell growth and survival.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphorylation of EIF2S1 (eukaryotic translation initiation factor 2 subunit alpha) is indispensable for nuclear translocation of TFEB and TFE3 during ER stress.",
+    "doi": "10.1080/15548627.2023.2173900",
+    "pmid": "36719671",
+    "authors": [
+      "Dang TT, Kim MJ, Lee YY, Le HT, Kim KH, Nam S, Hyun SH, Kim HL, Chung SW, Chung HT, Jho EH, Yoshida H, Kim K, Park CY, Lee MS, Back SH."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-09",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "There are diverse links between macroautophagy/autophagy pathways and unfolded protein response (UPR) pathways under endoplasmic reticulum (ER) stress conditions to restore ER homeostasis. Phosphorylation of EIF2S1/eIF2α is an important mechanism that can regulate all three UPR pathways through transcriptional and translational reprogramming to maintain cellular homeostasis and overcome cellular stresses. In this study, to investigate the roles of EIF2S1 phosphorylation in regulation of autophagy during ER stress, we used EIF2S1 phosphorylation-deficient (<i>A/A</i>) cells in which residue 51 was mutated from serine to alanine. <i>A/A</i> cells exhibited defects in several steps of autophagic processes (such as autophagosome and autolysosome formation) that are regulated by the transcriptional activities of the autophagy master transcription factors TFEB and TFE3 under ER stress conditions. EIF2S1 phosphorylation was required for nuclear translocation of TFEB and TFE3 during ER stress. In addition, EIF2AK3/PERK, PPP3/calcineurin-mediated dephosphorylation of TFEB and TFE3, and YWHA/14-3-3 dissociation were required for their nuclear translocation, but were insufficient to induce their nuclear retention during ER stress. Overexpression of the activated ATF6/ATF6α form, XBP1s, and ATF4 differentially rescued defects of TFEB and TFE3 nuclear translocation in <i>A/A</i> cells during ER stress. Consequently, overexpression of the activated ATF6 or TFEB form more efficiently rescued autophagic defects, although XBP1s and ATF4 also displayed an ability to restore autophagy in <i>A/A</i> cells during ER stress. Our results suggest that EIF2S1 phosphorylation is important for autophagy and UPR pathways, to restore ER homeostasis and reveal how EIF2S1 phosphorylation connects UPR pathways to autophagy.<b>Abbreviations:</b> <i>A/A</i>: EIF2S1 phosphorylation-deficient; ACTB: actin beta; <i>Ad-</i>: adenovirus-; ATF6: activating transcription factor 6; ATZ: SERPINA1/α1-antitrypsin with an E342K (Z) mutation; Baf A1: bafilomycin A<sub>1</sub>; BSA: bovine serum albumin; CDK4: cyclin dependent kinase 4; CDK6: cyclin dependent kinase 6; CHX: cycloheximide; CLEAR: coordinated lysosomal expression and regulation; Co-IP: coimmunoprecipitation; CTSB: cathepsin B; CTSD: cathepsin D; CTSL: cathepsin L; DAPI: 4',6-diamidino-2-phenylindole dihydrochloride; DMEM: Dulbecco's modified Eagle's medium; DMSO: dimethyl sulfoxide; DTT: dithiothreitol; EBSS: Earle's Balanced Salt Solution; EGFP: enhanced green fluorescent protein; EIF2S1/eIF2α: eukaryotic translation initiation factor 2 subunit alpha; EIF2AK3/PERK: eukaryotic translation initiation factor 2 alpha kinase 3; ER: endoplasmic reticulum; ERAD: endoplasmic reticulum-associated degradation; ERN1/IRE1α: endoplasmic reticulum to nucleus signaling 1; FBS: fetal bovine serum; gRNA: guide RNA; GSK3B/GSK3β: glycogen synthase kinase 3 beta; HA: hemagglutinin; <i>Hep</i>: immortalized hepatocyte; IF: immunofluorescence; IRES: internal ribosome entry site; KO: knockout; LAMP1: lysosomal associated membrane protein 1; LMB: leptomycin B; LPS: lipopolysaccharide; MAP1LC3A/B/LC3A/B: microtubule associated protein 1 light chain 3 alpha/beta; MAP1LC3B/LC3B: microtubule associated protein 1 light chain 3 beta; MEFs: mouse embryonic fibroblasts; MFI: mean fluorescence intensity; MTORC1: mechanistic target of rapamycin kinase complex 1; NES: nuclear export signal; NFE2L2/NRF2: NFE2 like bZIP transcription factor 2; OE: overexpression; PBS: phosphate-buffered saline; PLA: proximity ligation assay; PPP3/calcineurin: protein phosphatase 3; PTM: post-translational modification; SDS: sodium dodecyl sulfate; SDS-PAGE: sodium dodecyl sulfate-polyacrylamide gel electrophoresis; SEM: standard error of the mean; TEM: transmission electron microscopy; TFE3: transcription factor E3; TFEB: transcription factor EB; TFs: transcription factors; Tg: thapsigargin; Tm: tunicamycin; UPR: unfolded protein response; WB: western blot; WT: wild-type; <i>Xbp1s</i>: spliced <i>Xbp1</i>; XPO1/CRM1: exportin 1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Plasticity of the mammalian integrated stress response.",
+    "doi": "10.1038/s41586-025-08794-6",
+    "pmid": "40140574",
+    "authors": [
+      "Chen CW, Papadopoli D, Szkop KJ, Guan BJ, Alzahrani M, Wu J, Jobava R, Asraf MM, Krokowski D, Vourekas A, Merrick WC, Komar AA, Koromilas AE, Gorospe M, Payea MJ, Wang F, Clayton BLL, Tesar PJ, Schaffer A, Miron A, Bederman I, Jankowsky E, Vogel C, Valášek LS, Dinman JD, Zhang Y, Tirosh B, Larsson O, Topisirovic I, Hatzoglou M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-26",
+    "cited_by_count": 45,
+    "journal": "",
+    "abstract": "An increased level of phosphorylation of eukaryotic translation initiation factor 2 subunit-α (eIF2α, encoded by EIF2S1; eIF2α-p) coupled with decreased guanine nucleotide exchange activity of eIF2B is a hallmark of the 'canonical' integrated stress response (c-ISR)<sup>1</sup>. It is unclear whether impaired eIF2B activity in human diseases including leukodystrophies<sup>2</sup>, which occurs in the absence of eIF2α-p induction, is synonymous with the c-ISR. Here we describe a mechanism triggered by decreased eIF2B activity, distinct from the c-ISR, which we term the split ISR (s-ISR). The s-ISR is characterized by translational and transcriptional programs that are different from those observed in the c-ISR. Opposite to the c-ISR, the s-ISR requires eIF4E-dependent translation of the upstream open reading frame 1 and subsequent stabilization of ATF4 mRNA. This is followed by altered expression of a subset of metabolic genes (for example, PCK2), resulting in metabolic rewiring required to maintain cellular bioenergetics when eIF2B activity is attenuated. Overall, these data demonstrate a plasticity of the mammalian ISR, whereby the loss of eIF2B activity in the absence of eIF2α-p induction activates the eIF4E-ATF4-PCK2 axis to maintain energy homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear Ca&lt;sup&gt;2+&lt;/sup&gt;-Calmodulin signaling in cardiac myocytes reduces catecholamine-evoked protein translation and prevents hypertrophy.",
+    "doi": "10.1016/j.ceca.2025.103101",
+    "pmid": "41380480",
+    "authors": [
+      "Riedel A, Medert R, Monaco S, Gjerga E, Tolksdorf X, Richter C, Malz M, Schrader M, Kuryshev V, Busch M, Jungmann A, Löwenthal Z, Philippaert K, Wirth A, Ottenheijm R, Benes V, Most P, Dieterich C, Völkers M, Bading H, Freichel M."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Cardiac remodeling, including hypertrophy, is associated with alterations in cytosolic Ca<sup>2+</sup> homeostasis of cardiac myocytes that spill over into the nucleoplasm. To test whether nuclear Ca<sup>2+</sup> signaling acts causally on the development of cardiac hypertrophy, we expressed parvalbumin to buffer nuclear Ca<sup>2+</sup> and we blocked nuclear Ca<sup>2+</sup>-calmodulin signaling by Adeno-associated virus (AAV)-mediated expression of the calmodulin (CaM) binding-peptide nlsCaMBP4, respectively, in the nuclei of ES cell-derived (Cor.At) and neonatal rat ventricular cardiac myocytes (NRVCM). Expression of nlsCaMBP4, but not parvalbumin, leads to a significant reduction of hypertrophic growth induced by phenylephrine (PE). Expression of nlsCaMBP4 did not alter the amplitude of electrically-evoked intracellular Ca<sup>2+</sup> transients in NRVCMs in the absence or presence of PE, and did not affect the PE-evoked increase in store-operated Ca<sup>2+</sup> entry. Transcriptome analysis on NRVCMs expressing nlsCaMBP4 revealed that induction of classical hypertrophy markers such as ANF and BNP or MEF2 target genes (such as Srpk3, Xirp1 and Xirp2) were not reduced by nlsCaMBP4 expression. Further analysis of the nuclear Ca<sup>2+</sup>-calmodulin-regulated gene pool revealed differential expression of genes involved in mRNA translation, including the translation initiation factor subunits Eif2s1, Eif3d and Eif5, whose upregulation was absent in nlsCaMBP4-treated myocytes. Puromycin assays showed that inhibition of Ca<sup>2+</sup>-calmodulin signaling prevented catecholamine-evoked protein translation, suggesting that Ca<sup>2+</sup>-calmodulin signaling in the nucleus of cardiac myocytes regulates translation via transcriptional control mechanisms. However, future studies are needed to identify the exact molecular components and machinery that integrate Ca<sup>2+</sup>-calmodulin-dependent regulation of transcription, protein translation, and development of cardiac myocyte hypertrophy.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "title": "hnRNPs: roles in neurodevelopment and implication for brain disorders",
+    "doi": "10.3389/fnmol.2024.1411639",
+    "authors": [
+      "Pierre Tilliole",
+      "Simon Fix",
+      "Juliette D. Godin"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-17",
+    "cited_by_count": 22,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "Heterogeneous nuclear ribonucleoproteins (hnRNPs) constitute a family of multifunctional RNA-binding proteins able to process nuclear pre-mRNAs into mature mRNAs and regulate gene expression in multiple ways. They comprise at least 20 different members in mammals, named from A ( HNRNP A1 ) to U ( HNRNP U ). Many of these proteins are components of the spliceosome complex and can modulate alternative splicing in a tissue-specific manner. Notably, while genes encoding hnRNPs exhibit ubiquitous exp",
+    "openalex_id": "https://openalex.org/W4400745471",
+    "relevance_score": 27.981535
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.1972554
+  }
+]

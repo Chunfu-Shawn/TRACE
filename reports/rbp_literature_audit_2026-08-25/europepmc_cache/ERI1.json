@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Mendelian randomization provides a multi-omics perspective on the regulation of genes involved in ribosome biogenesis in relation to cardiac structure and function.",
+    "doi": "10.1186/s13148-025-01850-y",
+    "pmid": "40045424",
+    "authors": [
+      "Wei S, Shen R, Lu X, Li X, He L, Zhang Y, Yang J, Shu Z, Huang X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-05",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Ribosome biogenesis (RiboSis) is a complex process for generating ribosomes, the cellular machinery responsible for protein synthesis. Dysfunctional RiboSis can disrupt cardiac structure and function, contributing to cardiovascular diseases. This study employed a Mendelian randomization (MR) approach, integrating multi-omics data, to investigate the relationship between RiboSis-related genes and standard cardiac structure and function.<h4>Methods</h4>We utilized summary stats for methylation, RNA splicing, and gene expression, and UK Biobank cardiopulm MRI genetic associations (N = 41,135). MR evaluated RiboSis gene features against traits, complemented by hypothesis prioritization for multi-trait colocalization (HyPrColoc) and colocalization. Composite scores ranked RiboSis genes, and phenome-wide association study (PheWAS) with scQTLbase instrumental variables (IVs) confirmed results.<h4>Results</h4>We identified 15 RiboSis-related genes: HEATR1, SENP3, ERI1, ERCC2, TSR1, UTP11, DDX17, SMARCB1, NIP7, ERAL1, NOP56, RPL10A, EIF6, EXOSC9, and NOP58. Notably, HEATR1 and SENP3 were ranked in the top quartile (Q1), scoring 25. In validation cohort, 12 genes associated with cardiac structures, functions, diseases. Only ERAL1, TSR1, and NIP7 lacked significant associations with cardiac traits.<h4>Conclusion</h4>Our multi-omics MR analysis identified 15 RiboSis-related genes associated with cardiac risk, with 12 further validated through gene set enrichment analysis. These findings suggest a link between RiboSis and cardiac health, enhancing understanding of cardiac disease mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Influenza A virus co-opts ERI1 exonuclease bound to histone mRNA to promote viral transcription.",
+    "doi": "10.1093/nar/gkaa771",
+    "pmid": "32960265",
+    "authors": [
+      "Declercq M, Biquand E, Karim M, Pietrosemoli N, Jacob Y, Demeret C, Barbezange C, van der Werf S."
+    ],
+    "year": "2020",
+    "publication_date": "2020-10-01",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Cellular exonucleases involved in the processes that regulate RNA stability and quality control have been shown to restrict or to promote the multiplication cycle of numerous RNA viruses. Influenza A viruses are major human pathogens that are responsible for seasonal epidemics, but the interplay between viral proteins and cellular exonucleases has never been specifically studied. Here, using a stringent interactomics screening strategy and an siRNA-silencing approach, we identified eight cellular factors among a set of 75 cellular proteins carrying exo(ribo)nuclease activities or involved in RNA decay processes that support influenza A virus multiplication. We show that the exoribonuclease ERI1 interacts with the PB2, PB1 and NP components of the viral ribonucleoproteins and is required for viral mRNA transcription. More specifically, we demonstrate that the protein-protein interaction is RNA dependent and that both the RNA binding and exonuclease activities of ERI1 are required to promote influenza A virus transcription. Finally, we provide evidence that during infection, the SLBP protein and histone mRNAs co-purify with vRNPs alongside ERI1, indicating that ERI1 is most probably recruited when it is present in the histone pre-mRNA processing complex in the nucleus.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization of RNA Processing Genes in Colon Cancer for Predicting Clinical Outcomes.",
+    "doi": "10.1177/11772719241258642",
+    "pmid": "39161926",
+    "authors": [
+      "Hu J, Ning Y, Ma Y, Sun L, Chen G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-18",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>Colon cancer is associated with multiple levels of molecular heterogeneity. RNA processing converts primary transcriptional RNA to mature RNA, which drives tumourigenesis and its maintenance. The characterisation of RNA processing genes in colon cancer urgently needs to be elucidated.<h4>Methods</h4>In this study, we obtained 1033 relevant samples from The Cancer Genome Atlas (TCGA) and Gene Expression Omnibus (GEO) databases to explore the heterogeneity of RNA processing phenotypes in colon cancer. Firstly, Unsupervised hierarchical cluster analysis detected 4 subtypes with specific clinical outcomes and biological features via analysis of 485 RNA processing genes. Next, we adopted the least absolute shrinkage and selection operator (LASSO) as well as Cox regression model with penalty to characterise RNA processing-related prognostic features.<h4>Results</h4>An RNA processing-related prognostic risk model based on 10 genes including <i>FXR1</i>, <i>MFAP1</i>, <i>RBM17</i>, <i>SAGE1</i>, <i>SNRPA1</i>, <i>SRRM4</i>, <i>ADAD1</i>, <i>DDX52</i>, <i>ERI1</i>, and <i>EXOSC7</i> was identified finally. A composite prognostic nomogram was constructed by combining this feature with the remaining clinical variables including TNM, age, sex, and stage. Genetic variation, pathway activation, and immune heterogeneity with risk signatures were also analysed via bioinformatics methods. The outcomes indicated that the high-risk subgroup was associated with higher genomic instability, increased proliferative and cycle characteristics, decreased tumour killer CD8<sup>+</sup> T cells and poorer clinical prognosis than the low-risk group.<h4>Conclusion</h4>This prognostic classifier based on RNA-edited genes facilitates stratification of colon cancer into specific subgroups according to TNM and clinical outcomes, genetic variation, pathway activation, and immune heterogeneity. It can be used for diagnosis, classification and targeted treatment strategies comparable to current standards in precision medicine. It provides a rationale for elucidation of the role of RNA editing genes and their clinical significance in colon cancer as prognostic markers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Null and missense mutations of ERI1 cause a recessive phenotypic dichotomy in humans.",
+    "doi": "10.1016/j.ajhg.2023.06.001",
+    "pmid": "37352860",
+    "authors": [
+      "Guo L, Salian S, Xue JY, Rath N, Rousseau J, Kim H, Ehresmann S, Moosa S, Nakagawa N, Kuroda H, Clayton-Smith J, Wang J, Wang Z, Banka S, Jackson A, Zhang YM, Wei ZJ, Hüning I, Brunet T, Ohashi H, Thomas MF, Bupp C, Miyake N, Matsumoto N, Mendoza-Londono R, Costain G, Hahn G, Di Donato N, Yigit G, Yamada T, Nishimura G, Ansel KM, Wollnik B, Hrabě de Angelis M, Mégarbané A, Rosenfeld JA, Heissmeyer V, Ikegawa S, Campeau PM."
+    ],
+    "year": "2023",
+    "publication_date": "2023-06-22",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "ERI1 is a 3'-to-5' exoribonuclease involved in RNA metabolic pathways including 5.8S rRNA processing and turnover of histone mRNAs. Its biological and medical significance remain unclear. Here, we uncover a phenotypic dichotomy associated with bi-allelic ERI1 variants by reporting eight affected individuals from seven unrelated families. A severe spondyloepimetaphyseal dysplasia (SEMD) was identified in five affected individuals with missense variants but not in those with bi-allelic null variants, who showed mild intellectual disability and digital anomalies. The ERI1 missense variants cause a loss of the exoribonuclease activity, leading to defective trimming of the 5.8S rRNA 3' end and a decreased degradation of replication-dependent histone mRNAs. Affected-individual-derived induced pluripotent stem cells (iPSCs) showed impaired in vitro chondrogenesis with downregulation of genes regulating skeletal patterning. Our study establishes an entity previously unreported in OMIM and provides a model showing a more severe effect of missense alleles than null alleles within recessive genotypes, suggesting a key role of ERI1-mediated RNA metabolism in human skeletal patterning and chondrogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of a 6-RBP gene signature for a comprehensive analysis of glioma and ischemic stroke: Cognitive impairment and aging-related hypoxic stress.",
+    "doi": "10.3389/fnagi.2022.951197",
+    "pmid": "36118697",
+    "authors": [
+      "Lin W, Wang Q, Chen Y, Wang N, Ni Q, Qi C, Wang Q, Zhu Y."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-01",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "There is mounting evidence that ischemic cerebral infarction contributes to vascular cognitive impairment and dementia in elderly. Ischemic stroke and glioma are two majorly fatal diseases worldwide, which promote each other's development based on some common underlying mechanisms. As a post-transcriptional regulatory protein, RNA-binding protein is important in the development of a tumor and ischemic stroke (IS). The purpose of this study was to search for a group of RNA-binding protein (RBP) gene markers related to the prognosis of glioma and the occurrence of IS, and elucidate their underlying mechanisms in glioma and IS. First, a 6-RBP (<i>POLR2F, DYNC1H1, SMAD9, TRIM21, BRCA1</i>, and <i>ERI1</i>) gene signature (RBPS) showing an independent overall survival prognostic prediction was identified using the transcriptome data from TCGA-glioma cohort (<i>n</i> = 677); following which, it was independently verified in the CGGA-glioma cohort (<i>n</i> = 970). A nomogram, including RBPS, 1p19q codeletion, radiotherapy, chemotherapy, grade, and age, was established to predict the overall survival of patients with glioma, convenient for further clinical transformation. In addition, an automatic machine learning classification model based on radiomics features from MRI was developed to stratify according to the RBPS risk. The RBPS was associated with immunosuppression, energy metabolism, and tumor growth of gliomas. Subsequently, the six RBP genes from blood samples showed good classification performance for IS diagnosis (AUC = 0.95, 95% CI: 0.902-0.997). The RBPS was associated with hypoxic responses, angiogenesis, and increased coagulation in IS. Upregulation of <i>SMAD9</i> was associated with dementia, while downregulation of <i>POLR2F</i> was associated with aging-related hypoxic stress. <i>Irf5</i>/<i>Trim21</i> in microglia and <i>Taf7</i>/<i>Trim21</i> in pericytes from the mouse cerebral cortex were identified as RBPS-related molecules in each cell type under hypoxic conditions. The RBPS is expected to serve as a novel biomarker for studying the common mechanisms underlying glioma and IS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development and Validation of a Prognostic Model of RNA-Binding Proteins in Colon Adenocarcinoma: A Study Based on TCGA and GEO Databases.",
+    "doi": "10.2147/cmar.s330434",
+    "pmid": "34675667",
+    "authors": [
+      "Zhu D, Chen J, Hou T."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-08",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Previous studies reported that dysregulation of RNA-binding proteins (RBPs) is significantly associated with the development of cancer. However, there are few studies to date on the role of RBPs in colon adenocarcinoma (COAD).<h4>Methods</h4>RNA sequencing and clinical data for COAD patients were downloaded from The Cancer Genome Atlas (TCGA) database to identify differentially expressed (DE) RBPs between COAD tissue and normal colon tissue, and then the expression and prognostic significance of these RBPs were investigated in detail by systematic bioinformatics analysis. qRT-PCR was used to validate the expressions of prognosis-related RBP-encoding genes.<h4>Results</h4>Seven RBPs (RPL10L, ERI1, POP1, CAPRIN2, TDRD7, SNIP1 and PPARGC1A) were identified as hub genes associated with prognosis by a series of regression analyses, and were then used to construct a prognostic model. Further analysis based on this model indicated that the overall survival (OS) of the high-risk groups was lower than that of the low-risk groups. In this prognostic model, the area under the ROC curve (AUC) was 0.694, 0.709 and 0.665 for the TCGA cohort at 1, 3 and 5 years, respectively, while the AUC was 0.671, 0.633 and 0.601 for the GEO combined cohort at 1, 3 and 5 years, respectively, indicating the good predictive ability of the model. We also built a nomogram based on the 7 RBPs in the TCGA cohort, and the model showed good discriminatory ability for COAD.<h4>Conclusion</h4>We screened seven prognosis-related genes in COAD patients based on RBP-related genes, validated the expressions of the seven prognosis-related RBP-encoding genes by qRT-PCR and constructed a prognosis-related nomogram for patients with COAD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Eri1: a conserved enzyme at the crossroads of multiple RNA-processing pathways.",
+    "doi": "10.1016/j.tig.2014.05.003",
+    "pmid": "24929628",
+    "authors": [
+      "Thomas MF, L'Etoile ND, Ansel KM."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-12",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "Eri1 is an evolutionarily conserved 3'-5' exoribonuclease that participates in 5.8S rRNA 3' end processing and turnover of replication-dependent histone mRNAs. Over the course of evolution, Eri1 has also been recruited into a variety of conserved and species-specific regulatory small RNA pathways that include endogenous small interfering (si)RNAs and miRNAs. Recent advances in Eri1 biology illustrate the importance of RNA metabolism in epigenetic gene regulation and illuminate common principles and players in RNA biogenesis and turnover. In this review, we highlight Eri1 as a member of a growing class of ribosome- and histone mRNA-associated proteins that have been recruited into divergent RNA metabolic pathways. We summarize recent advances in the understanding of Eri1 function in these pathways and discuss how Eri1 impacts gene expression and physiology in a variety of eukaryotic species. This emerging view highlights the possibility for crosstalk and coregulation of diverse cellular processes regulated by RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Investigation of potential prognostic biomarkers for colorectal cancer.",
+    "doi": "10.5114/aoms/167397",
+    "pmid": "40395892",
+    "authors": [
+      "Li H, Liu J, Liu W, Zheng L, Chen J."
+    ],
+    "year": "2025",
+    "publication_date": "2023-07-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Colorectal cancer (CRC) is the third leading cause of cancer-related death. Since CRC is largely asymptomatic until the alert features develop to an advanced stage, implementation of a screening program is important to reduce cancer morbidity and mortality. Current screening methods have significant limitations.<h4>Material and methods</h4>CRC-related microarray datasets were collected from the GEO database and differentially expressed genes (DEGs) were identified. Next, Venn analysis, functional enrichment analysis, protein interaction network (PPI) analysis, and survival analysis were performed.<h4>Results</h4>A total of 5267 and 4233 DEGs were identified in two datasets (GSE20916, GSE33133). The intersection of up-regulated genes in the two datasets was obtained by Venn Analysis as 1058 DEGs. Among the 1058 genes, 992 genes with survival and clinical information in TCGA were screened. Eleven DEGs were identified as potential prognostic markers. Model results show that the time period with the most obvious prognostic effect is 5 years, and the AUC value is the highest. ROC curve results are consistent with the model results of the survival analysis. The survival curve showed that LRRC8A, PCAT6, PLA2G15, SRD5A1, T1GD1 may be oncogenes, and DSN1, ERI1, EIT1, GLMN, MAPKAPK, NOP14 may be tumor suppressor genes.<h4>Conclusions</h4>This study discovers novel prognostic markers through Cox regression and survival analysis, and provides a theoretical basis for the treatment of CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of oligouridylation in normal metabolism and regulated degradation of mammalian histone mRNAs.",
+    "doi": "10.1098/rstb.2018.0170",
+    "pmid": "30397106",
+    "authors": [
+      "Meaux SA, Holmquist CE, Marzluff WF."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-05",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Metazoan replication-dependent histone mRNAs are the only known cellular mRNAs that are not polyadenylated. Histone mRNAs are present in large amounts only in S-phase cells, and their levels are coordinately regulated with the rate of DNA replication. In mammals, the stemloop at the 3' end of histone mRNA is bound to stemloop binding protein, a protein required for both synthesis and degradation of histone mRNA, and an exonuclease, 3'hExo (ERI1). Histone mRNAs are rapidly degraded when DNA synthesis is inhibited in S-phase cells and at the end of S-phase. Upf1 is also required for rapid degradation of histone mRNA as is the S-phase checkpoint. We report that Smg1 is required for histone mRNA degradation when DNA replication is inhibited, suggesting it is the PI-like kinase that activates Upf1 for histone mRNA degradation. We also show that some mutant Upf1 proteins are recruited to histone mRNAs when DNA replication is inhibited and act as dominant negative factors in histone mRNA degradation. We report that the pathway of rapid histone mRNA degradation when DNA replication is inhibited in S-phase cells that are activating the S-phase checkpoint is similar to the pathway of rapid degradation of histone mRNA at the end of S-phase.This article is part of the theme issue '5' and 3' modifications controlling RNA degradation'.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Degradation of oligouridylated histone mRNAs: see UUUUU and goodbye.",
+    "doi": "10.1002/wrna.1232",
+    "pmid": "24692427",
+    "authors": [
+      "Hoefig KP, Heissmeyer V."
+    ],
+    "year": "2014",
+    "publication_date": "2014-04-01",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "During the cell cycle the expression of replication-dependent histones is tightly coupled to DNA synthesis. Histone messenger RNA (mRNA) levels strongly increase during early S-phase and rapidly decrease at the end of it. Here, we review the degradation of replication-dependent histone mRNAs, a paradigm of post-transcriptional gene regulation, in the context of processing, translation, and oligouridylation. Replication-dependent histone transcripts are characterized by the absence of introns and by the presence of a stem-loop structure at the 3' end of a very short 3' untranslated region (UTR). These features, together with a need for active translation, are a prerequisite for their rapid decay. The degradation is induced by 3' end additions of untemplated uridines, performed by terminal uridyl transferases. Such 3' oligouridylated transcripts are preferentially bound by the heteroheptameric LSM1-7 complex, which also interacts with the 3'→5' exonuclease ERI1 (also called 3'hExo). Presumably in cooperation with LSM1-7 and aided by the helicase UPF1, ERI1 degrades through the stem-loop of oligouridylated histone mRNAs in repeated rounds of partial degradation and reoligouridylation. Although histone mRNA decay is now known in some detail, important questions remain open: How is ceasing nuclear DNA replication relayed to the cytoplasmic histone mRNA degradation? Why is translation important for this process? Recent research on factors such as SLIP1, DBP5, eIF3, CTIF, CBP80/20, and ERI1 has provided new insights into the 3' end formation, the nuclear export, and the translation of histone mRNAs. We discuss how these results fit with the preparation of histone mRNAs for degradation, which starts as early as these transcripts are generated.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exonuclease requirements for mammalian ribosomal RNA biogenesis and surveillance.",
+    "doi": "10.1038/s41594-019-0234-x",
+    "pmid": "31160785",
+    "authors": [
+      "Pirouz M, Munafò M, Ebrahimi AG, Choe J, Gregory RI."
+    ],
+    "year": "2019",
+    "publication_date": "2019-06-03",
+    "cited_by_count": 34,
+    "journal": "",
+    "abstract": "Ribosomal RNA (rRNA) biogenesis is a multistep process requiring several nuclear and cytoplasmic exonucleases. The exact processing steps for mammalian 5.8S rRNA remain obscure. Here, using loss-of-function approaches in mouse embryonic stem cells (mESCs) and deep sequencing of rRNA intermediates, we investigate the requirements of exonucleases known to be involved in 5.8S maturation at nucleotide resolution and explore the role of the Perlman syndrome-associated 3'-5' exonuclease Dis3l2 in rRNA processing. We uncover a novel cytoplasmic intermediate that we name '7S<sub>B</sub>' rRNA that is generated through sequential processing by distinct exosome complexes. 7S<sub>B</sub> rRNA can be oligoadenylated by an unknown enzyme and/or oligouridylated by TUT4/7 and subsequently processed by Dis3l2 and Eri1. Moreover, exosome depletion triggers Dis3l2-mediated decay (DMD) as a surveillance pathway for rRNAs. Our data identify previously unknown 5.8S rRNA processing steps and provide nucleotide-level insight into the exonuclease requirements for mammalian rRNA processing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A ten long noncoding RNA-based prognostic risk model construction and mechanism study in the basal-like immune-suppressed subtype of triple-negative breast cancer.",
+    "doi": "10.21037/tcr-23-147",
+    "pmid": "38193005",
+    "authors": [
+      "Huang X, Huang J, Huang Q, Zhou S."
+    ],
+    "year": "2023",
+    "publication_date": "2023-11-17",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>According to the Fudan University Shanghai Cancer Center (FUSCC) system, triple-negative breast cancer (TNBC) is divided into four stable subtypes: (I) luminal androgen receptor, (II) immunomodulatory, (III) basal-like immune-suppressed (BLIS), and (IV) mesenchymal-like. However, the treatment outcomes of the corresponding targeted therapies are unsatisfactory, especially for the BLIS subtype. Therefore, we aimed to identify the key long noncoding RNAs (lncRNAs) to construct a prognostic model for BLIS subtype and discover potential targets to explore potential therapeutic strategies in this study.<h4>Methods</h4>The FUSCC cohort was used to establish a prognostic risk model via least absolute shrinkage and selection operator (LASSO) and Cox regression analysis. The Cancer Genome Atlas (TCGA) cohort was then used to evaluate and verify the model. To understand the functional aspects of the model, functional, immune landscape, mutation, and drug sensitivity analyses were performed between high- and low-risk groups.<h4>Results</h4>Ten prognostic-related lncRNAs identified, including <i>C5ORF66-AS2</i>, <i>DIO3OS</i>, <i>FZD10-DT</i>, <i>LINC00393</i>, <i>LNC-ERI1-32</i>, <i>LNC-FOXO1-2</i>, <i>LNC-SPARCL1-1</i>, <i>HCG23</i>, <i>LNC-MMD-4</i> and <i>LNC-TMEM106C-6</i>, were selected for risk score system construction. The results showed that the model constructed could divide the patients with BLIS subtype into two groups of high and low risk, and patients with higher risk scores had shorter recurrence-free survival. In addition, drug sensitivity analysis identified 3 compounds, including BMS-754807, cytochalasin b, and linifanib, that could have a potential therapeutic effect on patients with the BLIS subtype.<h4>Conclusions</h4>The risk prognosis model showed good prognostic value for the BLIS subtype patients, and the ten lncRNAs may be potential therapeutic targets.",
+    "openalex_id": ""
+  }
+]

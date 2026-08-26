@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ESRP1 and ESRP2 are epithelial cell-type-specific regulators of FGFR2 splicing.",
+    "doi": "10.1016/j.molcel.2009.01.025",
+    "pmid": "19285943",
+    "authors": [
+      "Warzecha CC, Sato TK, Nabet B, Hogenesch JB, Carstens RP."
+    ],
+    "year": "2009",
+    "publication_date": "2009-03-01",
+    "cited_by_count": 491,
+    "journal": "",
+    "abstract": "Cell-type-specific expression of epithelial and mesenchymal isoforms of Fibroblast Growth Factor Receptor 2 (FGFR2) is achieved through tight regulation of mutually exclusive exons IIIb and IIIc, respectively. Using an application of cell-based cDNA expression screening, we identified two paralogous epithelial cell-type-specific RNA-binding proteins that are essential regulators of FGFR2 splicing. Ectopic expression of either protein in cells that express FGFR2-IIIc caused a switch in endogenous FGFR2 splicing to the epithelial isoform. Conversely, knockdown of both factors in cells that express FGFR2-IIIb by RNA interference caused a switch from the epithelial to mesenchymal isoform. These factors also regulate splicing of CD44, p120-Catenin (CTNND1), and hMena (ENAH), three transcripts that undergo changes in splicing during the epithelial-to-mesenchymal transition (EMT). These studies suggest that Epithelial Splicing Regulatory Proteins 1 and 2 (ESRP1 and ESRP2) are coordinators of an epithelial cell-type-specific splicing program.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An ESRP-regulated splicing programme is abrogated during the epithelial-mesenchymal transition.",
+    "doi": "10.1038/emboj.2010.195",
+    "pmid": "20711167",
+    "authors": [
+      "Warzecha CC, Jiang P, Amirikian K, Dittmar KA, Lu H, Shen S, Guo W, Xing Y, Carstens RP."
+    ],
+    "year": "2010",
+    "publication_date": "2010-08-13",
+    "cited_by_count": 323,
+    "journal": "",
+    "abstract": "Alternative splicing achieves coordinated changes in post-transcriptional gene expression programmes through the activities of diverse RNA-binding proteins. Epithelial splicing regulatory proteins 1 and 2 (ESRP1 and ESRP2) are cell-type-specific regulators of transcripts that switch splicing during the epithelial-mesenchymal transition (EMT). To define a comprehensive programme of alternative splicing that is regulated during the EMT, we identified an extensive ESRP-regulated splicing network of hundreds of alternative splicing events within numerous genes with functions in cell-cell adhesion, polarity, and migration. Loss of this global ESRP-regulated epithelial splicing programme induces the phenotypic changes in cell morphology that are observed during the EMT. Components of this splicing signature provide novel molecular markers that can be used to characterize the EMT. Bioinformatics and experimental approaches revealed a high-affinity ESRP-binding motif and a predictive RNA map that governs their activity. This work establishes the ESRPs as coordinators of a complex alternative splicing network that adds an important post-transcriptional layer to the changes in gene expression that underlie epithelial-mesenchymal transitions during development and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TGF-β drives epithelial-mesenchymal transition through δEF1-mediated downregulation of ESRP.",
+    "doi": "10.1038/onc.2011.493",
+    "pmid": "22037216",
+    "authors": [
+      "Horiguchi K, Sakamoto K, Koinuma D, Semba K, Inoue A, Inoue S, Fujii H, Yamaguchi A, Miyazawa K, Miyazono K, Saitoh M."
+    ],
+    "year": "2012",
+    "publication_date": "2011-10-31",
+    "cited_by_count": 188,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT) is a crucial event in wound healing, tissue repair and cancer progression in adult tissues. We have recently shown that transforming growth factor (TGF)-β-induced EMT involves isoform switching of fibroblast growth factor receptors by alternative splicing. We performed a microarray-based analysis at single exon level to elucidate changes in splicing variants generated during TGF-β-induced EMT, and found that TGF-β induces broad alteration of splicing patterns by downregulating epithelial splicing regulatory proteins (ESRPs). This was achieved by TGF-β-mediated upregulation of δEF1 family proteins, δEF1 and SIP1. δEF1 and SIP1 each remarkably repressed ESRP2 transcription through binding to the ESRP2 promoter in NMuMG cells. Silencing of both δEF1 and SIP1, but not either alone, abolished the TGF-β-induced ESRP repression. The expression profiles of ESRPs were inversely related to those of δEF1 and SIP in human breast cancer cell lines and primary tumor specimens. Further, overexpression of ESRPs in TGF-β-treated cells resulted in restoration of the epithelial splicing profiles as well as attenuation of certain phenotypes of EMT. Therefore, δEF1 family proteins repress the expression of ESRPs to regulate alternative splicing during TGF-β-induced EMT and the progression of breast cancers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The epithelial splicing factors ESRP1 and ESRP2 positively and negatively regulate diverse types of alternative splicing events.",
+    "doi": "10.4161/rna.6.5.9606",
+    "pmid": "19829082",
+    "authors": [
+      "Warzecha CC, Shen S, Xing Y, Carstens RP."
+    ],
+    "year": "2009",
+    "publication_date": "2009-11-22",
+    "cited_by_count": 184,
+    "journal": "",
+    "abstract": "Cell-type and tissue-specific alternative splicing events are regulated by combinatorial control involving both abundant RNA binding proteins as well as those with more discrete expression and specialized functions. Epithelial Splicing Regulatory Proteins 1 and 2 (ESRP1 and ESRP2) are recently discovered epithelial-specific RNA binding proteins that promote splicing of the epithelial variant of the FGFR2, ENAH, CD44 and CTNND1 transcripts. To catalogue a larger set of splicing events under the regulation of the ESRPs we profiled splicing changes induced by RNA interference-mediated knockdown of ES RP1 and ES RP2 expression in a human epithelial cell line using the splicing sensitive Affymetrix Exon ST1.0 Arrays. Analysis of the microarray data resulted in the identification of over a hundred candidate ESRP regulated splicing events. We were able to independently validate 38 of these targets by RT-PCR. The ESRP regulated events encompass all known types of alternative splicing events, most prominent being alternative cassette exons and splicing events leading to alternative 3' terminal exons. Importantly, a number of these regulated splicing events occur in gene transcripts that encode proteins with well-described roles in the regulation of actin cytoskeleton organization, cell-cell adhesion, cell polarity and cell migration. In sum, this work reveals a novel list of transcripts differentially spliced in epithelial and mesenchymal cells, implying that coordinated alternative splicing plays a critical role in determination of cell type identity. These results further establish ESRP1 and ESRP2 as global regulators of an epithelial splicing regulatory network.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing regulators Esrp1 and Esrp2 direct an epithelial splicing program essential for mammalian development.",
+    "doi": "10.7554/elife.08954",
+    "pmid": "26371508",
+    "authors": [
+      "Bebee TW, Park JW, Sheridan KI, Warzecha CC, Cieply BW, Rohacek AM, Xing Y, Carstens RP."
+    ],
+    "year": "2015",
+    "publication_date": "2015-09-15",
+    "cited_by_count": 140,
+    "journal": "",
+    "abstract": "Tissue- and cell-type-specific regulators of alternative splicing (AS) are essential components of posttranscriptional gene regulation, necessary for normal cellular function, patterning, and development. Mice with ablation of Epithelial splicing regulatory protein (Esrp1) develop cleft lip and palate. Loss of both Esrp1 and its paralog Esrp2 results in widespread developmental defects with broad implications to human disease. Deletion of the Esrps in the epidermis revealed their requirement for establishing a proper skin barrier, a primary function of epithelial cells comprising the epidermis. We profiled the global Esrp-mediated splicing regulatory program in epidermis, which revealed large-scale programs of epithelial cell-type-specific splicing required for epithelial cell functions. These mice represent a valuable model for evaluating the essential role for AS in development and function of epithelial cells, which play essential roles in tissue homeostasis in numerous organs, and provide a genetic tool to evaluate important functional properties of epithelial-specific splice variants in vivo.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ZEB1-responsive genes in non-small cell lung cancer.",
+    "doi": "10.1016/j.canlet.2010.09.007",
+    "pmid": "20980099",
+    "authors": [
+      "Gemmill RM, Roche J, Potiron VA, Nasarre P, Mitas M, Coldren CD, Helfrich BA, Garrett-Mayer E, Bunn PA, Drabkin HA."
+    ],
+    "year": "2011",
+    "publication_date": "2010-10-25",
+    "cited_by_count": 140,
+    "journal": "",
+    "abstract": "The epithelial to mesenchymal transition (EMT) is a developmental process enabling epithelial cells to gain a migratory mesenchymal phenotype. In cancer, this process contributes to metastases; however the regulatory signals and mechanistic details are not fully elucidated. Here, we sought to identify the subset of genes regulated in lung cancer by ZEB1, an E-box transcriptional repressor known to induce EMT. Using an Affymetrix-based expression database of 38 non-small cell lung cancer (NSCLC) cell lines, we identified 324 genes that correlated negatively with ZEB1 and 142 that were positively correlated. A mesenchymal gene pattern (low E-cadherin, high Vimentin or N-cadherin) was significantly associated with ZEB1 and ZEB2, but not with Snail, Slug, Twist1 or Twist2. Among eight genes selected for validation, seven were confirmed to correlate with ZEB1 by quantitative real-time RT-PCR in a series of 22 NSCLC cell lines, either negatively (CDS1, EpCAM, ESRP1, ESRP2, ST14) or positively (FGFR1, Vimentin). In addition, over-expression or knockdown of ZEB1 led to corresponding changes in gene expression, demonstrating that these genes are also regulated by ZEB1, either directly or indirectly. Of note, the combined knockdown of ZEB1 and ZEB2 led to apparent synergistic responses in gene expression. Furthermore, these responses were not restricted to artificial settings, since most genes were similarly regulated during a physiologic induction of EMT by TGF-β plus EGF. Finally, the absence of ST14 (matriptase) was linked to ZEB1 positivity in lung cancer tissue microarrays, implying that the regulation observed in vitro applies to the human disease. In summary, this study identifies a new set of ZEB-regulated genes in human lung cancer cells and supports the hypothesis that ZEB1 and ZEB2 are key regulators of the EMT process in this disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epithelial splicing regulatory proteins 1 (ESRP1) and 2 (ESRP2) suppress cancer cell motility via different mechanisms.",
+    "doi": "10.1074/jbc.m114.589432",
+    "pmid": "25143390",
+    "authors": [
+      "Ishii H, Saitoh M, Sakamoto K, Kondo T, Katoh R, Tanaka S, Motizuki M, Masuyama K, Miyazawa K."
+    ],
+    "year": "2014",
+    "publication_date": "2014-08-20",
+    "cited_by_count": 136,
+    "journal": "",
+    "abstract": "ESRP1 (epithelial splicing regulatory protein 1) and ESRP2 regulate alternative splicing events associated with epithelial phenotypes of cells, and both are down-regulated during the epithelial-mesenchymal transition. However, little is known about their expression and functions during carcinogenesis. In this study, we found that expression of both ESRP1 and ESRP2 is plastic: during oral squamous cell carcinogenesis, these proteins are up-regulated relative to their levels in normal epithelium but down-regulated in invasive fronts. Importantly, ESRP1 and ESRP2 are re-expressed in the lymph nodes, where carcinoma cells metastasize and colonize. In head and neck carcinoma cell lines, ESRP1 and ESRP2 suppress cancer cell motility through distinct mechanisms: knockdown of ESRP1 affects the dynamics of the actin cytoskeleton through induction of Rac1b, whereas knockdown of ESRP2 attenuates cell-cell adhesion through increased expression of epithelial-mesenchymal transition-associated transcription factors. Down-regulation of ESRP1 and ESRP2 is thus closely associated with a motile phenotype of cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Determination of a Comprehensive Alternative Splicing Regulatory Network and Combinatorial Regulation by Key Factors during the Epithelial-to-Mesenchymal Transition.",
+    "doi": "10.1128/mcb.00019-16",
+    "pmid": "27044866",
+    "authors": [
+      "Yang Y, Park JW, Bebee TW, Warzecha CC, Guo Y, Shang X, Xing Y, Carstens RP."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-16",
+    "cited_by_count": 124,
+    "journal": "",
+    "abstract": "The epithelial-to-mesenchymal transition (EMT) is an essential biological process during embryonic development that is also implicated in cancer metastasis. While the transcriptional regulation of EMT has been well studied, the role of alternative splicing (AS) regulation in EMT remains relatively uncharacterized. We previously showed that the epithelial cell-type-specific proteins epithelial splicing regulatory proteins 1 (ESRP1) and ESRP2 are important for the regulation of many AS events that are altered during EMT. However, the contributions of the ESRPs and other splicing regulators to the AS regulatory network in EMT require further investigation. Here, we used a robust in vitro EMT model to comprehensively characterize splicing switches during EMT in a temporal manner. These investigations revealed that the ESRPs are the major regulators of some but not all AS events during EMT. We determined that the splicing factor RBM47 is downregulated during EMT and also regulates numerous transcripts that switch splicing during EMT. We also determined that Quaking (QKI) broadly promotes mesenchymal splicing patterns. Our study highlights the broad role of posttranscriptional regulation during the EMT and the important role of combinatorial regulation by different splicing factors to fine tune gene expression programs during these physiological and developmental transitions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide determination of a broad ESRP-regulated posttranscriptional network by high-throughput sequencing.",
+    "doi": "10.1128/mcb.06536-11",
+    "pmid": "22354987",
+    "authors": [
+      "Dittmar KA, Jiang P, Park JW, Amirikian K, Wan J, Shen S, Xing Y, Carstens RP."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-21",
+    "cited_by_count": 123,
+    "journal": "",
+    "abstract": "Tissue-specific alternative splicing is achieved through the coordinated assembly of RNA binding proteins at specific sites to enhance or silence splicing at nearby splice sites. We used high-throughput sequencing (RNA-Seq) to investigate the complete spectrum of alternative splicing events that are regulated by the epithelium-specific splicing regulatory proteins ESRP1 and ESRP2. We also combined this analysis with direct RNA sequencing (DRS) to reveal ESRP-mediated regulation of alternative polyadenylation. To define binding motifs that mediate direct regulation of splicing and polyadenylation by ESRP, SELEX-Seq analysis was performed, coupling traditional SELEX with high-throughput sequencing. Identification and scoring of high-affinity ESRP1 binding motifs within ESRP target genes allowed the generation of RNA maps that define the position-dependent activity of the ESRPs in regulating cassette exons and alternative 3' ends. These extensive analyses provide a comprehensive picture of the functions of the ESRPs in an epithelial posttranscriptional gene expression program.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Complex changes in alternative pre-mRNA splicing play a central role in the epithelial-to-mesenchymal transition (EMT).",
+    "doi": "10.1016/j.semcancer.2012.04.003",
+    "pmid": "22548723",
+    "authors": [
+      "Warzecha CC, Carstens RP."
+    ],
+    "year": "2012",
+    "publication_date": "2012-04-23",
+    "cited_by_count": 116,
+    "journal": "",
+    "abstract": "The epithelial-to-mesenchymal transition (EMT) is an important developmental process that is also implicated in disease pathophysiology, such as cancer progression and metastasis. A wealth of literature in recent years has identified important transcriptional regulators and large-scale changes in gene expression programs that drive the phenotypic changes that occur during the EMT. However, in the past couple of years it has become apparent that extensive changes in alternative splicing also play a profound role in shaping the changes in cell behavior that characterize the EMT. While long known splicing switches in FGFR2 and p120-catenin provided hints of a larger program of EMT-associated alternative splicing, the recent identification of the epithelial splicing regulatory proteins 1 and 2 (ESRP1 and ESRP2) began to reveal this genome-wide post-transcriptional network. Several studies have now demonstrated the truly vast extent of this alternative splicing program. The global switches in splicing associated with the EMT add an important additional layer of post-transcriptional control that works in harmony with transcriptional and epigenetic regulation to effect complex changes in cell shape, polarity, and behavior that mediate transitions between epithelial and mesenchymal cell states. Future challenges include the need to investigate the functional consequences of these splicing switches at both the individual gene as well as systems level.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutations in the Epithelial Cadherin-p120-Catenin Complex Cause Mendelian Non-Syndromic Cleft Lip with or without Cleft Palate.",
+    "doi": "10.1016/j.ajhg.2018.04.009",
+    "pmid": "29805042",
+    "authors": [
+      "Cox LL, Cox TC, Moreno Uribe LM, Zhu Y, Richter CT, Nidey N, Standley JM, Deng M, Blue E, Chong JX, Yang Y, Carstens RP, Anand D, Lachke SA, Smith JD, Dorschner MO, Bedell B, Kirk E, Hing AV, Venselaar H, Valencia-Ramirez LC, Bamshad MJ, Glass IA, Cooper JA, Haan E, Nickerson DA, van Bokhoven H, Zhou H, Krahn KN, Buckley MF, Murray JC, Lidral AC, Roscioli T."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-24",
+    "cited_by_count": 112,
+    "journal": "",
+    "abstract": "Non-syndromic cleft lip with or without cleft palate (NS-CL/P) is one of the most common human birth defects and is generally considered a complex trait. Despite numerous loci identified by genome-wide association studies, the effect sizes of common variants are relatively small, with much of the presumed genetic contribution remaining elusive. We report exome-sequencing results in 209 people from 72 multi-affected families with pedigree structures consistent with autosomal-dominant inheritance and variable penetrance. Herein, pathogenic variants are described in four genes encoding components of the p120-catenin complex (CTNND1, PLEKHA7, PLEKHA5) and an epithelial splicing regulator (ESRP2), in addition to the known CL/P-associated gene, CDH1, which encodes E-cadherin. The findings were also validated in a second cohort of 497 people with NS-CL/P, comprising small families and singletons with pathogenic variants in these genes identified in 14% of multi-affected families and 2% of the replication cohort of smaller families. Enriched expression of each gene/protein in human and mouse embryonic oro-palatal epithelia, demonstration of functional impact of CTNND1 and ESRP2 variants, and recapitulation of the CL/P spectrum in Ctnnd1 knockout mice support a causative role in CL/P pathogenesis. These data show that primary defects in regulators of epithelial cell adhesion are the most significant contributors to NS-CL/P identified to date and that inherited and de novo single gene variants explain a substantial proportion of NS-CL/P.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP2 controls an adult splicing programme in hepatocytes to support postnatal liver maturation.",
+    "doi": "10.1038/ncomms9768",
+    "pmid": "26531099",
+    "authors": [
+      "Bhate A, Parker DJ, Bebee TW, Ahn J, Arif W, Rashan EH, Chorghade S, Chau A, Lee JH, Anakk S, Carstens RP, Xiao X, Kalsotra A."
+    ],
+    "year": "2015",
+    "publication_date": "2015-11-04",
+    "cited_by_count": 97,
+    "journal": "",
+    "abstract": "Although major genetic networks controlling early liver specification and morphogenesis are known, the mechanisms responsible for postnatal hepatic maturation are poorly understood. Here we employ global analyses of the mouse liver transcriptome to demonstrate that postnatal remodelling of the liver is accompanied by large-scale transcriptional and post-transcriptional transitions that are cell-type-specific and temporally coordinated. Combining detailed expression analyses with gain- and loss-of-function studies, we identify epithelial splicing regulatory protein 2 (ESRP2) as a conserved regulatory factor that controls the neonatal-to-adult switch of ∼20% of splice isoforms in mouse and human hepatocytes. The normal shift in splicing coincides tightly with dramatic postnatal induction of ESRP2 in hepatocytes. We further demonstrate that forced expression of ESRP2 in immature mouse and human hepatocytes is sufficient to drive a reciprocal shift in splicing and causes various physiological abnormalities. These findings define a direct role for ESRP2 in the generation of conserved repertoires of adult splice isoforms that facilitate terminal differentiation and maturation of hepatocytes.",
+    "openalex_id": ""
+  }
+]

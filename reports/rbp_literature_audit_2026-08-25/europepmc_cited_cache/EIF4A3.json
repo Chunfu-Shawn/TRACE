@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Binding of a novel SMG-1-Upf1-eRF1-eRF3 complex (SURF) to the exon junction complex triggers Upf1 phosphorylation and nonsense-mediated mRNA decay.",
+    "doi": "10.1101/gad.1389006",
+    "pmid": "16452507",
+    "authors": [
+      "Kashima I, Yamashita A, Izumi N, Kataoka N, Morishita R, Hoshino S, Ohno M, Dreyfuss G, Ohno S."
+    ],
+    "year": "2006",
+    "publication_date": "2006-02-01",
+    "cited_by_count": 543,
+    "journal": "",
+    "abstract": "Nonsense-mediated mRNA decay (NMD) is a surveillance mechanism that degrades mRNA containing premature termination codons (PTCs). In mammalian cells, recognition of PTCs requires translation and depends on the presence on the mRNA with the splicing-dependent exon junction complex (EJC). While it is known that a key event in the triggering of NMD is phosphorylation of the trans-acting factor, Upf1, by SMG-1, the relationship between Upf1 phosphorylation and PTC recognition remains undetermined. Here we show that SMG-1 binds to the mRNA-associated components of the EJC, Upf2, Upf3b, eIF4A3, Magoh, and Y14. Further, we describe a novel complex that contains the NMD factors SMG-1 and Upf1, and the translation termination release factors eRF1 and eRF3 (SURF). Importantly, an association between SURF and the EJC is required for SMG-1-mediated Upf1 phosphorylation and NMD. Thus, the SMG-1-mediated phosphorylation of Upf1 occurs on the association of SURF with EJC, which provides the link between the EJC and recognition of PTCs and triggers NMD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The circRNA circSEPT9 mediated by E2F1 and EIF4A3 facilitates the carcinogenesis and development of triple-negative breast cancer.",
+    "doi": "10.1186/s12943-020-01183-9",
+    "pmid": "32264877",
+    "authors": [
+      "Zheng X, Huang M, Xing L, Yang R, Wang X, Jiang R, Zhang L, Chen J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-04-07",
+    "cited_by_count": 349,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Increasing studies have shown that circRNA is closely related to the carcinogenesis and development of many cancers. However, biological functions and the underlying molecular mechanism of circRNAs in triple-negative breast cancer (TNBC) remain largely unclear so far.<h4>Methods</h4>Here, we investigated the expression pattern of circRNAs in four pairs of TNBC tissues and paracancerous normal tissues using RNA-sequencing. The expression and prognostic significance of circSEPT9 were evaluated with qRT-PCR and in situ hybridization in two TNBC cohorts. The survival curves were drawn by the Kaplan-Meier method, and statistical significance was estimated with the log-rank test. A series of in vitro and in vivo functional experiments were executed to investigate the role of circSEPT9 in the carcinogenesis and development of TNBC. Mechanistically, we explored the potential regulatory effects of E2F1 and EIF4A3 on biogenesis of circSEPT9 with chromatin immunoprecipitation (ChIP), luciferase reporter and RNA immunoprecipitation (RIP) assays. Furthermore, fluorescent in situ hybridization (FISH), luciferase reporter and biotin-coupled RNA pull-down assays were implemented to verify the relationship between the circSEPT9 and miR-637 in TNBC.<h4>Results</h4>Increased expression of circSEPT9 was found in TNBC tissues, which was positively correlated with advanced clinical stage and poor prognosis. Knockdown of circSEPT9 significantly suppressed the proliferation, migration and invasion of TNBC cells, induced apoptosis and autophagy in TNBC cells as well as inhibited tumor growth and metastasis in vivo. Whereas up-regulation of circSEPT9 exerted opposite effects. Further mechanism research demonstrated that circSEPT9 could regulate the expression of Leukemia Inhibitory Factor (LIF) via sponging miR-637 and activate LIF/Stat3 signaling pathway involved in progression of TNBC. More importantly, we discovered that E2F1 and EIF4A3 might promote the biogenesis of circSEPT9.<h4>Conclusions</h4>Our data reveal that the circSEPT9 mediated by E2F1 and EIF4A3 facilitates the carcinogenesis and development of triple-negative breast cancer through circSEPT9/miR-637/LIF axis. Therefore, circSEPT9 could be used as a potential prognostic marker and therapeutical target for TNBC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exon-junction complex components specify distinct routes of nonsense-mediated mRNA decay with differential cofactor requirements.",
+    "doi": "10.1016/j.molcel.2005.08.012",
+    "pmid": "16209946",
+    "authors": [
+      "Gehring NH, Kunz JB, Neu-Yilik G, Breit S, Viegas MH, Hentze MW, Kulozik AE."
+    ],
+    "year": "2005",
+    "publication_date": "2005-10-01",
+    "cited_by_count": 277,
+    "journal": "",
+    "abstract": "Messenger RNAs (mRNAs) bearing premature translation termination codons (PTCs) are degraded by nonsense-mediated mRNA decay (NMD). For mammalian NMD, current models propose a linear pathway that involves the splicing-dependent deposition of exon-junction complexes (EJCs) and the sequential action of the NMD factors UPF3, UPF2, and UPF1. We show here that different EJC proteins serve as entry points for the formation of distinguishable NMD-activating mRNPs. Specifically, Y14, MAGOH, and eIF4A3 can activate NMD in an UPF2-independent manner, whereas RNPS1-induced NMD requires UPF2. We identify the relevant regions of RNPS1, eIF4A3, Y14, and MAGOH, which are essential for NMD and provide insights into the formation of complexes, that classify alternative NMD pathways. These results are integrated into a nonlinear model for mammalian NMD involving alternative routes of entry that converge at a common requirement of UPF1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exosome-derived circCCAR1 promotes CD8 + T-cell dysfunction and anti-PD1 resistance in hepatocellular carcinoma.",
+    "doi": "10.1186/s12943-023-01759-1",
+    "pmid": "36932387",
+    "authors": [
+      "Hu Z, Chen G, Zhao Y, Gao H, Li L, Yin Y, Jiang J, Wang L, Mang Y, Gao Y, Zhang S, Ran J, Li L."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-18",
+    "cited_by_count": 264,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs (circRNAs) can be encapsulated into exosomes to participate in intercellular communication, affecting the malignant progression of a variety of tumors. Dysfunction of CD8 + T cells is the main factor in immune escape from hepatocellular carcinoma (HCC). Nevertheless, the effect of exosome-derived circRNAs on CD8 + T-cell dysfunction needs further exploration.<h4>Methods</h4>The effect of circCCAR1 on the tumorigenesis and metastasis of HCC was assessed by in vitro and in vivo functional experiments. The function of circCCAR1 in CD8 + T-cell dysfunction was measured by enzyme-linked immunosorbent assay (ELISA), western blotting and flow cytometry. Chromatin immunoprecipitation, biotinylated RNA pull-down, RNA immunoprecipitation, and MS2 pull-down assays were used to the exploration of mechanism. A mouse model with reconstituted human immune system components (huNSG mice) was constructed to explore the role of exosomal circCCAR1 in the resistance to anti-PD1 therapy in HCC.<h4>Results</h4>Increased circCCAR1 levels existed in tumor tissues and exosomes in the plasma of HCC patients, in the culture supernatant and HCC cells. CircCCAR1 accelerated the growth and metastasis of HCC in vitro and in vivo. E1A binding protein p300 (EP300) and eukaryotic translation initiation factor 4A3 (EIF4A3) promoted the biogenesis of circCCAR1, and Wilms tumor 1-associated protein (WTAP)-mediated m6A modification enhanced circCCAR1 stability by binding insulin-like growth factor 2 mRNA-binding protein 3 (IGF2BP3). CircCCAR1 acted as a sponge for miR-127-5p to upregulate its target WTAP and a feedback loop comprising circCCAR1/miR-127-5p/WTAP axis was formed. CircCCAR1 is secreted by HCC cells in a heterogeneous nuclear ribonucleoprotein A2/B1 (hnRNPA2B1)-dependent manner. Exosomal circCCAR1 was taken in by CD8 + T cells and caused dysfunction of CD8 + T cells by stabilizing the PD-1 protein. CircCCAR1 promoted resistance to anti-PD1 immunotherapy. Furthermore, increased cell division cycle and apoptosis regulator 1 (CCAR1) induced by EP300 promoted the binding of CCAR1 and β-catenin protein, which further enhanced the transcription of PD-L1.<h4>Conclusions</h4>The circCCAR1/miR-127-5p/WTAP feedback loop enhances the growth and metastasis of HCC. Exosomal circCCAR1 released by HCC cells contributes to immunosuppression by facilitating CD8 + T-cell dysfunction in HCC. CircCCAR1 induces resistance to anti-PD1 immunotherapy, providing a potential therapeutic strategy for HCC patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF4A3-induced circular RNA MMP9 (circMMP9) acts as a sponge of miR-124 and promotes glioblastoma multiforme cell tumorigenesis.",
+    "doi": "10.1186/s12943-018-0911-0",
+    "pmid": "30470262",
+    "authors": [
+      "Wang R, Zhang S, Chen X, Li N, Li J, Jia R, Pan Y, Liang H."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-23",
+    "cited_by_count": 262,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Circular RNAs (circRNAs) have been found to play critical roles in the development and progression of various cancers. However, little is known about the effects of the circular RNA network on glioblastoma multiforme (GBM).<h4>Methods</h4>A microarray was used to screen circRNA expression in GBM. Quantitative real-time PCR was used to detect the expression of circMMP9. GBM cells were transfected with a circMMP9 overexpression vector or siRNA, and cell proliferation, migration and invasion, as well as tumorigenesis in nude mice, were assessed to examine the effect of circMMP9 in GBM. Biotin-coupled miRNA capture, fluorescence in situ hybridization and luciferase reporter assays were conducted to confirm the relationship between circMMP9 and miR-124.<h4>Results</h4>In this study, we screened differentially expressed circRNAs and identified circMMP9 in GBM. We found that circMMP9 acted as an oncogene, was upregulated in GBM and promoted the proliferation, migration and invasion abilities of GBM cells. Next, we verified that circMMP9 served as a sponge that directly targeted miR-124; circMMP9 accelerated GBM cell proliferation, migration and invasion by targeting miR-124. Furthermore, we found that cyclin-dependent kinase 4 (CDK4) and aurora kinase A (AURKA) were involved in circMMP9/miR-124 axis-induced GBM tumorigenesis. Finally, we found that eukaryotic initiation factor 4A3 (eIF4A3), which binds to the MMP9 mRNA transcript, induced circMMP9 cyclization and increased circMMP9 expression in GBM.<h4>Conclusions</h4>Our findings indicate that eIF4A3-induced circMMP9 is an important underlying mechanism in GBM cell proliferation, invasion and metastasis through modulation of the miR-124 signaling pathway, which could provide pivotal potential therapeutic targets for the treatment of GBM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "eIF4A3 is a novel component of the exon junction complex.",
+    "doi": "10.1261/rna.5230104",
+    "pmid": "14730019",
+    "authors": [
+      "Chan CC, Dostie J, Diem MD, Feng W, Mann M, Rappsilber J, Dreyfuss G."
+    ],
+    "year": "2004",
+    "publication_date": "2004-02-01",
+    "cited_by_count": 224,
+    "journal": "",
+    "abstract": "The exon junction complex (EJC) is a protein complex that assembles near exon-exon junctions of mRNAs as a result of splicing. EJC proteins play important roles in postsplicing events including mRNA export, cytoplasmic localization, and nonsense-mediated decay. Recent evidence suggests that mRNA translation is also influenced by the splicing history of the transcript. Here we identify eIF4A3, a DEAD-box RNA helicase and a member of the eIF4A family of translation initiation factors, as a novel component of the EJC. We show that eIF4A3 associates preferentially with nuclear complexes containing the EJC proteins magoh and Y14. Furthermore, eIF4A3, but not the highly related eIF4A1 or eIF4A2, preferentially associates with spliced mRNA. In vitro splicing and mapping experiments demonstrate that eIF4A3 binds mRNAs at the position of the EJC. Using monoclonal antibodies, we show that eIF4A3 is found in the nucleus whereas eIF4A1 and eIF4A2 are found in the cytoplasm. Thus, eIF4A3 likely provides a splicing-dependent influence on the translation of mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF4A3-Induced circARHGAP29 Promotes Aerobic Glycolysis in Docetaxel-Resistant Prostate Cancer through IGF2BP2/c-Myc/LDHA Signaling.",
+    "doi": "10.1158/0008-5472.can-21-2988",
+    "pmid": "34965937",
+    "authors": [
+      "Jiang X, Guo S, Wang S, Zhang Y, Chen H, Wang Y, Liu R, Niu Y, Xu Y."
+    ],
+    "year": "2022",
+    "publication_date": "2022-03-01",
+    "cited_by_count": 189,
+    "journal": "",
+    "abstract": "Docetaxel-based chemotherapy is a standard-of-care treatment for metastatic prostate cancer, and chemoresistance remains a major challenge in clinical practice. Recent studies have demonstrated that circular RNAs (circRNA) play critical roles in the development and progression of prostate cancer. However, the biological roles and potential functions of circRNAs in mediating docetaxel-resistant prostate cancer have yet to be well elucidated. In this study, we analyzed the expression profiles of circRNAs in docetaxel-resistant and -sensitive prostate cancer cells through RNA sequencing and found that expression of circARHGAP29 was significantly upregulated in docetaxel-resistant cell lines and clinical samples. Ectopic expression of circARHGAP29 triggered docetaxel resistance and aerobic glycolysis in prostate cancer cells, which was reduced by silencing circARHGAP29. Moreover, eukaryotic initiation factor 4A3, which bound the back-spliced junction site and the downstream flanking sequence of circARHGAP29, induced cyclization and cytoplasmic export of circARHGAP29. circARHGAP29 increased the stability of lactate dehydrogenase A (LDHA) mRNA by strengthening its interaction with insulin-like growth factor 2 mRNA-binding protein 2, leading to enhanced glycolytic metabolism. In addition, circARHGAP29 interacted with and stabilized c-Myc mRNA and protein, which further increased LDHA expression by facilitating its transcription. These findings reveal the crucial function of circARHGAP29 in prostate cancer glycolysis by increasing and stabilizing LDHA mRNA, providing a promising therapeutic target in docetaxel-resistant prostate cancer.<h4>Significance</h4>Upregulation of a novel circRNA, circARHGAP29, promotes docetaxel resistance and glycolytic metabolism, suggesting it could be a prognostic biomarker and therapeutic target in chemoresistant prostate cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long noncoding RNA H19 indicates a poor prognosis of colorectal cancer and promotes tumor growth by recruiting and binding to eIF4A3.",
+    "doi": "10.18632/oncotarget.8063",
+    "pmid": "26989025",
+    "authors": [
+      "Han D, Gao X, Wang M, Qiao Y, Xu Y, Yang J, Dong N, He J, Sun Q, Lv G, Xu C, Tao J, Ma N."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-01",
+    "cited_by_count": 168,
+    "journal": "",
+    "abstract": "The overall biological role and clinical significance of long non-coding RNA H19 in colorectal cancer (CRC) remain largely unknown. Here, we firstly report that the lncRNA H19 recruits eIF4A3 and promotes the CRC cell proliferation. We observed higher expression of H19 was significantly correlated with tumor differentiation and advanced TNM stage in a cohort of 83 CRC patients. Multivariate analyses revealed that expression of H19 served as an independent predictor for overall survival and disease-free survival. Further experiments revealed that overexpression of H19 promoted the proliferation of CRC cells, while depletion of H19 inhibited cell viability and induced growth arrest. Moreover, expression profile data showed that H19 upregulated a series of cell-cycle genes. Using bioinformatics prediction and RNA immunoprecipitation assays, we identified eIF4A3 as an RNA-binding protein that binds to H19. We confirmed that combining eIF4A3 with H19 obstructed the recruitment of eIF4A3 to the cell-cycle gene mRNA. Our results suggest that H19, as a growth regulator, could serve as a candidate prognostic biomarker and target for new therapies in human CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EIF4A3-induced circular RNA ASAP1 promotes tumorigenesis and temozolomide resistance of glioblastoma via NRAS/MEK1/ERK1-2 signaling.",
+    "doi": "10.1093/neuonc/noaa214",
+    "pmid": "32926734",
+    "authors": [
+      "Wei Y, Lu C, Zhou P, Zhao L, Lyu X, Yin J, Shi Z, You Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-04-01",
+    "cited_by_count": 167,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Acquired chemoresistance is a major challenge in the clinical treatment of glioblastoma (GBM). Circular RNAs have been verified to play a role in tumor chemoresistance. However, the underlying mechanisms remain unclear. The aim of this study was to elucidate the potential role and molecular mechanism of circular (circ)RNA ADP-ribosylation factor GTPase activating proteins with Src homology 3 domain, ankyrin repeat and Pleckstrin homology domain 1 (circASAP1) in temozolomide (TMZ) resistance of GBM.<h4>Methods</h4>We analyzed circRNA alterations in recurrent GBM tissues relative to primary GBM through RNA sequencing. Real-time quantitative reverse transcription PCR verified the expression of circASAP1 in tissues and cells. Knockdown and overexpressed plasmids were used to evaluate the effect of circASAP1 on GBM cell proliferation and TMZ-induced apoptosis. Mechanistically, fluorescent in situ hybridization, dual-luciferase reporter, and RNA immunoprecipitation assays were performed to confirm the regulatory network of circASAP1/miR-502-5p/neuroblastoma Ras (NRAS). An intracranial tumor model was used to verify our findings in vivo.<h4>Results</h4>CircASAP1 expression was significantly upregulated in recurrent GBM tissues and TMZ-resistant cell lines. CircASAP1 overexpression enhanced GBM cell proliferation and TMZ resistance, which could be reduced by circASAP1 knockdown. Further experiments revealed that circASAP1 increased the expression of NRAS via sponging miR-502-5p. Moreover, circASAP1 depletion effectively restored the sensitivity of TMZ-resistant xenografts to TMZ treatment in vivo.<h4>Conclusions</h4>Our data demonstrate that circASAP1 exerts regulatory functions in GBM and that competing endogenous (ce)RNA-mediated microRNA sequestration might be a potential therapeutic strategy for GBM treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>Circ0008399</i> Interaction with WTAP Promotes Assembly and Activity of the m<sup>6</sup>A Methyltransferase Complex and Promotes Cisplatin Resistance in Bladder Cancer.",
+    "doi": "10.1158/0008-5472.can-21-1518",
+    "pmid": "34702726",
+    "authors": [
+      "Wei W, Sun J, Zhang H, Xiao X, Huang C, Wang L, Zhong H, Jiang Y, Zhang X, Jiang G."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-26",
+    "cited_by_count": 158,
+    "journal": "",
+    "abstract": "Cisplatin (CDDP)-based chemotherapy is the first-line treatment for muscle-invasive and metastatic bladder cancer, yet most patients rapidly develop resistance. N6-methyladenosine (m<sup>6</sup>A) methylation is a pervasive RNA modification, and its specific role and potential mechanism in the regulation of CDDP chemosensitivity in bladder cancer remain unclear. Furthermore, studies have not yet fully elucidated whether circular RNA (circRNA) can directly regulate m<sup>6</sup>A modification of mRNA. Here we report upregulation of a novel circRNA, <i>hsa_circ_0008399</i> (<i>circ0008399</i>), by eukaryotic translation initiation factor 4A3 (EIF4A3) in bladder cancer tissues and cell lines. Functionally, <i>circ0008399</i> inhibited apoptosis of bladder cancer cells. Mechanistically, <i>circ0008399</i> bound Wilms' tumor 1-associating protein (WTAP) to promote formation of the WTAP/METTL3/METTL14 m<sup>6</sup>A methyltransferase complex. <i>Circ0008399</i> increased expression of TNF alpha-induced protein 3 (TNFAIP3) by increasing its mRNA stability in an m<sup>6</sup>A-dependent manner. In patients with bladder cancer, high expression of <i>circ0008399</i> and WTAP was associated with poor outcomes. Importantly, activation of the <i>circ0008399</i>/WTAP/TNFAIP3 pathway decreased bladder cancer chemosensitivity to CDDP, and targeting the <i>circ0008399</i>/WTAP/TNFAIP3 axis enhanced the CDDP efficacy. Collectively, these findings give novel insights into circRNA-mediated regulation of m<sup>6</sup>A modifications and provide potential therapeutic targets for bladder cancer. SIGNIFICANCE: A newly characterized circRNA <i>circ0008399</i> binds WTAP to modulate expression of target RNA through m<sup>6</sup>A modification and reduce cisplatin sensitivity in bladder cancer, implicating the potential therapeutic value of targeting this axis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNA <i>circPPM1F</i> modulates M1 macrophage activation and pancreatic islet inflammation in type 1 diabetes mellitus.",
+    "doi": "10.7150/thno.48264",
+    "pmid": "33042261",
+    "authors": [
+      "Zhang C, Han X, Yang L, Fu J, Sun C, Huang S, Xiao W, Gao Y, Liang Q, Wang X, Luo F, Lu W, Zhou Y."
+    ],
+    "year": "2020",
+    "publication_date": "2020-08-29",
+    "cited_by_count": 141,
+    "journal": "",
+    "abstract": "<b>Rationale:</b> Macrophages play critical roles in the pathogenesis of type 1 diabetes mellitus (T1DM). Circular RNAs (circRNAs) are a novel class of endogenous RNAs with covalently closed loop structures, implicated in various disease processes. However, their impact on macrophage activation and T1DM pathogenesis remains elusive. <b>Methods:</b> circRNA expression profiles of peripheral blood mononuclear cells (PBMCs) from T1DM children were determined by whole transcriptome microarray. Bioinformatics, quantitative real-time PCR, Western blot, RNA immunoprecipitation (RIP), cell co-culture, cell proliferation, and cell apoptosis assays were performed to investigate the expression, function, and regulatory mechanisms of <i>circPPM1F in vitro</i>. The regulatory role of <i>circPPM1F in vivo</i> was evaluated in the streptozocin-induced diabetic mouse model. <b>Results:</b> We identified 27 upregulated and 31 downregulated differentially expressed circRNAs in T1DM patients. <i>circPPM1F</i>, a circRNA with unknown function, was dominantly expressed in monocytes and significantly upregulated in T1DM patients. Functionally, <i>circPPM1F</i> promoted lipopolysaccharide (LPS)-induced M1 macrophage activation via enhancement of the NF-κB signaling pathway. Mechanistically, <i>circPPM1F</i> competitively interacted with HuR to impair the translation of protein phosphatase, Mg<sup>2+</sup>/Mn<sup>2+</sup> dependent 1F (PPM1F), thus alleviating the inhibitory effect of PPM1F on the NF-κB pathway. Moreover, eukaryotic initiation factor 4A-III (EIF4A3) and fused in sarcoma (FUS) coordinately regulated <i>circPPM1F</i> expression during M1 macrophage activation. In addition, <i>circPPM1F</i> could exacerbate pancreas injury in the streptozocin-induced diabetic mice by activation of M1 macrophages <i>in vivo</i>. <b>Conclusions:</b><i>circPPM1F</i> is a novel positive regulator of M1 macrophage activation through the <i>circPPM1F</i>-HuR-PPM1F-NF-κB axis. Overexpression of <i>circPPM1F</i> could promote pancreatic islet injury by enhancing M1 macrophage activation and <i>circPPM1F</i> may serve as a novel potential therapeutic target for T1DM in children.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exon junction complex shapes the m<sup>6</sup>A epitranscriptome.",
+    "doi": "10.1038/s41467-022-35643-1",
+    "pmid": "36550132",
+    "authors": [
+      "Yang X, Triboulet R, Liu Q, Sendinc E, Gregory RI."
+    ],
+    "year": "2022",
+    "publication_date": "2022-12-23",
+    "cited_by_count": 137,
+    "journal": "",
+    "abstract": "N6-methyladenosine (m<sup>6</sup>A), the most abundant modification of mRNA, is essential for normal development and dysregulation promotes cancer. m<sup>6</sup>A is highly enriched in the 3' untranslated region (UTR) of a large subset of mRNAs to influence mRNA stability and/or translation. However, the mechanism responsible for the observed m<sup>6</sup>A distribution remains enigmatic. Here we find the exon junction complex shapes the m<sup>6</sup>A landscape by blocking METTL3-mediated m<sup>6</sup>A modification close to exon junctions within coding sequence (CDS). Depletion of EIF4A3, a core component of the EJC, causes increased METTL3 binding and m<sup>6</sup>A modification of short internal exons, and sites close to exon-exon junctions within mRNA. Reporter gene experiments further support the role of splicing and EIF4A3 deposition in controlling m<sup>6</sup>A modification via the local steric blockade of METTL3. Our results explain how characteristic patterns of m<sup>6</sup>A mRNA modification are established and uncover a role of the EJC in shaping the m<sup>6</sup>A epitranscriptome.",
+    "openalex_id": ""
+  }
+]

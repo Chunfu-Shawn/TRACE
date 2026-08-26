@@ -1,0 +1,204 @@
+[
+  {
+    "title": "Exon junction complex shapes the m6A epitranscriptome",
+    "doi": "10.1038/s41467-022-35643-1",
+    "authors": [
+      "Xin Yang",
+      "Robinson Triboulet",
+      "Qi Liu",
+      "Erdem Sendinc",
+      "Richard I. Gregory"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-22",
+    "cited_by_count": 155,
+    "journal": "Nature Communications",
+    "abstract": "Abstract N6-methyladenosine (m 6 A), the most abundant modification of mRNA, is essential for normal development and dysregulation promotes cancer. m 6 A is highly enriched in the 3’ untranslated region (UTR) of a large subset of mRNAs to influence mRNA stability and/or translation. However, the mechanism responsible for the observed m 6 A distribution remains enigmatic. Here we find the exon junction complex shapes the m 6 A landscape by blocking METTL3-mediated m 6 A modification close to exon",
+    "openalex_id": "https://openalex.org/W4312155712",
+    "relevance_score": 179.52522
+  },
+  {
+    "title": "Exon architecture controls mRNA m 6 A suppression and gene expression",
+    "doi": "10.1126/science.abj9090",
+    "authors": [
+      "P. Cody He",
+      "Jiangbo Wei",
+      "Xiaoyang Dou",
+      "Bryan T. Harada",
+      "Zijie Zhang"
+    ],
+    "year": 2023,
+    "publication_date": "2023-01-27",
+    "cited_by_count": 249,
+    "journal": "Science",
+    "abstract": "N 6 -methyladenosine (m 6 A) is the most abundant messenger RNA (mRNA) modification and plays crucial roles in diverse physiological processes. Using a massively parallel assay for m 6 A (MPm 6 A), we discover that m 6 A specificity is globally regulated by suppressors that prevent m 6 A deposition in unmethylated transcriptome regions. We identify exon junction complexes (EJCs) as m 6 A suppressors that protect exon junction–proximal RNA within coding sequences from methylation and regulate mRN",
+    "openalex_id": "https://openalex.org/W4318263433",
+    "relevance_score": 96.09167
+  },
+  {
+    "title": "An RNAi screen of RNA helicases identifies eIF4A3 as a regulator of embryonic stem cell identity",
+    "doi": "10.1093/nar/gkac1084",
+    "authors": [
+      "Dan Li",
+      "Jihong Yang",
+      "Vikas Malik",
+      "Yuting Huang",
+      "Xin Huang"
+    ],
+    "year": 2022,
+    "publication_date": "2022-11-23",
+    "cited_by_count": 17,
+    "journal": "Nucleic Acids Research",
+    "abstract": "RNA helicases are involved in multiple steps of RNA metabolism to direct their roles in gene expression, yet their functions in pluripotency control remain largely unexplored. Starting from an RNA interference (RNAi) screen of RNA helicases, we identified that eIF4A3, a DEAD-box (Ddx) helicase component of the exon junction complex (EJC), is essential for the maintenance of embryonic stem cells (ESCs). Mechanistically, we show that eIF4A3 post-transcriptionally controls the pluripotency-related ",
+    "openalex_id": "https://openalex.org/W4309765970",
+    "relevance_score": 90.386925
+  },
+  {
+    "title": "Nonsense‐mediated mRNA decay: novel mechanistic insights and biological impact",
+    "doi": "10.1002/wrna.1357",
+    "authors": [
+      "Evangelos D. Karousis",
+      "Sofía Nasif",
+      "Oliver Mühlemann"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 213,
+    "journal": "Wiley Interdisciplinary Reviews - RNA",
+    "abstract": "Nonsense-mediated mRNA decay (NMD) was originally coined to define a quality control mechanism that targets mRNAs with truncated open reading frames due to the presence of a premature termination codon. Meanwhile, it became clear that NMD has a much broader impact on gene expression and additional biological functions beyond quality control are continuously being discovered. We review here the current views regarding the molecular mechanisms of NMD, according to which NMD ensues on mRNAs that fa",
+    "openalex_id": "https://openalex.org/W2382773913",
+    "relevance_score": 87.74109
+  },
+  {
+    "title": "Control of gene expression through the nonsense-mediated RNA decay pathway",
+    "doi": "10.1186/s13578-017-0153-7",
+    "authors": [
+      "Andrew Nickless",
+      "Julie M. Bailis",
+      "Zhongsheng You"
+    ],
+    "year": 2017,
+    "publication_date": "2017-05-19",
+    "cited_by_count": 207,
+    "journal": "Cell & Bioscience",
+    "abstract": "Nonsense-mediated RNA decay (NMD) was originally discovered as a cellular surveillance pathway that safeguards the quality of mRNA transcripts in eukaryotic cells. In its canonical function, NMD prevents translation of mutant mRNAs harboring premature termination codons (PTCs) by targeting them for degradation. However, recent studies have shown that NMD has a much broader role in gene expression by regulating the stability of many normal transcripts. In this review, we discuss the function of N",
+    "openalex_id": "https://openalex.org/W2614145559",
+    "relevance_score": 81.5559
+  },
+  {
+    "title": "The Physiological Roles of the Exon Junction Complex in Development and Diseases",
+    "doi": "10.3390/cells11071192",
+    "authors": [
+      "Shravan Asthana",
+      "Hannah Martin",
+      "Julian Rupkey",
+      "Shray Patel",
+      "Joy Yoon"
+    ],
+    "year": 2022,
+    "publication_date": "2022-04-01",
+    "cited_by_count": 27,
+    "journal": "Cells",
+    "abstract": "The exon junction complex (EJC) becomes an increasingly important regulator of early gene expression in the central nervous system (CNS) and other tissues. The EJC is comprised of three core proteins: RNA-binding motif 8A (RBM8A), Mago homolog (MAGOH), eukaryotic initiation factor 4A3 (EIF4A3), and a peripheral EJC factor, metastatic lymph node 51 (MLN51), together with various auxiliary factors. The EJC is assembled specifically at exon-exon junctions on mRNAs, hence the name of the complex. Th",
+    "openalex_id": "https://openalex.org/W4223521012",
+    "relevance_score": 70.46275
+  },
+  {
+    "title": "Function and evolution of RNA N6-methyladenosine modification",
+    "doi": "10.7150/ijbs.45231",
+    "authors": [
+      "Zhi‐Man Zhu",
+      "Fu‐Chun Huo",
+      "Dong‐Sheng Pei"
+    ],
+    "year": 2020,
+    "publication_date": "2020-01-01",
+    "cited_by_count": 139,
+    "journal": "International Journal of Biological Sciences",
+    "abstract": "N6-methyladenosine (m 6 A) is identified as the most prevalent and abundant internal RNA modification, especially within eukaryotic mRNAs, which has attracted much attention in recent years since its importance for regulating gene expression and deciding cell fate. m 6 A modification is installed by RNA methyltransferases METTL3, METTL14 and WTAP (Writers), removed by the demethylases FTO and ALKBH5 (Erasers) and recognized by m 6 A binding proteins, such as YT521-B homology YTH domain-containin",
+    "openalex_id": "https://openalex.org/W3017034535",
+    "relevance_score": 65.00931
+  },
+  {
+    "title": "Perspective in Alternative Splicing Coupled to Nonsense-Mediated mRNA Decay",
+    "doi": "10.3390/ijms21249424",
+    "authors": [
+      "Juan F. García-Moreno",
+      "Luı́sa Romão"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-10",
+    "cited_by_count": 92,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "Alternative splicing (AS) of precursor mRNA (pre-mRNA) is a cellular post-transcriptional process that generates protein isoform diversity. Nonsense-mediated RNA decay (NMD) is an mRNA surveillance pathway that recognizes and selectively degrades transcripts containing premature translation-termination codons (PTCs), thereby preventing the production of truncated proteins. Nevertheless, NMD also fine-tunes the gene expression of physiological mRNAs encoding full-length proteins. Interestingly, a",
+    "openalex_id": "https://openalex.org/W3112286856",
+    "relevance_score": 61.764164
+  },
+  {
+    "title": "The Arabidopsis thaliana MHX gene includes an intronic element that boosts translation when localized in a 5′ UTR intron",
+    "doi": "10.1093/jxb/ert235",
+    "authors": [
+      "Tsofit Akua",
+      "Orit Shaul"
+    ],
+    "year": 2013,
+    "publication_date": "2013-09-04",
+    "cited_by_count": 57,
+    "journal": "Journal of Experimental Botany",
+    "abstract": "The mechanisms that underlie the ability of some introns to increase gene expression, a phenomenon called intron-mediated enhancement (IME), are not fully understood. It is also not known why introns localized in the 5'-untranslated region (5' UTR) are considerably longer than downstream eukaryotic introns. It was hypothesized that this extra length results from the presence of some functional intronic elements. However, deletion analyses studies carried out thus far were unable to identify spec",
+    "openalex_id": "https://openalex.org/W2110751830",
+    "relevance_score": 48.86081
+  },
+  {
+    "title": "Translational repression of NMD targets by GIGYF2 and EIF4E2",
+    "doi": "10.1371/journal.pgen.1009813",
+    "authors": [
+      "Boris Zinshteyn",
+      "Niladri K. Sinha",
+      "Syed Usman Enam",
+      "Benjamin Koleske",
+      "Rachel Green"
+    ],
+    "year": 2021,
+    "publication_date": "2021-10-19",
+    "cited_by_count": 46,
+    "journal": "PLoS Genetics",
+    "abstract": "Translation of messenger RNAs (mRNAs) with premature termination codons produces truncated proteins with potentially deleterious effects. This is prevented by nonsense-mediated mRNA decay (NMD) of these mRNAs. NMD is triggered by ribosomes terminating upstream of a splice site marked by an exon-junction complex (EJC), but also acts on many mRNAs lacking a splice junction after their termination codon. We developed a genome-wide CRISPR flow cytometry screen to identify regulators of mRNAs with pr",
+    "openalex_id": "https://openalex.org/W3207621385",
+    "relevance_score": 45.931236
+  },
+  {
+    "title": "Decoding protein–RNA interactions using CLIP-based methodologies",
+    "doi": "10.1038/s41576-024-00749-3",
+    "authors": [
+      "Joy S. Xiang",
+      "Danielle Schafer",
+      "Katherine Rothamel",
+      "G Yeo"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-09",
+    "cited_by_count": 44,
+    "journal": "Nature Reviews Genetics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4400454456",
+    "relevance_score": 45.392403
+  },
+  {
+    "title": "Regulation of nonsense-mediated mRNA decay in neural development and disease",
+    "doi": "10.1093/jmcb/mjab022",
+    "authors": [
+      "Jong Seo Lee",
+      "Suzhou Yang",
+      "Yu Sun",
+      "Junjie U. Guo"
+    ],
+    "year": 2021,
+    "publication_date": "2021-03-29",
+    "cited_by_count": 41,
+    "journal": "Journal of Molecular Cell Biology",
+    "abstract": "Eukaryotes have evolved a variety of mRNA surveillance mechanisms to detect and degrade aberrant mRNAs with potential deleterious outcomes. Among them, nonsense-mediated mRNA decay (NMD) functions not only as a quality control mechanism targeting aberrant mRNAs containing a premature termination codon but also as a posttranscriptional gene regulation mechanism targeting numerous physiological mRNAs. Despite its well-characterized molecular basis, the regulatory scope and biological functions of ",
+    "openalex_id": "https://openalex.org/W3144555521",
+    "relevance_score": 43.16608
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Microprotein PLUM encoded by Lin28b uORF is a cytoplasmic determinant of pluripotency and embryonic development.",
+    "doi": "10.1038/s41467-025-66297-4",
+    "pmid": "41298451",
+    "authors": [
+      "Hao Z, Wu Y, Huang Y, Zhang M, Liu Y, Li Y, Li W, Ruan Z, Zhang J, Ding Y, Li L, Xing G, Liu Z, Zhou Y, Wang Q, Chen K, Wang W, Lu G, Qin D, Chan WY, Liu X."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-26",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The crosstalk between translation and metabolism is fundamental for cellular plasticity. While most studies focus on translation within canonical coding regions, the roles of non-canonical open reading frames (ORFs) in metabolic regulation and early development remain unclear. Here, we show that selective translation of an upstream ORF in the 5' untranslated region (UTR) of Lin28b produces an 85-amino acid microprotein, PLUM (pluripotency-associated Lin28b uORF-encoded microprotein). Depletion of PLUM leads to deterministic and synchronized (near 100%) induction of naïve pluripotency and causes embryo implantation defects in vivo. Mechanistically, PLUM depletion dissolves L1td1 condensates and enhances L1td1 binding to pluripotency mRNAs such as Tfcp2l1 and Zfp42, stabilizing them and promoting coordinated gene activation. Concurrently, PLUM loss disrupts P-bodies enriched with a subset of nuclear-encoded mitochondrial mRNA, potentially preventing their degradation. Together, these alterations trigger an early burst of mitochondrial oxidative phosphorylation and synchronized naïve gene expression, accelerating acquisition of the naïve state. Our study identifies the novel uORF-encoded microprotein PLUM as a pluripotency determinant integrating RNA regulation and metabolic remodeling.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ribosomal protein control of hematopoietic stem cell transformation through regulation of metabolism.",
+    "doi": "10.1016/j.celrep.2025.116688",
+    "pmid": "41389200",
+    "authors": [
+      "Harris B, Singh DK, Truong B, Rhodes M, Price R, Shinton S, Verma M, Aylward B, Fahl SP, Sprinkle SR, Aminov S, Wang M, Zhang Y, Perrigoue J, Kessel R, Peri S, West J, Giricz O, Boultwood J, Pellagatti A, Ramesh KH, Montagna C, Pradhan K, Tyner JW, Kennedy BK, Holinstat M, Steidl U, Sykes S, Verma A, Wiest DL."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-12",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "We report here that expression of the ribosomal protein RPL22 is frequently reduced in human myelodysplastic syndrome (MDS) and acute myelogenous leukemia (AML), and reduced RPL22 expression is associated with worse outcomes. Mice null for Rpl22 display characteristics of an MDS-like syndrome and develop leukemia at an accelerated rate. Rpl22-deficient mice also display enhanced hematopoietic stem cell (HSC) self-renewal and obstructed differentiation potential, which arises not from reduced protein synthesis but from altered metabolism, including increased fatty acid oxidation (FAO) and a striking induction of the stemness factor Lin28b in the resulting leukemia. Lin28b promotes a substantial increase in lipid content, upon which the survival of Rpl22-deficient leukemias depends. Altogether, these findings reveal that Rpl22 insufficiency enhances the leukemia potential of HSCs through regulation of FAO and promotes leukemogenesis through Lin28b promotion of lipid synthesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of LIN28B in the Regulation of Ribosomal Biogenesis and Lipid Metabolism in Medulloblastoma Brain Cancer Cells.",
+    "doi": "10.3390/proteomes13020014",
+    "pmid": "40265419",
+    "authors": [
+      "Maklad A, Sedeeq M, Baghaei K, Wilson R, Heath JA, Gueven N, Azimi I."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-27",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<b>Background:</b> Medulloblastoma (MB) is the most aggressive paediatric brain cancer, highlighting the urgent need for new diagnostic and prognostic biomarkers and improved treatments to enhance patient outcomes. Our previous study identified LIN28B, an RNA-binding protein, as a potential diagnostic and prognostic marker for MB and a pharmacological target to inhibit MB cell proliferation and stemness. However, the specific role of LIN28B and its mechanism of action in MB had not been studied. <b>Methods:</b> This study assessed LIN28B's role in Daoy MB cells using siRNA-mediated silencing. LIN28B silencing was achieved with Dharmacon ON-TARGETplus SMARTpool and confirmed by Western blotting. Proliferation and protein assays evaluated the cell metabolic activity and viability. A proteomics analysis was conducted to examine the effect of LIN28B knockdown on the MB cell protein expression profile. The intracellular lipid droplets were assessed using the Nile Red Staining Kit, and nucleolar B23 protein levels were assessed by immunofluorescence. Both were visualised with a high-content IN Cell Analyser 2200. <b>Results:</b> Effective LIN28B silencing (>80%) was achieved in each experiment. LIN28B knockdown reduced the MB cell viability, impaired ribosome biogenesis, and promoted cellular lipid accumulation, as supported by proteomics and cell-based assays. <b>Conclusions:</b> This study highlights LIN28B as a promising target for regulating MB cell growth, ribosomal biogenesis, and lipid metabolism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "N<sup>6</sup>-methyladenosine modification of circMARK2 enhances cytoplasmic export and stabilizes LIN28B, contributing to the progression of Wilms tumor.",
+    "doi": "10.1186/s13046-024-03113-9",
+    "pmid": "38987793",
+    "authors": [
+      "Shu G, Zhao Z, Zhao T, Deng C, Zhu J, Han Y, Chen M, Jing J, Bai G, Li D, Li F, He J, Fu W, Liu G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-11",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The potential involvement of circular RNAs (circRNAs) and N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) modification in the progression of Wilms tumor (WT) has not been fully elucidated. This study investigates the regulatory mechanisms and clinical significance of m<sup>6</sup>A-modified circMARK2 and its role in WT progression.<h4>Methods</h4>We identified dysregulated circRNAs through deep sequencing and validated their expression by qRT-PCR in WT tissues. The biological functions of circMARK2 were assessed using clone formation, transwell migration, and orthotopic animal models. To dissect the underlying mechanisms, we employed RNA immunoprecipitation, RNA pull-down, dual-luciferase reporter assays, Western blotting, and immunofluorescence and immunohistochemical staining.<h4>Results</h4>CircMARK2, upregulated in WT tissues, was found to be m<sup>6</sup>A-modified and promoted cytoplasmic export. It facilitated WT progression by stabilizing LIN28B mRNA through the circMARK2/IGF2BP2 interaction. In vitro and in vivo studies demonstrated that circMARK2 enhances the malignant behavior of WT cells. Clinically, higher circMARK2 levels in tumor tissues of WT patients were linked to increased tumor aggressiveness and reduced survival rates.<h4>Conclusions</h4>Our study provides the first comprehensive evidence that m<sup>6</sup>A-modified circMARK2 contributes to WT progression by enhancing LIN28B mRNA stability, promoting cellular aggressiveness. CircMARK2 emerges as a potential biomarker for prognosis and a promising target for therapeutic intervention in WT, underscoring the clinical relevance of m<sup>6</sup>A modification in pediatric renal cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Non-Coding RNAs (microRNAs, lncRNAs, circRNAs) in Adenomyosis: A Systematic Review of Mechanistic and Translational Evidence.",
+    "doi": "10.3390/ijms262110713",
+    "pmid": "41226749",
+    "authors": [
+      "Watrowski R, Kostov S, Palumbo M, Rosati A, Sparić R, Alkatout I, Juhasz-Böss I, Vitale SG, Mereu L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-04",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Adenomyosis (AM) is a hormonally responsive uterine disorder defined by ectopic endometrial tissue within the myometrium, causing pain, abnormal bleeding, and subfertility. Non-coding RNAs (ncRNAs)-including microRNAs (miRNAs), long non-coding RNAs (lncRNAs), and circular RNAs (circRNAs)-are post-transcriptional regulators implicated also in uterine remodeling. We systematically reviewed original studies evaluating ncRNAs in AM using human samples, in vitro and animal models, or bioinformatic approaches. Data sources included PubMed and Google Scholar (inception up to 10 August 2025). Forty-one studies were included and synthesized across mechanistic, diagnostic, and translational domains. miRNAs (<i>n</i> = 31) were the most studied subclass, followed by lncRNAs (<i>n</i> = 10) and circRNAs (<i>n</i> = 5). Recurrent miRNAs such as miR-10b and miR-30c-5p (downregulated, inhibitory) and miR-145 (upregulated, promotive) regulate epithelial invasion, epithelial-mesenchymal transition, and cytoskeletal remodeling via PI3K-AKT/MAPK and Talin1 signaling. The let-7a/LIN28B axis governed estrogen-sensitive proliferation in the junctional zone, while miR-21 exhibited compartment-specific roles in decidualization and ectopic cell survival. Extracellular-vesicle (EV)-bornemiRNAs (e.g., miR-92a-3p, miR-25-3p, miR-4669) contributed to immune polarization and show early diagnostic potential. lncRNAs and circRNAs acted via chromatin modifiers and ceRNA networks. Most findings remain at the discovery stage. Convergent dysregulation was observed in key signaling pathways, including JAK-STAT, Wnt/β-catenin, and Hippo-YAP. ncRNAs regulate critical axes of invasion, proliferation, immune modulation, and hormonal response in AM. Targets with preliminary causal support-miR-10b/ZEB1, let-7a/LIN28B, and miR-145/Talin1-warrant further validation. Circulating miRNAs-especially in EVs-offer promise for non-invasive diagnosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HMGA2 and protein leucine methylation drive pancreatic cancer lineage plasticity.",
+    "doi": "10.1038/s41467-025-60129-1",
+    "pmid": "40419509",
+    "authors": [
+      "Dobersch S, Yamamoto N, Schutter A, Cavender SM, Robertson TM, Kartha N, Samraj AN, Doron B, Poole LA, Wladyka CL, Zhang A, Jang GH, Mahalingam AH, Barreto G, Raghavan S, Narla G, Notta F, Eisenman RN, Hsieh AC, Kugel S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-26",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Basal pancreatic ductal adenocarcinoma (PDAC) has the worst overall survival and is the only subtype that serves as an independent poor prognostic factor. We identify elevated levels of LIN28B and its downstream target, HMGA2, in basal PDAC. Notably, LIN28B significantly accelerates KRAS-driven PDAC progression in a mouse model. Here, we show that HMGA2 promotes basal PDAC pathogenesis by enhancing mRNA translation downstream of LIN28B. Mechanistically, HMGA2 suppresses leucine carboxyl methyltransferase 1 (LCMT1) at the chromatin level, reducing PP2A methylation and activity. This leads to increased phosphorylation of S6K and eIF4B, boosting mRNA translation. Additionally, HMGA2 downregulates B56α (PPP2R5A), disrupting functional PP2A holoenzyme assembly and further sustaining phosphorylated S6K levels. Impaired PP2A function mimics HMGA2's effects, reinforcing increased mRNA translation and basal lineage features. This work uncovers a critical link between the LIN28B/HMGA2 axis, protein synthesis, and PDAC lineage specificity via LCMT1-mediated PP2A methylation and B56α-PP2A disruption.",
+    "openalex_id": ""
+  },
+  {
+    "title": "New Genetic Variations in RNA-binding Protein Gene and Breast Cancer Risk: A Case-Control Study.",
+    "doi": "10.31557/apjcp.2025.26.1.137",
+    "pmid": "39873995",
+    "authors": [
+      "Sarani H, Taheri M, Jahantigh D, Keramati MR, Hashemi SM, Bahari G, Taheri S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>LIN28, a highly conserved RNA-binding protein, regulate a wide variety of post-transcriptional cellular processes. The current study aimed to identify genetic variants of five single nucleotide polymorphisms (SNPs) in the LIN28B gene (rs221634, rs22163, rs314276, rs9404590, and rs12194974) and their association with Breast cancer.<h4>Method</h4>220 patients and 230 controls were genotyped by the RFLP assay for Lin28B gene variants. Odds ratio analysis was used to determine the association between Lin28B variants and breast cancer. Haplotype analysis was performed to determine the combined impact of the investigated variants on BC. Novel in-silico analysis were performed to predict the potential functions of these polymorphisms, as well.<h4>Results</h4>Patients carrying all variant genotypes for lin28B rs221634 (codominant, dominant, recessive, and allelic inheritance models), rs221635 (codominant and dominant genotypes), and rs9404590 (codominant, dominant, and inheritance model).  Significant associations between reduced cancer risk and rs12194974 and rs314276 were found in codominant, dominant, recessive, and allele inheritance models. According to haplotype analysis of rs9404590, rs12194974, rs314276, rs221634, and rs221635 SNPs ,the GGCTT, GGCAT, TGCAC, TGCTC, GGCAC, GGCTC, and GGAAC haplotypes are associated with an increased risk of BC, whereas the TACAT and TAAAT haplotypes were associated with a decreased risk of BC. The splicing enhancers (ESE) binding site was found to be altered by the SNPs rs9404590, rs12194974, and rs314276, according to in-silico analysis.<h4>Conclusion</h4>Breast cancer susceptibility appears to be linked to genetic variations in the Lin28B gene, and haplotypes in this region have been linked to increased risk.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NRAV promotes HCC stemness via the m6A-regulated let-7c-5p/LIN28B axis.",
+    "doi": "10.1038/s41417-025-00995-5",
+    "pmid": "41388151",
+    "authors": [
+      "Chen Y, Dai S, Zhuang L, Cai W, Chen H, Zhao J, Zhang F, Chen L, Cheng CS."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-12",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Long non-coding RNAs (lncRNAs) plays critical roles in hepatocellular carcinoma (HCC), but their post-transcriptional regulation via N6-methyladenosine (m6A) remains poorly understood. Here, we identify NRAV as an m6A-modified lncRNA that promotes HCC stemness through a defined molecular axis. Integrating bioinformatics analysis of TCGA data with in vitro and in vivo validation, we demonstrated that NRAV is significantly overexpressed in HCC and associated with poor prognosis. Mechanistically, NRAV acts as a competing endogenous RNA (ceRNA), sequestering hsa-let-7c-5p and preventing it from downregulating LIN28B, a key stemness factor. This leads to increased LIN28B protein levels and enhanced expression of cancer stem cell markers. MeRIP-qPCR and site-directed mutagenesis experiments confirm that m6A modification of NRAV is crucial for its function. In animal models and clinical tissues, NRAV expression correlates with disease progression and CSC marker accumulation. Our findings uncover a novel NRAV-let-7c-5p-LIN28B axis that links m6A modification to CSC maintenance in HCC, highlighting a potential therapeutic target for disrupting stemness pathways in liver cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PHAX enhanced LIN28B-mediated PBX3 mRNA stability to promote esophageal cancer development.",
+    "doi": "10.1111/cas.16420",
+    "pmid": "39668567",
+    "authors": [
+      "Peng J, Lv L, Zhou Y, Wang X, Hu C."
+    ],
+    "year": "2025",
+    "publication_date": "2024-12-12",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "The abnormal expression of PHAX was observed in esophageal cancer, however, its specific function and mechanism remain to be further elucidated. We demonstrated that PHAX, LIN28B, and PBX3 were upregulated in esophageal cancer, while TET2 was downregulated. Elevated PHAX correlated with adverse outcomes among esophageal cancer patients. PHAX or PBX3 knockdown not only inhibited esophageal cancer cell proliferation, and promoted apoptosis and autophagy in vitro, but it also repressed tumor growth and lung metastasis in mice. Mechanically, PHAX stabilized PBX3 mRNA through interacting with LIN28B. PBX3 directly bound to the TET2 promoter region and inhibited its expression. In conclusion, PHAX directly bound to LIN28B and enhanced LIN28B-mediated stabilization of PBX3 mRNA, leading to upregulation of PBX3. PBX3 then transcriptionally repressed TET2 expression to promote esophageal cancer cell proliferation, and suppress apoptosis and autophagy. Targeting this signaling cascade could represent a promising therapeutic strategy for esophageal cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Liver cancer initiation requires translational activation by an oncofetal regulon involving LIN28 proteins.",
+    "doi": "10.1172/jci165734",
+    "pmid": "38875287",
+    "authors": [
+      "Hsieh MH, Wei Y, Li L, Nguyen LH, Lin YH, Yong JM, Sun X, Wang X, Luo X, Knutson SK, Bracken C, Daley GQ, Powers JT, Zhu H."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-13",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "It is unknown which posttranscriptional regulatory mechanisms are required for oncogenic competence. Here, we show that the LIN28 family of RNA-binding proteins (RBPs), which facilitate posttranscriptional RNA metabolism within ribonucleoprotein networks, is essential for the initiation of diverse oncotypes of hepatocellular carcinoma (HCC). In HCC models driven by NRASG12V/Tp53, CTNNB1/YAP/Tp53, or AKT/Tp53, mice without Lin28a and Lin28b were markedly impaired in cancer initiation. We biochemically defined an oncofetal regulon of 15 factors connected to LIN28 through direct mRNA and protein interactions. Interestingly, all were RBPs and only 1 of 15 was a Let-7 target. Polysome profiling and reporter assays showed that LIN28B directly increased the translation of 8 of these 15 RBPs. As expected, overexpression of LIN28B and IGFBP1-3 was able to genetically rescue cancer initiation. Using this platform to probe components downstream of LIN28, we found that 8 target RBPs were able to restore NRASG12V/Tp53 cancer formation in Lin28a/Lin28b-deficient mice. Furthermore, these LIN28B targets promote cancer initiation through an increase in protein synthesis. LIN28B, central to an RNP regulon that increases translation of RBPs, is important for tumor initiation in the liver.",
+    "openalex_id": ""
+  },
+  {
+    "title": "&lt;i&gt;LIN28B&lt;/i&gt; hypomethylation drives oncogenic signaling and stratifies poor prognosis in juvenile myelomonocytic leukemia.",
+    "doi": "10.21037/tp-2025-228",
+    "pmid": "40800176",
+    "authors": [
+      "Lai J, Miao Y, Qin X, Lin Y, Luo C, Luo C, Wang X, Zhou C, Chen J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-28",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4><i>LIN28B</i>, an oncofetal RNA-binding protein regulating stem cell self-renewal and oncogenic signaling via let-7 miRNA suppression, is implicated in diverse malignancies but remains poorly characterized in juvenile myelomonocytic leukemia (JMML). Despite its reported overexpression in approximately 50% of JMML cases, the epigenetic mechanisms driving <i>LIN28B</i> dysregulation and its clinical relevance for risk stratification are undefined. Therefore, this study aimed to elucidate the epigenetic regulation of <i>LIN28B</i> in JMML, and determine its potential as a biomarker for risk stratification.<h4>Methods</h4>We analyzed <i>LIN28B</i> expression and methylation in 24 JMML patients and validated the methylation classification in an independent validation cohort (n=62). Gene Set Enrichment Analysis (GSEA) of Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) was conducted to find out the potential mechanisms underlying the differentially expressed <i>LIN28B</i>.<h4>Results</h4>Among 24 JMML patients, more than 58% showed overexpression of LIN28B, with the majority exhibiting hypomethylation in a newly identified upstream promoter region. Patients with <i>LIN28B</i>-positive showed concurrent upregulation of <i>WT1,</i> <i>POU1F1</i> and <i>GATA5</i>, downregulation of <i>HEY1</i> and enriched for cell cycle pathways. Hierarchical clustering identified a high-methylation (HM) subgroup enriched for adverse features: age >2 years, <i>PTPN11</i> mutations, and hypermethylation phenotypes. In an independent cohort, the HM patients demonstrated inferior 5-year overall survival (OS, 49.2% <i>vs.</i> 87.0%) and event-free survival (EFS, 40.1% <i>vs.</i> 87.0%) versus low-methylation counterparts.<h4>Conclusions</h4><i>LIN28B</i> activation via promoter hypomethylation defines a high-risk JMML subgroup with cell cycle. Methylation-based stratification predicts survival, positioning <i>LIN28B</i> as a therapeutic target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LIN28B Aggravates the Inflammation in Sepsis-Induced Lung Injury by Stabilizing GATA6 mRNA and Upregulating TRAF6.",
+    "doi": "10.1002/pul2.70259",
+    "pmid": "41674542",
+    "authors": [
+      "Chen L, Chen J, Wang Z, Jiang X, Cao J, Yang H, Wen X, Li J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Sepsis affects more than 19 million people globally each year, and approximately 50% of sepsis patients develop lung injury. Sepsis-triggered lung injury is characterized by over-activation of inflammatory response and the production of large amounts of inflammatory cytokines. However, the underlying mechanisms remain unclear. A cellular model of sepsis-induced lung injury was constructed using lipopolysaccharide (LPS)-exposed human pulmonary microvascular endothelial cells (HPMECs). Cell viability was checked with CCK-8. Apoptosis was checked utilizing flow cytometry and TUNEL staining. TNF-α, IL-1β, and IL-6 levels were measured through ELISA assay. Intermolecular interaction relationships were confirmed by chromatin immunoprecipitation (ChIP), RNA immunoprecipitation (RIP), RNA pull down, and dual luciferase reporter assays. LIN28B was increased in the LPS-induced HPMEC. LIN28B knockdown alleviated inflammation and cell injury in LPS-induced HPMEC. LIN28B was bound to GATA6 mRNA and enhanced its mRNA stability, consequently exacerbating LPS-triggered HPMEC inflammation and injury. GATA6 transcriptionally upregulated TRAF6 to promote LPS-induced HPMEC inflammation and injury. The manipulation of the GATA6/TRAF6 axis by LIN28B amplified inflammation and injury in HPMEC prompted by LPS. Our results revealed that LIN28B induced sepsis-triggered lung injury by stabilizing GATA6 mRNA and increasing TRAF6 expression, which might provide novel therapeutic targets for the treatment of sepsis-mediated lung injury.",
+    "openalex_id": ""
+  }
+]

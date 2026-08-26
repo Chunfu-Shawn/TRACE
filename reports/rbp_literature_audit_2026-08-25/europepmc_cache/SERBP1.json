@@ -1,0 +1,170 @@
+[
+  {
+    "title": "SERBP1: A Multifunctional RNA-Binding Protein Linking Gene Expression, Cellular Metabolism, and Diseases.",
+    "doi": "10.3390/cells14211705",
+    "pmid": "41227349",
+    "authors": [
+      "Ji Z, Ablimit A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-30",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "SERBP1 (SERPINE1 mRNA-Binding Protein 1), as an RNA-binding protein with multiple biological functions, has become a research hotspot in the field of life sciences in recent years. Its unique molecular structure, such as the presence of RG/RGG repeat sequences and the absence of typical RNA-binding domains, enables it to exert diverse roles in cells. This article systematically reviews the research progress of SERBP1 in various fields including cellular stress response, tumorigenesis and development, reproductive system regulation, nervous system function, and viral infection, elaborates on its mechanism of action in detail (including newly supplemented content on cell cycle regulation, interaction with PARP1, and ribosome biogenesis), and outlines future research directions. It aims to provide a reference for in-depth understanding of the biological functions of SERBP1 and the diagnosis and treatment of related diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SERBP1 interacts with PARP1 and is present in PARylation-dependent protein complexes regulating splicing, cell division, and ribosome biogenesis.",
+    "doi": "10.7554/elife.98152",
+    "pmid": "39937575",
+    "authors": [
+      "Breunig K, Lei X, Montalbano M, Guardia GDA, Ostadrahimi S, Alers V, Kosti A, Chiou J, Klein N, Vinarov C, Wang L, Li M, Song W, Kraus WL, Libich DS, Tiziani S, Weintraub ST, Galante PAF, Penalva LO."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-12",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "RNA binding proteins (RBPs) containing intrinsically disordered regions (IDRs) are present in diverse molecular complexes where they function as dynamic regulators. Their characteristics promote liquid-liquid phase separation (LLPS) and the formation of membraneless organelles such as stress granules and nucleoli. IDR-RBPs are particularly relevant in the nervous system and their dysfunction is associated with neurodegenerative diseases and brain tumor development. Serpine1 mRNA-binding protein 1 (SERBP1) is a unique member of this group, being mostly disordered and lacking canonical RNA-binding domains. We defined SERBP1's interactome, uncovered novel roles in splicing, cell division and ribosomal biogenesis, and showed its participation in pathological stress granules and Tau aggregates in Alzheimer's brains. SERBP1 preferentially interacts with other G-quadruplex (G4) binders, implicated in different stages of gene expression, suggesting that G4 binding is a critical component of SERBP1 function in different settings. Similarly, we identified important associations between SERBP1 and PARP1/polyADP-ribosylation (PARylation). SERBP1 interacts with PARP1 and its associated factors and influences PARylation. Moreover, protein complexes in which SERBP1 participates contain mostly PARylated proteins and PAR binders. Based on these results, we propose a feedback regulatory model in which SERBP1 influences PARP1 function and PARylation, while PARylation modulates SERBP1 functions and participation in regulatory complexes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting FBXO48 with BC1618 promotes axon regeneration and alleviates symptoms of Parkinson's disease.",
+    "doi": "10.1016/j.jare.2026.07.048",
+    "pmid": "42501864",
+    "authors": [
+      "Sun YQ, Liu PP, Li CP, Liu ZG, Zhou LY, Wang NL, Zhou FQ, Teng ZQ, Liu CM."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Neurons depend on the ubiquitin system to maintain proteostasis, which plays crucial roles in processes of neuronal death and axon regeneration after injuries and diseases. Developing druggable targets within the ubiquitin system that simultaneously support neuroprotection and axon regeneration has been considered an attractive therapeutic strategy.<h4>Objectives</h4>To systematically identify druggable molecules within the ubiquitin signaling pathway and evaluate their efficacy in neuroprotection.<h4>Methods</h4>To this end, we screened 181 ubiquitination-related small-molecule compounds for neuroprotective effects by performing excitotoxic interventions in HT22 cell lines and mouse primary neurons. Subsequently, using a mouse optic nerve crush model, we demonstrated the neuroprotective effect of BC1618 through RGC survival and axon regeneration. To investigate the mechanism, we employed LC-MS, co-IP, and RNA-seq to delineate the BC1618-FBXO48-SERBP1 regulatory axis and its downstream regulation of mRNA expression. To further evaluate the translational potential of BC1618, we assessed cell survival rates and behavioral impairments using both MPTP-induced mouse Parkinson's disease model and MPP<sup>+</sup>-induced apoptosis model of iPSC-derived dopaminergic neurons.<h4>Results</h4>We identified BC1618 as an effective neuroprotectant that prevented glutamate-induced excitotoxicity in vitro and enhanced neurite outgrowth in immature neurons. Additionally, we showed its effectiveness in an optic nerve crush model, where BC1618 supported RGC survival and encouraged axon regeneration. Mechanistically, BC1618 inhibited FBXO48-mediated K63-linked ubiquitination of SERBP1 at K52, which protected SERBP1 from autophagic degradation. Our findings established SERBP1 as a key regulator that coordinates downstream mRNA expression to mediate neuroprotection. Notably, our results demonstrated that BC1618 mitigated MPTP-induced degeneration of dopaminergic neurons and motor deficits, while also exhibiting robust neuroprotective effects in MPP<sup>+</sup>-stimulated human-derived dopaminergic neurons.<h4>Conclusions</h4>These findings highlight that targeting FBXO48 with BC1618 promotes axon regeneration and alleviates symptoms of Parkinson's disease by reducing the degradation of SERBP1, revealing a novel therapeutic target for clinical translation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SERBP1 is required for efficient HR repair and cisplatin chemoresistance in lung adenocarcinoma.",
+    "doi": "10.1038/s41420-026-03017-x",
+    "pmid": "41856985",
+    "authors": [
+      "Xie Y, Chen Q, Tang N, Zeng Y, Zhao J, Yang Y, Li C, Li J, Zhu J, Huang JA, Liu Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Resistance to cisplatin limits its clinical efficacy in LUAD patients and leads to poor prognosis. SERPINE1 mRNA binding protein 1 (SERBP1), an RNA-binding protein, is associated with tumorigenesis and progression. However, its specific role in cisplatin resistance and underlying mechanism in LUAD remain unclear. Here, we investigated the hypothesis that SERBP1 drives cisplatin resistance by reinforcing DNA damage repair capacity. We found that SERBP1 was consistently upregulated in cisplatin-resistant LUAD cells compared with cisplatin-sensitive counterparts. Gain-of-function and loss-of-function experiments demonstrated that SERBP1 promoted cisplatin resistance in LUAD. Mechanistically, SERBP1 contributes to cisplatin resistance by stabilizing BRCA1 mRNA, thus activating HR repair mediated by RAD51. Importantly, BRCA1 knockdown attenuated SERBP1-driven cisplatin resistance both in vitro and in vivo, establishing BRCA1 as a critical downstream effector of SERBP1. Collectively, these findings identify SERBP1 as a determinant of cisplatin resistance in LUAD and reveal a SERBP1-BRCA1 axis that promotes HR repair and chemoresistance, thereby highlighting SERBP1 as a potential therapeutic target to overcome cisplatin resistance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The &lt;sup&gt;1&lt;/sup&gt;H, &lt;sup&gt;15&lt;/sup&gt;N and &lt;sup&gt;13&lt;/sup&gt;C backbone resonance assignments of the N-terminal (1-149) domain of Serpine mRNA Binding Protein 1 (SERBP1).",
+    "doi": "10.1007/s12104-025-10225-6",
+    "pmid": "40153110",
+    "authors": [
+      "Baudin A, Dinh HH, Xu X, Libich DS."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-28",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Serpine mRNA-Binding Protein 1 (SERBP1) is an RNA-binding protein implicated in diverse cellular functions, including translational regulation, tumor progression, and stress response. It interacts with ribosomal subunits, RNA, and proteins involved in stress granules, contributing to processes such as phase separation and epigenetic regulation. Recent studies have shown SERBP1's role in glioblastoma progression and its involvement in ribosomal regulation. Structurally, SERBP1 contains N- and C-terminal hyaluronan-binding domains, two RG/RGG motifs, and is predicted to be predominantly disordered. Here, we report the backbone resonance assignment and secondary structure propensities of SERBP1's N-terminal residues (1-149). Using NMR spectroscopy, we identified a stable α-helix (residues 28-40) and transient structural elements. These findings provide insight into the structural features of SERBP1 that may mediate its interactions with ribosomal subunits, RNA, and other binding partners, laying a foundation for future structural studies of its functional mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ZAK activation at the collided ribosome.",
+    "doi": "10.1038/s41586-025-09772-8",
+    "pmid": "41261136",
+    "authors": [
+      "Huso VL, Niu S, Catipovic MA, Saba JA, Denk T, Park E, Cheng J, Berninghausen O, Becker T, Green R, Beckmann R."
+    ],
+    "year": "2026",
+    "publication_date": "2025-11-19",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "Ribosome collisions activate the ribotoxic stress response mediated by the MAP3K ZAK, which in turn regulates cell-fate consequences through downstream phosphorylation of the MAPKs p38 and JNK<sup>1</sup>. Despite the critical role of ZAK during cellular stress, a mechanistic and structural understanding of ZAK-ribosome interactions and how these lead to activation remain elusive. Here we combine biochemistry and cryo-electron microscopy to discover distinct ZAK-ribosome interactions required for constitutive recruitment and for activation. We find that upon induction of ribosome collisions, interactions between ZAK and the ribosomal protein RACK1 enable its activation by dimerization of its SAM domains at the collision interface. Furthermore, we discover how this process is negatively regulated by the ribosome-binding protein SERBP1 to prevent constitutive ZAK activation. Characterization of novel SAM variants as well as a known pathogenic variant of the SAM domain of ZAK supports a key role of the SAM domain in regulating kinase activity on and off the ribosome, with some mutants bypassing the ribosome requirement for ZAK activation. Collectively, our data provide a mechanistic blueprint of the kinase activity of ZAK at the collided ribosome interface.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Implication of Stm1 in the protection of eIF5A, eEF2 and tRNA through dormant ribosomes.",
+    "doi": "10.3389/fmolb.2024.1395220",
+    "pmid": "38698775",
+    "authors": [
+      "Du M, Li X, Dong W, Zeng F."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-18",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "<b>Background:</b> Dormant ribosomes are typically associated with preservation factors to protect themselves from degradation under stress conditions. Stm1/SERBP1 is one such protein that anchors the 40S and 60S subunits together. Several proteins and tRNAs bind to this complex as well, yet the molecular mechanisms remain unclear. <b>Methods:</b> Here, we reported the cryo-EM structures of five newly identified Stm1/SERBP1-bound ribosomes. <b>Results:</b> These structures highlighted that eIF5A, eEF2, and tRNA might bind to dormant ribosomes under stress to avoid their own degradation, thus facilitating protein synthesis upon the restoration of growth conditions. In addition, Ribo-seq data analysis reflected the upregulation of nutrient, metabolism, and external-stimulus-related pathways in the <i>∆stm1</i> strain, suggesting possible regulatory roles of Stm1. <b>Discussion:</b> The knowledge generated from the present work will facilitate in better understanding the molecular mechanism of dormant ribosomes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bioinformatics Analysis of Biomarkers and Therapeutic Targets Related to Necroptosis in Intervertebral Disc Degeneration.",
+    "doi": "10.1155/bmri/9922966",
+    "pmid": "39717265",
+    "authors": [
+      "Zhang F, Yuan L, Ding H, Lou Z, Li X."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-16",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Necroptosis is a critical process in intervertebral disc degeneration (IDD). This research is aimed at identifying key genes regulating necroptosis in IDD to provide a theoretical basis for early diagnosis and treatment. Transcriptome data from patients with IDD and normal samples were obtained from the GSE34095 and GSE124272 datasets of the Gene Expression Omnibus (GEO) public database. Necroptosis-related genes (NRGs) were sourced from the GeneCards database and literature. Differentially expressed necroptosis-related genes (DE-NRGs) in IDD were identified by intersecting these sources. Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) were used for gene annotation analysis. The receiver operating characteristic (ROC) curve and nomogram analyses assessed the diagnostic efficiency of DE-NRGs. The miRWalk and starBase databases helped construct the competing endogenous RNA (ceRNA) regulatory network of DE-NRGs. We identified 517 differential genes in tissue and 2974 in blood, with 62 genes in common. DE-NRGs (<i>AIFM1</i>, <i>CCT8</i>, <i>HNRNPA1</i>, <i>KHDRBS1</i>, <i>SERBP1</i>) were identified by intersecting NRGs with these 62 common genes. The ROC curve showed an area under the curve (AUC) > 0.70 for DE-NRGs, and the nomogram indicated that a higher DE-NRG score correlates with a higher risk of IDD. <i>CCT8</i>, <i>KHDRBS1</i>, and <i>AIFM1</i> emerged as potential therapeutic targets for IDD through target drug prediction. qRT-PCR (quantitative reverse transcription polymerase chain reaction), Western blot, and immunohistochemistry confirmed the expression of <i>AIFM1</i>, <i>CCT8</i>, <i>HNRNPA1</i>, <i>KHDRBS1</i>, and <i>SERBP1</i> in patients' nucleus pulposus tissue, suggesting these genes as key targets for IDD risk assessment and drug therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Construction and analysis of competitive endogenous RNA networks and prognostic models associated with ovarian cancer based on the exoRBase database.",
+    "doi": "10.1371/journal.pone.0291149",
+    "pmid": "38603733",
+    "authors": [
+      "Chen Z, Wang C, Ding J, Yu T, Li N, Ye C."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To construct a competitive endogenous RNA (ceRNA) regulatory network in blood exosomes of patients with ovarian cancer (OC) using bioinformatics and explore its pathogenesis.<h4>Methods</h4>The exoRbase2.0 database was used to download blood exosome gene sequencing data from patients OC and normal controls and the expression profiles of exosomal mRNA, long non-coding RNA (lncRNA), and circular RNA (circRNA) were detected independently using R language for differential expression analysis. TargetScan and miRanda databases were combined for the prediction and differential expression of mRNA-binding microRNAs (miRNA). The miRcode and starBase databases were used to predict miRNAs that bind to differentially expressed lncRNAs and circRNAs repectively. The relevant mRNA, circRNA, lncRNA and their corresponding miRNA prediction data were imported into Cytoscape software for visualization of the ceRNA network. The R language and KEGG Orthology-based Annotation System (KOBAS) were used to execute and illustrate the Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) enrichment analyses. Hub genes were identified using The CytoHubba plugin.<h4>Results</h4>Thirty-one differentially expressed mRNAs, 17 differentially expressed lncRNAs, and 24 differentially expressed circRNAs were screened. Cytoscape software was used to construct the ceRNA network with nine mRNA nodes, two lncRNA nodes, eight circRNA nodes, and 51 miRNA nodes. Both GO and KEGG were focused on the Spliceosome pathway, indicating that spliceosomes are closely linked with the development of OC, while heterogenous nuclear ribonucleoprotein K and RNA binding motif protein X-linked genes were the top 10 score Hub genes screened by Cytoscape software, including two lncRNAs, four mRNAs, and four circRNAs. In patients with OC, the expression of eukaryotic translation initiation factor 4 gamma 2 (EIF4G2), SERPINE 1 mRNA binding protein 1 (SERBP1), ribosomal protein L15 (RPL15) and human leukocyte antigen complex P5 (HCP5) was significantly higher whereas that of testis expressed transcript, Y-linked 15 and DEAD-box helicase 3 Y-linked genes was lower compared to normal controls Immunocorrelation scores revealed that SERBP1 was significantly and negatively correlated with endothelial cells and CD4+ T cells and positively correlated with natural killer (NK) cells and macrophages, respectively; RPL15 was significantly positively correlated with macrophages and endothelial cells and negatively correlated with CD8+ T cells and uncharacterized cells, respectively. EIF4G2 was significantly and negatively correlated with endothelial cells and CD4+ T cells, and positively correlated with uncharacterized cells, respectively. Based on the survival data and the significant correlation characteristics derived from the multifactorial Cox analysis (P < 0.05), the survival prediction curves demonstrated that the prognostic factors associated with 3-year survival in patients with OC were The prognostic factors associated with survival were Macrophage, RPL15.<h4>Conclusion</h4>This study successfully constructs a ceRNA regulatory network in blood exosomes of OV patients, which provides the specific targets for diagnosis and treatment of OC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Limited proteolysis-coupled mass spectrometry captures proteome-wide protein structural alterations and biomolecular condensation in living cells.",
+    "doi": "10.1038/s44320-025-00182-6",
+    "pmid": "41526500",
+    "authors": [
+      "Elsässer F, Florea R, Räsch F, Zedan M, Sen NE, Pflästerer T, Kleele T, Loewith R, Weis K, de Souza N, Picotti P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-12",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "The function of a protein is determined by its structure, which may change dynamically in response to post-translational modifications, interaction with other molecules, or environmental factors like temperature. Limited proteolysis-coupled mass spectrometry (LiP-MS) captures such structural alterations on a proteome-wide scale via the detection of altered protease susceptibility patterns of proteins. However, this technique has so far required cell lysis, which exposes proteins to non-native conditions and can disrupt labile interactions such as those occurring within biomolecular condensates. To study protein structures directly within cells, we developed in-cell LiP-MS. We optimized conditions for introduction of proteinase K into human cells using electroporation and validated that intracellular cleavage occurs. In-cell LiP-MS captured the known binding of rapamycin to FKBP1A within the cell. Moreover, it detected global protein structural alterations upon sodium arsenite treatment and captured the structural dynamics of hundreds of proteins from biomolecular condensates with peptide level resolution and within live human cells. The data allowed monitoring of structural alterations of individual sites on the involved proteins, such as known RNA-binding and intrinsically-disordered regions, and dissected the timing of the different events. We detected known (G3BP1) and novel structural alterations of proteins from stress granules as well as from nuclear speckles and validated alteration of nuclear speckles by fluorescence microscopy and of the protein SERBP1 by polysome profiling. Our dataset further provides a resource describing the structural changes of human proteins in response to a cellular stress leading to biomolecular condensation and pinpoints structurally altered regions. Comparison of LiP-based structural fingerprints before and after cell lysis revealed which human proteins are susceptible to structural change upon cell lysis, therefore guiding the design of future experiments requiring native protein structures.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Discovery of Biomarkers Related to Colorectal Cancer by Systematic Proteomics Analysis and Experimental Procedures.",
+    "doi": "10.30476/ijms.2025.107064.4143",
+    "pmid": "42039223",
+    "authors": [
+      "Zia Jahromi N, Mahmoudi Mandani A, Sadeghi Moghadam Kaji N, Abbasi Teshnizi H, Nourmohammadian Dehkordi F, Yousefi M, Sazegar H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Long non-coding RNAs (lncRNAs) play critical roles in gene expression regulation and have emerged as potential biomarkers for cancer diagnosis and treatment. This study aimed to investigate the potential role of two lncRNAs, LINC00943 and SLC9A3-AS1, as candidate biomarkers for colorectal cancer (CRC) diagnosis and therapy.<h4>Methods</h4>Initially, we investigated differentially expressed proteins (DEPs) in CRC through a comprehensive bioinformatics analysis and constructed a multi-layer regulatory network to understand the complex interactions. Subsequently, tissue samples were collected from CRC patients at Milad Hospital in Isfahan, Iran, between June and December 2021. The expression levels of LINC00943 and SLC9A3-AS1 were evaluated using quantitative reverse transcription polymerase chain reaction (qRT-PCR). Statistical analyses were performed using GraphPad Prism version 9. Expression differences between tumor and adjacent non-tumor tissues were evaluated using paired Student's <i>t</i> test. Receiver operating characteristic (ROC) curve analysis was conducted to evaluate diagnostic performance. A P value less than 0.05 was considered statistically significant.<h4>Results</h4><i>LINC00943</i> expression was significantly upregulated in tumor tissues compared to adjacent controls (P<0.0001), with strong diagnostic performance (AUC=0.8078, sensitivity=83.3%, specificity=76.7%). <i>SLC9A3-AS1</i> also showed increased expression (P=0.0299), but with limited diagnostic value (AUC=0.6124). Network analysis identified SERBP1, KHSRP, and HNRNPA1 as central hub proteins, while <i>miR-15b-5p</i> and <i>NEAT1</i> emerged as key regulatory elements.<h4>Conclusion</h4>These findings suggest that <i>LINC00943</i> could serve as a valuable biomarker for CRC diagnosis and treatment, providing insights into the regulatory mechanisms underlying CRC pathogenesis. This manuscript has been released as a preprint at the Unraveling Candidate Biomarkers and Involved Biomedical Phenomena in Colorectal Cancer by Systematic Proteomics Analysis and Experimental Procedures. DOI: https://doi.org/10.21203/rs.3.rs-1974798/v1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SERBP1-PCIF1 complex-controlled m6Am modification in glutamatergic neurons of the primary somatosensory cortex is required for neuropathic pain in mice.",
+    "doi": "10.1038/s41467-025-62565-5",
+    "pmid": "40764612",
+    "authors": [
+      "Huang Y, Ma G, Xie S, Wei R, Liu Y, Zeng Y, Zhao Y, Wang Q, Yang L, Huang H, Hao L, Zhao X, Wang H, Shen W, Wong SSC, Cao JL, Tao YX, Pan ZQ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-05",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Nerve injury-induced changes in pain-associated genes contribute to genesis of neuropathic pain and comorbid anxiety. Phosphorylated CTD interacting factor-1 (PCIF1)-triggered N6, 2'-O-dimethyladenosine (m<sup>6</sup>Am) mRNA modification represents an additional layer of gene regulation. However, the role of PCIF1 in these disorders is elusive. Here, we report PCIF1 is increased in glutamatergic neurons of the hindlimb region of the primary somatosensory cortex in mouse with neuropathic pain and anxiety, but not inflammatory pain or anxiety alone. Serpine-1 mRNA-binding protein-1 (SERBP1) is identified as a PCIF1 cofactor, their complex mediates m<sup>6</sup>Am deposition onto mRNA. Blocking SERBP1-PCIF1 upregulation in glutamatergic neurons of the hindlimb region of the primary somatosensory cortex abolishes m<sup>6</sup>Am gain on maf1 homolog, negative regulator of RNA polymerase III (Maf1), elevates MAF1 protein, and mitigates neuropathic pain and anxiety. Conversely, mimicking this increase adds m<sup>6</sup>Am onto Maf1, reduces MAF1, and induces comorbidity symptoms. These findings highlight the significance of m<sup>6</sup>Am in neuropathic pain-anxiety comorbidity and identify SERBP1-PCIF1 in glutamatergic neurons of the hindlimb region of the primary somatosensory cortex as a potential therapeutic target.",
+    "openalex_id": ""
+  }
+]

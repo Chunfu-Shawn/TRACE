@@ -1,0 +1,124 @@
+[
+  {
+    "title": "Splicing regulation by long noncoding RNAs",
+    "doi": "10.1093/nar/gky095",
+    "authors": [
+      "Natali Romero-Barrios",
+      "María Florencia Legascue",
+      "Moussa Benhamed",
+      "Federico Ariel",
+      "Martín Crespi"
+    ],
+    "year": 2018,
+    "publication_date": "2018-02-02",
+    "cited_by_count": 313,
+    "journal": "Nucleic Acids Research",
+    "abstract": "Massive high-throughput sequencing techniques allowed the identification of thousands of noncoding RNAs (ncRNAs) and a plethora of different mRNA processing events occurring in higher organisms. Long ncRNAs can act directly as long transcripts or can be processed into active small si/miRNAs. They can modulate mRNA cleavage, translational repression or the epigenetic landscape of their target genes. Recently, certain long ncRNAs have been shown to play a crucial role in the regulation of alternat",
+    "openalex_id": "https://openalex.org/W2792104241",
+    "relevance_score": 108.366745
+  },
+  {
+    "title": "Epigenetic Regulation of Alternative Splicing: How LncRNAs Tailor the Message",
+    "doi": "10.3390/ncrna7010021",
+    "authors": [
+      "Giuseppina Pisignano",
+      "Michael Ladomery"
+    ],
+    "year": 2021,
+    "publication_date": "2021-03-10",
+    "cited_by_count": 61,
+    "journal": "Non-Coding RNA",
+    "abstract": "Alternative splicing is a highly fine-tuned regulated process and one of the main drivers of proteomic diversity across eukaryotes. The vast majority of human multi-exon genes is alternatively spliced in a cell type- and tissue-specific manner, and defects in alternative splicing can dramatically alter RNA and protein functions and lead to disease. The eukaryotic genome is also intensively transcribed into long and short non-coding RNAs which account for up to 90% of the entire transcriptome. Ov",
+    "openalex_id": "https://openalex.org/W3134512236",
+    "relevance_score": 47.639866
+  },
+  {
+    "title": "miRNA targeting and alternative splicing in the stress response – events hosted by membrane-less compartments",
+    "doi": "10.1242/jcs.202002",
+    "authors": [
+      "Mariya M. Kucherenko",
+      "Halyna R. Shcherbata"
+    ],
+    "year": 2018,
+    "publication_date": "2018-02-14",
+    "cited_by_count": 51,
+    "journal": "Journal of Cell Science",
+    "abstract": "Stress can be temporary or chronic, and mild or acute. Depending on its extent and severity, cells either alter their metabolism, and adopt a new state, or die. Fluctuations in environmental conditions occur frequently, and such stress disturbs cellular homeostasis, but in general, stresses are reversible and last only a short time. There is increasing evidence that regulation of gene expression in response to temporal stress happens post-transcriptionally in specialized subcellular membrane-les",
+    "openalex_id": "https://openalex.org/W2788169186",
+    "relevance_score": 44.261772
+  },
+  {
+    "title": "CLIP-Seq and massively parallel functional analysis of the CELF6 RNA binding protein reveals a role in destabilizing synaptic gene mRNAs through interaction with 3’UTR elements in vivo",
+    "doi": "10.1101/401604",
+    "authors": [
+      "Michael A. Rieger",
+      "Dana King",
+      "Barak A. Cohen",
+      "Joseph D. Dougherty"
+    ],
+    "year": 2018,
+    "publication_date": "2018-08-27",
+    "cited_by_count": 3,
+    "journal": "bioRxiv (Cold Spring Harbor Laboratory)",
+    "abstract": "Abstract CELF6 is a RNA-binding protein in a family of proteins with roles in human health and disease, however little is known about the mRNA targets or in vivo function of this protein. We utilized CLIP-Seq to identify, for the first time, in vivo targets of CELF6 and identify hundreds of transcripts bound by CELF6 in the brain. We found these are disproportionately mRNAs coding for synaptic proteins. We then conducted functional validation of these targets, testing greater than 400 CELF6 boun",
+    "openalex_id": "https://openalex.org/W2888071484",
+    "relevance_score": 31.551704
+  },
+  {
+    "title": "Evolution of the Neocortex Through RNA-Binding Proteins and Post-transcriptional Regulation",
+    "doi": "10.3389/fnins.2021.803107",
+    "authors": [
+      "Iva Salamon",
+      "Mladen‐Roko Rašin"
+    ],
+    "year": 2022,
+    "publication_date": "2022-01-10",
+    "cited_by_count": 13,
+    "journal": "Frontiers in Neuroscience",
+    "abstract": "The human neocortex is undoubtedly considered a supreme accomplishment in mammalian evolution. It features a prenatally established six-layered structure which remains plastic to the myriad of changes throughout an organism's lifetime. A fundamental feature of neocortical evolution and development is the abundance and diversity of the progenitor cell population and their neuronal and glial progeny. These evolutionary upgrades are partially enabled due to the progenitors' higher proliferative cap",
+    "openalex_id": "https://openalex.org/W4206751432",
+    "relevance_score": 23.072603
+  },
+  {
+    "title": "Analysis of in vivo RNA targets of human splicing factor SF1",
+    "doi": "10.13097/archive-ouverte/unige:5149",
+    "authors": [
+      "Nicolas Antih"
+    ],
+    "year": 2009,
+    "publication_date": "2009-01-01",
+    "cited_by_count": 0,
+    "journal": "Archive ouverte UNIGE (University of Geneva)",
+    "abstract": "The human splicing factor 1 (SF1) was originally isolated as a 75-kDa heat-stable protein required for presplicing complex formation. SF1 interacts with U2AF65, the large subunit of the U2 snRNP auxiliary factor, which is followed by the cooperative binding of the proteins to the branch point sequence (BPS), a conserved sequence of introns needed for the first transesterification reaction of splicing, and the polypyrimidine tract, respectively. Despite evidence from human and yeast splicing syst",
+    "openalex_id": "https://openalex.org/W1030555211",
+    "relevance_score": 2.5076137
+  },
+  {
+    "title": "The complex network of p53-regulated small non-coding RNAs and their gene targets in cancer",
+    "doi": "10.25560/28148",
+    "authors": [
+      "Jonathan Krell"
+    ],
+    "year": 2014,
+    "publication_date": "2014-03-01",
+    "cited_by_count": 0,
+    "journal": "Spiral (Imperial College London)",
+    "abstract": "DNA damage transactivates TP53-regulated surveillance mechanisms that are crucial in maintaining cellular integrity and suppressing tumorigenesis. TP53 mediates this directly by transcriptionally modulating gene and microRNA (miRNA) expression and by regulating miRNA biogenesis through interaction with the DROSHA complex. However, the regulative mechanism of miRNA-AGO2 loading and the global change in AGO2 binding to its gene targets in response to DNA damage have not been investigated yet. In a",
+    "openalex_id": "https://openalex.org/W2318817316",
+    "relevance_score": 2.3957953
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.267503
+  }
+]

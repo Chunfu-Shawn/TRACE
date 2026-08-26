@@ -1,0 +1,80 @@
+[
+  {
+    "title": "The RNA Splicing Response to DNA Damage",
+    "doi": "10.3390/biom5042935",
+    "authors": [
+      "Lulzim Shkreta",
+      "Benoı̂t Chabot"
+    ],
+    "year": 2015,
+    "publication_date": "2015-10-29",
+    "cited_by_count": 157,
+    "journal": "Biomolecules",
+    "abstract": "The number of factors known to participate in the DNA damage response (DDR) has expanded considerably in recent years to include splicing and alternative splicing factors. While the binding of splicing proteins and ribonucleoprotein complexes to nascent transcripts prevents genomic instability by deterring the formation of RNA/DNA duplexes, splicing factors are also recruited to, or removed from, sites of DNA damage. The first steps of the DDR promote the post-translational modification of splic",
+    "openalex_id": "https://openalex.org/W1890648625",
+    "relevance_score": 69.017555
+  },
+  {
+    "title": "Regulation of Pre-mRNA Splicing: Indispensable Role of Post-Translational Modifications of Splicing Factors",
+    "doi": "10.3390/life13030604",
+    "authors": [
+      "Miroslava Kretová",
+      "Tomas Selicky",
+      "Ingrid Čipáková",
+      "Luboš Čipák"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-21",
+    "cited_by_count": 33,
+    "journal": "Life",
+    "abstract": "Pre-mRNA splicing is a process used by eukaryotic cells to generate messenger RNAs that can be translated into proteins. During splicing, the non-coding regions of the RNAs (introns) are removed from pre-mRNAs and the coding regions (exons) are joined together, resulting in mature mRNAs. The particular steps of splicing are executed by the multimegadalton complex called a spliceosome. This complex is composed of small nuclear ribonucleoproteins, various splicing factors, and other regulatory and",
+    "openalex_id": "https://openalex.org/W4321500375",
+    "relevance_score": 32.73624
+  },
+  {
+    "title": "Interferon-Regulated Expression of Cellular Splicing Factors Modulates Multiple Levels of HIV-1 Gene Expression and Replication",
+    "doi": "10.3390/v16060938",
+    "authors": [
+      "Fabian Roesmann",
+      "Lisa Müller",
+      "Katleen Klaassen",
+      "Stefanie Heß",
+      "Marek Widera"
+    ],
+    "year": 2024,
+    "publication_date": "2024-06-11",
+    "cited_by_count": 5,
+    "journal": "Viruses",
+    "abstract": "Type I interferons (IFN-Is) are pivotal in innate immunity against human immunodeficiency virus I (HIV-1) by eliciting the expression of IFN-stimulated genes (ISGs), which encompass potent host restriction factors. While ISGs restrict the viral replication within the host cell by targeting various stages of the viral life cycle, the lesser-known IFN-repressed genes (IRepGs), including RNA-binding proteins (RBPs), affect the viral replication by altering the expression of the host dependency fact",
+    "openalex_id": "https://openalex.org/W4399576036",
+    "relevance_score": 17.981663
+  },
+  {
+    "title": "Investigation of the physiological roles of SRSF1-mediated translation",
+    "doi": null,
+    "authors": [
+      "Fiona Haward"
+    ],
+    "year": 2018,
+    "publication_date": "2018-06-30",
+    "cited_by_count": 0,
+    "journal": "ERA",
+    "abstract": "The serine/arginine-rich (SR-) family proteins constitute a diverse group of pre-mRNA splicing factors that are essential for viability. They can be characterised based on the presence of one or two RRMs and an RS domain. A subset, of which SRSF1 is the prototype, is capable of nucleocytoplasmic shuttling; a process governed by continual cyclic phosphorylation of the RS domain. In contrast, SRSF2, another member of the SR family, is unable to shuttle due to the presence of a nuclear retention se",
+    "openalex_id": "https://openalex.org/W2886416983",
+    "relevance_score": 3.2495017
+  },
+  {
+    "title": "Study of molecules with nonsense mutation correction capacity",
+    "doi": null,
+    "authors": [
+      "Jieshuang Jia"
+    ],
+    "year": 2015,
+    "publication_date": "2015-04-01",
+    "cited_by_count": 0,
+    "journal": "HAL (Le Centre pour la Communication Scientifique Directe)",
+    "abstract": "Nonsense mutations represent approximately 10% of mutations found in the inherited geneticdiseases. mRNAs harboring a nonsense mutation are rapidly degraded by a quality-controlmechanism called nonsense-mediated mRNA decay (NMD) to prevent the synthesis of toxic or nonfunctionaltruncated proteins. Some stratégies have been developed to correct nonsense mutations.In our lab, we study 2 of them which are (i) the NMD inhibition and (ii) the PTC-readthroughactivation which is a mechanism leading to ",
+    "openalex_id": "https://openalex.org/W2257145897",
+    "relevance_score": 2.6849685
+  }
+]

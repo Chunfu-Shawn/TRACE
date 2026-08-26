@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Roles of KHDRBS2 and KHDRBS3 in prostate cancer progression and AR-V7 regulation.",
+    "doi": "10.1007/s12672-025-04294-1",
+    "pmid": "41417173",
+    "authors": [
+      "Yang X, Liu X, Xiao R, Cao Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To investigate the biological functions of KHDRBS2 and KHDRBS3 in prostate cancer (PCa) progression and their potential roles in regulating androgen receptor splice variant 7 (AR-V7) expression, a key factor in castration-resistant prostate cancer (CRPC).<h4>Methods</h4>We performed a comprehensive analysis of publicly available datasets to examine the expression patterns of KHDRBS family members in PCa, including CRPC and neuroendocrine subtypes. In vitro experiments were conducted using AR-positive 22RV1 and AR-negative PC3 cell lines to assess the expression and regulatory interactions of KHDRBS2 and KHDRBS3. Functional assays evaluated their effects on cell proliferation and tumor growth in vivo. Additionally, KHDRBS2 protein levels were manipulated in 22RV1 cells to assess their impact on AR-V7 and full-length AR expression.<h4>Results</h4>Our dataset analysis revealed distinct expression patterns of KHDRBS2 and KHDRBS3, with higher alteration frequencies in CRPC and neuroendocrine PCa. In vitro, KHDRBS2 and KHDRBS3 exhibited mutually exclusive expression, with KHDRBS2 predominantly found in AR-positive 22RV1 cells and KHDRBS3 in AR-negative PC3 cells. Reciprocal regulation between the two proteins was observed in both cell lines. Functional studies showed that both KHDRBS2 and KHDRBS3 promoted cell proliferation and tumor growth. Notably, silencing KHDRBS2 in 22RV1 cells led to a selective reduction in AR-V7 expression, without affecting full-length AR levels.<h4>Conclusions</h4>These findings uncover novel roles for KHDRBS2 and KHDRBS3 in PCa progression, with KHDRBS2 identified as a potential key regulator of AR-V7 expression. Our results provide new insights into AR splice variant regulation and highlight potential therapeutic targets for PCa treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptome-wide association study of cardiovascular outcomes in chronic kidney disease: The chronic renal insufficiency cohort.",
+    "doi": "10.1016/j.xhgg.2026.100562",
+    "pmid": "41508609",
+    "authors": [
+      "Lin BM, Wen J, Horimoto ARVR, Zhou L, Huang S, Dobre M, Go AS, Li Y, Franceschini N, CRIC Study Investigators."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-08",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Transcriptome-wide association studies (TWASs) are powerful for identifying gene-trait associations by integrating gene expression and genome-wide association data, but findings may be impacted by the choice of gene expression reference. We performed TWAS of cardiovascular outcomes using multi-tissue and ancestry-matched gene expression references. We used data from the Chronic Renal Insufficiency Cohort Study for participants of African (AFR, n = 1,512) and European (EUR, n = 2,067) ancestry and three outcomes: all-cause stroke, coronary heart disease, and heart failure. We performed TWASs using EUR and AFR predicted gene expression reference panels and multi-tissue TWAS by integrating gene expression from 10 GTEx selected tissues. TWAS identified KDELR2 associated with heart failure in AFR participants using matched AFR reference panel (p = 4.7 × 10<sup>-6</sup>), although findings were near significant using the EUR mismatched reference panel (p = 5.6 × 10<sup>-6</sup>). PSMC1 was associated with coronary heart disease in TWAS of CRIC EUR using AFR reference panel, and this gene was not present in the EUR-trained gene expression model. Multi-tissue TWASs identified KHDRBS2 significantly associated with all-cause stroke in CRIC AFR participants (p = 4.0 × 10<sup>-6</sup>). Variants near KDELR2 have been associated with coronary artery disease, which is a main cause of heart failure, while KHDRBS2 has been associated with cardiovascular risk factors in genome-wide association studies. Our findings highlight differences in gene discovery for TWAS of cardiovascular disease applied to high-risk participants based on participant ancestry and gene expression reference panels, and gains to identify genes compared with traditional genome-wide association approaches.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Comprehensive analysis of pre-mRNA alternative splicing regulated by m6A methylation in pig oxidative and glycolytic skeletal muscles.",
+    "doi": "10.1186/s12864-022-09043-0",
+    "pmid": "36474138",
+    "authors": [
+      "Tan B, Zeng J, Meng F, Wang S, Xiao L, Zhao X, Hong L, Zheng E, Wu Z, Li Z, Gu T."
+    ],
+    "year": "2022",
+    "publication_date": "2022-12-06",
+    "cited_by_count": 14,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Different types of skeletal myofibers exhibit distinct physiological and metabolic properties that are associated with meat quality traits in livestock. Alternative splicing (AS) of pre-mRNA can generate multiple transcripts from an individual gene by differential selection of splice sites. N6-methyladenosine (m6A) is the most abundant modification in mRNAs, but its regulation for AS in different muscles remains unknown.  RESULTS: We characterized AS events and m6A methylation pattern in pig oxidative and glycolytic muscles. A tota1 of 1294 differential AS events were identified, and differentially spliced genes were significantly enriched in processes related to different phenotypes between oxidative and glycolytic muscles. We constructed the regulatory network between splicing factors and corresponding differential AS events and identified NOVA1 and KHDRBS2 as key splicing factors. AS event was enriched in m6A-modified genes, and the methylation level was positively correlated with the number of AS events in genes. The dynamic change in m6A enrichment was associated with 115 differentially skipping exon (SE-DAS) events within 92 genes involving in various processes, including muscle contraction and myofibril assembly. We obtained 23.4% SE-DAS events (27/115) regulated by METTL3-meditaed m6A and experimentally validated the aberrant splicing of ZNF280D, PHE4DIP, and NEB. The inhibition of m6A methyltransferase METTL3 could induce the conversion of oxidative fiber to glycolytic fiber in PSCs.<h4>Conclusion</h4>Our study suggested that m6A modification could contribute to significant difference in phenotypes between oxidative and glycolytic muscles by mediating the regulation of AS. These findings would provide novel insights into mechanisms underlying muscle fiber conversion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pseudogene ACTBP2 increases blood-brain barrier permeability by promoting KHDRBS2 transcription through recruitment of KMT2D/WDR5 in Aβ<sub>1-</sub><sub>42</sub> microenvironment.",
+    "doi": "10.1038/s41420-021-00531-y",
+    "pmid": "34127651",
+    "authors": [
+      "Liu Q, Liu X, Zhao D, Ruan X, Su R, Shang X, Wang D, Yang C, Xue Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-14",
+    "cited_by_count": 15,
+    "journal": "",
+    "abstract": "The blood-brain barrier (BBB) has a vital role in maintaining the homeostasis of the central nervous system (CNS). Changes in the structure and function of BBB can accelerate Alzheimer's disease (AD) development. β-Amyloid (Aβ) deposition is the major pathological event of AD. We elucidated the function and possible molecular mechanisms of the effect of pseudogene ACTBP2 on the permeability of BBB in Aβ<sub>1-42</sub> microenvironment. BBB model treated with Aβ<sub>1-42</sub> for 48 h were used to simulate Aβ-mediated BBB dysfunction in AD. We proved that pseudogene ACTBP2, RNA-binding protein KHDRBS2, and transcription factor HEY2 are highly expressed in ECs that were obtained in a BBB model in vitro in Aβ<sub>1-42</sub> microenvironment. In Aβ<sub>1-42</sub>-incubated ECs, ACTBP2 recruits methyltransferases KMT2D and WDR5, binds to KHDRBS2 promoter, and promotes KHDRBS2 transcription. The interaction of KHDRBS2 with the 3'UTR of HEY2 mRNA increases the stability of HEY2 and promotes its expression. HEY2 increases BBB permeability in Aβ<sub>1-42</sub> microenvironment by transcriptionally inhibiting the expression of ZO-1, occludin, and claudin-5. We confirmed that knocking down of Khdrbs2 or Hey2 increased the expression levels of ZO-1, occludin, and claudin-5 in APP/PS1 mice brain microvessels. ACTBP2/KHDRBS2/HEY2 axis has a crucial role in the regulation of BBB permeability in Aβ<sub>1-42</sub> microenvironment, which may provide a novel target for the therapy of AD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "In-depth investigation of genome to refine QTL positions for spontaneous sex-reversal in XX rainbow trout.",
+    "doi": "10.1371/journal.pone.0313464",
+    "pmid": "40333945",
+    "authors": [
+      "Dehaullon A, Fraslin C, Bestin A, Poncet C, Guiguen Y, Quillet E, Phocas F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-07",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Sex determination is a flexible process in fish, controlled by genetics or environmental factors or a combination of both depending on the species. Revealing the underlying molecular mechanisms may have important implications for research on reproductive development in vertebrates, as well as sex-ratio control and selective breeding in fish. Phenotypic sex in rainbow trout (Oncorhynchus mykiss) is primarily controlled by a XX/XY male heterogametic sex determination system. Unexpectedly in genetically XX all-female farmed populations, a small proportion of males or intersex individuals are regularly observed. Spontaneous masculinisation is a highly heritable trait, controlled by minor sex-modifier genes that remain unknown, although several Quantitative Trait Loci (QTL) were detected in previous studies. In the current work we used genome-based approaches and various statistical methods to further investigate these QTL. DNA markers that were previously identified in a French commercial population on chromosomes Omy1, Omy12 and Omy20 were validated in six different farmed trout populations. Functional candidate genes that may be involved in spontaneous masculinisation by reducing germ cell proliferation and repressing oogenesis of XX-rainbow trout in the absence of the master sex determining gene were identified. In particular, syndig1, tlx1 and hells on Omy1, as well as khdrbs2 and csmd1 on Omy20 deserve further investigation to validate their potential sex-modifier roles as well as their interaction with rearing temperature. Those findings could be used to produce all-female populations that are preferred by farmers due to a delayed maturation of females and higher susceptibility of male trout to diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development of a 3 RNA Binding Protein Signature for Predicting Prognosis and Treatment Response for Glioblastoma Multiforme.",
+    "doi": "10.3389/fgene.2021.768930",
+    "pmid": "34733320",
+    "authors": [
+      "Sun R, Pan Y, Mu L, Ma Y, Shen H, Long Y."
+    ],
+    "year": "2021",
+    "publication_date": "2021-10-18",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "<b>Purpose:</b> Glioblastoma multiforme (GBM) is the most widely occurring brain malignancy. It is modulated by a variety of genes, and patients with GBM have a low survival ratio and an unsatisfactory treatment effect. The irregular regulation of RNA binding proteins (RBPs) is implicated in several malignant neoplasms and reported to exhibit an association with the occurrence and development of carcinoma. Thus, it is necessary to build a stable, multi-RBPs signature-originated model for GBM prognosis and treatment response prediction. <b>Methods:</b> Differentially expressed RBPs (DERBPs) were screened out based on the RBPs data of GBM and normal brain tissues from The Cancer Genome Atlas (TCGA) and Genotype-Tissue Expression Program (GTEx) datasets. Gene Ontology and Kyoto Encyclopedia of Genes and Genomes analyses on DERBPs were performed, followed by an analysis of the Protein-Protein Interaction network. Survival analysis of the DERBPs was conducted by univariate and multivariate Cox regression. Then, a risk score model was created on the basis of the gene signatures in various survival-associated RBPs, and its prognostic and predictive values were evaluated through Kaplan-Meier analysis and log-rank test. A nomogram on the basis of the hub RBPs signature was applied to estimate GBM patients' survival rates. Moreover, western blot was for the detection of the proteins. <b>Results:</b> BICC1, GNL3L, and KHDRBS2 were considered as prognosis-associated hub RBPs and then were applied in the construction of a prognostic model. Poor survival results appeared in GBM patients with a high-risk score. The area under the time-dependent ROC curve of the prognostic model was 0.723 in TCGA and 0.707 in Chinese Glioma Genome Atlas (CGGA) cohorts, indicating a good prognostic model. What was more, the survival duration of the high-risk group receiving radiotherapy or temozolomide chemotherapy was shorter than that of the low-risk group. The nomogram showed a great discriminating capacity for GBM, and western blot experiments demonstrated that the proteins of these 3 RBPs had different expressions in GBM cells. <b>Conclusion:</b> The identified 3 hub RBPs-derived risk score is effective in the prediction of GBM prognosis and treatment response, and benefits to the treatment of GBM patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated analysis of the roles and prognostic value of RNA binding proteins in lung adenocarcinoma.",
+    "doi": "10.7717/peerj.8509",
+    "pmid": "32071816",
+    "authors": [
+      "Li W, Li N, Gao L, You C."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-06",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "Lung cancer is the top cause of carcinoma-associated deaths worldwide. RNA binding proteins (RBPs) dysregulation has been reported in various malignant tumors, and that dysregulation is closely associated with tumorigenesis and tumor progression. However, little is known about the roles of RBPs in lung adenocarcinoma (LUAD). In this study, we downloaded the RNA sequencing data of LUAD from The Cancer Genome Atlas (TCGA) database and determined the differently expressed RBPs between normal and cancer tissues. We then performed an integrative analysis to explore the expression and prognostic significance of these RBPs. A total of 164 differently expressed RBPs were identified, including 40 down-regulated and 124 up-regulated RBPs. Pathway and Gene ontology (GO) analysis indicated that the differently expressed RBPs were mainly related to RNA processing, RNA metabolic process, RNA degradation, RNA transport, splicing, localization, regulation of translation, RNA binding, TGF-beta signaling pathway, mRNA surveillance pathway, and aminoacyl-tRNA biosynthesis. Survival analysis revealed that the high expression of <i>BOP1</i> or <i>GNL3</i> or <i>WDR12</i> or <i>DCAF13</i> or <i>IGF2BP3</i> or <i>IGF2BP1</i> were associated with poor overall survival (OS). Conversely, overexpression of <i>KHDRBS2</i>/<i>SMAD</i> predicted high OS in these patients. ROC curve analysis showed that the eight hub genes with a better diagnostic accuracy to distinguish lung adenocarcinoma. The results provided novel insights into the pathogenesis of LUAD and the development of treatment targets and prognostic molecular markers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Androgenic regulation of sexually dimorphic expression of RNA binding motif protein 48 in the developing mouse cortex and hippocampus.",
+    "doi": "10.1016/j.ijdevneu.2019.07.011",
+    "pmid": "31400491",
+    "authors": [
+      "Franklin M, Armoskus C, Taniguchi S, Moder C, Trang K, Santacruz M, Milla A, Tsai HW."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-07",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "To further reveal the molecular mechanism underlying sexual differentiation of the mouse cerebral cortex and hippocampus, we reanalyzed our previous microarray study with Gene Ontology (GO) term enrichment and found that the GO term \"RNA binding\" was over-represented among the 89 sexually dimorphic candidate genes. Thus, we selected 16 autosomal genes annotated to the term RNA binding and profiled their mRNA expression in the developing male and female mouse cortex/hippocampus. During the first three weeks after birth, sex differences in mRNA levels of Khdrbs2, Nanos2, Rbm48, and Tdrd3 were observed in the mouse cortex/hippocampus. Of these genes, only the female-biased expression of Rbm48 in neonates was abolished by prenatal exposure to testosterone propionate (TP), while postnatal treatment of TP three weeks after birth increased Rbm48 and Tdrd3 mRNA levels in both sexes. Regardless of sex, the postnatal cortex/hippocampus also showed a marked increase in the content of androgen receptor (Ar) and estrogen receptor β (Esr2), but a decrease in estrogen receptor α (Esr1) and aromatase (Cyp19a1), which might confer the different responses of Rbm48 to prenatal and postnatal TP. Our results suggest that androgen-regulated, sexually dimorphic Rbm48 expression might present a novel molecular mechanism by which perinatal androgens control development of sexual dimorphism in cortical and hippocampal structure and function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "N6-Methyladenosine-Regulated mRNAs: Potential Prognostic Biomarkers for Patients With Lung Adenocarcinoma.",
+    "doi": "10.3389/fcell.2021.705962",
+    "pmid": "34422827",
+    "authors": [
+      "Sun J, Ping Y, Huang J, Zeng B, Ji P, Li D."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-06",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Aberrant regulation of m6A mRNA modification can lead to changes in gene expression, thus contributing to tumorigenesis in several types of solid tumors. In this study, by integrating analyses of m6A methylation and mRNA expression, we identified 84 m6A-regulated mRNAs in lung adenocarcinoma (LUAD). Although the m6A methylation levels of total RNA in LUAD patient tumor tissue were reduced, the majority (75.2%) of m6A-regulated mRNAs were hypermethylated. The m6A-hypermethylated mRNAs were mainly enriched in terms related to transcription factor activity. We established a 10-m6A-regulated-mRNA signature score system through least absolute shrinkage and selection operator Cox regression analysis, with its predictive value validated by Kaplan-Meier curve and time-dependent receiver operating characteristic curves. RFXAP and KHDRBS2 from the signature also exhibited an independent prognostic value. The co-expression and interaction network analyses demonstrated the strong correlation between m6A regulators and the genes in the signature, further supporting the results of the m6A methylation modification patterns. These findings highlight the potential utility of integrating multi-omics data (m6A methylation level and mRNA expression) to accurately obtain potential prognostic biomarkers, which may provide important insights into developing novel and effective therapies for LUAD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Large-scale genome sequencing redefines the genetic footprints of high-altitude adaptation in Tibetans.",
+    "doi": "10.1186/s13059-023-02912-1",
+    "pmid": "37055782",
+    "authors": [
+      "Zheng W, He Y, Guo Y, Yue T, Zhang H, Li J, Zhou B, Zeng X, Li L, Wang B, Cao J, Chen L, Li C, Li H, Cui C, Bai C, Baimakangzhuo, Qi X, Ouzhuluobu, Su B."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-13",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Tibetans are genetically adapted to high-altitude environments. Though many studies have been conducted, the genetic basis of the adaptation remains elusive due to the poor reproducibility for detecting selective signatures in the Tibetan genomes.<h4>Results</h4>Here, we present whole-genome sequencing (WGS) data of 1001 indigenous Tibetans, covering the major populated areas of the Qinghai-Tibetan Plateau in China. We identify 35 million variants, and more than one-third of them are novel variants. Utilizing the large-scale WGS data, we construct a comprehensive map of allele frequency and linkage disequilibrium and provide a population-specific genome reference panel, referred to as 1KTGP. Moreover, with the use of a combined approach, we redefine the signatures of Darwinian-positive selection in the Tibetan genomes, and we characterize a high-confidence list of 4320 variants and 192 genes that have undergone selection in Tibetans. In particular, we discover four new genes, TMEM132C, ATP13A3, SANBR, and KHDRBS2, with strong signals of selection, and they may account for the adaptation of cardio-pulmonary functions in Tibetans. Functional annotation and enrichment analysis indicate that the 192 genes with selective signatures are likely involved in multiple organs and physiological systems, suggesting polygenic and pleiotropic effects.<h4>Conclusions</h4>Overall, the large-scale Tibetan WGS data and the identified adaptive variants/genes can serve as a valuable resource for future genetic and medical studies of high-altitude populations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Differentially Infiltrated Identification of Novel Diagnostic Biomarkers Associated with Immune Infiltration in Nasopharyngeal Carcinoma.",
+    "doi": "10.1155/2022/3934704",
+    "pmid": "36438903",
+    "authors": [
+      "Gao P, Lu W, Hu S, Zhao K."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The prognostic value of tumor-infiltrating immune cells has been widely studied in nasopharyngeal carcinoma (NPC). However, the role of tumor-infiltrating immune cells in the diagnosis of NPC has not been fully elucidated. Thus, tumor-infiltrating immune cell-related biomarkers in the diagnosis of NPC patients were explored in the current study.<h4>Methods</h4>Gene expression profiles of NPC patients were downloaded from the Gene Expression Omnibus (GEO) database. Differentially infiltrating immune cells (DDICs) between NPC and control samples were analyzed by the CIBERSORT algorithm. Weighted gene coexpression network analysis (WGCNA) was performed to screen hub genes significantly correlated with DDIC. Gene Ontology (GO) and Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway enrichment analyses of hub genes were performed with R package clusterProfiler. The diagnostic value of hub genes was evaluated by receiver operating characteristic (ROC) curves. RT-qPCR was conducted to validate the expression patterns of diagnostic markers in NPC and adjacent control tissues. The correlations between diagnostic markers and immunomodulators were analyzed using the TISIDB. The protein-protein interaction (PPI) network based on immunomodulators significantly associated with diagnostic biomarkers was constructed and visualized by STRING. The functional enrichment analysis of genes in the PPI network was analyzed by the WebGestalt online tool.<h4>Results</h4>The abundances of memory B cells, plasma cells, follicular helper T cells, activated NK cells, M0 macrophages, M1 macrophages, M2 macrophages, resting mast cells, and activated mast cells were significantly different between NPC and control samples. Dark orange was identified as the hub module, with a total of 371 genes associated with memory B cells, plasma cells, and M0 and M1 macrophages defined as hub genes, which were enriched into immune-related biological processes and pathways. <i>FCER2</i>, <i>KHDRBS2</i>, and <i>IGSF9</i> were considered diagnostic biomarkers with areas under ROC curves as 0.985, 0.978, and 0.975, respectively. Moreover, real-time reverse transcriptase-polymerase chain reaction (RT-qPCR) suggested that the expression patterns of <i>FCER2</i>, <i>KHDRBS2</i>, and <i>IGSF9</i> were consistent with the results in GEO datasets. TISIDB analysis revealed that <i>FCER2</i>, <i>KHDRBS2</i>, and <i>IGSF9</i> had a strong association with 8 immunoinhibitors (<i>BTLA</i>, <i>CD160</i>, <i>CD96</i>, <i>LAG3</i>, <i>PDCD1</i>, <i>TIGIT</i>, <i>CD244</i>, and <i>TGFB1</i>) and 11 immunostimulators (<i>CD27</i>, <i>CD28</i>, <i>CD40LG</i>, <i>CD48</i>, <i>ICOS</i>, <i>KLRC1</i>, <i>KLRK1</i>, <i>TMIGD2</i>, <i>TNFRSF13C</i>, <i>CXCR4</i>, and <i>C10</i> or <i>f54</i>). The PPI network implied that these 19 immunomodulators had interactions with other 50 genes. WebGestalt analysis demonstrated that 69 genes in the PPI network were enriched into cytokine-cytokine receptor interaction, NF-kappa B signaling pathway, and pathways in cancer.<h4>Conclusion</h4>Our study identified novel diagnostic biomarkers and revealed potential immune-related mechanisms in NPC. These findings enlighten the investigation of the molecular mechanisms of tumor-infiltrating immune cells regulating NPC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of crucial lncRNAs and mRNAs in liver regeneration after portal vein ligation through weighted gene correlation network analysis.",
+    "doi": "10.1186/s12864-022-08891-0",
+    "pmid": "36131263",
+    "authors": [
+      "Zhu Y, Li Z, Zhang J, Liu M, Jiang X, Li B."
+    ],
+    "year": "2022",
+    "publication_date": "2022-09-21",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Portal vein ligation (PVL)-induced liver hypertrophy increases future liver remnant (FLR) volume and improves resectability of large hepatic carcinoma. However, the molecular mechanism by which PVL facilitates liver hypertrophy remains poorly understood.<h4>Methods</h4>To gain mechanistic insight, we established a rat PVL model and carried out a comprehensive transcriptome analyses of hepatic lobes preserving portal blood supply at 0, 1, 7, and 14-day after PVL. The differentially expressed (DE) long-non coding RNAs (lncRNAs) and mRNAs were applied to conduct weighted gene co-expression network analysis (WGCNA). LncRNA-mRNA co-expression network was constructed in the most significant module. The modules and genes associated with PVL-induced liver hypertrophy were assessed through quantitative real-time PCR.<h4>Results</h4>A total of 4213 DElncRNAs and 6809 DEmRNAs probesets, identified by transcriptome analyses, were used to carry out WGCNA, by which 10 modules were generated. The largest and most significant module (marked in black_M6) was selected for further analysis. Gene Ontology (GO) analysis of the module exhibited several key biological processes associated with liver regeneration such as complement activation, IL-6 production, Wnt signaling pathway, autophagy, etc. Sixteen mRNAs (Notch1, Grb2, IL-4, Cops4, Stxbp1, Khdrbs2, Hdac2, Gnb3, Gng10, Tlr2, Sod1, Gosr2, Rbbp5, Map3k3, Golga2, and Rev3l) and ten lncRNAs (BC092620, AB190508, EF076772, BC088302, BC158675, BC100646, BC089934, L20987, BC091187, and M23890) were identified as hub genes in accordance with gene significance value, module membership value, protein-protein interaction (PPI) and lncRNA-mRNA co-expression network. Furthermore, the overexpression of 3 mRNAs (Notch1, Grb2 and IL-4) and 4 lncRNAs (BC089934, EF076772, BC092620, and BC088302) was validated in hypertrophic liver lobe tissues from PVL rats and patients undergoing hepatectomy after portal vein embolization (PVE).<h4>Conclusions</h4>Microarray and WGCNA analysis revealed that the 3 mRNAs (Notch1, Grb2 and IL-4) and the 4 lncRNAs (BC089934, EF076772, BC092620 and BC088302) may be promising targets for accelerating liver regeneration before extensive hepatectomy.",
+    "openalex_id": ""
+  }
+]

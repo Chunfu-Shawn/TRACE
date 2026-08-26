@@ -1,0 +1,170 @@
+[
+  {
+    "title": "EWSR1 as a regulatory target in hepatic stellate cell apoptosis and liver fibrosis therapy.",
+    "doi": "10.1016/j.bbrep.2026.102526",
+    "pmid": "41799701",
+    "authors": [
+      "Shiwan Z, Guangcheng L, Abdul Mutalib M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-27",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Liver fibrosis is a progressive condition driven by hepatic stellate cell (HSC) activation and resistance to apoptosis, culminating in excessive extracellular matrix (ECM) accumulation and organ dysfunction. Current antifibrotic therapies remain limited, as most target broad pathways such as TGF-β signaling or oxidative stress without addressing upstream regulators. Emerging evidence identifies the RNA-binding protein Ewing Sarcoma Breakpoint Region 1 (EWSR1) as a pivotal modulator of HSC fate. Through transcriptional regulation, non-coding RNA networks, and stress-granule dynamics, EWSR1 integrates TGF-β signaling, oxidative stress responses, and apoptosis resistance. Inhibition of EWSR1 has been reported in experimental models to suppress fibrosis-related gene expression and restore apoptotic sensitivity in activated HSCs, highlighting its therapeutic potential. This review critically synthesizes recent insights into EWSR1 biology, its crosstalk with profibrotic pathways, and its regulatory influence on HSC activation. We further compare EWSR1 with conventional antifibrotic approaches, outline research gaps, and propose directions for translational development. By positioning EWSR1 as a novel molecular node in fibrogenesis, this article underscores its promise as a next-generation therapeutic target for halting or reversing liver fibrosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Disruption of microhomology-mediated end joining in Ewing sarcoma.",
+    "doi": "10.1016/j.molcel.2026.06.038",
+    "pmid": "42480518",
+    "authors": [
+      "Asada S, Zhu G, Abeykoon JP, Tanaka Y, Nguyen H, Hirohashi Y, Iyer DR, Ashton NW, Mukkavalli S, Velazquez M, Jiang L, Del Busso M, Thangaiah JJ, Robinson SI, Parmar K, Van Allen EM, Gillani R, Shapiro GI, D'Andrea AD."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-21",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Ewing sarcoma (EwS) is a group of bone and soft-tissue cancers in children and young adults. Because EwS cells have pronounced sensitivity to radiation and chemotherapy-induced DNA damage, the oncoprotein EWS-FLI1 is likely to be involved in DNA repair. Here, we demonstrate that EWS-FLI1 causes a defect in microhomology-mediated end joining (MMEJ) repair. EWSR1 is a splicing factor that promotes the faithful splicing of the POLQ pre-mRNA, required for the expression of Polθ, a critical protein in the MMEJ pathway. Expression of EWS-FLI1 or depletion of EWSR1 causes increased POLQ exon 25 skipping, decreased Polθ expression, impaired MMEJ, and enhanced cellular sensitivity to inhibitors of the Fanconi anemia (FA), homologous recombination (HR), or non-homologous end joining (NHEJ) pathways, through the mechanism of synthetic lethality. Correction of POLQ exon 25 skipping restored Polθ expression and MMEJ activity in EwS. Inhibitors of the FA, HR, or NHEJ pathways may therefore provide a targeted therapy for EwS patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Homoharringtonine suppresses acute myeloid leukemia progression by orchestrating EWSR1 phase separation in an m&lt;sup&gt;6&lt;/sup&gt;A-YTHDF2-dependent mechanism.",
+    "doi": "10.1002/imt2.70089",
+    "pmid": "41472850",
+    "authors": [
+      "Liu TT, Chen LT, Pei XY, Hu SN, Zhuo FF, Chen ZK, Liu Y, Wang JK, Zhang JC, Cao Q, Li L, Wang J, Wei TT, Han B, Tu PF, Zhao XY, Xue R, Zeng KW."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-30",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Homoharringtonine (HHT) is widely used in combination regimens for acute myeloid leukemia (AML), yet its direct cellular targets remain undefined, limiting precision application. Here, we identified EWS RNA-binding protein 1 (EWSR1) as the primary target of HHT through chemical proteomics and biophysical validation. HHT bound the RNA recognition motif of EWSR1 with micromolar affinity, inducing an allosteric conformational switch that promoted oligomerization and liquid-liquid phase separation (LLPS). EWSR1 condensates selectively recruited the N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) reader YTHDF2, forming cytoplasmic hubs where HHT disrupted YTHDF2-mRNA interactions. This sequestration attenuated m<sup>6</sup>A-mediated RNA decay, stabilizing key transcripts such as <i>TNFRSF1B</i> and <i>HMOX1</i>, and thereby impairing AML cell proliferation. Integrated transcriptomics and single-cell RNA-seq analyses revealed that <i>EWSR1</i> was markedly upregulated in AML, particularly in hematopoietic progenitor and myeloid subpopulations, and high <i>EWSR1</i> expression correlated with poor prognosis and enhanced HHT sensitivity. In vivo, the anti-leukemic efficacy of HHT was significantly diminished upon EWSR1 knockdown, demonstrating that EWSR1 was required for therapeutic response. Collectively, these findings uncover a phase separation-centric mechanism by which HHT exerts anti-AML activity, establish the EWSR1-YTHDF2-m<sup>6</sup>A <i>axis</i> as a critical regulator of leukemia progression, and position EWSR1 as both a functional target and a predictive biomarker for optimizing HHT-based therapies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Decoding RNA splicing pathology: Alternative splicing in amyotrophic lateral sclerosis and its therapeutic potential.",
+    "doi": "10.1016/j.bbrc.2026.153723",
+    "pmid": "41996987",
+    "authors": [
+      "Priya R, Tanti GK, Jain BP."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-09",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) is a fatal neurodegenerative disorder marked by progressive motor neuron loss, leading to muscle weakness, paralysis, and respiratory failure. Dysregulation of RNA metabolism and splicing has emerged as a central mechanism in ALS pathogenesis. TARDBP (TAR DNA-binding protein), FET family proteins (FUS, EWSR1, TAF15), SOD1 (Superoxide Dismutase 1), and C9orf72 (Chromosome 9 Open Reading Frame 72) are key genes associated with ALS that regulate RNA processing, alternative splicing, and nuclear-cytoplasmic transport. Mutations or mislocalization of these proteins result in nuclear loss-of-function and cytoplasmic gain-of-function toxicity, promoting protein aggregation, sequestering spliceosomal components, and impairing spliceosome assembly. This leads to the aberrant inclusion of cryptic exons in essential neuronal genes, such as STMN2 (Stathmin 2) and UNC13A (Unc-13 Homolog A), resulting in the production of truncated proteins, defective axonal maintenance, and impaired synaptic function. TDP-43 pathology, a hallmark of ALS, disrupts splicing and RNA transport, while C9orf72 repeat expansions and FET protein mutations exacerbate cytoplasmic aggregation and stress granule dynamics. Mutant SOD1 contributes via mitochondrial dysfunction, endoplasmic reticulum stress, and disrupted axonal transport. Therapeutic strategies targeting these mechanisms are advancing rapidly. Gene replacement therapy, which restores STMN2 expression, and antisense oligonucleotides (ASOs) targeting mutant transcripts show promise in preclinical and early clinical studies. Complementary approaches, including the inhibition of stress kinases and the activation of autophagy, reduce cytoplasmic protein aggregation and support neuronal homeostasis. This review provides a comprehensive overview of RNA splicing regulation, spliceosomal dysfunction, and cryptic exon incorporation in ALS. Understanding the interplay among splicing defects, RNA-binding protein pathology, and neuronal degeneration is critical for developing next-generation multimodal therapies to restore RNA processing, reduce toxic protein accumulation, and promote motor neuron survival.",
+    "openalex_id": ""
+  },
+  {
+    "title": "<i>EWSR1::ATF1</i> Translocation: A Common Tumor Driver of Distinct Human Neoplasms.",
+    "doi": "10.3390/ijms252413693",
+    "pmid": "39769457",
+    "authors": [
+      "Bianco JR, Li Y, Petranyi A, Fabian Z."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-21",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Cancer is among the leading causes of mortality in developed countries due to limited available therapeutic modalities and high rate of morbidity. Although malignancies might show individual genetic landscapes, recurring aberrations in the neoplastic genome have been identified in the wide range of transformed cells. These include translocations of frequently affected loci of the human genetic material like the Ewing sarcoma breakpoint region 1 (<i>EWSR1</i>) of chromosome 22 that results in malignancies with mesodermal origin. These cytogenetic defects frequently result in the genesis of fusion genes involving <i>EWSR1</i> and a number of genes from partner loci. One of these chromosomal rearrangements is the reciprocal translocation between the q13 and q12 loci of chromosome 12 and 22, respectively, that is believed to initiate cancer formation by the genesis of a novel, chimeric transcription factor provoking dysregulated gene expression. Since soft-tissue neoplasms carrying t(12;22)(q13;q12) have very poor prognosis and clinical modalities specifically targeting t(12;22)(q13;q12)-harboring cells are not available to date, understanding this DNA aberration is not only timely but urgent. Here, we review our current knowledge of human malignancies carrying the specific subset of <i>EWSR1</i> rearrangements that leads to the expression of the EWSR1::ATF1 tumor-driver chimeric protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Subversion of mRNA degradation pathways by EWSR1::FLI1 represents a therapeutic vulnerability in Ewing sarcoma.",
+    "doi": "10.1038/s41467-025-61725-x",
+    "pmid": "40664627",
+    "authors": [
+      "Galvan B, Ongena L, Bruyr J, Fettweis G, Lucarelli E, Lavergne A, Mariavelle E, O'Grady TM, Hassoun ZEO, Claes M, Dubois L, Lee KAW, Kruys V, Gueydan C, Durand J, Hervouet E, Geyer FH, Banito A, Imle R, Mao L, Jayavelu AK, Grünewald TGP, Cidre-Aranaz F, Twizere JC, Dequiedt F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-16",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Many cancers are defined by gene fusions that frequently encode oncogenic transcription factors (TFs), such as EWSR1::FLI1 in Ewing sarcoma (EwS). Here, we report that independently to its canonical roles in transcription, EWSR1::FLI1 also functions as an mRNA decay factor, reshaping mRNA stability in EwS. This function participates in EWSR1::FLI1 tumorigenicity and involves interactions of EWSR1::FLI1 with the CCR4-NOT deadenylation complex via its EWSR1-derived low-complexity domain and with the RNA-binding protein HuR/ELAVL1 via its FLI1-derived region. Strikingly, we find that EWSR1::FLI1-mediated mRNA decay antagonizes the normal mRNA protective function of HuR and renders EwS cells highly sensitive to HuR inhibition. Our findings uncover a post-transcriptional function of EWSR1::FLI1 and suggest that targeting mRNA stability mechanisms may offer therapeutic opportunities for EwS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translational aspects of Desmoplastic small round cell tumor (DSRCT): An expert consensus paper from the OCTOPUS group.",
+    "doi": "10.1016/j.critrevonc.2026.105418",
+    "pmid": "42235903",
+    "authors": [
+      "Pasquali S, Doldi V, Shipley JM, Man YKS, Postel-Vinay S, Herbel N, Meister MT, van de Wetering M, Métayer L, Minard-Colin V, Alaggio R, Schoot R, Huang P, Di Carlo D, Orbach D, Gasparini P, Casanova M, Ferrari A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Desmoplastic Small Round Cell Tumor (DSRCT) is an ultra-rare, highly aggressive sarcoma that predominantly affects young individuals. DSRCT is defined by the characteristic chromosomal translocation t(11;22) (p13;q12), which results in the oncogenic EWSR1::WT1 fusion gene. DSRCT typically presents as multiple, disseminated nodules within the abdominopelvic cavity. Patients with DSRCT typically receive an intensive multimodal treatment regimen comprising multi-agent chemotherapy, extensive cytoreductive surgery, that could be followed by whole abdominopelvic radiotherapy. Attempts to improve patient outcomes over the past two decades have yielded limited results, leading to a persistent lack of improvement in prognosis. There is an urgent, unmet clinical need for innovative and effective treatments guided by a deeper understanding of DSRCT biology. Recent efforts have successfully generated extensive multi-omic data and a growing number of patient-derived models. This information has deepened our understanding of the EWSR1::WT1 translocation's oncogenic mechanisms and revealed critical DSRCT dependencies, leading to the identification of several putative therapeutic targets. Clinical translation of these findings as well as conduction of further preclinical research requires an international, multidisciplinary collaborative effort to propel preclinical and clinical studies. This review was conducted by the DSRCT Working Group of OCTOPUS (\"Optimising Combination Therapy fOr Paediatric, adolescent and yoUng adult patients with non-rhabdomyosarcoma soft tissue Sarcomas\") to consolidate existing knowledge on preclinical translational aspects of DSRCT and guide future cooperative research.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Puzzle of Genetic Stability and Chromosomal Copy Number Alterations for the Therapy of Ewing Sarcoma.",
+    "doi": "10.3390/cancers17223719",
+    "pmid": "41301081",
+    "authors": [
+      "Richter GHS, Ranft A, Kerkhoff M, Jens M, Kirchberg IE, Dirksen U."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-20",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Studies of the genomic stability of Ewing sarcoma (EwS) have produced contradictory findings. While they are generally characterized by low mutation rates of individual genes, several cases exhibit genomic alterations that manifest as chromosomal gains and losses. Taken together, these alterations represent independent biomarkers for EwS, such as loss of heterozygosity (LOH) or an altered genome. Patients with primary EwS tumors with fewer than three copy number alterations (CNAs) have a better prognosis than those with more CNAs. The functional mechanisms underlying this chromosomal instability are not yet clear. However, there are indications that this may be directly caused by the <i>EWSR1::ETS</i> translocations that are characteristic of EwS. The transcriptional behavior of the chimeric transcription factor EWSR1-FLI1 leads to the formation of R-loop DNA-RNA hybrids that form when RNA binds back to DNA during transcription and increased replication stress, which may result in structural chromosomal changes. Additionally, the formation of EWSR1 fusion genes in EwS results in the loss of one or both wild-type EWSR1 alleles in sarcoma cells. As chromosome segregation has been observed under loss of wild-type EWSR1, EWSR1 loss has been proposed as a potential source of LOH. So, it is highly probable that a chromosomal translocation and the subsequent formation of the EWSR1-ETS fusion protein cause the genomic alterations in EwS. This indicates that targeted therapy should be directed against the CNA and LOH biology caused by the fusion protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "cIAP1 inhibitor of apoptosis is a tumor suppressor in Ewing sarcoma.",
+    "doi": "10.1016/j.canlet.2026.218389",
+    "pmid": "41780845",
+    "authors": [
+      "Cidre-Aranaz F, Geyer FH, Hölting TLB, Hanssen KM, Faehling T, Ritter A, Zimmermann M, Mao L, Alonso J, Sastre A, Jayavelu AK, Knott MML, Musa J, Grünewald TGP."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Ewing sarcoma (EwS) is a highly aggressive pediatric malignancy driven by EWSR1::ETS fusion oncoproteins -primarily EWSR1::FLI1- which deregulate genes essential for differentiation, proliferation, and cell survival. To uncover key downstream targets of this fusion involved in cell differentiation, we combined transcriptomic profiling of EwS cell lines following EWSR1::ETS inhibition with gene ontology analysis, a clinically annotated gene expression dataset derived from EwS patient material and network analyses. This integrative approach identified inhibitor of apoptosis protein 1 (cIAP1, alias BIRC2) as an EWSR1::FLI1-suppressed gene. Despite its known oncogenic role in many cancers, cIAP1 showed minimal expression in EwS. Using inducible cIAP1 re-expression models in EwS cells, we demonstrated that cIAP1 re-expression suppresses proliferation, clonogenic growth, and 3D spheroid formation in vitro. Transcriptomic and proteomic analyses revealed that low cIAP1 expression enhances proliferation-related gene signatures, which are inhibited upon cIAP1 re-expression. In vivo xenograft models revealed that cIAP1 re-expression significantly reduces tumor growth, mitotic activity, and Ki-67 positivity, while increasing tumor necrosis and apoptosis. These findings highlight an unexpected tumor-suppressive role for cIAP1 in fusion-driven EwS, contrasting with its pro-survival function in other cancers. Collectively, our results identify cIAP1 as a prognostically relevant, EWSR1::FLI1-regulated hub whose re-expression disrupts tumor progression, offering a potential therapeutic strategy to restore tumor-suppressive pathways in EwS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "5'-tiRNA-Lys maintains intestinal epithelial homeostasis by EWSR1-dependent suppression of miR-125a and autophagy activation.",
+    "doi": "10.3724/abbs.2025074",
+    "pmid": "40542577",
+    "authors": [
+      "Xu N, Huang J, Wang Y, Liu Y, Jiang Y, Zhou W, Sheng J, Zhang L."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "The intestinal epithelium relies on autophagy to maintain barrier integrity and homeostasis, and dysregulation of this process has been implicated in inflammatory bowel disease (IBD). While tRNA-derived small RNAs (tsRNAs) are emerging as regulators of cellular stress responses, their roles in intestinal autophagy remain poorly understood. Here, we identify that 5'-tiRNA-Lys, a tsRNA derived from mature tRNA-Lys, is significantly upregulated in the inflamed intestinal epithelium of IBD patients. Overexpression of 5'-tiRNA-Lys in mice ameliorates dextran sulfate sodium (DSS)-induced colitis. Mechanistically, 5'-tiRNA-Lys enhances autophagy in intestinal epithelial cells (IECs), as evidenced by elevated LC3-II level and autophagosome formation. RNA pull-down and immunoprecipitation assays reveal that 5'-tiRNA-Lys directly binds to the RNA-binding protein EWSR1 via its RNA recognition motif, disrupting EWSR1's interaction with the Drosha/DGCR8 microprocessor complex. This interference specifically suppresses the maturation of miR-125a, a microRNA that targets the autophagy-promoting gene <i>UVRAG</i>. Consequently, 5'-tiRNA-Lys increases UVRAG expression, thereby enhancing autophagic activity. Our findings reveal that 5'-tiRNA-Lys modulates autophagy through EWSR1-mediated miR-125a processing, which in turn affects intestinal inflammation, highlighting the potential of 5'-tiRNA-Lys as a therapeutic target for IBD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EWS-RNA Binding Protein 1: Structural Insights into Ewing Sarcoma by Conformational Dynamics Investigations.",
+    "doi": "10.2174/0115680096330765250220053705",
+    "pmid": "40070334",
+    "authors": [
+      "Shahzadi S, Yasir M, Kloczkowski A, Hassan M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-11",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Prior research has demonstrated that proteins play a significant role in the prognosis and treatments of various sarcomas, including Ewing sarcoma through the interplay of downstream signaling cascades. However, there is limited understanding about the strcucture conformation of EWSR1 and its structural implication in the prognosis of Ews-ing Sarcoma by interaction with RNA molecules.<h4>Aims</h4>The primary goal of ongoing research is to determine how EWSR1 contributes to Ewing sarcoma.<h4>Objective</h4>The current study explores the complexity of EWSR1 structure and its conforma-tional interactions with RNA in relation to Ewing sarcoma.<h4>Methods</h4>Here, we employed a comparative modeling approach to predict EWSR1 domains separately and assembled them into one structural unit using a DEMO server. Additionally, the RNA motifs interacting with EWSR1 were predicted, and the 3D model was built using RNAComposer. Protein-RNA docking and MD simulation studies were carried out to check the intermolecular interactions and stability behavior of docked EWSR1-RNA complexes.<h4>Results</h4>The overall results explore the structural insights into EWSR1 and their interactions with RNA, which may play a momentous role in co- and post-transcriptional regulation to control gene expression.<h4>Conclusion</h4>Taken togather, our findings suggest that EWSR1 may be a useful therapeutic target for the diagnosis and management of Ewing sarcoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EWSR1 Fusion Driven Pediatric B-Acute Lymphoblastic Leukemia: Diagnosis and Review of Literature.",
+    "doi": "10.1177/10935266251413970",
+    "pmid": "41574496",
+    "authors": [
+      "Talman M, Yenamandra AK, Akkari Y, Tsuchiya K, Borinstein SC, Lopez-Hisijos N, Smith BN."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "B-lymphoblastic leukemia/lymphoma (B-ALL) is the most prevalent childhood malignancy, with improved survival rates attributed to advances in diagnosis and treatment. Herein, we present a case of B-ALL in a 6-year-old female who presented with clinical symptoms of leukemia, including weight loss, fever, and lymphadenopathy. Molecular and cytogenetics study revealed a t(1;22) resulting in an <i>EWSR1::PBX1</i> fusion. This case highlights diagnostic and prognostic implications of this recently recognized distinct <i>EWSR1</i> entity.",
+    "openalex_id": ""
+  }
+]

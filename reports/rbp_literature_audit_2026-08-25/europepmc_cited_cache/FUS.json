@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Mutations in FUS, an RNA processing protein, cause familial amyotrophic lateral sclerosis type 6.",
+    "doi": "10.1126/science.1165942",
+    "pmid": "19251628",
+    "authors": [
+      "Vance C, Rogelj B, Hortobágyi T, De Vos KJ, Nishimura AL, Sreedharan J, Hu X, Smith B, Ruddy D, Wright P, Ganesalingam J, Williams KL, Tripathi V, Al-Saraj S, Al-Chalabi A, Leigh PN, Blair IP, Nicholson G, de Belleroche J, Gallo JM, Miller CC, Shaw CE."
+    ],
+    "year": "2009",
+    "publication_date": "2009-02-01",
+    "cited_by_count": 2096,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) is a fatal neurodegenerative disease that is familial in 10% of cases. We have identified a missense mutation in the gene encoding fused in sarcoma (FUS) in a British kindred, linked to ALS6. In a survey of 197 familial ALS index cases, we identified two further missense mutations in eight families. Postmortem analysis of three cases with FUS mutations showed FUS-immunoreactive cytoplasmic inclusions and predominantly lower motor neuron degeneration. Cellular expression studies revealed aberrant localization of mutant FUS protein. FUS is involved in the regulation of transcription and RNA splicing and transport, and it has functional homology to another ALS gene, TARDBP, which suggests that a common mechanism may underlie motor neuron degeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A Molecular Grammar Governing the Driving Forces for Phase Separation of Prion-like RNA Binding Proteins.",
+    "doi": "10.1016/j.cell.2018.06.006",
+    "pmid": "29961577",
+    "authors": [
+      "Wang J, Choi JM, Holehouse AS, Lee HO, Zhang X, Jahnel M, Maharana S, Lemaitre R, Pozniakovsky A, Drechsel D, Poser I, Pappu RV, Alberti S, Hyman AA."
+    ],
+    "year": "2018",
+    "publication_date": "2018-06-28",
+    "cited_by_count": 1885,
+    "journal": "",
+    "abstract": "Proteins such as FUS phase separate to form liquid-like condensates that can harden into less dynamic structures. However, how these properties emerge from the collective interactions of many amino acids remains largely unknown. Here, we use extensive mutagenesis to identify a sequence-encoded molecular grammar underlying the driving forces of phase separation of proteins in the FUS family and test aspects of this grammar in cells. Phase separation is primarily governed by multivalent interactions among tyrosine residues from prion-like domains and arginine residues from RNA-binding domains, which are modulated by negatively charged residues. Glycine residues enhance the fluidity, whereas glutamine and serine residues promote hardening. We develop a model to show that the measured saturation concentrations of phase separation are inversely proportional to the product of the numbers of arginine and tyrosine residues. These results suggest it is possible to predict phase-separation properties based on amino acid sequences.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Converging mechanisms in ALS and FTD: disrupted RNA and protein homeostasis.",
+    "doi": "10.1016/j.neuron.2013.07.033",
+    "pmid": "23931993",
+    "authors": [
+      "Ling SC, Polymenidou M, Cleveland DW."
+    ],
+    "year": "2013",
+    "publication_date": "2013-08-01",
+    "cited_by_count": 1571,
+    "journal": "",
+    "abstract": "Breakthrough discoveries identifying common genetic causes for amyotrophic lateral sclerosis (ALS) and frontotemporal dementia (FTD) have transformed our view of these disorders. They share unexpectedly similar signatures, including dysregulation in common molecular players including TDP-43, FUS/TLS, ubiquilin-2, VCP, and expanded hexanucleotide repeats within the C9ORF72 gene. Dysfunction in RNA processing and protein homeostasis is an emerging theme. We present the case here that these two processes are intimately linked, with disease-initiated perturbation of either leading to further deviation of both protein and RNA homeostasis through a feedforward loop including cell-to-cell prion-like spread that may represent the mechanism for relentless disease progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "State of play in amyotrophic lateral sclerosis genetics.",
+    "doi": "10.1038/nn.3584",
+    "pmid": "24369373",
+    "authors": [
+      "Renton AE, Chiò A, Traynor BJ."
+    ],
+    "year": "2014",
+    "publication_date": "2013-12-26",
+    "cited_by_count": 1223,
+    "journal": "",
+    "abstract": "Considerable progress has been made in unraveling the genetic etiology of amyotrophic lateral sclerosis (ALS), the most common form of adult-onset motor neuron disease and the third most common neurodegenerative disease overall. Here we review genes implicated in the pathogenesis of motor neuron degeneration and how this new information is changing the way we think about this fatal disorder. Specifically, we summarize current literature of the major genes underlying ALS, SOD1, TARDBP, FUS, OPTN, VCP, UBQLN2, C9ORF72 and PFN1, and evaluate the information being gleaned from genome-wide association studies. We also outline emerging themes in ALS research, such as next-generation sequencing approaches to identify de novo mutations, the genetic convergence of familial and sporadic ALS, the proposed oligogenic basis for the disease, and how each new genetic discovery is broadening the phenotype associated with the clinical entity we know as ALS.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long pre-mRNA depletion and RNA missplicing contribute to neuronal vulnerability from loss of TDP-43.",
+    "doi": "10.1038/nn.2779",
+    "pmid": "21358643",
+    "authors": [
+      "Polymenidou M, Lagier-Tourenne C, Hutt KR, Huelga SC, Moran J, Liang TY, Ling SC, Sun E, Wancewicz E, Mazur C, Kordasiewicz H, Sedaghat Y, Donohue JP, Shiue L, Bennett CF, Yeo GW, Cleveland DW."
+    ],
+    "year": "2011",
+    "publication_date": "2011-02-27",
+    "cited_by_count": 1163,
+    "journal": "",
+    "abstract": "We used cross-linking and immunoprecipitation coupled with high-throughput sequencing to identify binding sites in 6,304 genes as the brain RNA targets for TDP-43, an RNA binding protein that, when mutated, causes amyotrophic lateral sclerosis. Massively parallel sequencing and splicing-sensitive junction arrays revealed that levels of 601 mRNAs were changed (including Fus (Tls), progranulin and other transcripts encoding neurodegenerative disease-associated proteins) and 965 altered splicing events were detected (including in sortilin, the receptor for progranulin) following depletion of TDP-43 from mouse adult brain with antisense oligonucleotides. RNAs whose levels were most depleted by reduction in TDP-43 were derived from genes with very long introns and that encode proteins involved in synaptic activity. Lastly, we found that TDP-43 autoregulates its synthesis, in part by directly binding and enhancing splicing of an intron in the 3' untranslated region of its own transcript, thereby triggering nonsense-mediated RNA degradation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tau protein liquid-liquid phase separation can initiate tau aggregation.",
+    "doi": "10.15252/embj.201798049",
+    "pmid": "29472250",
+    "authors": [
+      "Wegmann S, Eftekharzadeh B, Tepper K, Zoltowska KM, Bennett RE, Dujardin S, Laskowski PR, MacKenzie D, Kamath T, Commins C, Vanderburg C, Roe AD, Fan Z, Molliex AM, Hernandez-Vega A, Muller D, Hyman AA, Mandelkow E, Taylor JP, Hyman BT."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-22",
+    "cited_by_count": 934,
+    "journal": "",
+    "abstract": "The transition between soluble intrinsically disordered tau protein and aggregated tau in neurofibrillary tangles in Alzheimer's disease is unknown. Here, we propose that soluble tau species can undergo liquid-liquid phase separation (LLPS) under cellular conditions and that phase-separated tau droplets can serve as an intermediate toward tau aggregate formation. We demonstrate that phosphorylated or mutant aggregation prone recombinant tau undergoes LLPS, as does high molecular weight soluble phospho-tau isolated from human Alzheimer brain. Droplet-like tau can also be observed in neurons and other cells. We found that tau droplets become gel-like in minutes, and over days start to spontaneously form thioflavin-S-positive tau aggregates that are competent of seeding cellular tau aggregation. Since analogous LLPS observations have been made for FUS, hnRNPA1, and TDP43, which aggregate in the context of amyotrophic lateral sclerosis, we suggest that LLPS represents a biophysical process with a role in multiple different neurodegenerative diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Residue-by-Residue View of In Vitro FUS Granules that Bind the C-Terminal Domain of RNA Polymerase II.",
+    "doi": "10.1016/j.molcel.2015.09.006",
+    "pmid": "26455390",
+    "authors": [
+      "Burke KA, Janke AM, Rhine CL, Fawzi NL."
+    ],
+    "year": "2015",
+    "publication_date": "2015-10-08",
+    "cited_by_count": 867,
+    "journal": "",
+    "abstract": "Phase-separated states of proteins underlie ribonucleoprotein (RNP) granules and nuclear RNA-binding protein assemblies that may nucleate protein inclusions associated with neurodegenerative diseases. We report that the N-terminal low-complexity domain of the RNA-binding protein Fused in Sarcoma (FUS LC) is structurally disordered and forms a liquid-like phase-separated state resembling RNP granules. This state directly binds the C-terminal domain of RNA polymerase II. Phase-separated FUS lacks static structures as probed by fluorescence microscopy, indicating they are distinct from both protein inclusions and hydrogels. We use solution nuclear magnetic resonance spectroscopy to directly probe the dynamic architecture within FUS liquid phase-separated assemblies. Importantly, we find that FUS LC retains disordered secondary structure even in the liquid phase-separated state. Therefore, we propose that disordered protein granules, even those made of aggregation-prone prion-like domains, are dynamic and disordered molecular assemblies with transiently formed protein-protein contacts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Spatiotemporal Control of Intracellular Phase Transitions Using Light-Activated optoDroplets.",
+    "doi": "10.1016/j.cell.2016.11.054",
+    "pmid": "28041848",
+    "authors": [
+      "Shin Y, Berry J, Pannucci N, Haataja MP, Toettcher JE, Brangwynne CP."
+    ],
+    "year": "2017",
+    "publication_date": "2016-12-29",
+    "cited_by_count": 862,
+    "journal": "",
+    "abstract": "Phase transitions driven by intrinsically disordered protein regions (IDRs) have emerged as a ubiquitous mechanism for assembling liquid-like RNA/protein (RNP) bodies and other membrane-less organelles. However, a lack of tools to control intracellular phase transitions limits our ability to understand their role in cell physiology and disease. Here, we introduce an optogenetic platform that uses light to activate IDR-mediated phase transitions in living cells. We use this \"optoDroplet\" system to study condensed phases driven by the IDRs of various RNP body proteins, including FUS, DDX4, and HNRNPA1. Above a concentration threshold, these constructs undergo light-activated phase separation, forming spatiotemporally definable liquid optoDroplets. FUS optoDroplet assembly is fully reversible even after multiple activation cycles. However, cells driven deep within the phase boundary form solid-like gels that undergo aging into irreversible aggregates. This system can thus elucidate not only physiological phase transitions but also their link to pathological aggregates.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TDP-43 and FUS/TLS: emerging roles in RNA processing and neurodegeneration.",
+    "doi": "10.1093/hmg/ddq137",
+    "pmid": "20400460",
+    "authors": [
+      "Lagier-Tourenne C, Polymenidou M, Cleveland DW."
+    ],
+    "year": "2010",
+    "publication_date": "2010-04-15",
+    "cited_by_count": 813,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) and frontotemporal lobar degeneration (FTLD) are neurodegenerative diseases with clinical and pathological overlap. Landmark discoveries of mutations in the transactive response DNA-binding protein (TDP-43) and fused in sarcoma/translocated in liposarcoma (FUS/TLS) as causative of ALS and FTLD, combined with the abnormal aggregation of these proteins, have initiated a shifting paradigm for the underlying pathogenesis of multiple neurodegenerative diseases. TDP-43 and FUS/TLS are both RNA/DNA-binding proteins with striking structural and functional similarities. Their association with ALS and other neurodegenerative diseases is redirecting research efforts toward understanding the role of RNA processing regulation in neurodegeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress granules as crucibles of ALS pathogenesis.",
+    "doi": "10.1083/jcb.201302044",
+    "pmid": "23629963",
+    "authors": [
+      "Li YR, King OD, Shorter J, Gitler AD."
+    ],
+    "year": "2013",
+    "publication_date": "2013-04-01",
+    "cited_by_count": 805,
+    "journal": "",
+    "abstract": "Amyotrophic lateral sclerosis (ALS) is a fatal human neurodegenerative disease affecting primarily motor neurons. Two RNA-binding proteins, TDP-43 and FUS, aggregate in the degenerating motor neurons of ALS patients, and mutations in the genes encoding these proteins cause some forms of ALS. TDP-43 and FUS and several related RNA-binding proteins harbor aggregation-promoting prion-like domains that allow them to rapidly self-associate. This property is critical for the formation and dynamics of cellular ribonucleoprotein granules, the crucibles of RNA metabolism and homeostasis. Recent work connecting TDP-43 and FUS to stress granules has suggested how this cellular pathway, which involves protein aggregation as part of its normal function, might be coopted during disease pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "FUS Phase Separation Is Modulated by a Molecular Chaperone and Methylation of Arginine Cation-π Interactions.",
+    "doi": "10.1016/j.cell.2018.03.056",
+    "pmid": "29677515",
+    "authors": [
+      "Qamar S, Wang G, Randle SJ, Ruggeri FS, Varela JA, Lin JQ, Phillips EC, Miyashita A, Williams D, Ströhl F, Meadows W, Ferry R, Dardov VJ, Tartaglia GG, Farrer LA, Kaminski Schierle GS, Kaminski CF, Kaminski CF, Holt CE, Fraser PE, Schmitt-Ulms G, Klenerman D, Knowles T, Vendruscolo M, St George-Hyslop P."
+    ],
+    "year": "2018",
+    "publication_date": "2018-04-01",
+    "cited_by_count": 795,
+    "journal": "",
+    "abstract": "Reversible phase separation underpins the role of FUS in ribonucleoprotein granules and other membrane-free organelles and is, in part, driven by the intrinsically disordered low-complexity (LC) domain of FUS. Here, we report that cooperative cation-π interactions between tyrosines in the LC domain and arginines in structured C-terminal domains also contribute to phase separation. These interactions are modulated by post-translational arginine methylation, wherein arginine hypomethylation strongly promotes phase separation and gelation. Indeed, significant hypomethylation, which occurs in FUS-associated frontotemporal lobar degeneration (FTLD), induces FUS condensation into stable intermolecular β-sheet-rich hydrogels that disrupt RNP granule function and impair new protein synthesis in neuron terminals. We show that transportin acts as a physiological molecular chaperone of FUS in neuron terminals, reducing phase separation and gelation of methylated and hypomethylated FUS and rescuing protein synthesis. These results demonstrate how FUS condensation is physiologically regulated and how perturbations in these mechanisms can lead to disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ALS/FTD Mutation-Induced Phase Transition of FUS Liquid Droplets and Reversible Hydrogels into Irreversible Hydrogels Impairs RNP Granule Function.",
+    "doi": "10.1016/j.neuron.2015.10.030",
+    "pmid": "26526393",
+    "authors": [
+      "Murakami T, Qamar S, Lin JQ, Schierle GS, Rees E, Miyashita A, Costa AR, Dodd RB, Chan FT, Michel CH, Kronenberg-Versteeg D, Li Y, Yang SP, Wakutani Y, Meadows W, Ferry RR, Dong L, Tartaglia GG, Favrin G, Lin WL, Dickson DW, Zhen M, Ron D, Schmitt-Ulms G, Fraser PE, Shneider NA, Holt C, Vendruscolo M, Kaminski CF, Kaminski CF, St George-Hyslop P."
+    ],
+    "year": "2015",
+    "publication_date": "2015-10-29",
+    "cited_by_count": 771,
+    "journal": "",
+    "abstract": "The mechanisms by which mutations in FUS and other RNA binding proteins cause ALS and FTD remain controversial. We propose a model in which low-complexity (LC) domains of FUS drive its physiologically reversible assembly into membrane-free, liquid droplet and hydrogel-like structures. ALS/FTD mutations in LC or non-LC domains induce further phase transition into poorly soluble fibrillar hydrogels distinct from conventional amyloids. These assemblies are necessary and sufficient for neurotoxicity in a C. elegans model of FUS-dependent neurodegeneration. They trap other ribonucleoprotein (RNP) granule components and disrupt RNP granule function. One consequence is impairment of new protein synthesis by cytoplasmic RNP granules in axon terminals, where RNP granules regulate local RNA metabolism and translation. Nuclear FUS granules may be similarly affected. Inhibiting formation of these fibrillar hydrogel assemblies mitigates neurotoxicity and suggests a potential therapeutic strategy that may also be applicable to ALS/FTD associated with mutations in other RNA binding proteins.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Functional and structural characterization of the mammalian TREX-2 complex that links transcription with nuclear messenger RNA export.",
+    "doi": "10.1093/nar/gks059",
+    "pmid": "22307388",
+    "authors": [
+      "Jani D, Lutz S, Hurt E, Laskey RA, Stewart M, Wickramasinghe VO."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-04",
+    "cited_by_count": 116,
+    "journal": "",
+    "abstract": "Export of messenger RNA (mRNA) from the nucleus to the cytoplasm is a critical step in the gene expression pathway of eukaryotic cells. Here, we report the functional and structural characterization of the mammalian TREX-2 complex and show how it links transcription/processing with nuclear mRNA export. Mammalian TREX-2 is based on a germinal-centre associated nuclear protein (GANP) scaffold to which ENY2, PCID2 and centrins bind and depletion of any of these components inhibits mRNA export. The crystal structure of the GANP:ENY2 complex shows that two ENY2 chains interact directly with GANP, but they have different orientations from those observed on yeast Sac3. GANP is required to recruit ENY2 to nuclear pore complexes (NPCs), but ENY2 is not necessary to recruit GANP, which requires both its CID and MCM3AP domains, together with nucleoporin Nup153. GANP and ENY2 associate with RNA polymerase II and inhibition of mRNA processing redistributes GANP from NPCs into nuclear foci indicating that mammalian TREX-2 is associated with transcription. Thus, we implicate TREX-2 as an integral component of the mammalian mRNA export machinery where it links transcription and nuclear export by facilitating the transfer of mature mRNPs from the nuclear interior to NPCs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MCM3AP, a novel acetyltransferase that acetylates replication protein MCM3.",
+    "doi": "10.1093/embo-reports/kve026",
+    "pmid": "11258703",
+    "authors": [
+      "Takei Y, Swietlik M, Tanoue A, Tsujimoto G, Kouzarides T, Laskey R."
+    ],
+    "year": "2001",
+    "publication_date": "2001-02-01",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "The MCM proteins are essential for the initiation of DNA replication. We have isolated an MCM3-associated protein (MCM3AP) in a two-hybrid screen using MCM3. Here we demonstrate that MCM3AP is an acetyltransferase which acetylates MCM3 and that chromatin-bound MCM3 is acetylated in vivo. The MCM3 acetylase, MCM3AP, is also chromatin-bound. This study also indicates that MCM3AP contains putative acetyl CoA binding motifs conserved within the GCN5-related N-acetyltransferase superfamily. Mutation of those motifs significantly inhibits the MCM3 acetylase activity. Over-expression of MCM3AP inhibits DNA replication, whereas mutation of the acetylase motifs abolishes this effect, suggesting that acetylation plays a role in DNA replication. Taken together, we suggest that MCM3 acetylation is a novel pathway which might regulate DNA replication.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of prognostic biomarkers in glioblastoma using a long non-coding RNA-mediated, competitive endogenous RNA network.",
+    "doi": "10.18632/oncotarget.9569",
+    "pmid": "27229531",
+    "authors": [
+      "Cao Y, Wang P, Ning S, Xiao W, Xiao B, Li X."
+    ],
+    "year": "2016",
+    "publication_date": "2016-07-01",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "Glioblastoma multiforme (GBM) is a highly malignant brain tumor associated with a poor prognosis. Cross-talk between competitive endogenous RNAs (ceRNAs) plays a critical role in tumor development and physiology. In this study, we present a multi-step computational approach to construct a functional GBM long non-coding RNA (lncRNA)-mediated ceRNA network (LMCN) by integrating genome-wide lncRNA and mRNA expression profiles, miRNA-target interactions, functional analyses, and clinical survival analyses. LncRNAs in the LMCN exhibited specific topological features consistent with a regulatory association with coding mRNAs across GBM pathology. We determined that the lncRNA MCM3AP-AS was involved in RNA processing and cell cycle-related functions, and was correlated with patient survival. MCM3AP-AS and MIR17HG acted synergistically to regulate mRNAs in a network module of the competitive LMCN. By integrating the expression profile of this module into a risk model, we stratified GBM patients in both the The Cancer Genome Atlas and an independent GBM dataset into distinct risk groups. Finally, survival analyses demonstrated that the lncRNAs and network module are potential prognostic biomarkers for GBM. Thus, ceRNAs could accelerate biomarker discovery and therapeutic development in GBM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long non-coding RNA MCM3AP-AS1 protects chondrocytes ATDC5 and CHON-001 from IL-1β-induced inflammation via regulating miR-138-5p/SIRT1.",
+    "doi": "10.1080/21655979.2021.1905247",
+    "pmid": "33942704",
+    "authors": [
+      "Shi J, Cao F, Chang Y, Xin C, Jiang X, Xu J, Lu S."
+    ],
+    "year": "2021",
+    "publication_date": "2021-12-01",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "Osteoarthritis (OA) is a chronic inflammatory joint disease. Increased apoptosis of chondrocytes contributes to cartilage degradation in OA pathogenesis. The function of lncRNA MCM3AP-AS1 in regulating the viability of chondrocytes still awaits further elaboration. In this work, MCM3AP-AS1, miR-138-5p and SIRT1 mRNA expression levels in OA and normal cartilage tissues were detected by qRT-PCR. Besides, chondrocyte cell lines, CHON-001 and ATDC5 induced by interleukin-1β (IL-1β) were used to initiate the inflammatory response environment of OA. CCK-8 assay was used to examine the cell multiplication; meanwhile, transwell assay was utilized to detect migration. Western blot was adopted to determine SIRT1 expression in chondrocyte. Enzyme-linked immunosorbent assay (ELISA) was performed to evaluate inflammatory factor levels. In addition, the binding sites between MCM3AP-AS1 and miR-138-5p, miR-138-5p and 3'UTR of SIRT1 were validated by dual-luciferase reporter assay, RIP assay or RNA pull-down assay. It was found that MCM3AP-AS1 was declined in OA cartilage tissues, positively interrelated with SIRT1 expression while negatively correlated with miR-138-5p. MCM3AP-AS1 up-regulation enhanced the viability and migration of CHON-001 and ATDC5 cells while restraining the apoptosis and inflammatory response. Additionally, miR-138-5p overexpression counteracted the effects on chondrocytes caused by MCM3AP-AS1 overexpression. MCM3AP-AS1 could adsorb miR-138-5p, and SIRT1 was verified as a target of miR-138-5p, and SIRT1 could be up-regulated by overexpression of MCM3AP-AS1 indirectly. In conclusion, MCM3AP-AS1 has the potential to be the 'ceRNA' to regulate miR-138-5p and SIRT1 in chondrocytes, and to participate in the pathogenesis of OA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Large-scale analyses identify a cluster of novel long noncoding RNAs as potential competitive endogenous RNAs in progression of hepatocellular carcinoma.",
+    "doi": "10.18632/aging.102468",
+    "pmid": "31761783",
+    "authors": [
+      "Song M, Zhong A, Yang J, He J, Cheng S, Zeng J, Huang Y, Pan Q, Zhao J, Zhou Z, Zhu Q, Tang Y, Chen H, Yang C, Liu Y, Mo X, Weng D, Xia JC."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-23",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "The abnormal expression of noncoding RNAs has attracted increasing interest in the field of hepatocellular carcinoma progression. However, the underlying molecular mechanisms mediated by noncoding RNAs in these processes are unclear. Here, we obtained the expression profiles of long noncoding RNAs, microRNAs, and mRNAs from the Gene Expression Omnibus database and identified hepatocarcinogenesis-specific differentially expressed transcripts. Next, we identified significant Gene Ontology and pathway terms that the differentially expressed transcripts involved in. Using functional analysis and target prediction, we constructed a hepatocellular carcinoma-associated deregulated competitive endogenous RNA network to reveal the potential mechanisms underlying tumor progression. By analyzing The Cancer Genome Atlas dataset, six key long noncoding RNAs showed significant association with overall survival as well as strong correlation with some microRNAs and mRNAs in the competitive endogenous RNA network. We further validated the above results and determined their diagnostic and prognostic value in clinical samples. Importantly, by large-scale analyses, we identified a cluster of long noncoding RNAs, <i>GBAP1</i>, <i>MCM3AP-AS1</i>, <i>SLC16A1-AS1</i>, <i>C3P1</i>, <i>DIO3OS</i>, and <i>HNF4A-AS1</i> as candidate biomarkers for the diagnosis and prognosis of hepatocellular carcinoma, which will improve our understanding of competitive endogenous RNA-mediated regulatory mechanisms underlying hepatocellular carcinoma development and will provide novel therapeutic targets in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cell array-based intracellular localization screening reveals novel functional features of human chromosome 21 proteins.",
+    "doi": "10.1186/1471-2164-7-155",
+    "pmid": "16780588",
+    "authors": [
+      "Hu YH, Warnatz HJ, Vanhecke D, Wagner F, Fiebitz A, Thamm S, Kahlem P, Lehrach H, Yaspo ML, Janitz M."
+    ],
+    "year": "2006",
+    "publication_date": "2006-06-16",
+    "cited_by_count": 28,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Trisomy of human chromosome 21 (Chr21) results in Down's syndrome, a complex developmental and neurodegenerative disease. Molecular analysis of Down's syndrome, however, poses a particular challenge, because the aneuploid region of Chr21 contains many genes of unknown function. Subcellular localization of human Chr21 proteins may contribute to further understanding of the functions and regulatory mechanisms of the genes that code for these proteins. Following this idea, we used a transfected-cell array technique to perform a rapid and cost-effective analysis of the intracellular distribution of Chr 21 proteins.<h4>Results</h4>We chose 89 genes that were distributed over the majority of 21q, ranging from RBM11 (14.5 Mb) to MCM3AP (46.6 Mb), with part of them expressed aberrantly in the Down's syndrome mouse model. Open reading frames of these genes were cloned into a mammalian expression vector with an amino-terminal His6 tag. All of the constructs were arrayed on glass slides and reverse transfected into HEK293T cells for protein expression. Co-localization detection using a set of organelle markers was carried out for each Chr21 protein. Here, we report the subcellular localization properties of 52 proteins. For 34 of these proteins, their localization is described for the first time. Furthermore, the alteration in cell morphology and growth as a result of protein over-expression for claudin-8 and claudin-14 genes has been characterized.<h4>Conclusion</h4>The cell array-based protein expression and detection approach is a cost-effective platform for large-scale functional analyses, including protein subcellular localization and cell phenotype screening. The results from this study reveal novel functional features of human Chr21 proteins, which should contribute to further understanding of the molecular pathology of Down's syndrome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of HCG18 and MCM3AP-AS1 That Associate With Bone Metastasis, Poor Prognosis and Increased Abundance of M2 Macrophage Infiltration in Prostate Cancer.",
+    "doi": "10.1177/1533033821990064",
+    "pmid": "33596783",
+    "authors": [
+      "Chen Y, Chen Z, Mo J, Pang M, Chen Z, Feng F, Xie P, Yang B."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-01",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Bone metastasis is a leading cause of the high mortality rate of prostate cancer (PCa), but curative strategies remain lacking. Recent studies suggest long non-coding RNAs (lncRNAs) may be potential targets to develop drugs. However, PCa bone metastasis-specifically-related lncRNAs were rarely reported. This study aimed to identify crucial lncRNAs and reveal their function mechanisms.<h4>Methods</h4>GSE32269 and GSE26964 microarray datasets, downloaded from the Gene Expression Omnibus database, were used to analyze differentially expressed genes (DEGs)/lncRNAs (DELs) and miRNAs (DEMs), respectively. Weighted gene co-expression network analysis was performed to screen PCa bone metastasis-associated modules. The co-expression and competing endogenous RNAs (ceRNAs) networks were constructed to identify hub lncRNAs. Univariate Cox regression analysis was conducted to determine their prognostic values. The correlation of lncRNAs with immune infiltrating cells was analyzed by using Tumor IMmune Estimation Resource. Therapeutic drugs were predicted by querying the Connectivity Map (CMap) and the Comparative Toxicogenomics Database (CTD).<h4>Results</h4>A total of 18 DELs, 2,614 DEGs and 86 DEMs were screened between bone metastatic and primary PCa samples. Four modules enriched by DEGs were shown to be bone metastasis-associated. LncRNA HCG18 and MCM3AP-AS1 were identified to be important because they existed in both of the co-expression and ceRNA networks (forming the relationship pairs: HCG18/MCM3AP-AS1-KNTC1, MCM3AP-AS1-hsa-miR-508-3p-DTL and HCG18/MCM3AP-AS1-hsa-miR-127-3p-CDKN3). All the genes in these interaction pairs were significantly associated with overall survival of PCa patients. Also, HCG18, MCM3AP-AS1 and their target mRNAs were positively correlated with various tumor-infiltrated immune cells, especially increased M2 macrophages. Valproic acid and trichostatin A may be effective to treat PCa bone metastasis by targeting HCG18 and MCM3AP-AS1.<h4>Conclusion</h4>HCG18 and MCM3AP-AS1 that regulate M2 macrophage infiltration may be important targets to treat PCa bone metastasis and improve prognosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Knockdown of lncRNA MCM3AP-AS1 Attenuates Chemoresistance of Burkitt Lymphoma to Doxorubicin Treatment via Targeting the miR-15a/EIF4E Axis.",
+    "doi": "10.2147/cmar.s248698",
+    "pmid": "32765087",
+    "authors": [
+      "Guo C, Gong M, Li Z."
+    ],
+    "year": "2020",
+    "publication_date": "2020-07-16",
+    "cited_by_count": 23,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>The long-noncoding RNA MCM3AP-AS1 has been shown to participate in the tumorigenesis and growth of several types of cancer, but little is known about the role of MCM3AP-AS1 in the chemoresistance of lymphoma.<h4>Methods</h4>A series of patients with Burkitt lymphoma were enrolled for clinical analysis. Daudi and Namalwa cells were used for further experiments. CCK-8 and apoptosis assays were used to assess the response to doxorubicin. Mitochondrial membrane potential assays and high-resolution respirometry were used to assess mitochondrial function. Western blotting was used to detect the expression of certain molecules. Luciferase assays and microRNA transfection were used to clarify the regulatory mechanisms of MCM3AP-AS1. An in vivo model using BALB/c nude mice was utilized to investigate the effects of MCM3AP-AS1 on cell proliferation and tumor growth.<h4>Results</h4>The expression level of MCM3AP-AS1 was increased in tumors compared with normal lymph nodes, which indicated poor prognosis in patients with Burkitt lymphoma. Moreover, compared with siNC transfection, MCM3AP-AS1 knockdown decreased cell viability and increased apoptosis rates upon doxorubicin treatment compared with siNC. Further studies indicated that upregulation of several antiapoptotic factors, downstream of EIF4E, was partially responsible for MCM3AP-AS1-induced chemoresistance. Moreover, miR-15a functioned as a link between MCM3AP-AS1 and EIF4E, and was sponged by MCM3AP-AS1. Finally, we showed that the MCM3AP-AS1/miR-15a/EIF4E axis regulated the chemoresistance of lymphoma cells in vitro and in vivo.<h4>Conclusion</h4>MCM3AP-AS1/miR-15a/EIF4E axis plays a role in the chemoresistance of Burkitt lymphoma, and it might become a promising target for lymphoma therapeutics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA MCM3AP-AS1 sponges miR-148a to enhance cell invasion and migration in small cell lung cancer.",
+    "doi": "10.1186/s12885-021-08365-8",
+    "pmid": "34271873",
+    "authors": [
+      "Luo H, Zhang Y, Qin G, Jiang B, Miao L."
+    ],
+    "year": "2021",
+    "publication_date": "2021-07-16",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "<h4>Background</h4>MCM3AP-AS1 is a recently characterized lncRNA playing an oncogenic role in several cancers. However, its role in lung cancer remains unknown. Here, we aimed to explore the functions of MCM3AP-AS1 in small cell lung cancer (SCLC) and the possible underlying mechanisms.<h4>Methods</h4>MCM3AP-AS1 and ROCK1 levels in SCLC patients were analyzed by qPCR. RNA pull-down and luciferase assays were performed to analyze the interaction between MCM3AP-AS1 and miR-148a. ROCK1 mRNA and protein levels were detected by qPCR and Western blot, respectively. Cell invasion and migration were analyzed by Transwell assays.<h4>Results</h4>MCM3AP-AS1 was upregulated in patients with SCLC, and a high MCM3AP-AS1 level was accompanied by a low survival rate. The binding of MCM3AP-AS1 to miR-148a predicted by bioinformatics analysis was verified by RNA pull-down and luciferase assays. However, MCM3AP-AS1 and miR-148a did not affect each other's expression. ROCK1 was upregulated in SCLC tissues and positively correlated with MCM3AP-AS1. In SCLC cells, MCM3AP-AS1 overexpression increased ROCK1 and promoted cancer cell invasion and migration, while miR-148a overexpression showed the opposite effects and attenuated the effects of MCM3AP-AS1 overexpression on ROCK1 expression and cell behaviors.<h4>Conclusions</h4>MCM3AP-AS1 sponges miR-148a, thereby increasing SCLC cell invasion and migration via upregulating ROCK1 expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel m7G-related lncRNA risk model for predicting prognosis and evaluating the tumor immune microenvironment in colon carcinoma.",
+    "doi": "10.3389/fonc.2022.934928",
+    "pmid": "35992788",
+    "authors": [
+      "Yang S, Zhou J, Chen Z, Sun Q, Zhang D, Feng Y, Wang X, Sun Y."
+    ],
+    "year": "2022",
+    "publication_date": "2022-08-04",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "N7-Methylguanosine (m7G) modifications are a common type of posttranscriptional RNA modifications. Its function in the tumor microenvironment (TME) has garnered widespread focus in the past few years. Long non-coding RNAs (lncRNAs) played an essential part in tumor development and are closely associated with the tumor immune microenvironment. In this study, we employed a comprehensive bioinformatics approach to develop an m7G-associated lncRNA prognostic model based on the colon adenocarcinoma (COAD) database from The Cancer Genome Atlas (TCGA) database. Pearson's correlation analysis was performed to identify m7G-related lncRNAs. Differential gene expression analysis was used to screen lncRNAs. Then, we gained 88 differentially expressed m7G-related lncRNAs. Univariate Cox analysis and Lasso regression analysis were performed to build an eight-m7G-related-lncRNA (ELFN1-AS1, GABPB1-AS1, SNHG7, GS1-124K5.4, ZEB1-AS1, PCAT6, C1RL-AS1, MCM3AP-AS1) risk model. Consensus clustering analysis was applied to identify the m7G-related lncRNA subtypes. We also verified the risk prediction effect of a gene signature in the GSE17536 test set (177 patients). A nomogram was constructed to predict overall survival rates. Furthermore, we analyzed differentially expressed genes (DEGs) between high-risk and low-risk groups. Gene Ontology (GO) analysis and Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway enrichment analysis were conducted with the analyzed DEGs. At last, single-sample gene set enrichment analysis (ssGSEA), CIBERSORT, MCP-COUNTER, and Estimation of STromal and Immune cells in MAlignant Tumor tissues using Expression data (ESTIMATE) algorithms were utilized to discover the relationship between the risk model and the TME. Consequently, the m7G-related lncRNA risk model for COAD patients could be a viable prognostic tool and treatment target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Prognostic implication and functional annotations of Rad50 expression in patients with prostate cancer.",
+    "doi": "10.1002/jcb.29580",
+    "pmid": "31886567",
+    "authors": [
+      "Xu WH, Wang J, Sheng HY, Qu YY, Wang HK, Zhu Y, Shi GH, Zhang HL, Ye DW."
+    ],
+    "year": "2020",
+    "publication_date": "2019-12-30",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "Increasing evidence has shown that Rad50, a protein involved in the DNA damage repair process, significantly correlated with tumor prognosis. This study focused on Rad50 expression in tumor samples and its prognostic value for patients with prostate cancer (PCa). In this study, significantly elevated Rad50 expression in PCa tissues compared to normal tissues (P < .01). Five independent Oncomine databases validated significant differential expression of Rad50 (P < .001). Hence, 80 patients with PCa from Fudan University Shanghai Cancer Center (FUSCC) and 351 patients with PCa with available protein expression data from The Cancer Genome Atlas (TCGA) were included to investigate the survival benefit. Univariate and multivariate Cox regression analyses were performed to investigate the significance of clinicopathological factors on disease-free survival (DFS) and overall survival (OS). Kaplan-Meier analysis indicated that elevated Rad50 protein expression levels significantly correlated with unfavorable DFS (P = .005) in the FUSCC cohort and poorer OS (P = .04) in TCGA cohort. Furthermore, coregulation analysis of proteins indicated that 76 coregulated proteins were associated with Rad50, while 11 most highly involved hub proteins, including Rad50, MRE11A, DUT, POLR3A, MCM3AP, RECQL, PNPT1, RANBP3, DDX1, SNRPB, and UGN, were significantly coregulated in the protein-protein interaction network. Functional enrichment analysis consecutively indicated significant functions and signaling pathways including DNA replication, spliceosome, DNA geometric change, homologous recombination, and G2M checkpoint. This study first reveals that elevated Rad50 expression is significantly associated with aggressive progression and poor survival for patients with PCa. Together, these data suggest that Rad50 may act as an oncoprotein, guide the molecular diagnosis, and may shed light on novel individual therapeutic strategies for progressive PCa patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A review on the role of MCM3AP-AS1 in the carcinogenesis and tumor progression.",
+    "doi": "10.1186/s12935-022-02644-5",
+    "pmid": "35790972",
+    "authors": [
+      "Ghafouri-Fard S, Khoshbakht T, Hussen BM, Taheri M, Samadian M."
+    ],
+    "year": "2022",
+    "publication_date": "2022-07-05",
+    "cited_by_count": 14,
+    "journal": "",
+    "abstract": "Minichromosome Maintenance Complex Component 3 Associated Protein Antisense 1 (MCM3AP-AS1) is an RNA gene located on 21q22.3. The sense transcript from this locus has dual roles in the pathogenesis of solid tumors and hematological malignancies. MCM3AP-AS1 has been shown to sequester miR-194-5p, miR-876-5p, miR-543-3p, miR-28-5p, miR-93, miR-545, miR-599, miR-193a-5p, miR-363-5p, miR-204-5p, miR-211-5p, miR-15a, miR-708-5p, miR-138, miR-138-5p, miR-34a, miR-211, miR-340-5p, miR-148a, miR-195-5p and miR-126. Some cancer-related signaling pathway, namely PTEN/AKT, PI3K/AKT and ERK1/2 are influenced by this lncRNA. Cell line studies, animal studies and clinical studies have consistently reported oncogenic role of MCM3AP-AS1 in different tissues except for cervical cancer in which this lncRNA has tumor suppressor role. In the current manuscript, we collected evidence from these three sources of evidence to review the impact of MCM3AP-AS1 in the carcinogenesis.",
+    "openalex_id": ""
+  }
+]

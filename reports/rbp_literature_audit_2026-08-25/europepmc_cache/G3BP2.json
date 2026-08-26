@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Research Progress on the Biological Function, Disease-Driving Mechanism and Clinical Targeting Strategies of G3BP2.",
+    "doi": "10.3390/molecules31040622",
+    "pmid": "41752399",
+    "authors": [
+      "Chen Y, Deng Q, Yang LL, Jiang AL, Zhang R, Yan QB, Wu YK."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "G3BP2 is an important RNA-binding protein that belongs to the mammalian Ras-GAP SH3 domain-binding protein (G3BP) family. Its structure enables it to bind to RNA or proteins, regulate nuclear-cytoplasmic shuttling, and participate in various functions, including cell growth, differentiation, migration, and RNA and protein metabolism. Studies have found that G3BP2 is involved in the occurrence and development of various human diseases, such as high expression across multiple tumor diseases, including gastric cancer, breast cancer, non-small-cell lung cancer, esophageal squamous cell carcinoma, colorectal cancer, and pancreatic ductal adenocarcinoma, driving the occurrence of human tumors, participating in tumor progression, and playing an essential role in promoting the proliferation, invasion, and migration of tumor cells. Additionally, G3BP2 is closely associated with various non-tumor diseases, including viral infections, as well as cardiovascular and cerebrovascular diseases. This review elucidates the role of G3BP2 in the development and progression of various diseases, identifying biomarkers and therapeutic targets for clinical diagnosis and treatment based on G3BP2.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long Non-Coding RNA Encoded by Infectious Bronchitis Virus Facilitates Viral Replication via Direct Interaction with G3BP2 and Expression Regulation of a Novel Host MicroRNA.",
+    "doi": "10.3390/vetsci13030215",
+    "pmid": "41893633",
+    "authors": [
+      "Zhang M, Cai Z, An H, He R, Zhang S, Fang S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Long non-coding RNAs (lncRNAs) encoded by viruses play crucial roles in viral infection, pathogenesis processes, the interaction between viruses and hosts, and immune escape. Herein, by employing RNA pull-down, mass spectrometry technology, and RNA immunoprecipitation, we identified a host protein (G3BP2) that specifically interacts with the lncRNA encoded by the infectious bronchitis virus (IBV). Additionally, we identified a novel host miRNA (novel-340) in IBV-infected H1299 cells and further verified that novel-340 can target the 3'-UTR (untranslated region) of G3BP2 and downregulate its expression in a dose-dependent manner. We discovered that IBV-lncRNA may facilitate IBV replication in H1299 cells through direct interaction with G3BP2 and/or the regulation of the IBV-lncRNA/novel-340/G3BP2 interactive regulatory network. This work deepens the understanding of the biological function of IBV-lncRNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Full-length direct RNA sequencing uncovers stress granule-dependent RNA decay upon cellular stress.",
+    "doi": "10.7554/elife.96284",
+    "pmid": "39699162",
+    "authors": [
+      "Dar SA, Malla S, Martinek V, Payea MJ, Lee CT, Martin J, Khandeshi AJ, Martindale JL, Belair C, Maragkakis M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-12-19",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Cells react to stress by triggering response pathways, leading to extensive alterations in the transcriptome to restore cellular homeostasis. The role of RNA metabolism in shaping the cellular response to stress is vital, yet the global changes in RNA stability under these conditions remain unclear. In this work, we employ direct RNA sequencing with nanopores, enhanced by 5' end adapter ligation, to comprehensively interrogate the human transcriptome at single-molecule and -nucleotide resolution. By developing a statistical framework to identify robust RNA length variations in nanopore data, we find that cellular stress induces prevalent 5' end RNA decay that is coupled to translation and ribosome occupancy. Unlike typical RNA decay models in normal conditions, we show that stress-induced RNA decay is dependent on XRN1 but does not depend on deadenylation or decapping. We observed that RNAs undergoing decay are predominantly enriched in the stress granule transcriptome while inhibition of stress granule formation via genetic ablation of G3BP1 and G3BP2 rescues RNA length. Our findings reveal RNA decay as a key component of RNA metabolism upon cellular stress that is dependent on stress granule formation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An Analysis of G3BP2 in Non-Small Cell Lung Cancer.",
+    "doi": "10.3390/cancers18060969",
+    "pmid": "41899571",
+    "authors": [
+      "Bandi LSS, Timon L, O'Toole E, O'Connor D, Andersen K, Mohamed BM, Nicholson S, Fitzmaurice GJ, Ryan R, Young V, Cuffe S, Finn SP, Gray SG."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background/objectives</h4>Cancer cells are subjected to various stress conditions and have stress adaptability strategies to survive. Various types of stresses lead to the aggregation of cytoplasmic RNA granules known as stress granules (SGs), seen in normal and tumor cells, and aid in cell survival by avoiding cell apoptosis. G3BP stress granule assembly factor 2 (G3BP2) encodes a multifunctional protein with known roles as a critical component of SGs and is also associated with chemoresistance in cancer, but its known roles in non-small cell cancer (NSCLC) are limited.<h4>Methods</h4>We evaluated the expression of G3BP2 via qPCR and immunohistochemistry on a retrospective cohort of NSCLC isolated at surgery in St James's Hospital, Dublin, Ireland. Expression levels were correlated with clinicopathological parameters. Survival analyses, including Kaplan-Meier analyses, were used to determine the prognostic value. Additional correlations with other available NSCLC datasets were explored.<h4>Results</h4>In contrast to other studies, we did not observe upregulated expression of G3BP2. Furthermore, Kaplan-Meier analyses did not identify any prognostic value associated with G3BP2 expression in patient tissues in contrast to other published data. Bioinformatic analyses on these other datasets found strong correlations between G3BP2 and core stress granule genes in NSCLC. Additional analyses also identified correlations between G3BP2 expression and immune cell infiltration, immune cell exhaustion, and DNA Damage Response pathways. An examination of the available datasets did not find any overall prognostic value for altered DNA methylation and survival. However, two individual CpG residues were identified for which higher methylation was associated with worse overall survival. Finally, the effects of a G3BP2 inhibitor on cellular proliferation were assessed.<h4>Conclusions</h4>In our analysis, G3BP2 was not associated with survival benefit. However, clear associations were observed between altered expression of this gene and a number of important pathways linked to cancer pathogenesis, and further studies are warranted to assess this gene (and/or) stress granules in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cooperative nuclear action of RNA-binding proteins PSF and G3BP2 to sustain neuronal cell viability is decreased in aging and dementia.",
+    "doi": "10.1111/acel.14316",
+    "pmid": "39155453",
+    "authors": [
+      "Takayama KI, Suzuki T, Sato K, Saito Y, Inoue S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-08-18",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Dysfunctional RNA-binding proteins (RBPs) have been implicated in several geriatric diseases, including Alzheimer's disease (AD). However, little is known about the nuclear molecular actions and cooperative functions mediated by RBPs that affect gene regulation in sporadic AD or aging. In the present study, we investigated aging- and AD-associated changes in the expression of PSF and G3BP2, which are representative RBPs associated with sex hormone activity. We determined that both PSF and G3BP2 levels were decreased in aged brains compared to young brains of mice. RNA sequencing (RNA-seq) analysis of human neuronal cells has shown that PSF is responsible for neuron-specific functions and sustains cell viability. In addition, we showed that PSF interacted with G3BP2 in the nucleus and stress granules (SGs) at the protein level. Moreover, PSF-mediated gene regulation at the RNA level correlated with G3BP2. Interestingly, PSF and G3BP2 target genes are associated with AD development. Mechanistically, quantitative reverse transcription-polymerase chain reaction (qRT-PCR) analysis demonstrated that the interaction of RBPs with the pre-mRNA of target genes enhanced post-transcriptional mRNA stability, suggesting a possible role for these RBPs in preserving neuronal cell viability. Notably, in the brains of patients with sporadic AD, decreased expression of PSF and G3BP2 in neurons was observed compared to non-AD patients. Overall, our findings suggest that the cooperative action of PSF and G3BP2 in the nucleus is important for preventing aging and AD development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The G3BP stress-granule proteins reinforce the integrated stress response translation programme.",
+    "doi": "10.1038/s41556-025-01834-3",
+    "pmid": "41419572",
+    "authors": [
+      "Smith J, Bartel DP."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-19",
+    "cited_by_count": 12,
+    "journal": "",
+    "abstract": "When mammalian cells are exposed to stress, they co-ordinate the condensation of stress granules (SGs) through the action of proteins G3BP1 and G3BP2 (G3BPs) and, simultaneously, undergo a massive reduction in translation. Although SGs and G3BPs have been linked to this translation response, their overall impact has been unclear. Here we investigate the question of how, and indeed whether, G3BPs and SGs shape the stress translation response. We find that SGs are enriched for mRNAs that are resistant to the stress-induced translation shutdown. Although the accurate recruitment of these stress-resistant mRNAs does require the context of stress, a combination of optogenetic tools and spike-normalized ribosome profiling demonstrates that G3BPs and SGs are necessary and sufficient to both help prioritize the translation of their enriched mRNAs and help suppress cytosolic translation. Together, these results support a model in which G3BPs and SGs reinforce the stress translation programme by prioritizing the translation of their resident mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP2-K76 acetylation promotes tumor immunoescape by stabilizing PD-L1 expression in colorectal cancer.",
+    "doi": "10.1186/s12964-026-02804-4",
+    "pmid": "41906099",
+    "authors": [
+      "Jie H, Yang X, Hou Y, Liang W, Li W, Li Z, Lei D, Xie H, Cai T, Chen Z, Li Y, Liu H, Kang L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-30",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Colorectal cancer (CRC) often evades immune surveillance, leading to poor responses to PD-1/PD-L1 blockade immunotherapy. The underlying mechanisms regulating PD-L1 expression remain incompletely understood. METHODS: We utilized co-immunoprecipitation (Co-IP) and RNA immunoprecipitation (RIP) to investigate protein-protein and protein–RNA interactions. Western blot (WB) and quantitative PCR (qPCR) were applied to assess protein and mRNA expression levels, respectively. Immunocompetent mouse models and patient-derived CRC samples were used to evaluate clinical relevance and therapeutic targeting. RESULTS: We identified acetylation of G3BP2 at lysine 76 (K76) as a key regulator of PD-L1-mediated immune evasion. This modification is catalyzed by p300 and reversed by HDAC6. Acetylated G3BP2 enhances binding to PABPC1 and PD-L1 mRNA, increasing its stability and upregulating PD-L1 expression. Consequently, tumors exhibit reduced cytotoxic T lymphocyte infiltration and acquire resistance to anti-PD-L1 therapy. Elevated G3BP2-K76 acetylation was observed in immunotherapy-resistant CRC tissues and promoted tumor growth in mice. A peptide inhibitor targeting K76 acetylation (K76-pe) effectively suppressed PD-L1 expression and synergized with anti-PD-L1 treatment in vivo. CONCLUSION: G3BP2-K76 acetylation represents a critical post-translational mechanism driving immune evasion in CRC. Targeting this pathway may provide a promising strategy to overcome resistance to immunotherapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PARP1 hyperactivity stalls translation and triggers stress granule formation following DNA damage.",
+    "doi": "10.1083/jcb.202409149",
+    "pmid": "42524886",
+    "authors": [
+      "Tereshchenko M, Earnshaw R, Chin Sang C, Won M, Van Nostrand JL, Russell RC, Lee HO."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Cells respond to various stressors by inhibiting global translation and forming stress granules (SGs), cytoplasmic organelles enriched in certain RNA-binding proteins, and RNA. Genotoxic stress also induces SG assembly, but it is unclear how nuclear stress signals are transmitted to trigger cytoplasmic responses. We show that DNA-damaging agents that activate a nuclear poly(ADP-ribose) polymerase (PARP), PARP1, stall translation and induce SGs. We find that PARP1 activation depletes NAD+, which depletes cellular ATP, activating ATP-sensor AMPK and inhibiting mTORC1 via Raptor phosphorylation. Subsequent hypophosphorylation of 4EBP1 inhibits translation. These effects are suppressed by PAR-metabolism regulators, XRCC1, PARG, and Nudix5, and reversed by NAD+ precursor supplementation. Cells lacking SG scaffolds, G3BP1 and G3BP2, show reduced viability after genotoxic stress, which is rescued by G3BP1 overexpression. These findings link PARP1 activity to translational control and SG formation, which may protect against cell death following DNA damage. These mechanisms provide insight into PARP1- and stress granule-associated diseases, including cancer and neurodegeneration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNA circMagi1 regulates the host immune response in respiratory &lt;i&gt;Pseudomonas aeruginosa&lt;/i&gt; infection through G3BP2.",
+    "doi": "10.1128/mbio.03617-25",
+    "pmid": "41870066",
+    "authors": [
+      "Tang M, Zhang Y, Xie R, Wu T, Sun P, Luo Y, Wang R, Ma T, Yang YY, Zhang Y, Zou C, Hu X, Li JS, Liu H, Liu Z, Zhang Q, Tang Y, Li H, Liu Y, Yang Y, Li J, Bian C, Tang Y, Zhou X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-23",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<i>Pseudomonas aeruginosa</i> is a major pathogen responsible for hospital-acquired infections, and it is characterized by possessing easy colonization ability, being difficult to clear, and exhibiting pandrug resistance. After a host is infected with pathogenic bacteria, multiple molecules regulate immune defense mechanisms through synergistic or antagonistic effects. Circular RNAs (circRNAs), characterized by their closed loop structure, are noncoding RNAs that are extensively expressed in various tissues. They have been reported to play a role in a range of physiological and pathological processes within the host. However, their involvement in regulating the immune activation mechanism against bacterial infection remains uncertain. In this study, we identified circMagi1, a circRNA that is significantly downregulated after infection in both a mouse model of lung infection and patients with lung infections. circMagi1 functions mainly as a negative regulator of immune activation for immune homeostasis. Further research has shown that it affects the cytokine signaling axis in macrophages by regulating the G3BP2 protein. Therefore, circMagi1 may function as a promising diagnostic biomarker for bacterial pathogen infections.IMPORTANCECircular RNAs (circRNAs) have been reported to be widely involved in the occurrence and development of various diseases, including cancer and neurodegenerative diseases, but there are few reports on circRNAs regulating host immune activation in bacterial infection. On the other hand, in contrast to the well-characterized progress and treatment of the disease and the prevalence of bacterial resistance in <i>Pseudomonas aeruginosa</i> pulmonary infection in recent decades, research on the mechanism of host-pathogen interactions and the regulatory mechanism of the host immune microenvironment has gained less attention. In this study, we constructed a mouse model of <i>P. aeruginosa</i> lung infection and analyzed patient alveolar lavage fluid samples, identifying a circRNA that is significantly downregulated postinfection. Our further investigation revealed that circMagi1 interacts with the G3BP2 protein, increasing its stability by inhibiting its ubiquitination. This newly discovered mechanism helps us understand how the host prevents excessive immune activation during bacterial infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Uridine analogs prevent stress granule formation, not by blocking PKR recognition, but by inhibiting the synthesis of T7 RNA polymerase byproducts.",
+    "doi": "10.1261/rna.080481.125",
+    "pmid": "41571440",
+    "authors": [
+      "Ihn SJ, Jiang E, Kejiou NS, Wang YE, Farlam-Williams L, Palazzo AF, Lee HO."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-16",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "mRNA-based therapeutics are commonly produced through T7 RNA polymerase-mediated in vitro transcription. Introducing these exogenous RNAs into human cells activates an RNA sensor protein kinase R (PKR), which suppresses translation initiation and reduces their therapeutic effectiveness. Incorporating uridine analogs into these transcripts prevents PKR activation and translation shutdown, but the underlying mechanism remains unclear. Here, we demonstrate that treating T7 RNA polymerase-produced transcripts with RNase III, which selectively degrades double-stranded RNA (dsRNA), blocks PKR activation and downstream translation-inhibition events, including eIF2α phosphorylation and stress granule formation in human cells. Interestingly, dsRNAs generated with uridine analogs robustly induce eIF2α phosphorylation and stress granules to the same extent as dsRNA containing uridine. These findings indicate that uridine analogs do not prevent PKR from detecting dsRNA. Instead, we show that uridine analogs decrease the production of T7 RNA polymerase byproducts, including antisense RNA and dsRNA, which activate PKR and downstream stress responses. Finally, we demonstrate that higher amounts of exogenous RNA, lacking T7 RNA polymerase byproducts, can induce stress granules independently of PKR and phospho-eIF2α, but dependent on stress granule scaffold proteins G3BP1 and G3BP2. Together, our findings show that uridine analogs mitigate PKR signaling not by blocking mRNA-PKR interactions but by minimizing dsRNA byproducts from T7 polymerase transcription. Furthermore, stress granule formation in response to high levels of exogenous RNA can occur through a mechanism that does not depend on PKR but relies on G3BP1 and G3BP2. These insights clarify the role of uridine analogs in PKR activation and may inform future therapeutic RNA design.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RanBP2-dependent SUMOylation of G3BP2 inhibits formation, and promotes disassembly, of stress granules.",
+    "doi": "10.1091/mbc.e25-03-0135",
+    "pmid": "42160509",
+    "authors": [
+      "Wang YE, Guliyev J, Ihn SSJ, Moore G, Saleh F, Lee HO, Palazzo AF."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Stress granules and processing bodies (P-bodies) are dynamic cytoplasmic ribonucleoprotein (RNP) condensates that coordinate translation inhibition, mRNA storage, and decay during cellular stress. Emerging evidence suggests that SUMOylation contributes to the regulation of these RNP granules in human cells, though the underlying mechanisms remain largely unexplored. Here, we identify RanBP2-dependent SUMOylation as a key regulator of stress granule and P-body dynamics. Cells that lack RanBP2-mediated SUMOylation show enhanced stress granule assembly and delayed disassembly in response to oxidative stress. We further demonstrate that G3BP2, a core component of stress granules, is SUMOylated in a RanBP2-dependent manner at lysine 281, and that this modification limits spontaneous stress granule formation and promotes efficient disassembly. In addition, the loss of RanBP2-mediated SUMOylation reduces P-body abundance and promotes the merging of a subset of P-bodies with stress granules during stress. Together, our findings suggest that SUMOylation may regulate RNP granules by increasing G3BP solubility, thereby limiting stress granule formation, and by maintaining the balance and segregation of stress granules and P-bodies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP2 promotes tumor progression and gemcitabine resistance in PDAC via regulating PDIA3-DKC1-hENT in a stress granules-dependent manner.",
+    "doi": "10.1038/s41401-024-01387-5",
+    "pmid": "39289547",
+    "authors": [
+      "Xing FL, Li BR, Fang YJ, Liang C, Liu J, Wang W, Xu J, Yu XJ, Qin Y, Zhang B."
+    ],
+    "year": "2025",
+    "publication_date": "2024-09-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Pancreatic ductal adenocarcinoma (PDAC) is distinguished by its aggressive malignancy, limited treatment avenues and a tendency towards chemotherapy resistance, underscoring the critical need for advanced research to uncover new therapeutic approaches. Stress granules (SGs) that is implicated in cellular self-protection mechanism, along with its associated family molecules have shown pro-cancer effects and are closely related to tumor chemotherapy resistance. In this study we investigated the relationship between Ras GTPase-activating protein-binding proteins 2 (G3BP2), a core component of SGs, and the malignancy of PDAC as well as its resistance to the chemotherapy drug gemcitabine. Analyzing TCGA dataset revealed that the expression of G3BP1 and G3BP2 was significantly upregulated in PDAC compared with adjacent normal pancreatic tissues, and the high expression of G3BP2 rather than G3BP1 was significantly associated with poorer overall survival (OS) in PDAC patients. We demonstrated that knockdown of G3BP2 inhibited the proliferation and invasion of PANC-1 and CFPAC-1 cells in vitro and in vivo. By analyzing the differentially expressed genes in G3BP2 knockdown and overexpressed PANC-1 cells, we identified DKC1 that was associated with RNA stability and regulation as the target of G3BP2. We demonstrated that G3BP2 bound to PDIA3 mRNA and recruited them into SGs, increasing the stability of PDIA3 mRNA and attenuating its translation efficiency, thereby promoting DKC1 expression. Furthermore, DKC1 could bind to hENT mRNA and inhibited its expression, which enhanced gemcitabine resistance of PDAC. Therefore, we propose a novel mechanism wherein G3BP2 facilitates PDAC's resistance to chemotherapy by modulating PDIA3-DKC1-hENT in a SGs-dependent way, suggesting G3BP2 SGs a protentional therapeutic target for the treatment in PDAC.",
+    "openalex_id": ""
+  }
+]

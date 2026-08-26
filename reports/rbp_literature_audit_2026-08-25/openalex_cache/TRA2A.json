@@ -1,0 +1,114 @@
+[
+  {
+    "title": "Roles of METTL3 in cancer: mechanisms and therapeutic targeting",
+    "doi": "10.1186/s13045-020-00951-w",
+    "authors": [
+      "Chengwu Zeng",
+      "Wanxu Huang",
+      "Yangqiu Li",
+      "Hengyou Weng"
+    ],
+    "year": 2020,
+    "publication_date": "2020-08-27",
+    "cited_by_count": 668,
+    "journal": "Journal of Hematology & Oncology",
+    "abstract": "Abstract N6-methyladenosine (m6A) is the most abundant mRNA modification and is catalyzed by the methyltransferase complex, in which methyltransferase-like 3 (METTL3) is the sole catalytic subunit. Accumulating evidence in recent years reveals that METTL3 plays key roles in a variety of cancer types, either dependent or independent on its m6A RNA methyltransferase activity. While the roles of m6A modifications in cancer have been extensively reviewed elsewhere, the critical functions of METTL3 i",
+    "openalex_id": "https://openalex.org/W3081921226",
+    "relevance_score": 132.75798
+  },
+  {
+    "title": "Deregulation of splicing factors and breast cancer development",
+    "doi": "10.1093/jmcb/mjv027",
+    "authors": [
+      "Marco Silipo",
+      "Hannah Gautrey",
+      "Alison Tyson-Capper"
+    ],
+    "year": 2015,
+    "publication_date": "2015-05-05",
+    "cited_by_count": 54,
+    "journal": "Journal of Molecular Cell Biology",
+    "abstract": "It is well known that many genes implicated in the development and progression of breast cancer undergo aberrant alternative splicing events to produce proteins with pro-cancer properties. These changes in alternative splicing can arise from mutations or single-nucleotide polymorphisms (SNPs) within the DNA sequences of cancer-related genes, which can strongly affect the activity of splicing factors and influence the splice site choice. However, it is important to note that absence of mutations ",
+    "openalex_id": "https://openalex.org/W1938491657",
+    "relevance_score": 44.879276
+  },
+  {
+    "title": "SR proteins in cancer: function, regulation, and small inhibitor",
+    "doi": "10.1186/s11658-024-00594-6",
+    "authors": [
+      "Mingrong Bei",
+      "Jianzhen Xu"
+    ],
+    "year": 2024,
+    "publication_date": "2024-05-22",
+    "cited_by_count": 23,
+    "journal": "Cellular & Molecular Biology Letters",
+    "abstract": "Abstract Alternative splicing of pre-mRNAs is a fundamental step in RNA processing required for gene expression in most metazoans. Serine and arginine-rich proteins (SR proteins) comprise a family of multifunctional proteins that contain an RNA recognition motif (RRM) and the ultra-conserved arginine/serine-rich (RS) domain, and play an important role in precise alternative splicing. Increasing research supports SR proteins as also functioning in other RNA-processing-related mechanisms, such as ",
+    "openalex_id": "https://openalex.org/W4398222500",
+    "relevance_score": 36.866283
+  },
+  {
+    "title": "Alternative Splicing, RNA Editing, and the Current Limits of Next Generation Sequencing",
+    "doi": "10.3390/genes14071386",
+    "authors": [
+      "Manuela Piazzi",
+      "Alberto Bavelloni",
+      "Sara Salucci",
+      "Irene Faenza",
+      "William L. Blalock"
+    ],
+    "year": 2023,
+    "publication_date": "2023-06-30",
+    "cited_by_count": 26,
+    "journal": "Genes",
+    "abstract": "The advent of next generation sequencing (NGS) has fostered a shift in basic analytic strategies of a gene expression analysis in diverse pathologies for the purposes of research, pharmacology, and personalized medicine. What was once highly focused research on individual signaling pathways or pathway members has, from the time of gene expression arrays, become a global analysis of gene expression that has aided in identifying novel pathway interactions, the discovery of new therapeutic targets,",
+    "openalex_id": "https://openalex.org/W4382752293",
+    "relevance_score": 32.471024
+  },
+  {
+    "title": "The Activation-Induced Assembly of an RNA/Protein Interactome Centered on the Splicing Factor U2AF2 Regulates Gene Expression in Human CD4 T Cells",
+    "doi": "10.1371/journal.pone.0144409",
+    "authors": [
+      "Thomas Whisenant",
+      "Eigen Peralta",
+      "Lauren D. Aarreberg",
+      "Nina J. Gao",
+      "Steven R. Head"
+    ],
+    "year": 2015,
+    "publication_date": "2015-12-07",
+    "cited_by_count": 20,
+    "journal": "PLoS ONE",
+    "abstract": "Activation of CD4 T cells is a reaction to challenges such as microbial pathogens, cancer and toxins that defines adaptive immune responses. The roles of T cell receptor crosslinking, intracellular signaling, and transcription factor activation are well described, but the importance of post-transcriptional regulation by RNA-binding proteins (RBPs) has not been considered in depth. We describe a new model expanding and activating primary human CD4 T cells and applied this to characterizing activa",
+    "openalex_id": "https://openalex.org/W2189773839",
+    "relevance_score": 26.12808
+  },
+  {
+    "title": "Régulation de l'épissage et de la polyadénylation alternatifs par les agents anti-cancéreux génotoxiques",
+    "doi": null,
+    "authors": [
+      "Iris Tanaka"
+    ],
+    "year": 2019,
+    "publication_date": "2019-02-01",
+    "cited_by_count": 0,
+    "journal": "HAL (Le Centre pour la Communication Scientifique Directe)",
+    "abstract": "Most human coding genes generate alternative transcripts (isoforms) through alternative splicing (AS) and alternative polyadenylation (APA), most often within the coding region and the 3’ untranslated region (3’UTR), respectively. Both AS and 3’UTR-APA regulations have been increasingly involved in oncogenesis. In particular, AS networks connecting oncogenic splicing factors and oncogenic splicing variants have been recently identified. AS is also widely regulated by genotoxic anticancer drugs, ",
+    "openalex_id": "https://openalex.org/W2956620356",
+    "relevance_score": 2.584604
+  },
+  {
+    "title": "Twist of messenger Fate: novel mechanisms for TDP43 in modulating mRNA decay and alternative polyadenylation",
+    "doi": "10.15168/11572_369301",
+    "authors": [
+      "Valentina Potrich"
+    ],
+    "year": 2017,
+    "publication_date": "2017-01-01",
+    "cited_by_count": 0,
+    "journal": "Unitn-eprints PhD (University of Trento)",
+    "abstract": "TDP43 is an ubiquitously expressed RNA-binding protein implicated in several aspects of RNA metabolism. It can shuttle between the nucleus and the cytoplasm; however, when it is mutated in some familial Amyotrophic Lateral Sclerosis (ALS) cases, it undergoes nuclear clearance and cytoplasmic accumulation, driving neuronal degeneration. The same phenotype is present in patients bearing ALS-inducing mutations in other genes and ALS sporadic patients, defining TDP43 proteinopathy as a common featur",
+    "openalex_id": "https://openalex.org/W2779698398",
+    "relevance_score": 2.4189515
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Thirty new loci for age at menarche identified by a meta-analysis of genome-wide association studies.",
+    "doi": "10.1038/ng.714",
+    "pmid": "21102462",
+    "authors": [
+      "Elks CE, Perry JR, Sulem P, Chasman DI, Franceschini N, He C, Lunetta KL, Visser JA, Byrne EM, Cousminer DL, Gudbjartsson DF, Esko T, Feenstra B, Hottenga JJ, Koller DL, Kutalik Z, Lin P, Mangino M, Marongiu M, McArdle PF, Smith AV, Stolk L, van Wingerden SH, Zhao JH, Albrecht E, Corre T, Ingelsson E, Hayward C, Magnusson PK, Smith EN, Ulivi S, Warrington NM, Zgaga L, Alavere H, Amin N, Aspelund T, Bandinelli S, Barroso I, Berenson GS, Bergmann S, Blackburn H, Boerwinkle E, Buring JE, Busonero F, Campbell H, Chanock SJ, Chen W, Cornelis MC, Couper D, Coviello AD, d'Adamo P, de Faire U, de Geus EJ, Deloukas P, Döring A, Smith GD, Easton DF, Eiriksdottir G, Emilsson V, Eriksson J, Ferrucci L, Folsom AR, Foroud T, Garcia M, Gasparini P, Geller F, Gieger C, GIANT Consortium, Gudnason V, Hall P, Hankinson SE, Ferreli L, Heath AC, Hernandez DG, Hofman A, Hu FB, Illig T, Järvelin MR, Johnson AD, Karasik D, Khaw KT, Kiel DP, Kilpeläinen TO, Kolcic I, Kraft P, Launer LJ, Laven JS, Li S, Liu J, Levy D, Martin NG, McArdle WL, Melbye M, Mooser V, Murray JC, Murray SS, Nalls MA, Navarro P, Nelis M, Ness AR, Northstone K, Oostra BA, Peacock M, Palmer LJ, Palotie A, Paré G, Parker AN, Pedersen NL, Peltonen L, Pennell CE, Pharoah P, Polasek O, Plump AS, Pouta A, Porcu E, Rafnar T, Rice JP, Ring SM, Rivadeneira F, Rudan I, Sala C, Salomaa V, Sanna S, Schlessinger D, Schork NJ, Scuteri A, Segrè AV, Shuldiner AR, Soranzo N, Sovio U, Srinivasan SR, Strachan DP, Tammesoo ML, Tikkanen E, Toniolo D, Tsui K, Tryggvadottir L, Tyrer J, Uda M, van Dam RM, van Meurs JB, Vollenweider P, Waeber G, Wareham NJ, Waterworth DM, Weedon MN, Wichmann HE, Willemsen G, Wilson JF, Wright AF, Young L, Zhai G, Zhuang WV, Bierut LJ, Boomsma DI, Boyd HA, Crisponi L, Demerath EW, van Duijn CM, Econs MJ, Harris TB, Hunter DJ, Loos RJ, Metspalu A, Montgomery GW, Ridker PM, Spector TD, Streeten EA, Stefansson K, Thorsteinsdottir U, Uitterlinden AG, Widen E, Murabito JM, Ong KK, Murray A."
+    ],
+    "year": "2010",
+    "publication_date": "2010-12-01",
+    "cited_by_count": 379,
+    "journal": "",
+    "abstract": "To identify loci for age at menarche, we performed a meta-analysis of 32 genome-wide association studies in 87,802 women of European descent, with replication in up to 14,731 women. In addition to the known loci at LIN28B (P = 5.4 × 10⁻⁶⁰) and 9q31.2 (P = 2.2 × 10⁻³³), we identified 30 new menarche loci (all P < 5 × 10⁻⁸) and found suggestive evidence for a further 10 loci (P < 1.9 × 10⁻⁶). The new loci included four previously associated with body mass index (in or near FTO, SEC16B, TRA2B and TMEM18), three in or near other genes implicated in energy homeostasis (BSX, CRTC1 and MCHR2) and three in or near genes implicated in hormonal regulation (INHBA, PCSK2 and RXRG). Ingenuity and gene-set enrichment pathway analyses identified coenzyme A and fatty acid biosynthesis as biological processes related to menarche timing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bone marrow mesenchymal stem cell-derived exosomal miR-206 inhibits osteosarcoma progression by targeting TRA2B.",
+    "doi": "10.1016/j.canlet.2020.07.008",
+    "pmid": "32682951",
+    "authors": [
+      "Zhang H, Wang J, Ren T, Huang Y, Liang X, Yu Y, Wang W, Niu J, Guo W."
+    ],
+    "year": "2020",
+    "publication_date": "2020-07-16",
+    "cited_by_count": 106,
+    "journal": "",
+    "abstract": "Osteosarcoma is the most common primary malignant bone tumor in young people. Recently, extracellular vesicles, especially exosomes, have been reported to play an increasingly important role in the development of many types of tumors. In this research, we found that overexpression of transformer 2β (TRA2B) was associated with tumor progression in osteosarcoma, and TRA2B was the target gene of miR-206, which was downregulated in osteosarcoma tissues. Furthermore, we observed that bone marrow mesenchymal stem cell (BMSC)-derived exosomes could carry and transport miR-206 to osteosarcoma cells. Both in vitro and in vivo results showed that BMSC-derived exosomal miR-206 could inhibit the proliferation, migration and invasion of osteosarcoma cells and induce their apoptosis. Taken together, our study demonstrates that BMSC-derived exosomal miR-206 can be transferred into osteosarcoma cells and inhibit tumor progression by targeting TRA2B, which provides new insight into the molecular mechanism of osteosarcoma and highlights the potential of miR-206 and TRA2B as new therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "3' UTR lengthening as a novel mechanism in regulating cellular senescence.",
+    "doi": "10.1101/gr.224451.117",
+    "pmid": "29440281",
+    "authors": [
+      "Chen M, Lyu G, Han M, Nie H, Shen T, Chen W, Niu Y, Song Y, Li X, Li H, Chen X, Wang Z, Xia Z, Li W, Tian XL, Ding C, Gu J, Zheng Y, Liu X, Hu J, Wei G, Tao W, Ni T."
+    ],
+    "year": "2018",
+    "publication_date": "2018-03-01",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "Cellular senescence has been viewed as a tumor suppression mechanism and also as a contributor to individual aging. Widespread shortening of 3' untranslated regions (3' UTRs) in messenger RNAs (mRNAs) by alternative polyadenylation (APA) has recently been discovered in cancer cells. However, the role of APA in the process of cellular senescence remains elusive. Here, we found that hundreds of genes in senescent cells tended to use distal poly(A) (pA) sites, leading to a global lengthening of 3' UTRs and reduced gene expression. Genes that harbor longer 3' UTRs in senescent cells were enriched in senescence-related pathways. <i>Rras2</i>, a member of the Ras superfamily that participates in multiple signal transduction pathways, preferred longer 3' UTR usage and exhibited decreased expression in senescent cells. Depletion of <i>Rras2</i> promoted senescence, while rescue of <i>Rras2</i> reversed senescence-associated phenotypes. Mechanistically, splicing factor TRA2B bound to a core \"AGAA\" motif located in the alternative 3' UTR of <i>Rras2</i>, thereby reducing the RRAS2 protein level and causing senescence. Both proximal and distal poly(A) signals showed strong sequence conservation, highlighting the vital role of APA regulation during evolution. Our results revealed APA as a novel mechanism in regulating cellular senescence.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Intron retention is regulated by altered MeCP2-mediated splicing factor recruitment.",
+    "doi": "10.1038/ncomms15134",
+    "pmid": "28480880",
+    "authors": [
+      "Wong JJ, Gao D, Nguyen TV, Kwok CT, van Geldermalsen M, Middleton R, Pinello N, Thoeng A, Nagarajah R, Holst J, Ritchie W, Rasko JEJ."
+    ],
+    "year": "2017",
+    "publication_date": "2017-05-08",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "While intron retention (IR) is considered a widely conserved and distinct mechanism of gene expression control, its regulation is poorly understood. Here we show that DNA methylation directly regulates IR. We also find reduced occupancy of MeCP2 near the splice junctions of retained introns, mirroring the reduced DNA methylation at these sites. Accordingly, MeCP2 depletion in tissues and cells enhances IR. By analysing the MeCP2 interactome using mass spectrometry and RNA co-precipitation, we demonstrate that decreased MeCP2 binding near splice junctions facilitates IR via reduced recruitment of splicing factors, including Tra2b, and increased RNA polymerase II stalling. These results suggest an association between IR and a slower rate of transcription elongation, which reflects inefficient splicing factor recruitment. In summary, our results reinforce the interdependency between alternative splicing involving IR and epigenetic controls of gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Reconstruction of an integrated genome-scale co-expression network reveals key modules involved in lung adenocarcinoma.",
+    "doi": "10.1371/journal.pone.0067552",
+    "pmid": "23874428",
+    "authors": [
+      "Bidkhori G, Narimani Z, Hosseini Ashtiani S, Moeini A, Nowzari-Dalini A, Masoudi-Nejad A."
+    ],
+    "year": "2013",
+    "publication_date": "2013-07-11",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "Our goal of this study was to reconstruct a \"genome-scale co-expression network\" and find important modules in lung adenocarcinoma so that we could identify the genes involved in lung adenocarcinoma. We integrated gene mutation, GWAS, CGH, array-CGH and SNP array data in order to identify important genes and loci in genome-scale. Afterwards, on the basis of the identified genes a co-expression network was reconstructed from the co-expression data. The reconstructed network was named \"genome-scale co-expression network\". As the next step, 23 key modules were disclosed through clustering. In this study a number of genes have been identified for the first time to be implicated in lung adenocarcinoma by analyzing the modules. The genes EGFR, PIK3CA, TAF15, XIAP, VAPB, Appl1, Rab5a, ARF4, CLPTM1L, SP4, ZNF124, LPP, FOXP1, SOX18, MSX2, NFE2L2, SMARCC1, TRA2B, CBX3, PRPF6, ATP6V1C1, MYBBP1A, MACF1, GRM2, TBXA2R, PRKAR2A, PTK2, PGF and MYO10 are among the genes that belong to modules 1 and 22. All these genes, being implicated in at least one of the phenomena, namely cell survival, proliferation and metastasis, have an over-expression pattern similar to that of EGFR. In few modules, the genes such as CCNA2 (Cyclin A2), CCNB2 (Cyclin B2), CDK1, CDK5, CDC27, CDCA5, CDCA8, ASPM, BUB1, KIF15, KIF2C, NEK2, NUSAP1, PRC1, SMC4, SYCE2, TFDP1, CDC42 and ARHGEF9 are present that play a crucial role in cell cycle progression. In addition to the mentioned genes, there are some other genes (i.e. DLGAP5, BIRC5, PSMD2, Src, TTK, SENP2, PSMD2, DOK2, FUS and etc.) in the modules.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The cardiotonic steroid digitoxin regulates alternative splicing through depletion of the splicing factors SRSF3 and TRA2B.",
+    "doi": "10.1261/rna.032912.112",
+    "pmid": "22456266",
+    "authors": [
+      "Anderson ES, Lin CH, Xiao X, Stoilov P, Burge CB, Black DL."
+    ],
+    "year": "2012",
+    "publication_date": "2012-03-28",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "Modulation of alternative pre-mRNA splicing is a potential approach to therapeutic targeting for a variety of human diseases. We investigated the mechanism by which digitoxin, a member of the cardiotonic steroid class of drugs, regulates alternative splicing. Transcriptome-wide analysis identified a large set of alternative splicing events that change after digitoxin treatment. Within and adjacent to these regulated exons, we identified enrichment of potential binding sites for the splicing factors SRp20 (SRSF3/SFRS3) and Tra2-β (SFRS10/TRA2B). We further find that both of these proteins are depleted from cells by digitoxin treatment. Characterization of SRp20 and Tra2-β splicing targets revealed that many, but not all, digitoxin-induced splicing changes can be attributed to the depletion of one or both of these factors. Re-expression of SRp20 or Tra2-β after digitoxin treatment restores normal splicing of their targets, indicating that the digitoxin effect is directly due to these factors. These results demonstrate that cardiotonic steroids, long prescribed in the clinical treatment of heart failure, have broad effects on the cellular transcriptome through these and likely other RNA binding proteins. The approach described here can be used to identify targets of other potential therapeutics that act as alternative splicing modulators.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HnRNPA1 interacts with G-quadruplex in the TRA2B promoter and stimulates its transcription in human colon cancer cells.",
+    "doi": "10.1038/s41598-019-46659-x",
+    "pmid": "31311954",
+    "authors": [
+      "Nishikawa T, Kuwano Y, Takahara Y, Nishida K, Rokutan K."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-16",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "The human TRA2B gene consists of 10 exons and 9 introns and produces 5 splice isoforms (TRA2β1 to TRA2β5). TRA2B exon 2 encodes multiple premature termination codons. TRA2β1 lacks exon 2 and is translated into a functional transformer 2β (Tra2β) protein, whereas TRA2β4 contains 10 exons and works as a functional RNA. Overexpressed Tra2β and ectopic expression of TRA2β4 may be oncogenic. We found that heterogeneous nuclear ribonucleoprotein (hnRNP)A1 and hnRNPU interacted with TRA2β4 exon 2. Minigene assays revealed that hnRNPA1 facilitated inclusion of exon 2, whereas hnRNPU promoted its skipping. However, knockdown of hnRNPA1 or hnRNPU reduced both TRA2β1 and TRA2β4 levels, and overexpression of these hnRNPs increased levels of both isoforms, suggesting that hnRNPA1 and hnRNPU mainly regulate the transcription of TRA2B. In fact, hnRNPA1 and hnRNPU positively regulated the promoter activity of TRA2B. Circular dichroism analyses, electrophoretic mobility shift assays and chromatin immunoprecipitation assays demonstrated the presence of G-quadruplex (G4) formation in the promoter of TRA2B. Formation of G4 suppressed TRA2B transcription, whereas hnRNPA1, but not hnRNPU, interacted with the G4 to facilitate transcription. Our results suggest that hnRNPA1 may modulate TRA2B transcription through its regulation of G4 formation in its promoter in colon cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRA2A Promoted Paclitaxel Resistance and Tumor Progression in Triple-Negative Breast Cancers via Regulating Alternative Splicing.",
+    "doi": "10.1158/1535-7163.mct-17-0026",
+    "pmid": "28416606",
+    "authors": [
+      "Liu T, Sun H, Zhu D, Dong X, Liu F, Liang X, Chen C, Shao B, Wang M, Wang Y, Sun B."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-17",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "Treatment of triple-negative breast cancer (TNBC) has been challenging, and paclitaxel resistance is one of the major obstacles to the better prognosis. Deregulation of alternative splicing (AS) may contribute to tumor progression and chemotherapy resistance. Human AS factor <i>TRA2</i> has two separate gene paralogs encoding TRA2A and TRA2B proteins. TRA2B is associated with cancer cell survival and therapeutic sensitivity. However, the individual role of TRA2A in cancer progression has not been reported. Here we report that TRA2A facilitates proliferation and survival and migration and invasion of TNBC cells. In addition, TRA2A promotes paclitaxel resistance of TNBC by specifically controlling cancer-related splicing, which is independent of other splicing factors. TRA2A overexpression could promote AS of CALU, RSRC2, and PALM during paclitaxel treatment of TNBC cells. The isoform shift of RSRC2 from RSRC2s to RSRC2l leads to a decreased RSRC2 protein expression, which could contribute to TNBC paclitaxel resistance. TRA2A can regulate RSRC2 AS by specifically binding upstream intronic sequence of exon4. Strikingly, TRA2A expression is increased dramatically in patients with TNBC, and has a close relationship with decreased RSRC2 expression; both are associated with poor survival of TNBC. Collectively, our findings suggest that paclitaxel targets the TRA2A-RSRC2 splicing pathway, and deregulated TRA2A and RSRC2 expression may confer paclitaxel resistance. In addition to providing a novel molecular mechanism of cancer-related splicing dysregulation, our study demonstrates that expression of TRA2A in conjunction with RSRC2 may provide valuable molecular biomarker evidence for TNBC clinical treatment decisions and patient outcome. <i>Mol Cancer Ther; 16(7); 1377-88. ©2017 AACR</i>.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Expression of Tra2 β in Cancer Cells as a Potential Contributory Factor to Neoplasia and Metastasis.",
+    "doi": "10.1155/2013/843781",
+    "pmid": "23935626",
+    "authors": [
+      "Best A, Dagliesh C, Ehrmann I, Kheirollahi-Kouhestani M, Tyson-Capper A, Elliott DJ."
+    ],
+    "year": "2013",
+    "publication_date": "2013-07-08",
+    "cited_by_count": 45,
+    "journal": "",
+    "abstract": "The splicing regulator proteins SRSF1 (also known as ASF/SF2) and SRSF3 (also known as SRP20) belong to the SR family of proteins and can be upregulated in cancer. The SRSF1 gene itself is amplified in some cancer cells, and cancer-associated changes in the expression of MYC also increase SRSF1 gene expression. Increased concentrations of SRSF1 protein promote prooncogenic splicing patterns of a number of key regulators of cell growth. Here, we review the evidence that upregulation of the SR-related Tra2 β protein might have a similar role in cancer cells. The TRA2B gene encoding Tra2 β is amplified in particular tumours including those of the lung, ovary, cervix, stomach, head, and neck. Both TRA2B RNA and Tra2 β protein levels are upregulated in breast, cervical, ovarian, and colon cancer, and Tra2 β expression is associated with cancer cell survival. The TRA2B gene is a transcriptional target of the protooncogene ETS-1 which might cause higher levels of expression in some cancer cells which express this transcription factor. Known Tra2 β splicing targets have important roles in cancer cells, where they affect metastasis, proliferation, and cell survival. Tra2 β protein is also known to interact directly with the RBMY protein which is implicated in liver cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing factor TRA2B is required for neural progenitor survival.",
+    "doi": "10.1002/cne.23405",
+    "pmid": "23818142",
+    "authors": [
+      "Roberts JM, Ennajdaoui H, Edmondson C, Wirth B, Sanford JR, Chen B."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-01",
+    "cited_by_count": 41,
+    "journal": "",
+    "abstract": "Alternative splicing of pre-mRNAs can rapidly regulate the expression of large groups of proteins. The RNA binding protein TRA2B (SFRS10) plays well-established roles in developmentally regulated alternative splicing during Drosophila sexual differentiation. TRA2B is also essential for mammalian embryogenesis and is implicated in numerous human diseases. Precise regulation of alternative splicing is critical to the development and function of the central nervous system; however, the requirements for specific splicing factors in neurogenesis are poorly understood. This study focuses on the role of TRA2B in mammalian brain development. We show that, during murine cortical neurogenesis, TRA2B is expressed in both neural progenitors and cortical projection neurons. Using cortex-specific Tra2b mutant mice, we show that TRA2B depletion results in apoptosis of the neural progenitor cells as well as disorganization of the cortical plate. Thus, TRA2B is essential for proper development of the cerebral cortex.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Epigenome-wide association study of alcohol consumption in N = 8161 individuals and relevance to alcohol use disorder pathophysiology: identification of the cystine/glutamate transporter SLC7A11 as a top target.",
+    "doi": "10.1038/s41380-021-01378-6",
+    "pmid": "34857913",
+    "authors": [
+      "Lohoff FW, Clarke TK, Kaminsky ZA, Walker RM, Bermingham ML, Jung J, Morris SW, Rosoff D, Campbell A, Barbu M, Charlet K, Adams M, Lee J, Howard DM, O'Connell EM, Whalley H, Porteous DJ, McIntosh AM, Evans KL."
+    ],
+    "year": "2022",
+    "publication_date": "2021-12-02",
+    "cited_by_count": 40,
+    "journal": "",
+    "abstract": "Alcohol misuse is common in many societies worldwide and is associated with extensive morbidity and mortality, often leading to alcohol use disorders (AUD) and alcohol-related end-organ damage. The underlying mechanisms contributing to the development of AUD are largely unknown; however, growing evidence suggests that alcohol consumption is strongly associated with alterations in DNA methylation. Identification of alcohol-associated methylomic variation might provide novel insights into pathophysiology and novel treatment targets for AUD. Here we performed the largest single-cohort epigenome-wide association study (EWAS) of alcohol consumption to date (N = 8161) and cross-validated findings in AUD populations with relevant endophenotypes, as well as alcohol-related animal models. Results showed 2504 CpGs significantly associated with alcohol consumption (Bonferroni p value < 6.8 × 10<sup>-8</sup>) with the five leading probes located in SLC7A11 (p = 7.75 × 10<sup>-108</sup>), JDP2 (p = 1.44 × 10<sup>-56</sup>), GAS5 (p = 2.71 × 10<sup>-47</sup>), TRA2B (p = 3.54 × 10<sup>-42</sup>), and SLC43A1 (p = 1.18 × 10<sup>-40</sup>). Genes annotated to associated CpG sites are implicated in liver and brain function, the cellular response to alcohol and alcohol-associated diseases, including hypertension and Alzheimer's disease. Two-sample Mendelian randomization confirmed the causal relationship of consumption on AUD risk (inverse variance weighted (IVW) p = 5.37 × 10<sup>-09</sup>). A methylation-based predictor of alcohol consumption was able to discriminate AUD cases in two independent cohorts (p = 6.32 × 10<sup>-38</sup> and p = 5.41 × 10<sup>-14</sup>). The top EWAS probe cg06690548, located in the cystine/glutamate transporter SLC7A11, was replicated in an independent cohort of AUD and control participants (N = 615) and showed strong hypomethylation in AUD (p < 10<sup>-17</sup>). Decreased CpG methylation at this probe was consistently associated with clinical measures including increased heavy drinking days (p < 10<sup>-4</sup>), increased liver function enzymes (GGT (p = 1.03 × 10<sup>-21</sup>), ALT (p = 1.29 × 10<sup>-6</sup>), and AST (p = 1.97 × 10<sup>-8</sup>)) in individuals with AUD. Postmortem brain analyses documented increased SLC7A11 expression in the frontal cortex of individuals with AUD and animal models showed marked increased expression in liver, suggesting a mechanism by which alcohol leads to hypomethylation-induced overexpression of SLC7A11. Taken together, our EWAS discovery sample and subsequent validation of the top probe in AUD suggest a strong role of abnormal glutamate signaling mediated by methylomic variation in SLC7A11. Our data are intriguing given the prominent role of glutamate signaling in brain and liver and might provide an important target for therapeutic intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PSF Promotes ER-Positive Breast Cancer Progression via Posttranscriptional Regulation of <i>ESR1</i> and <i>SCFD2</i>.",
+    "doi": "10.1158/0008-5472.can-19-3095",
+    "pmid": "32213542",
+    "authors": [
+      "Mitobe Y, Iino K, Takayama KI, Ikeda K, Suzuki T, Aogi K, Kawabata H, Suzuki Y, Horie-Inoue K, Inoue S."
+    ],
+    "year": "2020",
+    "publication_date": "2020-03-25",
+    "cited_by_count": 38,
+    "journal": "",
+    "abstract": "Endocrine therapy is standard treatment for estrogen receptor (ER)-positive breast cancer, yet long-term treatment often causes acquired resistance, which results in recurrence and metastasis. Recent studies have revealed that RNA-binding proteins (RBP) are involved in tumorigenesis. Here, we demonstrate that PSF/SFPQ is an RBP that potentially predicts poor prognosis of patients with ER-positive breast cancer by posttranscriptionally regulating ERα (<i>ESR1</i>) mRNA expression. Strong PSF immunoreactivity correlated with shorter overall survival in patients with ER-positive breast cancer. PSF was predominantly expressed in a model of tamoxifen-resistant breast cancer cells, and depletion of PSF attenuated proliferation of cultured cells and xenografted tumors. PSF expression was significantly associated with estrogen signaling. PSF siRNA downregulated <i>ESR1</i> mRNA by inhibiting nuclear export of the RNA. Integrative analyses of microarray and RNA immunoprecipitation sequencing also identified <i>SCFD2, TRA2B</i>, and <i>ASPM</i> as targets of PSF. Among the PSF targets, <i>SCFD2</i> was a poor prognostic indicator of breast cancer and SCFD2 knockdown significantly suppressed breast cancer cell proliferation. Collectively, this study shows that PSF plays a pathophysiologic role in ER-positive breast cancer by posttranscriptionally regulating expression of its target genes such as <i>ESR1</i> and <i>SCFD2</i>. Overall, PSF and SCFD2 could be potential diagnostic and therapeutic targets for primary and hormone-refractory breast cancers. SIGNIFICANCE: This study defines oncogenic roles of RNA-binding protein PSF, which exhibits posttranscriptional regulation in ER-positive breast cancer.",
+    "openalex_id": ""
+  }
+]

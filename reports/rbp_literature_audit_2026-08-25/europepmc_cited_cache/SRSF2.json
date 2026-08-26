@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Frequent pathway mutations of splicing machinery in myelodysplasia.",
+    "doi": "10.1038/nature10496",
+    "pmid": "21909114",
+    "authors": [
+      "Yoshida K, Sanada M, Shiraishi Y, Nowak D, Nagata Y, Yamamoto R, Sato Y, Sato-Otsubo A, Kon A, Nagasaki M, Chalkidis G, Suzuki Y, Shiosaka M, Kawahata R, Yamaguchi T, Otsu M, Obara N, Sakata-Yanagimoto M, Ishiyama K, Mori H, Nolte F, Hofmann WK, Miyawaki S, Sugano S, Haferlach C, Koeffler HP, Shih LY, Haferlach T, Chiba S, Nakauchi H, Miyano S, Ogawa S."
+    ],
+    "year": "2011",
+    "publication_date": "2011-09-11",
+    "cited_by_count": 1726,
+    "journal": "",
+    "abstract": "Myelodysplastic syndromes and related disorders (myelodysplasia) are a heterogeneous group of myeloid neoplasms showing deregulated blood cell production with evidence of myeloid dysplasia and a predisposition to acute myeloid leukaemia, whose pathogenesis is only incompletely understood. Here we report whole-exome sequencing of 29 myelodysplasia specimens, which unexpectedly revealed novel pathway mutations involving multiple components of the RNA splicing machinery, including U2AF35, ZRSR2, SRSF2 and SF3B1. In a large series analysis, these splicing pathway mutations were frequent (∼45 to ∼85%) in, and highly specific to, myeloid neoplasms showing features of myelodysplasia. Conspicuously, most of the mutations, which occurred in a mutually exclusive manner, affected genes involved in the 3'-splice site recognition during pre-mRNA processing, inducing abnormal RNA splicing and compromised haematopoiesis. Our results provide the first evidence indicating that genetic alterations of the major splicing components could be involved in human pathogenesis, also implicating a novel therapeutic possibility for myelodysplasia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Landscape of genetic lesions in 944 patients with myelodysplastic syndromes.",
+    "doi": "10.1038/leu.2013.336",
+    "pmid": "24220272",
+    "authors": [
+      "Haferlach T, Nagata Y, Grossmann V, Okuno Y, Bacher U, Nagae G, Schnittger S, Sanada M, Kon A, Alpermann T, Yoshida K, Roller A, Nadarajah N, Shiraishi Y, Shiozawa Y, Chiba K, Tanaka H, Koeffler HP, Klein HU, Dugas M, Aburatani H, Kohlmann A, Miyano S, Haferlach C, Kern W, Ogawa S."
+    ],
+    "year": "2014",
+    "publication_date": "2013-11-13",
+    "cited_by_count": 1256,
+    "journal": "",
+    "abstract": "High-throughput DNA sequencing significantly contributed to diagnosis and prognostication in patients with myelodysplastic syndromes (MDS). We determined the biological and prognostic significance of genetic aberrations in MDS. In total, 944 patients with various MDS subtypes were screened for known/putative mutations/deletions in 104 genes using targeted deep sequencing and array-based genomic hybridization. In total, 845/944 patients (89.5%) harbored at least one mutation (median, 3 per patient; range, 0-12). Forty-seven genes were significantly mutated with TET2, SF3B1, ASXL1, SRSF2, DNMT3A, and RUNX1 mutated in >10% of cases. Many mutations were associated with higher risk groups and/or blast elevation. Survival was investigated in 875 patients. By univariate analysis, 25/48 genes (resulting from 47 genes tested significantly plus PRPF8) affected survival (P<0.05). The status of 14 genes combined with conventional factors revealed a novel prognostic model ('Model-1') separating patients into four risk groups ('low', 'intermediate', 'high', 'very high risk') with 3-year survival of 95.2, 69.3, 32.8, and 5.3% (P<0.001). Subsequently, a 'gene-only model' ('Model-2') was constructed based on 14 genes also yielding four significant risk groups (P<0.001). Both models were reproducible in the validation cohort (n=175 patients; P<0.001 each). Thus, large-scale genetic and molecular profiling of multiple target genes is invaluable for subclassification and prognostication in MDS patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "FTO-dependent demethylation of N6-methyladenosine regulates mRNA splicing and is required for adipogenesis.",
+    "doi": "10.1038/cr.2014.151",
+    "pmid": "25412662",
+    "authors": [
+      "Zhao X, Yang Y, Sun BF, Shi Y, Yang X, Xiao W, Hao YJ, Ping XL, Chen YS, Wang WJ, Jin KX, Wang X, Huang CM, Fu Y, Ge XM, Song SH, Jeong HS, Yanagisawa H, Niu Y, Jia GF, Wu W, Tong WM, Okamoto A, He C, Rendtlew Danielsen JM, Wang XJ, Yang YG."
+    ],
+    "year": "2014",
+    "publication_date": "2014-11-21",
+    "cited_by_count": 999,
+    "journal": "",
+    "abstract": "The role of Fat Mass and Obesity-associated protein (FTO) and its substrate N6-methyladenosine (m6A) in mRNA processing and adipogenesis remains largely unknown. We show that FTO expression and m6A levels are inversely correlated during adipogenesis. FTO depletion blocks differentiation and only catalytically active FTO restores adipogenesis. Transcriptome analyses in combination with m6A-seq revealed that gene expression and mRNA splicing of grouped genes are regulated by FTO. M6A is enriched in exonic regions flanking 5'- and 3'-splice sites, spatially overlapping with mRNA splicing regulatory serine/arginine-rich (SR) protein exonic splicing enhancer binding regions. Enhanced levels of m6A in response to FTO depletion promotes the RNA binding ability of SRSF2 protein, leading to increased inclusion of target exons. FTO controls exonic splicing of adipogenic regulatory factor RUNX1T1 by regulating m6A levels around splice sites and thereby modulates differentiation. These findings provide compelling evidence that FTO-dependent m6A demethylation functions as a novel regulatory mechanism of RNA processing and plays a critical role in the regulation of adipogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Acute myeloid leukemia ontogeny is defined by distinct somatic mutations.",
+    "doi": "10.1182/blood-2014-11-610543",
+    "pmid": "25550361",
+    "authors": [
+      "Lindsley RC, Mar BG, Mazzola E, Grauman PV, Shareef S, Allen SL, Pigneux A, Wetzler M, Stuart RK, Erba HP, Damon LE, Powell BL, Lindeman N, Steensma DP, Wadleigh M, DeAngelo DJ, Neuberg D, Stone RM, Ebert BL."
+    ],
+    "year": "2015",
+    "publication_date": "2014-12-30",
+    "cited_by_count": 790,
+    "journal": "",
+    "abstract": "Acute myeloid leukemia (AML) can develop after an antecedent myeloid malignancy (secondary AML [s-AML]), after leukemogenic therapy (therapy-related AML [t-AML]), or without an identifiable prodrome or known exposure (de novo AML). The genetic basis of these distinct pathways of AML development has not been determined. We performed targeted mutational analysis of 194 patients with rigorously defined s-AML or t-AML and 105 unselected AML patients. The presence of a mutation in SRSF2, SF3B1, U2AF1, ZRSR2, ASXL1, EZH2, BCOR, or STAG2 was >95% specific for the diagnosis of s-AML. Analysis of serial samples from individual patients revealed that these mutations occur early in leukemogenesis and often persist in clonal remissions. In t-AML and elderly de novo AML populations, these alterations define a distinct genetic subtype that shares clinicopathologic properties with clinically confirmed s-AML and highlights a subset of patients with worse clinical outcomes, including a lower complete remission rate, more frequent reinduction, and decreased event-free survival. This trial was registered at www.clinicaltrials.gov as #NCT00715637.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrative Analysis Identifies Four Molecular and Clinical Subsets in Uveal Melanoma.",
+    "doi": "10.1016/j.ccell.2017.07.003",
+    "pmid": "28810145",
+    "authors": [
+      "Robertson AG, Shih J, Yau C, Gibb EA, Oba J, Mungall KL, Hess JM, Uzunangelov V, Walter V, Danilova L, Lichtenberg TM, Kucherlapati M, Kimes PK, Tang M, Penson A, Babur O, Akbani R, Bristow CA, Hoadley KA, Iype L, Chang MT, TCGA Research Network, Cherniack AD, Benz C, Mills GB, Verhaak RGW, Griewank KG, Felau I, Zenklusen JC, Gershenwald JE, Schoenfield L, Lazar AJ, Abdel-Rahman MH, Roman-Roman S, Stern MH, Cebulla CM, Williams MD, Jager MJ, Coupland SE, Esmaeli B, Kandoth C, Woodman SE."
+    ],
+    "year": "2017",
+    "publication_date": "2017-08-01",
+    "cited_by_count": 710,
+    "journal": "",
+    "abstract": "Comprehensive multiplatform analysis of 80 uveal melanomas (UM) identifies four molecularly distinct, clinically relevant subtypes: two associated with poor-prognosis monosomy 3 (M3) and two with better-prognosis disomy 3 (D3). We show that BAP1 loss follows M3 occurrence and correlates with a global DNA methylation state that is distinct from D3-UM. Poor-prognosis M3-UM divide into subsets with divergent genomic aberrations, transcriptional features, and clinical outcomes. We report change-of-function SRSF2 mutations. Within D3-UM, EIF1AX- and SRSF2/SF3B1-mutant tumors have distinct somatic copy number alterations and DNA methylation profiles, providing insight into the biology of these low- versus intermediate-risk clinical mutation subtypes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutations and prognosis in primary myelofibrosis.",
+    "doi": "10.1038/leu.2013.119",
+    "pmid": "23619563",
+    "authors": [
+      "Vannucchi AM, Lasho TL, Guglielmelli P, Biamonte F, Pardanani A, Pereira A, Finke C, Score J, Gangat N, Mannarelli C, Ketterling RP, Rotunno G, Knudson RA, Susini MC, Laborde RR, Spolverini A, Pancrazzi A, Pieri L, Manfredini R, Tagliafico E, Zini R, Jones A, Zoi K, Reiter A, Duncombe A, Pietra D, Rumi E, Cervantes F, Barosi G, Cazzola M, Cross NC, Tefferi A."
+    ],
+    "year": "2013",
+    "publication_date": "2013-04-26",
+    "cited_by_count": 601,
+    "journal": "",
+    "abstract": "Patient outcome in primary myelofibrosis (PMF) is significantly influenced by karyotype. We studied 879 PMF patients to determine the individual and combinatorial prognostic relevance of somatic mutations. Analysis was performed in 483 European patients and the seminal observations were validated in 396 Mayo Clinic patients. Samples from the European cohort, collected at time of diagnosis, were analyzed for mutations in ASXL1, SRSF2, EZH2, TET2, DNMT3A, CBL, IDH1, IDH2, MPL and JAK2. Of these, ASXL1, SRSF2 and EZH2 mutations inter-independently predicted shortened survival. However, only ASXL1 mutations (HR: 2.02; P<0.001) remained significant in the context of the International Prognostic Scoring System (IPSS). These observations were validated in the Mayo Clinic cohort where mutation and survival analyses were performed from time of referral. ASXL1, SRSF2 and EZH2 mutations were independently associated with poor survival, but only ASXL1 mutations held their prognostic relevance (HR: 1.4; P=0.04) independent of the Dynamic IPSS (DIPSS)-plus model, which incorporates cytogenetic risk. In the European cohort, leukemia-free survival was negatively affected by IDH1/2, SRSF2 and ASXL1 mutations and in the Mayo cohort by IDH1 and SRSF2 mutations. Mutational profiling for ASXL1, EZH2, SRSF2 and IDH identifies PMF patients who are at risk for premature death or leukemic transformation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF2 Mutations Contribute to Myelodysplasia by Mutant-Specific Effects on Exon Recognition.",
+    "doi": "10.1016/j.ccell.2015.04.006",
+    "pmid": "25965569",
+    "authors": [
+      "Kim E, Ilagan JO, Liang Y, Daubner GM, Lee SC, Ramakrishnan A, Li Y, Chung YR, Micol JB, Murphy ME, Cho H, Kim MK, Zebari AS, Aumann S, Park CY, Buonamici S, Smith PG, Deeg HJ, Lobry C, Aifantis I, Modis Y, Allain FH, Halene S, Bradley RK, Abdel-Wahab O."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-01",
+    "cited_by_count": 514,
+    "journal": "",
+    "abstract": "Mutations affecting spliceosomal proteins are the most common mutations in patients with myelodysplastic syndromes (MDS), but their role in MDS pathogenesis has not been delineated. Here we report that mutations affecting the splicing factor SRSF2 directly impair hematopoietic differentiation in vivo, which is not due to SRSF2 loss of function. By contrast, SRSF2 mutations alter SRSF2's normal sequence-specific RNA binding activity, thereby altering the recognition of specific exonic splicing enhancer motifs to drive recurrent mis-splicing of key hematopoietic regulators. This includes SRSF2 mutation-dependent splicing of EZH2, which triggers nonsense-mediated decay, which, in turn, results in impaired hematopoietic differentiation. These data provide a mechanistic link between a mutant spliceosomal protein, alterations in the splicing of key regulators, and impaired hematopoiesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Leukemia-associated somatic mutations drive distinct patterns of age-related clonal hemopoiesis.",
+    "doi": "10.1016/j.celrep.2015.02.005",
+    "pmid": "25732814",
+    "authors": [
+      "McKerrell T, Park N, Moreno T, Grove CS, Ponstingl H, Stephens J, Understanding Society Scientific Group, Crawley C, Craig J, Scott MA, Hodkinson C, Baxter J, Rad R, Forsyth DR, Quail MA, Zeggini E, Ouwehand W, Varela I, Vassiliou GS."
+    ],
+    "year": "2015",
+    "publication_date": "2015-02-26",
+    "cited_by_count": 443,
+    "journal": "",
+    "abstract": "Clonal hemopoiesis driven by leukemia-associated gene mutations can occur without evidence of a blood disorder. To investigate this phenomenon, we interrogated 15 mutation hot spots in blood DNA from 4,219 individuals using ultra-deep sequencing. Using only the hot spots studied, we identified clonal hemopoiesis in 0.8% of individuals under 60, rising to 19.5% of those ≥90 years, thus predicting that clonal hemopoiesis is much more prevalent than previously realized. DNMT3A-R882 mutations were most common and, although their prevalence increased with age, were found in individuals as young as 25 years. By contrast, mutations affecting spliceosome genes SF3B1 and SRSF2, closely associated with the myelodysplastic syndromes, were identified only in those aged >70 years, with several individuals harboring more than one such mutation. This indicates that spliceosome gene mutations drive clonal expansion under selection pressures particular to the aging hemopoietic system and explains the high incidence of clonal disorders associated with these mutations in advanced old age.",
+    "openalex_id": ""
+  },
+  {
+    "title": "H3B-8800, an orally available small-molecule splicing modulator, induces lethality in spliceosome-mutant cancers.",
+    "doi": "10.1038/nm.4493",
+    "pmid": "29457796",
+    "authors": [
+      "Seiler M, Yoshimi A, Darman R, Chan B, Keaney G, Thomas M, Agrawal AA, Caleb B, Csibi A, Sean E, Fekkes P, Karr C, Klimek V, Lai G, Lee L, Kumar P, Lee SC, Liu X, Mackenzie C, Meeske C, Mizui Y, Padron E, Park E, Pazolli E, Peng S, Prajapati S, Taylor J, Teng T, Wang J, Warmuth M, Yao H, Yu L, Zhu P, Abdel-Wahab O, Smith PG, Buonamici S."
+    ],
+    "year": "2018",
+    "publication_date": "2018-02-19",
+    "cited_by_count": 442,
+    "journal": "",
+    "abstract": "Genomic analyses of cancer have identified recurrent point mutations in the RNA splicing factor-encoding genes SF3B1, U2AF1, and SRSF2 that confer an alteration of function. Cancer cells bearing these mutations are preferentially dependent on wild-type (WT) spliceosome function, but clinically relevant means to therapeutically target the spliceosome do not currently exist. Here we describe an orally available modulator of the SF3b complex, H3B-8800, which potently and preferentially kills spliceosome-mutant epithelial and hematologic tumor cells. These killing effects of H3B-8800 are due to its direct interaction with the SF3b complex, as evidenced by loss of H3B-8800 activity in drug-resistant cells bearing mutations in genes encoding SF3b components. Although H3B-8800 modulates WT and mutant spliceosome activity, the preferential killing of spliceosome-mutant cells is due to retention of short, GC-rich introns, which are enriched for genes encoding spliceosome components. These data demonstrate the therapeutic potential of splicing modulation in spliceosome-mutant cancers.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Prognostic score including gene mutations in chronic myelomonocytic leukemia.",
+    "doi": "10.1200/jco.2012.47.3314",
+    "pmid": "23690417",
+    "authors": [
+      "Itzykson R, Kosmider O, Renneville A, Gelsi-Boyer V, Meggendorfer M, Morabito M, Berthon C, Adès L, Fenaux P, Beyne-Rauzy O, Vey N, Braun T, Haferlach T, Dreyfus F, Cross NC, Preudhomme C, Bernard OA, Fontenay M, Vainchenker W, Schnittger S, Birnbaum D, Droin N, Solary E."
+    ],
+    "year": "2013",
+    "publication_date": "2013-05-20",
+    "cited_by_count": 427,
+    "journal": "",
+    "abstract": "<h4>Purpose</h4>Several prognostic scoring systems have been proposed for chronic myelomonocytic leukemia (CMML), a disease in which some gene mutations-including ASXL1-have been associated with poor prognosis in univariable analyses. We developed and validated a prognostic score for overall survival (OS) based on mutational status and standard clinical variables.<h4>Patients and methods</h4>We genotyped ASXL1 and up to 18 other genes including epigenetic (TET2, EZH2, IDH1, IDH2, DNMT3A), splicing (SF3B1, SRSF2, ZRSF2, U2AF1), transcription (RUNX1, NPM1, TP53), and signaling (NRAS, KRAS, CBL, JAK2, FLT3) regulators in 312 patients with CMML. Genotypes and clinical variables were included in a multivariable Cox model of OS validated by bootstrapping. A scoring system was developed using regression coefficients from this model.<h4>Results</h4>ASXL1 mutations (P < .0001) and, to a lesser extent, SRSF2 (P = .03), CBL (P = .003), and IDH2 (P = .03) mutations predicted inferior OS in univariable analysis. The retained independent prognostic factors included ASXL1 mutations, age older than 65 years, WBC count greater than 15 ×10(9)/L, platelet count less than 100 ×10(9)/L, and anemia (hemoglobin < 10 g/dL in female patients, < 11g/dL in male patients). The resulting five-parameter prognostic score delineated three groups of patients with median OS not reached, 38.5 months, and 14.4 months, respectively (P < .0001), and was validated in an independent cohort of 165 patients (P < .0001).<h4>Conclusion</h4>A new prognostic score including ASXL1 status, age, hemoglobin, WBC, and platelet counts defines three groups of CMML patients with distinct outcomes. Based on concordance analysis, this score appears more discriminative than those based solely on clinical parameters.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CALR vs JAK2 vs MPL-mutated or triple-negative myelofibrosis: clinical, cytogenetic and molecular comparisons.",
+    "doi": "10.1038/leu.2014.3",
+    "pmid": "24402162",
+    "authors": [
+      "Tefferi A, Lasho TL, Finke CM, Knudson RA, Ketterling R, Hanson CH, Maffioli M, Caramazza D, Passamonti F, Pardanani A."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-09",
+    "cited_by_count": 412,
+    "journal": "",
+    "abstract": "Calreticulin (CALR) mutations were recently described in JAK2 and MPL unmutated primary myelofibrosis (PMF) and essential thrombocythemia. In the current study, we compared the clinical, cytogenetic and molecular features of patients with PMF with or without CALR, JAK2 or MPL mutations. Among 254 study patients, 147 (58%) harbored JAK2, 63 (25%) CALR and 21 (8.3%) MPL mutations; 22 (8.7%) patients were negative for all three mutations, whereas one patient expressed both JAK2 and CALR mutations. Study patients were also screened for ASXL1 (31%), EZH2 (6%), IDH (4%), SRSF2 (12%), SF3B1 (7%) and U2AF1 (16%) mutations. In univariate analysis, CALR mutations were associated with younger age (P<0.0001), higher platelet count (P<0.0001) and lower DIPSS-plus score (P=0.02). CALR-mutated patients were also less likely to be anemic, require transfusions or display leukocytosis. Spliceosome mutations were infrequent (P=0.0001) in CALR-mutated patients, but no other molecular or cytogenetic associations were evident. In multivariable analysis, CALR mutations had a favorable impact on survival that was independent of both DIPSS-plus risk and ASXL1 mutation status (P=0.001; HR 3.4 for triple-negative and 2.2 for JAK2-mutated). Triple-negative patients also displayed inferior LFS (P=0.003). The current study identifies 'CALR(-)ASXL1(+)' and 'triple-negative' as high-risk molecular signatures in PMF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Frequency and prognostic impact of mutations in SRSF2, U2AF1, and ZRSR2 in patients with myelodysplastic syndromes.",
+    "doi": "10.1182/blood-2011-12-399337",
+    "pmid": "22389253",
+    "authors": [
+      "Thol F, Kade S, Schlarmann C, Löffeld P, Morgan M, Krauter J, Wlodarski MW, Kölking B, Wichmann M, Görlich K, Göhring G, Bug G, Ottmann O, Niemeyer CM, Hofmann WK, Schlegelberger B, Ganser A, Heuser M."
+    ],
+    "year": "2012",
+    "publication_date": "2012-03-02",
+    "cited_by_count": 362,
+    "journal": "",
+    "abstract": "Mutations in genes of the splicing machinery have been described recently in myelodysplastic syndromes (MDS). In the present study, we examined a cohort of 193 MDS patients for mutations in SRSF2, U2AF1 (synonym U2AF35), ZRSR2, and, as described previously, SF3B1, in the context of other molecular markers, including mutations in ASXL1, RUNX1, NRAS, TP53, IDH1, IDH2, NPM1, and DNMT3A. Mutations in SRSF2, U2AF1, ZRSR2, and SF3B1 were found in 24 (12.4%), 14 (7.3%), 6 (3.1%), and 28 (14.5%) patients, respectively, corresponding to a total of 67 of 193 MDS patients (34.7%). SRSF2 mutations were associated with RUNX1 (P < .001) and IDH1 (P = .013) mutations, whereas U2AF1 mutations were associated with ASXL1 (P = .005) and DNMT3A (P = .004) mutations. In univariate analysis, mutated SRSF2 predicted shorter overall survival and more frequent acute myeloid leukemia progression compared with wild-type SRSF2, whereas mutated U2AF1, ZRSR2, and SF3B1 had no impact on patient outcome. In multivariate analysis, SRSF2 remained an independent poor risk marker for overall survival (hazard ratio = 2.3; 95% confidence interval, 1.28-4.13; P = .017) and acute myeloid leukemia progression (hazard ratio = 2.83; 95% confidence interval, 1.31-6.12; P = .008). These results show a negative prognostic impact of SRSF2 mutations in MDS. SRSF2 mutations may become useful for clinical risk stratification and treatment decisions in the future.",
+    "openalex_id": ""
+  }
+]

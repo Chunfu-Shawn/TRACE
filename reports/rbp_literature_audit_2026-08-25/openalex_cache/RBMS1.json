@@ -1,0 +1,103 @@
+[
+  {
+    "title": "Context-Dependent Regulation of Gene Expression by Non-Canonical Small RNAs",
+    "doi": "10.3390/ncrna8030029",
+    "authors": [
+      "Kinga Plawgo",
+      "Katarzyna Dorota Raczyńska"
+    ],
+    "year": 2022,
+    "publication_date": "2022-04-29",
+    "cited_by_count": 28,
+    "journal": "Non-Coding RNA",
+    "abstract": "In recent functional genomics studies, a large number of non-coding RNAs have been identified. It has become increasingly apparent that noncoding RNAs are crucial players in a wide range of cellular and physiological functions. They have been shown to modulate gene expression on different levels, including transcription, post-transcriptional processing, and translation. This review aims to highlight the diverse mechanisms of the regulation of gene expression by small noncoding RNAs in different ",
+    "openalex_id": "https://openalex.org/W4225143143",
+    "relevance_score": 32.457714
+  },
+  {
+    "title": "Post-transcriptional gene regulation: From mechanisms to RNA chemistry and therapeutics",
+    "doi": "10.1016/j.bulcan.2024.04.005",
+    "authors": [
+      "Clara Bonnet",
+      "Ana Luisa Dian",
+      "Tristan Espie-Caullet",
+      "Lucilla Fabbri",
+      "Lucie Lagadec"
+    ],
+    "year": 2024,
+    "publication_date": "2024-05-31",
+    "cited_by_count": 3,
+    "journal": "Bulletin du Cancer",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4399199278",
+    "relevance_score": 15.80832
+  },
+  {
+    "title": "ATXN2L primarily interacts with NUFIP2, the absence of ATXN2L results in NUFIP2 depletion, and the ATXN2-polyQ expansion triggers NUFIP2 accumulation",
+    "doi": "10.1101/2025.03.06.641895",
+    "authors": [
+      "Jana Key",
+      "Luis E. Almaguer-Mederos",
+      "Arvind Reddy Kandi",
+      "Nesli-Ece Şen",
+      "Suzana Gispert"
+    ],
+    "year": 2025,
+    "publication_date": "2025-03-11",
+    "cited_by_count": 0,
+    "journal": "bioRxiv (Cold Spring Harbor Laboratory)",
+    "abstract": "Abstract The cytoplasmic Ataxin-2 (ATXN2) protein associates with TDP-43 in stress granules (SG) where RNA quality control occurs. Mutations in this pathway underlie Spinocerebellar Ataxia type 2 (SCA2) and Amyotrophic Lateral Sclerosis. In contrast, Ataxin-2-like (ATXN2L) is predominantly nuclear, more abundant, and essential for embryonic life. Its sequestration into ATXN2 aggregates may contribute to disease. In this study, we utilized two approaches to clarify the roles of ATXN2L. First, we ",
+    "openalex_id": "https://openalex.org/W4408347834",
+    "relevance_score": 5.052105
+  },
+  {
+    "title": "RNA‐Binding Proteins and Ferroptosis in Cancer: Mechanism and Therapeutic Implications",
+    "doi": "10.1002/mog2.70053",
+    "authors": [
+      "Linlin Chang",
+      "Bin Lu",
+      "Haotian Shang",
+      "Wanjing Ding",
+      "Chunhua Wei"
+    ],
+    "year": 2026,
+    "publication_date": "2026-01-26",
+    "cited_by_count": 0,
+    "journal": "MedComm – Oncology",
+    "abstract": "ABSTRACT Ferroptosis is a regulated, iron‐dependent form of cell death that has emerged as a promising therapeutic target for multiple cancers. However, its clinical translation faces significant challenges, particularly regarding precision and safety for cancer patients. Recent studies have identified RNA‐binding proteins (RBPs) as novel regulators of tumor ferroptosis, extending beyond the established biochemical hallmarks and core defense mechanisms of ferroptosis. This review focuses on the ",
+    "openalex_id": "https://openalex.org/W7125776216",
+    "relevance_score": 2.7703433
+  },
+  {
+    "title": "The emerging roles of small nucleolar RNAs, piwi-interacting RNAs, tRNA-derived small RNAs, and circular RNAs in the regulation of cardiac hypertrophy, ischemic heart disease, and heart failure",
+    "doi": "10.1016/j.gendis.2025.101996",
+    "authors": [
+      "Jingyi Wang",
+      "Jingyi Xie",
+      "Hao Chen",
+      "Wenxu Wang",
+      "Qing Liu"
+    ],
+    "year": 2025,
+    "publication_date": "2025-12-19",
+    "cited_by_count": 0,
+    "journal": "Genes & Diseases",
+    "abstract": "Heart disease, including cardiac hypertrophy, ischemic heart disease, and heart failure, remains a global health challenge. Given the limitations of existing diagnostic and treatment methods, finding new biomarkers and therapies is essential. Non-coding RNAs (ncRNAs) are gaining prominence as key regulators in the medical field, playing a pivotal role in modulating the onset and progression of heart disease. Their significant potential as diagnostic biomarkers and therapeutic targets is increasi",
+    "openalex_id": "https://openalex.org/W4417488680",
+    "relevance_score": 2.4336565
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.1673734
+  }
+]

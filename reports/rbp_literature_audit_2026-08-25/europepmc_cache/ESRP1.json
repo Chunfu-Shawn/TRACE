@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Bioinformatic analysis reveals the potential association of ESRP1 with the splicing of cytoskeleton-associated genes in doxorubicin-resistant MCF7 breast cancer cells.",
+    "doi": "10.1007/s12672-026-05253-0",
+    "pmid": "42323505",
+    "authors": [
+      "Zhang J, Chen L, Song Q, Xu L, Li Y, Li W, Wang J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Breast cancer remains one of the most prevalent malignancies among women, with doxorubicin resistance posing a significant challenge that undermines treatment success and survival outcomes. Aberrant alternative splicing (AS), driven by dysregulation or mutations in splicing factors (SFs), is implicated in cancer initiation, progression, and drug resistance. This study aims to investigate the association of the epithelial cell-specific splicing factor ESRP1 with doxorubicin resistance in breast cancer, focusing on how ESRP1 deficiency correlates with AS changes that promote chemoresistance.<h4>Methods</h4>We analyzed RNA-sequencing (RNA-seq) data from doxorubicin-resistant (MCF7-DR) and parental (MCF7) breast cancer cell lines to identify enhanced alternative splicing events (ASEs) and changes in ESRP1 expression; we further leveraged The Cancer Genome Atlas (TCGA)-BRCA cohort to construct an SF-RASE correlation network for screening core SFs (including ESRP1). An integrative analysis combining crosslinking immunoprecipitation (CLIP-seq) data and The Cancer Genome Atlas (TCGA) database was performed to validate ESRP1 binding targets and assess the association between ESRP1-related splicing and cytoskeleton organization.<h4>Results</h4>We observed extensive AS changes and significantly downregulated ESRP1 expression in MCF7-DR cells. Integrative analysis identified 61 high-confidence ASEs that correlate with ESRP1 expression. Further bioinformatic integration suggests that ESRP1 expression is associated with the splicing patterns of SPTBN1, MAP2K7, FGFR3, and CYB561A3-four genes involved in cytoskeleton organization-though direct experimental verification to confirm a causal regulatory relationship between ESRP1 and the splicing of these genes is still pending.<h4>Conclusions</h4>Our findings suggest that ESRP1 expression is closely associated with doxorubicin resistance in breast cancer cells, with concomitant alterations in key ASEs linked to cytoskeletal remodeling that correlate with ESRP1. Exploring the ESRP1-related splicing network may offer new strategies to overcome chemoresistance and improve patient outcomes. However, the small cell line sample size (n = 2 per group) constrains the robustness of ASE and SF-ASE correlation findings, and these results should be interpreted with caution and require further validation with larger sample cohorts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A ESRP1/circPHGDH/miR-149/RAP1B positive feedback loop promotes the malignant behaviors and glycolysis of prostate cancer cell.",
+    "doi": "10.1038/s12276-026-01646-x",
+    "pmid": "41760734",
+    "authors": [
+      "Wang X, Yu L, Qian X, Yu Z."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-27",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Circular RNAs are implicated in the pathogenesis of prostate cancer (PCa). However, their functions, biogenesis and molecular mechanisms remain largely elusive. Here we aimed to investigate the role of circPHGDH in PCa. Cellular behaviors were assessed by the colony formation assay, Transwell analysis, western blotting and Seahorse assay. The underlying mechanisms were investigated using a luciferase reporter assay, RNA pull-down and real-time quantitative PCR. The lactylation of ESRP1 was examined by RNA immunoprecipitation, immunoprecipitation and western blotting. Our results revealed that circPHGDH expression was upregulated in PCa tissues and cells. Furthermore, the knockdown of circPHGDH inhibited PCa cell proliferation, migration, invasion, epithelial-mesenchymal transition and glycolysis. Mechanistically, circPHGDH functioned as a sponge for miR-149, which in turn directly targeted RAP1B. The biogenesis of circPHGDH was regulated by the splicing factor ESRP1. The glycolytic product lactate stabilized ESRP1 by promoting its lactylation at the K43 site; conversely, circPHGDH knockdown suppressed ESRP1 lactylation. Moreover, the silencing of circPHGDH inhibited tumor growth and metastasis in vivo via the miR-149/RAP1B axis, whereas circPHGDH facilitated tumor progression. In conclusion, the lactylation-modified ESRP1/circPHGDH/miR-149/RAP1B axis drives the progression of PCa. These findings provide novel insights into the pathogenesis of PCa and suggest promising therapeutic targets for its treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Esrp1 and Esrp2 Regulate the Stability of &lt;i&gt;tmc1&lt;/i&gt;/&lt;i&gt;2a&lt;/i&gt; mRNAs in Zebrafish Sensory Hair Cells.",
+    "doi": "10.1523/jneurosci.0837-24.2025",
+    "pmid": "40086870",
+    "authors": [
+      "Yao X, Zhang Y, Hong X, Xing Y, Xu Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-23",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are important for posttranscriptional RNA processing, including pre-mRNA alternative splicing, mRNA stability, and translation. Several RBPs have been shown to play pivotal roles in the inner ear, whose dysfunction leads to auditory and/or balance impairments. Epithelial splicing-regulatory protein 1 (ESRP1) regulates alternative splicing and mRNA stability, and mutations in <i>ESRP1</i> gene have been associated with sensorineural hearing loss in humans. In <i>Esrp1</i> knock-out mouse embryos, alternative splicing of its target genes such as <i>Fgfr2</i> is impaired, which eventually result in cochlear development deficits. However, <i>Esrp1</i> knock-out mice die soon after birth because of complications from cleft-lip and palate defects, impeding further investigations at later postnatal ages. In the present study, we explored the role of ESRP1 in hearing using zebrafish as a model. We showed that <i>esrp1</i> and its paralog <i>esrp2</i> are expressed in the inner ear and certain anterior lateral line (ALL) neuromasts. Furthermore, our data suggested that Esrp1 and Esrp2 are required for the mechano-electrical transduction (MET) function of hair cells. RNA sequencing results indicated a significant decrease in the levels of several mRNAs in <i>esrp1/2</i> double knock-out larvae. Among the dysregulated genes are <i>tmc1</i> and <i>tmc2a</i>, which encode essential subunits of the MET complex. Further investigations demonstrated that Esrp1/2 could directly bind to <i>tmc1</i> and <i>tmc2a</i> mRNAs and affect their stability. Taken together, we showed here that Esrp1 and Esrp2 regulate the MET function of zebrafish sensory hair cells by modulating the stability of <i>tmc1</i> and <i>tmc2a</i> mRNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP1-regulated DNMT3B isoform switching determines the malignant potential of pancreatic cancer.",
+    "doi": "10.1038/s41388-026-03871-0",
+    "pmid": "42432326",
+    "authors": [
+      "Hong E, Park H, Kim J, Kang JM, Park S, Min T, Park J, Pang K, Kim P, Son M, Ooshima A, Kim D, Im J, Kwon W, Takeshima H, Ku JL, Kim H, Ushijima T, Jang JY, Kwon YJ, Park D, Park SH, Kim SJ."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial splicing regulatory protein 1 (ESRP1) is a key regulator of epithelial-mesenchymal transition (EMT) and cancer progression, including in pancreatic ductal adenocarcinoma (PDAC). We show that ESRP1-mediated isoform switching of DNA methyltransferase 3B (DNMT3B) correlates with the metastatic potential of pancreatic cancer cells. The expression of DNMT3B splicing variants was closely linked to ESRP1 level. Ectopic expression of mesenchymal DNMT3B isoforms 3 and 7, lacking part of the methyltransferase catalytic domain, significantly enhanced lung metastasis and tumor growth, while epithelial DNMT3B isoforms 1 and 2, with an intact catalytic domain, suppressed these effects in mouse models. Differential expression of DNMT3B isoforms also correlated with overall survival in PDAC patients. Deletion of exons 21-22, differentially spliced region between epithelial and mesenchymal isoforms, increased cell proliferation and migration, similar to mesenchymal DNMT3B. RNA sequencing revealed that mesenchymal DNMT3B isoforms 3 and 7 were associated with aggressive tumor phenotypes. Among differentially expressed target genes of DNMT3B isoforms, Fibulin 1 (FBLN1), a key regulator of the tumor microenvironment, regulates cancer cell migration and EMT. Taken together, our results highlight the central role of ESRP1-mediated DNMT3B isoform switching in pancreatic cancer progression and metastasis and suggest that DNMT3B isoforms may serve as potential biomarkers for this disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "EMT-induced stem cell and mesenchymal programs can be decoupled via cell division and ESRP1-dependent mechanisms.",
+    "doi": "10.1016/j.isci.2025.114284",
+    "pmid": "41503216",
+    "authors": [
+      "den Hollander P, Castaneda M, Vasaikar SV, Maddela JJ, Gould C, Demestichas BR, Joseph R, Agarwal S, Deshmukh AP, Zia A, Shah S, Zhou T, Raja G, Allegakoen P, Kuburich NA, Pietila M, Fu C, Chang J, Creighton CJ, Symmans WF, Soundararajan R, Mani SA."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial-to-mesenchymal transition (EMT) is known to induce both stemness and mesenchymal properties, and our findings reveal that these two programs can be uncoupled. During EMT, epithelial cells transition from symmetric divisions producing differentiated daughter cells to self-renewing daughter cells. When we block cell division and induce EMT, cells gain mesenchymal properties but not stemness, suggesting the importance of cell division for gaining stemness. We identified ESRP1 as a key regulator of EMT-driven stemness, which get downregulated during EMT in a cell division-dependent manner. Overexpression of ESRP1 prevents the gain of stemness without affecting the mesenchymal program. Only the stemness and not the mesenchymal signature, induced during EMT, correlates with poor prognosis. All cancer cells with stemness properties exhibit mesenchymal properties, but not all mesenchymal cells exhibit stemness properties. In summary, during EMT the stemness program is controlled by cell division and ESRP1, and this program predicts poor prognosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of epithelial splicing regulatory protein 1 in cancer progression.",
+    "doi": "10.1186/s12935-023-03180-6",
+    "pmid": "38110955",
+    "authors": [
+      "Kwon MJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-12-18",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "As aberrant alternative splicing by either dysregulation or mutations of splicing factors contributes to cancer initiation and progression, splicing factors are emerging as potential therapeutic targets for cancer therapy. Therefore, pharmacological modulators targeting splicing factors have been under development. Epithelial splicing regulatory protein 1 (ESRP1) is an epithelial cell-specific splicing factor, whose downregulation is associated with epithelial-mesenchymal transition (EMT) by regulating alternative splicing of multiple genes, such as CD44, CTNND1, ENAH, and FGFR2. Consistent with the downregulation of ESRP1 during EMT, it has been initially revealed that high ESRP1 expression is associated with favorable prognosis and ESRP1 plays a tumor-suppressive role in cancer progression. However, ESRP1 has been found to promote cancer progression in some cancers, such as breast and ovarian cancers, indicating that it plays a dual role in cancer progression depending on the type of cancer. Furthermore, recent studies have reported that ESRP1 affects tumor growth by regulating the metabolism of tumor cells or immune cell infiltration in the tumor microenvironment, suggesting the novel roles of ESRP1 in addition to EMT. ESRP1 expression was also associated with response to anticancer drugs. This review describes current understanding of the roles and mechanisms of ESRP1 in cancer progression, and further discusses the emerging novel roles of ESRP1 in cancer and recent attempts to target splicing factors for cancer therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP2-dependent CD44 isoform switching is functionally linked to epithelial-mesenchymal plasticity in bladder cancer. ",
+    "doi": "10.1016/j.bbagrm.2026.195180",
+    "pmid": "42636968",
+    "authors": [
+      "Bajdak-Rusinek K, Wierzbinka M, Sundararajan V, Sieroń L, Stępień KL, Diak N, Jankowska K, Salamon M, Wójtowicz W, Dziedzic-Kowalska A, Dutczak R, Hałacińska K, Machnik G."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal transition (EMT) drives phenotypic plasticity in bladder cancer and contributes to tumor progression, therapeutic resistance, and recurrence. While epithelial splicing regulatory proteins (ESRPs) are established modulators of EMT-associated splicing programs, the downstream mechanisms through which they influence tumor cell state remain incompletely understood. Here, we identify CD44 isoform switching as a functionally relevant component of ESRP2-dependent control of epithelial plasticity. Using epithelial (RT4) and mesenchymal (UM-UC-3) bladder cancer models, we show that distinct cellular states are characterized by different CD44 isoform landscapes, with epithelial cells enriched in CD44 variant isoforms and mesenchymal cells dominated by the standard isoform CD44s. Functional perturbation studies revealed that ESRP2 exerts a stronger effect than ESRP1 on CD44 isoform composition, promoting epithelial-associated CD44 variant isoforms while suppressing CD44s. Induction of EMT in RT4 cells was accompanied by downregulation of ESRP1/2 and a shift toward CD44s enrichment. Conversely, depletion of CD44s attenuated EMT-associated transcriptional and morphological changes and partially reversed the effects of ESRP2 loss on EMT marker expression. In mesenchymal UM-UC-3 cells, CD44s depletion reduced migratory capacity and impaired spheroid growth, further supporting a functional contribution of CD44 isoform balance to mesenchymal behavior. Collectively, our findings indicate that ESRP2-dependent regulation of CD44 isoform composition is closely linked to epithelial-mesenchymal plasticity in bladder cancer. These findings provide insight into splicing-associated regulation of tumor cell state and underscore the importance of isoform-resolved analyses for understanding cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP1-Associated CD44 Alternative Splicing Stratifies Epithelial-Mesenchymal Identity States in a Non-Transformed Human Cell System.",
+    "doi": "10.3390/cimb48020130",
+    "pmid": "41751394",
+    "authors": [
+      "Bajdak-Rusinek K, Diak N, Trybus A, Fus-Kujawa A, Salamon M, Olszewski J, Wójtowicz W, Rozwadowska-Kunecka P."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Epithelial-mesenchymal plasticity encompasses a spectrum of epithelial and mesenchymal identity states that enable cells to adapt to changing biological contexts. While CD44 isoform usage and epithelial splicing regulators ESRP1/2 are well-characterized in cancer-associated epithelial-mesenchymal transition (EMT), their regulation across physiological, non-transformed identity states remains less well defined. Here, we employed a non-malignant human cellular system comprising primary dermal fibroblasts, induced pluripotent stem (iPS) cells, and iPS-derived mesenchymal stem cells (iPS-MSCs) to define discrete epithelial, intermediate epithelial/mesenchymal, and mesenchymal identity states positioned along an epithelial-mesenchymal identity axis. Morphological assessment, lineage marker profiling, and RT-qPCR analyses revealed reproducible population-level stratification of these states. CD44 expression and alternative splicing followed this hierarchy, with CD44s predominating in fibroblasts, broad variant exon inclusion in iPS cells, and intermediate patterns in iPS-MSCs. ESRP1 expression mirrored CD44 splicing architecture, and ESRP1 silencing in iPS cells induced a shift toward CD44s, confirming its functional contribution to epithelial-associated CD44 splicing. In contrast, Notch-related transcriptional readouts displayed distinct, context-dependent profiles across the examined identity states. Together, this study establishes a tractable non-transformed human model that captures selected molecular features associated with epithelial-mesenchymal plasticity beyond malignant contexts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ESRP1 drives epithelial-mesenchymal transition by activating EPAC-RAP1A signaling axis.",
+    "doi": "10.3389/fmed.2026.1734619",
+    "pmid": "41728622",
+    "authors": [
+      "Qi R, Wang J, Cheng G, Zhao T, Hu Z, Yu J, Jia Y, Chen J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Idiopathic pulmonary fibrosis (IPF) is a fatal lung disease characterized by epithelial-mesenchymal transition (EMT) as a key pathological feature. The molecular mechanism of EMT is not fully understood. Hence, the current study aimed to investigate the pathogenesis of EMT, which focus on the function of Epithelial Splicing Regulatory Protein 1 (ESRP1) in regulating EMT.<h4>Methods</h4>The present study utilized bleomycin (BLM) to establish mouse models of IPF. Then, single-cell RNA sequencing (scRNA-seq) of entire lung tissue was employed to delineate transcriptional alterations in epithelial cells and to nominate prospective regulators of EMT. The target gene was subsequently validated <i>in vivo</i> and <i>in vitro</i> by qPCR, western blot, and immunofluorescence. Furthermore, an EMT model was established in TGF-β1-treated MLE-12 alveolar epithelial cells. Lentivirus or siRNA was hired to modulate the expression of target gene and elucidate its mechanistic contribution to EMT.<h4>Results</h4>ScRNA-seq revealed marked up-regulation of the ESRP1 in alveolar epithelial cells compared with PBS-treated controls. Subsequent mechanistic interrogation in primary and MLE-12 alveolar epithelial cells demonstrated that knockdown of ESRP1 suppressed, whereas its overexpression potentiated, the expression of Epac, Rap1a, and N-cad which were key effectors of EMT. Importantly, Co-IP (Co-Immunoprecipitation) showed that there was interaction between ESRP1, Epac, and Rap1a. Silencing of either Epac or Rap1a did not reciprocally alter ESRP1 expression, confirming an upstream regulatory hierarchy.<h4>Conclusion</h4>Our findings demonstrate that ESRP1 upregulation in alveolar epithelial cells drives IPF progression by promoting EMT via the Epac-Rap1a axis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Single-cell mapping of alternative splicing linked to checkpoint immunotherapy response.",
+    "doi": "10.1093/nar/gkaf1171",
+    "pmid": "41273175",
+    "authors": [
+      "Xiong J, Bricard O, Arijs I, Demeulemeester J, Gu C, Thienpont B, Daaboul D, Bassez A, Bechter O, Poźniak J, Vos H, Nevelsteen I, Torfs S, Santos SA, Lan Q, Hou Y, Van Oudenhove L, Boons G, Qian J, Aerts S, Smeets A, Marine JC, Lambrechts D."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-01",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Evidence suggests that alternative RNA splicing (AS) plays a critical role in tumor biology and may contribute to the generation of tumor antigens. Here, we develop a method to detect AS in short-read single-cell 5'-RNA-sequencing data, allowing us to uniquely characterize the heterogeneity and dynamic changes in AS in individual cell types within the tumor microenvironment. We identify numerous splicing events specific to either cancer cells or stromal cell types or for triple-negative versus estrogen receptor-positive breast cancers (BCs). By correlating these splice events with expression of splicing regulators in individual cells, we also identify their potential mediators. For instance, we identify and functionally validate the Epithelial Splicing Regulatory Protein-1 (ESRP1) to drive AS in BCs responding to immune checkpoint blockade (ICB). Prioritization of splicing events based on their likelihood to represent tumor antigens reveals that their aggregated load also correlates with high immune activity in multiple cancers, while also predicting expansion of T cells in BCs receiving ICB and prolonging long-term survival of cancer patients treated with ICB. Collectively, our method provides a framework for analyzing AS in single-cell data and defines a key role for AS in the response to ICB.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Isoform switching in the CD44/ESRP1 axis as a driver of EMT and cancer stemness across tumor types.",
+    "doi": "10.1016/j.biochi.2025.10.015",
+    "pmid": "41130441",
+    "authors": [
+      "Jankowska K, Wójtowicz W, Wierzbinka M, Raszczok K, Bajdak-Rusinek K."
+    ],
+    "year": "2026",
+    "publication_date": "2025-10-21",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Alternative splicing of cluster of differentiation 44 (CD44), regulated by epithelial splicing regulatory protein 1 (ESRP1), plays a critical role in cancer progression. The switch between CD44 variant (CD44v) and standard (CD44s) isoforms is tightly linked to epithelial-mesenchymal transition (EMT), metastatic potential and cancer stem cell (CSC) maintenance. This review integrates recent isoform-resolved findings to elucidate the molecular mechanisms underlying CD44/ESRP1-mediated splicing and its involvement in oncogenic signaling pathways promoting invasion, plasticity and therapy resistance. We also examine cancer-specific CD44 isoform expression patterns and assess their prognostic and therapeutic relevance. We propose that isoform-specific profiling of the CD44/ESRP1 axis may serve as a predictive framework for metastasis and therapy response, paving the way for targeted splicing-based therapeutics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The role of ESRP1 in solid tumor development through the regulation of CD44 splicing and EMT processes.",
+    "doi": "10.3389/fonc.2025.1451130",
+    "pmid": "40046628",
+    "authors": [
+      "Wang L, Zhang M, Zhao K, Yuan X, Zhao H, Liu Y, Ji Y, Lu P."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-12",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "According to the World Health Organization's statistics, cancer is the second leading cause of death worldwide, following cardiovascular diseases. Despite significant progress in the field of cancer treatment in recent years, cancer remains one of the main factors shortening human life expectancy. The field of cancer research is increasingly focusing on the role of tumor-related oncogenes and heterogeneous proteins in the development of cancer. Studies indicate that there is a close connection between solid tumors and epithelial splicing regulatory protein 1 (ESRP1). ESRP1 is a key intracellular molecule that plays a crucial role in cell growth and differentiation. As an emerging biomarker, ESRP1 has a decisive impact on the formation and development of solid tumors by regulating the alternative splicing of CD44 and the epithelial-mesenchymal transition (EMT) process. Research shows that abnormal expression of ESRP1 is closely related to the formation and development of various solid tumors, including breast cancer, lung cancer, stomach cancer, and others, and is closely associated with the invasiveness, metastasis, and poor prognosis of tumors. Therefore, given ESRP1's critical role in cancer development, it is gradually becoming a potential biomarker and therapeutic target. This review primarily discusses the molecular mechanisms of ESRP1 in regulating cancer metastasis, particularly its regulatory effects on CD44 splicing and the EMT process. These research findings provide new targets for cancer treatment, aiming to bring more precise diagnosis and more effective treatment strategies to patients.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "title": "Unraveling the Pathways to Neuronal Homeostasis and Disease: Mechanistic Insights into the Role of RNA-Binding Proteins and Associated Factors",
+    "doi": "10.3390/ijms19082280",
+    "authors": [
+      "Stylianos Ravanidis",
+      "Fedon-Giasin Kattan",
+      "Epaminondas Doxakis"
+    ],
+    "year": 2018,
+    "publication_date": "2018-08-03",
+    "cited_by_count": 68,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The timing, dosage and location of gene expression are fundamental determinants of brain architectural complexity. In neurons, this is, primarily, achieved by specific sets of trans-acting RNA-binding proteins (RBPs) and their associated factors that bind to specific cis elements throughout the RNA sequence to regulate splicing, polyadenylation, stability, transport and localized translation at both axons and dendrites. Not surprisingly, misregulation of RBP expression or disruption of its funct",
+    "openalex_id": "https://openalex.org/W2887769003",
+    "relevance_score": 49.52106
+  },
+  {
+    "title": "Comprehensive in vivo identification of the c-Myc mRNA protein interactome using HyPR-MS",
+    "doi": "10.1261/rna.072157.119",
+    "authors": [
+      "Michele Spiniello",
+      "Maisie I. Steinbrink",
+      "Anthony J. Cesnik",
+      "Rachel Miller",
+      "Mark Scalf"
+    ],
+    "year": 2019,
+    "publication_date": "2019-07-11",
+    "cited_by_count": 39,
+    "journal": "RNA",
+    "abstract": "Proteins bind mRNA through their entire life cycle from transcription to degradation. We analyzed c-Myc mRNA protein interactors in vivo using the HyPR-MS method to capture the crosslinked mRNA by hybridization and then analyzed the bound proteins using mass spectrometry proteomics. Using HyPR-MS, 229 c-Myc mRNA-binding proteins were identified, confirming previously proposed interactors, suggesting new interactors, and providing information related to the roles and pathways known to involve c-M",
+    "openalex_id": "https://openalex.org/W2957983068",
+    "relevance_score": 40.11318
+  },
+  {
+    "title": "HIV-1 and two avian retroviral 5′ untranslated regions bind orthologous human and chicken RNA binding proteins",
+    "doi": "10.1016/j.virol.2015.06.001",
+    "authors": [
+      "Matthew S. Stake",
+      "Deepali Singh",
+      "Gatikrushna Singh",
+      "J. Marcela Hernandez",
+      "Rebecca J. Kaddis Maldonado"
+    ],
+    "year": 2015,
+    "publication_date": "2015-11-13",
+    "cited_by_count": 28,
+    "journal": "Virology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W2173915105",
+    "relevance_score": 38.396976
+  },
+  {
+    "title": "Alternative Splicing, RNA Editing, and the Current Limits of Next Generation Sequencing",
+    "doi": "10.3390/genes14071386",
+    "authors": [
+      "Manuela Piazzi",
+      "Alberto Bavelloni",
+      "Sara Salucci",
+      "Irene Faenza",
+      "William L. Blalock"
+    ],
+    "year": 2023,
+    "publication_date": "2023-06-30",
+    "cited_by_count": 26,
+    "journal": "Genes",
+    "abstract": "The advent of next generation sequencing (NGS) has fostered a shift in basic analytic strategies of a gene expression analysis in diverse pathologies for the purposes of research, pharmacology, and personalized medicine. What was once highly focused research on individual signaling pathways or pathway members has, from the time of gene expression arrays, become a global analysis of gene expression that has aided in identifying novel pathway interactions, the discovery of new therapeutic targets,",
+    "openalex_id": "https://openalex.org/W4382752293",
+    "relevance_score": 32.494217
+  },
+  {
+    "title": "hnRNPs: roles in neurodevelopment and implication for brain disorders",
+    "doi": "10.3389/fnmol.2024.1411639",
+    "authors": [
+      "Pierre Tilliole",
+      "Simon Fix",
+      "Juliette D. Godin"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-17",
+    "cited_by_count": 22,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "Heterogeneous nuclear ribonucleoproteins (hnRNPs) constitute a family of multifunctional RNA-binding proteins able to process nuclear pre-mRNAs into mature mRNAs and regulate gene expression in multiple ways. They comprise at least 20 different members in mammals, named from A ( HNRNP A1 ) to U ( HNRNP U ). Many of these proteins are components of the spliceosome complex and can modulate alternative splicing in a tissue-specific manner. Notably, while genes encoding hnRNPs exhibit ubiquitous exp",
+    "openalex_id": "https://openalex.org/W4400745471",
+    "relevance_score": 30.783218
+  },
+  {
+    "title": "Research Progress on the Structural and Functional Roles of hnRNPs in Muscle Development",
+    "doi": "10.3390/biom13101434",
+    "authors": [
+      "Zhenyang Li",
+      "Haimei Wei",
+      "Debao Hu",
+      "Xin Li",
+      "Yiwen Guo"
+    ],
+    "year": 2023,
+    "publication_date": "2023-09-22",
+    "cited_by_count": 12,
+    "journal": "Biomolecules",
+    "abstract": "Heterogeneous nuclear ribonucleoproteins (hnRNPs) are a superfamily of RNA-binding proteins consisting of more than 20 members. These proteins play a crucial role in various biological processes by regulating RNA splicing, transcription, and translation through their binding to RNA. In the context of muscle development and regeneration, hnRNPs are involved in a wide range of regulatory mechanisms, including alternative splicing, transcription regulation, miRNA regulation, and mRNA stability regu",
+    "openalex_id": "https://openalex.org/W4386961371",
+    "relevance_score": 25.177277
+  },
+  {
+    "title": "RNA in axons, dendrites, synapses and beyond",
+    "doi": "10.3389/fnmol.2024.1397378",
+    "authors": [
+      "Richard Taylor",
+      "Nikolas Nikolaou"
+    ],
+    "year": 2024,
+    "publication_date": "2024-09-18",
+    "cited_by_count": 8,
+    "journal": "Frontiers in Molecular Neuroscience",
+    "abstract": "In neurons, a diverse range of coding and non-coding RNAs localize to axons, dendrites, and synapses, where they facilitate rapid responses to local needs, such as axon and dendrite extension and branching, synapse formation, and synaptic plasticity. Here, we review the extent of our current understanding of RNA subclass diversity in these functionally demanding subcellular compartments. We discuss the similarities and differences identified between axonal, dendritic and synaptic local transcrip",
+    "openalex_id": "https://openalex.org/W4402599413",
+    "relevance_score": 24.10286
+  },
+  {
+    "title": "RNA Regulators in Leukemia and Lymphoma",
+    "doi": "10.1101/cshperspect.a034967",
+    "authors": [
+      "Camila Prieto",
+      "Michael G. Kharas"
+    ],
+    "year": 2019,
+    "publication_date": "2019-10-15",
+    "cited_by_count": 13,
+    "journal": "Cold Spring Harbor Perspectives in Medicine",
+    "abstract": "Posttranscriptional regulation of mRNA is a powerful and tightly controlled process in which cells command the integrity, diversity, and abundance of their protein products. RNA-binding proteins (RBPs) are the principal players that control many intermediary steps of posttranscriptional regulation. Recent advances in this field have discovered the importance of RBPs in hematological diseases. Herein we will review a number of RBPs that have been determined to play critical functions in leukemia ",
+    "openalex_id": "https://openalex.org/W2981299683",
+    "relevance_score": 23.970278
+  },
+  {
+    "title": "Comprehensive discovery and analysis of RNA binding protein-dependent post-transcriptional events in mammalian systems",
+    "doi": null,
+    "authors": [
+      "Stephanie C. Huelga"
+    ],
+    "year": 2014,
+    "publication_date": "2014-01-01",
+    "cited_by_count": 0,
+    "journal": "eScholarship (California Digital Library)",
+    "abstract": "Nascent transcripts produced by RNA polymerase II in eukaryotic cells are subject to extensive processing prior to the generation of a functional messenger RNA (mRNA). These RNAs are generally found coated with RNA binding proteins (RBPs), which act in concert to regulate RNA processing events, including splicing, polyadenylation, and RNA stability. The aggregate effect of various RBPs on a given RNA transcript eventually dictates its fate, a phenomenon referred to as the RNP code. The precise c",
+    "openalex_id": "https://openalex.org/W2507465076",
+    "relevance_score": 2.6285274
+  },
+  {
+    "title": "Twist of messenger Fate: novel mechanisms for TDP43 in modulating mRNA decay and alternative polyadenylation",
+    "doi": "10.15168/11572_369301",
+    "authors": [
+      "Valentina Potrich"
+    ],
+    "year": 2017,
+    "publication_date": "2017-01-01",
+    "cited_by_count": 0,
+    "journal": "Unitn-eprints PhD (University of Trento)",
+    "abstract": "TDP43 is an ubiquitously expressed RNA-binding protein implicated in several aspects of RNA metabolism. It can shuttle between the nucleus and the cytoplasm; however, when it is mutated in some familial Amyotrophic Lateral Sclerosis (ALS) cases, it undergoes nuclear clearance and cytoplasmic accumulation, driving neuronal degeneration. The same phenotype is present in patients bearing ALS-inducing mutations in other genes and ALS sporadic patients, defining TDP43 proteinopathy as a common featur",
+    "openalex_id": "https://openalex.org/W2779698398",
+    "relevance_score": 2.5579798
+  },
+  {
+    "title": "Methylation marks breast cancer metastasis: The roles of m6A-modified miRNAs and lncRNAs",
+    "doi": "10.1016/j.jbc.2026.113127",
+    "authors": [
+      "Brock A. Humphries",
+      "Zhishan Wang",
+      "Chengfeng Yang"
+    ],
+    "year": 2026,
+    "publication_date": "2026-05-06",
+    "cited_by_count": 0,
+    "journal": "Journal of Biological Chemistry",
+    "abstract": "Breast cancer is the most commonly diagnosed cancer and a leading cause of death in women, with metastasis accounting for most of these fatalities. The mechanism of breast cancer metastasis has not been well understood. Recent research shows that chemical modifications added to RNA molecules after they are made, specifically the addition of a methyl group on the N 6 position of an adenosine (N 6 -methyladenosine), play a crucial role in how cancer develops, adapts, and resists therapy. This revi",
+    "openalex_id": "https://openalex.org/W7160407691",
+    "relevance_score": 2.5170138
+  },
+  {
+    "title": "Function of Long Noncoding RNAs in Breast Cancer",
+    "doi": null,
+    "authors": [
+      "Edward J. Richards"
+    ],
+    "year": 2015,
+    "publication_date": "2015-01-01",
+    "cited_by_count": 0,
+    "journal": "Digital Commons - University of South Florida (University of South Florida)",
+    "abstract": "Breast cancer is a disease that will be diagnosed in about 1 in 10 women throughout their lifetime. The majority of breast cancers are originated from the epithelial cells of the mammary ducts, and this occurrence can be due to several factors including hereditary and acquired mutation. There are several major breast cancer subtypes, including estrogen receptor-α (ERα)-positive, HER2-enriched and triple-negative (TNBC). Patients diagnosed with ER+ tumors are generally treated with estrogen block",
+    "openalex_id": "https://openalex.org/W1736043715",
+    "relevance_score": 2.0624971
+  }
+]

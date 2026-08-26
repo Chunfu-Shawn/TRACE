@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The Yin and Yang of P-TEFb regulation: implications for human immunodeficiency virus gene expression and global control of cell growth and differentiation.",
+    "doi": "10.1128/mmbr.00011-06",
+    "pmid": "16959964",
+    "authors": [
+      "Zhou Q, Yik JH."
+    ],
+    "year": "2006",
+    "publication_date": "2006-09-01",
+    "cited_by_count": 209,
+    "journal": "",
+    "abstract": "The positive transcription elongation factor b (P-TEFb) stimulates transcriptional elongation by phosphorylating the carboxy-terminal domain of RNA polymerase II and antagonizing the effects of negative elongation factors. Not only is P-TEFb essential for transcription of the vast majority of cellular genes, but it is also a critical host cellular cofactor for the expression of the human immunodeficiency virus (HIV) type 1 genome. Given its important role in globally affecting transcription, P-TEFb's activity is dynamically controlled by both positive and negative regulators in order to achieve a functional equilibrium in sync with the overall transcriptional demand as well as the proliferative state of cells. Notably, this equilibrium can be shifted toward either the active or inactive state in response to diverse physiological stimuli that can ultimately affect the cellular decision between growth and differentiation. In this review, we examine the mechanisms by which the recently identified positive (the bromodomain protein Brd4) and negative (the noncoding 7SK small nuclear RNA and the HEXIM1 protein) regulators of P-TEFb affect the P-TEFb-dependent transcriptional elongation. We also discuss the consequences of perturbations of the dynamic associations of these regulators with P-TEFb in relation to the pathogenesis and progression of several major human diseases, such as cardiac hypertrophy, breast cancer, and HIV infection.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Brd4 activates P-TEFb for RNA polymerase II CTD phosphorylation.",
+    "doi": "10.1093/nar/gku449",
+    "pmid": "24860166",
+    "authors": [
+      "Itzen F, Greifenberg AK, Bösken CA, Geyer M."
+    ],
+    "year": "2014",
+    "publication_date": "2014-05-23",
+    "cited_by_count": 208,
+    "journal": "",
+    "abstract": "The bromodomain protein Brd4 regulates the transcription of signal-inducible genes. This is achieved by recruiting the positive transcription elongation factor P-TEFb to promoters by its P-TEFb interaction domain (PID). Here we show that Brd4 stimulates the kinase activity of P-TEFb for phosphorylation of the C-terminal domain (CTD) of RNA polymerase II over basal levels. The CTD phosphorylation saturation levels, the preferences for pre-phosphorylated substrates, and the phosphorylation specificity for Ser5 of the CTD however remain unchanged. Inhibition of P-TEFb by Hexim1 is relieved by Brd4, although no mutual displacement with the Cyclin T-binding domain of Hexim1 was observed. Brd4 PID shows a surprising sequence motif similarity to the trans-activating Tat protein from HIV-1, which includes a core RxL motif, a polybasic cluster known as arginine-rich motif, and a C-terminal leucine motif. Mutation of these motifs to alanine significantly diminished the stimulatory effect of Brd4 and fully abrogated its activation potential in presence of Hexim1. Yet the protein was not found to bind Cyclin T1 as Tat, but only P-TEFb with a dissociation constant of 0.5 μM. Our data suggest a model where Brd4 acts on the kinase subunit of P-TEFb to relieve inhibition and stimulate substrate recognition.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HEXIM1 and NEAT1 Long Non-coding RNA Form a Multi-subunit Complex that Regulates DNA-Mediated Innate Immune Response.",
+    "doi": "10.1016/j.molcel.2017.06.020",
+    "pmid": "28712728",
+    "authors": [
+      "Morchikh M, Cribier A, Raffel R, Amraoui S, Cau J, Severac D, Dubois E, Schwartz O, Bennasser Y, Benkirane M."
+    ],
+    "year": "2017",
+    "publication_date": "2017-07-14",
+    "cited_by_count": 202,
+    "journal": "",
+    "abstract": "The DNA-mediated innate immune response underpins anti-microbial defenses and certain autoimmune diseases. Here we used immunoprecipitation, mass spectrometry, and RNA sequencing to identify a ribonuclear complex built around HEXIM1 and the long non-coding RNA NEAT1 that we dubbed the HEXIM1-DNA-PK-paraspeckle components-ribonucleoprotein complex (HDP-RNP). The HDP-RNP contains DNA-PK subunits (DNAPKc, Ku70, and Ku80) and paraspeckle proteins (SFPQ, NONO, PSPC1, RBM14, and MATRIN3). We show that binding of HEXIM1 to NEAT1 is required for its assembly. We further demonstrate that the HDP-RNP is required for the innate immune response to foreign DNA, through the cGAS-STING-IRF3 pathway. The HDP-RNP interacts with cGAS and its partner PQBP1, and their interaction is remodeled by foreign DNA. Remodeling leads to the release of paraspeckle proteins, recruitment of STING, and activation of DNAPKc and IRF3. Our study establishes the HDP-RNP as a key nuclear regulator of DNA-mediated activation of innate immune response through the cGAS-STING pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Bromodomain and extra-terminal (BET) bromodomain inhibition activate transcription via transient release of positive transcription elongation factor b (P-TEFb) from 7SK small nuclear ribonucleoprotein.",
+    "doi": "10.1074/jbc.m112.410746",
+    "pmid": "22952229",
+    "authors": [
+      "Bartholomeeusen K, Xiang Y, Fujinaga K, Peterlin BM."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-05",
+    "cited_by_count": 184,
+    "journal": "",
+    "abstract": "By phosphorylating elongation factors and the C-terminal domain of RNA polymerase II, the positive transcription elongation factor b (P-TEFb) is the critical kinase for transcription elongation and co-transcriptional processing of eukaryotic genes. It exists in inactive small nuclear ribonucleoprotein (7SK snRNP) and active (free P-TEFb) complexes in cells. The P-TEFb equilibrium determines the state of cellular activation, proliferation, and differentiation. Free P-TEFb, which is required for growth, can be recruited to RNA polymerase II via transcription factors, BRD4, or the super elongation complex (SEC). UV light, various signaling cascades, transcriptional blockade, or compounds such as hexamethylene bisacetamide (HMBA), suberoylanilide hydroxamic acid (SAHA), and other histone deacetylase inhibitors lead to a rapid release of free P-TEFb, followed by its reassembly into the 7SK snRNP. As a consequence, transcription of HEXIM1, a critical 7SK snRNP subunit, and HIV is induced. In this study, we found that a bromodomain and extra-terminal (BET) bromodomain inhibitor, JQ1, which inhibits BRD4 by blocking its association with chromatin, also leads to the rapid release of free P-TEFb from the 7SK snRNP. Indeed, JQ1 transiently increased levels of free P-TEFb and BRD4·P-TEFb and SEC·P-TEFb complexes in cells. As a consequence, the levels of HEXIM1 and HIV proteins rose. Importantly, the knockdown of ELL2, a subunit of the SEC, blocked the ability of JQ1 to increase HIV transcription. Finally, the effects of JQ1 and HMBA or SAHA on the P-TEFb equilibrium were cooperative. We conclude that HMBA, SAHA, and JQ1 affect transcription elongation by a similar and convergent mechanism.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HMBA releases P-TEFb from HEXIM1 and 7SK snRNA via PI3K/Akt and activates HIV transcription.",
+    "doi": "10.1371/journal.ppat.0030146",
+    "pmid": "17937499",
+    "authors": [
+      "Contreras X, Barboric M, Lenasi T, Peterlin BM."
+    ],
+    "year": "2007",
+    "publication_date": "2007-10-01",
+    "cited_by_count": 182,
+    "journal": "",
+    "abstract": "Hexamethylene bisacetamide (HMBA) is a potent inducer of cell differentiation and HIV production in chronically infected cells. However, its mechanism of action remains poorly defined. In this study, we demonstrate that HMBA activates transiently the PI3K/Akt pathway, which leads to the phosphorylation of HEXIM1 and the subsequent release of active positive transcription elongation factor b (P-TEFb) from its transcriptionally inactive complex with HEXIM1 and 7SK small nuclear RNA (snRNA). As a result, P-TEFb is recruited to the HIV promoter to stimulate transcription elongation and viral production. Despite the continuous presence of HMBA, the released P-TEFb reassembles rapidly with 7SK snRNA and HEXIM1. In contrast, a mutant HEXIM1 protein that cannot be phosphorylated and released from P-TEFb and 7SK snRNA via the PI3K/Akt pathway antagonizes this HMBA-mediated induction of viral production. Thus, our studies reveal how HIV transcription is induced by HMBA and suggest how modifications in the equilibrium between active and inactive P-TEFb could contribute to cell differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Potent antimyeloma activity of the novel bromodomain inhibitors I-BET151 and I-BET762.",
+    "doi": "10.1182/blood-2013-01-478420",
+    "pmid": "24335499",
+    "authors": [
+      "Chaidos A, Caputo V, Gouvedenou K, Liu B, Marigo I, Chaudhry MS, Rotolo A, Tough DF, Smithers NN, Bassil AK, Chapman TD, Harker NR, Barbash O, Tummino P, Al-Mahdi N, Haynes AC, Cutler L, Le B, Rahemtulla A, Roberts I, Kleijnen M, Witherington JJ, Parr NJ, Prinjha RK, Karadimitris A."
+    ],
+    "year": "2014",
+    "publication_date": "2013-12-13",
+    "cited_by_count": 170,
+    "journal": "",
+    "abstract": "The bromodomain and extraterminal (BET) protein BRD2-4 inhibitors hold therapeutic promise in preclinical models of hematologic malignancies. However, translation of these data to molecules suitable for clinical development has yet to be accomplished. Herein we expand the mechanistic understanding of BET inhibitors in multiple myeloma by using the chemical probe molecule I-BET151. I-BET151 induces apoptosis and exerts strong antiproliferative effect in vitro and in vivo. This is associated with contrasting effects on oncogenic MYC and HEXIM1, an inhibitor of the transcriptional activator P-TEFb. I-BET151 causes transcriptional repression of MYC and MYC-dependent programs by abrogating recruitment to the chromatin of the P-TEFb component CDK9 in a BRD2-4-dependent manner. In contrast, transcriptional upregulation of HEXIM1 is BRD2-4 independent. Finally, preclinical studies show that I-BET762 has a favorable pharmacologic profile as an oral agent and that it inhibits myeloma cell proliferation, resulting in survival advantage in a systemic myeloma xenograft model. These data provide a strong rationale for extending the clinical testing of the novel antimyeloma agent I-BET762 and reveal insights into biologic pathways required for myeloma cell proliferation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tat competes with HEXIM1 to increase the active pool of P-TEFb for HIV-1 transcription.",
+    "doi": "10.1093/nar/gkm063",
+    "pmid": "17341462",
+    "authors": [
+      "Barboric M, Yik JH, Czudnochowski N, Yang Z, Chen R, Contreras X, Geyer M, Matija Peterlin B, Zhou Q."
+    ],
+    "year": "2007",
+    "publication_date": "2007-03-06",
+    "cited_by_count": 160,
+    "journal": "",
+    "abstract": "Human immunodeficiency virus type 1 (HIV-1) transcriptional transactivator (Tat) recruits the positive transcription elongation factor b (P-TEFb) to the viral promoter. Consisting of cyclin dependent kinase 9 (Cdk9) and cyclin T1, P-TEFb phosphorylates RNA polymerase II and the negative transcription elongation factor to stimulate the elongation of HIV-1 genes. A major fraction of nuclear P-TEFb is sequestered into a transcriptionally inactive 7SK small nuclear ribonucleoprotein (snRNP) by the coordinated actions of the 7SK small nuclear RNA (snRNA) and hexamethylene bisacetamide (HMBA) induced protein 1 (HEXIM1). In this study, we demonstrate that Tat prevents the formation of and also releases P-TEFb from the 7SK snRNP in vitro and in vivo. This ability of Tat depends on the integrity of its N-terminal activation domain and stems from the high affinity interaction between Tat and cyclin T1, which allows Tat to directly displace HEXIM1 from cyclin T1. Furthermore, we find that in contrast to the Tat-independent activation of the HIV-1 promoter, Tat-dependent HIV-1 transcription is largely insensitive to the inhibition by HEXIM1. Finally, primary blood lymphocytes display a reduced amount of the endogenous 7SK snRNP upon HIV-1 infection. All these data are consistent with the model that Tat not only recruits but also increases the active pool of P-TEFb for efficient HIV-1 transcription.",
+    "openalex_id": ""
+  },
+  {
+    "title": "7SK snRNA: a noncoding RNA that plays a major role in regulating eukaryotic transcription.",
+    "doi": "10.1002/wrna.106",
+    "pmid": "21853533",
+    "authors": [
+      "Peterlin BM, Brogie JE, Price DH."
+    ],
+    "year": "2012",
+    "publication_date": "2011-08-18",
+    "cited_by_count": 154,
+    "journal": "",
+    "abstract": "The human 7SK small nuclear RNA (snRNA) is an abundant noncoding RNA whose function has been conserved in evolution from invertebrates to humans. It is transcribed by RNA polymerase III (RNAPIII) and is located in the nucleus. Together with associated cellular proteins, 7SK snRNA regulates the activity of the positive transcription elongation factor b (P-TEFb). In humans, this regulation is accomplished by the recruitment of P-TEFb by the 7SK snRNA-binding proteins, hexamethylene bisacetamide (HMBA)-induced mRNA 1/2 (HEXIM1 or HEXIM2), which inhibit the kinase activity of P-TEFb. P-TEFb regulates the transition of promoter proximally paused RNA polymerase II (RNAPII) into productive elongation, thereby, allowing efficient mRNA production. The protein composition of the 7SK small nuclear ribonucleoprotein (snRNP) is regulated dynamically. While the Lupus antigen (La)-related protein 7 (LARP7) is a constitutive component, the methylphosphate capping enzyme (MePCE) associates secondarily to phosphorylate the 5' end of 7SK snRNA. The release of active P-TEFb is closely followed by release of HEXIM proteins and both are replaced by heterogeneous nuclear ribonucleoproteins (hnRNPs). The released P-TEFb activates the expression of most cellular and viral genes. Regulated release of P-TEFb determines the expression pattern of many of the genes that respond to environmental stimuli and regulate growth, proliferation, and differentiation of cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Two-pronged binding with bromodomain-containing protein 4 liberates positive transcription elongation factor b from inactive ribonucleoprotein complexes.",
+    "doi": "10.1074/jbc.m111.282855",
+    "pmid": "22084242",
+    "authors": [
+      "Schröder S, Cho S, Zeng L, Zhang Q, Kaehlcke K, Mak L, Lau J, Bisgrove D, Schnölzer M, Verdin E, Zhou MM, Ott M."
+    ],
+    "year": "2012",
+    "publication_date": "2011-11-14",
+    "cited_by_count": 153,
+    "journal": "",
+    "abstract": "The positive transcription elongation factor b (P-TEFb) exists in two forms in cells as follows: an inactive form where the core components cyclin T1 and CDK9 are incorporated in the 7SK small nuclear ribonucleoprotein complex containing the inhibitory molecule HEXIM1, and an active form, part of which associates with the bromodomain-containing protein BRD4. Here, we define a novel interaction between P-TEFb and BRD4 involving tri-acetylated cyclin T1 (acK380, acK386, and acK309) and the second bromodomain in BRD4. This interaction is observed with the short splice variant of BRD4 (amino acids 1-722) lacking a previously defined C-terminal P-TEFb-interacting domain (PID). Notably, P-TEFb complexes associated with short BRD4 contain HEXIM1 and 7SK snRNA, implicating the PID in the liberation of P-TEFb from the 7SK small nuclear ribonucleoprotein complex (7SK snPNP). Overexpression of the PID alone in cells dissociates HEXIM1 and 7SK snRNA from P-TEFb, but it is not sufficient to activate P-TEFb-dependent transcription of the HIV LTR. Our data support a model where two BRD4 domains, the second bromodomain and the PID, bind P-TEFb and are required for full transcriptional activation of P-TEFb response genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "BET protein proteolysis targeting chimera (PROTAC) exerts potent lethal activity against mantle cell lymphoma cells.",
+    "doi": "10.1038/leu.2017.207",
+    "pmid": "28663582",
+    "authors": [
+      "Sun B, Fiskus W, Qian Y, Rajapakshe K, Raina K, Coleman KG, Crew AP, Shen A, Saenz DT, Mill CP, Nowak AJ, Jain N, Zhang L, Wang M, Khoury JD, Coarfa C, Crews CM, Bhalla KN."
+    ],
+    "year": "2018",
+    "publication_date": "2017-06-30",
+    "cited_by_count": 138,
+    "journal": "",
+    "abstract": "Bromodomain extraterminal protein (BETP) inhibitors transcriptionally repress oncoproteins and nuclear factor-κB (NF-κB) target genes that undermines the growth and survival of mantle cell lymphoma (MCL) cells. However, BET bromodomain inhibitor (BETi) treatment causes accumulation of BETPs, associated with reversible binding and incomplete inhibition of BRD4 that potentially compromises the activity of BETi in MCL cells. Unlike BETi, BET-PROTACs (proteolysis-targeting chimera) ARV-825 and ARV-771 (Arvinas, Inc.) recruit and utilize an E3-ubiquitin ligase to effectively degrade BETPs in MCL cells. BET-PROTACs induce more apoptosis than BETi of MCL cells, including those resistant to ibrutinib. BET-PROTAC treatment induced more perturbations in the mRNA and protein expressions than BETi, with depletion of c-Myc, CDK4, cyclin D1 and the NF-κB transcriptional targets Bcl-xL, XIAP and BTK, while inducing the levels of HEXIM1, NOXA and CDKN1A/p21. Treatment with ARV-771, which possesses superior pharmacological properties compared with ARV-825, inhibited the in vivo growth and induced greater survival improvement than the BETi OTX015 of immune-depleted mice engrafted with MCL cells. Cotreatment of ARV-771 with ibrutinib or the BCL2 antagonist venetoclax or CDK4/6 inhibitor palbociclib synergistically induced apoptosis of MCL cells. These studies highlight promising and superior preclinical activity of BET-PROTAC than BETi, requiring further in vivo evaluation of BET-PROTAC as a therapy for ibrutinib-sensitive or -resistant MCL.",
+    "openalex_id": ""
+  },
+  {
+    "title": "P-TEFb: The master regulator of transcription elongation.",
+    "doi": "10.1016/j.molcel.2022.12.006",
+    "pmid": "36599353",
+    "authors": [
+      "Fujinaga K, Huang F, Peterlin BM."
+    ],
+    "year": "2023",
+    "publication_date": "2023-01-03",
+    "cited_by_count": 128,
+    "journal": "",
+    "abstract": "The positive transcription elongation factor b (P-TEFb) is composed of cyclins T1 or T2 and cyclin-dependent kinase 9 that regulate the elongation phase of transcription by RNA polymerase II. By antagonizing negative elongation factors and phosphorylating the C-terminal domain of RNA polymerase II, P-TEFb facilitates the elongation and co-transcriptional processing of nascent transcripts. This step is critical for the expression of most eukaryotic genes. In growing cells, P-TEFb is regulated negatively by its reversible associations with HEXIM1/2 in the 7SK snRNP and positively by a number of transcription factors, as well as the super elongation complex. In resting cells, P-TEFb falls apart, and cyclin T1 is degraded by the proteasome. This complex regulation of P-TEFb has evolved for the precise temporal and spatial regulation of gene expression in the organism. Its dysregulation contributes to inflammatory and neoplastic conditions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic remodelling of human 7SK snRNP controls the nuclear level of active P-TEFb.",
+    "doi": "10.1038/sj.emboj.7601783",
+    "pmid": "17611602",
+    "authors": [
+      "Van Herreweghe E, Egloff S, Goiffon I, Jády BE, Froment C, Monsarrat B, Kiss T."
+    ],
+    "year": "2007",
+    "publication_date": "2007-07-05",
+    "cited_by_count": 108,
+    "journal": "",
+    "abstract": "The 7SK small nuclear RNA (snRNA) regulates RNA polymerase II transcription elongation by controlling the protein kinase activity of the positive transcription elongation factor b (P-TEFb). In cooperation with HEXIM1, the 7SK snRNA sequesters P-TEFb into the kinase-inactive 7SK/HEXIM1/P-TEFb small nuclear ribonucleoprotein (snRNP), and thereby, controls the nuclear level of active P-TEFb. Here, we report that a fraction of HeLa 7SK snRNA that is not involved in 7SK/HEXIM1/P-TEFb formation, specifically interacts with RNA helicase A (RHA), heterogeneous nuclear ribonucleoprotein A1 (hnRNP), A2/B1, R and Q proteins. Inhibition of cellular transcription induces disassembly of 7SK/HEXIM1/P-TEFb and at the same time, increases the level of 7SK snRNPs containing RHA, hnRNP A1, A2/B1, R and Q. Removal of transcription inhibitors restores the original levels of the 7SK/HEXIM1/P-TEFb and '7SK/hnRNP' complexes. 7SK/HEXIM1/P-TEFb snRNPs containing mutant 7SK RNAs lacking the capacity for binding hnRNP A1, A2, R and Q are resistant to stress-induced disassembly, indicating that recruitment of the novel 7SK snRNP proteins is essential for disruption of 7SK/HEXIM1/P-TEFb. Thus, we propose that the nuclear level of active P-TEFb is controlled by dynamic and reversible remodelling of 7SK snRNP.",
+    "openalex_id": ""
+  }
+]

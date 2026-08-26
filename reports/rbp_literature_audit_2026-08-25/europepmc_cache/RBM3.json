@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Rbm3 deficiency leads to transcriptome-wide splicing alterations.",
+    "doi": "10.1080/15476286.2024.2413820",
+    "pmid": "39387568",
+    "authors": [
+      "Erkelenz S, Grzonka M, Papadakis A, Schaal H, Hoeijmakers JHJ, Gyenis Á."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<i>Rbm3</i> (RNA-binding motif protein 3) is a stress responsive gene, which maintains cellular homeostasis and promotes survival upon various harmful cellular stimuli. Rbm3 protein shows conserved structural and molecular similarities to heterogeneous nuclear ribonucleoproteins (hnRNPs), which regulate all steps of the mRNA metabolism. Growing evidence is pointing towards a broader role of Rbm3 in various steps of gene expression. Here, we demonstrate that Rbm3 deficiency is linked to transcriptome-wide pre-mRNA splicing alterations, which can be reversed through Rbm3 co-expression from a cDNA. Using an MS2 tethering assay, we show that Rbm3 regulates splice site selection similar to other hnRNP proteins when recruited between two competing 5 ' splice sites. Furthermore, we show that the N-terminal part of Rbm3 encompassing the RNA recognition motif (RRM), is sufficient to elicit changes in splice site selection. On the basis of these findings, we propose a novel, undescribed function of Rbm3 in RNA splicing that contributes to the preservation of transcriptome integrity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RMRP mediates neuroprotection as a downstream effector of RBM3 in human neuroblastoma SH-SY5Y cells.",
+    "doi": "10.1007/s00438-026-02487-z",
+    "pmid": "42517924",
+    "authors": [
+      "Ma S, Liu X, Xie Y, Han Y, Wang N, Li S, Cheng B, Ju F, Wang L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-07-28",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "As a non-coding RNA (lncRNA), the RNA component of mitochondrial RNA processing endoribonuclease (RMRP) is implicated in ribosome biogenesis. In recent years, its role in the neurodegenerative system has been reported; however, the molecular mechanism underlying RMRP-mediated neuroprotective effects remains elusive. In the present study, we identified that RMRP expression is regulated by the RNA-binding protein RBM3. The overexpression of RBM3 significantly upregulated RMRP transcription in SH-SY5Y neural cells, whereas RBM3 knockdown led to a marked reduction in RMRP expression. Furthermore, RNA Immunoprecipitation (RIP) assays confirmed the potential interaction between RMRP and RBM3. We then investigated the functional significance of RMRP regulated by RBM3 in Parkinson's disease (PD) cell models. Exogenous overexpression of RMRP strongly attenuated cytotoxicity induced by neurotoxins rotenone (ROT) and MPP<sup>+</sup> in SH-SY5Y cells, as evidenced by decreased levels of cleaved poly ADP-ribose polymerase 1 (PARP1) and enhanced cell viability. Given that RBM3 exerts robust neuroprotective effects by accelerating global protein synthesis (GPS), we hypothesized that RMRP is a key mediator of RBM3-conferred neuroprotection. Consistent with this hypothesis, RMRP overexpression enhanced the activity of eukaryotic elongation factor 2 (eEF2), a hallmark of cellular GPS. Its stimulatory effect on GPS was further validated using a puromycin incorporation assay. Collectively, our data reveal that RMRP acts as a novel effector of RBM3 in stimulating cellular GPS and conferring neuroprotective effects in SH-SY5Y cells, providing a new therapeutic target for PD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM3-associated germline variants and their functional role in gastric cancer susceptibility and progression.",
+    "doi": "10.3389/fonc.2026.1790197",
+    "pmid": "41994650",
+    "authors": [
+      "Zheng Q, Peng S, Wu X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Gastric cancer (GC) is the fifth most commonly diagnosed malignancy and the fourth leading cause of cancer-related mortality worldwide. RNA-binding motif protein 3 (RBM3) has been associated as a prognostic marker in several cancers; however, its genetic contribution and functional role in gastric cancer remain unclear.<h4>Methods</h4>Genome-wide association study (GWAS) data was integrated with experimental validation to investigate the role of RBM3 in GC. RBM3-associated expression quantitative trait loci (eQTLs) were identified from a GWAS of 3,301 individuals and evaluated for their association with GC risk using a large-scale GWAS comprising 456,348 individuals. Colocalization analysis was performed using stomach tissue eQTL data. RBM3 expression was assessed in 60 paired GC and adjacent normal tissues and in multiple GC cell lines. Functional effects of RBM3 modulation were examined through proliferation, colony formation, migration, invasion, and xenograft assays.<h4>Results</h4>Several independent variants within the RBM3 locus showed a consistent protective association with GC risk and were linked to RBM3 expression regulation. RBM3 expression was significantly reduced in GC tissues compared with adjacent normal tissues (P < 0.001). Low RBM3 expression correlated with advanced tumor stage (III-IV), lymph node and distant metastasis, and larger tumor size. Functionally, RBM3 overexpression inhibited GC cell proliferation, clonogenicity, migration, and invasion <i>in vitro</i>. <i>In vivo</i>, RBM3 overexpression suppressed xenograft tumor growth, reduced Ki67-positive proliferation, and enhanced apoptotic activity.<h4>Conclusion</h4>Our findings demonstrate that RBM3 acts as a genetically supported tumor suppressor in gastric cancer. RBM3-associated germline variants contribute to GC susceptibility, and RBM3 downregulation promotes aggressive tumor behavior. RBM3 therefore represents a promising biomarker and potential therapeutic target in gastric cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of RBM3 as a novel regulator of human fetal hemoglobin expression.",
+    "doi": "10.1016/j.intimp.2025.116107",
+    "pmid": "41455370",
+    "authors": [
+      "Ma S, Liu X, Qin Y, Wang Y, Feng Y, Cheng B, Wang L."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-26",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Sickle cell disease (SCD) and β-thalassemia are autosomal recessive genetic disorders caused by abnormal synthesis of β-globin chains. Reversing the transition of fetal-to-adult hemoglobin after birth shows great potential in the treatment of these disorders. Here, we identified an RNA-binding protein, RBM3, as a novel HbF (HbF, α<sub>2</sub>γ<sub>2</sub>) suppressor. Specifically, downregulation of RBM3 in the erythroid progenitor cell line HUDEP-2 robustly induced γ-globin expression at both the mRNA and protein levels, with a slight impact on β-globin levels. Conversely, overexpression of RBM3 in HUDEP-2 cells led to a marked reduction in γ-globin expression. According to the previous study, we introduced specific inhibitors targeting FAK and Src to block RBM3 protein synthesis. Surprisingly, treatment with the FAK inhibitor resulted in a significant increase in γ-globin expression, whereas the Src inhibitor had little effect. Mechanistically, RBM3 depletion accelerated the degradation of BCL11A protein at the post-transcriptional level, without affecting its mRNA stability. Moreover, RBM3 silencing restricted the overall translation efficiency while selectively lifting the ratio of γ-globin mRNA in polysomes. Importantly, downregulation of RBM3 did not impair erythropoiesis progression, suggesting a safe and effective therapeutic strategy for SCD and β-thalassemia. Our findings identify RBM3 as a negative regulator of HbF expression and reveal it as a novel molecular target for modulating the fetal-to-adult hemoglobin switch, holding great promise for the treatment of SCD and β-thalassemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stabilizing a mammalian RNA thermometer confers neuroprotection in subarachnoid hemorrhage.",
+    "doi": "10.1038/s41467-025-63911-3",
+    "pmid": "40968270",
+    "authors": [
+      "Zhang M, Zhang B, Liu C, Preußner M, Ayachit M, Li W, Huang Y, Liu D, He Q, Emmerichs AK, Meinke S, Chen S, Wang L, Zheng L, Li Q, Huang Q, Haltenhof T, Gao R, Qin X, Cheng A, Wei T, Yu L, Schubert M, Gao X, Li M, Heyd F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-18",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Mammals tightly regulate their core body temperature, yet how cells sense and respond to small temperature changes remains incompletely understood. Here, we discover RNA G-quadruplexes (rG4s) as key thermosensors enriched near splice sites of cold-repressed exons. These thermosensing RNA structures, when stabilized, mask splice sites, reducing exon inclusion. Specifically, rG4s near splice sites of a cold-repressed poison exon in the neuroprotective RBM3 are stabilized at low temperatures, leading to exon exclusion. This enables evasion of nonsense-mediated decay, increasing RBM3 expression at cold. Importantly, stabilizing rG4 through increasing intracellular potassium with an FDA-approved potassium channel blocker, mimics the hypothermic effect on alternative splicing, thereby increasing RBM3 expression, leading to RBM3-dependent neuroprotection in a mouse model of subarachnoid hemorrhage. Our findings unveil a mechanism how mammalian RNAs directly sense temperature and potassium perturbations, integrating them into gene expression programs. This opens new avenues for treating diseases arising from splicing defects and disorders benefiting from therapeutic hypothermia, especially hemorrhagic stroke.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Augmenting the Endogenous RBM3 Response Protects Against Burn-Induced Acute Kidney Injury by Enhancing Macrophage-Mediated Resolution of Inflammation.",
+    "doi": "10.1096/fj.202503604rr",
+    "pmid": "41849090",
+    "authors": [
+      "Huang Z, Tu Z, Meng X, Yang Z, Zhong H, Hu W, Huang J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The regulatory mechanisms underlying M1/M2 macrophage polarization and efferocytosis in acute kidney injury (AKI) remain poorly understood. This study aimed to investigate the mechanism by which RBM3 modulates macrophage function to alleviate burn-induced AKI. A standardized scald burn model was established in rats by dorsal immersion in 100°C water for 15 s. Renal function and histopathology were evaluated at 24, 48, and 72 h post-injury through serum biochemistry and hematoxylin and eosin (H&E) staining. RBM3 expression was analyzed by qRT-PCR, Western blot, immunohistochemistry, and flow cytometry. Adenoviral RBM3 was administered to AKI rats, followed by a comprehensive assessment including renal function tests, H&E/TUNEL staining, KIM-1 immunofluorescence, macrophage polarization analysis (M1/M2 markers), and cytokine profiling (IL-6, IL-1β, and TNF-α). Single-cell RNA sequencing identified differentially expressed genes, particularly Slfn4, validated via in vitro knockdown and dual RBM3/Slfn4 interference experiments in bone marrow-derived macrophages to assess polarization and efferocytosis. Peak AKI severity occurred at 48 h post-burn, coinciding with dynamic RBM3 expression. RBM3 overexpression significantly improved renal function, attenuated tissue damage, reduced inflammation as evidenced by decreased levels of IL-6, IL-1β, and TNF-α, promoted M2 polarization characterized by increased Arg1 expression and decreased CD86 and iNOS levels, and enhanced efferocytosis. Slfn4 knockdown replicated the protective effects of RBM3, while RBM3 inhibition exacerbated M1 polarization, effects that were rescued by concurrent Slfn4 suppression. RBM3 ameliorates burn-induced AKI by downregulating Slfn4 to drive a pro-resolving macrophage program. The RBM3-Slfn4 axis may represent a potential therapeutic target for AKI management.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Therapeutic modulation of protein RBM3 for ischemic stroke treatment.",
+    "doi": "10.3389/fphar.2025.1555115",
+    "pmid": "40124786",
+    "authors": [
+      "Ávila-Gómez P, Vieites-Prado A, Correa-Paz C, Del Pozo-Filíu L, Palomar-Alonso N, Campos F, López-Arias E."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-07",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Several preclinical assays and clinical trials have found hypothermia as an efficient protective treatment for stroke. However, systemic hypothermia impairs several physiological functions being difficult to implement in acute critical patients. A deeper understanding of the mechanisms underlying the therapeutic effects of hypothermia could inspire new treatments based on the protective effects of cold. Furthermore, this could contribute to the reduction of the side effects associated with it. One of the metabolic landmarks of hypothermia is the overexpression of a small subset of shock proteins while global protein synthesis is reduced. Among these cold-shock proteins, RBM3 (RNA-binding motif protein 3) seems to play a central protective role. In physiological conditions, which is involved in the regulation of protein synthesis. In several models of cerebral diseases, <i>in vitro</i> and <i>in vivo</i>, RBM3 exhibited the ability to mitigate apoptosis or increase neural proliferation. In stroke models, RBM3 has shown specially promising effects attenuating neural damage and enhancing cell survival. Future prospects should be directed towards the design of efficient strategies to modulate RBM3 levels. This mini-review aims to summarize the progress made in understanding the role of RBM3 in cerebral tissue protection, while encouraging efforts to address research gaps, particularly in its modulation and clinical application.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Human RBM3 protein is prone to form neuronal aggregates opposed by the proteasome.",
+    "doi": "10.1242/bio.062179",
+    "pmid": "41384385",
+    "authors": [
+      "Kumar S, Kleven T, Ciosk R."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-02",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Maintenance of proteostasis is critical for neuronal functions, as the accumulation of misfolded or damaged proteins leads to neurodegeneration. Cooling is generally neuroprotective and is used in various clinical settings. However, how it impacts neuronal proteostasis remains unclear. In rodents, the neuroprotective effects of cold have been largely attributed to the cold-inducible RNA-binding motif protein 3 (RBM3). Here, studying the human RBM3 in cultured neurons subjected to profound hypothermia, we observed its cold-induced aggregation. These RBM3 aggregates are distinct from stress granules, occur specifically in differentiated neurons, and form also at physiological temperature upon proteasomal inhibition. Thus, in humans, RBM3 aggregation may be normally counteracted by the proteasome to maintain neuronal health. Exploring the natural variation between RBM3 proteins in hibernating versus non-hibernating mammals, we discuss how the aggregation could be prevented in animals with fluctuating body temperature. These findings are important for the understanding of RBM3 functions and neuronal proteostasis and have implications for medical treatments involving incidental and induced hypothermia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Drugging cold-response networks for neuroprotection.",
+    "doi": "10.1016/j.tips.2026.02.003",
+    "pmid": "41862337",
+    "authors": [
+      "Zhang M, Liu C, Cheng A, Li M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-19",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Therapeutic hypothermia is robustly neuroprotective in models but slow to initiate and hard to sustain clinically. This gap motivates pharmacological strategies that capture 'cold' protection at normothermia. Recent advances across the cold-response landscape have made RNA layer mechanisms operational. These include temperature-gated alternative splicing coupled to nonsense-mediated decay and temperature-sensitive RNA secondary structure elements such as RNA G-quadruplexes (rG4) thermometers, which are now quantifiable and tractable. In this review, we present a development-oriented framework that spans membrane thermosensors, intracellular temperature decoders, and downstream cold effectors. We focus on RNA layer mechanisms while treating upstream non-RNA elements as contextual adjuncts. We outline an RNA-binding motif protein 3 (RBM3)-first translational roadmap mainly built on two orthogonal modalities: splice-switching antisense oligonucleotides and rG4-oriented chemotypes. Lastly, we define pharmacodynamic anchors, realistic clinical windows, and safety gates for early-phase testing of normothermic hypothermia mimetics.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The transcript interactome of skeletal muscle RNA binding protein motif 3 (RBM3).",
+    "doi": "10.14814/phy2.15596",
+    "pmid": "36750123",
+    "authors": [
+      "Hettinger ZR, Confides AL, Vanderklish PW, Dupont-Versteegden EE."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-01",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "Post-transcriptional regulation of gene expression represents a critical regulatory step in the production of a functional proteome. Elevated expression of post-transcriptional regulator RNA binding motif protein 3 (RBM3), an RNA binding protein in the cold-shock family, is positively correlated with skeletal muscle growth in adult mice. However, mechanisms through which RBM3 exerts its effects are largely unknown. The purpose of this study was to perform RNA immunoprecipitation followed by RNA sequencing (RIP-seq) and apply a network science approach to understand biological processes (BPs) most associated with RBM3-bound mRNAs. In addition, through nucleotide-sequence-scanning of enriched transcripts, we predicted the motif for skeletal muscle RBM3 binding. Gene set enrichment analysis followed by enrichment mapping of RBM3-bound transcripts (fold change >3; p.adj <0.01) revealed significant enrichment of BPs associated with \"Contractile apparatus,\" \"Translation initiation,\" and \"Proteosome complex.\" Clusters were driven largely by enrichment of Myh1 (FC: 4.43), Eif4b (FC: 5.03), and Trim63 (FC: 5.84), respectively. Motif scanning of enriched sequences revealed a discrete 14 nucleotide-wide motif found most prominently at the junction between the protein coding region's termination sequence and the start of the 3' untranslated region (UTR; E-Value: 1.1 e<sup>-015</sup> ). Proof of concept investigation of motif location along enriched transcripts Myh1 and Myl4 revealed 3' UTR binding, suggesting RBM3 involvement in transcript half-life regulation. Together, these results demonstrate the potential influence of RBM3 in reshaping the skeletal muscle proteome through post-transcriptional regulation of mRNAs crucial to muscle adaptations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Cold-shock proteome of myoblasts reveals role of RBM3 in promotion of mitochondrial metabolism and myoblast differentiation.",
+    "doi": "10.1038/s42003-024-06196-4",
+    "pmid": "38688991",
+    "authors": [
+      "Dey P, Rajalaxmi S, Saha P, Thakur PS, Hashmi MA, Lal H, Saini N, Singh N, Ramanathan A."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-30",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Adaptation to hypothermia is important for skeletal muscle cells under physiological stress and is used for therapeutic hypothermia (mild hypothermia at 32  °C). We show that hypothermic preconditioning at 32  °C for 72 hours improves the differentiation of skeletal muscle myoblasts using both C2C12 and primary myoblasts isolated from 3 month and 18-month-old mice. We analyzed the cold-shock proteome of myoblasts exposed to hypothermia (32  °C for 6 and 48 h) and identified significant changes in pathways related to RNA processing and central carbon, fatty acid, and redox metabolism. The analysis revealed that levels of the cold-shock protein RBM3, an RNA-binding protein, increases with both acute and chronic exposure to hypothermic stress, and is necessary for the enhanced differentiation and maintenance of mitochondrial metabolism. We also show that overexpression of RBM3 at 37  °C is sufficient to promote mitochondrial metabolism, cellular proliferation, and differentiation of C2C12 and primary myoblasts. Proteomic analysis of C2C12 myoblasts overexpressing RBM3 show significant enrichment of pathways involved in fatty acid metabolism, RNA metabolism and the electron transport chain. Overall, we show that the cold-shock protein RBM3 is a critical factor that can be used for controlling the metabolic network of myoblasts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A post-transcriptional regulatory landscape of aging in the female mouse hippocampus.",
+    "doi": "10.3389/fnagi.2023.1119873",
+    "pmid": "37122377",
+    "authors": [
+      "Winsky-Sommerer R, King HA, Iadevaia V, Möller-Levet C, Gerber AP."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-24",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "Aging is associated with substantial physiological changes and constitutes a major risk factor for neurological disorders including dementia. Alterations in gene expression upon aging have been extensively studied; however, an in-depth characterization of post-transcriptional regulatory events remains elusive. Here, we profiled the age-related changes of the transcriptome and translatome in the female mouse hippocampus by RNA sequencing of total RNA and polysome preparations at four ages (3-, 6-, 12-, 20-month-old); and we implemented a variety of bioinformatics approaches to unravel alterations in transcript abundance, alternative splicing, and polyadenylation site selection. We observed mostly well-coordinated transcriptome and translatome expression signatures across age including upregulation of transcripts related to immune system processes and neuroinflammation, though transcripts encoding ribonucleoproteins or associated with mitochondrial functions, calcium signaling and the cell-cycle displayed substantial discordant profiles, suggesting translational control associated with age-related deficits in hippocampal-dependent behavior. By contrast, alternative splicing was less preserved, increased with age and was associated with distinct functionally-related transcripts encoding proteins acting at synapses/dendrites, RNA-binding proteins; thereby predicting regulatory roles for RBM3 and CIRBP. Only minor changes in polyadenylation site selection were identified, indicating pivotal 3'-end selection in young adults compared to older groups. Overall, our study provides a comprehensive resource of age-associated post-transcriptional regulatory events in the mouse hippocampus, enabling further examination of the molecular features underlying age-associated neurological diseases.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "The MBNL3 splicing factor promotes hepatocellular carcinoma by increasing PXN expression through the alternative splicing of lncRNA-PXN-AS1.",
+    "doi": "10.1038/ncb3538",
+    "pmid": "28553938",
+    "authors": [
+      "Yuan JH, Liu XN, Wang TT, Pan W, Tao QF, Zhou WP, Wang F, Sun SH."
+    ],
+    "year": "2017",
+    "publication_date": "2017-05-29",
+    "cited_by_count": 265,
+    "journal": "",
+    "abstract": "Understanding the roles of splicing factors and splicing events during tumorigenesis would open new avenues for targeted therapies. Here we identify an oncofetal splicing factor, MBNL3, which promotes tumorigenesis and indicates poor prognosis of hepatocellular carcinoma patients. MBNL3 knockdown almost completely abolishes hepatocellular carcinoma tumorigenesis. Transcriptomic analysis revealed that MBNL3 induces lncRNA-PXN-AS1 exon 4 inclusion. The transcript lacking exon 4 binds to coding sequences of PXN mRNA, causes dissociation of translation elongation factors from PXN mRNA, and thereby inhibits PXN mRNA translation. In contrast, the transcript containing exon 4 preferentially binds to the 3' untranslated region of PXN mRNA, protects PXN mRNA from microRNA-24-AGO2 complex-induced degradation, and thereby increases PXN expression. Through inducing exon 4 inclusion, MBNL3 upregulates PXN, which mediates the pro-tumorigenic roles of MBNL3. Collectively, these data demonstrate detailed mechanistic links between an oncofetal splicing factor, a splicing event and tumorigenesis, and establish splicing factors and splicing events as potential therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Muscleblind family of proteins: an emerging class of regulators of developmentally programmed alternative splicing.",
+    "doi": "10.1111/j.1432-0436.2006.00060.x",
+    "pmid": "16533306",
+    "authors": [
+      "Pascual M, Vicente M, Monferrer L, Artero R."
+    ],
+    "year": "2006",
+    "publication_date": "2006-03-01",
+    "cited_by_count": 204,
+    "journal": "",
+    "abstract": "Alternative splicing is widely used to generate protein diversity and to control gene expression in many biological processes, including cell fate determination and apoptosis. In this review, we focus on the Muscleblind family of tissue-specific alternative splicing regulators. Muscleblind proteins bind pre-mRNA through an evolutionarily conserved tandem CCCH zinc finger domain. Human Muscleblind homologs MBNL1, MBNL2 and MBNL3 promote inclusion or exclusion of specific exons on different pre-mRNAs by antagonizing the activity of CUG-BP and ETR-3-like factors (CELF proteins) bound to distinct intronic sites. The relative activities of Muscleblind and CELF proteins control a key developmental switch. Defined transcripts follow an embryonic splice pattern when CELF activity predominates, whereas they follow an adult pattern when Muscleblind activity prevails. Human MBNL proteins show functional specializations. While MBNL1 seems to promote muscle differentiation, MBNL3 appears to function in an opposing manner inhibiting expression of muscle differentiation markers. MBNL2, on the other hand, participates in a new RNA-dependent protein localization mechanism involving recruitment of integrin alpha3 protein to focal adhesions. Both muscleblind mutant Drosophila embryos and Mbnl1 knockout mice show muscle abnormalities and altered splicing of specific transcripts. In addition to regulating terminal muscle differentiation through alternative splicing control, results by several groups suggest that Muscleblind participates in the differentiation of photoreceptors, neurons, adipocytes and blood cell types. Misregulation of MBNL activity can lead to human pathologies. Through mechanisms not completely identified yet, expression of transcripts containing large non-coding CUG or CCUG repeat expansions mimics muscleblind loss-of-function phenotypes. Archetypical within this class of disorders are myotonic dystrophies. Our understanding of the biology of Muscleblind proteins has increased dramatically over the last few years, but several key issues remain unsolved. Defining the mechanism of the activity of Muscleblind proteins, their splicing partners, and the functional relevance of its several protein isoforms are just a few examples.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide survey and expression profiling of CCCH-zinc finger family reveals a functional module in macrophage activation.",
+    "doi": "10.1371/journal.pone.0002880",
+    "pmid": "18682727",
+    "authors": [
+      "Liang J, Song W, Tromp G, Kolattukudy PE, Fu M."
+    ],
+    "year": "2008",
+    "publication_date": "2008-08-06",
+    "cited_by_count": 133,
+    "journal": "",
+    "abstract": "Previously, we have identified a novel CCCH zinc finger protein family as negative regulators of macrophage activation. To gain an overall insight into the entire CCCH zinc finger gene family and to evaluate their potential role in macrophage activation, here we performed a genome-wide survey of CCCH zinc finger genes in mouse and human. Totally 58 CCCH zinc finger genes in mouse and 55 in human were identified and most of them have not been reported previously. Phylogenetic analysis revealed that the mouse CCCH family was divided into 6 groups. Meanwhile, we employed quantitative real-time PCR to profile their tissue expression patterns in adult mice. Clustering analysis showed that most of CCCH genes were broadly expressed in all of tissues examined with various levels. Interestingly, several CCCH genes Mbnl3, Zfp36l2, Zfp36, Zc3h12a, Zc3h12d, Zc3h7a and Leng9 were enriched in macrophage-related organs such as thymus, spleen, lung, intestine and adipose. Consistently, a comprehensive assessment of changes in expression of the 58 members of the mouse CCCH family during macrophage activation also revealed that these CCCH zinc finger genes were associated with the activation of bone marrow-derived macrophages by lipopolysaccharide. Taken together, this study not only identified a functional module of CCCH zinc finger genes in the regulation of macrophage activation but also provided the framework for future studies to dissect the function of this emerging gene family.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Disrupted prenatal RNA processing and myogenesis in congenital myotonic dystrophy.",
+    "doi": "10.1101/gad.300590.117",
+    "pmid": "28698297",
+    "authors": [
+      "Thomas JD, Sznajder ŁJ, Bardhi O, Aslam FN, Anastasiadis ZP, Scotti MM, Nishino I, Nakamori M, Wang ET, Swanson MS."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-01",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "Myotonic dystrophy type 1 (DM1) is a CTG microsatellite expansion (CTG<sup>exp</sup>) disorder caused by expression of CUG<sup>exp</sup> RNAs. These mutant RNAs alter the activities of RNA processing factors, including MBNL proteins, leading to re-expression of fetal isoforms in adult tissues and DM1 pathology. While this pathogenesis model accounts for adult-onset disease, the molecular basis of congenital DM (CDM) is unknown. Here, we test the hypothesis that disruption of developmentally regulated RNA alternative processing pathways contributes to CDM disease. We identify prominent alternative splicing and polyadenylation abnormalities in infant CDM muscle, and, although most are also misregulated in adult-onset DM1, dysregulation is significantly more severe in CDM. Furthermore, analysis of alternative splicing during human myogenesis reveals that CDM-relevant exons undergo prenatal RNA isoform transitions and are predicted to be disrupted by CUG<sup>exp</sup>-associated mechanisms in utero. To test this possibility and the contribution of MBNLs to CDM pathogenesis, we generated mouse <i>Mbnl</i> double (<i>Mbnl1; Mbnl2</i>) and triple (<i>Mbnl1; Mbnl2; Mbnl3</i>) muscle-specific knockout models that recapitulate the congenital myopathy, gene expression, and spliceopathy defects characteristic of CDM. This study demonstrates that RNA misprocessing is a major pathogenic factor in CDM and provides novel mouse models to further examine roles for cotranscriptional/post-transcriptional gene regulation during development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Single-cell gene expression of the bovine blastocyst.",
+    "doi": "10.1530/rep-17-0345",
+    "pmid": "28814615",
+    "authors": [
+      "Negrón-Pérez VM, Zhang Y, Hansen PJ."
+    ],
+    "year": "2017",
+    "publication_date": "2017-08-16",
+    "cited_by_count": 69,
+    "journal": "",
+    "abstract": "The first two differentiation events in the embryo result in three cell types - epiblast, trophectoderm (TE) and hypoblast. The purpose here was to identify molecular markers for each cell type in the bovine and evaluate the differences in gene expression among individual cells of each lineage. The cDNA from 67 individual cells of dissociated blastocysts was used to determine transcript abundance for 93 genes implicated as cell lineage markers in other species or potentially involved in developmental processes. Clustering analysis indicated that the cells belonged to two major populations (clades A and B) with two subpopulations of clade A and four of clade B. Use of lineage-specific markers from other species indicated that the two subpopulations of clade A represented epiblast and hypoblast respectively while the four subpopulations of clade B were TE. Among the genes upregulated in epiblast were <i>AJAP1, DNMT3A, FGF4, H2AFZ, KDM2B, NANOG, POU5F1, SAV1</i> and <i>SLIT2</i> Genes overexpressed in hypoblast included ALPL, <i>FGFR2, FN1, GATA6, GJA1, HDAC1, MBNL3, PDGFRA</i> and <i>SOX17</i>, while genes overexpressed in all four TE populations were ACTA2, <i>CDX2, CYP11A1, GATA2, GATA3, IFNT, KRT8, RAC1</i> and <i>SFN</i> The subpopulations of TE varied among each other for multiple genes including the prototypical TE marker IFNT. New markers for each cell type in the bovine blastocyst were identified. Results also indicate heterogeneity in gene expression among TE cells. Further studies are needed to confirm whether subpopulations of TE cells represent different stages in the development of a committed TE phenotype.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mechanistic determinants of MBNL activity.",
+    "doi": "10.1093/nar/gkw915",
+    "pmid": "27733504",
+    "authors": [
+      "Sznajder ŁJ, Michalak M, Taylor K, Cywoniuk P, Kabza M, Wojtkowiak-Szlachcic A, Matłoka M, Konieczny P, Sobczak K."
+    ],
+    "year": "2016",
+    "publication_date": "2016-10-12",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "Muscleblind-like (MBNL) proteins are critical RNA processing factors in development. MBNL activity is disrupted in the neuromuscular disease myotonic dystrophy type 1 (DM1), due to the instability of a non-coding microsatellite in the DMPK gene and the expression of CUG expansion (CUG<sup>exp</sup>) RNAs. Pathogenic interactions between MBNL and CUG<sup>exp</sup> RNA lead to the formation of nuclear complexes termed foci and prevent MBNL function in pre-mRNA processing. The existence of multiple MBNL genes, as well as multiple protein isoforms, raises the question of whether different MBNL proteins possess unique or redundant functions. To address this question, we coexpressed three MBNL paralogs in cells at equivalent levels and characterized both specific and redundant roles of these proteins in alternative splicing and RNA foci dynamics. When coexpressed in the same cells, MBNL1, MBNL2 and MBNL3 bind the same RNA motifs with different affinities. While MBNL1 demonstrated the highest splicing activity, MBNL3 showed the lowest. When forming RNA foci, MBNL1 is the most mobile paralog, while MBNL3 is rather static and the most densely packed on CUG<sup>exp</sup> RNA. Therefore, our results demonstrate that MBNL paralogs and gene-specific isoforms possess inherent functional differences, an outcome that could be enlisted to improve therapeutic strategies for DM1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptome-wide landscape of pre-mRNA alternative splicing associated with metastatic colonization.",
+    "doi": "10.1158/1541-7786.mcr-14-0366",
+    "pmid": "25274489",
+    "authors": [
+      "Lu ZX, Huang Q, Park JW, Shen S, Lin L, Tokheim CJ, Henry MD, Xing Y."
+    ],
+    "year": "2015",
+    "publication_date": "2014-10-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "<h4>Unlabelled</h4>Metastatic colonization is an ominous feature of cancer progression. Recent studies have established the importance of pre-mRNA alternative splicing (AS) in cancer biology. However, little is known about the transcriptome-wide landscape of AS associated with metastatic colonization. Both in vitro and in vivo models of metastatic colonization were utilized to study AS regulation associated with cancer metastasis. Transcriptome profiling of prostate cancer cells and derivatives crossing in vitro or in vivo barriers of metastasis revealed splicing factors with significant gene expression changes associated with metastatic colonization. These include splicing factors known to be differentially regulated in epithelial-mesenchymal transition (ESRP1, ESRP2, and RBFOX2), a cellular process critical for cancer metastasis, as well as novel findings (NOVA1 and MBNL3). Finally, RNA-seq indicated a large network of AS events regulated by multiple splicing factors with altered gene expression or protein activity. These AS events are enriched for pathways important for cell motility and signaling, and affect key regulators of the invasive phenotype such as CD44 and GRHL1.<h4>Implications</h4>Transcriptome-wide remodeling of AS is an integral regulatory process underlying metastatic colonization, and AS events affect the metastatic behavior of cancer cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Progressive impairment of muscle regeneration in muscleblind-like 3 isoform knockout mice.",
+    "doi": "10.1093/hmg/ddt209",
+    "pmid": "23660517",
+    "authors": [
+      "Poulos MG, Batra R, Li M, Yuan Y, Zhang C, Darnell RB, Swanson MS."
+    ],
+    "year": "2013",
+    "publication_date": "2013-05-08",
+    "cited_by_count": 60,
+    "journal": "",
+    "abstract": "The muscleblind-like (MBNL) genes encode alternative splicing factors that are essential for the postnatal development of multiple tissues, and the inhibition of MBNL activity by toxic C(C)UG repeat RNAs is a major pathogenic feature of the neuromuscular disease myotonic dystrophy. While MBNL1 controls fetal-to-adult splicing transitions in muscle and MBNL2 serves a similar role in the brain, the function of MBNL3 in vivo is unknown. Here, we report that mouse Mbnl3, which encodes protein isoforms that differ in the number of tandem zinc-finger RNA-binding motifs and subcellular localization, is expressed primarily during embryonic development but also transiently during injury-induced adult skeletal muscle regeneration. Mbnl3 expression is required for normal C2C12 myogenic differentiation and high-throughput sequencing combined with cross-linking/immunoprecipitation analysis indicates that Mbnl3 binds preferentially to the 3' untranslated regions of genes implicated in cell growth and proliferation. In addition, Mbnl3ΔE2 isoform knockout mice, which fail to express the major Mbnl3 nuclear isoform, show age-dependent delays in injury-induced muscle regeneration and impaired muscle function. These results suggest that Mbnl3 inhibition by toxic RNA expression may be a contributing factor to the progressive skeletal muscle weakness and wasting characteristic of myotonic dystrophy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Muscleblind-like proteins: similarities and differences in normal and myotonic dystrophy muscle.",
+    "doi": "10.2353/ajpath.2009.080520",
+    "pmid": "19095965",
+    "authors": [
+      "Holt I, Jacquemin V, Fardaei M, Sewry CA, Butler-Browne GS, Furling D, Brook JD, Morris GE."
+    ],
+    "year": "2009",
+    "publication_date": "2008-12-18",
+    "cited_by_count": 60,
+    "journal": "",
+    "abstract": "In myotonic dystrophy, muscleblind-like protein 1 (MBNL1) protein binds specifically to expanded CUG or CCUG repeats, which accumulate as discrete nuclear foci, and this is thought to prevent its function in the regulation of alternative splicing of pre-mRNAs. There is strong evidence for the role of the MBNL1 gene in disease pathology, but the roles of two related genes, MBNL2 and MBNL3, are less clear. Using new monoclonal antibodies specific for each of the three gene products, we found that MBNL2 decreased during human fetal development and myoblast culture, while MBNL1 was unchanged. In Duchenne muscular dystrophy muscle, MBNL2 was elevated in immature, regenerating fibres compared with mature fibres, supporting some developmental role for MBNL2. MBNL3 was found only in C2C12 mouse myoblasts. Both MBNL1 and MBNL2 were partially sequestered by nuclear foci of expanded repeats in adult muscle and cultured cells from myotonic dystrophy patients. In adult muscle nucleoplasm, both proteins were reduced in myotonic dystrophy type 1 compared with an age-matched control. In normal human myoblast cultures, MBNL1 and MBNL2 always co-distributed but their distribution could change rapidly from nucleoplasmic to cytoplasmic. Functional differences between MBNL1 and MBNL2 have not yet been found and may prove quite subtle. The dominance of MBNL1 in mature, striated muscle would explain why ablation of the mouse mbnl1 gene alone is sufficient to cause a myotonic dystrophy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pseudouridine Modification Inhibits Muscleblind-like 1 (MBNL1) Binding to CCUG Repeats and Minimally Structured RNA through Reduced RNA Flexibility.",
+    "doi": "10.1074/jbc.m116.770768",
+    "pmid": "28130447",
+    "authors": [
+      "deLorimier E, Hinman MN, Copperman J, Datta K, Guenza M, Berglund JA."
+    ],
+    "year": "2017",
+    "publication_date": "2017-01-27",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "Myotonic dystrophy type 2 is a genetic neuromuscular disease caused by the expression of expanded CCUG repeat RNAs from the non-coding region of the <u>C</u>CHC-type zinc finger <u>n</u>ucleic acid-<u>b</u>inding <u>p</u>rotein (<i>CNBP</i>) gene. These CCUG repeats bind and sequester a family of RNA-binding proteins known as Muscleblind-like 1, 2, and 3 (MBNL1, MBNL2, and MBNL3), and sequestration plays a significant role in pathogenicity. MBNL proteins are alternative splicing regulators that bind to the consensus RNA sequence YGCY (Y = pyrimidine). This consensus sequence is found in the toxic RNAs (CCUG repeats) and in cellular RNA substrates that MBNL proteins have been shown to bind. Replacing the uridine in CCUG repeats with pseudouridine (Ψ) resulted in a modest reduction of MBNL1 binding. Interestingly, Ψ modification of a minimally structured RNA containing YGCY motifs resulted in more robust inhibition of MBNL1 binding. The different levels of inhibition between CCUG repeat and minimally structured RNA binding appear to be due to the ability to modify both pyrimidines in the YGCY motif, which is not possible in the CCUG repeats. Molecular dynamic studies of unmodified and pseudouridylated minimally structured RNAs suggest that reducing the flexibility of the minimally structured RNA leads to reduced binding by MBNL1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-30-5p Regulates Muscle Differentiation and Alternative Splicing of Muscle-Related Genes by Targeting MBNL.",
+    "doi": "10.3390/ijms17020182",
+    "pmid": "26840300",
+    "authors": [
+      "Zhang BW, Cai HF, Wei XF, Sun JJ, Lan XY, Lei CZ, Lin FP, Qi XL, Plath M, Chen H."
+    ],
+    "year": "2016",
+    "publication_date": "2016-01-29",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs), a class of single stranded, small (~22 nucleotides), non-coding RNAs, play an important role in muscle development. We focused on the role of the miR-30-5p family during bovine muscle development from previous high-throughput sequencing results and analyzed their expression profiles. MHC and MyoG mRNAs expression as well as their proteins were suppressed in differentiated C2C12 cells, suggesting the importance of miR-30-5p in muscle development. MBNL, the candidate target of miR-30-5p, is an alternative splicing regulation factor. MBNL1 and MBNL3 have opposite effects on muscle differentiation. Our results confirmed that miR-30a-5p and miR-30e-5p repress the expression of MBNL1, MBNL2 and MBNL3, whereas miR-30b-5p inhibits MBNL1 and MBNL2 expression. This provides direct evidence that MBNL expression can be flexibly regulated by miR-30-5p. Previous studies showed that MBNL1 promotes exon inclusion of two muscle-related genes (Trim55 and INSR). Through RNA splicing studies, we found that miR-30-5p had an effect on their alternative splicing, which means miR-30-5p via MBNL1 could be integrated into muscle signaling pathways in which INSR or Trim55 are located. In conclusion, miR-30-5p could inhibit muscle cell differentiation and regulate the alternative splicing of Trim55 and INSR by targeting MBNL. These results promote the understanding of the function of miRNAs in muscle development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LncRNA SBF2-AS1 affects the radiosensitivity of non-small cell lung cancer via modulating microRNA-302a/MBNL3 axis.",
+    "doi": "10.1080/15384101.2019.1708016",
+    "pmid": "31928130",
+    "authors": [
+      "Yu Z, Wang G, Zhang C, Liu Y, Chen W, Wang H, Liu H."
+    ],
+    "year": "2020",
+    "publication_date": "2020-01-13",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "<b>Background</b>: Long non-coding RNAs (lncRNAs) have been reported to participate in many diseases including non-small cell lung cancer (NSCLC), thus our objective was to investigate the impact of lncRNA SBF2-AS1 modulating microRNA-302a (miR-302a) expression on radiosensitivity of NSCLC.<b>Methods</b>: The expression of SBF2-AS1, miR-302a and muscleblind-like 3 (MBNL3) in NSCLC tissues of the radiotherapy-sensitive and radiotherapy-resistant groups was tested. The radiosensitivity of parent and resistant strains (NCI-H1299 and NCI-H1299<sub>R</sub> cells) was detected. Further, cells were treated with si-SBF2-AS1 and miR-302a mimics to determine their roles in proliferation and apoptosis of parent strain and resistant strain cells as well as transfected cells. The <i>in-vivo</i> growth capacity of the cells and the effect of radiotherapy on tumor size of NSCLC were detected.<b>Results</b>: Up-regulated SBF2-AS1 and MBNL3 and down-regulated miR-302a in NSCLC tissues of the radiotherapy resistant group. Overexpression of SBF2-AS1 and MBNL3 and low expression of miR-302a were witnessed in NCI-H1299<sub>R</sub> cells. Down-regulated SBF2-AS1 or up-regulated miR-302a suppressed the proliferation while boosted the apoptosis of NCI-H1299 cells and decreased the radioresistance of the NCI-H1299<sub>R</sub> cells. Silencing SBF2-AS1 or up-regulating miR-302a restrained tumor growth <i>in vivo</i>.<b>Conclusion</b>: Our study presents that high expression of miR-302a or inhibition of SBF2-AS1 can enhance the radiosensitivity and apoptosis of NSCLC cells through downregulation of MBNL3, which is a therapeutic target for NSCLC.",
+    "openalex_id": ""
+  }
+]

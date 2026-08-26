@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Common tissue-specific expressions and regulatory factors of c-KIT isoforms with and without GNNK and GNSK sequences across five mammals.",
+    "doi": "10.1371/journal.pone.0332294",
+    "pmid": "41557655",
+    "authors": [
+      "Goto R, Sakamoto N, Awazu A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-20",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "c-KIT is a transmembrane receptor tyrosine kinase involved in various signaling pathways. Alternative pre-mRNA splicing of KIT results in isoforms that differ in the presence or absence of four amino acid sequences in the extracellular juxtamembrane region, such as, isoforms with and without the GNNK sequence (GNNK+ and GNNK - , respectively) in humans and mice, and those with and without GNSK (GNSK+ and GNSK - , respectively) in domestic dogs, cats, and sheep. These isoforms have been extensively studied as disease-associated (particularly tumors or cancer) splice variants with differing kinase activities. However, the expression patterns and regulatory factors of each isoform in various animal species without tumors or cancer remain poorly understood. Studying these aspects can provide the basis for understanding the associations between c-KIT isoforms and disease. Therefore, in the present study, a comprehensive expression analysis of c-KIT isoforms was conducted using tissue-wide transcriptome data from humans, mice, dogs, cats, and sheep. We found that the expression ratio of c-KIT isoforms differs across tissues, and such features are conserved across animal species: GNNK+ and GNSK+ isoforms have high expression ratios in the central nervous system, while GNNK- and GNSK- predominate in other tissues. Furthermore, NOVA2, RBFOX1, RBFOX3, and DYRK1A were suggested to be candidate factors regulating the selection of the alternative 5' splice donor site of KIT.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization of the &lt;i&gt;Rbfox3&lt;/i&gt;-IRES-iCre knock-in mouse: Revealing gene recombination activity in neural and non-neural peripheral tissues.",
+    "doi": "10.1096/fba.2024-00143",
+    "pmid": "40212807",
+    "authors": [
+      "Nishino S, Hashimoto M, Biswas SP, Mikami N, Hasegawa Y, Suzuki H, Kang W, Mizuno S, Murata K."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-13",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "In vivo cell type-specific genetic recombination based on the Cre-loxP system has contributed to the understanding of biological processes and diseases. Neuronal nuclei (NeuN)/RBFOX3 is a widely used mature neuron marker in developmental biology and neuroscience. Here, we generated <i>Rbfox3</i>-improved Cre (iCre) knock-in mouse model and investigated the effect of iCre knock-in into the <i>Rbfox3</i> gene and Cre recombination activity in the central nervous system (CNS) and peripheral tissues. The knock-in of internal ribosome entry site (IRES)-iCre cassette into the <i>Rbfox3</i> 3' UTR did not affect birth rate, growth, and brain weight. In the adult brain, iCre protein expression was confirmed, whereas RBFOX3 protein expression was partially reduced in the knock-in mice. Cre recombination analysis using R26GRR fluorescent reporter strain revealed that <i>Rbfox3</i>-driven iCre-induced gene recombination in the CNS and heart during embryonic development. In the adult brain, gene recombination was observed in neurons, however, not in other glial cells. In the peripheral tissues, iCre activity was found in the sciatic nerve and in other peripheral tissues, including the heart, bladder, and testis. We validated gene recombination rate in the germline and found that 100% recombination occurred in male germ cells and approximately 50% in female germ cells. Concludingly, <i>Rbfox3</i>-iCre mice induce genetic recombination in neurons within CNS as well as in some peripheral tissues and germ cells. In addition to establishing a novel Cre mouse line, the findings of this study offer valuable insights into the development and application of mouse tools that utilize the <i>Rbfox3</i> gene locus.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Neuronal splicing regulator RBFOX3 (NeuN) distribution and organization are modified in response to monosodium glutamate in rat brain at postnatal day 14.",
+    "doi": "10.1016/j.acthis.2024.152207",
+    "pmid": "39427608",
+    "authors": [
+      "García Juárez AM, Carrillo González NJ, Campos-Ordoñez T, Gasca Martínez Y, Gudiño-Cabrera G."
+    ],
+    "year": "2024",
+    "publication_date": "2024-10-19",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Neuronal splicing regulator RNA binding protein, fox-1 homolog 3 (NeuN/RbFox3), is expressed in postmitotic neurons and distributed heterogeneously in the cell. During excitotoxicity events caused by the excess glutamate, several alterations that culminate in neuronal death have been described. However, NeuN/RbFox3 organization and distribution are still unknown. Therefore, our objective was to analyze the nucleocytoplasmic distribution and organization of NeuN/RbFox3 in hippocampal and cortical neurons using an excitotoxicity model with monosodium glutamate salt (MSG). We used neonatal Wistar rats administered subcutaneously with 4 MSG mg/kg during the postnatal day (PND) 1, 3, 5, and 7. The control group was rats without MSG administration. On 14 PND, the brain was removed, and coronal sections were used for immunodetection with the antibody NeuN, DAPI, and the propidium iodide staining for histological evaluation. The results indicate that in the control group, NeuN/RbFox3 was organized into macromolecular condensates inside and outside the nucleus, forming defined nuclear compartments. Additionally, NeuN/RbFox3 was distributed proximal to the nucleus in the cytoplasm. In contrast, in the group treated with MSG, the distribution was diffuse and dispersed in the nucleus and cytoplasm without the formation of compartments in the nucleus. Our findings, which highlight the significant impact of MSG administration in the neonatal period on the distribution and organization of NeuN/RbFox3 of neurons in the hippocampus and cerebral cortex, offer a new perspective to investigate MSG alterations in the developmental brain.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Paclitaxel-induced inhibition of NSCLC invasion and migration via RBFOX3-mediated circIGF1R biogenesis.",
+    "doi": "10.1038/s41598-024-51500-1",
+    "pmid": "38191906",
+    "authors": [
+      "Xu Z, Zheng L, Li S."
+    ],
+    "year": "2024",
+    "publication_date": "2024-01-08",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "We previously reported that circIGF1R is significantly downregulated in non-small cell lung cancer (NSCLC) cells and tissues. It inhibits cancer cell invasion and migration, although the underlying molecular mechanisms remain elusive. The invasion and migration of NSCLC cells was analyzed by routine in vivo and in vitro functional assays. Fluorescent in situ hybridization, luciferase reporter assay, RNA pull-down assay and RNA immunoprecipitation (RIP) assay were performed to explore the molecular mechanisms. Mechanism of action of paclitaxel-induced RBFOX3-mediated inhibition of NSCLC invasion and migration was investigated through in vitro and in vivo experiments.Our study reveals that circIGF1R acts as a Competing Endogenous RNA (ceRNA) for miR-1270, thereby regulating Van-Gogh-like 2 (VANGL2) expression and subsequently inhibiting NSCLC cell invasion and migration via the Wnt pathway. We also found that RNA binding protein fox-1 homolog 3 (RBFOX3) enhances circIGF1R biogenesis by binding to IGF1R pre-mRNA, which in turn suppresses migration and invasion in NSCLC cells. Additionally, the chemotherapeutic drug paclitaxel was shown to impede NSCLC invasion and migration by inducing RBFOX3-mediated circIGF1R biogenesis.RBFOX3 inhibits the invasion and migration of NSCLC cells through the circIGF1R/ miR-1270/VANGL2 axis, circIGF1R has the potential to serve as a biomarker and therapeutic target for NSCLC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mild hyperhomocysteinemia alters spatial and recognition memories in male, but not female rats. Are inflammation, blood-brain barrier damage and Tau expression sex-specific predictors?",
+    "doi": "10.1016/j.bbr.2025.115971",
+    "pmid": "41338531",
+    "authors": [
+      "Rieder AS, da Rosa LT, Prauchner GRK, Lima NS, Louzada LS, Bastos VCD, Serena GC, Júnior OVR, Dos Santos AS, da Costa MG, Pereira LO, Wyse AT."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Homocysteine (Hcy) is a non-proteic amino acid that participates in the remethylation cycle of methionine. Hcy levels in plasma around 16-30 µmol/L are characteristics of mild hyperhomocysteinemia (HHcy), which is a know risk factor for neurodegeneration. Given this, Hcy may serve as an early biomarker of cognitive decline. In the present study, we evaluated behavior in different tasks in adult male and female rats submitted to mild HHcy and analyzed markers of blood-brain barrier (BBB) integrity (aquaporin, occludin, and β-catenin), the expression of p- TAU217, inflammatory mediators (IL-6 and IL-10), and key cellular markers (GFAP, AIF1, and RbFOX3) in the hippocampus and cortex of these animals. Results revealed that mild HHcy induced short-term and spatial memory impairment in adult male rats, accompanied by region-specific alterations in the cortex and hippocampus. In males, we also observed that HHcy reduced occludin content, IL-10 and RbFOX3; in the hippocampus, HHcy increased the expression of IL-10 and AIF1. The female rats did not exhibit memory deficits, o the other hand, the expression of p- TAU217, and GFAP were increased in the cortex of these animals. Together our finding drive that mild HHcy may represent a valuable translational model for studying early-stage cognitive decline and tauopathy, particularly in the context of sex-specific vulnerability.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Distinct proteomic CSF profiles in genetic frontotemporal lobar degeneration.",
+    "doi": "10.1093/brain/awaf457",
+    "pmid": "41343108",
+    "authors": [
+      "De Houwer JFH, Dopper EG, van Buuren R, Stokkel M, de Boer L, Swartenbroekx T, Boesjes PA, Rajicic A, Sogorb-Esteve A, Bouzigues A, Russell LL, Foster PH, Ferry-Bolder E, van Swieten JC, Jiskoot LC, Sanchez-Valle R, Laforce R, Graff C, Galimberti D, Vandenberghe R, de Mendonça A, Tiraboschi P, Santana I, Gerhard A, Levin J, Nacmias B, Otto M, Bertoux M, Lebouvier T, Ducharme S, Butler CR, Le Ber I, Finger E, Tartaglia MC, Masellis M, Rowe JB, Synofzik M, Moreno F, Borroni B, Zetterberg H, Rohrer JD, Tijms BM, Pijnenburg YAL, Teunissen C, Seelaar H, GENFI Consortium Members."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Fluid biomarkers to diagnose frontotemporal lobar degeneration (FTLD) are currently lacking. In this study, we aimed to identify proteomic changes in CSF associated with FTLD pathogenesis, focusing on signatures unique to different genetic groups. Additionally, we sought proteins distinguishing FTLD-spectrum disorders from controls. To this end, we measured a comprehensive library of over 2900 proteins in CSF using proximity extension assay technology in two well-characterized FTLD cohorts. The discovery cohort, selected from the GENFI cohort, included 47 symptomatic pathogenic variant carriers (22 C9orf72, 14 GRN, 10 MAPT and 1 TARDBP), 124 presymptomatic pathogenic variant carriers (55 C9orf72, 44 GRN, 24 MAPT and 1 TARDBP) and 57 healthy non-carriers. The validation cohort comprised individuals clinically diagnosed with an FTLD-spectrum disorder (n = 132) and cognitively intact controls (n = 32). We assessed differentially abundant proteins using linear regression, adjusting for age and sex. Over-representation analysis was conducted for the three genetic groups using Gene Ontology Biological Processes as the ontology source. To develop diagnostic tools, we applied a LASSO regression, establishing two types of panels: one to distinguish individuals with an FTLD-spectrum disorder from controls (FTLD panel) and another to differentiate individuals with underlying TDP pathology from controls (TDP panel). We observed 23 dysregulated proteins in symptomatic carriers. Of these, four were also significantly dysregulated (NEFL, TPM3, MSLN and DNM3) in the validation cohort. When focusing on genetic subgroups, 63 upregulated proteins were observed in symptomatic MAPT carriers, with enriched biological pathways linked to immune function. In symptomatic C9orf72 carriers, four proteins-related to energy metabolism-were upregulated. When limiting symptomatic carriers to GRN, six proteins were dysregulated, with enriched pathways involved in neuronal development and projection. Notably, NEFL and TPM3 were consistently significant in all comparisons across both cohorts. We developed two diagnostic panels: one for FTLD and one for FTLD-TDP. The FTLD panel consisted of six proteins (NEFL, RBFOX3, NPTX1, TFF1, ENTPD5 and CNP). The TDP panel was made up of seven proteins (NEFL, RBFOX3, CBLN4, ENTPD5, CCL25, CNP and MMP1). Both panels were successfully replicated in the validation cohort (AUC of 0.94 and 0.96, respectively). This study highlights distinct proteomic signatures across FTLD genetic subgroups and their associated pathologies using a targeted proteomic approach. Additionally, we present two diagnostic panels-comprising both established and novel proteins-that effectively differentiate individuals with FTLD-spectrum disorders from healthy controls, offering promising avenues for improved clinical diagnosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hypothermic Protection in Neocortex Is Topographic and Laminar, Seizure Unmitigating, and Partially Rescues Neurons Depleted of RNA Splicing Protein Rbfox3/NeuN in Neonatal Hypoxic-Ischemic Male Piglets.",
+    "doi": "10.3390/cells12202454",
+    "pmid": "37887298",
+    "authors": [
+      "Primiani CT, Lee JK, O'Brien CE, Chen MW, Perin J, Kulikowicz E, Santos P, Adams S, Lester B, Rivera-Diaz N, Olberding V, Niedzwiecki MV, Ritzl EK, Habela CW, Liu X, Yang ZJ, Koehler RC, Martin LJ."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-15",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "The effects of hypothermia on neonatal encephalopathy may vary topographically and cytopathologically in the neocortex with manifestations potentially influenced by seizures that alter the severity, distribution, and type of neuropathology. We developed a neonatal piglet survival model of hypoxic-ischemic (HI) encephalopathy and hypothermia (HT) with continuous electroencephalography (cEEG) for seizures. Neonatal male piglets received HI-normothermia (NT), HI-HT, sham-NT, or sham-HT treatments. Randomized unmedicated sham and HI piglets underwent cEEG during recovery. Survival was 2-7 days. Normal and pathological neurons were counted in different neocortical areas, identified by cytoarchitecture and connectomics, using hematoxylin and eosin staining and immunohistochemistry for RNA-binding FOX-1 homolog 3 (Rbfox3/NeuN). Seizure burden was determined. HI-NT piglets had a reduced normal/total neuron ratio and increased ischemic-necrotic/total neuron ratio relative to sham-NT and sham-HT piglets with differing severities in the anterior and posterior motor, somatosensory, and frontal cortices. Neocortical neuropathology was attenuated by HT. HT protection was prominent in layer III of the inferior parietal cortex. Rbfox3 immunoreactivity distinguished cortical neurons as: Rbfox3-positive/normal, Rbfox3-positive/ischemic-necrotic, and Rbfox3-depleted. HI piglets had an increased Rbfox3-depleted/total neuron ratio in layers II and III compared to sham-NT piglets. Neuronal Rbfox3 depletion was partly rescued by HT. Seizure burdens in HI-NT and HI-HT piglets were similar. We conclude that the neonatal HI piglet neocortex has: (1) suprasylvian vulnerability to HI and seizures; (2) a limited neuronal cytopathological repertoire in functionally different regions that engages protective mechanisms with HT; (3) higher seizure burden, insensitive to HT, that is correlated with more panlaminar ischemic-necrotic neurons in the somatosensory cortex; and (4) pathological RNA splicing protein nuclear depletion that is sensitive to HT. This work demonstrates that HT protection of the neocortex in neonatal HI is topographic and laminar, seizure unmitigating, and restores neuronal depletion of RNA splicing factor.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PTBP2 attenuation facilitates fibroblast to neuron conversion by promoting alternative splicing of neuronal genes.",
+    "doi": "10.1016/j.stemcr.2023.09.012",
+    "pmid": "37832540",
+    "authors": [
+      "Zhu B, Fisher E, Li L, Zhong P, Yan Z, Feng J."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-12",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "The direct conversion of human skin fibroblasts to neurons has a low efficiency and unclear mechanism. Here, we show that the knockdown of PTBP2 significantly enhanced the transdifferentiation induced by ASCL1, MIR9/9<sup>∗</sup>-124, and p53 shRNA (AMp) to generate mostly GABAergic neurons. Longitudinal RNA sequencing analyses identified the continuous induction of many RNA splicing regulators. Among these, the knockdown of RBFOX3 (NeuN), significantly abrogated the transdifferentiation. Overexpression of RBFOX3 significantly enhanced the conversion induced by AMp; the enhancement was occluded by PTBP2 knockdown. We found that PTBP2 attenuation significantly favored neuron-specific alternative splicing (AS) of many genes involved in synaptic transmission, signal transduction, and axon formation. RBFOX3 knockdown significantly reversed the effect, while RBFOX3 overexpression occluded the enhancement. The study reveals the critical role of neuron-specific AS in the direct conversion of human skin fibroblasts to neurons by showing that PTBP2 attenuation enhances this mechanism in concert with RBFOX3.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbfox3 Promotes Transformation of MDSC-Like Tumor Cells to Shape Immunosuppressive Microenvironment.",
+    "doi": "10.1002/advs.202404585",
+    "pmid": "39777898",
+    "authors": [
+      "Li Z, Feng Z, Chen M, Shi X, Cui B, Sun Y, Zhang H, Li Y, Chen C, Feng Y, Han J, Xing X, Liu H, Sun T."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-07",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Myeloid-derived suppressor cells (MDSCs) within the tumor microenvironment (TME) contribute to the malignant progression of tumors by exerting immunosuppressive effects. Bacterial lipopolysaccharides (LPS) have been widely demonstrated in various types of solid tumors. LPS can promote the malignant progression of tumors, which mechanism has not yet been fully elucidated. In this study, a type of MDSC-like tumor cells (MLTCs) is found in tumor tissues induced by low-dose and long-term LPS stimulation. MLTCs can simultaneously express tumor cell and MDSCs markers. Similar to MDSCs, MLTCs can produce arginine, nitric oxide, and reactive oxygen species and inhibit the activity of NK and T cells to promote the formation of an immunosuppressive microenvironment. MLTCs can also promote tumor cell proliferation and vasculogenic mimicry formation. CRISPR-Cas9 activity screening studies identified RNA-binding Fox-1 homolog 3 (Rbfox3) as a critical protein for MLTCs formation after LPS treatment. Rbfox3 can transcriptionally regulate the expression of Ass1 in the form of phase-separated particles. Crocin can inhibit the generation of MLTCs by disrupting phase-separated particles of Rbfox3 and enhance the anti-tumor effects of immune checkpoint inhibitors (ICIs).",
+    "openalex_id": ""
+  },
+  {
+    "title": "Photobiomodulation-induced Differentiation of Adipose-derived Stem Cells into Neuronal Organoid-like Structures.",
+    "doi": "10.1007/s12035-026-05903-y",
+    "pmid": "42159819",
+    "authors": [
+      "Mulaudzi PE, Abrahamse H, Crous A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The ability to regulate stem cell differentiation into organized neural tissue remains a major challenge in regenerative medicine, particularly in the development of physiologically relevant three-dimensional (3D) organoid models. Photobiomodulation (PBM) is a new non-invasive technology for controlling cellular metabolism and differentiation using light-mediated signalling pathways; however, its role in neural organoid development remains insufficiently understood. This study investigated the effects of PBM on the differentiation of adipose-derived mesenchymal stem cells (ADMSCs) into neuronal organoid-like structures using a 3D culture system. Immortalized ADMSCs were exposed to 525 nm and 825 nm wavelengths, individually and in combination, at fluences of 5 and 10 J/cm<sup>2</sup>. PBM's effects were assessed using morphological assessment, cell viability, ATP-based metabolic activity, mitochondrial membrane potential (ΔΨm), and neural gene expression. PBM treatment affected organoid morphology, metabolic activity, and mitochondrial function in a dose- and wavelength-dependent way. Low-fluence irradiation (5 J/cm<sup>2</sup>), especially at 525 nm, promotes stem cell maintenance and early neural development, as evidenced by enhanced expression of progenitor and neuronal markers. Higher fluence (10 J/cm<sup>2</sup>) inhibited early differentiation responses, but mixed wavelength therapy promoted late-stage neuronal maturation with increased RBFOX3 gene expression. These findings indicate PBM as a viable method for controlling stem cell destiny and improving neuronal organoid formation for neuroregenerative applications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrating genome and transcriptome analysis to decipher balanced structural variants in unsolved cases of neurodevelopmental disorders.",
+    "doi": "10.3389/fgene.2025.1603513",
+    "pmid": "40692712",
+    "authors": [
+      "Mellone S, Spano A, Vurchio D, Borgonovi G, Ugonotti A, Paglino G, Bianco A, Ronzani S, Sciancalepore M, Prodam F, Papa A, Viri M, Dianzani U, Giordano M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-07-07",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Introduction</h4>Balanced chromosomal abnormalities (BCAs) are structural variations that can underlie a wide spectrum of neurodevelopmental disorders, often remaining undetected by conventional diagnostic approaches. Whole-genome sequencing (WGS) allows for base-pair resolution of structural variants across the entire genome, making it a powerful tool to detect cryptic chromosomal rearrangements and refine breakpoint mapping. RNA sequencing (RNA-Seq), by enabling the detection of gene expression changes and fusion transcripts, provides complementary functional insights into the consequences of genomic alterations. This study integrated WGS and RNA-Seq to precisely characterize the breakpoints and assess the functional impact of <i>de novo</i> BCAs in two unsolved cases of Neurodevelopmental Disorders.<h4>Materials and methods</h4>Short read WGS was used to identify the chromosomal breakpoints and gene disruptions caused by BCAs. RNA-Seq on blood RNA was employed to detect differential gene expression and potential fusion transcripts of disrupted genes.<h4>Results</h4>In the first case, the inversion inv(8) (p11.2q13) disrupted two genes at the breakpoints, namely, <i>CHD7</i> and <i>SLC20A2</i>. These genes are in opposite orientations, and the inversion realigned them in the same direction, generating two novel fusion genes. Disruption of <i>CHD7</i> confirmed the suspected diagnosis of CHARGE syndrome. The interruption of <i>SLC20A2</i>, commonly associated with neurological symptoms, prompted further clinical evaluation. RNA-Seq identified in-frame fusion transcripts from the chimeric genes in the blood, suggesting a potential deleterious phenotypic effect. In the second case, WGS revealed a balanced translocation t(17; 22) (q25; q13) that disrupted <i>EP300</i> at 22q25, confirming Rubinstein-Taybi syndrome. The concurrent disruption of <i>RBFOX3</i> at 17q13 suggested additional neurological implications, particularly related to epilepsy. Transcriptomic analysis demonstrated the monoallelic and significantly reduced expression of <i>EP300</i>.<h4>Conclusion</h4>These findings highlight the crucial role of WGS in identifying disease-associated BCAs and underscore the complementary value of RNA-Seq in assessing their functional consequences. This integrated approach enhanced diagnostic accuracy and clinical management, paving the way for more comprehensive and personalized care in these two patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "IL17A disrupts autophagy-lysosomal function and lysosome reformation through the GSK3B-TFE3 signaling pathway in Huntington disease.",
+    "doi": "10.1080/15548627.2026.2707895",
+    "pmid": "42494065",
+    "authors": [
+      "Chen KP, Ju TC."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Huntington disease (HD) is a progressive neurodegenerative disease caused by an expanded CAG repeat in the <i>HTT</i> (<i>huntingtin</i>) gene, leading to the accumulation of mutant HTT (mHTT). IL17A (interleukin 17A), a proinflammatory cytokine primarily secreted by Th17 and γδ T cells, has been implicated in immune-mediated neurodegeneration. However, the role of IL17A in the pathogenesis of HD remains poorly understood. Here, we identify IL17A as a critical pathogenic factor in HD that promotes neuroinflammation, mHTT aggregation, and autophagy-lysosomal dysfunction. IL17A disrupts autophagic flux by downregulating CTSB and CTSD, inducing SQSTM1/p62 and MAP1LC3B-II/LC3-II accumulation, and impairing lysosomal reformation. Mechanistically, IL17A suppresses lysosomal biogenesis by inhibiting the nuclear translocation of TFE3. This regulation occurs via a novel GSK3B/GSK-3β-TFE3 signaling pathway. Therapeutic neutralization of IL17A with a monoclonal antibody (IL17A mAb) ameliorates disease phenotypes in R6/2 HD mice, improving motor performance, extending survival, and reducing gliosis. IL17A mAb also attenuates mHTT aggregation and enhances neuroprotective signaling, as evidenced by increased expression of DLG4/PSD-95, phosphorylated CREB1, and BDNF. Moreover, IL17A mAb restores autophagy-lysosomal function by facilitating the clearance of protein aggregates and upregulating lysosomal enzymes and biogenesis markers, including CTSB, CTSD, PIP5K1A, and LAMP2. These findings establish IL17A as a key modulator of HD pathophysiology and highlight IL17A inhibition as a promising therapeutic strategy for targeting autophagy-lysosomal dysfunction in HD.<b>Abbreviations:</b> 3-MA; 3-methyladenine; Aβ, amyloid beta; AIF1/Iba1, allograft inflammatory factor 1; ALP, autophagy-lysosomal pathway; ALR, autophagic lysosomal reformation; ATG7, autophagy related 7; ATG5, autophagy related 5; Baf A1, bafilomycin A1; BBB, blood-brain barrier; BDNF, brain derived neurotrophic factor; CSF, cerebrospinal fluid; CTSB, cathepsin B; CTSD, cathepsin D; DLG4/PSD-95, discs large MAGUK scaffold protein 4; GFAP, glial fibrillary acidic protein; GSK3B/GSK-3β, glycogen synthase kinase 3 beta; HD, Huntington disease; HTT, huntingtin; ICV, intracerebroventricular; IL17A, interleukin 17A; IL17A mAb, IL17A monoclonal antibody; IL17RA, interleukin 17 receptor A; IV, intravenous; LAMP2, lysosomal-associated membrane protein 2; MAP1LC3B/LC3B, microtubule-associated protein 1 light chain 3 beta; mHTT, mutant HTT; RBFOX3/NeuN, RNS binding protein, fox-1 homolog (C. elegans) 3; p-CREB1/CREB, phospho-cAMP responsive element binding protein 1; PIP5K1A, phosphatidylinositol-4-phosphate 5-kinase, type 1 alpha; PPP1R1B/DARPP-32, protein phosphatase 1 regulatory inhibitor subunit 1B; rIL17A, recombinant IL17A; SQS, self-quenched substrate; SQSTM1/p62, sequestosome 1; MAPT/tau, microtubule-associated protein tau; TDG, tideglusib; TFE3, transcript factor E3; TFEB, transcript factor EB; Th17, T helper 17; TX-100, Triton X-100; WT, wild-type.",
+    "openalex_id": ""
+  }
+]

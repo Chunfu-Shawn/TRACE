@@ -1,0 +1,86 @@
+[
+  {
+    "title": "7SK snRNA: a noncoding RNA that plays a major role in regulating eukaryotic transcription.",
+    "doi": "10.1002/wrna.106",
+    "pmid": "21853533",
+    "authors": [
+      "Peterlin BM, Brogie JE, Price DH."
+    ],
+    "year": "2012",
+    "publication_date": "2011-08-18",
+    "cited_by_count": 154,
+    "journal": "",
+    "abstract": "The human 7SK small nuclear RNA (snRNA) is an abundant noncoding RNA whose function has been conserved in evolution from invertebrates to humans. It is transcribed by RNA polymerase III (RNAPIII) and is located in the nucleus. Together with associated cellular proteins, 7SK snRNA regulates the activity of the positive transcription elongation factor b (P-TEFb). In humans, this regulation is accomplished by the recruitment of P-TEFb by the 7SK snRNA-binding proteins, hexamethylene bisacetamide (HMBA)-induced mRNA 1/2 (HEXIM1 or HEXIM2), which inhibit the kinase activity of P-TEFb. P-TEFb regulates the transition of promoter proximally paused RNA polymerase II (RNAPII) into productive elongation, thereby, allowing efficient mRNA production. The protein composition of the 7SK small nuclear ribonucleoprotein (snRNP) is regulated dynamically. While the Lupus antigen (La)-related protein 7 (LARP7) is a constitutive component, the methylphosphate capping enzyme (MePCE) associates secondarily to phosphorylate the 5' end of 7SK snRNA. The release of active P-TEFb is closely followed by release of HEXIM proteins and both are replaced by heterogeneous nuclear ribonucleoproteins (hnRNPs). The released P-TEFb activates the expression of most cellular and viral genes. Regulated release of P-TEFb determines the expression pattern of many of the genes that respond to environmental stimuli and regulate growth, proliferation, and differentiation of cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The transcription-dependent dissociation of P-TEFb-HEXIM1-7SK RNA relies upon formation of hnRNP-7SK RNA complexes.",
+    "doi": "10.1128/mcb.00975-07",
+    "pmid": "17709395",
+    "authors": [
+      "Barrandon C, Bonnet F, Nguyen VT, Labas V, Bensaude O."
+    ],
+    "year": "2007",
+    "publication_date": "2007-08-20",
+    "cited_by_count": 96,
+    "journal": "",
+    "abstract": "The positive transcription elongation factor P-TEFb controls the elongation of transcription by RNA polymerase II. P-TEFb is inactivated upon binding to HEXIM1 or HEXIM2 proteins associated with a noncoding RNA, 7SK. In response to the inhibition of transcription, 7SK RNA, as well as HEXIM proteins, is released by an unknown mechanism and P-TEFb is activated. New partners of 7SK RNA were searched for as potential players in this feedback process. A subset of heterogeneous ribonuclear proteins, hnRNPs Q and R and hnRNPs A1 and A2, were thus identified as major 7SK RNA-associated proteins. The degree of association of 7SK RNA with these hnRNPs increased when P-TEFb-HEXIM1-7SK was dissociated following the inhibition of transcription or HEXIM1 knockdown. This finding suggested that 7SK RNA shuttles from HEXIM1-P-TEFb complexes to hnRNPs. The transcription-dependent dissociation of P-TEFb-HEXIM1-7SK complexes was attenuated when both hnRNPs A1 and A2 were knocked down by small interfering RNA. As hnRNPs are known to interact transiently with RNA while it is synthesized, hnRNPs released from nascent transcripts may trap 7SK RNA and thereby contribute to the activation of P-TEFb.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Release of positive transcription elongation factor b (P-TEFb) from 7SK small nuclear ribonucleoprotein (snRNP) activates hexamethylene bisacetamide-inducible protein (HEXIM1) transcription.",
+    "doi": "10.1074/jbc.m113.539015",
+    "pmid": "24515107",
+    "authors": [
+      "Liu P, Xiang Y, Fujinaga K, Bartholomeeusen K, Nilson KA, Price DH, Peterlin BM."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-10",
+    "cited_by_count": 55,
+    "journal": "",
+    "abstract": "By phosphorylating negative elongation factors and the C-terminal domain of RNA polymerase II (RNAPII), positive transcription elongation factor b (P-TEFb), which is composed of CycT1 or CycT2 and CDK9, activates eukaryotic transcription elongation. In growing cells, it is found in active and inactive forms. In the former, free P-TEFb is a potent transcriptional coactivator. In the latter, it is inhibited by HEXIM1 or HEXIM2 in the 7SK small nuclear ribonucleoprotein (snRNP), which contains, additionally, 7SK snRNA, methyl phosphate-capping enzyme (MePCE), and La-related protein 7 (LARP7). This P-TEFb equilibrium determines the state of growth and proliferation of the cell. In this study, the release of P-TEFb from the 7SK snRNP led to increased synthesis of HEXIM1 but not HEXIM2 in HeLa cells, and this occurred only from an unannotated, proximal promoter. ChIP with sequencing revealed P-TEFb-sensitive poised RNA polymerase II at this proximal but not the previously annotated distal HEXIM1 promoter. Its immediate upstream sequences were fused to luciferase reporters and were found to be responsive to many P-TEFb-releasing compounds. The superelongation complex subunits AF4/FMR2 family member 4 (AFF4) and elongation factor RNA polymerase II 2 (ELL2) were recruited to this proximal promoter after P-TEFb release and were required for its transcriptional effects. Thus, P-TEFb regulates its own equilibrium in cells, most likely to maintain optimal cellular homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Specificity of Hexim1 and Hexim2 complex formation with cyclin T1/T2, importin alpha and 7SK snRNA.",
+    "doi": "10.1016/j.jmb.2009.10.055",
+    "pmid": "19883659",
+    "authors": [
+      "Czudnochowski N, Vollmuth F, Baumann S, Vogel-Bachmayr K, Geyer M."
+    ],
+    "year": "2010",
+    "publication_date": "2009-10-31",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "Positive transcription elongation factor b (P-TEFb) stimulates the transition from transcription initiation to productive elongation by phosphorylation of the C-terminal domain of RNA polymerase II. P-TEFb consists of the cyclin-dependent kinase Cdk9 and a T-type cyclin and is regulated by the small nuclear RNA 7SK and the coupling protein Hexim1 or Hexim2. In this study, we analyzed the tripartite protein-RNA complex formation between Hexim, Cyclin T and 7SK snRNA. Using isothermal titration calorimetry, we observed higher affinities for Cyclin T1-Hexim1 and Cyclin T2-Hexim2 complex formations compared with the interactions in reverse. Importin alpha, which is part of the Ran-mediated nuclear import pathway, bound Hexim1 and Hexim2 with dissociation constants of 2.0 and 0.5 muM, respectively. Furthermore, tripartite complex formations between Cyclin T, Hexim and Importin alpha showed the suitability of a collaborative nuclear import pathway for Cyclin T. Electrophoretic mobility shift assays using radioactively labelled full-length 7SK snRNA revealed a tight association of the RNA to Cyclin T1-Hexim1 with dissociation constants lower than 0.3 muM. Similar binding affinities were recorded for both Hexim orthologues to a 66-mer double-stranded 5' hairpin loop encompassing nucleotides 23-88 of 7SK, while a 39-mer fragment, resulting from different RNA folding predictions, did not bind as tightly. These results provide the molecular basis for the generation of a core complex for the inhibition of P-TEFb.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and validation of RNA-binding protein-related gene signature revealed potential associations with immunosuppression and drug sensitivity in glioma.",
+    "doi": "10.1002/cam4.4248",
+    "pmid": "34482648",
+    "authors": [
+      "Chen Z, Wu H, Yang H, Fan Y, Zhao S, Zhang M."
+    ],
+    "year": "2021",
+    "publication_date": "2021-09-05",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Glioma is the most common central nervous system tumor in adults, and a considerable part of them are high-degree ones with high malignancy and poor prognosis. At present, the classification and treatment of glioma are mainly based on its histological characteristics, so studies at the molecular level are needed.<h4>Methods</h4>RNA-seq data from The Cancer Genome Atlas (TCGA) datasets (n = 703) and Chinese Glioma Genome Atlas (CGGA) were utilized to find out the differentially expressed RNA-binding proteins (RBPs) between normal cerebral tissue and glioma. A prediction system for the prognosis of glioma patients based on 11 RBPs was established and validated using uni- and multi-variate Cox regression analyses. STITCH and CMap databases were exploited to identify putative drugs and their targets. Single sample gene set enrichment analysis (ssGSEA) was used to calculate scores of specific immune-related gene sets. IC50 of over 20,000 compounds in 60 cancer cell lines was collected from the CellMiner database to test the drug sensitivity prediction value of the RBP-based signature.<h4>Results</h4>We established a reliable prediction system for the prognosis of glioma patients based on 11 RBPs including THOC3, LSM11, SARNP, PABPC1L2B, SMN1, BRCA1, ZC3H8, DZIP1L, HEXIM2, LARP4B, and ZC3H12B. These RBPs were primarily associated with ribosome and post-transcriptional regulation. RBP-based risk scores were closely related to immune cells and immune function. We also confirmed the potential of the signature to predict the drug sensitivity of currently approved or evaluated drugs.<h4>Conclusions</h4>Differentially expressed RBPs in glioma can be used as a basis for prognosis prediction, new drugs screening and drug sensitivity prediction. As RBP-based glioma risk scores were associated with immunity, immunotherapy may become an important treatment for glioma in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exploring Potential Drug Targets in Multiple Cardiovascular Diseases: A Study Based on Proteome-Wide Mendelian Randomization and Colocalization Analysis.",
+    "doi": "10.1155/cdr/5711316",
+    "pmid": "40026415",
+    "authors": [
+      "Fan M, Li N, Huang L, Chen C, Dong X, Gao W."
+    ],
+    "year": "2025",
+    "publication_date": "2025-02-21",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "<b>Background:</b> Cardiovascular diseases (CVDs) encompass a group of diseases that affect the heart and/or blood vessels, making them the leading cause of global mortality. In our study, we performed proteome-wide Mendelian randomization (MR) and colocalization analyses to identify novel therapeutic protein targets for CVDs and evaluate the potential drug-related protein side effects. <b>Methods:</b> We conducted a comprehensive proteome-wide MR study to assess the causal relationship between plasma proteins and the risk of CVDs. Summary-level data for 4907 circulating protein levels were extracted from a large-scale protein quantitative trait loci (pQTL) study involving 35,559 individuals. Additionally, genome-wide association study (GWAS) data for CVDs were extracted from the UK Biobank and the Finnish database. Colocalization analysis was utilized to identify causal variants shared between plasma proteins and CVDs. Finally, we conducted a comprehensive phenome-wide association study (PheWAS) using the R10 version of the Finnish database. This study was aimed at examining the potential drug-related protein side effects in the treatment of CVDs. A total of 2408 phenotypes were included in the analysis, categorized into 44 groups. <b>Results:</b> The research findings indicate the following associations: (1) In coronary artery disease (CAD), the plasma proteins A4GNT, COL6A3, KLC1, CALB2, KPNA2, MSMP, and ADH1B showed a positive causal relationship (<i>p</i>-fdr < 0.05). LAYN and GCKR exhibited a negative causal relationship (<i>p</i>-fdr < 0.05). (2) In chronic heart failure (CHF), PLG demonstrated a positive causal relationship (<i>p</i>-fdr < 0.05), while AZGP1 displayed a negative causal relationship (<i>p</i>-fdr < 0.05). (3) In ischemic stroke (IS), ALDH2 exhibited a positive causal relationship (<i>p</i>-fdr < 0.05), while PELO showed a negative causal relationship (<i>p</i>-fdr < 0.05). (4) In Type 2 diabetes (T2DM), the plasma proteins MCL1, SVEP1, PIP4K2A, RFK, HEXIM2, ALDH2, RAB1A, APOE, ANGPTL4, JAG1, FGFR1, and MLN demonstrated a positive causal relationship (<i>p</i>-fdr < 0.05). PTPN9, SNUPN, VAT1, COMT, CCL27, BMP7, and MSMP displayed a negative causal relationship (<i>p</i>-fdr < 0.05). Colocalization analysis conclusively identified that AZGP1, ALDH2, APOE, JAG1, MCL1, PTPN9, PIP4K2A, SNUPN, and RAB1A share a single causal variant with CVDs (PPH3 + PPH4 > 0.8). Further phenotype-wide association studies have shown some potential side effects of these nine targets (<i>p</i>-fdr < 0.05). <b>Conclusions:</b> This study identifies plasma proteins with significant causal associations with CVDs, providing a more comprehensive understanding of potential therapeutic targets. These findings contribute to our knowledge of the underlying mechanisms and offer insights into potential avenues for treatment.",
+    "openalex_id": ""
+  }
+]

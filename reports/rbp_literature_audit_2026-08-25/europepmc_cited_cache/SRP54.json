@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Model for signal sequence recognition from amino-acid sequence of 54K subunit of signal recognition particle.",
+    "doi": "10.1038/340482a0",
+    "pmid": "2502718",
+    "authors": [
+      "Bernstein HD, Poritz MA, Strub K, Hoben PJ, Brenner S, Walter P."
+    ],
+    "year": "1989",
+    "publication_date": "1989-08-01",
+    "cited_by_count": 366,
+    "journal": "",
+    "abstract": "Protein targeting to the endoplasmic reticulum in mammalian cells is catalysed by signal recognition particle (SRP). Cross-linking experiments have shown that the subunit of relative molecular mass 54,000 (Mr 54K; SRP54) interacts directly with signal sequences as they emerge from the ribosome. Here we present the sequence of a complementary DNA clone of SRP54 which predicts a protein that contains a putative GTP-binding domain and an unusually methionine-rich domain. The properties of this latter domain suggest that it contains the signal sequence binding site. A previously uncharacterized Escherichia coli protein has strong homology to both domains. Closely homologous GTP-binding domains are also found in the alpha-subunit of the SRP receptor (SR alpha, docking protein) in the endoplasmic reticulum membrane and in a second E. coli protein, ftsY, which resembles SR alpha. Recent work has shown that SR alpha is a GTP-binding protein and that GTP is required for the release of SRP from the signal sequence and the ribosome on targeting to the endoplasmic reticulum membrane. We propose that SRP54 and SR alpha use GTP in sequential steps of the targeting reaction and that essential features of such a pathway are conserved from bacteria to mammals.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The methionine-rich domain of the 54 kd protein subunit of the signal recognition particle contains an RNA binding site and can be crosslinked to a signal sequence.",
+    "doi": "10.1002/j.1460-2075.1990.tb07902.x",
+    "pmid": "1702385",
+    "authors": [
+      "Zopf D, Bernstein HD, Johnson AE, Walter P."
+    ],
+    "year": "1990",
+    "publication_date": "1990-12-01",
+    "cited_by_count": 181,
+    "journal": "",
+    "abstract": "The 54 kd protein subunit of the signal recognition particle (SRP54) has been shown to bind signal sequences by UV crosslinking. Primary structure analysis and phylogenetic comparisons have suggested that SRP54 is composed of two domains: an amino-terminal domain that contains a putative GTP-binding site (G-domain) and a carboxy-terminal domain that contains a high abundance of methionine residues (M-domain). Partial proteolysis of SRP revealed that the two proposed domains of SRP54 indeed represent structurally discrete entities. Upon proteolysis the intact G-domain was released from SRP, whereas the M-domain remained attached to the core of the particle. Reconstitution experiments demonstrated that the isolated M-domain associates with 7SL RNA in the presence of SRP19. In addition, we observed a specific binding of the M-domain directly to 4.5S RNA of Escherichia coli, which contains a structural motif also present in 7SL RNA. This shows that the M-domain contains an RNA binding site, and suggests that SRP54 may be linked to the rest of SRP through this domain by a direct interaction with 7SL RNA. Using UV crosslinking, we found that in an in vitro translation system the preprolactin signal sequence contacts SRP through the M-domain of SRP54. These results imply that the M-domain contains the signal sequence binding site of SRP54, although we cannot exclude that the G-domain may also be in proximity to bound signal sequences.(ABSTRACT TRUNCATED AT 250 WORDS)",
+    "openalex_id": ""
+  },
+  {
+    "title": "Following the signal sequence from ribosomal tunnel exit to signal recognition particle.",
+    "doi": "10.1038/nature05326",
+    "pmid": "17086193",
+    "authors": [
+      "Halic M, Blau M, Becker T, Mielke T, Pool MR, Wild K, Sinning I, Beckmann R."
+    ],
+    "year": "2006",
+    "publication_date": "2006-10-29",
+    "cited_by_count": 173,
+    "journal": "",
+    "abstract": "Membrane and secretory proteins can be co-translationally inserted into or translocated across the membrane. This process is dependent on signal sequence recognition on the ribosome by the signal recognition particle (SRP), which results in targeting of the ribosome-nascent-chain complex to the protein-conducting channel at the membrane. Here we present an ensemble of structures at subnanometre resolution, revealing the signal sequence both at the ribosomal tunnel exit and in the bacterial and eukaryotic ribosome-SRP complexes. Molecular details of signal sequence interaction in both prokaryotic and eukaryotic complexes were obtained by fitting high-resolution molecular models. The signal sequence is presented at the ribosomal tunnel exit in an exposed position ready for accommodation in the hydrophobic groove of the rearranged SRP54 M domain. Upon ribosome binding, the SRP54 NG domain also undergoes a conformational rearrangement, priming it for the subsequent docking reaction with the NG domain of the SRP receptor. These findings provide the structural basis for improving our understanding of the early steps of co-translational protein sorting.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Recognition of a signal peptide by the signal recognition particle.",
+    "doi": "10.1038/nature08870",
+    "pmid": "20364120",
+    "authors": [
+      "Janda CY, Li J, Oubridge C, Hernández H, Robinson CV, Nagai K."
+    ],
+    "year": "2010",
+    "publication_date": "2010-04-04",
+    "cited_by_count": 159,
+    "journal": "",
+    "abstract": "Targeting of proteins to appropriate subcellular compartments is a crucial process in all living cells. Secretory and membrane proteins usually contain an amino-terminal signal peptide, which is recognized by the signal recognition particle (SRP) when nascent polypeptide chains emerge from the ribosome. The SRP-ribosome nascent chain complex is then targeted through its GTP-dependent interaction with SRP receptor to the protein-conducting channel on endoplasmic reticulum membrane in eukaryotes or plasma membrane in bacteria. A universally conserved component of SRP (refs 1, 2), SRP54 or its bacterial homologue, fifty-four homologue (Ffh), binds the signal peptides, which have a highly divergent sequence divisible into a positively charged n-region, an h-region commonly containing 8-20 hydrophobic residues and a polar c-region. No structure has been reported that exemplifies SRP54 binding of any signal sequence. Here we have produced a fusion protein between Sulfolobus solfataricus SRP54 (Ffh) and a signal peptide connected via a flexible linker. This fusion protein oligomerizes in solution through interaction between the SRP54 and signal peptide moieties belonging to different chains, and it is functional, as demonstrated by its ability to bind SRP RNA and SRP receptor FtsY. We present the crystal structure at 3.5 A resolution of an SRP54-signal peptide complex in the dimer, which reveals how a signal sequence is recognized by SRP54.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A novel signal recognition particle targets light-harvesting proteins to the thylakoid membranes.",
+    "doi": "10.1073/pnas.95.17.10312",
+    "pmid": "9707644",
+    "authors": [
+      "Schuenemann D, Gupta S, Persello-Cartieaux F, Klimyuk VI, Jones JD, Nussaume L, Hoffman NE."
+    ],
+    "year": "1998",
+    "publication_date": "1998-08-01",
+    "cited_by_count": 158,
+    "journal": "",
+    "abstract": "The mechanisms involved in the posttranslational targeting of membrane proteins are not well understood. The light-harvesting chlorophyll proteins (LHCP) of the thylakoid membrane are a large family of hydrophobic proteins that are targeted in this manner. They are synthesized in the cytoplasm, translocated across the chloroplast envelope membranes into the stroma, bound by a stromal factor to form a soluble intermediate, \"transit complex\", and then integrated into the thylakoid membrane by a GTP dependent reaction. Signal recognition particle (SRP), a cytoplasmic ribonucleoprotein, is known to mediate the GTP dependent cotranslational targeting of proteins to the endoplasmic reticulum. We show that chloroplasts contain an SRP consisting of, cpSRP54, a homologue of SRP54 and a previously undescribed 43-kDa polypeptide (cpSRP43) instead of an RNA. We demonstrate that both subunits of cpSRP are required for the formation of the transit complex with LHCP. Furthermore, cpSRP54, cpSRP43, and LHCP are sufficient to form a complex that appears to be identical to authentic transit complex. We also show that the complex formed between LHCP and cpSRP, together with an additional soluble factor(s) are required for the proper integration of LHCP into the thylakoid membrane. It appears that the expanded role of cpSRP in posttranslational targeting of LHCP has arisen through the evolution of the 43-kDa protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Inflammatory myopathy with anti-signal recognition particle antibodies: case series of 100 patients.",
+    "doi": "10.1186/s13023-015-0277-y",
+    "pmid": "25963141",
+    "authors": [
+      "Suzuki S, Nishikawa A, Kuwana M, Nishimura H, Watanabe Y, Nakahara J, Hayashi YK, Suzuki N, Nishino I."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-13",
+    "cited_by_count": 151,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Anti-signal recognition particle (SRP) antibodies are used as serological markers of necrotizing myopathy, which is characterized by many necrotic and regenerative muscle fibers without or with minimal inflammatory cell infiltration. The clinical spectrum associated with anti-SRP antibodies seems to be broad.<h4>Objective</h4>To describe the clinical characteristics, autoantibodies status, and neurological outcome associated with anti-SRP antibody.<h4>Methods</h4>We studied clinical and laboratory findings of 100 patients with inflammatory myopathy and anti-SRP antibodies. Anti-SRP antibodies in serum were detected by the presence of 7S RNA using RNA immunoprecipitation. In addition, enzyme-linked immunosorbent assays (ELISAs) using a 54-kD protein of SRP (SRP54) and 3-hydroxyl-3-methylglutatyl-coenzyme A reductase (HMGCR) were also conducted.<h4>Results</h4>The mean onset age of the 61 female and 39 male patients was 51 years (range 4-82 years); duration ≥ 12 months before diagnosis was seen in 23 cases. All patients presented limbs weakness; 63 had severe weakness, 70 neck weakness, 41 dysphagia, and 66 muscle atrophy. Extramuscular symptoms and associated disorders were infrequent. Creatine kinase levels were mostly more than 1000 IU/L. Histological diagnosis showed 84 patients had necrotizing myopathy, and apparent cell infiltration was observed in 16 patients. Anti-SRP54 antibodies were undetectable in 18 serum samples with autoantibodies to 7S RNA. Anti-HMGCR antibodies were positive in 3 patients without the statin treatment, however, were negative in 5 patients with statin-exposure at disease onset. All but 3 patients were treated by corticosteroids and 62 (77 %) of these 81 patients required additional immunotherapy. After 2-years treatment, 22 (27 %) of these 81 patients had poor neurological outcomes with modified Rankin scale scores of 3-5. Multivariate analysis revealed that pediatric disease onset was associated with the poor outcomes.<h4>Conclusion</h4>Anti-SRP antibodies are associated with different clinical courses and histological presentations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Distinct modes of signal recognition particle interaction with the ribosome.",
+    "doi": "10.1126/science.1072366",
+    "pmid": "12193787",
+    "authors": [
+      "Pool MR, Stumm J, Fulga TA, Sinning I, Dobberstein B."
+    ],
+    "year": "2002",
+    "publication_date": "2002-08-01",
+    "cited_by_count": 150,
+    "journal": "",
+    "abstract": "Signal recognition particle (SRP), together with its receptor (SR), mediates the targeting of ribosome-nascent chain complexes to the endoplasmic reticulum. Using protein cross-linking, we detected distinct modes in the binding of SRP to the ribosome. During signal peptide recognition, SRP54 is positioned at the exit site close to ribosomal proteins L23a and L35. When SRP54 contacts SR, SRP54 is rearranged such that it is no longer close to L23a. This repositioning may allow the translocon to dock with the ribosome, leading to insertion of the signal peptide into the translocation channel.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Signal recognition particle components in the nucleolus.",
+    "doi": "10.1073/pnas.97.1.55",
+    "pmid": "10618370",
+    "authors": [
+      "Politz JC, Yarovoi S, Kilroy SM, Gowda K, Zwieb C, Pederson T."
+    ],
+    "year": "2000",
+    "publication_date": "2000-01-01",
+    "cited_by_count": 149,
+    "journal": "",
+    "abstract": "The signal recognition particle (SRP) is a ribonucleoprotein composed of an Alu domain and an S domain. The S domain contains unique sequence SRP RNA and four SRP proteins: SRP19, SRP54, SRP68, and SRP72. SRP interacts with ribosomes to bring translating membrane and secreted proteins to the endoplasmic reticulum (ER) for proper processing. Additionally, SRP RNA is a member of a family of small nonribosomal RNAs found recently in the nucleolus, suggesting that the nucleolus is more plurifunctional than previously realized. It was therefore of interest to determine whether other SRP components localize to this intranuclear site. In transfected rat fibroblasts, green fluorescent protein fusions of SRP19, SRP68, and SRP72 localized to the nucleolus, as well as to the cytoplasm, as expected. SRP68 also accumulated in the ER, consistent with its affinity for the ER-bound SRP receptor. SRP54 was detected in the cytoplasm as a green fluorescent protein fusion and in immunofluorescence studies, but was not detected in the nucleolus. In situ hybridization experiments also revealed endogenous SRP RNA in the nucleolus. These results demonstrate that SRP RNA and three SRP proteins visit the nucleolus, suggesting that partial SRP assembly, or another unidentified activity of the SRP components, occurs at the nucleolus. SRP54 apparently interacts with nascent SRP beyond the nucleolus, consistent with in vitro reconstitution experiments showing that SRP19 must bind to SRP RNA before SRP54 binds. Our findings support the notion that the nucleolus is the site of assembly and/or interaction between the family of ribonucleoproteins involved in protein synthesis, in addition to ribosomes themselves.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A chloroplast homologue of the signal recognition particle subunit SRP54 is involved in the posttranslational integration of a protein into thylakoid membranes.",
+    "doi": "10.1073/pnas.92.9.3789",
+    "pmid": "7731984",
+    "authors": [
+      "Li X, Henry R, Yuan J, Cline K, Hoffman NE."
+    ],
+    "year": "1995",
+    "publication_date": "1995-04-01",
+    "cited_by_count": 137,
+    "journal": "",
+    "abstract": "The mechanisms involved in the integration of proteins into the thylakoid membrane are largely unknown. However, many of the steps of this process for the light-harvesting chlorophyll a/b protein (LHCP) have been described and reconstituted in vitro. LHCP is synthesized as a precursor in the cytosol and posttranslationally imported into chloroplasts. Upon translocation across the envelope membranes, the N-terminal transit peptide is cleaved, and the apoprotein is assembled into a soluble \"transit complex\" and then integrated into the thylakoid membrane via three transmembrane helices. Here we show that 54CP, a chloroplast homologue of the 54-kDa subunit of the mammalian signal recognition particle (SRP54), is essential for transit complex formation, is present in the complex, and is required for LHCP integration into the thylakoid membrane. Our data indicate that 54CP functions posttranslationally as a molecular chaperone and potentially pilots LHCP to the thylakoids. These results demonstrate that one of several pathways for protein routing to the thylakoids is homologous to the SRP pathway and point to a common evolutionary origin for the protein transport systems of the endoplasmic reticulum and the thylakoid membrane.",
+    "openalex_id": ""
+  },
+  {
+    "title": "GTP binding and hydrolysis by the signal recognition particle during initiation of protein translocation.",
+    "doi": "10.1038/366351a0",
+    "pmid": "8247130",
+    "authors": [
+      "Miller JD, Wilhelm H, Gierasch L, Gilmore R, Walter P."
+    ],
+    "year": "1993",
+    "publication_date": "1993-11-01",
+    "cited_by_count": 135,
+    "journal": "",
+    "abstract": "The signal recognition particle (SRP) consists of one RNA and six protein subunits. The N-terminal domain of the 54K subunit contains a putative GTP-binding site, whereas the C-terminal domain binds signal sequences and SRP RNA. Binding of SRP to the signal sequence as it emerges from the ribosome creates a cytosolic targeting complex containing the nascent polypeptide chain, the translating ribosome, and SRP. This complex is directed to the endoplasmic reticulum membrane as a result of its interaction with the SRP receptor, a membrane protein composed of two subunits, SR alpha and SR beta, each of which also contains a GTP-binding domain. In the presence of GTP, SRP receptor binding to SRP causes the latter to dissociate from both the signal sequence and the ribosome. GTP is then hydrolysed so that SRP can be released from the SRP receptor and returned to the cytosol. Here we show that the 54K subunit (M(r) 54,000) of SRP (SRP54) is a GTP-binding protein stabilized in a nucleotide-free state by signal sequences, and that the SRP receptor both increases the affinity of SRP54 for GTP and activates its GTPase. We propose that nucleotide-mediated conformational changes in SRP54 regulate the release of signal sequences and the docking of ribosomes at the endoplasmic reticulum.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The 54-kD protein of signal recognition particle contains a methionine-rich RNA binding domain.",
+    "doi": "10.1083/jcb.111.5.1793",
+    "pmid": "1699948",
+    "authors": [
+      "Römisch K, Webb J, Lingelbach K, Gausepohl H, Dobberstein B."
+    ],
+    "year": "1990",
+    "publication_date": "1990-11-01",
+    "cited_by_count": 127,
+    "journal": "",
+    "abstract": "Signal recognition particle (SRP) plays the key role in targeting secretory proteins to the membrane of the endoplasmic reticulum (Walter, P., and V. R. Lingappa. 1986. Annu. Rev. Cell Biol. 2:499-516). It consists of SRP7S RNA and six proteins. The 54-kD protein of SRP (SRP54) recognizes the signal sequence of nascent polypeptides. The 19-kD protein of SRP (SRP19) binds to SRP7S RNA directly and is required for the binding of SRP54 to the particle. We used deletion mutants of SRP19 and SRP54 and an in vitro assembly assay in the presence of SRP7S RNA to define the regions in both proteins which are required to form a ribonucleoprotein particle. Deletion of the 21 COOH-terminal amino acids of SRP19 does not interfere with its binding to SRP7S RNA. Further deletions abolish SRP19 binding to SRP7S RNA. The COOH-terminal 207 amino acids of SRP54 (M domain) were found to be necessary and sufficient for binding to the SRP19/7S RNA complex in vitro. Limited protease digestion of purified SRP confirmed our results for SRP54 from the in vitro binding assay. The SRP54M domain could also bind to Escherichia coli 4.5S RNA that is homologous to part of SRP7S RNA. We suggest that the methionine-rich COOH terminus of SRP54 is a RNA binding domain and that SRP19 serves to establish a binding site for SRP54 on the SRP7S RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A chromodomain protein encoded by the arabidopsis CAO gene is a plant-specific component of the chloroplast signal recognition particle pathway that is involved in LHCP targeting.",
+    "doi": "10.1105/tpc.11.1.87",
+    "pmid": "9878634",
+    "authors": [
+      "Klimyuk VI, Persello-Cartieaux F, Havaux M, Contard-David P, Schuenemann D, Meiherhoff K, Gouet P, Jones JD, Hoffman NE, Nussaume L."
+    ],
+    "year": "1999",
+    "publication_date": "1999-01-01",
+    "cited_by_count": 127,
+    "journal": "",
+    "abstract": "A recessive mutation in Arabidopsis, named chaos (for chlorophyll a/b binding protein harvesting-organelle specific; designated gene symbol CAO), was isolated by using transposon tagging. Characterization of the phenotype of the chaos mutant revealed a specific reduction of pigment binding antenna proteins in the thylakoid membrane. These nuclear-encoded proteins utilize a chloroplast signal recognition particle (cpSRP) system to reach the thylakoid membrane. Both prokaryotes and eukaryotes possess a cytoplasmic SRP containing a 54-kD protein (SRP54) and an RNA. In chloroplasts, the homolog of SRP54 was found to bind a 43-kD protein (cpSRP43) rather than to an RNA. We cloned the CAO gene, which encodes a protein identified as Arabidopsis cpSRP43. The product of the CAO gene does not resemble any protein in the databases, although it contains motifs that are known to mediate protein-protein interactions. These motifs include ankyrin repeats and chromodomains. Therefore, CAO encodes an SRP component that is unique to plants. Surprisingly, the phenotype of the cpSRP43 mutant (i.e., chaos) differs from that of the Arabidopsis cpSRP54 mutant, suggesting that the functions of the two proteins do not strictly overlap. This difference also suggests that the function of cpSRP43 is most likely restricted to protein targeting into the thylakoid membrane, whereas cpSRP54 may be involved in an additional process(es), such as chloroplast biogenesis, perhaps through chloroplast-ribosomal association with chloroplast ribosomes.",
+    "openalex_id": ""
+  }
+]

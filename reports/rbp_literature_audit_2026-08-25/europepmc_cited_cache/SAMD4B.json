@@ -1,0 +1,142 @@
+[
+  {
+    "title": "SAMD4 family members suppress human hepatitis B virus by directly binding to the Smaug recognition region of viral RNA.",
+    "doi": "10.1038/s41423-020-0431-x",
+    "pmid": "32341522",
+    "authors": [
+      "Wang Y, Fan X, Song Y, Liu Y, Liu R, Wu J, Li X, Yuan Q, Fu G, Xia N, Han J."
+    ],
+    "year": "2021",
+    "publication_date": "2020-04-27",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "HBV infection initiates hepatitis B and promotes liver cirrhosis and hepatocellular carcinoma. IFN-α is commonly used in hepatitis B therapy, but how it inhibits HBV is not fully understood. We screened 285 human interferon-stimulated genes (ISGs) for anti-HBV activity using a cell-based assay, which revealed several anti-HBV ISGs. Among these ISGs, SAMD4A was the strongest suppressor of HBV replication. We found the binding site of SAMD4A in HBV RNA, which was a previously unidentified Smaug recognition region (SRE) sequence conserved in HBV variants. SAMD4A binds to the SRE site in viral RNA to trigger its degradation. The SAM domain in SAMD4A is critical for RNA binding and the C-terminal domain of SAMD4A is required for SAMD4A anti-HBV function. Human SAMD4B is a homolog of human SAMD4A but is not an ISG, and the murine genome encodes SAMD4. All these SAMD4 proteins suppressed HBV replication when overexpressed in vitro and in vivo. We also showed that knocking out the Samd4 gene in hepatocytes led to a higher level of HBV replication in mice and AAV-delivered SAMD4A expression reduced the virus titer in HBV-producing transgenic mice. In addition, a database analysis revealed a negative correlation between the levels of SAMD4A/B and HBV in patients. Our data suggest that SAMD4A is an important anti-HBV ISG for use in IFN therapy of hepatitis B and that the levels of SAMD4A/B expression are related to HBV sensitivity in humans.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding protein SAMD4: current knowledge and future perspectives.",
+    "doi": "10.1186/s13578-023-00968-x",
+    "pmid": "36732864",
+    "authors": [
+      "Wang XY, Zhang LN."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-02",
+    "cited_by_count": 18,
+    "journal": "",
+    "abstract": "SAMD4 protein family is a class of novel RNA-binding proteins that can mediate post-transcriptional regulation and translation repression in eukaryotes, which are highly conserved from yeast to humans during evolution. In mammalian cells, SAMD4 protein family consists of two members including SAMD4A/Smaug1 and SAMD4B/Smaug2, both of which contain common SAM domain that can specifically bind to different target mRNAs through stem-loop structures, also known as Smaug recognition elements (SREs), and regulate the mRNA stability, degradation and translation. In addition, SAMD4 can form the cytoplasmic mRNA silencing foci and regulate the translation of SRE-containing mRNAs in neurons. SAMD4 also can form the cytosolic membrane-less organelles (MLOs), termed as Smaug1 bodies, and regulate mitochondrial function. Importantly, many studies have identified that SAMD4 family members are involved in various pathological processes including myopathy, bone development, neural development, and cancer occurrence and progression. In this review, we mainly summarize the structural characteristics, biological functions and molecular regulatory mechanisms of SAMD4 protein family members, which will provide a basis for further research and clinical application of SAMD4 protein family.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Smaug1 membrane-less organelles respond to AMPK and mTOR and affect mitochondrial function.",
+    "doi": "10.1242/jcs.253591",
+    "pmid": "34859817",
+    "authors": [
+      "Fernández-Alvarez AJ, Gabriela Thomas M, Pascual ML, Habif M, Pimentel J, Corbat AA, Pessoa JP, La Spina PE, Boscaglia L, Plessis A, Carmo-Fonseca M, Grecco HE, Casado M, Boccaccio GL."
+    ],
+    "year": "2022",
+    "publication_date": "2022-01-10",
+    "cited_by_count": 14,
+    "journal": "",
+    "abstract": "Smaug is a conserved translational regulator that binds numerous mRNAs, including nuclear transcripts that encode mitochondrial enzymes. Smaug orthologs form cytosolic membrane-less organelles (MLOs) in several organisms and cell types. We have performed single-molecule fluorescence in situ hybridization (FISH) assays that revealed that SDHB and UQCRC1 mRNAs associate with Smaug1 bodies in U2OS cells. Loss of function of Smaug1 and Smaug2 (also known as SAMD4A and SAMD4B, respectively) affected both mitochondrial respiration and morphology of the mitochondrial network. Phenotype rescue by Smaug1 transfection depends on the presence of its RNA-binding domain. Moreover, we identified specific Smaug1 domains involved in MLO formation, and found that impaired Smaug1 MLO condensation correlates with mitochondrial defects. Mitochondrial complex I inhibition upon exposure to rotenone, but not strong mitochondrial uncoupling upon exposure to CCCP, rapidly induced the dissolution of Smaug1 MLOs. Metformin and rapamycin elicited similar effects, which were blocked by pharmacological inhibition of AMP-activated protein kinase (AMPK). Finally, we found that Smaug1 MLO dissolution weakens the interaction with target mRNAs, thus enabling their release. We propose that mitochondrial respiration and the AMPK-mTOR balance controls the condensation and dissolution of Smaug1 MLOs, thus regulating nuclear mRNAs that encode key mitochondrial proteins. This article has an associated First Person interview with the first authors of the paper.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A genome-wide transcriptomic analysis of embryos fathered by obese males in a murine model of diet-induced obesity.",
+    "doi": "10.1038/s41598-021-81226-3",
+    "pmid": "33479343",
+    "authors": [
+      "Bernhardt L, Dittrich M, El-Merahbi R, Saliba AE, Müller T, Sumara G, Vogel J, Nichols-Burns S, Mitchell M, Haaf T, El Hajj N."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-21",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Paternal obesity is known to have a negative impact on the male's reproductive health as well as the health of his offspring. Although epigenetic mechanisms have been implicated in the non-genetic transmission of acquired traits, the effect of paternal obesity on gene expression in the preimplantation embryo has not been fully studied. To this end, we investigated whether paternal obesity is associated with gene expression changes in eight-cell stage embryos fathered by males on a high-fat diet. We used single embryo RNA-seq to compare the gene expression profile of embryos generated by males on a high fat (HFD) versus control (CD) diet. This analysis revealed significant upregulation of the Samd4b and Gata6 gene in embryos in response to a paternal HFD. Furthermore, we could show a significant increase in expression of both Gata6 and Samd4b during differentiation of stromal vascular cells into mature adipocytes. These findings suggest that paternal obesity may induce changes in the male germ cells which are associated with the gene expression changes in the resulting preimplantation embryos.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Smaug variants in neural and non-neuronal cells.",
+    "doi": "10.1080/19420889.2016.1139252",
+    "pmid": "27195061",
+    "authors": [
+      "Fernández-Alvarez AJ, Pascual ML, Boccaccio GL, Thomas MG."
+    ],
+    "year": "2016",
+    "publication_date": "2016-02-18",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "Mammalian Smaug1/Samd4a is an mRNA regulator involved in synapse plasticity and additional non-neuronal functions. Here we analyzed the expression of Smaug1/Samd4a variants and Smaug2/Samd4b in primary hippocampal neurons and non-neuronal cell lines. We found that multiple Smaug proteins are present in several mammalian cell lines, including a canonical full length Smaug1, a Smaug1 variant that lacks the third exon, termed ΔEIII, and Smaug2, the product of a highly homologous gene. These three major isoforms are expressed differentially along neuron development and form cytosolic bodies when transfected in cell lines. By using luciferase reporters, we found that the ΔEIII isoform, which lacks 10 amino acids in the sterile α motif involved in RNA binding, shows a RNA-binding capacity and repressor activity comparable to that of the full length Smaug1. These observations are an important groundwork for molecular studies of the Smaug post-transcriptional pathway, which is relevant to neuron development, mitochondrial function and muscle physiology in health and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Synergistic immunochemotherapy targeted SAMD4B-APOA2-PD-L1 axis potentiates antitumor immunity in hepatocellular carcinoma.",
+    "doi": "10.1038/s41419-024-06699-2",
+    "pmid": "38886351",
+    "authors": [
+      "Qi F, Zhang J, Li J, Li D, Gao N, Qi Z, Kong X, Yu Z, Fang Y, Cui W, Xia J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-06-17",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "Targeted and immunotherapy combined with interventional therapy can improve the prognosis of advanced cancer patients, and it has become a hot spot to find the new therapeutic schemes, but most of which are not satisfactory. Single-cell RNA sequencing was performed in PDX mouse models with or without TCC therapy. 2-'O-Methylation modification and multiplex immunofluorescence staining were used to explore the function and mechanism of SAMD4B in the immune context of HCC. Here, we propose for the first time a synergistic immunochemotherapy that exerts a potent antitumour effect for patients with advanced hepatocellular carcinoma (HCC) in clinical practice based on three common antitumour drugs and found that HCC patients with new synergistic immunochemotherapy had better three-year overall survival (p = 0.004) and significantly higher survival ratio (increased by 2.3 times) than the control group. We further reveal the immunoregulatory mechanism of synergistic immunochemotherapy through 2'-O-Methylation modification mediated by SAMD4B, a tumour suppressor gene. Mechanistically, SAMD4B, increased by the reduced mutations of upstream genes NOTCH1 and NOTCH2, affected the instability of APOA2 mRNA by 2-'O-Methylation modification of the C-terminus. The decreased APOA2 further attenuated programmed death ligand 1 (PD-L1) level with a direct interaction pattern. The high-SAMD4B tumour tissues contained fewer native CD29+CD8+ T cells, which improved immune microenvironment to achieve the effect of antitumour effect. Overall, we developed a potent synergistic immunochemotherapy strategy that exerts an efficient anti-HCC effect inducing SAMD4B-APOA2-PD-L1 axis to inhibit tumour immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SAMD4 represses VGLL4 mRNA to activate TEAD and promote cancer progression.",
+    "doi": "10.1038/s41388-026-03778-w",
+    "pmid": "42014888",
+    "authors": [
+      "Otani J, Nishio M, Tokita R, Hikasa H, Nishimori M, Dan S, Naguro I, Ichijo H, Miyanishi M, Sasaki T, Nishina H, Mak TW, Maehama T, Suzuki A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The transcriptional cofactors YAP1 and TAZ regulate target gene expression by binding to the transcription factor TEAD. Due to their roles in cancer initiation, progression, and drug resistance, YAP1 and TAZ are promising targets for cancer therapy. SAMD4A/B are RNA-binding proteins that are broadly expressed across human tissues, but few of their molecular targets and biological functions have been identified. In Drosophila, the SAMD4A/B homolog Smaug participates in early embryonic development by disrupting the stability and translation of maternal mRNA. To discover targets inhibiting the YAP1/TAZ-TEAD oncogenic transcription program, we screened a whole-genome siRNA library and identified siSAMD4B as potently suppressing TEAD activity in human cancer cells. We showed that SAMD4A/B increased TEAD activity by destabilizing and repressing the translation of VGLL4 mRNA, promoting cancer progression in vitro. Conversely, inhibiting either SAMD4A or SAMD4B elevated VGLL4 mRNA, which suppressed TEAD activity and inhibited cancer progression. Notably, transgenic mice expressing liver-specific SAMD4B exhibited accelerated development of intrahepatic cholangiocarcinomas in an Nf2-deficient background. These tumors appeared in the mutants at one week of age and caused death due to hepatic failure by 100 days. Thus, SAMD4A/B may be a promising target for anticancer drugs designed to inhibit TEAD activation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SAMD4B: a novel prognostic biomarker of endometrial carcinoma.",
+    "doi": "10.21037/tcr-2025-1648",
+    "pmid": "41378048",
+    "authors": [
+      "Shin C, Jang TK, Song C."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Endometrial cancer (EC) is a prevalent gynecologic cancer; however, the EC risk factors based on alterations in individual gene expression require further investigation. Sterile alpha motif domain-containing protein 4 (<i>SAMD4</i>) is an evolutionary conserved gene that has been linked to various cancers. Here, we aimed to investigate the relationship between <i>SAMD4B</i> expression and EC.<h4>Methods</h4>Microarray data of <i>SAMD4B</i> were obtained from the Gene Expression Omnibus datasets GSE17025 and GSE29981; RNA sequencing data and clinical and survival data were downloaded from the Cancer Genome Atlas cohort. The datasets were analyzed using Affymetrix GeneChip<sup>TM</sup> Human Genome U133 Plus 2.0 Array, and the patients were divided into four sub-groups based on DNA polymerase epsilon mutation, microsatellite instability/mismatch repair deficiency, <i>TP53</i> gene mutation, and microsatellite stability status.<h4>Results</h4><i>SAMD4B</i> expression was higher in EC tissues than that in normal endometrial tissues. <i>SAMD4B</i> overexpression was associated with poor overall survival (OS) of patients with EC [P<0.001, hazard ratio (HR) =2.254, 95% confidence interval (CI): 1.447-3.510]. Cox regression analysis showed that high <i>SAMD4B</i> expression, clinical stage, histologic grade, and positive cytology were independent prognostic factors for poor OS in patients with EC. In the subgroup analysis, <i>SAMD4B</i> mean expression was the highest in the TP53 mutation group, which showed the worst OS.<h4>Conclusions</h4><i>SAMD4B</i> may serve as a novel prognostic biomarker for patients with EC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oncogenic Role of SAMD4B in Breast Cancer Progression by Activating Wnt/β-Catenin Pathway.",
+    "doi": "10.3390/biom15101423",
+    "pmid": "41154652",
+    "authors": [
+      "Li JH, Wang XY, Song HX, Nie XF, Zhang LN."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-07",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The Sterile alpha motif domain-containing protein 4 (SAMD4) family consists of two evolutionarily conserved and highly homologous RNA-binding proteins, SAMD4A and SAMD4B. Previous studies have established SAMD4A as a tumor suppressor that is downregulated in breast cancer, while the function of SAMD4B in tumorigenesis remains poorly defined. In this study, we observed that SAMD4B expression is upregulated in breast cancer. Functional assays demonstrated that SAMD4B facilitated breast cancer cell proliferation, migration, and invasion by inducing epithelial-mesenchymal transition (EMT). Furthermore, SAMD4B accelerated G1-to-S phase cell cycle progression by modulating p53 expression, collectively supporting an oncogenic function of SAMD4B in breast cancer. Mechanistically, we found that SAMD4B enhanced TCF/LEF transcriptional activity and upregulated the expression of β-catenin, Cyclin D1, c-Myc, and Axin2. Further investigations confirmed that SAMD4B activated the Wnt/β-catenin pathway by stabilizing <i>β-catenin</i> mRNA and increasing β-catenin protein expression level. Importantly, treatment with XAV-939, a specific Wnt/β-catenin pathway inhibitor, abrogated the pro-oncogenic effects of SAMD4B overexpression, including Wnt/β-catenin pathway activation, enhanced proliferation, and increased metastatic capacity. These results confirm that SAMD4B promotes the malignant phenotypes of breast cancer cells in a manner dependent on the Wnt/β-catenin pathway. In summary, our findings clarify that SAMD4B exerts an oncogenic role in breast cancer progression by activating the Wnt/β-catenin pathway. These data identify SAMD4B as a potential therapeutic target in breast cancer, although further in vivo investigations are required to validate its clinical relevance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Author Correction: Synergistic immunochemotherapy targeted SAMD4B-APOA2-PD-L1 axis potentiates antitumor immunity in hepatocellular carcinoma.",
+    "doi": "10.1038/s41419-024-06877-2",
+    "pmid": "39019849",
+    "authors": [
+      "Qi F, Zhang J, Li J, Li D, Gao N, Qi Z, Kong X, Yu Z, Fang Y, Cui W, Xia J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A Compendium of RNA-Binding Proteins that Regulate MicroRNA Biogenesis.",
+    "doi": "10.1016/j.molcel.2017.03.014",
+    "pmid": "28431233",
+    "authors": [
+      "Treiber T, Treiber N, Plessmann U, Harlander S, Daiß JL, Eichner N, Lehmann G, Schall K, Urlaub H, Meister G."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-01",
+    "cited_by_count": 288,
+    "journal": "",
+    "abstract": "During microRNA (miRNA) biogenesis, two endonucleolytic reactions convert stem-loop-structured precursors into mature miRNAs. These processing steps can be posttranscriptionally regulated by RNA-binding proteins (RBPs). Here, we have used a proteomics-based pull-down approach to map and characterize the interactome of a multitude of pre-miRNAs. We identify ∼180 RBPs that interact specifically with distinct pre-miRNAs. For functional validation, we combined RNAi and CRISPR/Cas-mediated knockout experiments to analyze RBP-dependent changes in miRNA levels. Indeed, a large number of the investigated candidates, including splicing factors and other mRNA processing proteins, have effects on miRNA processing. As an example, we show that TRIM71/LIN41 is a potent regulator of miR-29a processing and its inactivation directly affects miR-29a targets. We provide an extended database of RBPs that interact with pre-miRNAs in extracts of different cell types, highlighting a widespread layer of co- and posttranscriptional regulation of miRNA biogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oncogenic lncRNA downregulates cancer cell antigen presentation and intrinsic tumor suppression.",
+    "doi": "10.1038/s41590-019-0400-7",
+    "pmid": "31160797",
+    "authors": [
+      "Hu Q, Ye Y, Chan LC, Li Y, Liang K, Lin A, Egranov SD, Zhang Y, Xia W, Gong J, Pan Y, Chatterjee SS, Yao J, Evans KW, Nguyen TK, Park PK, Liu J, Coarfa C, Donepudi SR, Putluri V, Putluri N, Sreekumar A, Ambati CR, Hawke DH, Marks JR, Gunaratne PH, Caudle AS, Sahin AA, Hortobagyi GN, Meric-Bernstam F, Chen L, Yu D, Hung MC, Curran MA, Han L, Lin C, Yang L."
+    ],
+    "year": "2019",
+    "publication_date": "2019-06-03",
+    "cited_by_count": 283,
+    "journal": "",
+    "abstract": "How tumor cells genetically lose antigenicity and evade immune checkpoints remains largely elusive. We report that tissue-specific expression of the human long noncoding RNA LINK-A in mouse mammary glands initiates metastatic mammary gland tumors, which phenotypically resemble human triple-negative breast cancer (TNBC). LINK-A expression facilitated crosstalk between phosphatidylinositol-(3,4,5)-trisphosphate and inhibitory G-protein-coupled receptor (GPCR) pathways, attenuating protein kinase A-mediated phosphorylation of the E3 ubiquitin ligase TRIM71. Consequently, LINK-A expression enhanced K48-polyubiquitination-mediated degradation of the antigen peptide-loading complex (PLC) and intrinsic tumor suppressors Rb and p53. Treatment with LINK-A locked nucleic acids or GPCR antagonists stabilized the PLC components, Rb and p53, and sensitized mammary gland tumors to immune checkpoint blockers. Patients with programmed ccll death protein-1(PD-1) blockade-resistant TNBC exhibited elevated LINK-A levels and downregulated PLC components. Hence we demonstrate lncRNA-dependent downregulation of antigenicity and intrinsic tumor suppression, which provides the basis for developing combinational immunotherapy treatment regimens and early TNBC prevention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The let-7/LIN-41 pathway regulates reprogramming to human induced pluripotent stem cells by controlling expression of prodifferentiation genes.",
+    "doi": "10.1016/j.stem.2013.11.001",
+    "pmid": "24239284",
+    "authors": [
+      "Worringer KA, Rand TA, Hayashi Y, Sami S, Takahashi K, Tanabe K, Narita M, Srivastava D, Yamanaka S."
+    ],
+    "year": "2014",
+    "publication_date": "2013-11-14",
+    "cited_by_count": 196,
+    "journal": "",
+    "abstract": "Reprogramming differentiated cells into induced pluripotent stem cells (iPSCs) promotes a broad array of cellular changes. Here we show that the let-7 family of microRNAs acts as an inhibitory influence on the reprogramming process through a regulatory pathway involving prodifferentiation factors, including EGR1. Inhibiting let-7 in human cells promotes reprogramming to a comparable extent to c-MYC when combined with OCT4, SOX2, and KLF4, and persistence of let-7 inhibits reprogramming. Inhibiting let-7 during reprogramming leads to an increase in the level of the let-7 target LIN-41/TRIM71, which in turn promotes reprogramming and is important for overcoming the let-7 barrier to reprogramming. Mechanistic studies revealed that LIN-41 regulates a broad array of differentiation genes, and more specifically, inhibits translation of EGR1 through binding its cognate mRNA. Together our findings outline a let-7-based pathway that counteracts the activity of reprogramming factors through promoting the expression of prodifferentiation genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Trim71 cooperates with microRNAs to repress Cdkn1a expression and promote embryonic stem cell proliferation.",
+    "doi": "10.1038/ncomms1909",
+    "pmid": "22735451",
+    "authors": [
+      "Chang HM, Martinez NJ, Thornton JE, Hagan JP, Nguyen KD, Gregory RI."
+    ],
+    "year": "2012",
+    "publication_date": "2012-06-26",
+    "cited_by_count": 139,
+    "journal": "",
+    "abstract": "Pluripotent embryonic stem cells have a shortened cell cycle that enables their rapid proliferation. The embryonic stem cell-specific miR-290 and miR-302 microRNA families promote proliferation whereas let-7 microRNAs inhibit self-renewal, and promote cell differentiation. Lin28 suppresses let-7 expression in embryonic stem cells. Here to gain further insight into mechanisms controlling embryonic stem cell self-renewal, we explore the molecular and cellular role of the let-7 target Trim71 (mLin41). We show that Trim71 associates with Argonaute2 and microRNAs, and represses expression of Cdkn1a, a cyclin-dependent kinase inhibitor that negatively regulates the G1-S transition. We identify protein domains required for Trim71 association with Argonaute2, localization to P-bodies, and for repression of reporter messenger RNAs. Trim71 knockdown prolongs the G1 phase of the cell cycle and slows embryonic stem cell proliferation, a phenotype that was rescued by depletion of Cdkn1a. Thus, we demonstrate that Trim71 is a factor that facilitates the G1-S transition to promote rapid embryonic stem cell self-renewal.",
+    "openalex_id": ""
+  },
+  {
+    "title": "De Novo Mutation in Genes Regulating Neural Stem Cell Fate in Human Congenital Hydrocephalus.",
+    "doi": "10.1016/j.neuron.2018.06.019",
+    "pmid": "29983323",
+    "authors": [
+      "Furey CG, Choi J, Jin SC, Zeng X, Timberlake AT, Nelson-Williams C, Mansuri MS, Lu Q, Duran D, Panchagnula S, Allocco A, Karimy JK, Khanna A, Gaillard JR, DeSpenza T, Antwi P, Loring E, Butler WE, Smith ER, Warf BC, Strahle JM, Limbrick DD, Storm PB, Heuer G, Jackson EM, Iskandar BJ, Johnston JM, Tikhonova I, Castaldi C, López-Giráldez F, Bjornson RD, Knight JR, Bilguvar K, Mane S, Alper SL, Haider S, Guclu B, Bayri Y, Sahin Y, Apuzzo MLJ, Duncan CC, DiLuna ML, Günel M, Lifton RP, Kahle KT."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-05",
+    "cited_by_count": 130,
+    "journal": "",
+    "abstract": "Congenital hydrocephalus (CH), featuring markedly enlarged brain ventricles, is thought to arise from failed cerebrospinal fluid (CSF) homeostasis and is treated with lifelong surgical CSF shunting with substantial morbidity. CH pathogenesis is poorly understood. Exome sequencing of 125 CH trios and 52 additional probands identified three genes with significant burden of rare damaging de novo or transmitted mutations: TRIM71 (p = 2.15 × 10<sup>-7</sup>), SMARCC1 (p = 8.15 × 10<sup>-10</sup>), and PTCH1 (p = 1.06 × 10<sup>-6</sup>). Additionally, two de novo duplications were identified at the SHH locus, encoding the PTCH1 ligand (p = 1.2 × 10<sup>-4</sup>). Together, these probands account for ∼10% of studied cases. Strikingly, all four genes are required for neural tube development and regulate ventricular zone neural stem cell fate. These results implicate impaired neurogenesis (rather than active CSF accumulation) in the pathogenesis of a subset of CH patients, with potential diagnostic, prognostic, and therapeutic ramifications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The mammalian TRIM-NHL protein TRIM71/LIN-41 is a repressor of mRNA function.",
+    "doi": "10.1093/nar/gks1032",
+    "pmid": "23125361",
+    "authors": [
+      "Loedige I, Gaidatzis D, Sack R, Meister G, Filipowicz W."
+    ],
+    "year": "2013",
+    "publication_date": "2012-11-03",
+    "cited_by_count": 108,
+    "journal": "",
+    "abstract": "TRIM-NHL proteins are conserved regulators of development and differentiation but their molecular function has remained largely elusive. Here, we report an as yet unrecognized activity for the mammalian TRIM-NHL protein TRIM71 as a repressor of mRNAs. We show that TRIM71 is associated with mRNAs and that it promotes translational repression and mRNA decay. We have identified Rbl1 and Rbl2, two transcription factors whose down-regulation is important for stem cell function, as TRIM71 targets in mouse embryonic stem cells. Furthermore, one of the defining features of TRIM-NHL proteins, the NHL domain, is necessary and sufficient to target TRIM71 to RNA, while the RING domain that confers ubiquitin ligase activity is dispensable for repression. Our results reveal strong similarities between TRIM71 and Drosophila BRAT, the best-studied TRIM-NHL protein and a well-documented translational repressor, suggesting that BRAT and TRIM71 are part of a family of mRNA repressors regulating proliferation and differentiation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Programmed DNA elimination of germline development genes in songbirds.",
+    "doi": "10.1038/s41467-019-13427-4",
+    "pmid": "31784533",
+    "authors": [
+      "Kinsella CM, Ruiz-Ruano FJ, Dion-Côté AM, Charles AJ, Gossmann TI, Cabrero J, Kappei D, Hemmings N, Simons MJP, Camacho JPM, Forstmeier W, Suh A."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-29",
+    "cited_by_count": 90,
+    "journal": "",
+    "abstract": "In some eukaryotes, germline and somatic genomes differ dramatically in their composition. Here we characterise a major germline-soma dissimilarity caused by a germline-restricted chromosome (GRC) in songbirds. We show that the zebra finch GRC contains >115 genes paralogous to single-copy genes on 18 autosomes and the Z chromosome, and is enriched in genes involved in female gonad development. Many genes are likely functional, evidenced by expression in testes and ovaries at the RNA and protein level. Using comparative genomics, we show that genes have been added to the GRC over millions of years of evolution, with embryonic development genes bicc1 and trim71 dating to the ancestor of songbirds and dozens of other genes added very recently. The somatic elimination of this evolutionarily dynamic chromosome in songbirds implies a unique mechanism to minimise genetic conflict between germline and soma, relevant to antagonistic pleiotropy, an evolutionary process underlying ageing and sexual traits.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Impaired neurogenesis alters brain biomechanics in a neuroprogenitor-based genetic subtype of congenital hydrocephalus.",
+    "doi": "10.1038/s41593-022-01043-3",
+    "pmid": "35379995",
+    "authors": [
+      "Duy PQ, Weise SC, Marini C, Li XJ, Liang D, Dahl PJ, Ma S, Spajic A, Dong W, Juusola J, Kiziltug E, Kundishora AJ, Koundal S, Pedram MZ, Torres-Fernández LA, Händler K, De Domenico E, Becker M, Ulas T, Juranek SA, Cuevas E, Hao LT, Jux B, Sousa AMM, Liu F, Kim SK, Li M, Yang Y, Takeo Y, Duque A, Nelson-Williams C, Ha Y, Selvaganesan K, Robert SM, Singh AK, Allington G, Furey CG, Timberlake AT, Reeves BC, Smith H, Dunbar A, DeSpenza T, Goto J, Marlier A, Moreno-De-Luca A, Yu X, Butler WE, Carter BS, Lake EMR, Constable RT, Rakic P, Lin H, Deniz E, Benveniste H, Malvankar NS, Estrada-Veras JI, Walsh CA, Alper SL, Schultze JL, Paeschke K, Doetzlhofer A, Wulczyn FG, Jin SC, Lifton RP, Sestan N, Kolanus W, Kahle KT."
+    ],
+    "year": "2022",
+    "publication_date": "2022-04-04",
+    "cited_by_count": 88,
+    "journal": "",
+    "abstract": "Hydrocephalus, characterized by cerebral ventricular dilatation, is routinely attributed to primary defects in cerebrospinal fluid (CSF) homeostasis. This fosters CSF shunting as the leading reason for brain surgery in children despite considerable disease heterogeneity. In this study, by integrating human brain transcriptomics with whole-exome sequencing of 483 patients with congenital hydrocephalus (CH), we found convergence of CH risk genes in embryonic neuroepithelial stem cells. Of all CH risk genes, TRIM71/lin-41 harbors the most de novo mutations and is most specifically expressed in neuroepithelial cells. Mice harboring neuroepithelial cell-specific Trim71 deletion or CH-specific Trim71 mutation exhibit prenatal hydrocephalus. CH mutations disrupt TRIM71 binding to its RNA targets, causing premature neuroepithelial cell differentiation and reduced neurogenesis. Cortical hypoplasia leads to a hypercompliant cortex and secondary ventricular enlargement without primary defects in CSF circulation. These data highlight the importance of precisely regulated neuroepithelial cell fate for normal brain-CSF biomechanics and support a clinically relevant neuroprogenitor-based paradigm of CH.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LIN41 Post-transcriptionally Silences mRNAs by Two Distinct and Position-Dependent Mechanisms.",
+    "doi": "10.1016/j.molcel.2016.12.010",
+    "pmid": "28111013",
+    "authors": [
+      "Aeschimann F, Kumari P, Bartake H, Gaidatzis D, Xu L, Ciosk R, Großhans H."
+    ],
+    "year": "2017",
+    "publication_date": "2017-01-19",
+    "cited_by_count": 78,
+    "journal": "",
+    "abstract": "The RNA-binding protein (RBP) LIN41, also known as LIN-41 or TRIM71, is a key regulator of animal development, but its physiological targets and molecular mechanism of action are largely elusive. Here we find that this RBP has two distinct mRNA-silencing activities. Using genome-wide ribosome profiling, RNA immunoprecipitation, and in vitro-binding experiments, we identify four mRNAs, each encoding a transcription factor or cofactor, as direct physiological targets of C. elegans LIN41. LIN41 silences three of these targets through their 3' UTRs, but it achieves isoform-specific silencing of one target, lin-29A, through its unique 5' UTR. Whereas the 3' UTR targets mab-10, mab-3, and dmd-3 undergo transcript degradation, lin-29A experiences translational repression. Through binding site transplantation experiments, we demonstrate that it is the location of the LIN41-binding site that specifies the silencing mechanism. Such position-dependent dual activity may, when studied more systematically, emerge as a feature shared by other RBPs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The ubiquitin ligase LIN41/TRIM71 targets p53 to antagonize cell death and differentiation pathways during stem cell differentiation.",
+    "doi": "10.1038/cdd.2017.54",
+    "pmid": "28430184",
+    "authors": [
+      "Nguyen DTT, Richter D, Michel G, Mitschka S, Kolanus W, Cuevas E, Wulczyn FG."
+    ],
+    "year": "2017",
+    "publication_date": "2017-04-21",
+    "cited_by_count": 59,
+    "journal": "",
+    "abstract": "Rapidity and specificity are characteristic features of proteolysis mediated by the ubiquitin-proteasome system. Therefore, the UPS is ideally suited for the remodeling of the embryonic stem cell proteome during the transition from pluripotent to differentiated states and its inverse, the generation of inducible pluripotent stem cells. The Trim-NHL family member LIN41 is among the first E3 ubiquitin ligases to be linked to stem cell pluripotency and reprogramming. Initially discovered in C. elegans as a downstream target of the let-7 miRNA, LIN41 is now recognized as a critical regulator of stem cell fates as well as the timing of neurogenesis. Despite being indispensable for embryonic development and neural tube closure in mice, the underlying mechanisms for LIN41 function in these processes are poorly understood. To better understand the specific contributions of the E3 ligase activity for the stem cell functions of LIN41, we characterized global changes in ubiquitin or ubiquitin-like modifications using Lin41-inducible mouse embryonic stem cells. The tumor suppressor protein p53 was among the five most strongly affected proteins in cells undergoing neural differentiation in response to LIN41 induction. We show that LIN41 interacts with p53, controls its abundance by ubiquitination and antagonizes p53-dependent pro-apoptotic and pro-differentiation responses. In vivo, the lack of LIN41 is associated with upregulation of Grhl3 and widespread caspase-3 activation, two downstream effectors of p53 with essential roles in neural tube closure. As Lin41-deficient mice display neural tube closure defects, we conclude that LIN41 is critical for the regulation of p53 functions in cell fate specification and survival during early brain development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "LIN-41/TRIM71: emancipation of a miRNA target.",
+    "doi": "10.1101/gad.207266.112",
+    "pmid": "23512656",
+    "authors": [
+      "Ecsedi M, Grosshans H."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-01",
+    "cited_by_count": 59,
+    "journal": "",
+    "abstract": "lin-41 (lineage variant 41)/TRIM71 (tripartite motif 71) is well known for being a conserved target of the let-7 (lethal 7) microRNA (miRNA), a regulatory relationship found in animals evolutionarily as distant as Caenorhabditis elegans and humans. It has thus been studied extensively as a model for miRNA-mediated gene silencing. In contrast, the developmental and molecular functions of LIN41 have historically received less attention. However, LIN41 proteins are now emerging as important regulators of cell proliferation and differentiation in stem and progenitor cells. Moreover, LIN41's functions appear to involve two distinct molecular activities; namely, protein ubiquitylation and post-transcriptional silencing of mRNAs. Thus, LIN41 is ready for a scientific life of its own.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Co-existence of intact stemness and priming of neural differentiation programs in mES cells lacking Trim71.",
+    "doi": "10.1038/srep11126",
+    "pmid": "26057209",
+    "authors": [
+      "Mitschka S, Ulas T, Goller T, Schneider K, Egert A, Mertens J, Brüstle O, Schorle H, Beyer M, Klee K, Xue J, Günther P, Bassler K, Schultze JL, Kolanus W."
+    ],
+    "year": "2015",
+    "publication_date": "2015-06-09",
+    "cited_by_count": 51,
+    "journal": "",
+    "abstract": "Regulatory networks for differentiation and pluripotency in embryonic stem (ES) cells have long been suggested to be mutually exclusive. However, with the identification of many new components of these networks ranging from epigenetic, transcriptional, and translational to even post-translational mechanisms, the cellular states of pluripotency and early differentiation might not be strictly bi-modal, but differentiating stem cells appear to go through phases of simultaneous expression of stemness and differentiation genes. Translational regulators such as RNA binding proteins (RBPs) and micro RNAs (miRNAs) might be prime candidates for guiding a cell from pluripotency to differentiation. Using Trim71, one of two members of the Tripartite motif (Trim) protein family with RNA binding activity expressed in murine ES cells, we demonstrate that Trim71 is not involved in regulatory networks of pluripotency but regulates neural differentiation. Loss of Trim71 in mES cells leaves stemness and self-maintenance of these cells intact, but many genes required for neural development are up-regulated at the same time. Concordantly, Trim71(-/-) mES show increased neural marker expression following treatment with retinoic acid. Our findings strongly suggest that Trim71 keeps priming steps of differentiation in check, which do not pre-require a loss of the pluripotency network in ES cells.",
+    "openalex_id": ""
+  }
+]

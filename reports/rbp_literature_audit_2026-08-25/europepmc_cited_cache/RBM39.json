@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Anticancer sulfonamides target splicing by inducing RBM39 degradation via recruitment to DCAF15.",
+    "doi": "10.1126/science.aal3755",
+    "pmid": "28302793",
+    "authors": [
+      "Han T, Han T, Goralski M, Gaskill N, Capota E, Kim J, Ting TC, Xie Y, Williams NS, Nijhawan D."
+    ],
+    "year": "2017",
+    "publication_date": "2017-03-16",
+    "cited_by_count": 536,
+    "journal": "",
+    "abstract": "Indisulam is an aryl sulfonamide drug with selective anticancer activity. Its mechanism of action and the basis for its selectivity have so far been unknown. Here we show that indisulam promotes the recruitment of RBM39 (RNA binding motif protein 39) to the CUL4-DCAF15 E3 ubiquitin ligase, leading to RBM39 polyubiquitination and proteasomal degradation. Mutations in RBM39 that prevent its recruitment to CUL4-DCAF15 increase RBM39 stability and confer resistance to indisulam's cytotoxicity. RBM39 associates with precursor messenger RNA (pre-mRNA) splicing factors, and inactivation of RBM39 by indisulam causes aberrant pre-mRNA splicing. Many cancer cell lines derived from hematopoietic and lymphoid lineages are sensitive to indisulam, and their sensitivity correlates with DCAF15 expression levels. Two other clinically tested sulfonamides, tasisulam and chloroquinoxaline sulfonamide, share the same mechanism of action as indisulam. We propose that DCAF15 expression may be a useful biomarker to guide clinical trials of this class of drugs, which we refer to as SPLAMs (splicing inhibitor sulfonamides).",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting an RNA-Binding Protein Network in Acute Myeloid Leukemia.",
+    "doi": "10.1016/j.ccell.2019.01.010",
+    "pmid": "30799057",
+    "authors": [
+      "Wang E, Lu SX, Pastore A, Chen X, Imig J, Chun-Wei Lee S, Hockemeyer K, Ghebrechristos YE, Yoshimi A, Inoue D, Ki M, Cho H, Bitner L, Kloetgen A, Lin KT, Uehara T, Owa T, Tibes R, Krainer AR, Abdel-Wahab O, Aifantis I."
+    ],
+    "year": "2019",
+    "publication_date": "2019-02-21",
+    "cited_by_count": 285,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are essential modulators of transcription and translation frequently dysregulated in cancer. We systematically interrogated RBP dependencies in human cancers using a comprehensive CRISPR/Cas9 domain-focused screen targeting RNA-binding domains of 490 classical RBPs. This uncovered a network of physically interacting RBPs upregulated in acute myeloid leukemia (AML) and crucial for maintaining RNA splicing and AML survival. Genetic or pharmacologic targeting of one key member of this network, RBM39, repressed cassette exon inclusion and promoted intron retention within mRNAs encoding HOXA9 targets as well as in other RBPs preferentially required in AML. The effects of RBM39 loss on splicing further resulted in preferential lethality of spliceosomal mutant AML, providing a strategy for treatment of AML bearing RBP splicing mutations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Arginine reprograms metabolism in liver cancer via RBM39.",
+    "doi": "10.1016/j.cell.2023.09.011",
+    "pmid": "37804830",
+    "authors": [
+      "Mossmann D, Müller C, Park S, Ryback B, Colombi M, Ritter N, Weißenberger D, Dazert E, Coto-Llerena M, Nuciforo S, Blukacz L, Ercan C, Jimenez V, Piscuoglio S, Bosch F, Terracciano LM, Sauer U, Heim MH, Hall MN."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-06",
+    "cited_by_count": 237,
+    "journal": "",
+    "abstract": "Metabolic reprogramming is a hallmark of cancer. However, mechanisms underlying metabolic reprogramming and how altered metabolism in turn enhances tumorigenicity are poorly understood. Here, we report that arginine levels are elevated in murine and patient hepatocellular carcinoma (HCC), despite reduced expression of arginine synthesis genes. Tumor cells accumulate high levels of arginine due to increased uptake and reduced arginine-to-polyamine conversion. Importantly, the high levels of arginine promote tumor formation via further metabolic reprogramming, including changes in glucose, amino acid, nucleotide, and fatty acid metabolism. Mechanistically, arginine binds RNA-binding motif protein 39 (RBM39) to control expression of metabolic genes. RBM39-mediated upregulation of asparagine synthesis leads to enhanced arginine uptake, creating a positive feedback loop to sustain high arginine levels and oncogenic metabolism. Thus, arginine is a second messenger-like molecule that reprograms metabolism to promote tumor growth.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural basis of indisulam-mediated RBM39 recruitment to DCAF15 E3 ligase complex.",
+    "doi": "10.1038/s41589-019-0411-6",
+    "pmid": "31819272",
+    "authors": [
+      "Bussiere DE, Xie L, Srinivas H, Shu W, Burke A, Be C, Zhao J, Godbole A, King D, Karki RG, Hornak V, Xu F, Cobb J, Carte N, Frank AO, Frommlet A, Graff P, Knapp M, Fazal A, Okram B, Jiang S, Michellys PY, Beckwith R, Voshol H, Wiesmann C, Solomon JM, Paulk J."
+    ],
+    "year": "2020",
+    "publication_date": "2019-12-09",
+    "cited_by_count": 198,
+    "journal": "",
+    "abstract": "The anticancer agent indisulam inhibits cell proliferation by causing degradation of RBM39, an essential mRNA splicing factor. Indisulam promotes an interaction between RBM39 and the DCAF15 E3 ligase substrate receptor, leading to RBM39 ubiquitination and proteasome-mediated degradation. To delineate the precise mechanism by which indisulam mediates the DCAF15-RBM39 interaction, we solved the DCAF15-DDB1-DDA1-indisulam-RBM39(RRM2) complex structure to a resolution of 2.3 Å. DCAF15 has a distinct topology that embraces the RBM39(RRM2) domain largely via non-polar interactions, and indisulam binds between DCAF15 and RBM39(RRM2), coordinating additional interactions between the two proteins. Studies with RBM39 point mutants and indisulam analogs validated the structural model and defined the RBM39 α-helical degron motif. The degron is found only in RBM23 and RBM39, and only these proteins were detectably downregulated in indisulam-treated HCT116 cells. This work further explains how indisulam induces RBM39 degradation and defines the challenge of harnessing DCAF15 to degrade additional targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structural complementarity facilitates E7820-mediated degradation of RBM39 by DCAF15.",
+    "doi": "10.1038/s41589-019-0378-3",
+    "pmid": "31686031",
+    "authors": [
+      "Faust TB, Yoon H, Nowak RP, Donovan KA, Li Z, Cai Q, Eleuteri NA, Zhang T, Gray NS, Fischer ES."
+    ],
+    "year": "2020",
+    "publication_date": "2019-11-04",
+    "cited_by_count": 174,
+    "journal": "",
+    "abstract": "The investigational drugs E7820, indisulam and tasisulam (aryl-sulfonamides) promote the degradation of the splicing factor RBM39 in a proteasome-dependent mechanism. While the activity critically depends on the cullin RING ligase substrate receptor DCAF15, the molecular details remain elusive. Here we present the cryo-EM structure of the DDB1-DCAF15-DDA1 core ligase complex bound to RBM39 and E7820 at a resolution of 4.4 Å, together with crystal structures of engineered subcomplexes. We show that DCAF15 adopts a new fold stabilized by DDA1, and that extensive protein-protein contacts between the ligase and substrate mitigate low affinity interactions between aryl-sulfonamides and DCAF15. Our data demonstrate how aryl-sulfonamides neo-functionalize a shallow, non-conserved pocket on DCAF15 to selectively bind and degrade RBM39 and the closely related splicing factor RBM23 without the requirement for a high-affinity ligand, which has broad implications for the de novo discovery of molecular glue degraders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aryl Sulfonamides Degrade RBM39 and RBM23 by Recruitment to CRL4-DCAF15.",
+    "doi": "10.1016/j.celrep.2019.09.079",
+    "pmid": "31693891",
+    "authors": [
+      "Ting TC, Goralski M, Klein K, Wang B, Kim J, Xie Y, Nijhawan D."
+    ],
+    "year": "2019",
+    "publication_date": "2019-11-01",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "Indisulam and related sulfonamides recruit the splicing factor RBM39 to the CRL4-DCAF15 E3 ubiquitin ligase, resulting in RBM39 ubiquitination and degradation. Here, we used a combination of domain mapping and random mutagenesis to identify domains or residues that are necessary for indisulam-dependent RBM39 ubiquitination. DCAF15 mutations at Q232 or D475 prevent RBM39 recruitment by indisulam. RBM39 is recruited to DCAF15 by its RRM2 (RNA recognition motif 2) and is ubiquitinated on its N terminus. RBM23, which is an RBM39 paralog, is also recruited to the CRL4-DCAF15 ligase through its RRM2 domain and undergoes sulfonamide-dependent degradation. Indisulam alters the expression of more than 3,000 genes and causes widespread intron retention and exon skipping. All of these changes can be attributed to RBM39, and none are the consequence of RBM23 degradation. Our findings demonstrate that indisulam selectively degrades RBM23 and RBM39, the latter of which is critically important for splicing and gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Indisulam targets RNA splicing and metabolism to serve as a therapeutic strategy for high-risk neuroblastoma.",
+    "doi": "10.1038/s41467-022-28907-3",
+    "pmid": "35296644",
+    "authors": [
+      "Nijhuis A, Sikka A, Yogev O, Herendi L, Balcells C, Ma Y, Poon E, Eckold C, Valbuena GN, Xu Y, Liu Y, da Costa BM, Gruet M, Wickremesinghe C, Benito A, Kramer H, Montoya A, Carling D, Want EJ, Jamin Y, Chesler L, Keun HC."
+    ],
+    "year": "2022",
+    "publication_date": "2022-03-16",
+    "cited_by_count": 80,
+    "journal": "",
+    "abstract": "Neuroblastoma is the most common paediatric solid tumour and prognosis remains poor for high-risk cases despite the use of multimodal treatment. Analysis of public drug sensitivity data showed neuroblastoma lines to be sensitive to indisulam, a molecular glue that selectively targets RNA splicing factor RBM39 for proteosomal degradation via DCAF15-E3-ubiquitin ligase. In neuroblastoma models, indisulam induces rapid loss of RBM39, accumulation of splicing errors and growth inhibition in a DCAF15-dependent manner. Integrative analysis of RNAseq and proteomics data highlight a distinct disruption to cell cycle and metabolism. Metabolic profiling demonstrates metabolome perturbations and mitochondrial dysfunction resulting from indisulam. Complete tumour regression without relapse was observed in both xenograft and the Th-MYCN transgenic model of neuroblastoma after indisulam treatment, with RBM39 loss, RNA splicing and metabolic changes confirmed in vivo. Our data show that dual-targeting of metabolism and RNA splicing with anticancer indisulam is a promising therapeutic approach for high-risk neuroblastoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding motif protein 39 (RBM39): An emerging cancer target.",
+    "doi": "10.1111/bph.15331",
+    "pmid": "33238031",
+    "authors": [
+      "Xu Y, Nijhuis A, Keun HC."
+    ],
+    "year": "2022",
+    "publication_date": "2021-01-03",
+    "cited_by_count": 80,
+    "journal": "",
+    "abstract": "RNA-binding motif protein 39 (RBM39) is an RNA-binding protein involved in transcriptional co-regulation and alternative RNA splicing. Recent studies have revealed that RBM39 is the unexpected target of aryl sulphonamides, which act as molecular glues between RBM39 and the DCAF15-associated E3 ubiquitin ligase complex leading to selective degradation of the target. Loss of RBM39 leads to aberrant splicing events and differential gene expression, thereby inhibiting cell cycle progression and causing tumour regression in a number of preclinical models. Many clinical studies have shown that aryl sulphonamides were well tolerated, but their clinical performance was limited due to an insufficient understanding of the target, RBM39 biology and a lack of predictive biomarkers. This review summarises the current knowledge of RBM39 function and discusses the therapeutic potential of this spliceosome target in cancer therapy. LINKED ARTICLES: This article is part of a themed issue on New avenues in cancer prevention and treatment (BJP 75th Anniversary). To view the other articles in this section visit http://onlinelibrary.wiley.com/doi/10.1111/bph.v179.12/issuetoc.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Circular RNAs are differentially expressed in prostate cancer and are potentially associated with resistance to enzalutamide.",
+    "doi": "10.1038/s41598-019-47189-2",
+    "pmid": "31341219",
+    "authors": [
+      "Greene J, Baird AM, Casey O, Brady L, Blackshields G, Lim M, O'Brien O, Gray SG, McDermott R, Finn SP."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-24",
+    "cited_by_count": 77,
+    "journal": "",
+    "abstract": "Most forms of castration-resistant prostate cancer (CRPC) are dependent on the androgen receptor (AR) for survival. While, enzalutamide provides a substantial survival benefit, it is not curative and many patients develop resistance to therapy. Although not yet fully understood, resistance can develop through a number of mechanisms, such as AR copy number gain, the generation of splice variants such as AR-V7 and mutations within the ligand binding domain (LBD) of the AR. circular RNAs (circRNAs) are a novel type of non-coding RNA, which can regulate the function of miRNA, and may play a key role in the development of drug resistance. circRNAs are highly resistant to degradation, are detectable in plasma and, therefore may serve a role as clinical biomarkers. In this study, AR-V7 expression was assessed in an isogenic model of enzalutamide resistance. The model consisted of age matched control cells and two sub-line clones displaying varied resistance to enzalutamide. circRNA profiling was performed on the panel using a high throughout microarray assay. Bioinformatic analysis identified a number of differentially expressed circRNAs and predicted five miRNA binding sites for each circRNA. miRNAs were stratified based on known associations with prostate cancer, and targets were validated using qPCR. Overall, circRNAs were more often down regulated in resistant cell lines compared with control (588 vs. 278). Of particular interest was hsa_circ_0004870, which was down-regulated in enzalutamide resistant cells (p ≤ 0.05, vs. sensitive cells), decreased in cells that highly express AR (p ≤ 0.01, vs. AR negative), and decreased in malignant cells (p ≤ 0.01, vs. benign). The associated parental gene was identified as RBM39, a member of the U2AF65 family of proteins. Both genes were down-regulated in resistant cells (p < 0.05, vs. sensitive cells). This is one of the first studies to profile and demonstrate discrete circRNA expression patterns in an enzalutamide resistant cell line model of prostate cancer. Our data suggests that hsa_circ_0004870, through RBM39, may play a critical role in the development of enzalutamide resistance in CRPC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Targeting the spliceosome through RBM39 degradation results in exceptional responses in high-risk neuroblastoma models.",
+    "doi": "10.1126/sciadv.abj5405",
+    "pmid": "34788094",
+    "authors": [
+      "Singh S, Quarni W, Goralski M, Wan S, Jin H, Van de Velde LA, Fang J, Wu Q, Abu-Zaid A, Wang T, Singh R, Craft D, Fan Y, Confer T, Johnson M, Akers WJ, Wang R, Murray PJ, Thomas PG, Nijhawan D, Davidoff AM, Yang J."
+    ],
+    "year": "2021",
+    "publication_date": "2021-11-17",
+    "cited_by_count": 68,
+    "journal": "",
+    "abstract": "Aberrant alternative pre-mRNA splicing plays a critical role in MYC-driven cancers and therefore may represent a therapeutic vulnerability. Here, we show that neuroblastoma, a MYC-driven cancer characterized by splicing dysregulation and spliceosomal dependency, requires the splicing factor RBM39 for survival. Indisulam, a “molecular glue” that selectively recruits RBM39 to the CRL4-DCAF15 E3 ubiquitin ligase for proteasomal degradation, is highly efficacious against neuroblastoma, leading to significant responses in multiple high-risk disease models, without overt toxicity. Genetic depletion or indisulam-mediated degradation of RBM39 induces significant genome-wide splicing anomalies and cell death. Mechanistically, the dependency on RBM39 and high-level expression of DCAF15 determine the exquisite sensitivity of neuroblastoma to indisulam. Our data indicate that targeting the dysregulated spliceosome by precisely inhibiting RBM39, a vulnerability in neuroblastoma, is a valid therapeutic strategy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding protein 39: a promising therapeutic target for cancer.",
+    "doi": "10.1038/s41420-021-00598-7",
+    "pmid": "34389703",
+    "authors": [
+      "Xu C, Chen X, Zhang X, Zhao D, Dou Z, Xie X, Li H, Yang H, Li Q, Zhang H, Di C."
+    ],
+    "year": "2021",
+    "publication_date": "2021-08-13",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "RNA-binding motif protein 39 (RBM39), as a key factor in tumor-targeted mRNA and protein expression, not only plays a vital role in tumorigenesis, but also has broad development prospects in clinical treatment and drug research. Moreover, since RBM39 was identified as a target of sulfonamides, it has played a key role in the emerging field of molecule drug development. Hence, it is of great significance to study the interaction between RBM39 and tumors and the clinical application of drug-targeted therapy. In this paper, we describe the possible multi-level regulation of RBM39, including gene transcription, protein translation, and alternative splicing. Importantly, the molecular function of RBM39 as an important splicing factor in most common tumors is systematically outlined. Furthermore, we briefly introduce RBM39's tumor-targeted drug research and its clinical application, hoping to give reference significance for the molecular mechanism of RBM39 in tumors, and provide reliable ideas for in-depth research for future therapeutic strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hypoxia-induced long non-coding RNA DARS-AS1 regulates RBM39 stability to promote myeloma malignancy.",
+    "doi": "10.3324/haematol.2019.218289",
+    "pmid": "31289203",
+    "authors": [
+      "Tong J, Xu X, Zhang Z, Ma C, Xiang R, Liu J, Xu W, Wu C, Li J, Li J, Zhan F, Wu Y, Yan H."
+    ],
+    "year": "2020",
+    "publication_date": "2019-07-09",
+    "cited_by_count": 60,
+    "journal": "",
+    "abstract": "Multiple myeloma is a malignant plasma-cell disease, which is highly dependent on the hypoxic bone marrow microenvironment. However, the underlying mechanisms of hypoxia contributing to myeloma genesis are not fully understood. Here, we show that long non-coding RNA DARS-AS1 in myeloma is directly upregulated by hypoxia inducible factor (HIF)-1. Importantly, DARS-AS1 is required for the survival and tumorigenesis of myeloma cells both <i>in vitro</i> and <i>in vivo</i> DARS-AS1 exerts its function by binding RNA-binding motif protein 39 (RBM39), which impedes the interaction between RBM39 and its E3 ubiquitin ligase RNF147, and prevents RBM39 from degradation. The overexpression of RBM39 observed in myeloma cells is associated with poor prognosis. Furthermore, knockdown of DARS-AS1 inhibits the mammalian target of rapamycin signaling pathway, an effect that is reversed by RBM39 overexpression. We reveal that a novel HIF-1/DARS-AS1/RBM39 pathway is implicated in the pathogenesis of myeloma. Targeting DARS-AS1/RBM39 may, therefore, represent a novel strategy to combat myeloma.",
+    "openalex_id": ""
+  }
+]

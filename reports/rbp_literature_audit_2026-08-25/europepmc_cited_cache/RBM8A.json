@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Compound inheritance of a low-frequency regulatory SNP and a rare null mutation in exon-junction complex subunit RBM8A causes TAR syndrome.",
+    "doi": "10.1038/ng.1083",
+    "pmid": "22366785",
+    "authors": [
+      "Albers CA, Paul DS, Schulze H, Freson K, Stephens JC, Smethurst PA, Jolley JD, Cvejic A, Kostadima M, Bertone P, Breuning MH, Debili N, Deloukas P, Favier R, Fiedler J, Hobbs CM, Huang N, Hurles ME, Kiddle G, Krapels I, Nurden P, Ruivenkamp CA, Sambrook JG, Smith K, Stemple DL, Strauss G, Thys C, van Geet C, Newbury-Ecob R, Ouwehand WH, Ghevaert C."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-26",
+    "cited_by_count": 311,
+    "journal": "",
+    "abstract": "The exon-junction complex (EJC) performs essential RNA processing tasks. Here, we describe the first human disorder, thrombocytopenia with absent radii (TAR), caused by deficiency in one of the four EJC subunits. Compound inheritance of a rare null allele and one of two low-frequency SNPs in the regulatory regions of RBM8A, encoding the Y14 subunit of EJC, causes TAR. We found that this inheritance mechanism explained 53 of 55 cases (P < 5 × 10(-228)) of the rare congenital malformation syndrome. Of the 53 cases with this inheritance pattern, 51 carried a submicroscopic deletion of 1q21.1 that has previously been associated with TAR, and two carried a truncation or frameshift null mutation in RBM8A. We show that the two regulatory SNPs result in diminished RBM8A transcription in vitro and that Y14 expression is reduced in platelets from individuals with TAR. Our data implicate Y14 insufficiency and, presumably, an EJC defect as the cause of TAR syndrome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Haploinsufficiency for Core Exon Junction Complex Components Disrupts Embryonic Neurogenesis and Causes p53-Mediated Microcephaly.",
+    "doi": "10.1371/journal.pgen.1006282",
+    "pmid": "27618312",
+    "authors": [
+      "Mao H, McMahon JJ, Tsai YH, Wang Z, Silver DL."
+    ],
+    "year": "2016",
+    "publication_date": "2016-09-12",
+    "cited_by_count": 94,
+    "journal": "",
+    "abstract": "The exon junction complex (EJC) is an RNA binding complex comprised of the core components Magoh, Rbm8a, and Eif4a3. Human mutations in EJC components cause neurodevelopmental pathologies. Further, mice heterozygous for either Magoh or Rbm8a exhibit aberrant neurogenesis and microcephaly. Yet despite the requirement of these genes for neurodevelopment, the pathogenic mechanisms linking EJC dysfunction to microcephaly remain poorly understood. Here we employ mouse genetics, transcriptomic and proteomic analyses to demonstrate that haploinsufficiency for each of the 3 core EJC components causes microcephaly via converging regulation of p53 signaling. Using a new conditional allele, we first show that Eif4a3 haploinsufficiency phenocopies aberrant neurogenesis and microcephaly of Magoh and Rbm8a mutant mice. Transcriptomic and proteomic analyses of embryonic brains at the onset of neurogenesis identifies common pathways altered in each of the 3 EJC mutants, including ribosome, proteasome, and p53 signaling components. We further demonstrate all 3 mutants exhibit defective splicing of RNA regulatory proteins, implying an EJC dependent RNA regulatory network that fine-tunes gene expression. Finally, we show that genetic ablation of one downstream pathway, p53, significantly rescues microcephaly of all 3 EJC mutants. This implicates p53 activation as a major node of neurodevelopmental pathogenesis following EJC impairment. Altogether our study reveals new mechanisms to help explain how EJC mutations influence neurogenesis and underlie neurodevelopmental disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of antiviral roles for the exon-junction complex and nonsense-mediated decay in flaviviral infection.",
+    "doi": "10.1038/s41564-019-0375-z",
+    "pmid": "30833725",
+    "authors": [
+      "Li M, Johnson JR, Truong B, Kim G, Weinbren N, Dittmar M, Shah PS, Von Dollen J, Newton BW, Jang GM, Krogan NJ, Cherry S, Ramage H."
+    ],
+    "year": "2019",
+    "publication_date": "2019-03-04",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "West Nile virus (WNV) is an emerging mosquito-borne flavivirus, related to dengue virus and Zika virus. To gain insight into host pathways involved in WNV infection, we performed a systematic affinity-tag purification mass spectrometry (APMS) study to identify 259 WNV-interacting human proteins. RNA interference screening revealed 26 genes that both interact with WNV proteins and influence WNV infection. We found that WNV, dengue and Zika virus capsids interact with a conserved subset of proteins that impact infection. These include the exon-junction complex (EJC) recycling factor PYM1, which is antiviral against all three viruses. The EJC has roles in nonsense-mediated decay (NMD), and we found that both the EJC and NMD are antiviral and the EJC protein RBM8A directly binds WNV RNA. To counteract this, flavivirus infection inhibits NMD and the capsid-PYM1 interaction interferes with EJC protein function and localization. Depletion of PYM1 attenuates RBM8A binding to viral RNA, suggesting that WNV sequesters PYM1 to protect viral RNA from decay. Together, these data suggest a complex interplay between the virus and host in regulating NMD and the EJC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbm8a haploinsufficiency disrupts embryonic cortical development resulting in microcephaly.",
+    "doi": "10.1523/jneurosci.0018-15.2015",
+    "pmid": "25948253",
+    "authors": [
+      "Mao H, Pilaz LJ, McMahon JJ, Golzio C, Wu D, Shi L, Katsanis N, Silver DL."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-01",
+    "cited_by_count": 85,
+    "journal": "",
+    "abstract": "The cerebral cortex is built during embryonic neurogenesis, a period when excitatory neurons are generated from progenitors. Defects in neurogenesis can cause acute neurodevelopmental disorders, such as microcephaly (reduced brain size). Altered dosage of the 1q21.1 locus has been implicated in the etiology of neurodevelopmental phenotypes; however, the role of 1q21.1 genes in neurogenesis has remained elusive. Here, we show that haploinsufficiency for Rbm8a, an exon junction complex (EJC) component within 1q21.1, causes severe microcephaly and defective neurogenesis in the mouse. At the onset of neurogenesis, Rbm8a regulates radial glia proliferation and prevents premature neuronal differentiation. Reduced Rbm8a levels result in subsequent apoptosis of neurons, and to a lesser extent, radial glia. Hence, compared to control, Rbm8a-haploinsufficient brains have fewer progenitors and neurons, resulting in defective cortical lamination. To determine whether reciprocal dosage change of Rbm8a alters embryonic neurogenesis, we overexpressed human RBM8A in two animal models. Using in utero electroporation of mouse neocortices as well as zebrafish models, we find RBM8A overexpression does not significantly perturb progenitor number or head size. Our findings demonstrate that Rbm8a is an essential neurogenesis regulator, and add to a growing literature highlighting roles for EJC components in cortical development and neurodevelopmental pathology. Our results indicate that disruption of RBM8A may contribute to neurodevelopmental phenotypes associated with proximal 1q21.1 microdeletions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A transcriptionally active human type II gonadotropin-releasing hormone receptor gene homolog overlaps two genes in the antisense orientation on chromosome 1q.12.",
+    "doi": "10.1210/en.2002-220622",
+    "pmid": "12538601",
+    "authors": [
+      "Morgan K, Conklin D, Pawson AJ, Sellar R, Ott TR, Millar RP."
+    ],
+    "year": "2003",
+    "publication_date": "2003-02-01",
+    "cited_by_count": 70,
+    "journal": "",
+    "abstract": "GnRH-II peptide hormone exhibits complete sequence conservation across vertebrate species, including man. Type-II GnRH receptor genes have been characterized recently in nonhuman primates, but the human receptor gene homolog contains a frameshift, a premature stop codon (UGA), and a 3' overlap of the RBM8A gene on chromosome 1q.12. A retrotransposed pseudogene, RBM8B, retains partial receptor sequence. In this study, bioinformatics show that the human receptor gene promoter overlaps the peroxisomal protein 11-beta gene promoter and the premature UGA is positionally conserved in chimpanzee. A CGA [arginine (Arg)] occurs in porcine DNA, but UGA is shifted one codon to the 5' direction in bovine DNA, suggesting independent evolution of premature stop codons. In contrast to marmoset tissue RNA, exon- and strand-specific probes are required to distinguish differently spliced human receptor gene transcripts in cell lines (HP75, IMR-32). RBM8B is not transcribed. Sequencing of cDNAs for spliced receptor mRNAs showed no evidence for alteration of the premature UGA by RNA editing, but alternative splicing circumvents the frameshift to encode a two-membrane-domain protein before this UGA. A stem-loop motif resembling a selenocysteine insertion sequence and a potential alternative translation initiation site might enable expression of further proteins involved in interactions within the GnRH system.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphoproteomics reveals that glycogen synthase kinase-3 phosphorylates multiple splicing factors and is associated with alternative splicing.",
+    "doi": "10.1074/jbc.m117.813527",
+    "pmid": "28916722",
+    "authors": [
+      "Shinde MY, Sidoli S, Kulej K, Mallory MJ, Radens CM, Reicherter AL, Myers RL, Barash Y, Lynch KW, Garcia BA, Klein PS."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-15",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Glycogen synthase kinase-3 (GSK-3) is a constitutively active, ubiquitously expressed protein kinase that regulates multiple signaling pathways. <i>In vitro</i> kinase assays and genetic and pharmacological manipulations of GSK-3 have identified more than 100 putative GSK-3 substrates in diverse cell types. Many more have been predicted on the basis of a recurrent GSK-3 consensus motif ((pS/pT)<i>XXX</i>(S/T)), but this prediction has not been tested by analyzing the GSK-3 phosphoproteome. Using stable isotope labeling of amino acids in culture (SILAC) and MS techniques to analyze the repertoire of GSK-3-dependent phosphorylation in mouse embryonic stem cells (ESCs), we found that ∼2.4% of (pS/pT)<i>XXX</i>(S/T) sites are phosphorylated in a GSK-3-dependent manner. A comparison of WT and <i>Gsk3a;Gsk3b</i> knock-out (<i>Gsk3</i> DKO) ESCs revealed prominent GSK-3-dependent phosphorylation of multiple splicing factors and regulators of RNA biosynthesis as well as proteins that regulate transcription, translation, and cell division. <i>Gsk3</i> DKO reduced phosphorylation of the splicing factors RBM8A, SRSF9, and PSF as well as the nucleolar proteins NPM1 and PHF6, and recombinant GSK-3β phosphorylated these proteins <i>in vitro</i> RNA-Seq of WT and <i>Gsk3</i> DKO ESCs identified ∼190 genes that are alternatively spliced in a GSK-3-dependent manner, supporting a broad role for GSK-3 in regulating alternative splicing. The MS data also identified posttranscriptional regulation of protein abundance by GSK-3, with ∼47 proteins (1.4%) whose levels increased and ∼78 (2.4%) whose levels decreased in the absence of GSK-3. This study provides the first unbiased analysis of the GSK-3 phosphoproteome and strong evidence that GSK-3 broadly regulates alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of molecular correlations of RBM8A with autophagy in Alzheimer's disease.",
+    "doi": "10.18632/aging.102571",
+    "pmid": "31816601",
+    "authors": [
+      "Zou D, Li R, Huang X, Chen G, Liu Y, Meng Y, Wang Y, Wu Y, Wu Y, Mao Y."
+    ],
+    "year": "2019",
+    "publication_date": "2019-12-09",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "Our previous studies revealed RBM8A may play a role in various progressive neurological diseases. The present study aimed to explore the role of RBM8A in Alzheimer's disease (AD). RBM8A is significantly down-regulated in AD. Interestingly, 9186 differentially expressed genes are overlapped from comparisons of AD versus control and RBM8A-low versus RBM8A-high. Weight gene correlation analysis was performed and 9 functional modules were identified. Modules positively correlated with AD and RBM8A-low are significantly involved in the RAP1 signaling pathway, PI3K-AKT signaling pathway, hematopoietic cell lineage, autophagy and APELIN signaling pathway. Fifteen genes (RBM8A, RHBDF2, TNFRSF10B, ACP1, ANKRD39, CA10, CAMK4, CBLN4, LOC284214, NOVA1, PAK1, PPEF1, RGS4, TCEB1 and TMEM118) are identified as hub genes, and the hub gene-based LASSO model can accurately predict the occurrence of AD (AUC = 0.948). Moreover, the RBM8A-module-pathway network was constructed, and low expression of RBM8A down-regulates multiple module genes, including FIP200, Beclin 1, NRBF2, VPS15 and ATG12, which composes key complexes of autophagy. Thus, our study supports that low expression of RBM8A correlates with the decrease of the components of key complexes in autophagy, which could potentially contribute to pathophysiological changes of AD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The exon junction complex in neural development and neurodevelopmental disease.",
+    "doi": "10.1016/j.ijdevneu.2016.03.006",
+    "pmid": "27071691",
+    "authors": [
+      "McMahon JJ, Miller EE, Silver DL."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-09",
+    "cited_by_count": 50,
+    "journal": "",
+    "abstract": "Post-transcriptional mRNA metabolism has emerged as a critical regulatory nexus in proper development and function of the nervous system. In particular, recent studies highlight roles for the exon junction complex (EJC) in neurodevelopment. The EJC is an RNA binding complex composed of 3 core proteins, EIF4A3 (DDX48), RBM8A (Y14), and MAGOH, and is a major hub of post-transcriptional regulation. Following deposition onto mRNA, the EJC serves as a platform for the binding of peripheral factors which together regulate splicing, nonsense mediated decay, translation, and RNA localization. While fundamental molecular roles of the EJC have been well established, the in vivo relevance in mammals has only recently been examined. New genetic models and cellular assays have revealed core and peripheral EJC components play critical roles in brain development, stem cell function, neuronal outgrowth, and neuronal activity. Moreover, human genetics studies increasingly implicate EJC components in the etiology of neurodevelopmental disorders. Collectively, these findings indicate that proper dosage of EJC components is necessary for diverse aspects of neuronal development and function. Going forward, genetic models of EJC components will provide valuable tools for further elucidating functions in the nervous system relevant for neurodevelopmental disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Depletion of RNA-binding protein RBM8A (Y14) causes cell cycle deficiency and apoptosis in human cells.",
+    "doi": "10.1177/1535370213494646",
+    "pmid": "23970407",
+    "authors": [
+      "Ishigaki Y, Nakamura Y, Tatsuno T, Hashimoto M, Shimasaki T, Iwabuchi K, Tomosugi N."
+    ],
+    "year": "2013",
+    "publication_date": "2013-08-01",
+    "cited_by_count": 48,
+    "journal": "",
+    "abstract": "RBM8A (Y14) contains an RNA-binding motif and forms a tight heterodimer with Magoh. The heterodimer is known to be a member of the exon junction complex that forms on mRNA before export and it is required for mRNA metabolism processes such as splicing, mRNA export and nonsense-mediated mRNA decay. Recently, deficient cellular proliferation has been observed in RBM8A- or Magoh-depleted cells. These results prompted us to study the role of RBM8A in cell cycle progression of human tumour cells. The depletion of RBM8A in A549 cells resulted in poor cell survival and the accumulation of mitotic cells. After release from G1/S arrest induced by a double thymidine block, the RBM8A-silenced cells could not proceed to the next G1 phase beyond G2/M phase. Finally, the sub-G1 population increased and the apoptosis markers caspases 3/7 were activated. Silenced cells exhibited an increased frequency of multipolar or monopolar centrosomes, which may have caused the observed deficiency in cell cycle progression. Finally, silencing of either RBM8A or Magoh resulted in mutual downregulation of the other protein. These results illustrate that the RBM8A-Magoh mRNA binding complex is required for M phase progression and both proteins may be novel targets for anticancer therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide analysis of novel splice variants induced by topoisomerase I poisoning shows preferential occurrence in genes encoding splicing factors.",
+    "doi": "10.1158/0008-5472.can-10-2491",
+    "pmid": "20817775",
+    "authors": [
+      "Solier S, Barb J, Zeeberg BR, Varma S, Ryan MC, Kohn KW, Weinstein JN, Munson PJ, Pommier Y."
+    ],
+    "year": "2010",
+    "publication_date": "2010-09-03",
+    "cited_by_count": 48,
+    "journal": "",
+    "abstract": "RNA splicing is required to remove introns from pre-mRNA, and alternative splicing generates protein diversity. Topoisomerase I (Top1) has been shown to be coupled with splicing by regulating serine/arginine-rich splicing proteins. Prior studies on isolated genes also showed that Top1 poisoning by camptothecin (CPT), which traps Top1 cleavage complexes (Top1cc), can alter RNA splicing. Here, we tested the effect of Top1 inhibition on splicing at the genome-wide level in human colon carcinoma HCT116 and breast carcinoma MCF7 cells. The RNA of HCT116 cells treated with CPT for various times was analyzed with ExonHit Human Splice Array. Unlike other exon array platforms, the ExonHit arrays include junction probes that allow the detection of splice variants with high sensitivity and specificity. We report that CPT treatment preferentially affects the splicing of splicing-related factors, such as RBM8A, and generates transcripts coding for inactive proteins lacking key functional domains. The splicing alterations induced by CPT are not observed with cisplatin or vinblastine and are not simply due to reduced Top1 activity, as Top1 downregulation by short interfering RNA did not alter splicing like CPT treatment. Inhibition of RNA polymerase II (Pol II) hyperphosphorylation by 5,6-dichloro-1-β-d-ribofuranosylbenzimidazole (DRB) blocked the splicing alteration induced by CPT, which suggests that the rapid Pol II hyperphosphorylation induced by CPT interferes with normal splicing. The preferential effect of CPT on genes encoding splicing factors may explain the abnormal splicing of a large number of genes in response to Top1cc.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Expression and gene regulation network of <i>RBM8A</i> in hepatocellular carcinoma based on data mining.",
+    "doi": "10.18632/aging.101749",
+    "pmid": "30670676",
+    "authors": [
+      "Lin Y, Liang R, Qiu Y, Lv Y, Zhang J, Qin G, Yuan C, Liu Z, Li Y, Zou D, Mao Y."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-01",
+    "cited_by_count": 47,
+    "journal": "",
+    "abstract": "RNA binding motif protein 8A (RBM8A) is an RNA binding protein in a core component of the exon junction complex. Abnormal <i>RBM8A</i> expression is associated with carcinogenesis. We used sequencing data from the Cancer Genome Atlas database and Gene Expression Omnibus, analyzed <i>RBM8A</i> expression and gene regulation networks in hepatocellular carcinoma (HCC). Expression was analyzed using Oncomine<sup>TM</sup> and Gene Expression Profiling Interactive Analysis tools, while <i>RBM8A</i> alterations and related functional networks were identified using cBioPortal. LinkedOmics was used to identify differential gene expression with <i>RBM8A</i> and to analyze Gene Ontology and Kyoto Encyclopedia of Genes and Genomes pathways. Gene enrichment analysis examined target networks of kinases, miRNAs and transcription factors. We found that <i>RBM8A</i> is overexpressed and the <i>RBM8A</i> gene often amplified in HCC. Expression of this gene is linked to functional networks involving the ribosome and RNA metabolic signaling pathways. Functional network analysis suggested that <i>RBM8A</i> regulates the spliceosome, ribosome, DNA replication and cell cycle signaling via pathways involving several cancer-related kinases, miRNAs and E2F Transcription Factor 1. Our results demonstrate that data mining efficiently reveals information about <i>RBM8A</i> expression and potential regulatory networks in HCC, laying a foundation for further study of the role of <i>RBM8A</i> in carcinogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A critical role of RBM8a in proliferation and differentiation of embryonic neural progenitors.",
+    "doi": "10.1186/s13064-015-0045-7",
+    "pmid": "26094033",
+    "authors": [
+      "Zou D, McSweeney C, Sebastian A, Reynolds DJ, Dong F, Zhou Y, Deng D, Wang Y, Liu L, Zhu J, Zou J, Shi Y, Albert I, Mao Y."
+    ],
+    "year": "2015",
+    "publication_date": "2015-06-21",
+    "cited_by_count": 47,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Nonsense mediated mRNA decay (NMD) is an RNA surveillance mechanism that controls RNA stability and ensures the speedy degradation of erroneous and unnecessary transcripts. This mechanism depends on several core factors in the exon junction complex (EJC), eIF4A3, RBM8a, Magoh, and BTZ, as well as peripheral factors to distinguish premature stop codons (PTCs) from normal stop codons in transcripts. Recently, emerging evidence has indicated that NMD factors are associated with neurodevelopmental disorders such as autism spectrum disorder (ASD) and intellectual disability (ID). However, the mechanism in which these factors control embryonic brain development is not clear.<h4>Result</h4>We found that RBM8a is critical for proliferation and differentiation in cortical neural progenitor cells (NPCs). RBM8a is highly expressed in the subventricular zone (SVZ) of the early embryonic cortex, suggesting that RBM8a may play a role in regulating NPCs. RBM8a overexpression stimulates embryonic NPC proliferation and suppresses neuronal differentiation. Conversely, knockdown of RBM8a in the neocortex reduces NPC proliferation and promotes premature neuronal differentiation. Moreover, overexpression of RBM8a suppresses cell cycle exit and keeps cortical NPCs in a proliferative state. To uncover the underlying mechanisms of this phenotype, genome-wide RNAseq was used to identify potential downstream genes of RBM8a in the brain, which have been implicated in autism and neurodevelopmental disorders. Interestingly, autism and schizophrenia risk genes are highly represented in downstream transcripts of RBM8a. In addition, RBM8a regulates multiple alternative splicing genes and NMD targets that are implicated in ASD. Taken together, this data suggests a novel role of RBM8a in the regulation of neurodevelopment.<h4>Conclusions</h4>Our studies provide some insight into causes of mental illnesses and will facilitate the development of new therapeutic strategies for neurodevelopmental illnesses.",
+    "openalex_id": ""
+  }
+]

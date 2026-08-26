@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Systematic autoantigen analysis identifies a distinct subtype of scleroderma with coincident cancer.",
+    "doi": "10.1073/pnas.1615990113",
+    "pmid": "27821747",
+    "authors": [
+      "Xu GJ, Shah AA, Li MZ, Xu Q, Rosen A, Casciola-Rosen L, Elledge SJ."
+    ],
+    "year": "2016",
+    "publication_date": "2016-11-07",
+    "cited_by_count": 93,
+    "journal": "",
+    "abstract": "Scleroderma is a chronic autoimmune rheumatic disease associated with widespread tissue fibrosis and vasculopathy. Approximately two-thirds of all patients with scleroderma present with three dominant autoantibody subsets. Here, we used a pair of complementary high-throughput methods for antibody epitope discovery to examine patients with scleroderma with or without known autoantibody specificities. We identified a specificity for the minor spliceosome complex containing RNA Binding Region (RNP1, RNA recognition motif) Containing 3 (RNPC3) that is found in patients with scleroderma without known specificities and is absent in unrelated autoimmune diseases. We found strong evidence for both intra- and intermolecular epitope spreading in patients with RNA polymerase III (POLR3) and the minor spliceosome specificities. Our results demonstrate the utility of these technologies in rapidly identifying antibodies that can serve as biomarkers of disease subsets in the evolving precision medicine era.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Defective minor spliceosome mRNA processing results in isolated familial growth hormone deficiency.",
+    "doi": "10.1002/emmm.201303573",
+    "pmid": "24480542",
+    "authors": [
+      "Argente J, Flores R, Gutiérrez-Arumí A, Verma B, Martos-Moreno GÁ, Cuscó I, Oghabian A, Chowen JA, Frilander MJ, Pérez-Jurado LA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-30",
+    "cited_by_count": 84,
+    "journal": "",
+    "abstract": "The molecular basis of a significant number of cases of isolated growth hormone deficiency remains unknown. We describe three sisters affected with severe isolated growth hormone deficiency and pituitary hypoplasia caused by biallelic mutations in the RNPC3 gene, which codes for a minor spliceosome protein required for U11/U12 small nuclear ribonucleoprotein (snRNP) formation and splicing of U12-type introns. We found anomalies in U11/U12 di-snRNP formation and in splicing of multiple U12-type introns in patient cells. Defective transcripts include preprohormone convertases SPCS2 and SPCS3 and actin-related ARPC5L genes, which are candidates for the somatotroph-restricted dysfunction. The reported novel mechanism for familial growth hormone deficiency demonstrates that general mRNA processing defects of the minor spliceosome can lead to very narrow tissue-specific consequences.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Development and validation of a RNA binding protein-associated prognostic model for lung adenocarcinoma.",
+    "doi": "10.18632/aging.102828",
+    "pmid": "32087603",
+    "authors": [
+      "Li W, Gao LN, Song PP, You CG."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-22",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "RNA binding proteins (RBPs) dysregulation have been reported in various malignant tumors and associated with the occurrence and development of cancer. However, the role of RBPs in lung adenocarcinoma (LUAD) is poorly understood. We downloaded the RNA sequencing data of LUAD from the Cancer Genome Atlas (TCGA) database and determined the differently expressed RBPs between normal and cancer tissues. The study then systemically investigated the expression and prognostic value of these RBPs by a series of bioinformatics analysis. A total of 223 differently expressed RBPs were identified, including 101 up-regulated and 122 down-regulated RBPs. Eight RBPs (<i>IGF2BP1</i>, <i>IFIT1B</i>, <i>PABPC1</i>, <i>TLR8</i>, <i>GAPDH</i>, <i>PIWIL4</i>, <i>RNPC3</i>, and <i>ZC3H12C</i>) were identified as prognosis related hub gene and used to construct a prognostic model. Further analysis indicated that the patients in the high-risk subgroup had poor overall survival(OS) compared to those in low-risk subgroup based on the model. The area under the curve of the time-dependent receiver operator characteristic curve of the prognostic model are 0.775 in TCGA cohort and 0.814 in GSE31210 cohort, confirming a good prognostic model. We also established a nomogram based on eight RBPs mRNA and internal validation in the TCGA cohort, which displayed a favorable discriminating ability for lung adenocarcinoma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Brief Report: Anti-RNPC-3 Antibodies As a Marker of Cancer-Associated Scleroderma.",
+    "doi": "10.1002/art.40065",
+    "pmid": "28217959",
+    "authors": [
+      "Shah AA, Xu G, Rosen A, Hummers LK, Wigley FM, Elledge SJ, Casciola-Rosen L."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-01",
+    "cited_by_count": 58,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>Prior studies have demonstrated an increased risk of cancer-associated scleroderma in patients with anti-RNA polymerase III (anti-RNAP III) autoantibodies as well as in patients who are triple-negative for anticentromere (anti-CENP), anti-topoisomerase I (anti-topo I), and anti-RNAP III (also known as anti-POL) autoantibodies (referred to as CTP negative). In a recent study of 16 CTP-negative scleroderma patients with coincident cancer, 25% of the patients were found to have autoantibodies to RNPC-3, a member of the minor spliceosome complex. This investigation was undertaken to validate the relationship between anti-RNPC-3 antibodies and cancer and examine the associated clinical phenotype in a large sample of scleroderma patients.<h4>Methods</h4>Scleroderma patients with cancer were assayed for anti-CENP, anti-topo I, anti-RNAP III, and anti-RNPC-3 autoantibodies. Disease characteristics and the cancer-scleroderma interval were compared across autoantibody groups. The relationship between autoantibody status and cancer-associated scleroderma was assessed by logistic regression.<h4>Results</h4>Of 318 patients with scleroderma and cancer, 70 (22.0%) were positive for anti-RNAP III, 54 (17.0%) were positive for anti-topo I, and 96 (30.2%) were positive for anti-CENP. Twelve patients (3.8% of the overall group or 12.2% of CTP-negative patients) were positive for anti-RNPC-3. Patients with anti-RNPC-3 had a short cancer-scleroderma interval (median 0.9 years). Relative to patients with anti-CENP, patients with anti-RNPC-3 and those with anti-RNAP III had a >4-fold increased risk of cancer within 2 years of scleroderma onset (for anti-RNPC-3-positive patients, odds ratio [OR] 4.3, 95% confidence interval [95% CI] 1.10-16.9 [P = 0.037]; for anti-RNAP III-positive patients, OR 4.49, 95% CI 1.98-10.2 [P < 0.001]). Patients with anti-RNPC-3 had severe restrictive lung disease, gastrointestinal disease, Raynaud's phenomenon, and myopathy.<h4>Conclusion</h4>Anti-RNPC-3 autoantibodies, similar to anti-RNAP III autoantibodies, are associated with an increased risk of cancer at the onset of scleroderma. These data suggest the possibility of cancer-induced autoimmunity in this subset of patients with scleroderma.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Minor class splicing shapes the zebrafish transcriptome during development.",
+    "doi": "10.1073/pnas.1305536111",
+    "pmid": "24516132",
+    "authors": [
+      "Markmiller S, Cloonan N, Lardelli RM, Doggett K, Keightley MC, Boglev Y, Trotter AJ, Ng AY, Wilkins SJ, Verkade H, Ober EA, Field HA, Grimmond SM, Lieschke GJ, Stainier DY, Heath JK."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-10",
+    "cited_by_count": 57,
+    "journal": "",
+    "abstract": "Minor class or U12-type splicing is a highly conserved process required to remove a minute fraction of introns from human pre-mRNAs. Defects in this splicing pathway have recently been linked to human disease, including a severe developmental disorder encompassing brain and skeletal abnormalities known as Taybi-Linder syndrome or microcephalic osteodysplastic primordial dwarfism 1, and a hereditary intestinal polyposis condition, Peutz-Jeghers syndrome. Although a key mechanism for regulating gene expression, the impact of impaired U12-type splicing on the transcriptome is unknown. Here, we describe a unique zebrafish mutant, caliban (clbn), with arrested development of the digestive organs caused by an ethylnitrosourea-induced recessive lethal point mutation in the rnpc3 [RNA-binding region (RNP1, RRM) containing 3] gene. rnpc3 encodes the zebrafish ortholog of human RNPC3, also known as the U11/U12 di-snRNP 65-kDa protein, a unique component of the U12-type spliceosome. The biochemical impact of the mutation in clbn is the formation of aberrant U11- and U12-containing small nuclear ribonucleoproteins that impair the efficiency of U12-type splicing. Using RNA sequencing and microarrays, we show that multiple genes involved in various steps of mRNA processing, including transcription, splicing, and nuclear export are disrupted in clbn, either through intron retention or differential gene expression. Thus, clbn provides a useful and specific model of aberrant U12-type splicing in vivo. Analysis of its transcriptome reveals efficient mRNA processing as a critical process for the growth and proliferation of cells during vertebrate development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Anti-RNPC-3 (U11/U12) Antibodies in Systemic Sclerosis in Patients With Moderate-to-Severe Gastrointestinal Dysmotility.",
+    "doi": "10.1002/acr.23763",
+    "pmid": "30242973",
+    "authors": [
+      "McMahan ZH, Domsic RT, Zhu L, Medsger TA, Casciola-Rosen L, Shah AA."
+    ],
+    "year": "2019",
+    "publication_date": "2019-08-06",
+    "cited_by_count": 46,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>To examine the association of anti-RNPC-3 antibodies in patients with systemic sclerosis (scleroderma or SSc) with selected gastrointestinal (GI) tract complications.<h4>Methods</h4>Sera from patients with SSc with or without severe GI dysfunction (total parenteral nutrition dependence) from the Johns Hopkins Scleroderma Center were screened for anti-RNPC-3 antibodies. We then examined anti-RNPC-3-positive cases and negative SSc controls from the University of Pittsburgh and the University of Pittsburgh Medical Center (UPMC) scleroderma cohort to confirm our findings and to examine whether specific GI features were associated with anti-RNPC-3 antibodies.<h4>Results</h4>In the discovery cohort, patients with SSc with severe GI dysfunction (n = 37) and without GI dysfunction (n = 38) were screened for anti-RNPC-3 antibodies. The former were more likely to have anti-RNPC-3 antibodies (14% versus 3%; P = 0.11). In the Pittsburgh cohort, moderate-to-severe GI dysfunction (Medsger GI score ≥2) was present in 36% of anti-RNPC-3-positive patients versus 15% of anti-RNPC-3-negative patients (P ≤ 0.01). Anti-RNPC-3-positive patients were more likely to be male (31% versus 15%; P = 0.04), African American (18% versus 6%; P = 0.02), have esophageal dysmotility (93% versus 62%; P < 0.01), and interstitial lung disease (ILD) (77% versus 35%; P < 0.01). After adjusting for relevant covariates and potential confounders, moderate-to-severe GI disease was associated with anti-RNPC-3 antibodies (odds ratio [OR] 3.8 [95% confidence interval (95% CI) 1.0-14.3]), and ILD trended toward significance (OR 2.8 [95% CI 1.0-8.2]).<h4>Conclusion</h4>Patients with SSc and anti-RNPC-3 antibodies are more likely to be male and African American and to have moderate-to-severe GI disease and ILD. Further studies on larger patient cohorts may be helpful in further defining subsets of patients with SSc at risk for severe GI involvement.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Early developmental arrest and impaired gastrointestinal homeostasis in U12-dependent splicing-defective <i>Rnpc3</i>-deficient mice.",
+    "doi": "10.1261/rna.068221.118",
+    "pmid": "30254136",
+    "authors": [
+      "Doggett K, Williams BB, Markmiller S, Geng FS, Coates J, Mieruszynski S, Ernst M, Thomas T, Heath JK."
+    ],
+    "year": "2018",
+    "publication_date": "2018-09-25",
+    "cited_by_count": 26,
+    "journal": "",
+    "abstract": "Splicing is an essential step in eukaryotic gene expression. While the majority of introns is excised by the U2-dependent, or major class, spliceosome, the appropriate expression of a very small subset of genes depends on U12-dependent, or minor class, splicing. The U11/U12 65K protein (hereafter 65K), encoded by <i>RNPC3</i>, is one of seven proteins that are unique to the U12-dependent spliceosome, and previous studies including our own have established that it plays a role in plant and vertebrate development. To pinpoint the impact of 65K loss during mammalian development and in adulthood, we generated germline and conditional <i>Rnpc3</i>-deficient mice. Homozygous <i>Rnpc3</i><sup>-/-</sup> embryos died prior to blastocyst implantation, whereas <i>Rnpc3</i><sup>+/-</sup> mice were born at the expected frequency, achieved sexual maturity, and exhibited a completely normal lifespan. Systemic recombination of conditional <i>Rnpc3</i> alleles in adult (<i>Rnpc3</i><sup><i>lox/lox</i></sup> ) mice caused rapid weight loss, leukopenia, and degeneration of the epithelial lining of the entire gastrointestinal tract, the latter due to increased cell death and a reduction in cell proliferation. Accompanying this, we observed a loss of both 65K and the pro-proliferative phospho-ERK1/2 proteins from the stem/progenitor cells at the base of intestinal crypts. RT-PCR analysis of RNA extracted from purified preparations of intestinal epithelial cells with recombined <i>Rnpc3</i><sup><i>lox</i></sup> alleles revealed increased frequency of U12-type intron retention in all transcripts tested. Our study, using a novel conditional mouse model of <i>Rnpc3</i> deficiency, establishes that U12-dependent splicing is not only important during development but is indispensable throughout life.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing acts as an independent prognosticator in ovarian carcinoma.",
+    "doi": "10.1038/s41598-021-89778-0",
+    "pmid": "34001978",
+    "authors": [
+      "Ouyang Y, Xia K, Yang X, Zhang S, Wang L, Ren S, Zhou H, Liu Y, Tang F."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-17",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "Alternative splicing (AS) events associated with oncogenic processes present anomalous perturbations in many cancers, including ovarian carcinoma. There are no reliable features to predict survival outcomes for ovarian cancer patients. In this study, comprehensive profiling of AS events was conducted by integrating AS data and clinical information of ovarian serous cystadenocarcinoma (OV). Survival-related AS events were identified by Univariate Cox regression analysis. Then, least absolute shrinkage and selection operator (LASSO) and multivariate Cox regression analysis were used to construct the prognostic signatures within each AS type. Furthermore, we established a splicing-related network to reveal the potential regulatory mechanisms between splicing factors and candidate AS events. A total of 730 AS events were identified as survival-associated splicing events, and the final prognostic signature based on all seven types of AS events could serve as an independent prognostic indicator and had powerful efficiency in distinguishing patient outcomes. In addition, survival-related AS events might be involved in tumor-related pathways including base excision repair and pyrimidine metabolism pathways, and some splicing factors might be correlated with prognosis-related AS events, including SPEN, SF3B5, RNPC3, LUC7L3, SRSF11 and PRPF38B. Our study constructs an independent prognostic signature for predicting ovarian cancer patients' survival outcome and contributes to elucidating the underlying mechanism of AS in tumor development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Autoantibodies and Cancer Association: the Case of Systemic Sclerosis and Dermatomyositis.",
+    "doi": "10.1007/s12016-022-08944-y",
+    "pmid": "35593962",
+    "authors": [
+      "Fiorentino DF, Casciola-Rosen L."
+    ],
+    "year": "2022",
+    "publication_date": "2022-05-20",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Several rheumatic diseases have a perplexing association with cancer. Unraveling this mysterious connection is likely to provide deeper understanding regarding mechanisms governing the onset of both autoimmunity and cancer immunity, in addition to providing clinicians much needed guidance around whom and when to screen for occult malignancy. Systemic sclerosis (scleroderma) and dermatomyositis are two diseases in which the association with internal malignancy is well-described and can be considered as models from which to gain important insights that likely have broader applicability. The past 15 years have witnessed a striking acceleration in understanding how these two diseases are related to cancer emergence-an important crack in this inscrutable armor has been the discovery and characterization of disease-specific autoantigens that are closely tied with risk of cancer emergence. The best-described examples of this are antibodies against anti-RNA polymerase III (anti-POL3) and transcription intermediary factor 1-gamma (anti-TIF1γ). Patients with systemic sclerosis and cancer that are diagnosed within a short time interval of each other frequently have anti-POL3 antibodies. Antibodies against the minor spliceosome protein RNA-Binding Region Containing 3 (RNPC3) are also associated with increased cancer incidence in systemic sclerosis. Similarly, in the dermatomyositis spectrum, the majority of anti-TIF1γ-associated cancers are detected around the time of DM onset (most often within 1 year). Antibodies against Nuclear Matrix Protein 2 are also potentially associated with increased cancer emergence in dermatomyositis. The systemic sclerosis/anti-POL3 connection with close cancer onset led to the first experiments directly supporting the concept that rheumatic disease may in fact be a manifestation of cancer. It is now clear that studying these diseases through the lens of autoantibodies can reveal relationships and insights that would otherwise remain obscured. Extending these studies, new findings show that antibodies against RNA polymerase I large subunit are associated with protection against short interval cancers in anti-POL3-positive systemic sclerosis patients. These insights highlight the fact that autoantigen discovery related to cancer emergence remains an important priority; such new tools will enable the testing of specific hypotheses regarding mechanisms governing disease emergence and development of effective anti-tumor responses. Autoantibody phenotype will likely play an important role in the development of cancer screening guidelines that are critically needed by clinicians taking care of these patients. In this review, we will summarize the current state of knowledge regarding the different ways in which autoantibodies are connected with systemic sclerosis/dermatomyositis and malignancy and highlight potential paths forward.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Expanding the phenotype of biallelic RNPC3 variants associated with growth hormone deficiency.",
+    "doi": "10.1002/ajmg.a.61632",
+    "pmid": "32462814",
+    "authors": [
+      "Verberne EA, Faries S, Mannens MMAM, Postma AV, van Haelst MM."
+    ],
+    "year": "2020",
+    "publication_date": "2020-05-28",
+    "cited_by_count": 22,
+    "journal": "",
+    "abstract": "Pathogenic variants in components of the minor spliceosome have been associated with several human diseases. Recently, it was reported that biallelic RNPC3 variants lead to severe isolated growth hormone deficiency and pituitary hypoplasia. The RNPC3 gene codes for the U11/U12-65K protein, a component of the minor spliceosome. The minor spliceosome plays a role in the splicing of minor (U12-type) introns, which are present in ~700-800 genes in humans and represent about 0.35% of all introns. Here, we report a second family with biallelic RNPC3 variants in three siblings with a growth hormone deficiency, central congenital hypothyroidism, congenital cataract, developmental delay/intellectual deficiency and delayed puberty. These cases further confirm the association between biallelic RNPC3 variants and severe postnatal growth retardation due to growth hormone deficiency. Furthermore, these cases show that the phenotype of this minor spliceosome-related disease might be broader than previously described.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The pioneer transcription factors Foxa1 and Foxa2 regulate alternative RNA splicing during thymocyte positive selection.",
+    "doi": "10.1242/dev.199754",
+    "pmid": "34323272",
+    "authors": [
+      "Lau CI, Rowell J, Yanez DC, Solanki A, Ross S, Ono M, Crompton T."
+    ],
+    "year": "2021",
+    "publication_date": "2021-07-29",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "During positive selection at the transition from CD4+CD8+ double-positive (DP) to single-positive (SP) thymocyte, TCR signalling results in appropriate MHC restriction and signals for survival and progression. We show that the pioneer transcription factors Foxa1 and Foxa2 are required to regulate RNA splicing during positive selection of mouse T cells and that Foxa1 and Foxa2 have overlapping/compensatory roles. Conditional deletion of both Foxa1 and Foxa2 from DP thymocytes reduced positive selection and development of CD4SP, CD8SP and peripheral naïve CD4+ T cells. Foxa1 and Foxa2 regulated the expression of many genes encoding splicing factors and regulators, including Mbnl1, H1f0, Sf3b1, Hnrnpa1, Rnpc3, Prpf4b, Prpf40b and Snrpd3. Within the positively selecting CD69+DP cells, alternative RNA splicing was dysregulated in the double Foxa1/Foxa2 conditional knockout, leading to >850 differentially used exons. Many genes important for this stage of T-cell development (Ikzf1-3, Ptprc, Stat5a, Stat5b, Cd28, Tcf7) and splicing factors (Hnrnpab, Hnrnpa2b1, Hnrnpu, Hnrnpul1, Prpf8) showed multiple differentially used exons. Thus, Foxa1 and Foxa2 are required during positive selection to regulate alternative splicing of genes essential for T-cell development, and, by also regulating splicing of splicing factors, they exert widespread control of alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutations in the U11/U12-65K protein associated with isolated growth hormone deficiency lead to structural destabilization and impaired binding of U12 snRNA.",
+    "doi": "10.1261/rna.062844.117",
+    "pmid": "29255062",
+    "authors": [
+      "Norppa AJ, Kauppala TM, Heikkinen HA, Verma B, Iwaï H, Frilander MJ."
+    ],
+    "year": "2018",
+    "publication_date": "2017-12-18",
+    "cited_by_count": 17,
+    "journal": "",
+    "abstract": "Mutations in the components of the minor spliceosome underlie several human diseases. A subset of patients with isolated growth hormone deficiency (IGHD) harbors mutations in the <i>RNPC3</i> gene, which encodes the minor spliceosome-specific U11/U12-65K protein. Although a previous study showed that IGHD patient cells have defects in U12-type intron recognition, the biochemical effects of these mutations on the 65K protein have not been characterized. Here, we show that a proline-to-threonine missense mutation (P474T) and a nonsense mutation (R502X) in the C-terminal RNA recognition motif (C-RRM) of the 65K protein impair the binding of 65K to U12 and U6atac snRNAs. We further show that the nonsense allele is targeted to the nonsense-mediated decay (NMD) pathway, but in an isoform-specific manner, with the nuclear-retained <i>65K</i> long-3'UTR isoform escaping the NMD pathway. In contrast, the missense P474T mutation leads, in addition to the RNA-binding defect, to a partial defect in the folding of the C-RRM and reduced stability of the full-length protein, thus reducing the formation of U11/U12 di-snRNP complexes. We propose that both the C-RRM folding defect and NMD-mediated decrease in the levels of the U11/U12-65K protein reduce formation of the U12-type intron recognition complex and missplicing of a subset of minor introns leading to pituitary hypoplasia and a subsequent defect in growth hormone secretion.",
+    "openalex_id": ""
+  }
+]

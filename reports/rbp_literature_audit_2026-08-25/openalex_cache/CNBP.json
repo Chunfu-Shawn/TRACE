@@ -1,0 +1,205 @@
+[
+  {
+    "title": "Gene regulation by long non-coding RNAs and its biological functions",
+    "doi": "10.1038/s41580-020-00315-9",
+    "authors": [
+      "Luisa Statello",
+      "Chunjie Guo",
+      "Ling‐Ling Chen",
+      "Maite Huarte"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-22",
+    "cited_by_count": 5215,
+    "journal": "Nature Reviews Molecular Cell Biology",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W3115880421",
+    "relevance_score": 404.4013
+  },
+  {
+    "title": "Circular RNA: metabolism, functions and interactions with proteins",
+    "doi": "10.1186/s12943-020-01286-3",
+    "authors": [
+      "Zhou Wei-yi",
+      "Zerong Cai",
+      "Jia Liu",
+      "De‐Shen Wang",
+      "Huai‐Qiang Ju"
+    ],
+    "year": 2020,
+    "publication_date": "2020-12-01",
+    "cited_by_count": 1608,
+    "journal": "Molecular Cancer",
+    "abstract": "Circular RNAs (CircRNAs) are single-stranded, covalently closed RNA molecules that are ubiquitous across species ranging from viruses to mammals. Important advances have been made in the biogenesis, regulation, localization, degradation and modification of circRNAs. CircRNAs exert biological functions by acting as transcriptional regulators, microRNA (miR) sponges and protein templates. Moreover, emerging evidence has revealed that a group of circRNAs can serve as protein decoys, scaffolds and r",
+    "openalex_id": "https://openalex.org/W3112047397",
+    "relevance_score": 245.11534
+  },
+  {
+    "title": "Small molecule recognition of disease-relevant RNA structures",
+    "doi": "10.1039/d0cs00560f",
+    "authors": [
+      "Samantha M. Meyer",
+      "Christopher C. Williams",
+      "Yoshihiro Akahori",
+      "Toru Tanaka",
+      "Haruo Aikawa"
+    ],
+    "year": 2020,
+    "publication_date": "2020-01-01",
+    "cited_by_count": 165,
+    "journal": "Chemical Society Reviews",
+    "abstract": "Targeting RNAs with small molecules represents a new frontier in drug discovery and development. The rich structural diversity of folded RNAs offers a nearly unlimited reservoir of targets for small molecules to bind, similar to small molecule occupancy of protein binding pockets, thus creating the potential to modulate human biology. Although the bacterial ribosome has historically been the most well exploited RNA target, advances in RNA sequencing technologies and a growing understanding of RN",
+    "openalex_id": "https://openalex.org/W3088792251",
+    "relevance_score": 76.22865
+  },
+  {
+    "title": "Differential fates of introns in gene expression due to global alternative splicing",
+    "doi": "10.1007/s00439-021-02409-6",
+    "authors": [
+      "Anjani Kumari",
+      "Saam Sedehizadeh",
+      "John David Brook",
+      "Piotr Kozłowski",
+      "Marzena Wojciechowska"
+    ],
+    "year": 2021,
+    "publication_date": "2021-12-14",
+    "cited_by_count": 56,
+    "journal": "Human Genetics",
+    "abstract": "The discovery of introns over four decades ago revealed a new vision of genes and their interrupted arrangement. Throughout the years, it has appeared that introns play essential roles in the regulation of gene expression. Unique processing of excised introns through the formation of lariats suggests a widespread role for these molecules in the structure and function of cells. In addition to rapid destruction, these lariats may linger on in the nucleus or may even be exported to the cytoplasm, w",
+    "openalex_id": "https://openalex.org/W4200245263",
+    "relevance_score": 49.04155
+  },
+  {
+    "title": "RNA dysregulation in neurodegenerative diseases",
+    "doi": "10.1038/s44318-024-00352-6",
+    "authors": [
+      "Yini Li",
+      "Shuying Sun"
+    ],
+    "year": 2025,
+    "publication_date": "2025-01-09",
+    "cited_by_count": 50,
+    "journal": "The EMBO Journal",
+    "abstract": "Dysregulation of RNA processing has in recent years emerged as a significant contributor to neurodegeneration. The diverse mechanisms and molecular functions underlying RNA processing underscore the essential role of RNA regulation in maintaining neuronal health and function. RNA molecules are bound by RNA-binding proteins (RBPs), and interactions between RNAs and RBPs are commonly affected in neurodegeneration. In this review, we highlight recent progress in understanding dysregulated RNA-proce",
+    "openalex_id": "https://openalex.org/W4406234470",
+    "relevance_score": 43.21454
+  },
+  {
+    "title": "Decoding protein–RNA interactions using CLIP-based methodologies",
+    "doi": "10.1038/s41576-024-00749-3",
+    "authors": [
+      "Joy S. Xiang",
+      "Danielle Schafer",
+      "Katherine Rothamel",
+      "G Yeo"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-09",
+    "cited_by_count": 44,
+    "journal": "Nature Reviews Genetics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4400454456",
+    "relevance_score": 42.554485
+  },
+  {
+    "title": "RNA processing in skeletal muscle biology and disease",
+    "doi": "10.1080/21541264.2018.1558677",
+    "authors": [
+      "Emma R. Hinkle",
+      "Hannah J. Wiedner",
+      "Adam J. Black",
+      "Jimena Giudice"
+    ],
+    "year": 2018,
+    "publication_date": "2018-12-18",
+    "cited_by_count": 50,
+    "journal": "Transcription",
+    "abstract": "RNA processing encompasses the capping, cleavage, polyadenylation and alternative splicing of pre-mRNA. Proper muscle development relies on precise RNA processing, driven by the coordination between RNA-binding proteins. Recently, skeletal muscle biology has been intensely investigated in terms of RNA processing. High throughput studies paired with deletion of RNA-binding proteins have provided a high-level understanding of the molecular mechanisms controlling the regulation of RNA-processing in",
+    "openalex_id": "https://openalex.org/W2905427611",
+    "relevance_score": 41.68941
+  },
+  {
+    "title": "Linking RNA Dysfunction and Neurodegeneration in Amyotrophic Lateral Sclerosis",
+    "doi": "10.1007/s13311-015-0340-3",
+    "authors": [
+      "Sami J. Barmada"
+    ],
+    "year": 2015,
+    "publication_date": "2015-02-17",
+    "cited_by_count": 46,
+    "journal": "Neurotherapeutics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W2136550982",
+    "relevance_score": 39.277077
+  },
+  {
+    "title": "Mechanisms and therapeutic implications of gene expression regulation by circRNA-protein interactions in cancer",
+    "doi": "10.1038/s42003-024-07383-z",
+    "authors": [
+      "Nan Zhang",
+      "Xinjia Wang",
+      "Yu Li",
+      "Yiwei Lu",
+      "Chengcheng Sheng"
+    ],
+    "year": 2025,
+    "publication_date": "2025-01-17",
+    "cited_by_count": 41,
+    "journal": "Communications Biology",
+    "abstract": "Circular RNAs (circRNAs) have garnered substantial attention due to their distinctive circular structure and gene regulatory functions, establishing them as a significant class of functional non-coding RNAs in eukaryotes. Studies have demonstrated that circRNAs can interact with RNA-binding proteins (RBPs), which play crucial roles in tumorigenesis, metastasis, and drug response in cancer by influencing gene expression and altering the processes of tumor initiation and progression. This review a",
+    "openalex_id": "https://openalex.org/W4406525497",
+    "relevance_score": 38.629543
+  },
+  {
+    "title": "Circular RNAs in neurological conditions – computational identification, functional validation, and potential clinical applications",
+    "doi": "10.1038/s41380-025-02925-1",
+    "authors": [
+      "Oak Hatzimanolis",
+      "Alex M. Sykes",
+      "Alexandre S. Cristino"
+    ],
+    "year": 2025,
+    "publication_date": "2025-02-17",
+    "cited_by_count": 36,
+    "journal": "Molecular Psychiatry",
+    "abstract": "Non-coding RNAs (ncRNAs) have gained significant attention in recent years due to advancements in biotechnology, particularly high-throughput total RNA sequencing. These developments have led to new understandings of non-coding biology, revealing that approximately 80% of non-coding regions in the genome possesses biochemical functionality. Among ncRNAs, circular RNAs (circRNAs), first identified in 1976, have emerged as a prominent research field. CircRNAs are abundant in most human cell types,",
+    "openalex_id": "https://openalex.org/W4407704161",
+    "relevance_score": 38.39732
+  },
+  {
+    "title": "Role of noncoding RNAs in liver fibrosis",
+    "doi": "10.3748/wjg.v29.i9.1446",
+    "authors": [
+      "Qingyuan Li",
+      "Tao Gong",
+      "Yike Huang",
+      "Lan Kang",
+      "Charlotte A. Warner"
+    ],
+    "year": 2023,
+    "publication_date": "2023-03-07",
+    "cited_by_count": 20,
+    "journal": "World Journal of Gastroenterology",
+    "abstract": "Liver fibrosis is a wound-healing response following chronic liver injury caused by hepatitis virus infection, obesity, or excessive alcohol. It is a dynamic and reversible process characterized by the activation of hepatic stellate cells and excess accumulation of extracellular matrix. Advanced fibrosis could lead to cirrhosis and even liver cancer, which has become a significant health burden worldwide. Many studies have revealed that noncoding RNAs (ncRNAs), including microRNAs, long noncodin",
+    "openalex_id": "https://openalex.org/W4323358615",
+    "relevance_score": 30.112396
+  },
+  {
+    "title": "RNA modifications: emerging players in the regulation of reproduction and development",
+    "doi": "10.3724/abbs.2024201",
+    "authors": [
+      "Junfei Wen",
+      "Qifan Zhu",
+      "Yong Liu",
+      "Lan‐Tao Gou"
+    ],
+    "year": 2024,
+    "publication_date": "2024-11-08",
+    "cited_by_count": 16,
+    "journal": "Acta Biochimica et Biophysica Sinica",
+    "abstract": "The intricate world of RNA modifications, collectively termed the epitranscriptome, covers over 170 identified modifications and impacts RNA metabolism and, consequently, almost all biological processes. In this review, we focus on the regulatory roles and biological functions of a panel of dominant RNA modifications (including m6A, m5C, Ψ, ac4C, m1A, and m7G) on three RNA types—mRNA, tRNA, and rRNA—in mammalian development, particularly in the context of reproduction as well as embryonic develo",
+    "openalex_id": "https://openalex.org/W4404190905",
+    "relevance_score": 26.962864
+  }
+]

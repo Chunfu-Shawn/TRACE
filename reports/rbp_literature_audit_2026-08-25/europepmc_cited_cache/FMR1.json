@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A polygenic burden of rare disruptive mutations in schizophrenia.",
+    "doi": "10.1038/nature12975",
+    "pmid": "24463508",
+    "authors": [
+      "Purcell SM, Moran JL, Fromer M, Ruderfer D, Solovieff N, Roussos P, O'Dushlaine C, Chambert K, Bergen SE, Kähler A, Duncan L, Stahl E, Genovese G, Fernández E, Collins MO, Komiyama NH, Choudhary JS, Magnusson PK, Banks E, Shakir K, Garimella K, Fennell T, DePristo M, Grant SG, Haggarty SJ, Gabriel S, Scolnick EM, Lander ES, Hultman CM, Sullivan PF, McCarroll SA, Sklar P."
+    ],
+    "year": "2014",
+    "publication_date": "2014-01-22",
+    "cited_by_count": 1131,
+    "journal": "",
+    "abstract": "Schizophrenia is a common disease with a complex aetiology, probably involving multiple and heterogeneous genetic factors. Here, by analysing the exome sequences of 2,536 schizophrenia cases and 2,543 controls, we demonstrate a polygenic burden primarily arising from rare (less than 1 in 10,000), disruptive mutations distributed across many genes. Particularly enriched gene sets include the voltage-gated calcium ion channel and the signalling complex formed by the activity-regulated cytoskeleton-associated scaffold protein (ARC) of the postsynaptic density, sets previously implicated by genome-wide association and copy-number variation studies. Similar to reports in autism, targets of the fragile X mental retardation protein (FMRP, product of FMR1) are enriched for case mutations. No individual gene-based test achieves significance after correction for multiple testing and we do not detect any alleles of moderately low frequency (approximately 0.5 to 1 per cent) and moderately large effect. Taken together, these data suggest that population-based exome sequencing can discover risk alleles and complements established gene-mapping paradigms in neuropsychiatric disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Altered synaptic plasticity in a mouse model of fragile X mental retardation.",
+    "doi": "10.1073/pnas.122205699",
+    "pmid": "12032354",
+    "authors": [
+      "Huber KM, Gallagher SM, Warren ST, Bear MF."
+    ],
+    "year": "2002",
+    "publication_date": "2002-05-01",
+    "cited_by_count": 1083,
+    "journal": "",
+    "abstract": "Fragile X syndrome, the most common inherited form of human mental retardation, is caused by mutations of the Fmr1 gene that encodes the fragile X mental retardation protein (FMRP). Biochemical evidence indicates that FMRP binds a subset of mRNAs and acts as a regulator of translation. However, the consequences of FMRP loss on neuronal function in mammals remain unknown. Here we show that a form of protein synthesis-dependent synaptic plasticity, long-term depression triggered by activation of metabotropic glutamate receptors, is selectively enhanced in the hippocampus of mutant mice lacking FMRP. This finding indicates that FMRP plays an important functional role in regulating activity-dependent synaptic plasticity in the brain and suggests new therapeutic approaches for fragile X syndrome.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Fragile X syndrome: loss of local mRNA regulation alters synaptic development and function.",
+    "doi": "10.1016/j.neuron.2008.10.004",
+    "pmid": "18957214",
+    "authors": [
+      "Bassell GJ, Warren ST."
+    ],
+    "year": "2008",
+    "publication_date": "2008-10-01",
+    "cited_by_count": 853,
+    "journal": "",
+    "abstract": "Fragile X syndrome is the most common inherited form of cognitive deficiency in humans and perhaps the best-understood single cause of autism. A trinucleotide repeat expansion, inactivating the X-linked FMR1 gene, leads to the absence of the fragile X mental retardation protein. FMRP is a selective RNA-binding protein that regulates the local translation of a subset of mRNAs at synapses in response to activation of Gp1 metabotropic glutamate receptors (mGluRs) and possibly other receptors. In the absence of FMRP, excess and dysregulated mRNA translation leads to altered synaptic function and loss of protein synthesis-dependent plasticity. Recent evidence indicates the role of FMRP in regulated mRNA transport in dendrites. New studies also suggest a possible local function of FMRP in axons that may be important for guidance, synaptic development, and formation of neural circuits. The understanding of FMRP function at synapses has led to rationale therapeutic approaches.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Abnormal dendritic spines in fragile X knockout mice: maturation and pruning deficits.",
+    "doi": "10.1073/pnas.94.10.5401",
+    "pmid": "9144249",
+    "authors": [
+      "Comery TA, Harris JB, Willems PJ, Oostra BA, Irwin SA, Weiler IJ, Greenough WT."
+    ],
+    "year": "1997",
+    "publication_date": "1997-05-01",
+    "cited_by_count": 799,
+    "journal": "",
+    "abstract": "Fragile X syndrome arises from blocked expression of the fragile X mental retardation protein (FMRP). Golgi-impregnated mature cerebral cortex from fragile X patients exhibits long, thin, tortuous postsynaptic spines resembling spines observed during normal early neocortical development. Here we describe dendritic spines in Golgi-impregnated cerebral cortex of transgenic fragile X gene (Fmr1) knockout mice that lack expression of the protein. Dendritic spines on apical dendrites of layer V pyramidal cells in occipital cortex of fragile X knockout mice were longer than those in wild-type mice and were often thin and tortuous, paralleling the human syndrome and suggesting that FMRP expression is required for normal spine morphological development. Moreover, spine density along the apical dendrite was greater in the knockout mice, which may reflect impaired developmental organizational processes of synapse stabilization and elimination or pruning.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Correction of fragile X syndrome in mice.",
+    "doi": "10.1016/j.neuron.2007.12.001",
+    "pmid": "18093519",
+    "authors": [
+      "Dölen G, Osterweil E, Rao BS, Smith GB, Auerbach BD, Chattarji S, Bear MF."
+    ],
+    "year": "2007",
+    "publication_date": "2007-12-01",
+    "cited_by_count": 766,
+    "journal": "",
+    "abstract": "Fragile X syndrome (FXS) is the most common form of heritable mental retardation and the leading identified cause of autism. FXS is caused by transcriptional silencing of the FMR1 gene that encodes the fragile X mental retardation protein (FMRP), but the pathogenesis of the disease is unknown. According to one proposal, many psychiatric and neurological symptoms of FXS result from unchecked activation of mGluR5, a metabotropic glutamate receptor. To test this idea we generated Fmr1 mutant mice with a 50% reduction in mGluR5 expression and studied a range of phenotypes with relevance to the human disorder. Our results demonstrate that mGluR5 contributes significantly to the pathogenesis of the disease, a finding that has significant therapeutic implications for fragile X and related developmental disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Elevated levels of FMR1 mRNA in carrier males: a new mechanism of involvement in the fragile-X syndrome.",
+    "doi": "10.1086/302720",
+    "pmid": "10631132",
+    "authors": [
+      "Tassone F, Hagerman RJ, Taylor AK, Gane LW, Godfrey TE, Hagerman PJ."
+    ],
+    "year": "2000",
+    "publication_date": "2000-01-01",
+    "cited_by_count": 615,
+    "journal": "",
+    "abstract": "Fragile-X syndrome is a trinucleotide-repeat-expansion disorder in which the clinical phenotype is believed to result from transcriptional silencing of the fragile-X mental retardation 1 (FMR1) gene as the number of CGG repeats exceeds approximately 200. For premutation alleles ( approximately 55-200 repeats), no abnormalities in FMR1-gene expression have been described, despite growing evidence of clinical involvement in premutation carriers. To address this (apparent) paradox, we have determined, for 16 carrier males (55-192 repeats), the relative levels of leukocyte FMR1 mRNA, by use of automated fluorescence-detection reverse transcriptase-PCR, and the percent of lymphocytes that are immunoreactive for FMR1 protein (FMRP). For some alleles with>100 repeats, there was a reduction in the number of FMRP-positive cells. Unexpectedly, FMR1 mRNA levels were elevated at least fivefold within this same range. No significant increase in FMR1 mRNA stability was observed in a lymphoblastoid cell line (160 repeats) derived from one of the carrier males, suggesting that the increased message levels are due to an increased rate of transcription. Current results support a mechanism of involvement in premutation carriers, in which reduced translational efficiency is at least partially compensated through increased transcriptional activity. Thus, diminished translational efficiency may be important throughout much of the premutation range, with a mechanistic switch occurring in the full-mutation range as the FMR1 gene is silenced.",
+    "openalex_id": ""
+  },
+  {
+    "title": "FMRP targets distinct mRNA sequence elements to regulate protein expression.",
+    "doi": "10.1038/nature11737",
+    "pmid": "23235829",
+    "authors": [
+      "Ascano M, Mukherjee N, Bandaru P, Miller JB, Nusbaum JD, Corcoran DL, Langlois C, Munschauer M, Dewell S, Hafner M, Williams Z, Ohler U, Tuschl T."
+    ],
+    "year": "2012",
+    "publication_date": "2012-12-12",
+    "cited_by_count": 602,
+    "journal": "",
+    "abstract": "Fragile X syndrome (FXS) is a multi-organ disease that leads to mental retardation, macro-orchidism in males and premature ovarian insufficiency in female carriers. FXS is also a prominent monogenic disease associated with autism spectrum disorders (ASDs). FXS is typically caused by the loss of fragile X mental retardation 1 (FMR1) expression, which codes for the RNA-binding protein FMRP. Here we report the discovery of distinct RNA-recognition elements that correspond to the two independent RNA-binding domains of FMRP, in addition to the binding sites within the messenger RNA targets for wild-type and I304N mutant FMRP isoforms and the FMRP paralogues FXR1P and FXR2P (also known as FXR1 and FXR2). RNA-recognition-element frequency, ratio and distribution determine target mRNA association with FMRP. Among highly enriched targets, we identify many genes involved in ASD and show that FMRP affects their protein levels in human cell culture, mouse ovaries and human brain. Notably, we discovered that these targets are also dysregulated in Fmr1(-/-) mouse ovaries showing signs of premature follicular overdevelopment. These results indicate that FMRP targets share signalling pathways across different cellular contexts. As the importance of signalling pathways in both FXS and ASD is becoming increasingly apparent, our results provide a ranked list of genes as basis for the pursuit of new therapeutic targets for these neurological disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Fragile X syndrome.",
+    "doi": "10.1038/nrdp.2017.65",
+    "pmid": "28960184",
+    "authors": [
+      "Hagerman RJ, Berry-Kravis E, Hazlett HC, Bailey DB, Moine H, Kooy RF, Tassone F, Gantois I, Sonenberg N, Mandel JL, Hagerman PJ."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-29",
+    "cited_by_count": 596,
+    "journal": "",
+    "abstract": "Fragile X syndrome (FXS) is the leading inherited form of intellectual disability and autism spectrum disorder, and patients can present with severe behavioural alterations, including hyperactivity, impulsivity and anxiety, in addition to poor language development and seizures. FXS is a trinucleotide repeat disorder, in which >200 repeats of the CGG motif in FMR1 leads to silencing of the gene and the consequent loss of its product, fragile X mental retardation 1 protein (FMRP). FMRP has a central role in gene expression and regulates the translation of potentially hundreds of mRNAs, many of which are involved in the development and maintenance of neuronal synaptic connections. Indeed, disturbances in neuroplasticity is a key finding in FXS animal models, and an imbalance in inhibitory and excitatory neuronal circuits is believed to underlie many of the clinical manifestations of this disorder. Our knowledge of the proteins that are regulated by FMRP is rapidly growing, and this has led to the identification of multiple targets for therapeutic intervention, some of which have already moved into clinical trials or clinical practice.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Drosophila fragile X-related gene regulates the MAP1B homolog Futsch to control synaptic structure and function.",
+    "doi": "10.1016/s0092-8674(01)00589-x",
+    "pmid": "11733059",
+    "authors": [
+      "Zhang YQ, Bailey AM, Matthies HJ, Renden RB, Smith MA, Speese SD, Rubin GM, Broadie K."
+    ],
+    "year": "2001",
+    "publication_date": "2001-11-01",
+    "cited_by_count": 536,
+    "journal": "",
+    "abstract": "Fragile X mental retardation gene (FMR1) encodes an RNA binding protein that acts as a negative translational regulator. We have developed a Drosophila fragile X syndrome model using loss-of-function mutants and overexpression of the FMR1 homolog (dfxr). dfxr nulls display enlarged synaptic terminals, whereas neuronal overexpression results in fewer and larger synaptic boutons. Synaptic structural defects are accompanied by altered neurotransmission, with synapse type-specific regulation in central and peripheral synapses. These phenotypes mimic those observed in mutants of microtubule-associated Futsch. Immunoprecipitation of dFXR shows association with futsch mRNA, and Western analyses demonstrate that dFXR inversely regulates Futsch expression. dfxr futsch double mutants restore normal synaptic structure and function. We propose that dFXR acts as a translational repressor of Futsch to regulate microtubule-dependent synaptic growth and function.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutations causing syndromic autism define an axis of synaptic pathophysiology.",
+    "doi": "10.1038/nature10658",
+    "pmid": "22113615",
+    "authors": [
+      "Auerbach BD, Osterweil EK, Bear MF."
+    ],
+    "year": "2011",
+    "publication_date": "2011-11-23",
+    "cited_by_count": 494,
+    "journal": "",
+    "abstract": "Tuberous sclerosis complex and fragile X syndrome are genetic diseases characterized by intellectual disability and autism. Because both syndromes are caused by mutations in genes that regulate protein synthesis in neurons, it has been hypothesized that excessive protein synthesis is one core pathophysiological mechanism of intellectual disability and autism. Using electrophysiological and biochemical assays of neuronal protein synthesis in the hippocampus of Tsc2(+/-) and Fmr1(-/y) mice, here we show that synaptic dysfunction caused by these mutations actually falls at opposite ends of a physiological spectrum. Synaptic, biochemical and cognitive defects in these mutants are corrected by treatments that modulate metabotropic glutamate receptor 5 in opposite directions, and deficits in the mutants disappear when the mice are bred to carry both mutations. Thus, normal synaptic plasticity and cognition occur within an optimal range of metabotropic glutamate-receptor-mediated protein synthesis, and deviations in either direction can lead to shared behavioural impairments.",
+    "openalex_id": ""
+  },
+  {
+    "title": "N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) recruits and repels proteins to regulate mRNA homeostasis.",
+    "doi": "10.1038/nsmb.3462",
+    "pmid": "28869609",
+    "authors": [
+      "Edupuganti RR, Geiger S, Lindeboom RGH, Shi H, Hsu PJ, Lu Z, Wang SY, Baltissen MPA, Jansen PWTC, Rossa M, Müller M, Stunnenberg HG, He C, Carell T, Vermeulen M."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-04",
+    "cited_by_count": 489,
+    "journal": "",
+    "abstract": "RNA modifications are integral to the regulation of RNA metabolism. One abundant mRNA modification is N<sup>6</sup>-methyladenosine (m<sup>6</sup>A), which affects various aspects of RNA metabolism, including splicing, translation and degradation. Current knowledge about the proteins recruited to m<sup>6</sup>A to carry out these molecular processes is still limited. Here we describe comprehensive and systematic mass-spectrometry-based screening of m<sup>6</sup>A interactors in various cell types and sequence contexts. Among the main findings, we identified G3BP1 as a protein that is repelled by m<sup>6</sup>A and positively regulates mRNA stability in an m<sup>6</sup>A-regulated manner. Furthermore, we identified FMR1 as a sequence-context-dependent m<sup>6</sup>A reader, thus revealing a connection between an mRNA modification and an autism spectrum disorder. Collectively, our data represent a rich resource and shed further light on the complex interplay among m<sup>6</sup>A, m<sup>6</sup>A interactors and mRNA homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulation of mTOR signaling in fragile X syndrome.",
+    "doi": "10.1523/jneurosci.3696-09.2010",
+    "pmid": "20071534",
+    "authors": [
+      "Sharma A, Hoeffer CA, Takayasu Y, Miyawaki T, McBride SM, Klann E, Zukin RS."
+    ],
+    "year": "2010",
+    "publication_date": "2010-01-01",
+    "cited_by_count": 460,
+    "journal": "",
+    "abstract": "Fragile X syndrome, the most common form of inherited mental retardation and leading genetic cause of autism, is caused by transcriptional silencing of the Fmr1 gene. The fragile X mental retardation protein (FMRP), the gene product of Fmr1, is an RNA binding protein that negatively regulates translation in neurons. The Fmr1 knock-out mouse, a model of fragile X syndrome, exhibits cognitive deficits and exaggerated metabotropic glutamate receptor (mGluR)-dependent long-term depression at CA1 synapses. However, the molecular mechanisms that link loss of function of FMRP to aberrant synaptic plasticity remain unclear. The mammalian target of rapamycin (mTOR) signaling cascade controls initiation of cap-dependent translation and is under control of mGluRs. Here we show that mTOR phosphorylation and activity are elevated in hippocampus of juvenile Fmr1 knock-out mice by four functional readouts: (1) association of mTOR with regulatory associated protein of mTOR; (2) mTOR kinase activity; (3) phosphorylation of mTOR downstream targets S6 kinase and 4E-binding protein; and (4) formation of eukaryotic initiation factor complex 4F, a critical first step in cap-dependent translation. Consistent with this, mGluR long-term depression at CA1 synapses of FMRP-deficient mice is exaggerated and rapamycin insensitive. We further show that the p110 subunit of the upstream kinase phosphatidylinositol 3-kinase (PI3K) and its upstream activator PI3K enhancer PIKE, predicted targets of FMRP, are upregulated in knock-out mice. Elevated mTOR signaling may provide a functional link between overactivation of group I mGluRs and aberrant synaptic plasticity in the fragile X mouse, mechanisms relevant to impaired cognition in fragile X syndrome.",
+    "openalex_id": ""
+  }
+]

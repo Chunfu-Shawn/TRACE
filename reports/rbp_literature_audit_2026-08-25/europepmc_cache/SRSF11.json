@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Dysregulation of SRSF11 in Cancer: Mechanistic Insights and Biomarker Potential for Diagnosis and Therapy.",
+    "doi": "10.7150/jca.123791",
+    "pmid": "41584036",
+    "authors": [
+      "Jun Y, Shanshan L, Jingwen X, Yu H, Jianlong X, Qingfeng S."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-14",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Serine/arginine-rich splicing factor 11 (SRSF11) is an RNA-binding regulator that modulates alternative splicing and RNA metabolism in a context-dependent manner across selected malignancies. Evidence from colorectal, hepatocellular, gastric, glioma, and a few other cancers indicates that SRSF11 participates in cell-cycle regulation, telomerase recruitment, and epithelial-mesenchymal transition (EMT) through specific signaling axes, including PAK5-SRSF11-HSPA12A in colorectal cancer, METTL3-SRSF11 in gastric and breast cancers, and SRSF11-CDK1/telomerase circuits in hepatocellular carcinoma. These mechanisms highlight SRSF11 as a candidate biomarker for diagnosis and prognosis rather than a universal oncogenic driver. We summarize the current mechanistic, post-translational, and non-coding RNA-mediated regulatory evidence, clarify the limitations of existing data, and propose future multi-omics and functional approaches to validate SRSF11-directed splicing therapy. This review integrates mechanistic insight with clinical evidence while emphasizing cancer-specific rather than generalized conclusions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KAT2A-driven succinylation of SRSF11 enforces spliceosome-mediated RAD52 splicing to promote homologous recombination and radioresistance in hepatocellular carcinoma.",
+    "doi": "10.1038/s41392-025-02458-7",
+    "pmid": "41198615",
+    "authors": [
+      "Wu J, Yuan J, Liu Z, Zhou Y, Zhang B, Xu Y, Zeng Q, Wu Z, Kong L, Wang J, Zhang B, Yang J, Lv T, Shi Y, Yang J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-07",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Posttranslational modification succinylation plays a pivotal role in tumorigenesis across malignancies, yet its mechanistic contributions to hepatocellular carcinoma (HCC) pathogenesis and therapeutic resistance remain poorly characterized. In this study, we systematically demonstrated that the splicing factor SRSF11 undergoes functional consequential succinylation in HCC progression. Mechanistically, lysine acetyltransferase 2 A (KAT2A) directly interacts with SRSF11 to catalyze its succinylation at lysine 419 (K419), thereby enhancing DNA damage repair capacity in both in vitro and in vivo HCC models. Structural and functional analyses revealed that K419 succinylation stabilizes SRSF11-spliceosome interactions, which promote the inclusion of exon 10 of RAD52 through enhanced pre-mRNAs binding. This exon-specific splicing event preserves the RAD51-binding domain essential for homologous recombination (HR) repair, ultimately facilitating RAD52-RAD51 dimer assembly and HR-mediated genomic stabilization. Clinically, elevated SRSF11 expression is correlated with increased HR activity, radioresistance, and reduced survival in HCC patients. Notably, genetic disruption of the KAT2A-SRSF11 axis sensitizes HCC cells to radiation-induced apoptosis. Our findings establish succinylation as a novel regulatory mechanism linking alternative splicing to DNA repair fidelity in HCC, while proposing therapeutic targeting of this pathway to overcome radioresistance in advanced HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ScRNA-seq Data Reveal Gene Upregulation and Downregulation in Oxygen-Induced Retinopathy.",
+    "doi": "10.12659/msm.951911",
+    "pmid": "42272073",
+    "authors": [
+      "Wang X, Wang L, Ju Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND Retinopathy of prematurity is characterized by retinal vascular ischemia and hypoxia that lead to neovascularization, potentially causing retinal detachment and blindness. This study aimed to explore target genes involved in oxygen-induced retinopathy (OIR) through comprehensive single-cell RNA sequencing (scRNA-seq) data analysis. MATERIAL AND METHODS ScRNA-seq data of retinal tissues obtained from mice under normoxic and OIR conditions were retrieved from the Gene Expression Omnibus (GEO; accession number GSE150703). A suite of bioinformatics tools was used for data processing, cell clustering, cell type annotation, differential gene expression analysis, gene set enrichment analysis, and protein-protein interaction network prediction to identify key hub genes associated with OIR. RESULTS Analysis of GSE150703 OIR mouse data identified 10 retinal cell types. These findings were supported by pathway enrichment analyses, including Gene Ontology and Kyoto Encyclopedia of Genes and Genomes, which indicated significant upregulation of Hnrnpu, Vamp2, Ybx1, Ywhab, and Csnk1a1, and downregulation of Xist and mt-Co1, among others. Interacting proteins from protein-protein interaction network studies identified major hub genes involving Srsf1, Srsf11, Sf3b1, and Hnrnpu, among others. Moreover, the research explored how mutations of Chchd10 and Sf3b1 influence the development of the disease and downregulation of mitochondrial-associated genes, such as lncRNA-Xist, Ndufs5, and mt-Co1, which may provide further insight into their roles in the pathogenesis of OIR. CONCLUSIONS The single-cell data analysis suggests that Hnrnpu, Vamp2, Ybx1, Ywhab, Csnk1a1, Pfkp, Rho, Srsf1, Srsf11, Mt1, Tpr, Hnrnpc, Chchd10, Sf3b1, Xist, Ndufs5, and mt-Co1 may be potential target genes in OIR in retinopathy of prematurity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exploring Resistance to ETS Targeting Agents in Diffuse Large B-Cell Lymphoma.",
+    "doi": "10.1002/cam4.71935",
+    "pmid": "42130064",
+    "authors": [
+      "Spriano F, Cascione L, Tarantelli C, Sartori G, Arribas AJ, Velasova A, Napoli S, Havranek O, Toretsky JA, Bertoni F."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Diffuse large B-cell lymphoma (DLBCL) remains a challenging disease with limited therapeutic options beyond standard immunochemotherapy. ETS transcription factors, including SPIB and SPI1, are implicated in lymphoma pathogenesis and can be targeted by the small molecule TK216, which disrupts ETS-DHX9 interactions. To explore mechanisms of resistance, we generated stable TK216-resistant clones from the ABC-DLBCL line U2932. Resistant clones exhibited a 4-5-fold increase in IC<sub>50</sub> values and lost the ability to undergo G2-M arrest upon treatment. Transcriptomic and mutational analyses revealed three resistance patterns: (i) MDR1/ABCB1 overexpression, leading to multidrug efflux; (ii) Cluster A, enriched for proliferation, Wnt, and transcriptional programs, with mutations in ESR2, USP24, and SFSWAP; and (iii) Cluster B, characterized by actin/microtubule remodeling, altered metabolism, and mutations in SRSF11 and PATJ. Pharmacologic screening revealed an increased sensitivity of resistant cells to BCL2, MCL1, and XPO1 inhibitors, while also showing reduced sensitivity to aurora kinase and microtubule-targeting agents. Venetoclax and selinexor retained activity in resistant models, supporting their potential for rational combinations with TK216. These findings demonstrate that multiple, heterogeneous mechanisms drive resistance to ETS inhibition in DLBCL, highlighting therapeutic strategies to overcome it.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Alternative splicing of HSPA12A pre-RNA by SRSF11 contributes to metastasis potential of colorectal cancer.",
+    "doi": "10.1002/ctm2.1113",
+    "pmid": "36394206",
+    "authors": [
+      "Pan YJ, Huo FC, Kang MJ, Liu BW, Wu MD, Pei DS."
+    ],
+    "year": "2022",
+    "publication_date": "2022-11-01",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Dysregulation of alternative splicing (AS) induced by serine/arginine-rich proteins has recently been linked to cancer metastasis. Nonetheless, as a member of the serine/arginine-rich protein family, the involvement of SRSF11 in colorectal cancer (CRC) is unknown.<h4>Methods</h4>The TCGA dataset and clinical samples were used to assess SRSF11 expression levels in CRC. For SRSF11, functional experiments were conducted both in vitro and in vivo. RNA-seq technology was used to analyze and screen SRSF11-triggered AS events, which were then confirmed by in vivo UV crosslinking and immunoprecipitation (CLIP) and mini-gene reporter assays. Jalview software was used to determine the preferential binding motif with relation to exon skipping (ES) events. Furthermore, coimmunoprecipitation (Co-IP) and Phospho-tag SDS-PAGE experiments were used to investigate PAK5-mediated phosphorylation regulation on SRSF11, and in vitro kinase experiments validated the interaction.<h4>Results</h4>In CRC, SRSF11 was discovered to be overexpressed and associated with a poor prognosis. And SRSF11 played a pro-metastatic role in vitro and in vivo. By screening SRSF11-regulated AS events, we identified the binding motif of SRSF11-triggered splicing-switching of HSPA12A AS, which specifically regulated HSPA12A AS by directly binding to a motif in exon 2. Mechanistically, the HSPA12A transcript with exon 2 retention increased N-cadherin expression by promoting RNA stability. Furthermore, the oncogenic kinase PAK5 phosphorylated SRSF11 at serine 287, protecting it from ubiquitination degradation.<h4>Conclusions</h4>SRSF11 exerts pro-metastatic effects in CRC by inhibiting the AS of HSPA12A pre-RNA. Our findings point to SRSF11-regulated HSPA12A splicing as a novel relationship between SRSF11-regulated splicing and CRC metastasis and suggest a PAK5/SRSF11/HSPA12A axis as a potential therapeutic target and prognostic biomarker in CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "It is not just about transcription: involvement of brain RNA splicing in substance use disorders.",
+    "doi": "10.1007/s00702-024-02740-y",
+    "pmid": "38396082",
+    "authors": [
+      "Carvalho L, Lasek AW."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-24",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Alternative splicing is a co-transcriptional process that significantly contributes to the molecular landscape of the cell. It plays a multifaceted role in shaping gene transcription, protein diversity, and functional adaptability in response to environmental cues. Recent studies demonstrate that drugs of abuse have a profound impact on alternative splicing patterns within different brain regions. Drugs like alcohol and cocaine modify the expression of genes responsible for encoding splicing factors, thereby influencing alternative splicing of crucial genes involved in neurotransmission, neurogenesis, and neuroinflammation. Notable examples of these alterations include alcohol-induced changes in splicing factors such as HSPA6 and PCBP1, as well as cocaine's impact on PTBP1 and SRSF11. Beyond the immediate effects of drug exposure, recent research has shed light on the role of alternative splicing in contributing to the risk of substance use disorders (SUDs). This is exemplified by exon skipping events in key genes like ELOVL7, which can elevate the risk of alcohol use disorder. Lastly, drugs of abuse can induce splicing alterations through epigenetic modifications. For example, cocaine exposure leads to alterations in levels of trimethylated lysine 36 of histone H3, which exhibits a robust association with alternative splicing and serves as a reliable predictor for exon exclusion. In summary, alternative splicing has emerged as a critical player in the complex interplay between drugs of abuse and the brain, offering insights into the molecular underpinnings of SUDs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "M1 macrophage-derived exosomal miR-126-5p promotes endothelial cell senescence and deep vein thrombosis by targeting splicing factor SRSF11.",
+    "doi": "10.1016/j.intimp.2025.115891",
+    "pmid": "41343940",
+    "authors": [
+      "Guo P, Du K, Xiao Y, Zhou Z, Wang B, Lou ZK."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-03",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Deep vein thrombosis (DVT) is a vascular complication with a high incidence after trauma and surgery, and its pathogenesis is closely related to vascular endothelial dysfunction. Recent studies have found that M1 macrophage polarization participates in thrombosis through exosome-mediated miRNA delivery, but the specific mechanism has not yet been clarified. This study focuses on the regulatory role of miR-126-5p in M1 macrophage exosomes and its downstream splicing factor SRSF11 in endothelial senescence and DVT.<h4>Methods</h4>To investigate the regulatory mechanism of miR-126-5p in M1 macrophage exosomes and its downstream splicing factor SRSF11 in vascular endothelial cell senescence and deep vein thrombosis (DVT), this study conducted a series of experiments: THP-1 cells were cultured in vitro and induced into M0 and M1 macrophages. After isolating M1 macrophage exosomes by ultracentrifugation, their characteristics were identified using transmission electron microscopy and Western blot, and the content of miR-126-5p in exosomes was detected by RT-qPCR; fluorescently labeled exosomes were co-cultured with HUVECs, and cell senescence and apoptosis were detected by SA-β-gal staining and flow cytometry. RIP experiments were performed to verify the binding of SRSF11 to Sirt1/P21 precursor mRNA, and functional rescue experiments were conducted to verify the role of SRSF11 or Sirt1-FL; a mouse inferior vena cava ligation DVT model was established in vivo, and miR-126-5p agonists/antagonists were injected in groups. Thrombus conditions and related molecular expressions were analyzed by HE staining, Masson staining, immunofluorescence, TEM, and molecular detection.<h4>Results</h4>Experimental results showed that in vitro enriched CSCs highly expressed stemness markers and exhibited typical stem cell morphological characteristics. After induction, the expression of polarization markers on the surface of M1 macrophages increased, and the exosomes they secreted had a typical nanovesicle structure and were rich in target miRNAs. Endothelial cells could efficiently uptake exosomes. Overexpression of the target miRNA promoted cell senescence and apoptosis, while inhibition reversed this effect. RIP experiments confirmed that splicing factors bind to target gene mRNA, and the target miRNA upregulates pro-senescence splice variants by inhibiting splicing factors. In the in vivo model, DVT mice developed obvious thrombi. Injection of agonists aggravated thrombosis and collagen deposition, and upregulated senescence-related proteins, while antagonists reversed the above changes, confirming that the target molecule promotes DVT formation by regulating cell senescence.<h4>Conclusion</h4>M1 macrophages deliver miR-126-5p through exosomes, which target and inhibit the expression of the splicing factor SRSF11, leading to the dysregulation of alternative splicing of the Sirt1/P21 genes (with an increase in pro-aging isoforms), thereby driving endothelial cell senescence and DVT formation. This study is the first to reveal the core role of the \"exosomal miRNA-splicing factor-endothelial senescence\" axis in DVT, providing a new strategy for targeted intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Placental Alterations in Autism Spectrum Disorder: An In Silico Approach to circRNA-miRNA-mRNA Networks.",
+    "doi": "10.1002/jdn.70064",
+    "pmid": "41218992",
+    "authors": [
+      "Braz-Barbosa B, Gottfried C, Santos-Terra J."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-01",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Autism spectrum disorder (ASD) is a neurodevelopmental condition characterized by deficits in social communication and repetitive behaviours with an aetiology involving genetic and environmental risk factors. Placental alterations, such as epigenetic DNA methylation and structural abnormalities, have been associated with ASD. Circular RNA (circRNA), covalently closed and highly stable molecules, play an epigenetic role by sequestering microRNA (miRNA) and modulating messenger RNA (mRNA) translation, forming posttranscriptional networks essential for gene expression. However, there is a lack of evidence in the literature regarding the involvement of circRNA, the placenta and ASD. To address this gap, the study aimed to map the interactions among circRNA, miRNA and mRNA, investigating their relevance to ASD and placental development using bioinformatics tools, such as circATLAS and miRTargetLink 2.0. The analysis identified 71 circRNA linked to ASD and 30 highly expressed in the placenta, which regulate pathways such as 'immune response,' 'gene transcription,' and 'replication,' and others previously associated with ASD, such as 'Notch and AKT signalling pathway'. Searches in the SFARI database revealed 11 relevant genes in the ASD group, nine in the placenta group and five shared genes (SRSF11, PSMD11, NOTCH1, CREBBP and TBL1X). Further analysis identified the interaction of the circRNA hsa-MAN1A2_0008 with miRNA associated with these genes. These findings suggest that highly expressed circRNA in the placenta regulate critical pathways for placental development and ASD aetiology, underscoring their role in linking placental alterations to ASD.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Putrescine modulates alternative splicing of gonadotropin hormone-releasing hormone (GnRH) through differential regulation of splicing factors.",
+    "doi": "10.1016/j.bbrc.2025.151795",
+    "pmid": "40239543",
+    "authors": [
+      "Gautam P, Srivastava V, Bammidi S, Ghosh S, Babu VS, Banerjee A."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Gonadotropin-releasing hormone (GnRH) plays a critical role in reproductive function, with its activity influenced by differential splicing that generates functionally distinct isoforms. However, the molecular mechanisms regulating GnRH pre-mRNA processing remain poorly understood. In this study, we investigated the effects of putrescine, a biogenic polyamine, on GnRH splicing and the expression of splicing regulatory factors. Transcriptome analysis revealed that putrescine treatment induces significant changes in the expression of splicing-related genes. Notably, putrescine enhanced the expression of both the full-length GnRH isoform (GnRH V1) and an exon-skipped variant (GnRH V2), with the latter exhibiting higher expression levels. Further analysis showed putrescine significantly upregulated key alternative splicing regulators, including SR proteins (SRSF11, SRSF12), RNA helicases (DDX26B, DDX6, DDX25), and Pre-mRNA processing factor (PRPF8), Splicing factor 3b (SF3B2). Conversely, HnRNPA3 and SF3B1 were downregulated. These findings suggest putrescine influences GnRH isoform expression through a dual mechanism: enhancing factors that promote alternative splicing while simultaneously attenuating components of the canonical splicing machinery. Our results provide novel insights into the molecular regulation of GnRH splicing and highlight putrescine as a potential modulator of reproductive function through alternative splicing mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exploring serine-arginine rich splicing factors: potential predictive markers for dysregulation in oral cancer.",
+    "doi": "10.1186/s12885-024-12750-4",
+    "pmid": "39227899",
+    "authors": [
+      "Sharma S, Mittal M, Shukla A, Khan J, Dinand V, Saluja D."
+    ],
+    "year": "2024",
+    "publication_date": "2024-09-03",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Dysregulated splicing events are a common phenomenon in cancer with the Serine-arginine-rich splicing factor (SRSF) family emerging as pivotal regulators of gene expression, exerting influence over constitutive and alternative splicing processes. Although aberrations in a few SRSF family members have been implicated in various cancers, the comprehensive roles of other family constituents remain underexplored.<h4>Methods</h4>This study delves into the expression profile of the entire SRSF family (SRSF1-SRSF12) in 23 cancerous cell lines originating from diverse tissues using quantitative Real-Time PCR. Further, the transcript levels of the SRSF family were examined in oral cancer patient samples stratified into Pre-cancer (n = 15), Early cancer (n = 11), Late cancer (n = 14), and adjacent non-tumor tissues (n = 26) as controls. The results were corroborated by a parallel investigation utilizing the transcriptomics data of oral squamous cell carcinoma (OSCC) patients (n = 319) and controls (n = 35) available in The Cancer Genome Atlas (TCGA) database.<h4>Results</h4>Our investigation reveals a notable upregulation in the expression levels of key splicing factors, namely SRSF3, SRSF9, and SRSF10 in all oral cancer cell lines (SCC-4, UM-SCC-84, CAL33, SAS-H1). Conversely, no significant associations between SRSF family members and other cancer cell lines were discerned. Further, the expression profile of the SRSF family in oral cancer patient samples revealed significant upregulation of SRSF1, SRSF3, SRSF7, SRSF9, SRSF10, and SRSF11 in patients with late-stage oral cancer compared to controls. Transcriptomics data from TCGA database demonstrated remarkable upregulation of SRSF1, SRSF4, SRSF9, SRSF10, and SRSF11 in OSCC patients.<h4>Conclusion</h4>Collectively our results underscore the critical involvement of SRSF family members in the context of oral cancer, highlighting their potential as key players in the altered splicing dynamics associated with cancer progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "METTL3-mediated downregulation of splicing factor SRSF11 is associated with carcinogenesis and poor survival of cancer patients.",
+    "doi": "10.26355/eurrev_202303_31793",
+    "pmid": "37013774",
+    "authors": [
+      "Oh J, Oh JM, Cho SY."
+    ],
+    "year": "2023",
+    "publication_date": "2023-03-01",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>N6-methyladenosine (m6A) is one of the most abundant post-transcriptional modifications in eukaryotic RNA. As m6A modifications play an important role in RNA processing, abnormal m6A regulation caused by aberrant expression of m6A regulators is closely related to carcinogenesis. In this study, we aimed to determine the role of METTL3 expression in carcinogenesis, regulation of splicing factor expression by METTL3, and their effects in survival period and cancer-related metabolisms.<h4>Materials and methods</h4>We investigated the correlation between each splicing factor and METTL3 in breast invasive ductal carcinoma (BRCA), colon adenocarcinoma (COAD), lung adenocarcinoma (LUAD) and gastric adenocarcinoma (STAD). Survival analysis was performed based on the expression of each splicing factor. To determine the molecular mechanism of SRSF11 in carcinogenesis, gene set enrichment analysis using RNA sequencing data was performed according to SRSF11 expression.<h4>Results</h4>Among the 64 splicing factors used for correlation analysis, 13 splicing factors showed a positive correlation with METTL3 in all four cancer types. We found that when METTL3 expression was decreased, the expression of SRSF11 was also decreased in all four types of cancer tissue when compared to that in normal tissue. Decreased SRSF11 expression was associated with poor survival in patients with BRCA, COAD, LUAD, and STAD. Gene set enrichment analysis according to SRSF11 expression showed that the p53/apoptosis, inflammation/immune response, and ultraviolet/reactive oxygen species stimulus-response pathways were enriched in cancers with decreased SRSF11 expression.<h4>Conclusions</h4>These results suggest that METTL3 regulates SRSF11 expression, which could influence mRNA splicing in m6A modified cancer cells. METTL3-mediated downregulation of SRSF11 expression in cancer patients correlates with poor prognosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "[Expression, Prognostic and Functional Analysis of SRSF Family Proteins  in Non-small Cell Lung Cancer].",
+    "doi": "10.3779/j.issn.1009-3419.2026.106.02",
+    "pmid": "41916911",
+    "authors": [
+      "Tu S, Chen Y, Zhang Y, Chen Q, Fan Y, Wang Y, Zhang Y, Li S, Chen J, Pan H, Zhou X, Li X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Non-small cell lung cancer (NSCLC) is one of the leading causes of cancer-related deaths worldwide, and its occurrence and development are closely related to complex molecular mechanisms. Alternative splicing of precursor mRNA is a key step in gene expression regulation, and its dysregulation is common in tumors. The serine/arginine-rich splicing factor (SRSF) family, a core protein family in splicing regulation, has been confirmed to play oncogenic roles in various cancers. However, systematic research on the SRSF family in NSCLC remains insufficient. This study aims to systematically analyze the specific expression patterns, clinical prognostic value, collaborative mechanisms and potential biological functions of SRSF individual members in NSCLC by the combination of bioinformatics analysis and experimental verification.<h4>Methods</h4>This study integrated NSCLC transcriptome data and clinical information from public databases such as The Cancer Genome Atlas (TCGA) and the Cancer Cell Line Encyclopedia (CCLE), and systematically analyzed the differential expressions of SRSF family members. Kaplan-Meier survival analysis was performed to assess the correlation between the expression levels of each SRSF member and patients' overall survival (OS). Furthermore, co-expression network analysis and Gene Ontology (GO)/Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway enrichment analysis were employed to explore the biological processes and signaling pathways potentially involved by the SRSF family. Moreover, the expression and function of key members were verified by reverse transcription quantitative polymerase chain reaction (RT-qPCR), cell counting kit-8 (CCK-8) and cell proliferation experiments in clinical samples and cell lines.<h4>Results</h4>Multiple members of the SRSF family (e.g., SRSF1, SRSF2, SRSF3, SRSF6, SRSF7, SRSF9, SRSF10) were found to be significantly upregulated in NSCLC tissues and cell lines. Survival analysis indicated that high expression of SRSF9 was associated with poor prognosis, while low expressions of SRSF11 and SRSF12 also indicated unfavorable outcomes. Functional enrichment analysis revealed that the SRSF family is not only involved in RNA splicing but also significantly enriched in pathways related to protein homeostasis, cellular stress response, and neurodegenerative diseases. In vitro experiments confirmed that knockdown of SRSF1, SRSF2, SRSF6, SRSF9 and SRSF10 significantly inhibited the proliferation of NSCLC cells.<h4>Conclusions</h4>This study systematically delineates the expression and functional landscape of the SRSF family in NSCLC, confirming their potential as prognostic biomarkers and therapeutic targets. The findings suggest that the SRSF family may drive NSCLC progression by disrupting cellular homeostasis, a crucial aspect of tumorigenesis, such as protein homeostasis and stress responses. This research provides a theoretical foundation for a deeper understanding of the role of splicing dysregulation in lung cancer and for the development of novel therapeutic strategies.",
+    "openalex_id": ""
+  }
+]

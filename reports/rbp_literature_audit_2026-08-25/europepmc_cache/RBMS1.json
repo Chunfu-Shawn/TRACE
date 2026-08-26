@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RBMS1 enhances PDPK1 mRNA stability to promote multiple myeloma malignancy and M2 macrophage polarization.",
+    "doi": "10.1080/15384101.2026.2686804",
+    "pmid": "42277590",
+    "authors": [
+      "Liu Y, Geng YQ, Jiang L, Liu AC."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-11",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Multiple myeloma (MM) is an incurable malignancy of bone marrow plasma cells. Tumor-associated macrophages (TAMs) are the predominant immune cells in the bone marrow microenvironment of MM and play important roles in MM. The effect of RBMS1 on MM has not yet been reported. This study aimed to investigate the function of RBMS1 in MM. Through the analysis of GSE datasets, we identified RBMS1 as a potential pathogenic factor in MM. We further investigated the effects of RBMS1 on the proliferation of MM cells (RPMI8226, MM1S, and KMS11) and its regulation of TAM polarization. An animal model was established by intravenous injection of MM cells into 6-week-old male NOG mice. Bioinformatics analyses, including RRA, WGCNA, and GO enrichment, screened for potential pathogenic genes in MM. Kaplan - Meier survival identified RBMS1 as a prognostic marker associated with poor outcomes in MM. Functionally, RBMS1 enhanced MM cell proliferation, colony formation, and cell cycle. Moreover, RBMS1 promoted M2 polarization of macrophages, as evidenced by elevated levels of M2 macrophage markers, as well as increased CCL2 secretion. Consistently, in a male NOD/Shi-scid IL-2 Rγ<sup>null</sup> mouse xenograft model, RBMS1 accelerated tumor growth and enhanced M2 macrophage polarization. Mechanistically, RBMS1 bound to the 3'UTR of PDPK1 mRNA, enhancing its stability and activating the pro-tumorigenic β-catenin signaling pathway, thereby promoting tumor growth. Collectively, this study is the first to report the functional role of RBMS1 in MM and highlights the importance of the RBMS1/PDPK1/β-catenin signaling axis in MM, providing new insights for basic research on MM.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA binding motif single-stranded interacting protein 1 drives renal fibrosis by stabilizing Annexin A8 mRNA to activate PI3K/AKT signaling.",
+    "doi": "10.1016/j.ijbiomac.2026.152687",
+    "pmid": "42184845",
+    "authors": [
+      "Bian Y, Chen S, Jia Y, Sun J, Lv F, Jiang A, Liang H, Du X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Renal fibrosis represents a significant pathological hallmark of chronic kidney disease (CKD), yet therapeutic strategies for its management remain notably inadequate. RNA-binding motif single-stranded interacting protein 1 (RBMS1), an RNA-binding protein (RBP) previously implicated in cancer progression and fibrosis, remains poorly understood within the context of renal fibrosis. The current investigation demonstrates elevated RBMS1 expression in kidney tissues from CKD patients, fibrotic mouse models, and transforming growth factor-β1 (TGF-β1)-induced rat renal fibroblasts. Fibroblast-specific conditional knockout of RBMS1 in mice markedly ameliorated renal injury and fibrosis, accompanied by reduced fibrotic marker expression. Similarly, siRNA-mediated knockdown of RBMS1 in renal fibroblasts suppressed TGF-β1-induced fibroblast activation, proliferation, and migration. RNA-seq and RIP assays revealed Annexin A8 (ANXA8) as a key downstream target of RBMS1. RBMS1 directly bound the coding region of ANXA8 mRNA via its RRM2 domain, thereby enhancing transcript stability. ANXA8 overexpression activated fibroblasts and promoted PI3K/AKT signaling, whereas ANXA8 knockdown abolished the pro-fibrotic effects of RBMS1. Pharmacological inhibition of RBMS1 with nortriptyline (NTP) significantly attenuated renal fibrosis in unilateral ureteral obstruction (UUO) mice. These results reveal an RBMS1/ANXA8/PI3K/AKT regulatory axis in renal fibrosis, highlighting RBMS1 as a potential therapeutic target.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMS1 orchestrates cardiac hypertrophy by facilitating CTTN splice-switching and sarcomere dynamics.",
+    "doi": "10.1038/s44321-025-00334-z",
+    "pmid": "41214391",
+    "authors": [
+      "Li L, Li T, Wang B, Feng J, Zhang N, Zhang J, Niu Z, Li W, Gao H, Wang Q, Liu Y, Chen Y, Zhang Y, Bian Y, Pan T, Sheng S, Li X, Liu J, Yang B, Liang H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-11-10",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Cardiac hypertrophy is one of the significant causes of heart failure and is closely related to the rising rate of hospitalization and readmissions. Given the diverse regulatory roles of alternative splicing in cardiovascular diseases, RNA-binding proteins have attracted increasing research attention. Here, for the first time, we discovered elevated expression of RBMS1 in heart tissues of patients with dilated cardiomyopathy and in mice with cardiac hypertrophy. We demonstrated that RBMS1 activated the PI3K/AKT signaling pathway by promoting the splicing CTTN to generate CTTN-Δe11 splicing isoform, resulting in cytoskeleton and sarcomere damage in cardiomyocytes. Additionally, pharmacological inhibition of RBMS1 by nortriptyline alleviated cardiac hypertrophy and heart failure. These results provide a new perspective for developing novel therapeutic approaches for cardiac hypertrophy and establish a theoretical basis for targeting RBMS1 in the clinical treatment of cardiac hypertrophy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Deficiency of the RNA-binding protein RBMS1 improves myocardial fibrosis and heart failure.",
+    "doi": "10.1093/eurheartj/ehaf370",
+    "pmid": "40471706",
+    "authors": [
+      "Li L, Guo J, Feng J, Li T, Xu B, Li W, Yang N, Ji W, Zhuang S, Geng Y, Wang B, Liu J, Sun J, Guo Y, Yang R, Ning Z, Wang Y, Liu Q, Tian X, Shan H, Yang B, Liang H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-01",
+    "cited_by_count": 9,
+    "journal": "",
+    "abstract": "<h4>Background and aims</h4>Previous studies have highlighted the significance of RNA-binding proteins and alternative splicing (AS) in the progression of complex diseases, but the specific involvement of AS in heart failure (HF) remains unclear. This study aimed to elucidate the role of RNA-binding motif single-stranded interacting protein 1 (RBMS1), an RNA-binding protein, in the development of HF by regulating AS and its effect on cardiac fibrosis.<h4>Methods</h4>The level of RBMS1 was investigated in the hearts of both HF patients and mice. Fibroblast-specific knockout RBMS1 mice were generated to investigate the role of RBMS1 in cardiac fibrosis and HF. Unbiased RNA sequencing and RNA immunoprecipitation combined with RNA pull-down were conducted to identify the downstream effector of RBMS1 in fibroblasts.<h4>Results</h4>RBMS1 expression was increased in murine hearts following myocardial infarction, as well as in the hearts of patients with ischaemic cardiomyopathy and hypertrophic cardiomyopathy. Moreover, RBMS1 levels in the hearts of HF patients were positively associated with cardiac fibrosis. Furthermore, fibroblast-specific ablation of RBMS1 improved cardiac dysfunction by mitigating myocardial fibrosis. Mechanistically, RBMS1 regulated the alternative splicing of LIM domain 7 (LMO7) by binding to intron 19 and splicing out exon 20, resulting in the formation of the LMO7-Δe20 isoform, which thus activated the transforming growth factor (TGF)-β1 pathway by upregulating activator protein 1. More importantly, overexpression of LMO7-Δe20 in mice resulted in cardiac fibrosis and cardiac dysfunction, which was ablated after treatment with TGF-β1 pathway inhibitor SB431542. In addition, SB431542 attenuated the RBMS1-driven fibrogenesis in human cardiac fibroblasts. Strikingly, pharmacologically inhibiting RBMS1 by low-dose nortriptyline or antisense oligonucleotide-mediated RBMS1 deficiency alleviated myocardial fibrosis and improved cardiac function in HF mice.<h4>Conclusions</h4>These findings unveil a critical role of RBMS1 in regulating cardiac fibrosis through controlling the splicing of LMO7 to activate the TGF-β1 pathway. Genetic ablation or pharmacological inhibition of RBMS1 improves cardiac function in mice, suggesting its potential as a therapeutic target for HF.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMS1-mediates the biogenesis of circNFIB promotes perineural invasion of pancreatic ductal adenocarcinoma via the L1CAM/MAPK pathway.",
+    "doi": "10.7150/thno.112753",
+    "pmid": "40963905",
+    "authors": [
+      "Wu Z, Fang Z, Zeng L, Zhang D, Zhou Y, Chen R."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-16",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<b>Background:</b> Circular RNAs (circRNAs) play a key regulatory role in various functional characteristics of pancreatic ductal adenocarcinoma (PDAC). However, the mechanisms underlying circRNA's involvement in the occurrence of perineural invasion (PNI) in PDAC remain unclear and require further investigation. <b>Methods:</b> Through circRNA sequencing, we identified the circNFIB (hsa_circ_0086376) that is highly associated with PNI in PDAC tissues. We then evaluated the promoting effect of circNFIB on PNI using various assays, including the Matrigel/dorsal root ganglia (DRG) model, DRG-matrix assay, transwell assay, orthotopic xenograft model, and in vivo model of neural infiltration. The interaction mechanism between circNFIB and IGF2BP3, which enhances L1CAM mRNA stability, was explored using RNA pulldown, mass spectrometry, RNA Immunoprecipitation (RIP), and actinomycin D assays. Additionally, the role of RBMS1 in promoting the biogenesis of circNFIB was investigated using RIP and Western blotting. <b>Results:</b> This study confirmed that circNFIB is significantly upregulated in PDAC samples and samples with high PNI. Both in vitro and in vivo experiments demonstrated its role in promoting PNI in PDAC. Mechanistically, circNFIB binds with IGF2BP3 in PDAC cells to enhance the stability of L1CAM mRNA, activating the ERK/MAPK signaling pathway, and facilitating PNI in PDAC. Additionally, we found that RBMS1 binds to the NFIB pre-mRNA and promotes the biogenesis of circNFIB. Finally, we verified circNFIB as a potential therapeutic target that can mitigate the anti-tumor effects of SCH772984 in vivo. <b>Conclusion:</b> RBMS1-mediated circNFIB interacts with IGF2BP3 to stabilize L1CAM mRNA, thereby activating the ERK/MAPK signaling pathway and promoting PNI in PDAC. This study provides a novel perspective on the molecular mechanisms underlying PNI in PDAC and lays the theoretical foundation for circNFIB as a potential therapeutic target for PDAC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "m6A methylation-modified ETV1 drives multiple myeloma progression and M2 polarization of tumor-associated macrophage through transcriptional activation of RBMS1.",
+    "doi": "10.1186/s12967-026-07799-7",
+    "pmid": "41689098",
+    "authors": [
+      "Liu Y, Geng Y, Zheng B, Zhang A, Yang K, Mao Y, Jiang L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-13",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "BACKGROUND: Multiple myeloma (MM) is an incurable tumor characterized by the clonal expansion of malignant plasma cells in the bone marrow. Tumor-associated macrophages (TAMs) play a crucial role in the MM microenvironment by promoting plasma cell survival and conferring therapy resistance. ETV1 (E-twenty-six transformation-specific variant 1) is a transcription factor that has been proven to be an oncogenic driver in various cancers, but its functional role and the potential mechanisms in MM remain poorly understood. METHODS: Gene expression profiles were analyzed in bone marrow plasma cells from three healthy and 45 MM samples obtained from the GSE125361 dataset. Cell growth was assessed using CCK-8 and colony formation assays. Macrophage phenotypes were characterized by flow cytometry, and TAM infiltration was evaluated via immunofluorescence double staining. Tumor development was detected by in vivo fluorescence imaging system. Transcriptional activity was examined using luciferase reporter and chromatin immunoprecipitation (ChIP) assays. The N6-Methyladenosine (m6A) modification levels of ETV1 in MM cells were detected by m6A RNA immunoprecipitation followed by qPCR (m6A RIP-qPCR), and the interaction between ETV1 mRNA and METTL3 (methyltransferase-like 3) was evaluated using RIP-PCR. RESULTS: Bioinformatics analysis revealed that ETV1 was significantly upregulated in MM and associated with poor prognosis of MM patients. Gain-of-function and loss-of-function experiments demonstrated that ETV1 overexpression enhanced MM cell proliferation and M2 polarization of TAMs both in vitro and in vivo, whereas ETV1 knockdown exerted the opposite effects. Mechanistically, we confirmed that METTL3 upregulated ETV1 expression by enhancing its m6A methylation modification. Furthermore, ETV1 transcriptionally activated RBMS1 (RNA-binding motif, single-stranded-interacting protein 1), and RBMS1 knockdown abrogated the pro-tumorigenic effects of ETV1 overexpression. CONCLUSIONS: These findings underscore the pivotal role of the ETV1/RBMS1 signaling axis in MM progression and M2 polarization of TAMs. Our results further suggest that ETV1 may represent a promising therapeutic target in MM, offering novel insights into its oncogenic function and underlying regulatory mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "YTHDC2 Deficiency Exacerbates Ulcerative Colitis by Stabilizing RBMS1 mRNA to Drive Epithelial Ferroptosis.",
+    "doi": "10.1007/s10753-026-02480-z",
+    "pmid": "41811549",
+    "authors": [
+      "Qiu B, Fu Z, Wang H, Bai F."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-11",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Ulcerative colitis is a chronic inflammatory bowel disease with a complex pathogenesis. This study aims to identify novel ferroptosis-related biomarkers and investigate the underlying post-transcriptional regulatory mechanisms in ulcerative colitis. Integrated bioinformatics analysis of public transcriptomic datasets identified key ferroptosis-related hub genes. A dextran sulfate sodium-induced murine colitis model and lipopolysaccharide-stimulated colonic epithelial cells were utilized for experimental validation. Molecular techniques, including RNA immunoprecipitation, mRNA stability assays, and western blot, were employed to elucidate the regulatory axis. We identified RNA Binding Motif Single Stranded Interacting Protein 1 (RBMS1) as a significantly upregulated ferroptosis-related hub gene in ulcerative colitis. Its suppression alleviated both inflammatory injury and ferroptosis in colonic epithelial cells in vitro and in a murine colitis model in vivo. Mechanistically, the N6-methyladenosine reader YTH Domain Containing 2 (YTHDC2) was found to bind RBMS1 transcripts and promote their degradation. YTHDC2 was downregulated in colitis, and its overexpression attenuated disease severity and ferroptosis, whereas concurrent RBMS1 overexpression reversed these protective effects. Our findings reveal a crucial YTHDC2-RBMS1 regulatory axis in ulcerative colitis pathogenesis, wherein decreased YTHDC2 enhances RBMS1 mRNA stability, thereby promoting ferroptosis and inflammation. This axis represents a promising therapeutic target for ulcerative colitis intervention.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic subtype- and context-specific subcellular RNA regulation in growth cones of developing neurons of the cerebral cortex.",
+    "doi": "10.1038/s41593-025-02173-0",
+    "pmid": "41461932",
+    "authors": [
+      "Veeraraghavan P, Engmann AK, Hatch JJ, Itoh Y, Nguyen D, Addison T, Macklis JD."
+    ],
+    "year": "2026",
+    "publication_date": "2025-12-29",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Neurons of distinct subtypes compartmentalize subtype-specific function in part by differentially localizing and translating specific RNAs, but underlying mechanisms are not understood. Here we investigate messenger RNA localization and stability within subtype-specific growth cones (GCs), leading tips of growing axons, of long-range projection neurons (PNs) of the developing cerebral cortex. Comparison of GC-localized transcriptomes between two subtypes of PNs (interhemispheric-callosal and corticothalamic) across developmental stages identified both distinct and shared subcellular machinery involved in distinct phases of growth, target innervation and synaptogenesis, and enrichment of genes associated with neurodevelopmental and neuropsychiatric disorders. Further, we investigated sequence elements in dynamically GC-localized mRNAs, identifying GC-enriched motifs in 3' untranslated regions. For example, we identified that CPEB4, a translational regulator, regulates axonal branching and that RBMS1 functions dynamically in callosal circuit formation. This work offers generalizable insights for subcellular specialization in other polarized cells, toward elucidating neurodevelopmental and behavioral-cognitive disorders.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Increased ANKRD1 Levels in Early Senescence Mediated by RBMS1-Elicited &lt;i&gt;ANKRD1&lt;/i&gt; mRNA Stabilization.",
+    "doi": "10.1080/10985549.2024.2350540",
+    "pmid": "38769646",
+    "authors": [
+      "Shin CH, Rossi M, Anerillas C, Martindale JL, Yang X, Ji E, Pal A, Munk R, Yang JH, Tsitsipatis D, Mazan-Mamczarz K, Abdelmohsen K, Gorospe M."
+    ],
+    "year": "2024",
+    "publication_date": "2024-05-20",
+    "cited_by_count": 7,
+    "journal": "",
+    "abstract": "Cellular senescence is a dynamic biological process triggered by sublethal cell damage and driven by specific changes in gene expression programs. We recently identified ANKRD1 (ankyrin repeat domain 1) as a protein strongly elevated after triggering senescence in fibroblasts. Here, we set out to investigate the mechanisms driving the elevated production of ANKRD1 in the early stages of senescence. Our results indicated that the rise in ANKRD1 levels after triggering senescence using etoposide (Eto) was the result of moderate increases in transcription and translation, and robust mRNA stabilization. Antisense oligomer (ASO) pulldown followed by mass spectrometry revealed a specific interaction of the RNA-binding protein RBMS1 with <i>ANKRD1</i> mRNA that was confirmed by ribonucleoprotein immunoprecipitation analysis. RBMS1 abundance decreased in the nucleus and increased in the cytoplasm during Eto-induced senescence; in agreement with the hypothesis that RBMS1 may participate in post-transcriptional stabilization of <i>ANKRD1</i> mRNA, silencing RBMS1 reduced, while overexpressing RBMS1 enhanced <i>ANKRD1</i> mRNA half-life after Eto treatment. A segment proximal to the <i>ANKRD1</i> coding region was identified as binding RBMS1 and conferring RBMS1-dependent increased expression of a heterologous reporter. We propose that RBMS1 increases expression of ANKRD1 during the early stages of senescence by stabilizing <i>ANKRD1</i> mRNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMS1-HSPA8 axis activation drives head and neck squamous cell carcinoma progression.",
+    "doi": "10.1186/s12885-025-13937-z",
+    "pmid": "40140757",
+    "authors": [
+      "Yin X, Luo M, Zha X, Duan M, Liu Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-27",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Head and Neck Squamous Cell Carcinoma (HNSCC) presents significant challenges in terms of treatment and prognosis, highlighting the urgent need for new therapeutic targets and the development of effective targeted therapies to enhance patient outcomes and survival.<h4>Methods</h4>The expression level of RBMS1 in HNSCC was identified by GEO and TCGA databases through systematic bioinformatics analysis, and further verified in human specimens by quantitative Real-time PCR, Western blot, and immunohistochemistry. The results of CCK-8, colony formation assay, wound healing, Transwell, and tumor formation assays in nude mice showed that RBMS1 promoted the proliferation, migration, and invasion of HNSCC cells. The downstream target genes of RBMS1 were identified in the RBMS1 knockdown and the control groups of TU177 cells using RNA sequencing. HSPA8 was identified as a downstream target gene of RBMS1 in functional in vitro and tumor formation experiments in nude mice.<h4>Results</h4>Elevated expression levels of RBMS1 in HNSCC were identified using relevant databases and validated in human specimens. In both in vitro and in vivo studies, overexpression of RBMS1 promoted the proliferation, migration, and invasion of HNSCC cells, whereas knockdown of RBMS1 significantly inhibited these processes. RNA sequencing analysis revealed HSPA8 as a downstream target of RBMS1, and rescue experiments confirmed that HSPA8 serves as a crucial intermediary in the regulatory pathway of tumor progression influenced by RBMS1.<h4>Conclusions</h4>This study suggests that RBMS1 regulates HSPA8 to promote the proliferation, migration, and invasion of HNSCC cells, making it a potential therapeutic target for HNSCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Rbms1 promotes pulmonary fibrosis by stabilising Sumo2 mRNA to facilitate Smad4-SUMOylation and fibroblast activation.",
+    "doi": "10.1183/13993003.01667-2024",
+    "pmid": "40473311",
+    "authors": [
+      "Guo Y, Wang Q, Zhang Y, Ren L, Wang Y, Liu Y, Liu M, Tian X, Liu Q, Chen Y, Sun J, Jin T, Wang X, Wang Y, Li T, Zhou Y, Li Z, Gu Y, Yang B, Liang H."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-25",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "<h4>Background</h4>The formation of myofibroblast foci constitutes a hallmark pathological feature of idiopathic pulmonary fibrosis (IPF), yet the mechanism remains elusive. RNA-binding motif single-stranded interacting protein 1 (RBMS1) is known to be essential for proliferation and cell cycle progression; however, its role in pulmonary fibrosis remains to be clarified.<h4>Methods</h4>This study aimed to systematically elucidate the role and underlying mechanism of RBMS1 in pulmonary fibrosis utilising mouse primary lung fibroblasts (mPLFs), fibroblast-specific Rbms1 deletion and overexpression mice models, and lung samples from IPF patients.<h4>Results</h4>RBMS1 was highly expressed in both IPF patient lungs and murine bleomycin-induced fibrotic lesions. Notably, elevated RBMS1 expression was observed in the cytoplasm of mPLFs following transforming growth factor (TGF)-β1 stimulation. Rbms1 promoted lung fibroblast activation, while knockdown of Rbms1 mitigated TGF-β1-induced fibrogenesis. <i>In vivo</i>, overexpression of Rbms1 impaired lung function and exacerbated pulmonary fibrosis, whereas fibroblast-specific deletion of Rbms1 exhibited a significant reduction in fibrosis post-bleomycin treatment. Mechanistically, Rbms1 binds to Sumo2 3' untranslated region, enhancing the mRNA stability. Furthermore, Rbms1 induced the SUMOylation of Smad4, with lysine 158 identified as a critical SUMOylation site. Meanwhile, Sumo2 knockdown alleviated the Rbms1-driven exacerbation of pulmonary fibrosis. Importantly, nortriptyline pharmacologically inhibited RBMS1 to ameliorate pulmonary fibrosis in mice.<h4>Conclusion</h4>Collectively, our study sheds light on the regulatory role of RBMS1 in pulmonary fibrosis, highlighting its therapeutic potential for targeted antifibrotic strategies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBMS1 Coordinates with the m&lt;sup&gt;6&lt;/sup&gt;A Reader YTHDF1 to Promote NSCLC Metastasis through Stimulating S100P Translation.",
+    "doi": "10.1002/advs.202307122",
+    "pmid": "38342601",
+    "authors": [
+      "Sun Y, Chen D, Sun S, Ren M, Zhou L, Chen C, Zhao J, Wei H, Zhao Q, Qi Y, Zhang J, Zhang G, Liu H, Yang Q, Liu Q, Wang Y, Zhang W."
+    ],
+    "year": "2024",
+    "publication_date": "2024-02-11",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Metastasis is the leading cause for the high mortality of lung cancer, however, effective anti-metastatic drugs are still limited. Here it is reported that the RNA-binding protein RBMS1 is positively associated with increased lymph node metastasis in non-small cell lung cancer (NSCLC). Depletion of RBMS1 suppresses cancer cell migration and invasion in vitro and inhibits cancer cell metastasis in vivo. Mechanistically, RBMS1 interacts with YTHDF1 to promote the translation of S100P, thereby accelerating NSCLC cell metastasis. The RRM2 motif of RBMS1 and the YTH domain of YTHDF1 are required for the binding of RBMS1 and YTHDF1. RBMS1 ablation inhibits the translation of S100P and suppresses tumor metastasis. Targeting RBMS1 with NTP, a small molecular chemical inhibitor of RBMS1, attenuates tumor metastasis in a mouse lung metastasis model. Correlation studies in lung cancer patients further validate the clinical relevance of the findings. Collectively, the study provides insight into the molecular mechanism by which RBMS1 promotes NSCLC metastasis and offers a therapeutic strategy for metastatic NSCLC.",
+    "openalex_id": ""
+  }
+]

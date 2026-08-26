@@ -1,0 +1,170 @@
+[
+  {
+    "title": "GRSF1 Protects Against Heart Failure by Maintaining BCAA Homeostasis.",
+    "doi": "10.1161/circulationaha.125.074700",
+    "pmid": "41487100",
+    "authors": [
+      "Wang H, Wang J, Zhu M, Jin L, Cui H, Liu C, Fan C, Li H, Yang J, Cui M, Song J, Wang W, Xu M."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-05",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Imbalances in cardiac branched-chain amino acid (BCAA) metabolism and mitochondrial homeostasis are implicated in the onset and development of heart failure. However, the mechanisms triggering the downregulation of cardiac BCAA metabolism in heart failure remain unclear. Here, we identify a novel role of the RNA-binding protein GRSF1 (guanine-rich RNA sequence binding factor 1) in post-transcriptionally regulating cell-intrinsic BCAA metabolic pathways, ultimately contributing to the pathogenesis of heart failure.<h4>Methods</h4>We examined GRSF1 expression in the heart tissues of patients with dilated cardiomyopathy and generated mice with cardiomyocyte-specific deletion or overexpression of GRSF1 in vivo to investigate its role in heart failure. The effect of GRSF1 on BCAA homeostasis was assessed through untargeted and targeted metabolomics and mitochondrial function analysis. To elucidate the mechanisms underlying GRSF1-mediated metabolic regulation, we employed mice with cardiomyocyte-specific deletion of BCKDHB (branched-chain keto acid dehydrogenase E1 subunit β) and mice with cardiomyocyte-specific expression of GRSF1 lacking a quasi-RNA recognition motif.<h4>Results</h4>GRSF1 expression was significantly decreased in the hearts of patients with heart failure and failing murine hearts. Cardiomyocyte-specific GRSF1 deletion resulted in cardiac dysfunction, spontaneous progression to dilated cardiomyopathy, and heart failure, accompanied by increased cardiac hypertrophy and fibrosis. Conversely, GRSF1 overexpression attenuated cardiac remodeling and heart failure induced by transverse aortic constriction. Mechanistically, GRSF1 maintained BCAA homeostasis and mitochondrial function by directly interacting with the G-tracts in the coding region of BCKDHB mRNA through a quasi-RNA recognition motif to promote the stability of BCKDHB mRNA at the post-transcriptional level, thereby increasing its protein expression. Functional recovery mediated by GRSF1 overexpression in cardiomyocytes was partially blocked upon cardiac-specific deletion of BCKDHB.<h4>Conclusions</h4>Our study identified GRSF1 as a cell-intrinsic metabolic checkpoint that maintains cardiac BCAA homeostasis by regulating BCKDHB mRNA turnover. Targeting GRSF1 may offer therapeutic benefits for heart failure and other cardiometabolic diseases requiring BCAA manipulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Functional Analysis of GRSF1 in the Nuclear Export and Translation of Influenza A Virus mRNAs.",
+    "doi": "10.3390/v16071136",
+    "pmid": "39066299",
+    "authors": [
+      "Schmierer J, Takimoto T."
+    ],
+    "year": "2024",
+    "publication_date": "2024-07-16",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Influenza A viruses (IAV) utilize host proteins throughout their life cycle to infect and replicate in their hosts. We previously showed that host adaptive mutations in avian IAV PA help recruit host protein G-Rich RNA Sequence Binding Factor 1 (GRSF1) to the nucleoprotein (NP) 5' untranslated region (UTR), leading to the enhanced nuclear export and translation of NP mRNA. In this study, we evaluated the impact of GRSF1 in the viral life cycle. We rescued and characterized a 2009 pH1N1 virus with a mutated GRSF1 binding site in the 5' UTR of NP mRNA. Mutant viral growth was attenuated relative to pH1N1 wild-type (WT) in mammalian cells. We observed a specific reduction in the NP protein production and cytosolic accumulation of NP mRNAs, indicating a critical role of GRSF1 in the nuclear export of IAV NP mRNAs. Further, in vitro-transcribed mutated NP mRNA was translated less efficiently than WT NP mRNA in transfected cells. Together, these findings show that GRSF1 binding is important for both mRNA nuclear export and translation and affects overall IAV growth. Enhanced association of GRSF1 to NP mRNA by PA mutations leads to rapid virus growth, which could be a key process of mammalian host adaptation of IAV.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aging-associated mitochondrial circular RNAs.",
+    "doi": "10.18632/aging.206354",
+    "pmid": "41747288",
+    "authors": [
+      "Mun H, Ham DW, Kim NC, Kwon BI, Kim YK, Yoon JH."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-10",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "During mammalian aging, there are changes in abundance of noncoding RNAs including microRNAs, long noncoding RNAs, and circular RNAs. Although global profiles of the human transcriptome and epitranscriptome during the aging process are available, the existence and function of mitochondrial circular RNAs originating from the mitochondrial genome are poorly studied. Here, we report profiles of circular RNAs annotated to mitochondrial chromosome, chrM, in young and old cohorts. The most abundant circular RNA junctions are found in MT-RNR2, whose level is depleted in old cohorts and senescent fibroblast. The mitochondria-localized RNA-binding protein GRSF1 binds various mitochondrial transcripts, including linear and circular MT-RNR2, with a distinct RNA motif. Linear and circular MT-RNR2 bind a subset of TCA cycle enzymes, suggesting their possible function in regulating glucose metabolism in mitochondria to preserve proliferating status in young cohorts. In human fibroblasts, depletion of GRSF1 reduced levels of circMT-RNR2 and fumarate/succinate, concomitantly accelerating cellular senescence and mitochondrial dysfunction. Taken together, our findings demonstrate the existence and possible function of circular MT-RNR2 during human aging and senescence, implicating its role in promoting the TCA cycle.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Hypoxia-driven lncRNA SHIELD promotes GPX4 translation and protects against ferroptosis in hepatocellular carcinoma.",
+    "doi": "10.1016/j.molcel.2026.04.026",
+    "pmid": "42173099",
+    "authors": [
+      "Liu K, Liu Y, Thorne RF, Meng F, Liu Y, Wu M, Liu L."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-22",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Targeting ferroptosis, a form of regulated cell death, holds potential for improving treatment efficacy in a range of cancers including hepatocellular carcinoma (HCC). The selenoprotein glutathione peroxidase 4 (GPX4) plays a crucial role in suppressing ferroptosis by converting toxic phospholipid hydroperoxides into non-toxic lipid alcohols, yet the mechanisms regulating its synthesis remain poorly understood. This study identifies SHIELD (suppressor of hypoxia-induced lipid peroxidation and death), a long noncoding RNA (lncRNA) and direct HIF-1α target, as a regulator of ferroptosis in HCC. SHIELD inhibits ferroptosis by interacting with the RNA-binding protein GRSF1, which forms a ternary complex with GPX4 5'-UTR to enhance GPX4 mRNA translation and expression. Furthermore, targeting SHIELD with antisense oligonucleotides (ASOs) in combination with sorafenib significantly reduced tumor growth in patient-derived xenograft models. This discovery paves the way for improving the efficacy of tyrosine kinase inhibitors in HCC, which addresses the challenge of therapeutic resistance.",
+    "openalex_id": ""
+  },
+  {
+    "title": "&lt;i&gt;miR-19-3p&lt;/i&gt;/GRSF1/COX1 axis attenuates early brain injury via maintaining mitochondrial function after subarachnoid haemorrhage.",
+    "doi": "10.1136/svn-2024-003099",
+    "pmid": "39266212",
+    "authors": [
+      "Gao G, Sun X, Xu J, Yu J, Wang Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-30",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Guanine-rich RNA sequence binding factor 1 (GRSF1) is an RNA-binding protein, which is eventually localised to mitochondria and promotes the translation of cytochrome C oxidase 1 (COX1) mRNA. However, the role of the <i>miR-19-3</i>p/GRSF1/COX1 axis has not been investigated in an experimental subarachnoid haemorrhage (SAH) model. Thus, we investigated the role of the <i>miR-19-3</i>p/GRSF1/COX1 axis in a SAH-induced early brain injury (EBI) course.<h4>Methods</h4>Primary neurons were treated with oxyhaemoglobin (OxyHb) to simulate in vitro SAH. The rat SAH model was established by injecting autologous arterial blood into the optic chiasma cisterna. The GRSF1 level was downregulated or upregulated by treating the rats and neurons with lentivirus-<i>GRSF1</i> shRNA (Lenti-<i>GRSF1</i> shRNA) or lentivirus-<i>GRSF1</i> (Lenti-<i>GRSF1</i>).<h4>Results</h4>The <i>miR-19-3</i>p level was upregulated and the protein levels of GRSF1 and COX1 were both downregulated in SAH brain tissue. <i>GRSF1</i> silence decreased and <i>GRSF1</i> overexpression increased the protein levels of <i>GRSF1</i> and COX1 in primary neurons and brain tissue, respectively. Lenti-<i>GRSF1</i> shRNA aggravated, but Lenti-<i>GRSF1</i> alleviated, the indicators of neuronal injury and neurological impairment in both in vitro and in vivo SAH conditions. In addition, <i>miR-19-3</i>p mimic reduced the protein levels of GRSF1 and COX1 in cultured neurons while <i>miR-19-3</i>p inhibitor increased them. More importantly, Lenti-<i>GRSF1</i> significantly relieved mitochondrial damage of neurons exposed to OxyHb or induced by SAH and was beneficial to maintaining mitochondrial integrity. Lenti-<i>GRSF1</i> shRNA treatment, conversely, aggravated mitochondrial damage in neurons.<h4>Conclusion</h4>The <i>miR-19-3</i>p/GRSF1/COX1 axis may serve as an underlying target for inhibiting SAH-induced EBI by maintaining mitochondrial integrity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Duodenal Adenocarcinoma Is Characterized by Acidity, High Infiltration of Macrophage, and Activated Linc01559-GRSF1 Axis.",
+    "doi": "10.3390/biomedicines13071611",
+    "pmid": "40722682",
+    "authors": [
+      "Huang X, Shi Y, Liu Z, Wu Y, Luo X, Chen D, Wei Z, Chen C, Ju H, Wu X, Liu X, Chen Z, Hu P."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-30",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "<b>Background</b>: Duodenal adenocarcinoma (DA) is often insidious due to the low rate of early diagnosis and because the mechanisms that underlie its malignant progression are poorly understood. The tumor microenvironment (TME) plays a crucial regulatory role in promoting tumor malignancy. Hence, this study aimed to identify novel biomarkers for early diagnosis and potential therapeutic targets for DA. <b>Methods</b>: Surgical resection samples and normal tissues from DA patients were collected for RNA sequencing (RNA-seq). The characteristics of TME in DA patients were analyzed, and the differentially expressed long non-coding RNAs (lncRNA) were screened. Functional experiments were performed to verify the relationship between <i>Linc01559</i>, G-rich sequence binding factor 1 (GRSF1), and tumor malignant phenotype. <b>Results</b>: The present study revealed that DA exhibits a significantly upregulated expression of acidic environment markers and a high degree of macrophage infiltration. Further investigation revealed that macrophages upregulate the expression of the long noncoding RNA, <i>Linc01559</i>, in DA through the STAT3/c-MYC signaling pathway, thereby promoting malignant phenotypes such as invasion, metastasis, tumor stemness, and apoptosis. The interaction between GRSF1 and <i>Linc01559</i> was subsequently confirmed using RNA pulldown-mass spectrometry. It was further revealed that Linc01559 promotes the malignant phenotype of duodenal cancer cells through its interaction with GRSF1. <b>Conclusions</b>: These findings demonstrate that the acidic microenvironment influences the phenotype of DA by regulating the <i>Linc01559</i>-GRSF1 axis. Therefore, these findings provide potential targets for the early detection and treatment of DA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Illuminating Mitochondrial RNA G-Quadruplexes as Structural Brakes on RNA Granule Assembly and OXPHOS.",
+    "doi": "10.1002/advs.202523462",
+    "pmid": "41674366",
+    "authors": [
+      "Tang GX, Yan JT, Li ML, Zhou C, Wang J, Chen SB, Huang ZS, Tan JH."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-12",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "G-quadruplexes (G4s) have been extensively investigated in cells, with established methods available for studying nuclear DNA G4s, cytoplasmic RNA G4s, and even mitochondrial DNA G4s. However, mitochondrial RNA (mtRNA) G4s have remained largely unexplored in cells due to the lack of suitable tools, leaving their biological functions poorly understood. Here, through rational molecular design, we developed MitoQUMA, a fluorescent probe that allows the visualization of mtRNA G4 dynamics in live cells. Using this probe, we observed that, unlike cytoplasmic RNA G4s, which generally promote phase separation to form RNA granules, excessive formation of mtRNA G4s correlates with reduced assembly of mitochondrial RNA granules (MRGs). A MitoQUMA-based chemical genetic screen revealed that the Wnt/β-catenin pathway regulates this mitochondrial event by modulating GRSF1 expression, thereby affecting mtRNA G4 abundance and processing. When RNA processing is compromised, mtRNA maturation is impaired, and MRG becomes unstable and undergoes disassembly, ultimately disrupting mitochondrial gene expression and energy metabolism. Collectively, our study introduces a tool for real-time monitoring of mtRNA G4s in cells and identifies the Wnt/β-catenin-GRSF1-mtRNA G4 axis as a previously unrecognized pathway coordinating MRG assembly and energy metabolism, providing new insights into phase separation within mitochondria.",
+    "openalex_id": ""
+  },
+  {
+    "title": "BACH2 alleviates immune checkpoint inhibitors-induced cardiac pyroptosis via transcriptionally promoting GRSF1.",
+    "doi": "10.1002/ctm2.70618",
+    "pmid": "41665976",
+    "authors": [
+      "Cao M, Liu Z, Zhao D, Zhang H, He X, Wang W, Wang X, Yang C, Gao P, Zou Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Immunotherapy has revolutionized the treatment of malignant tumors; however, it may lead to fatal cardiotoxicity. Herein, we explored the mechanisms underlying cardiac side-effects induced by immune checkpoint inhibitors (ICIs) and proposed a promising therapeutic target.<h4>Methods</h4>Serum samples were collected from 168 patients with advanced non-small cell lung cancer (NSCLC) receiving ICIs treatment or not. Representative ICI (IBI308) was intraperitoneally injected into normal C57BL/6 and congenital immune deficient nude mice. NOD-like receptor family, pyrin domain containing 3 (Nlrp3) globally knockout mice and gasdermin D (Gsdmd) globally knockout mice were involved in this study. Mice with cardiac-specific BTB domain and CNC homolog 2 (Bach2) knock-in and knock-out were also included. The Cleavage Under Targets and Tagmentation (CUT&Tag) experiment was conducted to identify downstream molecules of BACH2, which was further validated with dual-luciferase and electrophoretic mobility shift assays (EMSA). A library of small-molecule products was screened to identify a specific agonist of BACH2, followed by in vivo and in vitro verification.<h4>Results</h4>Patients treated with ICIs had significantly higher cardiac troponin T (cTNT) and interleukin 18 (IL-18) levels. IBI308 significantly reduced cardiac function, increased cardiac fibrosis, and induced myocyte pyroptosis in wild type mice and T-cell deficient nude mice. IBI308-elicited toxicity was reversed by depleting pyroptotic genes Nlrp3 or Gsdmd. Furthermore, cardiac-specific knock-in of Bach2 rescued, whereas cardiac-specific knock-out of Bach2 exacerbated IBI308-induced cardiotoxicity and pyroptosis. BACH2 directly bound to the promoter of G-Rich RNA sequence binding factor 1 (GRSF1) and promoted its transcription, which then activated the nuclear factor κB (NF-κB) signaling cascade. The protective effect of BACH2 was dismissed after knockdown of GRSF1 or inhibition of the NF-κB pathway. Lipoic acid was identified as an activator of BACH2 and reversed IBI308-induced pyroptosis in a BACH2-dependent manner.<h4>Conclusions</h4>ICIs treatments caused preclinical cardiac injuries by activating myocyte pyroptosis. BACH2 exerted protective effects by promoting GRSF1 transcription and suppressing pyroptosis. Lipoic acid attenuated ICI-induced cardiotoxicity by upregulating BACH2, which might be a novel therapeutic strategy.<h4>Key points</h4>Immune checkpoint inhibitors cause elevated cardiac injuries in humans and mice ICIs cause myocyte pyroptosis and cardiotoxicity not via the adaptive immune system BACH2 ameliorates ICIs-induced pyroptosis through transcriptionally promoting GRSF1. Lipoic acid as a transcriptional inducer of BACH2 suppresses ICIs-induced cardiotoxicity.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mitochondrial LINC00942 activates complex I and inhibits ferroptosis through interacting with GRSF1 in liver cancer.",
+    "doi": "10.1007/s11427-025-3075-7",
+    "pmid": "41530642",
+    "authors": [
+      "Liao Y, Su Y, Liu Y, Song J, Li X, Shi Q, He X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-05",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Emerging evidence suggests that long non-coding RNAs (lncRNAs) play crucial roles in ferroptosis regulation, yet the detailed mechanisms remain largely elusive. In this study, we identify LINC00942, a ferroptosis-associated lncRNA, which localizes to mitochondria and coordinates ferroptosis and tumorigenesis by modulating mitochondrial function. Bioinformatic analysis establishes that LINC00942 is specifically overexpressed in hepatocellular carcinoma (HCC), and its high expression is closely associated with poor patient prognosis. Both in vitro and in vivo experiments demonstrate that LINC00942 promotes HCC cell proliferation, migration, and invasion. Furthermore, suppression of LINC00942 disrupts mitochondrial function, impairs energy metabolism, and increases mitochondrial lipid peroxidation and reactive oxygen species (ROS) levels, rendering HCC cells more susceptible to ferroptosis. Mechanistically, LINC00942 interacts with G-rich sequence factor 1 (GRSF1) and subsequently translocates to the mitochondria. Within mitochondria, LINC00942 facilitates the binding of GRSF1 to complex I mRNA, thereby enhancing the translation efficiency of complex I subunits. The resulting upregulation of complex I protein levels strengthens its enzymatic activity and promotes mitochondrial oxidative phosphorylation, while concurrently suppressing ferroptosis. In addition, DNA demethylation and CREB1 contribute to the transcriptional activation of LINC00942 in HCC. Notably, administration of GalNAc-conjugated siRNA targeting LINC00942 effectively suppresses tumor growth in orthotopic xenograft models. Collectively, these findings underscore the oncogenic function of LINC00942 through the modulation of mitochondrial bioenergetics and ferroptosis, highlighting it as a promising therapeutic target for HCC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Correction: Huang et al. Duodenal Adenocarcinoma Is Characterized by Acidity, High Infiltration of Macrophage, and Activated Linc01559-GRSF1 Axis. &lt;i&gt;Biomedicines&lt;/i&gt; 2025, &lt;i&gt;13&lt;/i&gt;, 1611.",
+    "doi": "10.3390/biomedicines13102531",
+    "pmid": "41153859",
+    "authors": [
+      "Huang X, Shi Y, Liu Z, Wu Y, Luo X, Chen D, Wei Z, Chen C, Ju H, Wu X, Liu X, Chen Z, Hu P."
+    ],
+    "year": "2025",
+    "publication_date": "2025-10-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "In the original publication [...].",
+    "openalex_id": ""
+  },
+  {
+    "title": "GRSF1 loss in THP-1 macrophages promotes senescence-associated transcription in neighboring fibroblasts.",
+    "doi": "10.1038/s41598-025-11385-0",
+    "pmid": "40813599",
+    "authors": [
+      "Lee Y, Jo S, Lim MH, Hwang S, Jang S, Kim K, Yoon SJ, Sima J, Idda ML, Kim KM, Gorospe M, Park C, Noh JH."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-14",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Immunosenescence, the age-associated decline in immune function, is accompanied by altered macrophage phenotypes and increased chronic inflammation. Here, we examined the role of the mitochondrial RNA-binding protein GRSF1 in regulating macrophage-driven inflammation and its impact on neighboring fibroblasts. We found that macrophages differentiated from GRSF1-deficient THP-1 monocytes, particularly M(IL-4 + IL-13) macrophages, displayed elevated IL6 mRNA expression levels and TNF-α secretion, without inducing overt senescence in macrophages themselves. Conditioned media from these macrophages triggered robust senescence-associated transcriptional changes in fibroblasts, including increased expression of IL6, TNF, DPP4, and IL8, as well as elevated SA-β-gal activity. Notably, expression of NF-κB-regulated long noncoding RNAs, such as ANRIL and PACER, was also induced in fibroblasts, suggesting the engagement of an NF-κB-linked inflammatory program. These transcriptional responses were mitigated by red ginseng extract, an anti-inflammatory compound known to suppress TNF-α signaling. Collectively, our findings suggest that GRSF1 depletion in macrophages contributes to a paracrine inflammatory niche that promotes senescence-associated gene expression in surrounding cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Host adaptive mutations in the 2009 H1N1 pandemic influenza A virus PA gene regulate translation efficiency of viral mRNAs via GRSF1.",
+    "doi": "10.1038/s42003-022-04082-5",
+    "pmid": "36253464",
+    "authors": [
+      "Lutz M, Schmierer J, Takimoto T."
+    ],
+    "year": "2022",
+    "publication_date": "2022-10-17",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "Avian species are the major natural reservoir from which pandemic influenza A viruses can be introduced to humans. Avian influenza A virus genes, including the three viral polymerase genes, PA, PB1 and PB2, require host-adaptive mutations to allow for viral replication and transmission in humans. Previously, PA from the 2009 pH1N1 viral polymerase was found to harbor host-adaptive mutations leading to enhanced viral polymerase activity. By quantifying translation and mRNA transcription, we found that the 2009 pH1N1 PA, and the associated host-adaptive mutations, led to greater translation efficiency. This was due to enhanced cytosolic accumulation of viral mRNA, which was dependent on the host RNA binding protein GRSF1. Mutations to the GRSF1 binding site in viral mRNA, as well as GRSF1 knockdown, reduced cytosolic accumulation and translation efficiency of viral mRNAs. This study identifies a previously unrecognized mechanism by which host-adaptive mutations in PA regulate viral replication and host adaptation. Importantly, these results provide greater insight into the host adaptation process of IAVs and reveal the importance of GRSF1 in the lifecycle of IAV.",
+    "openalex_id": ""
+  }
+]

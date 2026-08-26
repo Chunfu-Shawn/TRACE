@@ -1,0 +1,170 @@
+[
+  {
+    "title": "LncRNA-dependent nuclear stress bodies promote intron retention through SR protein phosphorylation.",
+    "doi": "10.15252/embj.2019102729",
+    "pmid": "31782550",
+    "authors": [
+      "Ninomiya K, Adachi S, Natsume T, Iwakiri J, Terai G, Asai K, Hirose T."
+    ],
+    "year": "2020",
+    "publication_date": "2019-11-29",
+    "cited_by_count": 139,
+    "journal": "",
+    "abstract": "A number of long noncoding RNAs (lncRNAs) are induced in response to specific stresses to construct membrane-less nuclear bodies; however, their function remains poorly understood. Here, we report the role of nuclear stress bodies (nSBs) formed on highly repetitive satellite III (HSATIII) lncRNAs derived from primate-specific satellite III repeats upon thermal stress exposure. A transcriptomic analysis revealed that depletion of HSATIII lncRNAs, resulting in elimination of nSBs, promoted splicing of 533 retained introns during thermal stress recovery. A HSATIII-Comprehensive identification of RNA-binding proteins by mass spectrometry (ChIRP-MS) analysis identified multiple splicing factors in nSBs, including serine and arginine-rich pre-mRNA splicing factors (SRSFs), the phosphorylation states of which affect splicing patterns. SRSFs are rapidly de-phosphorylated upon thermal stress exposure. During stress recovery, CDC like kinase 1 (CLK1) was recruited to nSBs and accelerated the re-phosphorylation of SRSF9, thereby promoting target intron retention. Our findings suggest that HSATIII-dependent nSBs serve as a conditional platform for phosphorylation of SRSFs by CLK1 to promote the rapid adaptation of gene expression through intron retention following thermal stress exposure.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Differential Genes Expression between Fertile and Infertile Spermatozoa Revealed by Transcriptome Analysis.",
+    "doi": "10.1371/journal.pone.0127007",
+    "pmid": "25973848",
+    "authors": [
+      "Bansal SK, Gupta N, Sankhwar SN, Rajender S."
+    ],
+    "year": "2015",
+    "publication_date": "2015-05-14",
+    "cited_by_count": 118,
+    "journal": "",
+    "abstract": "<h4>Background</h4>It was believed earlier that spermatozoa have no traces of RNA because of loss of most of the cytoplasm. Recent studies have revealed the presence of about 3000 different kinds of mRNAs in ejaculated spermatozoa. However, the correlation of transcriptome profile with infertility remains obscure.<h4>Methods</h4>Total RNA from sperm (after exclusion of somatic cells) of 60 men consisting of individuals with known fertility (n=20), idiopathic infertility (normozoospermic patients, n=20), and asthenozoospermia (n=20) was isolated. After RNA quality check on Bioanalyzer, AffymetrixGeneChip Human Gene 1.0 ST Array was used for expression profiling, which consisted of >30,000 coding transcripts and >11,000 long intergenic non-coding transcripts.<h4>Results</h4>Comparison between all three groups revealed that two thousand and eighty one transcripts were differentially expressed. Analysis of these transcripts showed that some transcripts [ribosomal proteins (RPS25, RPS11, RPS13, RPL30, RPL34, RPL27, RPS5), HINT1, HSP90AB1, SRSF9, EIF4G2, ILF2] were up-regulated in the normozoospermic group, but down-regulated in the asthenozoospermic group in comparison to the control group. Some transcripts were specific to the normozoospermic group (up-regulated: CAPNS1, FAM153C, ARF1, CFL1, RPL19, USP22; down-regulated: ZNF90, SMNDC1, c14orf126, HNRNPK), while some were specific to the asthenozoospermic group (up-regulated: RPL24, HNRNPM, RPL4, PRPF8, HTN3, RPL11, RPL28, RPS16, SLC25A3, C2orf24, RHOA, GDI2, NONO, PARK7; down-regulated: HNRNPC, SMARCAD1, RPS24, RPS24, RPS27A, KIFAP3). A number of differentially expressed transcripts in spermatozoa were related to reproduction (n = 58) and development (n= 210). Some of these transcripts were related to heat shock proteins (DNAJB4, DNAJB14), testis specific genes (TCP11, TESK1, TSPYL1, ADAD1), and Y-chromosome genes (DAZ1, TSPYL1).<h4>Conclusion</h4>A complex RNA population in spermatozoa consisted of coding and non-coding RNAs. A number of transcripts that participate in a host of cellular processes, including reproduction and development were differentially expressed between fertile and infertile individuals. Differences between comparison groups suggest that sperm RNA has strong potential of acting as markers for fertility evaluation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF1 and SRSF9 RNA binding proteins promote Wnt signalling-mediated tumorigenesis by enhancing β-catenin biosynthesis.",
+    "doi": "10.1002/emmm.201202218",
+    "pmid": "23592547",
+    "authors": [
+      "Fu Y, Huang B, Shi Z, Han J, Wang Y, Huangfu J, Wu W."
+    ],
+    "year": "2013",
+    "publication_date": "2013-04-17",
+    "cited_by_count": 101,
+    "journal": "",
+    "abstract": "Wnt/β-catenin signalling is widely implicated in embryogenesis, tissue homeostasis and tumorigenesis. The key event in Wnt signalling activation is β-catenin accumulation, which is controlled by both its production and degradation. However, much more emphasis has been placed on the understanding of its degradation. Here, we show that the synthesis of β-catenin protein, which requires a group of serine/arginine-rich splicing factors (SRSF), also contributes to its tumorigenic activity. Overexpression of SRSF1 and SRSF9 promote β-catenin accumulation via the recruitment of β-catenin mRNA and by enhancing its translation in an mTOR-dependent manner. We further demonstrate that, like SRSF1, SRSF9 is also an oncogene, and is frequently overexpressed in multiple types of human tumours. Finally, our results suggest that promoting degradation and blocking production of β-catenin synergistically reduce β-catenin levels under pathological conditions and that a combinational therapy could be a promising approach for the treatment of cancer patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tumor suppressive microRNA-1 mediated novel apoptosis pathways through direct inhibition of splicing factor serine/arginine-rich 9 (SRSF9/SRp30c) in bladder cancer.",
+    "doi": "10.1016/j.bbrc.2011.12.011",
+    "pmid": "22178073",
+    "authors": [
+      "Yoshino H, Enokida H, Chiyomaru T, Tatarano S, Hidaka H, Yamasaki T, Gotannda T, Tachiwada T, Nohata N, Yamane T, Seki N, Nakagawa M."
+    ],
+    "year": "2012",
+    "publication_date": "2011-12-09",
+    "cited_by_count": 67,
+    "journal": "",
+    "abstract": "We have previously found that restoration of tumor suppressive microRNA-1 (miR-1), induced cell apoptosis in bladder cancer (BC) cell lines. However, the apoptosis mechanism induced by miR-1 was not fully elucidated. Alternative splicing of mRNA precursors provides cancer cells with opportunities to translate many oncogenic protein variants, which promote cell proliferation and survival under unpreferable condition for cancer development. Serine/arginine-rich (SR) protein family, which involved in alternative pre-mRNA splicing, plays a critical role for regulating apoptosis by splicing apoptosis-related genes. However, transcriptional regulation of SR proteins, themselves, has not been elucidated. In this study, we focused on splicing factor serine/arginine-rich 9 (SRSF9/SRp30c) on the basis of our previous genome-wide gene expression analysis using miR-1-transfected BC cell lines because putative target sites of miR-1 are existed in 3'-untranslated region (UTR) of SRSF9 mRNA. The expression levels of mRNA of SRSF9 were extremely reduced in the miR-1 transfectants. A luciferase activity significantly decreased in the transfectants suggesting that actual binding occurred between miR-1 and 3'UTR of SRSF9 mRNA. Loss-of-function assays demonstrated that significant inhibitions of cell proliferation, migration, and invasion were observed in the si-SRSF9 transfectants. Apoptosis assays demonstrated that cell apoptosis fraction increased and that caspase-3/7 was activated in the si-SRSF9 transfectants. Our data indicated that tumor suppressive miR-1 induces apoptosis through direct inhibition of SRSF9 in BC. The identification of molecular mechanisms between miRNAs and SR proteins could provide novel apoptosis pathways and their epigenetic regulations and offer new strategies for BC treatment.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splicing of long non-coding RNAs primarily depends on polypyrimidine tract and 5' splice-site sequences due to weak interactions with SR proteins.",
+    "doi": "10.1093/nar/gky1147",
+    "pmid": "30445574",
+    "authors": [
+      "Krchnáková Z, Thakur PK, Krausová M, Bieberstein N, Haberman N, Müller-McNicoll M, Stanek D."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-01",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Many nascent long non-coding RNAs (lncRNAs) undergo the same maturation steps as pre-mRNAs of protein-coding genes (PCGs), but they are often poorly spliced. To identify the underlying mechanisms for this phenomenon, we searched for putative splicing inhibitory sequences using the ncRNA-a2 as a model. Genome-wide analyses of intergenic lncRNAs (lincRNAs) revealed that lincRNA splicing efficiency positively correlates with 5'ss strength while no such correlation was identified for PCGs. In addition, efficiently spliced lincRNAs have higher thymidine content in the polypyrimidine tract (PPT) compared to efficiently spliced PCGs. Using model lincRNAs, we provide experimental evidence that strengthening the 5'ss and increasing the T content in PPT significantly enhances lincRNA splicing. We further showed that lincRNA exons contain less putative binding sites for SR proteins. To map binding of SR proteins to lincRNAs, we performed iCLIP with SRSF2, SRSF5 and SRSF6 and analyzed eCLIP data for SRSF1, SRSF7 and SRSF9. All examined SR proteins bind lincRNA exons to a much lower extent than expression-matched PCGs. We propose that lincRNAs lack the cooperative interaction network that enhances splicing, which renders their splicing outcome more dependent on the optimality of splice sites.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphoproteomics reveals that glycogen synthase kinase-3 phosphorylates multiple splicing factors and is associated with alternative splicing.",
+    "doi": "10.1074/jbc.m117.813527",
+    "pmid": "28916722",
+    "authors": [
+      "Shinde MY, Sidoli S, Kulej K, Mallory MJ, Radens CM, Reicherter AL, Myers RL, Barash Y, Lynch KW, Garcia BA, Klein PS."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-15",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Glycogen synthase kinase-3 (GSK-3) is a constitutively active, ubiquitously expressed protein kinase that regulates multiple signaling pathways. <i>In vitro</i> kinase assays and genetic and pharmacological manipulations of GSK-3 have identified more than 100 putative GSK-3 substrates in diverse cell types. Many more have been predicted on the basis of a recurrent GSK-3 consensus motif ((pS/pT)<i>XXX</i>(S/T)), but this prediction has not been tested by analyzing the GSK-3 phosphoproteome. Using stable isotope labeling of amino acids in culture (SILAC) and MS techniques to analyze the repertoire of GSK-3-dependent phosphorylation in mouse embryonic stem cells (ESCs), we found that ∼2.4% of (pS/pT)<i>XXX</i>(S/T) sites are phosphorylated in a GSK-3-dependent manner. A comparison of WT and <i>Gsk3a;Gsk3b</i> knock-out (<i>Gsk3</i> DKO) ESCs revealed prominent GSK-3-dependent phosphorylation of multiple splicing factors and regulators of RNA biosynthesis as well as proteins that regulate transcription, translation, and cell division. <i>Gsk3</i> DKO reduced phosphorylation of the splicing factors RBM8A, SRSF9, and PSF as well as the nucleolar proteins NPM1 and PHF6, and recombinant GSK-3β phosphorylated these proteins <i>in vitro</i> RNA-Seq of WT and <i>Gsk3</i> DKO ESCs identified ∼190 genes that are alternatively spliced in a GSK-3-dependent manner, supporting a broad role for GSK-3 in regulating alternative splicing. The MS data also identified posttranscriptional regulation of protein abundance by GSK-3, with ∼47 proteins (1.4%) whose levels increased and ∼78 (2.4%) whose levels decreased in the absence of GSK-3. This study provides the first unbiased analysis of the GSK-3 phosphoproteome and strong evidence that GSK-3 broadly regulates alternative splicing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization of the RNA recognition mode of hnRNP G extends its role in SMN2 splicing regulation.",
+    "doi": "10.1093/nar/gku244",
+    "pmid": "24692659",
+    "authors": [
+      "Moursy A, Allain FH, Cléry A."
+    ],
+    "year": "2014",
+    "publication_date": "2014-04-01",
+    "cited_by_count": 52,
+    "journal": "",
+    "abstract": "Regulation of SMN2 exon 7 splicing is crucial for the production of active SMN protein and the survival of Spinal Muscular Atrophy (SMA) patients. One of the most efficient activators of exon 7 inclusion is hnRNP G, which is recruited to the exon by Tra2-β1. We report that in addition to the C-terminal region of hnRNP G, the RNA Recognition Motif (RRM) and the middle part of the protein containing the Arg-Gly-Gly (RGG) box are important for this function. To better understand the mode of action of hnRNP G in this context we determined the structure of its RRM bound to an SMN2 derived RNA. The RRM interacts with a 5'-AAN-3' motif and specifically recognizes the two consecutive adenines. By testing the effect of mutations in hnRNP G RRM and in its putative binding sites on the splicing of SMN2 exon 7, we show that it specifically binds to exon 7. This interaction is required for hnRNP G splicing activity and we propose its recruitment to a polyA tract located upstream of the Tra2-β1 binding site. Finally, our data suggest that hnRNP G plays a major role in the recruitment of the Tra2-β1/hnRNP G/SRSF9 trimeric complex to SMN2 exon 7.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Inhibition of SRSF9 enhances the sensitivity of colorectal cancer to erastin-induced ferroptosis by reducing glutathione peroxidase 4 expression.",
+    "doi": "10.1016/j.biocel.2021.105948",
+    "pmid": "33609745",
+    "authors": [
+      "Wang R, Su Q, Yin H, Wu D, Lv C, Yan Z."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-17",
+    "cited_by_count": 40,
+    "journal": "",
+    "abstract": "Ferroptosis, a newly iron-dependent form of cell death, is often accompanied by the damage of membrane lipid peroxide. Recently, the ferroptosis inducer erastin has been reported to exhibit potential anti-cancer activities. The aim of this study was to investigate the effects of SRSF9 on the sensitivity of colorectal cancer (CRC) to erastin and explore the underlying molecular mechanism. Short hairpin RNAs (shRNAs) or SRSF9 overexpression vector (SRSF9-OE) was transfected into erastin-induced human CRC cells to inhibit or overexpress SRSF9. Results showed that SRSF9 inhibition promoted the cell death induced by erastin, conversely, SRSF9 overexpression augmented the resistance to erastin-induced death in human CRC cells. SRSF9 decreased lipid peroxide damage which was a key event during erastin-induced ferroptosis in human CRC cells. Furthermore, we found that SRSF9 inhibition increased erastin-induced ferroptosis by downregulating GPX4 level. In an In vivo study, SRSF9 shRNA or SRSF9-OE stably transfected human CRC cells were subcutaneously injected into the right flank of nude mice. SRSF9 overexpression partly abolished the tumor growth inhibition and ferroptosis induced by erastin. Our data indicated SRSF9's regulation of GPX4 as an essential mechanism driving CRC tumorigenesis and resistance of erastin-induced ferroptosis. This molecular mechanism may provide a novel method for improving the sensitivity of CRC to erastin.",
+    "openalex_id": ""
+  },
+  {
+    "title": "microRNA-802 inhibits cell proliferation and induces apoptosis in human cervical cancer by targeting serine/arginine-rich splicing factor 9.",
+    "doi": "10.1002/jcb.28321",
+    "pmid": "30565744",
+    "authors": [
+      "Zhang Q, Lv R, Guo W, Li X."
+    ],
+    "year": "2019",
+    "publication_date": "2018-12-19",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "microRNAs (miRNAs) play crucial roles in cancer development and progression by targeting mRNAs for degradation and/or translational repression. microRNA-802 (miR-802) has been reported as a tumor suppressor and its deregulation is observed in various human cancers. However, the prognostic value of miR-802 and its underlying mechanisms involved in human cervical cancer are poorly investigated. The purposes of this study were to explore the role of miR-802 in cervical cancer and to clarify the regulation of serine/arginine-rich splicing factor 9 (SRSF9) by miR-802. Here, we found that miR-802 was downregulated in both cervical cancer tissues and cell lines. Transfection of a miR-802 mimic into cervical cancer cells inhibited their proliferation and colony formation, and promoted cell cycle arrest at the G0/G1 phase and cell apoptosis. In addition, we found that miR-802 could directly target the 3'-untranslated region of SRSF9 and suppress SRSF9 expression. Rescue experiments revealed that overexpression of SRSF9 partially reversed the inhibition effect of miR-802 in cervical cancer cells. Overall, these findings demonstrate that miR-802 functions as a tumor suppressor in cervical cancer by targeting SRSF9, suggesting that miR-802 might serve as a potential therapeutic target in cervical cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Homologous Transcription Factors DUX4 and DUX4c Associate with Cytoplasmic Proteins during Muscle Differentiation.",
+    "doi": "10.1371/journal.pone.0146893",
+    "pmid": "26816005",
+    "authors": [
+      "Ansseau E, Eidahl JO, Lancelot C, Tassin A, Matteotti C, Yip C, Liu J, Leroy B, Hubeau C, Gerbaux C, Cloet S, Wauters A, Zorbo S, Meyer P, Pirson I, Laoudj-Chenivesse D, Wattiez R, Harper SQ, Belayew A, Coppée F."
+    ],
+    "year": "2016",
+    "publication_date": "2016-01-27",
+    "cited_by_count": 36,
+    "journal": "",
+    "abstract": "Hundreds of double homeobox (DUX) genes map within 3.3-kb repeated elements dispersed in the human genome and encode DNA-binding proteins. Among these, we identified DUX4, a potent transcription factor that causes facioscapulohumeral muscular dystrophy (FSHD). In the present study, we performed yeast two-hybrid screens and protein co-purifications with HaloTag-DUX fusions or GST-DUX4 pull-down to identify protein partners of DUX4, DUX4c (which is identical to DUX4 except for the end of the carboxyl terminal domain) and DUX1 (which is limited to the double homeodomain). Unexpectedly, we identified and validated (by co-immunoprecipitation, GST pull-down, co-immunofluorescence and in situ Proximal Ligation Assay) the interaction of DUX4, DUX4c and DUX1 with type III intermediate filament protein desmin in the cytoplasm and at the nuclear periphery. Desmin filaments link adjacent sarcomere at the Z-discs, connect them to sarcolemma proteins and interact with mitochondria. These intermediate filament also contact the nuclear lamina and contribute to positioning of the nuclei. Another Z-disc protein, LMCD1 that contains a LIM domain was also validated as a DUX4 partner. The functionality of DUX4 or DUX4c interactions with cytoplasmic proteins is underscored by the cytoplasmic detection of DUX4/DUX4c upon myoblast fusion. In addition, we identified and validated (by co-immunoprecipitation, co-immunofluorescence and in situ Proximal Ligation Assay) as DUX4/4c partners several RNA-binding proteins such as C1QBP, SRSF9, RBM3, FUS/TLS and SFPQ that are involved in mRNA splicing and translation. FUS and SFPQ are nuclear proteins, however their cytoplasmic translocation was reported in neuronal cells where they associated with ribonucleoparticles (RNPs). Several other validated or identified DUX4/DUX4c partners are also contained in mRNP granules, and the co-localizations with cytoplasmic DAPI-positive spots is in keeping with such an association. Large muscle RNPs were recently shown to exit the nucleus via a novel mechanism of nuclear envelope budding. Following DUX4 or DUX4c overexpression in muscle cell cultures, we observed their association with similar nuclear buds. In conclusion, our study demonstrated unexpected interactions of DUX4/4c with cytoplasmic proteins playing major roles during muscle differentiation. Further investigations are on-going to evaluate whether these interactions play roles during muscle regeneration as previously suggested for DUX4c.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SRSF9 promotes colorectal cancer progression via stabilizing DSN1 mRNA in an m6A-related manner.",
+    "doi": "10.1186/s12967-022-03399-3",
+    "pmid": "35509101",
+    "authors": [
+      "Wang X, Lu X, Wang P, Chen Q, Xiong L, Tang M, Hong C, Lin X, Shi K, Liang L, Lin J."
+    ],
+    "year": "2022",
+    "publication_date": "2022-05-04",
+    "cited_by_count": 35,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Serine/arginine-rich splicing factor 9 (SRSF9) is a classical RNA-binding protein that is essential for regulating gene expression programs through its interaction with target RNA. Whether SRSF9 plays an essential role in colorectal cancer (CRC) progression and can serve as a therapeutic target is largely unknown. Here, we highlight new findings on the role of SRSF9 in CRC progression and elucidate the underlying mechanism.<h4>Methods</h4>CRC cell lines and clinical tissue samples were used. qRT-PCR, Western blotting, immunohistochemistry (IHC), gain- and loss-of-function assays, animal xenograft model studies, bioinformatic analysis, methylated single-stranded RNA affinity assays, gene-specific m6A quantitative qRT-PCR, dual-luciferase reporter assays and RNA stability assays were performed in this study.<h4>Results</h4>The expression level of SRSF9 was higher in CRC cell lines than that in an immortal human intestinal epithelial cell line. Overexpression of SRSF9 was positively associated with lymph node metastasis and Dukes stage. Functionally, SRSF9 promoted cell proliferation, migration and invasion in vitro and xenograft growth. The results of bioinformatic analysis indicated that DSN1 was the downstream target of SRSF9. In CRC cells and clinical tissue samples, the expression of SRSF9 was positively associated with the expression of DSN1. Knockdown of DSN1 partially inhibited the SRSF9-induced phenotype in CRC cells. Mechanistically, we further found that SRSF9 is an m6A-binding protein and that m6A modifications were enriched in DSN1 mRNA in CRC cells. Two m6A modification sites (chr20:36773619-36773620 and chr20:36773645-chr20:36773646) in the SRSF9-binding region (chr20:36773597-36773736) of DSN1 mRNA were identified. SRSF9 binds to DSN1 in an m6A motif- and dose-dependent manner. SRSF9 modulates the expression of DSN1 in CRC cells. Such expression regulation was largely impaired upon methyltransferase METTL3 knockdown. Moreover, knockdown of SRSF9 accelerated DSN1 mRNA turnover, while overexpression of SRSF9 stabilized DSN1 mRNA in CRC cells. Such stabilizing was also weakened upon METTL3 knockdown.<h4>Conclusion</h4>Overexpression of SRSF9 was associated with lymph node metastasis and Dukes stage in CRC. Knockdown of DSN1 eliminated the effects by SRSF9 overexpression in CRC. Our results indicated that SRSF9 functions as an m6A-binding protein (termed \"reader\") by enhancing the stability of DSN1 mRNA in m6A-related manner. Our study is the first to report that SRSF9-mediated m6A recognition has a crucial role in CRC progression, and highlights SRSF9 as a potential therapeutic target for CRC management.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification and Validation of Reference Genes for RT-qPCR Studies of Hypoxia in Squamous Cervical Cancer Patients.",
+    "doi": "10.1371/journal.pone.0156259",
+    "pmid": "27244197",
+    "authors": [
+      "Fjeldbo CS, Aarnes EK, Malinen E, Kristensen GB, Lyng H."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-31",
+    "cited_by_count": 33,
+    "journal": "",
+    "abstract": "Hypoxia is an adverse factor in cervical cancer, and hypoxia-related gene expression could be a powerful biomarker for identifying the aggressive hypoxic tumors. Reverse transcription quantitative PCR (RT-qPCR) is a valuable method for gene expression studies, but suitable reference genes for data normalization that are independent of hypoxia status and clinical parameters of cervical tumors are lacking. In the present work, we aimed to identify reference genes for RT-qPCR studies of hypoxia in squamous cervical cancer. From 422 candidate reference genes selected from the literature, we used Illumina array-based expression profiles to identify 182 genes not affected by hypoxia in cervical cancer, i.e. genes regulated by hypoxia in eight cervical cancer cell lines or correlating with the hypoxia-associated dynamic contrast-enhanced magnetic resonance imaging parameter ABrix in 42 patients, were excluded. Among the 182 genes, nine candidates (CHCHD1, GNB2L1, IPO8, LASP1, RPL27A, RPS12, SOD1, SRSF9, TMBIM6) that were not associated with tumor volume, stage, lymph node involvement or disease progression in array data of 150 patients, were selected for further testing by RT-qPCR. geNorm and NormFinder analyses of RT-qPCR data of 74 patients identified CHCHD1, SRSF9 and TMBIM6 as the optimal set of reference genes, with stable expression both overall and across patient subgroups with different hypoxia status (ABrix) and clinical parameters. The suitability of the three reference genes were validated in studies of the hypoxia-induced genes DDIT3, ERO1A, and STC2. After normalization, the RT-qPCR data of these genes showed a significant correlation with Illumina expression (P<0.001, n = 74) and ABrix (P<0.05, n = 32), and the STC2 data were associated with clinical outcome, in accordance with the Illumina data. Thus, CHCHD1, SRSF9 and TMBIM6 seem to be suitable reference genes for studying hypoxia-related gene expression in squamous cervical cancer samples by RT-qPCR. Moreover, STC2 is a promising prognostic hypoxia biomarker in cervical cancer.",
+    "openalex_id": ""
+  }
+]

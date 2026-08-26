@@ -1,0 +1,170 @@
+[
+  {
+    "title": "ADAR1 Regulates Alternative Splicing Through an RNA Editing-Independent Mechanism.",
+    "doi": "10.3390/ijms27093952",
+    "pmid": "42123534",
+    "authors": [
+      "Sagredo EA, Karlström V, Blanco A, Moraga P, Vergara M, Jarvelin AI, Visa N, Marcelain K, Castello A, Armisén R."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-29",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Dysregulation of the RNA-editing enzyme ADAR1 is associated with human diseases, including cancer, but its RNA-editing-independent roles in alternative splicing remain largely unexplored. Comprehending these molecular mechanisms is paramount, as they may unveil novel therapeutic targets. This study elucidates how the ADAR1p110 isoform influences alternative splicing independently of its canonical editing activity. Employing RNA-sequencing, proteomic analysis of ADAR1p110 interactors, and functional assays with wild-type and mutant ADAR1 in diverse human cell lines (including cancer models), we investigated its impact on the splicing landscape. Our findings indicate that ADAR1p110 interacts with pivotal spliceosome components and auxiliary splicing regulators. Notably, ADAR1 extensively modulates alternative-splicing events, with most of these alterations occurring independently of its RNA-editing activity and often its RNA-binding capacity. Furthermore, ADAR1 alters the isoform expression of other splicing factors (e.g., ACIN1), suggesting an indirect regulatory mechanism. Importantly, this splicing reprogramming affects genes that govern therapeutic response, positioning the ADAR-splicing axis as a potential driver of drug resistance. By revealing this predominantly editing-independent mechanism, we expand the understanding of ADAR1's non-canonical functions and identify a new avenue for therapeutic intervention in cancer.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ADAR1 and ADAR2 associate with the RNA exosome and modulate RNA stability.",
+    "doi": "10.1093/nar/gkag381",
+    "pmid": "42033221",
+    "authors": [
+      "Vukić D, Du Q, Cherian A, Amoruso D, Brožinová K, Wacheul L, Lacovich V, Zorbas C, Yadav L, Sedmík J, Keskitalo S, Hajji K, Stejskal S, Varjosalo M, Lafontaine DLJ, Keegan LP, O'Connell MA."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The adenosine deaminase acting on RNA (ADAR) enzymes deaminate adenosine to inosine in double-stranded (ds)RNA. Mammals express two catalytically active enzymes: ADAR1, which is ubiquitously expressed and essential for innate immune homeostasis, and ADAR2, which is enriched in the brain and vascular system. Here, we investigate the ADAR2 interactome and uncover a shared interaction network with ADAR1, including multiple components of the RNA exosome complex, a multi-subunit RNase involved in RNA processing, turnover, and surveillance. The interactions between ADARs and RNA exosome components are nuclear, and resistance to RNase A treatment implies their close proximity. We validated these interactions by immunoprecipitation of both endogenous and epitope-tagged ADAR proteins in multiple cell lines and mapped the interaction interfaces to their dsRNA-binding domains. Exploiting an MS2-MCP tethering system, we show that recruitment of ADAR1 or ADAR2 to the 3' UTR of a reporter transcript decreases its stability. This decrease in RNA levels was reversed when EXOSC3 was depleted, demonstrating that this destabilizing effect of ADARs on RNA is via the RNA exosome complex. Finally, knockdown of ADARs perturbs rRNA processing, a canonical function of the nuclear exosome, demonstrating a cellular consequence of disrupting ADAR-exosome interactions.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Systematic analysis of A-to-I RNA editing upon release of ADAR from the nucleolus.",
+    "doi": "10.1080/15476286.2025.2515655",
+    "pmid": "40464638",
+    "authors": [
+      "Lattuca R, Bascetin R, Detours V, Lafontaine DLJ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Adenosine-to-inosine (A-to-I) RNA editing, catalysed by two ADAR isoforms (p110 and p150) and ADARB1, is a critical regulatory step in gene expression. Intriguingly, the nucleolus is conspicuously rich in ADAR p110 and ADARB1, though the biological reason remains unclear. To investigate a putative role of nucleolar enrichment in ADAR, we released it gradually from the nucleolus into the nucleoplasm by treating cells briefly with low doses of actinomycin D, known to disassemble the nucleolus. Deep sequencing of the transcriptome revealed that as ADAR dissociated from the nucleolus, RNA editing increased significantly, with sharp rises in both the number of edited sites and editing frequency. This co-transcriptional editing, predominantly in intronic regions, was associated with disrupted pre-mRNA splicing, causing exon skipping and intron retention which remodelled gene expression. These findings suggest that the nucleolar localization of ADAR serves to restrain its activity, preventing excessive editing that could lead to splicing errors and cellular dysfunction.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The context-dependent role of the dsRNA response in linking A-to-I editing and ADAR to normal hematopoiesis and leukemia.",
+    "doi": "10.3389/fcell.2026.1799320",
+    "pmid": "42267183",
+    "authors": [
+      "Li X, Xu J, Yu J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Adenosine-to-inosine (A-to-I) RNA editing, catalyzed by adenosine deaminase acting on RNA (ADAR), contributes to cellular RNA homeostasis. By recoding protein, inducing alternative splicing and regulating non-coding RNAs, ADAR-mediated editing influences diverse biological processes including development, homeostasis and pathogenesis. In particular, ADAR-mediated A-to-I editing prevents endogenous double-stranded RNAs from improperly activating pattern recognition receptors and downstream innate immune response (dsRNA response), thereby modulating immune homeostasis in a context-dependent manner. Compelling evidence from human studies and animal models implicates ADAR-mediated A-to-I editing in key hematological processes including embryonic and adult hematopoiesis. Notably, dysregulated ADAR functions and aberrant A-to-I editing are increasingly associated with leukemia pathogenesis and progression, thereby exihibiting novel clinical potentials. Given the intimate crosstalk between the hematological and immune systems, it is likely that ADAR's immunosuppressive function mediates these pleiotropic effects of hematological A-to-I editing. In this review, we synthesize current knowledge on A-to-I editing and ADAR in normal hematopoiesis and leukemia. We then reinterpret these findings from an immunological perspective. We highlight the context-dependence of the ADAR1-dsRNA response axis, and characterize it from three perspectives: 1) the shift in axis requirement from normal to malignant states; 2) the involvement of distinct dsRNA sensor(s); 3) the relative hierarchy between editing-dependent mechanism and editing-independent mechanism. Specifically, we propose that the axis is generally indispensable for normal hematopoiesis, whereas its requirement may exhibit intra-leukemia and inter-leukemia heterogeneity. Based on this heterogeneity, we further discuss the diverse translational potentials of this axis, including therapeutic strategies, resistance biomarkers and prognostic predictors. Finally, we identify key theoretical gaps and methodological limitations in exploring this axis, hoping to inspire novel research directions and advance clinical management for leukemia.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Therapeutics for Duchenne Muscular Dystrophy: Exon Skipping, RNA Editing, and Translational Insights from Genome-Edited Microminipig Models.",
+    "doi": "10.3390/ijms27062755",
+    "pmid": "41898615",
+    "authors": [
+      "Chassin A, Ono H, Ashida Y, Imamura M, Aoki Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-18",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Duchenne muscular dystrophy (DMD) is a severe X-linked neuromuscular disease (NMD) caused by loss-of-function mutations in the <i>DMD</i> gene. RNA-based therapies, especially antisense oligonucleotides (ASO)-mediated exon skipping and adenosine deaminase acting on RNA (ADAR)-guided RNA editing, have emerged as complementary approaches that modulate pre-mRNA splicing or correct transcripts without altering genomic DNA. Current phosphorodiamidate morpholino oligomer (PMO) drugs targeting exons 51, 53, and 45 provide mutation-class-specific benefit. At the same time, next-generation delivery strategies (e.g., peptide-conjugated PMOs (PPMOs), antibody-oligonucleotide conjugates (AOC), and endosomal-escape vehicles) aim to improve skeletal, cardiac, and diaphragm exposure. In parallel, RNA editing strategies offer a route to correct select nonsense or missense variants at the base level and may, in principle, restore near-native dystrophin expression. Meaningful translation of these modalities requires predictive large-animal models. A genome-edited microminipig (MMP) bearing <i>DMD</i> exon-23 mutations faithfully recapitulates hallmark features of human DMD. That includes early locomotor deficits, elevated serum creatine kinase (CK) and cardiac troponin T, progressive myocardial fibrosis, and a decline in left-ventricular ejection fraction (LVEF), while maintaining a manageable lifespan of approximately 30 months suitable for long-term studies. In particular, the MMP model provides a practical platform for addressing the persistent challenge of efficient therapeutic delivery to the heart and diaphragm through longitudinal dosing, imaging, and biopsy. In this review, we synthesize clinical progress in exon skipping, outline the promise of RNA editing, and integrate recent insights from Duchenne muscular dystrophy model for microminipigs (DMD-MMPs) as an advanced surrogate for preclinical development and translational evaluation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Two codes of RNA editing by deamination in human diseases.",
+    "doi": "10.1038/s12276-025-01633-8",
+    "pmid": "41708996",
+    "authors": [
+      "Min DJ, Lee S, Lee YS, Cho J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "RNA editing is a post-transcriptional modification that expands transcriptomic and proteomic diversity. Advances in high-throughput sequencing across a broad range of biological and pathological contexts have enabled systematic identification of editing events driven by two major RNA deaminase families: ADAR and APOBEC, which catalyze adenosine-to-inosine (A-to-I) and cytidine-to-uridine (C-to-U) substitution, respectively. Genome-wide profiling of RNA editing has uncovered a substantial number of differentially edited loci in various conditions, implicating the post-transcriptional events in physiological and pathological regulation. Aberrant RNA editing alters the functional information of coding and noncoding transcripts, perturbing protein activity, RNA stability and other gene expression programs, which contributes to immune imbalance, viral infection, neurological impairment, metabolic disorders and tumorigenesis. The two codes of A-to-I and C-to-U RNA editing harbor common potential for single base conversion with varied expression of responsible enzymes across many physiological and pathological conditions. Here we provide a comprehensive and parallel overview on ADAR-mediated A-to-I and APOBEC-mediated C-to-U editing, with emphasis on their molecular mechanisms, physiological roles and pathological dysregulation in human health and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Enhancing RNA base editing on mammalian transcripts with small nuclear RNAs.",
+    "doi": "10.1038/s41589-025-02026-8",
+    "pmid": "40968292",
+    "authors": [
+      "Smargon AA, Pant D, Gomberg TA, Fagre C, Glynne S, Nguyen J, Naritomi JT, Gilbert WV, Yeo GW."
+    ],
+    "year": "2026",
+    "publication_date": "2025-09-18",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Endogenous uridine-rich small nuclear RNAs (U snRNAs) form RNA-protein complexes to process eukaryotic pre-mRNA into mRNA. Previous studies have demonstrated programmable U snRNA guide-targeted exon inclusion and exclusion. Here we investigated whether snRNAs can also enhance RNA base editing over state-of-the-art RNA-targeting technologies in human cells. Compared with adenosine deaminase acting on RNA (ADAR)-recruiting circular RNAs, we find that guided A>I snRNAs consistently increase adenosine-to-inosine editing for higher exon count genes, perturb substantially fewer off-target genes and localize more persistently to the nucleus where ADAR is expressed. A>I snRNAs also more efficiently edit long noncoding RNAs and pre-mRNA 3' splice sites to promote splicing changes. Lastly, snRNA-H/ACA box snoRNA fusions (U>Ψ snRNAs) increase targeted RNA pseudouridylation without DKC1 overexpression, facilitating improved CFTR rescue from nonsense-mediated mRNA decay in a cystic fibrosis human bronchial epithelial cell model. Our results advance the endogenous protein-mediated RNA base editing toolbox and RNA-targeting technologies to treat genetic diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ADAR-mediated tolerance and SOS splicing-mediated excision of transposable elements.",
+    "doi": "10.1080/21541264.2026.2638060",
+    "pmid": "41744490",
+    "authors": [
+      "Cao Q, Duan Y."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-26",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Transposable elements (TEs) threaten genomic integrity, yet their pervasive presence indicates the limitations of existing silencing mechanisms. A recent paper in <i>Nature</i> (Zhao <i>et al</i>. 2025) discovered the SOS splicing system, which provides an RNA-level defense that excises DNA transposons from mRNAs, thereby restoring gene sequence. This spliceosome-independent pathway, mediated by AKAP17A, CAAP1, and RTCB, recognizes dsRNA hairpins formed by inverted terminal repeats (ITRs) and religates the resulting RNA fragments. From an evolutionary perspective, SOS splicing exemplifies a post-transcriptional error-correction mechanism that mitigates the deleterious consequence of TE insertions, paralleling the Constructive Neutral Evolution (CNE) framework. In contrast, ADAR-mediated A-to-I RNA editing suppresses the MDA5-triggered innate immune responses to TE-derived dsRNAs, effectively tolerating rather than eliminating TEs. There may be partial overlap between ADAR and SOS substrates. ADAR editing may delay but not prevent SOS splicing, while SOS excision removes ADAR substrates. The lethality of ADAR loss underscores its role as the mechanism mitigating purifying selection on TEs and thus may contribute to their genomic tolerance and proliferation. Collectively, while ADAR masks the harm of TEs, SOS splicing actively repairs the resulting damage, together illustrating a delicate evolutionary balance between TE tolerance and transcriptomic rescue.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA editing in Parkinson's disease: emerging mechanisms, translational potential, and current challenges.",
+    "doi": "10.3389/fnins.2026.1850954",
+    "pmid": "42222368",
+    "authors": [
+      "Liu S, Wu A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-15",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Parkinson's disease (PD) is a major neurodegenerative disorder characterized by progressive loss of dopaminergic neurons and accumulation of α-synuclein. Current treatments primarily focus on symptom alleviation, highlighting the necessity for identifying novel molecular therapeutic targets. RNA editing, as a post-transcriptional process that modifies RNA sequences without altering genomic DNA, is increasingly recognized as an important contributor to the neuronal development and synaptic regulation. Among known RNA editing types, ADAR-mediated adenine-to-inosine (A-to-I) editing is the predominant form in the brain. Accumulating evidence suggests that RNA editing patterns undergo significant alterations in PD patients. This review synthesizes current evidence within a three-layer framework: (1) evidence for RNA editing dysregulation in PD, emphasizing tissue-specific and context-dependent patterns; (2) downstream mechanistic pathways stratified by evidence strength; and (3) experimental models, translational applications, and limitations. A distinction between what is known versus what remains speculative is emphasized throughout. RNA editing changes in PD appear heterogeneous and context-dependent, with brain and peripheral blood showing distinct patterns. Whether editing changes represent disease drivers, compensatory responses, or downstream phenomena remains largely unresolved.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Emerging clinical applications of ADAR based RNA editing.",
+    "doi": "10.1093/stcltm/szaf016",
+    "pmid": "40418634",
+    "authors": [
+      "Rainaldi J, Mali P, Nourreddine S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-05-01",
+    "cited_by_count": 11,
+    "journal": "",
+    "abstract": "RNA editing via adenosine deaminases acting on RNA (ADARs) offers precise and reversible modifications at the RNA level, complementing traditional DNA-targeting therapies. ADAR enzymes catalyze the conversion of adenosine to inosine within double-stranded RNA, influencing critical cellular processes such as translation, splicing, and RNA stability. Utilizing endogenous ADARs guided by exogenous guide RNAs enables site-specific RNA editing without the need for transgenic editor expression, minimizing immunogenicity, and enhancing control over gene expression. Towards addressing the challenges in ensuring specificity, optimizing delivery methods, and navigating regulatory landscapes, ongoing innovations in guide RNA design, delivery technologies, and computational modeling are propelling the field forward. Already, initial clinical advancements are demonstrating the potential of ADAR-mediated RNA editing in treating human diseases. Collaborative efforts among researchers, clinicians, and industry partners are overcoming existing hurdles, progressively positioning ADAR-mediated RNA editing to revolutionize personalized medicine and provide effective treatments for a wide array of historically intractable diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Knockdown of RNA editing proteins reshapes the HepaRG transcriptome and pharmacogene expression.",
+    "doi": "10.1038/s41598-026-43323-z",
+    "pmid": "41813840",
+    "authors": [
+      "Collins JM, Yu F, Zhang Y, Wang D."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-11",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "The RNA-editing proteins ADAR and ADARB1 regulate gene expression through both editing-dependent and editing-independent mechanisms. RNA-Seq analysis of HepaRG cells after knocking down (KD) either protein caused widespread transcriptomic changes, including nearly 1,000 pharmacogenes that were either differentially expressed or alternatively spliced, with isoform switches observed in HNF4A and CYP2C9. These effects were editing-independent, and the two treatments primarily affected distinct gene sets, with ADAR KD having broader effects than ADARB1 KD. Because ADAR KD triggers a type I interferon response, we compared siADAR and IFNα treatments. Although both activated interferon signaling, their transcriptional profiles differed markedly. Despite this, 70% of siADAR-responsive genes were rescued by BX795, an inhibitor of the interferon pathway. Therefore, many of siADAR’s effects are likely due to the activation of immune pathways. Overall, our findings indicated that the ADARs maintain hepatic homeostasis and regulate numerous pharmacogenes, especially those involved in drug metabolism and disposition.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ADARs mediate distinct RNA editing activity and gene regulation in the &lt;i&gt;Caenorhabditis elegans&lt;/i&gt; germline.",
+    "doi": "10.1261/rna.080820.125",
+    "pmid": "41922181",
+    "authors": [
+      "Erdmann EA, Kelley LH, Hundley HA."
+    ],
+    "year": "2026",
+    "publication_date": "2026-06-16",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Tissues rely on unique landscapes of gene regulation to allow the organism to correctly develop, function, and respond to changes. One component of these gene regulatory networks is RNA binding proteins (RBPs), which bind and modify RNA molecules leading to changes in the cellular fate of transcripts. The adenosine deaminase acting on RNA (ADAR) family of RBPs modify RNAs by catalyzing the deamination of adenosine (A) to inosine (I), known as A-to-I RNA editing. Prompted by recent evidence that ADARs play important roles in germline biology, we profiled editing activity of the A-to-I editing enzyme ADR-2 on transcripts in the <i>Caenorhabditis elegans</i> germline. These analyses revealed that many germline editing events are distinct from editing events in other tissues; however, the previously described role of the inactive deaminase ADR-1 in regulating editing activity by ADR-2 is conserved in the germline. We find that complete loss or misregulation of editing has little effect on the expression of edited transcripts within the germline; however, loss of ADARs results in the misexpression of several unedited germline transcripts. Intriguingly, further investigation suggests that these expression changes are buffered at the translational level. In all, the results of this study suggest that ADARs show unique activity in the <i>C. elegans</i> germline and that compensatory mechanisms exist to lessen the immediate consequences of loss of ADAR function within the germline.",
+    "openalex_id": ""
+  }
+]

@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Integrated Bioinformatics Analysis of Differentially Expressed RNA-Binding Proteins in Human Gliomas.",
+    "doi": "10.1007/s10571-025-01608-3",
+    "pmid": "41361662",
+    "authors": [
+      "Haque S, Mathkor DM, Babegi AS, Ahmad F, Arumugam M."
+    ],
+    "year": "2025",
+    "publication_date": "2025-12-08",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Gliomas are complex and among the most lethal central nervous system (CNS) disorders. While they are notoriously heterogeneous, evidences suggest critical involvement of intricate interactions between RNA-binding proteins (RBPs) and their diverse partners, in the pathogeneses of gliomas. In this study, we used RNA sequencing data from the Cancer Genome Atlas (TCGA) to identify differentially expressed genes (DEGs). After selection of differentially expressed RBPs from these DEGs, systematic investigation of their transcriptomic changes during glioma progression was undertaken. Extensive in silico assessments allowed the creation of their interactome and pathway, identifying potential biological effects of these differentially expressed RBPs. Construction of regulatory networks of these differentially expressed RBPs and their topological analysis discovered key RBPs such as PABPC1, EIF4A2, RPS3, EEF1A1, RPS6, ELAVL2, CPEB1, and CELF5, which are largely involved in alternative splicing and ribosomal biogenesis. Moreover, we also identified differentially expressed RBPs such as YBX1, ELAVL2, and IGF2BP1, which may be involved in the formation of stress granules in gliomas. We also identified highly mutated RBPs, such as RPSA, RPL5, CPEB4, and SMAD7, in gliomas. Further, RBPs like RPS8, RPL5, RPS3A, EEF1A1, and EIF4E1B were found to be strongly correlated with patients' overall survival. Taken together, our analyses identified several candidate RBPs which might serve as potential targets for oncological measures against gliomas.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ELAV/Hu RNA-binding protein family: key regulators in neurological disorders, cancer, and other diseases.",
+    "doi": "10.1080/15476286.2025.2471133",
+    "pmid": "40000387",
+    "authors": [
+      "Wutikeli H, Xie T, Xiong W, Shen Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-03-20",
+    "cited_by_count": 13,
+    "journal": "",
+    "abstract": "The ELAV/Hu family represents a crucial group of RNA-binding proteins predominantly expressed in neurons, playing significant roles in mRNA transcription and translation. These proteins bind to AU-rich elements in transcripts to regulate the expression of cytokines, growth factors, and the development and maintenance of neurons. Elav-like RNA-binding proteins exhibit remarkable molecular weight conservation across different species, highlighting their evolutionary conservation. Although these proteins are widely expressed in the nervous system and other cell types, variations in the DNA sequences of the four Elav proteins contribute to their distinct roles in neurological disorders, cancer, and other Diseases . Elavl1, a ubiquitously expressed family member, is integral to processes such as cell growth, ageing, tumorigenesis, and inflammatory diseases. Elavl2, primarily expressed in the nervous and reproductive systems, is critical for central nervous system and retinal development; its dysregulation has been implicated in neurodevelopmental disorders such as autism. Both Elavl3 and Elavl4 are restricted to the nervous system and are involved in neuronal differentiation and excitability. Elavl3 is essential for cerebellar function and has been associated with epilepsy, while Elavl4 is linked to neurodegenerative diseases, including Parkinson's and Alzheimer's diseases. This paper provides a comprehensive review of the ELAV/Hu family's role in nervous system development, neurological disorders, cancer, and other diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Systemic Neurodegeneration and Brain Aging: Multi-Omics Disintegration, Proteostatic Collapse, and Network Failure Across the CNS.",
+    "doi": "10.3390/biomedicines13082025",
+    "pmid": "40868276",
+    "authors": [
+      "Voicu V, Toader C, Șerban M, Covache-Busuioc RA, Ciurea AV."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-20",
+    "cited_by_count": 39,
+    "journal": "",
+    "abstract": "Neurodegeneration is increasingly recognized not as a linear trajectory of protein accumulation, but as a multidimensional collapse of biological organization-spanning intracellular signaling, transcriptional identity, proteostatic integrity, organelle communication, and network-level computation. This review intends to synthesize emerging frameworks that reposition neurodegenerative diseases (ND) as progressive breakdowns of interpretive cellular logic, rather than mere terminal consequences of protein aggregation or synaptic attrition. The discussion aims to provide a detailed mapping of how critical signaling pathways-including PI3K-AKT-mTOR, MAPK, Wnt/β-catenin, and integrated stress response cascades-undergo spatial and temporal disintegration. Special attention is directed toward the roles of RNA-binding proteins (e.g., TDP-43, FUS, ELAVL2), m6A epitranscriptomic modifiers (METTL3, YTHDF1, IGF2BP1), and non-canonical post-translational modifications (SUMOylation, crotonylation) in disrupting translation fidelity, proteostasis, and subcellular targeting. At the organelle level, the review seeks to highlight how the failure of ribosome-associated quality control (RQC), autophagosome-lysosome fusion machinery (STX17, SNAP29), and mitochondrial import/export systems (TIM/TOM complexes) generates cumulative stress and impairs neuronal triage. These dysfunctions are compounded by mitochondrial protease overload (LONP1, CLPP), UPR maladaptation, and phase-transitioned stress granules that sequester nucleocytoplasmic transport proteins and ribosomal subunits, especially in ALS and FTD contexts. Synaptic disassembly is treated not only as a downstream event, but as an early tipping point, driven by impaired PSD scaffolding, aberrant endosomal recycling (Rab5, Rab11), complement-mediated pruning (C1q/C3-CR3 axis), and excitatory-inhibitory imbalance linked to parvalbumin interneuron decay. Using insights from single-cell and spatial transcriptomics, the review illustrates how regional vulnerability to proteostatic and metabolic stress converges with signaling noise to produce entropic attractor collapse within core networks such as the DMN, SN, and FPCN. By framing neurodegeneration as an active loss of cellular and network \"meaning-making\"-a collapse of coordinated signal interpretation, triage prioritization, and adaptive response-the review aims to support a more integrative conceptual model. In this context, therapeutic direction may shift from damage containment toward restoring high-dimensional neuronal agency, via strategies that include the following elements: reprogrammable proteome-targeting agents (e.g., PROTACs), engineered autophagy adaptors, CRISPR-based BDNF enhancers, mitochondrial gatekeeping stabilizers, and glial-exosome neuroengineering. This synthesis intends to offer a translational scaffold for viewing neurodegeneration as not only a disorder of accumulation but as a systems-level failure of cellular reasoning-a perspective that may inform future efforts in resilience-based intervention and precision neurorestoration.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The molecular genetics of nELAVL in brain development and disease.",
+    "doi": "10.1038/s41431-023-01456-z",
+    "pmid": "37697079",
+    "authors": [
+      "Mulligan MR, Bicknell LS."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-12",
+    "cited_by_count": 47,
+    "journal": "",
+    "abstract": "Embryonic development requires tight control of gene expression levels, activity, and localisation. This control is coordinated by multiple levels of regulation on DNA, RNA and protein. RNA-binding proteins (RBPs) are recognised as key regulators of post-transcriptional gene regulation, where their binding controls splicing, polyadenylation, nuclear export, mRNA stability, translation rate and decay. In brain development, the ELAVL family of RNA binding proteins undertake essential functions across spatiotemporal windows to help regulate and specify transcriptomic programmes for cell specialisation. Despite their recognised importance in neural tissues, their molecular roles and connections to pathology are less explored. Here we provide an overview of the neuronal ELAVL family, noting commonalities and differences amongst different species, their molecular characteristics, and roles in the cell. We bring together the available molecular genetics evidence to link different ELAVL proteins to phenotypes and disease, in both the brain and beyond, including ELAVL2, which is the least studied ELAVL family member. We find that ELAVL-related pathology shares a common neurological theme, but different ELAVL proteins are more strongly connected to different phenotypes, reflecting their specialised expression across time and space.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Reverse engineering neuron-type-specific and type-orthogonal splicing-regulatory networks using diverse cellular transcriptomes.",
+    "doi": "10.1016/j.celrep.2025.115898",
+    "pmid": "40560724",
+    "authors": [
+      "Moakley DF, Campbell M, Anglada-Girotto M, Feng H, Califano A, Au E, Zhang C."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-24",
+    "cited_by_count": 4,
+    "journal": "",
+    "abstract": "Cell-type-specific alternative splicing (AS) enables differential gene isoform expression between diverse neuron types with distinct identities and functions. Current studies linking individual RNA-binding proteins (RBPs) to AS in a limited number of neuron types underscore the need for holistic modeling. Here, we use network reverse engineering to derive a map of the neuron-type-specific AS-regulatory landscape of 133 mouse neocortical cell types using pseudobulk transcriptomes derived from single-cell data. We infer the regulons of 350 RBPs and their cell-type-specific activities, among which we validate Elavl2 as a key RBP for medial ganglionic eminence (MGE)-specific splicing in GABAergic interneurons using an in vitro embryonic stem cell (ESC) differentiation system. We also identify a module of exons and candidate regulators specific to long- and short-projection neurons across multiple neuronal classes. This study provides a resource for elucidating splicing-regulatory programs that drive neuronal molecular diversity, including those that do not align with gene-expression-based classifications.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KLF2 alleviates sepsis-induced acute kidney injury via the lncRNA GAS6-AS2/GOLPH3 axis.",
+    "doi": "10.1186/s12882-026-04908-y",
+    "pmid": "42010507",
+    "authors": [
+      "Feng W, Zhu YF, Li KY, Xu XS, Zhang BY, Zhou J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-20",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "BACKGROUND: Sepsis-associated acute kidney injury (SA-AKI) is a leading cause of organ failure with high morbidity and mortality. We aimed to investigate the effect and mechanism of KLF2 on SA-AKI cell model, trying to provide novel knowledge for AKI treatment. METHODS: SA-AKI cell model was constructed in HK2 cells by LPS treatment. Levels of KLF2, lncRNA GAS6-AS2 and GOLPH3 were determined by RT-qPCR and WB. After upregulating KLF2 expression, cell viability and cytotoxicity were assessed, KIM-1 and NGAL mRNA levels were detected by RT-qPCR, inflammation level was detected by ELISA, cell apoptosis was detected by flow cytometry, and ROS, MDA, and GSH were tested by kits. The binding of KLF2 to the lncRNA GAS6-AS2 promoter was analyzed. The binding relationships among lncRNA GAS6-AS2, ELAVL2 and GOLPH3 were analyzed by RIP. GOLPH3 mRNA stability was assessed. The role of lncRNA GAS6-AS2/GOLPH3 in KLF2-regulated cell injury was analyzed through combined experiment. RESULTS: KLF2 expression was decreased, while lncRNA GAS6-AS2 and GOLPH3 expressions were increased. In LPS-treated HK2, KLF2 overexpression elevated cell viability, inhibited LDH activity, reduced apoptosis, and decreased KIM-1, NGAL, inflammation, and oxidative stress levels. KLF2 bound to and inhibited the lncRNA GAS6-AS2 promoter, while lncRNA GAS6-AS2 interacted with ELAVL2 and indirectly stabilized GOLPH3. LncRNA GAS6-AS2 or GOLPH3 overexpression attenuated the protective effects of KLF2 overexpression on LPS-induced cellular injury. CONCLUSION: KLF2 binds to and inhibits the transcription of lncRNA GAS6-AS2, which in turn reduces the ELAVL2-mediated stabilization of GOLPH3 mRNA, ultimately alleviating cellular injury in SA-AKI.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ApoM maintains cellular homeostasis between mitophagy and apoptosis by affecting the stability of Nnt mRNA through the Zic3-ApoM-Elavl2-Nnt axis during neural tube closure.",
+    "doi": "10.1038/s41419-025-07343-3",
+    "pmid": "39827160",
+    "authors": [
+      "Liu Q, Liu D, Wang Y, Wei X, Ma W, Gu H, Jia S, He Y, Luo W, Cao S, Yang Z, Wu A, Yuan Z."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-19",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Research on the aetiology of neural tube defects (NTDs) has made progress in recent years. However, the molecular mechanism of apolipoproteins underlying NTDs development remains unclear. This study aimed to investigate the function of apolipoprotein M (ApoM) in the pathogenesis of NTDs and its underlying mechanisms. We demonstrated that ApoM expression was reduced in the spinal cord samples of rat models and human fetuses with NTDs respectively. Specifically, lack of ApoM resulted in reduced cytosolic localization of Elavl2 and caused Nnt mRNA degradation, which further led to impaired cell homeostasis by suppressing PINK1-PRKN-mediated mitophagy and promoting apoptosis and subsequent NTDs formation. Moreover, Zic3 directly interacted with the promoter of ApoM and activated its transcription. Lastly, intra-amniotic delivery of adenoviral recombinant Zic3 or ApoM could promote mitophagy and alleviate apoptosis in spinal cords of NTDs. Collectively, these findings highlight the important role of the Zic3-ApoM-Elavl2-Nnt axis in cellular homeostasis during neural tube development, thereby revealing an intracellular molecular regulatory mechanism of ApoM, providing a mechanistic basis for understanding embryonic neural development, and offering experimental evidence for potential therapeutic targets for NTDs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Protein-RNA interaction dynamics reveal key regulators of oncogenic KRAS-driven cancers.",
+    "doi": "10.1038/s41598-024-78333-2",
+    "pmid": "39511334",
+    "authors": [
+      "Ban KY, Na YW, Song J, Kim JS, Kim J."
+    ],
+    "year": "2024",
+    "publication_date": "2024-11-07",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "KRAS is one of the most frequently mutated oncogenes across various cancers. Oncogenic KRAS mutations rewire cellular signaling, leading to significant alterations in gene expression. RNA-binding proteins (RBPs) play a pivotal role in gene expression regulation by post-transcriptionally controlling various aspects of RNA metabolism. It has become clear that interactions between RBPs and RNA are frequently dysregulated in numerous cancers. However, how oncogenic KRAS mutations reshape the post-transcriptional regulatory network mediated by RBPs remains poorly understood. In this study, we systematically dissected oncogenic KRAS-driven alterations of RNA-RBP networks. We identified 35 cancer-associated RBPs with either increased or decreased RNA binding upon oncogenic KRAS activation, including PDCD11, which is essential for the viability of KRAS mutant cancers, and ELAVL2, which regulates cell migration in KRAS mutant lung cancers. Our study serves as a crucial resource for elucidating RBP regulatory networks in KRAS mutant cancers and may provide new avenues for therapeutic strategies targeting KRAS mutant malignancies.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ELAVL2 loss promotes aggressive mesenchymal transition in glioblastoma.",
+    "doi": "10.1038/s41698-024-00566-1",
+    "pmid": "38548861",
+    "authors": [
+      "Kim Y, You JH, Ryu Y, Park G, Lee U, Moon HE, Park HR, Song CW, Ku JL, Park SH, Paek SH."
+    ],
+    "year": "2024",
+    "publication_date": "2024-03-28",
+    "cited_by_count": 14,
+    "journal": "",
+    "abstract": "Glioblastoma (GBM), the most lethal primary brain cancer, exhibits intratumoral heterogeneity and molecular plasticity, posing challenges for effective treatment. Despite this, the regulatory mechanisms underlying such plasticity, particularly mesenchymal (MES) transition, remain poorly understood. In this study, we elucidate the role of the RNA-binding protein ELAVL2 in regulating aggressive MES transformation in GBM. We found that ELAVL2 is most frequently deleted in GBM compared to other cancers and associated with distinct clinical and molecular features. Transcriptomic analysis revealed that ELAVL2-mediated alterations correspond to specific GBM subtype signatures. Notably, ELAVL2 expression negatively correlated with epithelial-to-mesenchymal transition (EMT)-related genes, and its loss promoted MES process and chemo-resistance in GBM cells, whereas ELAVL2 overexpression exerted the opposite effect. Further investigation via tissue microarray analysis demonstrated that high ELAVL2 protein expression confers a favorable survival outcome in GBM patients. Mechanistically, ELAVL2 was shown to directly bind to the transcripts of EMT-inhibitory molecules, SH3GL3 and DNM3, modulating their mRNA stability, potentially through an m6A-dependent mechanism. In summary, our findings identify ELAVL2 as a critical tumor suppressor and mRNA stabilizer that regulates MES transition in GBM, underscoring its role in transcriptomic plasticity and glioma progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding protein ELAVL2 plays post-transcriptional roles in the regulation of spermatogonia proliferation and apoptosis.",
+    "doi": "10.1111/cpr.13098",
+    "pmid": "34296486",
+    "authors": [
+      "Yang C, Yao C, Ji Z, Zhao L, Chen H, Li P, Tian R, Zhi E, Huang Y, Han X, Hong Y, Zhou Z, Li Z."
+    ],
+    "year": "2021",
+    "publication_date": "2021-07-23",
+    "cited_by_count": 24,
+    "journal": "",
+    "abstract": "<h4>Objectives</h4>RNA-binding proteins (RBPs) play essential post-transcriptional roles in regulating spermatogonial stem cells (SSCs) maintenance and differentiation. We identified a conserved and SSCs-enriched RBP ELAVL2 from our single-cell sequencing data, but its function and mechanism in SSCs were unclear.<h4>Materials and methods</h4>Expressions of ELAVL2 during human and mouse testis development were validated. Stable C18-4 and TCam-2 cell lines with overexpression and knockdown of ELAVL2 were established, which were applied to proliferation and apoptosis analysis. RNA immunoprecipitation and sequencing were used to identify ELAVL2 targets, and regulatory functions of ELAVL2 on target mRNAs were studied. Proteins interacting with ELAVL2 in human and mouse testes were identified using immunoprecipitation and mass spectrometric, which were validated by in vivo and in vitro experiments.<h4>Results</h4>ELAVL2 was testis-enriched and preferentially expressed in human and mouse SSCs. ELAVL2 was down-regulated in NOA patients. ELAVL2 promoted proliferation and inhibited apoptosis of C18-4 and TCam-2 cell lines via activating ERK and AKT pathways. ELAVL2 associated with mRNAs encoding essential regulators of SSCs proliferation and survival, and promoted their protein expression at post-transcriptional level. ELAVL2 interacted with DAZL in vivo and in vitro in both human and mouse testes.<h4>Conclusions</h4>Taken together, these results indicate that ELAVL2 is a conserved SSCs-enriched RBP that down-regulated in NOA, which regulates spermatogonia proliferation and apoptosis by promoting protein expression of targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptomic and differential gene analysis investigating the differences in biological behaviour between subtypes of feline alimentary lymphoma.",
+    "doi": "10.3389/fvets.2026.1764747",
+    "pmid": "42290793",
+    "authors": [
+      "McGilp D, Roccabianca P, Hulse L, Allavena R, Palmieri C."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-29",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Feline alimentary lymphoma encompasses a diverse group of neoplastic subtypes, each presumably arising from distinct cell populations and exhibiting significant variability in biological behaviour and prognosis. Whilst next-generation sequencing technologies have become a more common aid in the diagnosis, prognostication and treatment of lymphoma in humans, these techniques have been sparsely applied to investigate feline alimentary lymphoma. Specifically, current research in this field is mostly focused on differentiating indolent intestinal lymphomas from inflammatory enteropathies. The aim of the study was to apply transcriptomic analysis to identify differentially expressed genes that may correlate with the aggressiveness of various subtypes of feline alimentary lymphoma. Differential gene analysis was applied to RNA sequencing data from 19 cases of feline alimentary lymphoma split into five phenotypes (small T cell, B cell, CD56+ B cell, Large Granular T cell and Large Granular NK cell lymphomas) according to histomorphology and immunohistochemistry. The analysis identified overexpression of several genes involved in extracellular matrix remodelling, transcription factor expression and cellular division, signalling and metabolism in aggressive lymphoma types (ADAMTS14, ADAMTSl2, FOXI3, ELAVL2, CCR1, GCGR, NMUR1, MARC1, SLC29A4, CENPF, IGF2BP3); and overexpression of several tumour suppressor genes in the indolent lymphoma type (RAB17, SYNPO2, GRM4). The differential expression correlated with biologic behaviours. Future investigation into expression of these genes or gene products using molecular, immunohistochemical or <i>in-situ</i> hybridisation techniques could yield significant advancements in the prognostication of feline alimentary lymphoma as well as pave the way for the development of targeted immunotherapeutic strategies to aid in the treatment of specific feline alimentary lymphoma subtypes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Unravelling driver genes as potential therapeutic targets in ovarian cancer via integrated bioinformatics approach.",
+    "doi": "10.1186/s13048-024-01402-7",
+    "pmid": "38654363",
+    "authors": [
+      "Beg A, Parveen R, Fouad H, Yahia ME, Hassanein AS."
+    ],
+    "year": "2024",
+    "publication_date": "2024-04-23",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Target-driven cancer therapy is a notable advancement in precision oncology that has been accompanied by substantial medical accomplishments. Ovarian cancer is a highly frequent neoplasm in women and exhibits significant genomic and clinical heterogeneity. In a previous publication, we presented an extensive bioinformatics study aimed at identifying specific biomarkers associated with ovarian cancer. The findings of the network analysis indicate the presence of a cluster of nine dysregulated hub genes that exhibited significance in the underlying biological processes and contributed to the initiation of ovarian cancer. Here in this research article, we are proceeding our previous research by taking all hub genes into consideration for further analysis. GEPIA2 was used to identify patterns in the expression of critical genes. The KM plotter analysis indicated that the out of all genes 5 genes are statistically significant. The cBioPortal platform was further used to investigate the frequency of genetic mutations across the board and how they affected the survival of the patients. Maximum mutation was reported by ELAVL2. In order to discover viable therapeutic candidates after competitive inhibition of ELAVL2 with small molecular drug complex, high throughput screening and docking studies were used. Five compounds were identified. Overall, our results suggest that the ELAV-like protein 2-ZINC03830554 complex was relatively stable during the molecular dynamic simulation. The five compounds that have been found can also be further examined as potential therapeutic possibilities. The combined findings suggest that ELAVL2, together with their genetic changes, can be investigated in therapeutic interventions for precision oncology, leveraging early diagnostics and target-driven therapy.",
+    "openalex_id": ""
+  }
+]

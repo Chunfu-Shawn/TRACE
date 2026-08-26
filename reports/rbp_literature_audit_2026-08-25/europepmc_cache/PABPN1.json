@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Antagonistic roles by the conserved nuclear poly(A)-binding proteins PABPN1 and ZC3H14 in nuclear RNA surveillance.",
+    "doi": "10.1093/nar/gkaf060",
+    "pmid": "39898550",
+    "authors": [
+      "Latour M, Kwiatek L, Landry-Voyer AM, Bachand F."
+    ],
+    "year": "2025",
+    "publication_date": "2025-01-01",
+    "cited_by_count": 6,
+    "journal": "",
+    "abstract": "Most eukaryotic genomes are transcribed pervasively, thereby producing an array of long non-coding RNAs (lncRNAs) in addition to protein-coding mRNAs. A large fraction of these lncRNAs is targeted by polyadenylation-dependent decay via the poly(A)-binding protein nuclear 1 (PABPN1) and the RNA exosome. Yet, how PABPN1 contributes to nuclear RNA surveillance by facilitating lncRNA turnover by the RNA exosome remains largely unclear. Here, we show that PABPN1 is important for the nuclear retention of polyadenylated lncRNAs, such that PABPN1 loss of function allows target lncRNAs to evade nuclear decay, leading to cytoplasmic accumulation. Interestingly, we found that another nuclear PABP, ZC3H14, functions antagonistically to PABPN1 and the poly(A)-tail exosome targeting (PAXT) connection in the control of nuclear lncRNA turnover. Collectively, our findings disclose the critical interplay between two conserved nuclear PABPs, PABPN1 and ZC3H14, in RNA surveillance via the control of nuclear RNA export.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oculopharyngeal muscular dystrophy (OPMD) associated alanine expansion impairs the function of the nuclear polyadenosine RNA binding protein PABPN1 as revealed by proximity labeling and comparative proteomics.",
+    "doi": "10.1371/journal.pgen.1011743",
+    "pmid": "41587185",
+    "authors": [
+      "Mezzell AT, Zhang Y, Perez AM, Vest KE."
+    ],
+    "year": "2026",
+    "publication_date": "2026-01-26",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Oculopharyngeal muscular dystrophy (OPMD) is a late-onset disease caused by modest alanine expansion at the amino terminus of the nuclear polyadenosine RNA binding protein PABPN1. PABPN1 is expressed ubiquitously and is involved in multiple steps in RNA processing including optimal cleavage and polyadenylation, polyadenylation signal selection, and export of polyadenylated RNAs from the nucleus. Expanded PABPN1 forms aggregates in a subset of muscle nuclei, but PABPN1 levels are paradoxically low in muscle compared to other tissues. Despite several studies in model systems and patient tissues, it remains unclear whether alanine expansion directly impairs PABPN1 function. The molecular mechanisms leading to OPMD pathology are poorly understood. Here we used a proximity labeling approach to better understand the effect of alanine expansion on PABPN1 function in a cell culture model of skeletal muscle. To avoid the confounding factor of overexpression, PABPN1 constructs containing a carboxy-terminal TurboID tag were expressed in skeletal myotubes at near native levels using an inducible promoter. Although non-expanded PABPN1-TurboID was able to complement RNA export and myoblast differentiation defects caused by deficiency of endogenous PABPN1, alanine expanded PABPN1-TurboID was not. Comparative proteomics revealed increased interaction between expanded PABPN1 and RNA splicing and polyadenylation machinery and follow-up studies identified a dominant negative effect of expanded PABPN1 on RNA export in differentiated myotubes. These data indicate that alanine expansion can impair PABPN1 function regardless of the presence of wild type PABPN1 and support a model wherein both loss function and dominant negative effects of expanded PABPN1 contribute to OPMD pathology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pathophysiological and translational implications of the dysregulation of molecular machineries controlling RNA metabolism in thyrotropinomas.",
+    "doi": "10.1016/j.isci.2026.117055",
+    "pmid": "42602702",
+    "authors": [
+      "G-García ME, Flores-Martínez Á, Arroyo-Millán L, Venegas E, Diaz-Perdigones CM, Maraver S, Cano D, Arráez C, Arráez MA, Japón MA, Martínez-Fuentes AJ, Soto-Moreno A, Fuentes-Fayos AC, Herrera-Martínez AD, Luque RM."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-06",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "The contribution of post-transcriptional regulation remains largely unexplored in thyrotropin-secreting pituitary tumors (TSHomas), a rare endocrine pathology responsible for inappropriate TSH secretion and central hyperthyroidism. We investigated the TSHoma post-transcriptional regulatory landscape by analyzing components of molecular machineries controlling RNA metabolism [spliceosome/RNA-exosome/nonsense-mediated decay (NMD)], their associations with clinical parameters, and the impact of their pharmacological inhibition in TSHoma cells. A drastic dysregulation of multiple components of spliceosome [spliceosome (<i>SF3B2</i>/<i>U2AF35/PRPF40A</i>) and splicing factors (e.g., <i>SRP30C</i>/<i>EIF4A3/DDX1</i>/<i>TRA2B/HNR</i> <i>NN</i> <i>F</i>…)], RNA-Exosome (e.g., <i>DIS3</i>/<i>DIS3L</i>/<i>PABPN1</i>), and NMD [e.g., <i>PABPC1</i>, and NMD-canonical targets (<i>DDIT3/GADD45B/MAFF/PDRG1/ATF4</i>/<i>ATF3</i>)] was found in TSHomas vs. non-tumor pituitaries with some of these alterations associated with relevant clinical features (e.g., tumor size, TSHB/fT4-levels). Moreover, we demonstrate a clear antiproliferative action of spliceosome/RNA-Exosome/NMD inhibitors in primary patient-derived TSHoma cells. Overall, a clinically relevant spliceosome/RNA-Exosome/NMD-associated molecular dysregulation and antiproliferative actions of these machineries' inhibition are demonstrated in TSHomas, highlighting a potential source of novel diagnostic/prognostic biomarkers and therapeutic tools in TSHomas.",
+    "openalex_id": ""
+  },
+  {
+    "title": "CRISPR/Cas9 screening with destabilized bicistronic fluorescent protein reporter revealed PABPN1 as a hub of regulators for alternative polyadenylation.",
+    "doi": "10.1093/nar/gkag172",
+    "pmid": "41755634",
+    "authors": [
+      "Hu Z, Liu Y, Han Y, Li M, Deng K, Lu X, Huang Y, Liang C, Wang Y, Fu Y, Xu A."
+    ],
+    "year": "2026",
+    "publication_date": "2026-02-01",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Alternative polyadenylation (APA) is intricately intertwined with diverse biological processes. Efficient approaches for screening the regulatory factors of specific APA events are essential to elucidate their regulation mechanisms. Here, we first engineered a destabilized bicistronic fluorescent protein reporter (dBFPR) to enhance the sensitivity of APA detection. Then, we developed a robust high-throughput screening platform for APA regulators by integrating CRISPR/Cas9, dBFPR, and fluorescence-activated cell sorting. With this method, we successfully screened the library of RNA binding proteins and found that PTBP1, ELAVL1, and DDX3X play significant roles in regulating APA and promoting cell proliferation through interaction with PABPN1, suggesting that PABPN1 is an important hub for APA regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPN1 prevents the nuclear export of an unspliced RNA with a constitutive transport element and controls human gene expression via intron retention.",
+    "doi": "10.1261/rna.079294.122",
+    "pmid": "36754576",
+    "authors": [
+      "Kwiatek L, Landry-Voyer AM, Latour M, Yague-Sanz C, Bachand F."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-08",
+    "cited_by_count": 27,
+    "journal": "",
+    "abstract": "Intron retention is a type of alternative splicing where one or more introns remain unspliced in a polyadenylated transcript. Although many viral systems are known to translate proteins from mRNAs with retained introns, restriction mechanisms generally prevent export and translation of incompletely spliced mRNAs. Here, we provide evidence that the human nuclear poly(A)-binding protein, PABPN1, functions in such restrictions. Using a reporter construct in which nuclear export of an incompletely spliced mRNA is enhanced by a viral constitutive transport element (CTE), we show that PABPN1 depletion results in a significant increase in export and translation from the unspliced CTE-containing transcript. Unexpectedly, we find that inactivation of poly(A)-tail exosome targeting by depletion of PAXT components had no effect on export and translation of the unspliced reporter mRNA, suggesting a mechanism largely independent of nuclear RNA decay. Interestingly, a PABPN1 mutant selectively defective in stimulating poly(A) polymerase elongation strongly enhanced the expression of the unspliced, but not of intronless, reporter transcripts. Analysis of RNA-seq data also revealed that PABPN1 controls the expression of many human genes via intron retention. Notably, PABPN1-dependent intron retention events mostly affected 3'-terminal introns and were insensitive to PAXT and NEXT deficiencies. Our findings thus disclose a role for PABPN1 in restricting nuclear export of intron-retained transcripts and reinforce the interdependence between terminal intron splicing, 3' end processing, and polyadenylation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The polyA tail facilitates splicing of last introns with weak 3' splice sites via PABPN1.",
+    "doi": "10.15252/embr.202357128",
+    "pmid": "37661812",
+    "authors": [
+      "Huang L, Li G, Du C, Jia Y, Yang J, Fan W, Xu YZ, Cheng H, Zhou Y."
+    ],
+    "year": "2023",
+    "publication_date": "2023-09-04",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "The polyA tail of mRNAs is important for many aspects of RNA metabolism. However, whether and how it regulates pre-mRNA splicing is still unknown. Here, we report that the polyA tail acts as a splicing enhancer for the last intron via the nuclear polyA binding protein PABPN1 in HeLa cells. PABPN1-depletion induces the retention of a group of introns with a weaker 3' splice site, and they show a strong 3'-end bias and mainly locate in nuclear speckles. The polyA tail is essential for PABPN1-enhanced last intron splicing and functions in a length-dependent manner. Tethering PABPN1 to nonpolyadenylated transcripts also promotes splicing, suggesting a direct role for PABPN1 in splicing regulation. Using TurboID-MS, we construct the PABPN1 interactome, including many spliceosomal and RNA-binding proteins. Specifically, PABPN1 can recruit RBM26&27 to promote splicing by interacting with the coiled-coil and RRM domain of RBM27. PABPN1-regulated terminal intron splicing is conserved in mice. Together, our study establishes a novel mode of post-transcriptional splicing regulation via the polyA tail and PABPN1.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Nuclear Protein Aggregates Disrupt RNA Processing and Alter Biomechanics in a Muscle Cell Model of OPMD.",
+    "doi": "10.14336/ad.2025.0699",
+    "pmid": "40901980",
+    "authors": [
+      "Shademan M, Flannery S, Bos E, Evers TMJ, Sheikhhassani V, Mashaghi A, Kusters B, van Engelen B, Sharp TH, Fischer R, Kessler BM, Raz V."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-18",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Aggregation of RNA-binding proteins (RBPs) is a hallmark of several age-related neuromuscular diseases. However, our understanding of how these aggregates drive dysfunction is often limited by the use of non-disease-relevant models. Oculopharyngeal muscular dystrophy (OPMD) is caused by a short alanine expansion mutation in the PABPN1 gene, which leads to nuclear aggregation of the protein. To investigate how these aggregates impair muscle cell function, we developed a muscle cell model with inducible expression of the pathogenic PABPN1 (A16) variant and confirmed its relevance to OPMD. Using subcellular fractionation combined with mass spectrometry and RNA sequencing, we examined the molecular consequences of nuclear PABPN1 aggregation. In the cytoplasmic fraction, we observed significant impairments in cellular metabolism and biomechanics. In the nuclear fraction, RNA metabolism was broadly disrupted, and additional RBPs were significantly enriched in insoluble aggregates. Importantly, mRNAs trapped within the aggregates were associated with impaired nuclear export and decreased translation efficiency, and the pathogenic PABPN1 variant led to reduced endogenous PABPN1 levels. Our findings support a model in which OPMD pathology arises from reduced levels of soluble PABPN1 due to nuclear aggregation and establish a mechanistic link between RBP aggregation and muscle cell dysfunction, highlighting shared pathological pathways across neuromuscular and neurodegenerative diseases.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Phosphorylation of the nuclear poly(A) binding protein (PABPN1) during mitosis protects mRNA from hyperadenylation and maintains transcriptome dynamics.",
+    "doi": "10.1093/nar/gkae562",
+    "pmid": "38943343",
+    "authors": [
+      "Gordon JM, Phizicky DV, Schärfen L, Brown CL, Arias Escayola D, Kanyo J, Lam TT, Simon MD, Neugebauer KM."
+    ],
+    "year": "2024",
+    "publication_date": "2024-09-01",
+    "cited_by_count": 10,
+    "journal": "",
+    "abstract": "Polyadenylation controls mRNA biogenesis, nucleo-cytoplasmic export, translation and decay. These processes are interdependent and coordinately regulated by poly(A)-binding proteins (PABPs), yet how PABPs are themselves regulated is not fully understood. Here, we report the discovery that human nuclear PABPN1 is phosphorylated by mitotic kinases at four specific sites during mitosis, a time when nucleoplasm and cytoplasm mix. To understand the functional consequences of phosphorylation, we generated a panel of stable cell lines inducibly over-expressing PABPN1 with point mutations at these sites. Phospho-inhibitory mutations decreased cell proliferation, highlighting the importance of PABPN1 phosphorylation in cycling cells. Dynamic regulation of poly(A) tail length and RNA stability have emerged as important modes of gene regulation. We therefore employed long-read sequencing to determine how PABPN1 phospho-site mutants affected poly(A) tails lengths and TimeLapse-seq to monitor mRNA synthesis and decay. Widespread poly(A) tail lengthening was observed for phospho-inhibitory PABPN1 mutants. In contrast, expression of phospho-mimetic PABPN1 resulted in shorter poly(A) tails with increased non-A nucleotides, in addition to increased transcription and reduced stability of a distinct cohort of mRNAs. Taken together, PABPN1 phosphorylation remodels poly(A) tails and increases mRNA turnover, supporting the model that enhanced transcriptome dynamics reset gene expression programs across the cell cycle.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Polyalanine Expansion in PABPN1 Alters the Structure and Dynamics of Its Nuclear Aggregates in Differentiated Muscle Cells.",
+    "doi": "10.1096/fj.202501097r",
+    "pmid": "40552959",
+    "authors": [
+      "Mallon SD, Bos E, Sheikhhassani V, Shademan M, Voortman LM, Mashaghi A, Sharp TH, Raz V."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-01",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "Intracellular protein aggregation is a hallmark of aging and contributes to pathology in some age-associated diseases. In hereditary adult-onset neuromuscular diseases (NMDs), protein aggregates play a key role in disease onset and progression. The wild-type Poly(A) binding protein nuclear 1 (PABPN1) forms benign nuclear aggregates, whereas a short trinucleotide expansion leads to the formation of pathogenic aggregates, a hallmark of Oculopharyngeal Muscular Dystrophy (OPMD). In OPMD, the mutant PABPN1 causes skeletal muscle weakness. So far, the structural differences between benign and pathogenic protein aggregates and their effects on muscle cell biology remain poorly understood. We employed an array of advanced imaging modalities to explore the morphological differences between nuclear aggregates formed by non-pathogenic and pathogenic PABPN1 variants. Through analyses spanning micro- to nanoscale, we identified distinct structural features of aggregates formed by wild-type and expanded PABPN1. We demonstrate that these differences were more pronounced in differentiated muscle cells compared to proliferating cells. We further linked the structural features of PABPN1 aggregates to muscle cell biology, namely alterations in mitochondrial function and proteasomal activity. Our findings provide new insights into the structural distinctions between pathogenic and non-pathogenic aggregates and their implications for cellular dysfunction in NMDs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA Binding to CCRRM of PABPN1 Induces Conformation Change.",
+    "doi": "10.3390/biology14040432",
+    "pmid": "40282297",
+    "authors": [
+      "Zhang S, Chen T, Zhang Y, Lu C."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-17",
+    "cited_by_count": 2,
+    "journal": "",
+    "abstract": "Poly(A) Binding Protein Nuclear 1 (PABPN1) is a nuclear poly(A)-binding protein that is highly conserved in eukaryotes. It plays multifaceted roles in RNA processing and metabolism, with its dysregulation closely linked to various diseases. PABPN1 contains an alanine-rich N-terminus, a central coiled-coil domain (CC), a conserved RNA recognition motif (RRM) and a C-terminal extension. PABPN1 influences mRNA splicing and stability through its RNA-binding capabilities, thereby modulating gene expression. While PABPN1 is known to interact with RNA, the molecular mechanism underlying this interaction with RNA awaits further investigation. Here, we designed and purified a PABPN1 fragment encompassing the RNA-binding domain (CCRRM fragment, amino acids 114-254). Using a combination of 3D modeling, small-angle X-ray scattering (SAXS) and selective 2'-hydroxyl acylation analyzed by primer extension (SHAPE) assay, our result indicated that CCRRM exhibits a high affinity for poly(A) RNA, a moderate affinity for GU-rich and CU-rich sequences, and negligible binding to AU-rich and CA-rich sequences. RNA binding induces conformation change in the CC. These results suggest that PABPN1 could potentially be involved in cytoplasmic polyadenylation and may influence the regulation of mRNA translation and degradation, although further investigation is required to confirm this role.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Transcriptional regulation of porcine PABPN1 gene in adipogenesis.",
+    "doi": "10.5713/ab.25.0035",
+    "pmid": "40575986",
+    "authors": [
+      "Zhu RR, Zhao XL, Chang MH, Yang SQ, Zhang XH, Liu YK, Gu ZG, Yang XQ."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-24",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "<h4>Objective</h4>This study aims to reveal the transcriptional regulatory mechanism and effects of poly(A)-binding protein nuclear 1 (PABPN1) on adipogenesis, along with associated polymorphisms.<h4>Methods</h4>Transcription factors were identified using dual-luciferase reporter assay, overexpression techniques site-directed mutagenesis, real-time quantitative polymerase chain reaction (qPCR), electrophoretic mobility shift assays and chromatin immunoprecipitation-qPCR. Preadipocyte differentiation was measured with gain- and loss-of-function, Oil Red O staining and extraction assays. Single nucleotide polymorphisms (SNPs) were identified with direct sequencing of PCR products in the promoter, and the effects of these SNPs on PABPN1 expression were identified with dual-luciferase reporter assay.<h4>Results</h4>CCAAT/enhancer-binding protein (C/EBP) α and β regulate PABPN1 expression by directly binding to its promoter. PABPN1 promotes the preadipocyte differentiation in pigs. Three SNPs were identified, with the Haplotype GCC mutation significantly increasing the promoter activity of PABPN1.<h4>Conclusion</h4>PABPN1 promotes the preadipocyte differentiation as a downstream gene of C/EBP α and β. Haplotype GCC may serve as a molecular marker for selection of fat traits in pigs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "PABPN1 Couples the Polyadenylation and Translation of Maternal Transcripts to Mouse Oocyte Meiotic Maturation.",
+    "doi": "10.1002/advs.202500048",
+    "pmid": "40265969",
+    "authors": [
+      "Dai XX, Wu YK, Pi SB, Hu FJ, Wu YW, Qi H, Li Z, Jiang ZY, Zhao LW, Fan HY."
+    ],
+    "year": "2025",
+    "publication_date": "2025-04-23",
+    "cited_by_count": 3,
+    "journal": "",
+    "abstract": "During oocyte meiosis, maternal transcript polyadenylation is crucial for regulating mRNA stability and translation, which are essential for oocyte maturation. Polyadenylate-binding protein nuclear 1 (PABPN1) plays a key role in regulating mRNA splicing and polyadenylation in somatic cells and growing oocytes. However, its potential function in regulating the meiotic maturation of fully grown oocytes remains unknown. This study reports that selective Pabpn1 knockout in growing mouse oocytes using Zp3-Cre do not affect folliculogenesis but prevented germinal vesicle breakdown in fully grown oocytes, impaired CDK1 activation, and resulted in abnormal spindle formation and chromosome misalignment. The results of poly(A)-inclusive full-length RNA isoform sequencing (PAIso-seq) and transcriptome sequencing revealed that PABPN1 coordinates meiotic maturation-coupled polyadenylation and degradation of maternal mRNAs, which are key factors of maturation-promoting factor (MPF) and deadenylation mediators, such as B-cell translocation gene-4 (BTG4), ensuring proper meiotic progression. The results of rescue experiments indicate these functions of PABPN1 are mediated by its key domains, which interact with poly(A) polymerase and recruit target mRNAs. This study highlighted the physiological importance of cytoplasmic PABPN1 in mammalian oocyte maturation by integrating maternal transcript polyadenylation, translation, and degradation.",
+    "openalex_id": ""
+  }
+]

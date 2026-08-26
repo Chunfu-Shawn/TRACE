@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A hierarchical network controls protein translation during murine embryonic stem cell self-renewal and differentiation.",
+    "doi": "10.1016/j.stem.2008.03.013",
+    "pmid": "18462695",
+    "authors": [
+      "Sampath P, Pritchard DK, Pabon L, Reinecke H, Schwartz SM, Morris DR, Murry CE."
+    ],
+    "year": "2008",
+    "publication_date": "2008-05-01",
+    "cited_by_count": 239,
+    "journal": "",
+    "abstract": "Stem cell differentiation involves changes in transcription, but little is known about translational control during differentiation. We comprehensively profiled gene expression during differentiation of murine embryonic stem cells (ESCs) into embryoid bodies by integrating transcriptome analysis with global assessment of ribosome loading. While protein synthesis was parsimonious during self-renewal, differentiation induced an anabolic switch, with global increases in transcript abundance, polysome content, protein synthesis, and protein content. Furthermore, 78% of transcripts showed increased ribosome loading, thereby enhancing translational efficiency. Transcripts under exclusive translational control included the transcription factor ATF5, the tumor suppressor DCC, and the beta-catenin agonist Wnt1. We show that a hierarchy of translational regulators, including mTOR, 4EBP1, and the RNA-binding proteins DAZL and GRSF1, control global and selective protein synthesis during ESC differentiation. Parsimonious translation in pluripotent state and hierarchical translational regulation during differentiation may be important quality controls for self-renewal and choice of fate in ESCs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The mitochondrial RNA-binding protein GRSF1 localizes to RNA granules and is required for posttranscriptional mitochondrial gene expression.",
+    "doi": "10.1016/j.cmet.2013.02.006",
+    "pmid": "23473033",
+    "authors": [
+      "Antonicka H, Sasarman F, Nishimura T, Paupe V, Shoubridge EA."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-01",
+    "cited_by_count": 219,
+    "journal": "",
+    "abstract": "RNA-binding proteins are at the heart of posttranscriptional gene regulation, coordinating the processing, storage, and handling of cellular RNAs. We show here that GRSF1, previously implicated in the binding and selective translation of influenza mRNAs, is targeted to mitochondria where it forms granules that colocalize with foci of newly synthesized mtRNA next to mitochondrial nucleoids. GRSF1 preferentially binds RNAs transcribed from three contiguous genes on the light strand of mtDNA, the ND6 mRNA, and the long noncoding RNAs for cytb and ND5, each of which contains multiple consensus binding sequences. RNAi-mediated knockdown of GRSF1 leads to alterations in mitochondrial RNA stability, abnormal loading of mRNAs and lncRNAs on the mitochondrial ribosome, and impaired ribosome assembly. This results in a specific protein synthesis defect and a failure to assemble normal amounts of the oxidative phosphorylation complexes. These data implicate GRSF1 as a key regulator of posttranscriptional mitochondrial gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "GRSF1 regulates RNA processing in mitochondrial RNA granules.",
+    "doi": "10.1016/j.cmet.2013.02.005",
+    "pmid": "23473034",
+    "authors": [
+      "Jourdain AA, Koppen M, Wydro M, Rodley CD, Lightowlers RN, Chrzanowska-Lightowlers ZM, Martinou JC."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-01",
+    "cited_by_count": 215,
+    "journal": "",
+    "abstract": "Various specialized domains have been described in the cytosol and the nucleus; however, little is known about compartmentalization within the mitochondrial matrix. GRSF1 (G-rich sequence factor 1) is an RNA binding protein that was previously reported to localize in the cytosol. We found that an isoform of GRSF1 accumulates in discrete foci in the mitochondrial matrix. These foci are composed of nascent mitochondrial RNA and also contain RNase P, an enzyme that participates in mitochondrial RNA processing. GRSF1 was found to interact with RNase P and to be required for processing of both classical and tRNA-less RNA precursors. In its absence, cleavage of primary RNA transcripts is abnormal, leading to decreased expression of mitochondrially encoded proteins and mitochondrial dysfunction. Our findings suggest that the foci containing GRSF1 and RNase P correspond to sites where primary RNA transcripts converge to be processed. We have termed these large ribonucleoprotein structures \"mitochondrial RNA granules.\"",
+    "openalex_id": ""
+  },
+  {
+    "title": "HuR and GRSF1 modulate the nuclear export and mitochondrial localization of the lncRNA RMRP.",
+    "doi": "10.1101/gad.276022.115",
+    "pmid": "27198227",
+    "authors": [
+      "Noh JH, Kim KM, Abdelmohsen K, Yoon JH, Panda AC, Munk R, Kim J, Curtis J, Moad CA, Wohler CM, Indig FE, de Paula W, Dudekula DB, De S, Piao Y, Yang X, Martindale JL, de Cabo R, de Cabo R, Gorospe M."
+    ],
+    "year": "2016",
+    "publication_date": "2016-05-19",
+    "cited_by_count": 201,
+    "journal": "",
+    "abstract": "Some mitochondrial long noncoding RNAs (lncRNAs) are encoded by nuclear DNA, but the mechanisms that mediate their transport to mitochondria are poorly characterized. Using affinity RNA pull-down followed by mass spectrometry analysis, we found two RNA-binding proteins (RBPs), HuR (human antigen R) and GRSF1 (G-rich RNA sequence-binding factor 1), that associated with the nuclear DNA-encoded lncRNA RMRP and mobilized it to mitochondria. In cultured human cells, HuR bound RMRP in the nucleus and mediated its CRM1 (chromosome region maintenance 1)-dependent export to the cytosol. After RMRP was imported into mitochondria, GRSF1 bound RMRP and increased its abundance in the matrix. Loss of GRSF1 lowered the mitochondrial levels of RMRP, in turn suppressing oxygen consumption rates and modestly reducing mitochondrial DNA replication priming. Our findings indicate that RBPs HuR and GRSF1 govern the cytoplasmic and mitochondrial localization of the lncRNA RMRP, which is encoded by nuclear DNA but has key functions in mitochondria.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Analysis of NRAS RNA G-quadruplex binding proteins reveals DDX3X as a novel interactor of cellular G-quadruplex containing transcripts.",
+    "doi": "10.1093/nar/gky861",
+    "pmid": "30256975",
+    "authors": [
+      "Herdy B, Mayer C, Varshney D, Marsico G, Murat P, Taylor C, D'Santos C, Tannahill D, Balasubramanian S."
+    ],
+    "year": "2018",
+    "publication_date": "2018-11-01",
+    "cited_by_count": 138,
+    "journal": "",
+    "abstract": "RNA G-quadruplexes (rG4s) are secondary structures in mRNAs known to influence RNA post-transcriptional mechanisms thereby impacting neurodegenerative disease and cancer. A detailed knowledge of rG4-protein interactions is vital to understand rG4 function. Herein, we describe a systematic affinity proteomics approach that identified 80 high-confidence interactors that assemble on the rG4 located in the 5'-untranslated region (UTR) of the NRAS oncogene. Novel rG4 interactors included DDX3X, DDX5, DDX17, GRSF1 and NSUN5. The majority of identified proteins contained a glycine-arginine (GAR) domain and notably GAR-domain mutation in DDX3X and DDX17 abrogated rG4 binding. Identification of DDX3X targets by transcriptome-wide individual-nucleotide resolution UV-crosslinking and affinity enrichment (iCLAE) revealed a striking association with 5'-UTR rG4-containing transcripts which was reduced upon GAR-domain mutation. Our work highlights hitherto unrecognized features of rG4 structure-protein interactions that highlight new roles of rG4 structures in mRNA post-transcriptional control.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long noncoding RNAs coordinate functions between mitochondria and the nucleus.",
+    "doi": "10.1186/s13072-017-0149-x",
+    "pmid": "28835257",
+    "authors": [
+      "Dong Y, Yoshitomi T, Hu JF, Cui J."
+    ],
+    "year": "2017",
+    "publication_date": "2017-08-23",
+    "cited_by_count": 100,
+    "journal": "",
+    "abstract": "In animal cells, mitochondria are the primary powerhouses and metabolic factories. They also contain genomes and can produce mitochondrial-specific nucleic acids and proteins. To maintain homeostasis of the entire cell, an intense cross-talk between mitochondria and the nucleus, mediated by encoded noncoding RNAs (ncRNAs), as well as proteins, is required. Long ncRNAs (lncRNAs) contain characteristic structures, and they are involved in the regulation of almost every stage of gene expression, as well as being implicated in a variety of disease states, such as cancer. In the coordinated signaling system, several lncRNAs, transcribed in the nucleus but residing in mitochondria, play a key role in regulating mitochondrial functions or dynamics. For example, RMRP, a component of the mitochondrial RNase MRP, is important for mitochondrial DNA replication and RNA processing, and the steroid receptor RNA activator, SRA, is a key modulator of hormone signaling and is present in both the nucleus and mitochondria. Some RNA-binding proteins maybe play a role in the lncRNAs transport system, such as HuR, GRSF1, SHARP, SLIRP, PPR, and PNPASE. Furthermore, a series of nuclear DNA-encoded lncRNAs were implicated in mitochondria-mediated apoptosis, mitochondrial bioenergetics and biosynthesis, and glutamine metabolism. The mitochondrial genome can also encode a set of lncRNAs, and they are divided into three categories: (1) lncND5, lncND6, and lncCyt b RNA; (2) chimeric mitochondrial DNA-encoded lncRNAs; and (3) putative mitochondrial DNA-encoded lncRNAs. It has been reported that the mitochondrial DNA-encoded lncRNAs appear to operate in the nucleus. The molecular mechanisms underlying trafficking of the mitochondrial DNA-encoded lncRNAs to the nucleus in mammals are only now beginning to emerge. In conclusion, both nuclear- and mitochondrial DNA-encoded lncRNAs mediate an intense intercompartmental cross-talk, which opens a rich field for investigation of the mechanism underlying the intercompartmental coordination and the maintenance of whole cell homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translational regulation of glutathione peroxidase 4 expression through guanine-rich sequence-binding factor 1 is essential for embryonic brain development.",
+    "doi": "10.1101/gad.466308",
+    "pmid": "18593884",
+    "authors": [
+      "Ufer C, Wang CC, Fähling M, Schiebel H, Thiele BJ, Billett EE, Kuhn H, Borchert A."
+    ],
+    "year": "2008",
+    "publication_date": "2008-07-01",
+    "cited_by_count": 95,
+    "journal": "",
+    "abstract": "Phospholipid hydroperoxide glutathione peroxidase (GPx4) is a moonlighting selenoprotein, which has been implicated in basic cell functions such as anti-oxidative defense, apoptosis, and gene expression regulation. GPx4-null mice die in utero at midgestation, and developmental retardation of the brain appears to play a major role. We investigated post-transcriptional mechanisms of GPx4 expression regulation and found that the guanine-rich sequence-binding factor 1 (Grsf1) up-regulates GPx4 expression. Grsf1 binds to a defined target sequence in the 5'-untranslated region (UTR) of the mitochondrial GPx4 (m-GPx4) mRNA, up-regulates UTR-dependent reporter gene expression, recruits m-GPx4 mRNA to translationally active polysome fractions, and coimmunoprecipitates with GPx4 mRNA. During embryonic brain development, Grsf1 and m-GPx4 are coexpressed, and functional knockdown (siRNA) of Grsf1 prevents embryonic GPx4 expression. When compared with mock controls, Grsf1 knockdown embryos showed significant signs of developmental retardations that are paralleled by apoptotic alterations (TUNEL staining) and massive lipid peroxidation (isoprostane formation). Overexpression of m-GPx4 prevented the apoptotic alterations in Grsf1-deficient embryos and rescued them from developmental retardation. These data indicate that Grsf1 up-regulates translation of GPx4 mRNA and implicate the two proteins in embryonic brain development.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of cellular RNA processing factors in human immunodeficiency virus type 1 mRNA metabolism, replication, and infectivity.",
+    "doi": "10.1128/jvi.01801-08",
+    "pmid": "19004959",
+    "authors": [
+      "Jablonski JA, Caputi M."
+    ],
+    "year": "2009",
+    "publication_date": "2008-11-12",
+    "cited_by_count": 89,
+    "journal": "",
+    "abstract": "Expression of the human immunodeficiency virus type 1 genome requires several cellular factors regulating transcription, alternative splicing, RNA stability, and intracellular localization of the viral transcripts. In vitro and ex vivo approaches have identified SR proteins and hnRNPs of the A/B and H subfamilies as cellular factors that regulate different aspects of viral mRNA metabolism. To understand the role of these protein families within the context of the full replicating virus, we altered the expression levels of hnRNPs H, F, 2H9, GRSF1, A1, A2, and A3 and SR proteins SC35, SF2, and SRp40 in HEK 293 cells transfected with the proviral clone pNL4-3. Quantitative and semiquantitative PCR analyses showed that overexpression as well as downregulation of these proteins disrupted the balance of alternatively spliced viral mRNAs and may alter viral transcription. Furthermore, expression of hnRNPs H, F, 2H9, A1, and A2 and SR proteins SF2 and SRp40 increased nuclear localization of the unspliced Gag/Pol mRNA, while the same factors increased the cytoplasmic localization of the partially spliced Env mRNA. We also report that overexpression of hnRNPs A1 and A2 and SR proteins SF2, SC35, and SRp40 causes a dramatic decrease in virion production. Finally, utilizing a reporter TZM-bl cell line, we show that virion infectivity may be also impacted by deregulation of expression of most SR proteins and hnRNPs. This work demonstrates that cellular factors regulating mRNA processing have wide-ranging effects on human immunodeficiency virus type 1 replication and should be considered novel therapeutic targets.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dedicated surveillance mechanism controls G-quadruplex forming non-coding RNAs in human mitochondria.",
+    "doi": "10.1038/s41467-018-05007-9",
+    "pmid": "29967381",
+    "authors": [
+      "Pietras Z, Wojcik MA, Borowski LS, Szewczyk M, Kulinski TM, Cysewski D, Stepien PP, Dziembowski A, Szczesny RJ."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-02",
+    "cited_by_count": 83,
+    "journal": "",
+    "abstract": "The GC skew in vertebrate mitochondrial genomes results in synthesis of RNAs that are prone to form G-quadruplexes (G4s). Such RNAs, although mostly non-coding, are transcribed at high rates and are degraded by an unknown mechanism. Here we describe a dedicated mechanism of degradation of G4-containing RNAs, which is based on cooperation between mitochondrial degradosome and quasi-RNA recognition motif (qRRM) protein GRSF1. This cooperation prevents accumulation of G4-containing transcripts in human mitochondria. In vitro reconstitution experiments show that GRSF1 promotes G4 melting that facilitates degradosome-mediated decay. Among degradosome and GRSF1 regulated transcripts we identified one that undergoes post-transcriptional modification. We show that GRSF1 proteins form a distinct qRRM group found only in vertebrates. The appearance of GRSF1 coincided with changes in the mitochondrial genome, which allows the emergence of G4-containing RNAs. We propose that GRSF1 appearance is an evolutionary adaptation enabling control of G4 RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Identification of target messenger RNA substrates for the murine deleted in azoospermia-like RNA-binding protein.",
+    "doi": "10.1095/biolreprod66.2.475",
+    "pmid": "11804965",
+    "authors": [
+      "Jiao X, Trifillis P, Kiledjian M."
+    ],
+    "year": "2002",
+    "publication_date": "2002-02-01",
+    "cited_by_count": 74,
+    "journal": "",
+    "abstract": "The murine autosomal deleted in azoospermia-like protein (mDAZL) is a germ cell-restricted RNA-binding protein essential for sperm production. Homozygous disruption of the mDAZL gene results in the absence of germ cells beyond the spermatogonial stage. Progress into the function of DAZL in spermatogenesis has been hampered without identification of the cognate mRNA substrates that it binds to and regulates. Using the isolation of specific nucleic acids associated with proteins (SNAAP) technique recently developed in our lab, we identified mRNAs from testis that were specifically bound by mDAZL. One mRNA encoded the Tpx-1 protein, a testicular cell adhesion protein essential for the progression of spermatogenesis. A 26-nucleotide region necessary and sufficient to bind mDAZL was found within additional mRNAs isolated by the screen. These included mRNA encoding Pam, a protein associated with myc; GRSF1, an mRNA-binding protein involved in translation activation, and TRF2, a TATA box-binding protein-like protein involved in transcriptional regulation. Each mRNA containing the mDAZL binding site was specifically bound by mDAZL. A similar sequence is also present in the Cdc25A mRNA, a threonine/tyrosine phosphatase involved in cell cycle progression. The mDAZL and Cdc25A homologues are functionally linked in Drosophila and are necessary for spermatogenesis. Our demonstration that Tpx-1 and Cdc25A mRNAs are bound by mDAZL suggests that mDAZL regulates a subset of mRNAs necessary for germ cell development and cell cycle progression. Understanding how mDAZL regulates the target mRNAs will provide new insights into spermatogenesis, strategies for therapeutic intervention in azoospermic patients, and novel approaches for male contraception.",
+    "openalex_id": ""
+  },
+  {
+    "title": "GRSF1-mediated MIR-G-1 promotes malignant behavior and nuclear autophagy by directly upregulating TMED5 and LMNB1 in cervical cancer cells.",
+    "doi": "10.1080/15548627.2018.1539590",
+    "pmid": "30394198",
+    "authors": [
+      "Yang Z, Sun Q, Guo J, Wang S, Song G, Liu W, Liu M, Tang H."
+    ],
+    "year": "2019",
+    "publication_date": "2018-11-05",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "Emerging evidence has revealed that miRNAs could upregulate the expression levels of target genes. However, the molecular mechanism underlying upregulation of targets mediated by miRNAs remains unclear. In this study, we found a novel miRNA named MIR-G-1 by GRSF1-RNA immunoprecipitation (RIP)-deep sequencing, which could directly target and upregulate LMNB1 and TMED5 in a GRSF1-dependent manner in cervical cancer cells. In addition, upregulated MIR-G-1 in cervical cancer promoted a malignant phenotype in vitro and in vivo. TMED5 could interact with WNT7B and thus activated the canonical WNT-CTNNB1/β-catenin signaling pathway. MIR-G-1 mediated the activation of this pathway. Furthermore, MIR-G-1 promoted serum starvation-induced nuclear macroautophagy/autophagy, and accelerated taxol (TAX)-induced DNA-damage repair in cervical cancer cells. Collectively, these findings may provide a new insight into the upregulation mechanism and nuclear autophagy mediated by miRNAs and provide a potential biomarker for cervical cancer. Abbreviations: 3'UTR: 3' untranslated region; EMSA: electrophoretic mobility shift assay; EMT: epithelial-mesenchymal transition; GRSF1: G-rich RNA sequence binding factor 1; IF: immunofluorescence; IP: immunoprecipitation; IHC: immunohistochemistry; lnc: long noncoding; miRNA:microRNA; TAX: taxol; TMED5: transmembrane p24 trafficking protein 5.",
+    "openalex_id": ""
+  },
+  {
+    "title": "miR-346 and miR-138 competitively regulate hTERT in GRSF1- and AGO2-dependent manners, respectively.",
+    "doi": "10.1038/srep15793",
+    "pmid": "26507454",
+    "authors": [
+      "Song G, Wang R, Guo J, Liu X, Wang F, Qi Y, Wan H, Liu M, Li X, Tang H."
+    ],
+    "year": "2015",
+    "publication_date": "2015-10-28",
+    "cited_by_count": 66,
+    "journal": "",
+    "abstract": "miRNAs typically downregulate the expression of target genes by binding to their 3'UTR, and dysregulation of miRNAs may contribute to tumorigenesis. Here, we found that miR-346 and miR-138 competitively bind to a common region in the 3'UTR of hTERT mRNA and have opposite effects on the expression and function of hTERT in human cervical cancer cells. Furthermore, G-rich RNA sequence binding factor 1 (GRSF1) mediates the miR-346-dependent upregulation of hTERT by binding to the miR-346 middle sequence motif (CCGCAU) which forms a \"bulge loop\" when miR-346 is bound to the hTERT 3'UTR, facilitating the recruitment of hTERT mRNA to ribosomes to promote translation in an AGO2-independent manner. Conversely, miR-138 suppresses hTERT expression in an AGO2-dependent manner. Interestingly, replacement of the miR-138 middle sequence with that of miR-346 results in an upregulation of hTERT expression in a GRSF1-dependent manner. Moreover, miR-346 depends on GRSF1 to upregulate another target gene, activin A receptor, type IIB (ACVR2B), in which miR-346 \"CCGCAU\" motif is essential. These findings reveal novel mechanisms of miRNA-mediated upregulation of target gene expression and describe the coordinated action of multiple miRNAs to control the fate of a single target mRNA through binding to its 3'UTR.",
+    "openalex_id": ""
+  }
+]

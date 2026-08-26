@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Poly(A) RNA-binding proteins and polyadenosine RNA: new members and novel functions.",
+    "doi": "10.1002/wrna.1233",
+    "pmid": "24789627",
+    "authors": [
+      "Wigington CP, Williams KR, Meers MP, Bassell GJ, Corbett AH."
+    ],
+    "year": "2014",
+    "publication_date": "2014-04-30",
+    "cited_by_count": 92,
+    "journal": "",
+    "abstract": "Poly(A) RNA-binding proteins (Pabs) bind with high affinity and specificity to polyadenosine RNA. Textbook models show a nuclear Pab, PABPN1, and a cytoplasmic Pab, PABPC, where the nuclear PABPN1 modulates poly(A) tail length and the cytoplasmic PABPC stabilizes poly(A) RNA in the cytoplasm and also enhances translation. While these conventional roles are critically important, the Pab family has expanded recently both in number and in function. A number of novel roles have emerged for both PAPBPN1 and PABPC that contribute to the fine-tuning of gene expression. Furthermore, as the characterization of the nucleic acid binding properties of RNA-binding proteins advances, additional proteins that show high affinity and specificity for polyadenosine RNA are being discovered. With this expansion of the Pab family comes a concomitant increase in the potential for Pabs to modulate gene expression. Further complication comes from an expansion of the potential binding sites for Pab proteins as revealed by an analysis of templated polyadenosine stretches present within the transcriptome. Thus, Pabs could influence mRNA fate and function not only by binding to the nontemplated poly(A) tail but also to internal stretches of adenosine. Understanding the diverse functions of Pab proteins is not only critical to understand how gene expression is regulated but also to understand the molecular basis for tissue-specific diseases that occur when Pab proteins are altered. Here we describe both conventional and recently emerged functions for PABPN1 and PABPC and then introduce and discuss three new Pab family members, ZC3H14, hnRNP-Q1, and LARP4.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutation of the conserved polyadenosine RNA binding protein, ZC3H14/dNab2, impairs neural function in Drosophila and humans.",
+    "doi": "10.1073/pnas.1107103108",
+    "pmid": "21734151",
+    "authors": [
+      "Pak C, Garshasbi M, Kahrizi K, Gross C, Apponi LH, Noto JJ, Kelly SM, Leung SW, Tzschach A, Behjati F, Abedini SS, Mohseni M, Jensen LR, Hu H, Huang B, Stahley SN, Liu G, Williams KR, Burdick S, Feng Y, Sanyal S, Bassell GJ, Ropers HH, Najmabadi H, Corbett AH, Moberg KH, Kuss AW."
+    ],
+    "year": "2011",
+    "publication_date": "2011-07-06",
+    "cited_by_count": 78,
+    "journal": "",
+    "abstract": "Here we report a human intellectual disability disease locus on chromosome 14q31.3 corresponding to mutation of the ZC3H14 gene that encodes a conserved polyadenosine RNA binding protein. We identify ZC3H14 mRNA transcripts in the human central nervous system, and we find that rodent ZC3H14 protein is expressed in hippocampal neurons and colocalizes with poly(A) RNA in neuronal cell bodies. A Drosophila melanogaster model of this disease created by mutation of the gene encoding the ZC3H14 ortholog dNab2, which also binds polyadenosine RNA, reveals that dNab2 is essential for development and required in neurons for normal locomotion and flight. Biochemical and genetic data indicate that dNab2 restricts bulk poly(A) tail length in vivo, suggesting that this function may underlie its role in development and disease. These studies reveal a conserved requirement for ZC3H14/dNab2 in the metazoan nervous system and identify a poly(A) RNA binding protein associated with a human brain disorder.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Recognition of polyadenosine RNA by zinc finger proteins.",
+    "doi": "10.1073/pnas.0701244104",
+    "pmid": "17630287",
+    "authors": [
+      "Kelly SM, Pabit SA, Kitchen CM, Guo P, Marfatia KA, Murphy TJ, Corbett AH, Berland KM."
+    ],
+    "year": "2007",
+    "publication_date": "2007-07-13",
+    "cited_by_count": 74,
+    "journal": "",
+    "abstract": "Messenger RNA transcripts are coated from cap to tail with a dynamic combination of RNA binding proteins that process, package, and ultimately regulate the fate of mature transcripts. One class of RNA binding proteins essential for multiple aspects of mRNA metabolism consists of the poly(A) binding proteins. Previous studies have concentrated on the canonical RNA recognition motif-containing poly(A) binding proteins as the sole family of poly(A)-specific RNA binding proteins. In this study, we present evidence for a previously uncharacterized poly(A) recognition motif consisting of tandem CCCH zinc fingers. We have probed the nucleic acid binding properties of a yeast protein, Nab2, that contains this zinc finger motif. Results of this study reveal that the seven tandem CCCH zinc fingers of Nab2 specifically bind to polyadenosine RNA with high affinity. Furthermore, we demonstrate that a human protein, ZC3H14, which contains CCCH zinc fingers homologous to those found in Nab2, also specifically binds polyadenosine RNA. Thus, we propose that these proteins are members of an evolutionarily conserved family of poly(A) RNA binding proteins that recognize poly(A) RNA through a fundamentally different mechanism than previously characterized RNA recognition motif-containing poly(A) binding proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Evolutionarily-conserved Polyadenosine RNA Binding Protein, Nab2, Cooperates with Splicing Machinery to Regulate the Fate of pre-mRNA.",
+    "doi": "10.1128/mcb.00402-16",
+    "pmid": "27528618",
+    "authors": [
+      "Soucek S, Zeng Y, Bellur DL, Bergkessel M, Morris KJ, Deng Q, Duong D, Seyfried NT, Guthrie C, Staley JP, Fasken MB, Corbett AH."
+    ],
+    "year": "2016",
+    "publication_date": "2016-08-15",
+    "cited_by_count": 61,
+    "journal": "",
+    "abstract": "Numerous RNA binding proteins are deposited onto an mRNA transcript to modulate post-transcriptional processing events ensuring proper mRNA maturation. Defining the interplay between RNA binding proteins that couple mRNA biogenesis events is crucial for understanding how gene expression is regulated. To explore how RNA binding proteins control mRNA processing, we investigated a role for the evolutionarily conserved polyadenosine RNA binding protein, Nab2, in mRNA maturation within the nucleus. This work reveals that nab2 mutant cells accumulate intron-containing pre-mRNA in vivo We extend this analysis to identify genetic interactions between mutant alleles of nab2 and genes encoding the splicing factor, MUD2, and the RNA exosome, RRP6, with in vivo consequences of altered pre-mRNA splicing and poly(A) tail length control. As further evidence linking Nab2 proteins to splicing, an unbiased proteomic analysis of vertebrate Nab2, ZC3H14, identifies physical interactions with numerous components of the spliceosome. We validated the interaction between ZC3H14 and U2AF2/U2AF<sup>65</sup> Taking all the findings into consideration, we present a model where Nab2/ZC3H14 interacts with spliceosome components to allow proper coupling of splicing with subsequent mRNA processing steps contributing to a kinetic proofreading step that allows properly processed mRNA to exit the nucleus and escape Rrp6-dependent degradation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A conserved role for the zinc finger polyadenosine RNA binding protein, ZC3H14, in control of poly(A) tail length.",
+    "doi": "10.1261/rna.043984.113",
+    "pmid": "24671764",
+    "authors": [
+      "Kelly SM, Leung SW, Pak C, Banerjee A, Moberg KH, Corbett AH."
+    ],
+    "year": "2014",
+    "publication_date": "2014-03-26",
+    "cited_by_count": 55,
+    "journal": "",
+    "abstract": "The ZC3H14 gene, which encodes a ubiquitously expressed, evolutionarily conserved, nuclear, zinc finger polyadenosine RNA-binding protein, was recently linked to autosomal recessive, nonsyndromic intellectual disability. Although studies have been carried out to examine the function of putative orthologs of ZC3H14 in Saccharomyces cerevisiae, where the protein is termed Nab2, and Drosophila, where the protein has been designated dNab2, little is known about the function of mammalian ZC3H14. Work from both budding yeast and flies implicates Nab2/dNab2 in poly(A) tail length control, while a role in poly(A) RNA export from the nucleus has been reported only for budding yeast. Here we provide the first functional characterization of ZC3H14. Analysis of ZC3H14 function in a neuronal cell line as well as in vivo complementation studies in a Drosophila model identify a role for ZC3H14 in proper control of poly(A) tail length in neuronal cells. Furthermore, we show here that human ZC3H14 can functionally substitute for dNab2 in fly neurons and can rescue defects in development and locomotion that are present in dNab2 null flies. These rescue experiments provide evidence that this zinc finger-containing class of nuclear polyadenosine RNA-binding proteins plays an evolutionarily conserved role in controlling the length of the poly(A) tail in neurons.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Oncogenic &lt;i&gt;CDK13&lt;/i&gt; mutations impede nuclear RNA surveillance.",
+    "doi": "10.1126/science.abn7625",
+    "pmid": "37079685",
+    "authors": [
+      "Insco ML, Abraham BJ, Dubbury SJ, Kaltheuner IH, Dust S, Wu C, Chen KY, Liu D, Bellaousov S, Cox AM, Martin BJE, Zhang T, Ludwig CG, Fabo T, Modhurima R, Esgdaille DE, Henriques T, Brown KM, Chanock SJ, Geyer M, Adelman K, Sharp PA, Young RA, Boutz PL, Zon LI."
+    ],
+    "year": "2023",
+    "publication_date": "2023-04-21",
+    "cited_by_count": 53,
+    "journal": "",
+    "abstract": "RNA surveillance pathways detect and degrade defective transcripts to ensure RNA fidelity. We found that disrupted nuclear RNA surveillance is oncogenic. Cyclin-dependent kinase 13 (<i>CDK13</i>) is mutated in melanoma, and patient-mutated <i>CDK13</i> accelerates zebrafish melanoma. <i>CDK13</i> mutation causes aberrant RNA stabilization. CDK13 is required for ZC3H14 phosphorylation, which is necessary and sufficient to promote nuclear RNA degradation. Mutant CDK13 fails to activate nuclear RNA surveillance, causing aberrant protein-coding transcripts to be stabilized and translated. Forced aberrant RNA expression accelerates melanoma in zebrafish. We found recurrent mutations in genes encoding nuclear RNA surveillance components in many malignancies, establishing nuclear RNA surveillance as a tumor-suppressive pathway. Activating nuclear RNA surveillance is crucial to avoid accumulation of aberrant RNAs and their ensuing consequences in development and disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Splice variants of the human ZC3H14 gene generate multiple isoforms of a zinc finger polyadenosine RNA binding protein.",
+    "doi": "10.1016/j.gene.2009.02.022",
+    "pmid": "19303045",
+    "authors": [
+      "Leung SW, Apponi LH, Cornejo OE, Kitchen CM, Valentini SR, Pavlath GK, Dunham CM, Corbett AH."
+    ],
+    "year": "2009",
+    "publication_date": "2009-03-18",
+    "cited_by_count": 45,
+    "journal": "",
+    "abstract": "The human ZC3H14 gene encodes an evolutionarily conserved Cys(3)His zinc finger protein that binds specifically to polyadenosine RNA and is thus postulated to modulate post-transcriptional gene expression. Expressed sequence tag (EST) data predicts multiple splice variants of both human and mouse ZC3H14. Analysis of ZC3H14 expression in both human cell lines and mouse tissues confirms the presence of multiple alternatively spliced transcripts. Although all of these transcripts encode protein isoforms that contain the conserved C-terminal zinc finger domain, suggesting that they could all bind to polyadenosine RNA, they differ in other functionally important domains. Most of the alternative transcripts encode closely related proteins (termed isoforms 1, 2, 3, and 3 short) that differ primarily in the inclusion of three small exons, 9, 10, and 11, resulting in predicted protein isoforms ranging from 82 to 64 kDa. Each of these closely related isoforms contains predicted classical nuclear localization signals (cNLS) within exons 7 and 11. Consistent with the presence of these putative nuclear targeting signals, these ZC3H14 isoforms are all localized to the nucleus. In contrast, an additional transcript encodes a smaller protein (34 kDa) with an alternative first exon (isoform 4). Consistent with the absence of the predicted cNLS motifs located in exons 7 and 11, ZC3H14 isoform 4 is localized to the cytoplasm. Both EST data and experimental data suggest that this variant is enriched in testes and brain. Using an antibody that detects endogenous ZC3H14 isoforms 1-3 reveals localization of these isoforms to nuclear speckles. These speckles co-localize with the splicing factor, SC35, suggesting a role for nuclear ZC3H14 in mRNA processing. Taken together, these results demonstrate that multiple transcripts encoding several ZC3H14 isoforms exist in vivo. Both nuclear and cytoplasmic ZC3H14 isoforms could have distinct effects on gene expression mediated by the common Cys(3)His zinc finger polyadenosine RNA binding domain.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-binding protein, ZC3H14, is required for proper poly(A) tail length control, expression of synaptic proteins, and brain function in mice.",
+    "doi": "10.1093/hmg/ddx248",
+    "pmid": "28666327",
+    "authors": [
+      "Rha J, Jones SK, Fidler J, Banerjee A, Leung SW, Morris KJ, Wong JC, Inglis GAS, Shapiro L, Deng Q, Cutler AA, Hanif AM, Pardue MT, Schaffer A, Seyfried NT, Moberg KH, Bassell GJ, Escayg A, García PS, Corbett AH."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-01",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "A number of mutations in genes that encode ubiquitously expressed RNA-binding proteins cause tissue specific disease. Many of these diseases are neurological in nature revealing critical roles for this class of proteins in the brain. We recently identified mutations in a gene that encodes a ubiquitously expressed polyadenosine RNA-binding protein, ZC3H14 (Zinc finger CysCysCysHis domain-containing protein 14), that cause a nonsyndromic, autosomal recessive form of intellectual disability. This finding reveals the molecular basis for disease and provides evidence that ZC3H14 is essential for proper brain function. To investigate the role of ZC3H14 in the mammalian brain, we generated a mouse in which the first common exon of the ZC3H14 gene, exon 13 is removed (Zc3h14Δex13/Δex13) leading to a truncated ZC3H14 protein. We report here that, as in the patients, Zc3h14 is not essential in mice. Utilizing these Zc3h14Δex13/Δex13mice, we provide the first in vivo functional characterization of ZC3H14 as a regulator of RNA poly(A) tail length. The Zc3h14Δex13/Δex13 mice show enlarged lateral ventricles in the brain as well as impaired working memory. Proteomic analysis comparing the hippocampi of Zc3h14+/+ and Zc3h14Δex13/Δex13 mice reveals dysregulation of several pathways that are important for proper brain function and thus sheds light onto which pathways are most affected by the loss of ZC3H14. Among the proteins increased in the hippocampi of Zc3h14Δex13/Δex13 mice compared to control are key synaptic proteins including CaMK2a. This newly generated mouse serves as a tool to study the function of ZC3H14 in vivo.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The Drosophila ortholog of the Zc3h14 RNA binding protein acts within neurons to pattern axon projection in the developing brain.",
+    "doi": "10.1002/dneu.22301",
+    "pmid": "25980665",
+    "authors": [
+      "Kelly SM, Bienkowski R, Banerjee A, Melicharek DJ, Brewer ZA, Marenda DR, Corbett AH, Moberg KH."
+    ],
+    "year": "2016",
+    "publication_date": "2015-06-01",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "The dNab2 polyadenosine RNA binding protein is the D. melanogaster ortholog of the vertebrate ZC3H14 protein, which is lost in a form of inherited intellectual disability (ID). Human ZC3H14 can rescue D. melanogaster dNab2 mutant phenotypes when expressed in all neurons of the developing nervous system, suggesting that dNab2/ZC3H14 performs well-conserved roles in neurons. However, the cellular and molecular requirements for dNab2/ZC3H14 in the developing nervous system have not been defined in any organism. Here we show that dNab2 is autonomously required within neurons to pattern axon projection from Kenyon neurons into the mushroom bodies, which are required for associative olfactory learning and memory in insects. Mushroom body axons lacking dNab2 project aberrantly across the brain midline and also show evidence of defective branching. Coupled with the prior finding that ZC3H14 is highly expressed in rodent hippocampal neurons, this requirement for dNab2 in mushroom body neurons suggests that dNab2/ZC3H14 has a conserved role in supporting axon projection and branching. Consistent with this idea, loss of dNab2 impairs short-term memory in a courtship conditioning assay. Taken together these results reveal a cell-autonomous requirement for the dNab2 RNA binding protein in mushroom body development and provide a window into potential neurodevelopmental functions of the human ZC3H14 protein.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The long and the short of it: the role of the zinc finger polyadenosine RNA binding protein, Nab2, in control of poly(A) tail length.",
+    "doi": "10.1016/j.bbagrm.2012.03.006",
+    "pmid": "22484098",
+    "authors": [
+      "Soucek S, Corbett AH, Fasken MB."
+    ],
+    "year": "2012",
+    "publication_date": "2012-03-28",
+    "cited_by_count": 34,
+    "journal": "",
+    "abstract": "In eukaryotic cells, addition of poly(A) tails to transcripts by 3'-end processing/polyadenylation machinery is a critical step in gene expression. The length of the poly(A) tail influences the stability, nuclear export and translation of mRNA transcripts. Control of poly(A) tail length is thus an important mechanism to regulate the abundance and ultimate translation of transcripts. Understanding the global regulation of poly(A) tail length will require dissecting the contributions of enzymes, regulatory factors, and poly(A) binding proteins (Pabs) that all cooperate to regulate polyadenylation. A recent addition to the Pab family is the CCCH-type zinc finger class of Pabs that includes S. cerevisiae Nab2 and its human counterpart, ZC3H14. In S. cerevisiae, Nab2 is an essential nuclear Pab implicated in both poly(A) RNA export from the nucleus and control of poly(A) tail length. Consistent with an important role in regulation of poly(A) tail length, depletion of Nab2 from yeast cells results in hyperadenylation of poly(A) RNA. In this review, we focus on the role of Nab2 in poly(A) tail length control and speculate on potential mechanisms by which Nab2 could regulate poly(A) tail length based on reported physical and genetic interactions. We present models, illustrating how Nab2 could regulate poly(A) tail length by limiting polyadenylation and/or enhancing trimming. Given that mutation of the gene encoding the human Nab2 homologue, ZC3H14, causes a form of autosomal recessive intellectual disability, we also speculate on how mutations in a gene encoding a ubiquitously expressed Pab lead specifically to neurological defects. This article is part of a Special Issue entitled: Nuclear Transport and RNA Processing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The polyadenosine RNA-binding protein ZC3H14 interacts with the THO complex and coordinately regulates the processing of neuronal transcripts.",
+    "doi": "10.1093/nar/gky446",
+    "pmid": "29912477",
+    "authors": [
+      "Morris KJ, Corbett AH."
+    ],
+    "year": "2018",
+    "publication_date": "2018-07-01",
+    "cited_by_count": 32,
+    "journal": "",
+    "abstract": "The polyadenosine RNA-binding protein ZC3H14 is important in RNA processing. Although ZC3H14 is ubiquitously expressed, mutation of the ZC3H14 gene causes a non-syndromic form of intellectual disability. Here, we examine the function of ZC3H14 in the brain by identifying ZC3H14-interacting proteins using unbiased mass spectrometry. Through this analysis, we identified physical interactions between ZC3H14 and multiple RNA processing factors. Notably, proteins that comprise the THO complex were amongst the most enriched proteins. We demonstrate that ZC3H14 physically interacts with THO components and that these proteins are required for proper RNA processing, as loss of ZC3H14 or THO components leads to extended bulk poly(A) tail length. Furthermore, we identified the transcripts Atp5g1 and Psd95 as shared RNA targets of ZC3H14 and the THO complex. Our data suggest that ZC3H14 and the THO complex are important for proper processing of Atp5g1 and Psd95 RNA, as depletion of ZC3H14 or THO components leads to decreased steady-state levels of each mature transcript accompanied by accumulation of Atp5g1 and Psd95 pre-mRNA in the cytoplasm. Taken together, this work provides the first unbiased identification of nuclear ZC3H14-interacting proteins from the brain and links the functions of ZC3H14 and the THO complex in the processing of RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structure-function relationships in the Nab2 polyadenosine-RNA binding Zn finger protein family.",
+    "doi": "10.1002/pro.3565",
+    "pmid": "30578643",
+    "authors": [
+      "Fasken MB, Corbett AH, Stewart M."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-16",
+    "cited_by_count": 31,
+    "journal": "",
+    "abstract": "The poly(A) RNA binding Zn finger ribonucleoprotein Nab2 functions to control the length of 3' poly(A) tails in Saccharomyces cerevisiae as well as contributing to the integration of the nuclear export of mature mRNA with preceding steps in the nuclear phase of the gene expression pathway. Nab2 is constructed from an N-terminal PWI-fold domain, followed by QQQP and RGG motifs and then seven CCCH Zn fingers. The nuclear pore-associated proteins Gfd1 and Mlp1 bind to opposite sides of the Nab2 N-terminal domain and function in the nuclear export of mRNA, whereas the Zn fingers, especially fingers 5-7, bind to A-rich regions of mature transcripts and function to regulate poly(A) tail length as well as mRNA compaction prior to nuclear export. Nab2 Zn fingers 5-7 have a defined spatial arrangement, with fingers 5 and 7 arranged on one side of the cluster and finger 6 on the other side. This spatial arrangement facilitates the dimerization of Nab2 when bound to adenine-rich RNAs and regulates both the termination of 3' polyadenylation and transcript compaction. Nab2 also functions to coordinate steps in the nuclear phase of the gene expression pathway, such as splicing and polyadenylation, with the generation of mature mRNA and its nuclear export. Nab2 orthologues in higher Eukaryotes have similar domain structures and play roles associated with the regulation of splicing and polyadenylation. Importantly, mutations in the gene encoding the human Nab2 orthologue ZC3H14 and cause intellectual disability.",
+    "openalex_id": ""
+  }
+]

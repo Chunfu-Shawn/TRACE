@@ -1,0 +1,170 @@
+[
+  {
+    "title": "G3BP1 Is a Tunable Switch that Triggers Phase Separation to Assemble Stress Granules.",
+    "doi": "10.1016/j.cell.2020.03.046",
+    "pmid": "32302571",
+    "authors": [
+      "Yang P, Mathieu C, Kolaitis RM, Zhang P, Messing J, Yurtsever U, Yang Z, Wu J, Li Y, Pan Q, Yu J, Martin EW, Mittag T, Kim HJ, Taylor JP."
+    ],
+    "year": "2020",
+    "publication_date": "2020-04-01",
+    "cited_by_count": 1226,
+    "journal": "",
+    "abstract": "The mechanisms underlying ribonucleoprotein (RNP) granule assembly, including the basis for establishing and maintaining RNP granules with distinct composition, are unknown. One prominent type of RNP granule is the stress granule (SG), a dynamic and reversible cytoplasmic assembly formed in eukaryotic cells in response to stress. Here, we show that SGs assemble through liquid-liquid phase separation (LLPS) arising from interactions distributed unevenly across a core protein-RNA interaction network. The central node of this network is G3BP1, which functions as a molecular switch that triggers RNA-dependent LLPS in response to a rise in intracellular free RNA concentrations. Moreover, we show that interplay between three distinct intrinsically disordered regions (IDRs) in G3BP1 regulates its intrinsic propensity for LLPS, and this is fine-tuned by phosphorylation within the IDRs. Further regulation of SG assembly arises through positive or negative cooperativity by extrinsic G3BP1-binding factors that strengthen or weaken, respectively, the core SG network.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP-Caprin1-USP10 complexes mediate stress granule condensation and associate with 40S subunits.",
+    "doi": "10.1083/jcb.201508028",
+    "pmid": "27022092",
+    "authors": [
+      "Kedersha N, Panas MD, Achorn CA, Lyons S, Tisdale S, Hickman T, Thomas M, Lieberman J, McInerney GM, Ivanov P, Anderson P."
+    ],
+    "year": "2016",
+    "publication_date": "2016-03-01",
+    "cited_by_count": 612,
+    "journal": "",
+    "abstract": "Mammalian stress granules (SGs) contain stalled translation preinitiation complexes that are assembled into discrete granules by specific RNA-binding proteins such as G3BP. We now show that cells lacking both G3BP1 and G3BP2 cannot form SGs in response to eukaryotic initiation factor 2α phosphorylation or eIF4A inhibition, but are still SG-competent when challenged with severe heat or osmotic stress. Rescue experiments using G3BP1 mutants show that phosphomimetic G3BP1-S149E fails to rescue SG formation, whereas G3BP1-F33W, a mutant unable to bind G3BP partner proteins Caprin1 or USP10, rescues SG formation. Caprin1/USP10 binding to G3BP is mutually exclusive: Caprin binding promotes, but USP10 binding inhibits, SG formation. G3BP interacts with 40S ribosomal subunits through its RGG motif, which is also required for G3BP-mediated SG formation. We propose that G3BP mediates the condensation of SGs by shifting between two different states that are controlled by the phosphorylation of S149 and by binding to Caprin1 or USP10.",
+    "openalex_id": ""
+  },
+  {
+    "title": "N<sup>6</sup>-methyladenosine (m<sup>6</sup>A) recruits and repels proteins to regulate mRNA homeostasis.",
+    "doi": "10.1038/nsmb.3462",
+    "pmid": "28869609",
+    "authors": [
+      "Edupuganti RR, Geiger S, Lindeboom RGH, Shi H, Hsu PJ, Lu Z, Wang SY, Baltissen MPA, Jansen PWTC, Rossa M, Müller M, Stunnenberg HG, He C, Carell T, Vermeulen M."
+    ],
+    "year": "2017",
+    "publication_date": "2017-09-04",
+    "cited_by_count": 489,
+    "journal": "",
+    "abstract": "RNA modifications are integral to the regulation of RNA metabolism. One abundant mRNA modification is N<sup>6</sup>-methyladenosine (m<sup>6</sup>A), which affects various aspects of RNA metabolism, including splicing, translation and degradation. Current knowledge about the proteins recruited to m<sup>6</sup>A to carry out these molecular processes is still limited. Here we describe comprehensive and systematic mass-spectrometry-based screening of m<sup>6</sup>A interactors in various cell types and sequence contexts. Among the main findings, we identified G3BP1 as a protein that is repelled by m<sup>6</sup>A and positively regulates mRNA stability in an m<sup>6</sup>A-regulated manner. Furthermore, we identified FMR1 as a sequence-context-dependent m<sup>6</sup>A reader, thus revealing a connection between an mRNA modification and an autism spectrum disorder. Collectively, our data represent a rich resource and shed further light on the complex interplay among m<sup>6</sup>A, m<sup>6</sup>A interactors and mRNA homeostasis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The SARS-CoV-2 nucleocapsid phosphoprotein forms mutually exclusive condensates with RNA and the membrane-associated M protein.",
+    "doi": "10.1038/s41467-020-20768-y",
+    "pmid": "33479198",
+    "authors": [
+      "Lu S, Ye Q, Singh D, Cao Y, Diedrich JK, Yates JR, Villa E, Cleveland DW, Corbett KD."
+    ],
+    "year": "2021",
+    "publication_date": "2021-01-21",
+    "cited_by_count": 410,
+    "journal": "",
+    "abstract": "The multifunctional nucleocapsid (N) protein in SARS-CoV-2 binds the ~30 kb viral RNA genome to aid its packaging into the 80-90 nm membrane-enveloped virion. The N protein is composed of N-terminal RNA-binding and C-terminal dimerization domains that are flanked by three intrinsically disordered regions. Here we demonstrate that the N protein's central disordered domain drives phase separation with RNA, and that phosphorylation of an adjacent serine/arginine rich region modulates the physical properties of the resulting condensates. In cells, N forms condensates that recruit the stress granule protein G3BP1, highlighting a potential role for N in G3BP1 sequestration and stress granule inhibition. The SARS-CoV-2 membrane (M) protein independently induces N protein phase separation, and three-component mixtures of N + M + RNA form condensates with mutually exclusive compartments containing N + M or N + RNA, including annular structures in which the M protein coats the outside of an N + RNA condensate. These findings support a model in which phase separation of the SARS-CoV-2 N protein contributes both to suppression of the G3BP1-dependent host immune response and to packaging genomic RNA during virion assembly.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Organelle-specific autophagy in inflammatory diseases: a potential therapeutic target underlying the quality control of multiple organelles.",
+    "doi": "10.1080/15548627.2020.1725377",
+    "pmid": "32048886",
+    "authors": [
+      "Yao RQ, Ren C, Xia ZF, Yao YM."
+    ],
+    "year": "2021",
+    "publication_date": "2020-02-12",
+    "cited_by_count": 356,
+    "journal": "",
+    "abstract": "The structural integrity and functional stability of organelles are prerequisites for the viability and responsiveness of cells. Dysfunction of multiple organelles is critically involved in the pathogenesis and progression of various diseases, such as chronic obstructive pulmonary disease, cardiovascular diseases, infection, and neurodegenerative diseases. In fact, those organelles synchronously present with evident structural derangement and aberrant function under exposure to different stimuli, which might accelerate the corruption of cells. Therefore, the quality control of multiple organelles is of great importance in maintaining the survival and function of cells and could be a potential therapeutic target for human diseases. Organelle-specific autophagy is one of the major subtypes of autophagy, selectively targeting different organelles for quality control. This type of autophagy includes mitophagy, pexophagy, reticulophagy (endoplasmic reticulum), ribophagy, lysophagy, and nucleophagy. These kinds of organelle-specific autophagy are reported to be beneficial for inflammatory disorders by eliminating damaged organelles and maintaining homeostasis. In this review, we summarized the recent findings and mechanisms covering different kinds of organelle-specific autophagy, as well as their involvement in various diseases, aiming to arouse concern about the significance of the quality control of multiple organelles in the treatment of inflammatory diseases.<b>Abbreviations:</b> ABCD3: ATP binding cassette subfamily D member 3; AD: Alzheimer disease; ALS: amyotrophic lateral sclerosis; AMBRA1: autophagy and beclin 1 regulator 1; AMPK: AMP-activated protein kinase; ARIH1: ariadne RBR E3 ubiquitin protein ligase 1; ATF: activating transcription factor; ATG: autophagy related; ATM: ATM serine/threonine kinase; BCL2: BCL2 apoptosis regulator; BCL2L11/BIM: BCL2 like 11; BCL2L13: BCL2 like 13; BECN1: beclin 1; BNIP3: BCL2 interacting protein 3; BNIP3L/NIX: BCL2 interacting protein 3 like; CALCOCO2/NDP52: calcium binding and coiled-coil domain 2; CANX: calnexin; CAT: catalase; CCPG1: cell cycle progression 1; CHDH: choline dehydrogenase; COPD: chronic obstructive pulmonary disease; CSE: cigarette smoke exposure; CTSD: cathepsin D; DDIT3/CHOP: DNA-damage inducible transcript 3; DISC1: DISC1 scaffold protein; DNM1L/DRP1: dynamin 1 like; EIF2AK3/PERK: eukaryotic translation initiation factor 2 alpha kinase 3; EIF2S1/eIF2α: eukaryotic translation initiation factor 2 alpha kinase 3; EMD: emerin; EPAS1/HIF-2α: endothelial PAS domain protein 1; ER: endoplasmic reticulum; ERAD: ER-associated degradation; ERN1/IRE1α: endoplasmic reticulum to nucleus signaling 1; FBXO27: F-box protein 27; FKBP8: FKBP prolyl isomerase 8; FTD: frontotemporal dementia; FUNDC1: FUN14 domain containing 1; G3BP1: G3BP stress granule assembly factor 1; GBA: glucocerebrosidase beta; HIF1A/HIF1: hypoxia inducible factor 1 subunit alpha; IMM: inner mitochondrial membrane; LCLAT1/ALCAT1: lysocardiolipin acyltransferase 1; LGALS3/Gal3: galectin 3; LIR: LC3-interacting region; LMNA: lamin A/C; LMNB1: lamin B1; LPS: lipopolysaccharide; MAPK8/JNK: mitogen-activated protein kinase 8; MAMs: mitochondria-associated membranes; MAP1LC3B/LC3B: microtubule-associated protein 1 light chain 3 beta; MFN1: mitofusin 1; MOD: multiple organelles dysfunction; MTPAP: mitochondrial poly(A) polymerase; MUL1: mitochondrial E3 ubiquitin protein ligase 1; NBR1: NBR1 autophagy cargo receptor; NLRP3: NLR family pyrin domain containing 3; NUFIP1: nuclear FMR1 interacting protein 1; OMM: outer mitochondrial membrane; OPTN: optineurin; PD: Parkinson disease; PARL: presenilin associated rhomboid like; PEX3: peroxisomal biogenesis factor 3; PGAM5: PGAM family member 5; PHB2: prohibitin 2; PINK1: PTEN induced putative kinase 1; PRKN: parkin RBR E3 ubiquitin protein ligase; RB1CC1/FIP200: RB1 inducible coiled-coil 1; RETREG1/FAM134B: reticulophagy regulator 1; RHOT1/MIRO1: ras homolog family member T1; RIPK3/RIP3: receptor interacting serine/threonine kinase 3; ROS: reactive oxygen species; RTN3: reticulon 3; SEC62: SEC62 homolog, preprotein translocation factor; SESN2: sestrin2; SIAH1: siah E3 ubiquitin protein ligase 1; SNCA: synuclein alpha; SNCAIP: synuclein alpha interacting protein; SQSTM1/p62: sequestosome 1; STING1: stimulator of interferon response cGAMP interactor 1; TAX1BP1: Tax1 binding protein 1; TBK1: TANK binding kinase 1; TFEB: transcription factor EB; TICAM1/TRIF: toll-like receptor adaptor molecule 1; TIMM23: translocase of inner mitochondrial membrane 23; TNKS: tankyrase; TOMM: translocase of the outer mitochondrial membrane; TRIM: tripartite motif containing; UCP2: uncoupling protein 2; ULK1: unc-51 like autophagy activating kinase; UPR: unfolded protein response; USP10: ubiquitin specific peptidase 10; VCP/p97: valosin containing protein; VDAC: voltage dependent anion channels; XIAP: X-linked inhibitor of apoptosis; ZNHIT3: zinc finger HIT-type containing 3.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Ubiquitination of G3BP1 mediates stress granule disassembly in a context-specific manner.",
+    "doi": "10.1126/science.abf6548",
+    "pmid": "34739333",
+    "authors": [
+      "Gwon Y, Maxwell BA, Kolaitis RM, Zhang P, Kim HJ, Taylor JP."
+    ],
+    "year": "2021",
+    "publication_date": "2021-06-01",
+    "cited_by_count": 302,
+    "journal": "",
+    "abstract": "Stress granules are dynamic, reversible condensates composed of RNA and protein that assemble in eukaryotic cells in response to a variety of stressors and are normally disassembled after stress is removed. The composition and assembly of stress granules is well understood, but little is known about the mechanisms that govern disassembly. Impaired disassembly has been implicated in some diseases including amyotrophic lateral sclerosis, frontotemporal dementia, and multisystem proteinopathy. Using cultured human cells, we found that stress granule disassembly was context-dependent: Specifically in the setting of heat shock, disassembly required ubiquitination of G3BP1, the central protein within the stress granule RNA-protein network. We found that ubiquitinated G3BP1 interacted with the endoplasmic reticulum–associated protein FAF2, which engaged the ubiquitin-dependent segregase p97/VCP (valosin-containing protein). Thus, targeting of G3BP1 weakened the stress granule–specific interaction network, resulting in granule disassembly.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Both G3BP1 and G3BP2 contribute to stress granule formation.",
+    "doi": "10.1111/gtc.12023",
+    "pmid": "23279204",
+    "authors": [
+      "Matsuki H, Takahashi M, Higuchi M, Makokha GN, Oie M, Fujii M."
+    ],
+    "year": "2013",
+    "publication_date": "2012-12-26",
+    "cited_by_count": 269,
+    "journal": "",
+    "abstract": "Upon exposure to various environmental stresses such as arsenite, hypoxia, and heat shock, cells inhibit their translation and apoptosis and then repair stress-induced alterations, such as DNA damage and the accumulation of misfolded proteins. These types of stresses induce the formation of cytoplasmic RNA granules called stress granules (SGs). SGs are storage sites for the many mRNAs released from disassembled polysomes under these stress conditions and are essential for the selective translation of stress-inducible genes. Ras-GTPase-activating protein SH3 domain-binding protein 1 (G3BP1) is a component of SGs that initiates the assembly of SGs by forming a multimer. In this study, we examined the role of G3BP2, a close relative of G3BP1, in SG formation. Although single knockdown of either G3BP1 or G3BP2 in 293T cells partially reduced the number of SG-positive cells induced by arsenite, the knockdowns of both genes significantly reduced the number. G3BP2 formed a homo-multimer and a hetero-multimer with G3BP1. Moreover, like G3BP1, the overexpression of G3BP2 induced SGs even without stress stimuli. Collectively, these results suggest that both G3BP1 and G3BP2 play a role in the formation of SGs in various human cells and thereby recovery from these cellular stresses.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Structure-Mediated RNA Decay by UPF1 and G3BP1.",
+    "doi": "10.1016/j.molcel.2020.01.021",
+    "pmid": "32017897",
+    "authors": [
+      "Fischer JW, Busa VF, Shao Y, Leung AKL."
+    ],
+    "year": "2020",
+    "publication_date": "2020-02-03",
+    "cited_by_count": 249,
+    "journal": "",
+    "abstract": "Post-transcriptional mechanisms regulate the stability and, hence, expression of coding and noncoding RNAs. Sequence-specific features within the 3' untranslated region (3' UTR) often direct mRNAs for decay. Here, we characterize a genome-wide RNA decay pathway that reduces the half-lives of mRNAs based on overall 3' UTR structure formed by base pairing. The decay pathway is independent of specific single-stranded sequences, as regulation is maintained in both the original and reverse complement orientation. Regulation can be compromised by reducing the overall structure by fusing the 3' UTR with an unstructured sequence. Mutating base-paired RNA regions can also compromise this structure-mediated regulation, which can be restored by re-introducing base-paired structures of different sequences. The decay pathway requires the RNA-binding protein UPF1 and its associated protein G3BP1. Depletion of either protein increased steady-state levels of mRNAs with highly structured 3' UTRs as well as highly structured circular RNAs. This structure-dependent mechanism therefore enables cells to selectively regulate coding and noncoding RNAs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "G3BP1, G3BP2 and CAPRIN1 are required for translation of interferon stimulated mRNAs and are targeted by a dengue virus non-coding RNA.",
+    "doi": "10.1371/journal.ppat.1004242",
+    "pmid": "24992036",
+    "authors": [
+      "Bidet K, Dadlani D, Garcia-Blanco MA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-07-03",
+    "cited_by_count": 249,
+    "journal": "",
+    "abstract": "Viral RNA-host protein interactions are critical for replication of flaviviruses, a genus of positive-strand RNA viruses comprising major vector-borne human pathogens including dengue viruses (DENV). We examined three conserved host RNA-binding proteins (RBPs) G3BP1, G3BP2 and CAPRIN1 in dengue virus (DENV-2) infection and found them to be novel regulators of the interferon (IFN) response against DENV-2. The three RBPs were required for the accumulation of the protein products of several interferon stimulated genes (ISGs), and for efficient translation of PKR and IFITM2 mRNAs. This identifies G3BP1, G3BP2 and CAPRIN1 as novel regulators of the antiviral state. Their antiviral activity was antagonized by the abundant DENV-2 non-coding subgenomic flaviviral RNA (sfRNA), which bound to G3BP1, G3BP2 and CAPRIN1, inhibited their activity and lead to profound inhibition of ISG mRNA translation. This work describes a new and unexpected level of regulation for interferon stimulated gene expression and presents the first mechanism of action for an sfRNA as a molecular sponge of anti-viral effectors in human cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Chronic optogenetic induction of stress granules is cytotoxic and reveals the evolution of ALS-FTD pathology.",
+    "doi": "10.7554/elife.39578",
+    "pmid": "30893049",
+    "authors": [
+      "Zhang P, Fan B, Yang P, Temirov J, Messing J, Kim HJ, Taylor JP."
+    ],
+    "year": "2019",
+    "publication_date": "2019-03-20",
+    "cited_by_count": 242,
+    "journal": "",
+    "abstract": "Stress granules (SGs) are non-membrane-bound RNA-protein granules that assemble through phase separation in response to cellular stress. Disturbances in SG dynamics have been implicated as a primary driver of neurodegenerative diseases, including amyotrophic lateral sclerosis (ALS) and frontotemporal dementia (FTD), suggesting the hypothesis that these diseases reflect an underlying disturbance in the dynamics and material properties of SGs. However, this concept has remained largely untestable in available models of SG assembly, which require the confounding variable of exogenous stressors. Here we introduce a light-inducible SG system, termed OptoGranules, based on optogenetic multimerization of G3BP1, which is an essential scaffold protein for SG assembly. In this system, which permits experimental control of SGs in living cells in the absence of exogenous stressors, we demonstrate that persistent or repetitive assembly of SGs is cytotoxic and is accompanied by the evolution of SGs to cytoplasmic inclusions that recapitulate the pathology of ALS-FTD.<h4>Editorial note</h4>This article has been through an editorial process in which the authors decide how to respond to the issues raised during peer review. The Reviewing Editor's assessment is that all the issues have been addressed (see decision letter).",
+    "openalex_id": ""
+  },
+  {
+    "title": "YB-1 regulates stress granule formation and tumor progression by translationally activating G3BP1.",
+    "doi": "10.1083/jcb.201411047",
+    "pmid": "25800057",
+    "authors": [
+      "Somasekharan SP, El-Naggar A, Leprivier G, Cheng H, Hajee S, Grunewald TG, Zhang F, Ng T, Delattre O, Evdokimova V, Wang Y, Gleave M, Sorensen PH."
+    ],
+    "year": "2015",
+    "publication_date": "2015-03-23",
+    "cited_by_count": 240,
+    "journal": "",
+    "abstract": "Under cell stress, global protein synthesis is inhibited to preserve energy. One mechanism is to sequester and silence mRNAs in ribonucleoprotein complexes known as stress granules (SGs), which contain translationally silent mRNAs, preinitiation factors, and RNA-binding proteins. Y-box binding protein 1 (YB-1) localizes to SGs, but its role in SG biology is unknown. We now report that YB-1 directly binds to and translationally activates the 5' untranslated region (UTR) of G3BP1 mRNAs, thereby controlling the availability of the G3BP1 SG nucleator for SG assembly. YB-1 inactivation in human sarcoma cells dramatically reduces G3BP1 and SG formation in vitro. YB-1 and G3BP1 expression are highly correlated in human sarcomas, and elevated G3BP1 expression correlates with poor survival. Finally, G3BP1 down-regulation in sarcoma xenografts prevents in vivo SG formation and tumor invasion, and completely blocks lung metastasis in mouse models. Together, these findings demonstrate a critical role for YB-1 in SG formation through translational activation of G3BP1, and highlight novel functions for SGs in tumor progression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Aberrant NSUN2-mediated m<sup>5</sup>C modification of H19 lncRNA is associated with poor differentiation of hepatocellular carcinoma.",
+    "doi": "10.1038/s41388-020-01475-w",
+    "pmid": "32978516",
+    "authors": [
+      "Sun Z, Xue S, Zhang M, Xu H, Hu X, Chen S, Liu Y, Guo M, Cui H."
+    ],
+    "year": "2020",
+    "publication_date": "2020-09-25",
+    "cited_by_count": 230,
+    "journal": "",
+    "abstract": "RNA methylation is an important epigenetic modification. Recent studies on RNA methylation mainly focus on the m<sup>6</sup>A modification of mRNA, but very little is known about the m<sup>5</sup>C modification. NSUN2 is an RNA methyltransferase responsible for the m<sup>5</sup>C modification of multiple RNAs. In this study, we knocked down the NSUN2 gene in HepG2 cells by CRISPR/Cas9 technology and performed high-throughput RNA-BisSeq. An important tumor-related lncRNA H19 was identified to be targeted by NSUN2. Studies have shown that the expression of H19 lncRNA is abnormally elevated and has a carcinogenic effect in many types of tumors. Our results demonstrated that m<sup>5</sup>C modification of H19 lncRNA can increase its stability. Interestingly, m<sup>5</sup>C-modified H19 lncRNA can be specifically bound by G3BP1, a well-known oncoprotein which further leads to MYC accumulation. This may be a novel mechanism by which lncRNA H19 exerts its oncogenic effect. Besides, both the m<sup>5</sup>C methylation level and the expression level of H19 lncRNA in hepatocellular carcinoma tissues were significantly higher than those in adjacent non-cancer tissues, which were closely associated with poor differentiation of hepatocellular carcinoma (HCC). In conclusion, we found that H19 RNA is a specific target for the NSUN2 modifier. The m<sup>5</sup>C-modified H19 lncRNA may promote the occurrence and development of tumors by recruiting the G3BP1 oncoprotein. Our findings may provide a potential target and biomarker for the diagnosis and treatment of HCC.",
+    "openalex_id": ""
+  }
+]

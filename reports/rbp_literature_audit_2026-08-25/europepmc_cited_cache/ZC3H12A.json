@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Zc3h12a is an RNase essential for controlling immune responses by regulating mRNA decay.",
+    "doi": "10.1038/nature07924",
+    "pmid": "19322177",
+    "authors": [
+      "Matsushita K, Takeuchi O, Standley DM, Kumagai Y, Kawagoe T, Miyake T, Satoh T, Kato H, Tsujimura T, Nakamura H, Akira S."
+    ],
+    "year": "2009",
+    "publication_date": "2009-03-25",
+    "cited_by_count": 592,
+    "journal": "",
+    "abstract": "Toll-like receptors (TLRs) recognize microbial components, and evoke inflammation and immune responses. TLR stimulation activates complex gene expression networks that regulate the magnitude and duration of the immune reaction. Here we identify the TLR-inducible gene Zc3h12a as an immune response modifier that has an essential role in preventing immune disorders. Zc3h12a-deficient mice suffered from severe anaemia, and most died within 12 weeks. Zc3h12a(-/-) mice also showed augmented serum immunoglobulin levels and autoantibody production, together with a greatly increased number of plasma cells, as well as infiltration of plasma cells to the lung. Most Zc3h12a(-/-) splenic T cells showed effector/memory characteristics and produced interferon-gamma in response to T-cell receptor stimulation. Macrophages from Zc3h12a(-/-) mice showed highly increased production of interleukin (IL)-6 and IL-12p40 (also known as IL12b), but not TNF, in response to TLR ligands. Although the activation of TLR signalling pathways was normal, Il6 messenger RNA decay was severely impaired in Zc3h12a(-/-) macrophages. Overexpression of Zc3h12a accelerated Il6 mRNA degradation via its 3'-untranslated region (UTR), and destabilized RNAs with 3'-UTRs for genes including Il6, Il12p40 and the calcitonin receptor gene Calcr. Zc3h12a contains a putative amino-terminal nuclease domain, and the expressed protein had RNase activity, consistent with a role in the decay of Il6 mRNA. Together, these results indicate that Zc3h12a is an essential RNase that prevents immune disorders by directly controlling the stability of a set of inflammatory genes.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Somatic inflammatory gene mutations in human ulcerative colitis epithelium.",
+    "doi": "10.1038/s41586-019-1844-5",
+    "pmid": "31853059",
+    "authors": [
+      "Nanki K, Fujii M, Shimokawa M, Matano M, Nishikori S, Date S, Takano A, Toshimitsu K, Ohta Y, Takahashi S, Sugimoto S, Ishimaru K, Kawasaki K, Nagai Y, Ishii R, Yoshida K, Sasaki N, Hibi T, Ishihara S, Kanai T, Sato T."
+    ],
+    "year": "2020",
+    "publication_date": "2019-12-18",
+    "cited_by_count": 292,
+    "journal": "",
+    "abstract": "With ageing, normal human tissues experience an expansion of somatic clones that carry cancer mutations<sup>1-7</sup>. However, whether such clonal expansion exists in the non-neoplastic intestine remains unknown. Here, using whole-exome sequencing data from 76 clonal human colon organoids, we identify a unique pattern of somatic mutagenesis in the inflamed epithelium of patients with ulcerative colitis. The affected epithelium accumulates somatic mutations in multiple genes that are related to IL-17 signalling-including NFKBIZ, ZC3H12A and PIGR, which are genes that are rarely affected in colon cancer. Targeted sequencing validates the pervasive spread of mutations that are related to IL-17 signalling. Unbiased CRISPR-based knockout screening in colon organoids reveals that the mutations confer resistance to the pro-apoptotic response that is induced by IL-17A. Some of these genetic mutations are known to exacerbate experimental colitis in mice<sup>8-11</sup>, and somatic mutagenesis in human colon epithelium may be causally linked to the inflammatory process. Our findings highlight a genetic landscape that adapts to a hostile microenvironment, and demonstrate its potential contribution to the pathogenesis of ulcerative colitis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MCPIP1 ribonuclease antagonizes dicer and terminates microRNA biogenesis through precursor microRNA degradation.",
+    "doi": "10.1016/j.molcel.2011.09.012",
+    "pmid": "22055188",
+    "authors": [
+      "Suzuki HI, Arase M, Matsuyama H, Choi YL, Ueno T, Mano H, Sugimoto K, Miyazono K."
+    ],
+    "year": "2011",
+    "publication_date": "2011-11-01",
+    "cited_by_count": 225,
+    "journal": "",
+    "abstract": "MicroRNAs (miRNAs) are versatile regulators of gene expression and undergo complex maturation processes. However, the mechanism(s) stabilizing or reducing these small RNAs remains poorly understood. Here we identify mammalian immune regulator MCPIP1 (Zc3h12a) ribonuclease as a broad suppressor of miRNA activity and biogenesis, which counteracts Dicer, a central ribonuclease in miRNA processing. MCPIP1 suppresses miRNA biosynthesis via cleavage of the terminal loops of precursor miRNAs (pre-miRNAs). MCPIP1 also carries a vertebrate-specific oligomerization domain important for pre-miRNA recognition, indicating its recent evolution. Furthermore, we observed potential antagonism between MCPIP1 and Dicer function in human cancer and found a regulatory role of MCPIP1 in the signaling axis comprising miR-155 and its target c-Maf. These results collectively suggest that the balance between processing and destroying ribonucleases modulates miRNA biogenesis and potentially affects pathological miRNA dysregulation. The presence of this abortive processing machinery and diversity of MCPIP1-related genes may imply a dynamic evolutional transition of the RNA silencing system.",
+    "openalex_id": ""
+  },
+  {
+    "title": "MCPIP1 Endoribonuclease Activity Negatively Regulates Interleukin-17-Mediated Signaling and Inflammation.",
+    "doi": "10.1016/j.immuni.2015.07.021",
+    "pmid": "26320658",
+    "authors": [
+      "Garg AV, Amatya N, Chen K, Cruz JA, Grover P, Whibley N, Conti HR, Hernandez Mir G, Sirakova T, Childs EC, Smithgall TE, Biswas PS, Kolls JK, McGeachy MJ, Kolattukudy PE, Gaffen SL."
+    ],
+    "year": "2015",
+    "publication_date": "2015-08-25",
+    "cited_by_count": 136,
+    "journal": "",
+    "abstract": "Interleukin-17 (IL-17) induces pathology in autoimmunity and infections; therefore, constraint of this pathway is an essential component of its regulation. We demonstrate that the signaling intermediate MCPIP1 (also termed Regnase-1, encoded by Zc3h12a) is a feedback inhibitor of IL-17 receptor signal transduction. MCPIP1 knockdown enhanced IL-17-mediated signaling, requiring MCPIP1's endoribonuclease but not deubiquitinase domain. MCPIP1 haploinsufficient mice showed enhanced resistance to disseminated Candida albicans infection, which was reversed in an Il17ra(-/-) background. Conversely, IL-17-dependent pathology in Zc3h12a(+/-) mice was exacerbated in both EAE and pulmonary inflammation. MCPIP1 degraded Il6 mRNA directly but only modestly downregulated the IL-6 promoter. However, MCPIP1 strongly inhibited the Lcn2 promoter by regulating the mRNA stability of Nfkbiz, encoding the IκBζ transcription factor. Unexpectedly, MCPIP1 degraded Il17ra and Il17rc mRNA, independently of the 3' UTR. The cumulative impact of MCPIP1 on IL-6, IκBζ, and possibly IL-17R subunits results in a biologically relevant inhibition of IL-17 signaling.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Genome-wide survey and expression profiling of CCCH-zinc finger family reveals a functional module in macrophage activation.",
+    "doi": "10.1371/journal.pone.0002880",
+    "pmid": "18682727",
+    "authors": [
+      "Liang J, Song W, Tromp G, Kolattukudy PE, Fu M."
+    ],
+    "year": "2008",
+    "publication_date": "2008-08-06",
+    "cited_by_count": 133,
+    "journal": "",
+    "abstract": "Previously, we have identified a novel CCCH zinc finger protein family as negative regulators of macrophage activation. To gain an overall insight into the entire CCCH zinc finger gene family and to evaluate their potential role in macrophage activation, here we performed a genome-wide survey of CCCH zinc finger genes in mouse and human. Totally 58 CCCH zinc finger genes in mouse and 55 in human were identified and most of them have not been reported previously. Phylogenetic analysis revealed that the mouse CCCH family was divided into 6 groups. Meanwhile, we employed quantitative real-time PCR to profile their tissue expression patterns in adult mice. Clustering analysis showed that most of CCCH genes were broadly expressed in all of tissues examined with various levels. Interestingly, several CCCH genes Mbnl3, Zfp36l2, Zfp36, Zc3h12a, Zc3h12d, Zc3h7a and Leng9 were enriched in macrophage-related organs such as thymus, spleen, lung, intestine and adipose. Consistently, a comprehensive assessment of changes in expression of the 58 members of the mouse CCCH family during macrophage activation also revealed that these CCCH zinc finger genes were associated with the activation of bone marrow-derived macrophages by lipopolysaccharide. Taken together, this study not only identified a functional module of CCCH zinc finger genes in the regulation of macrophage activation but also provided the framework for future studies to dissect the function of this emerging gene family.",
+    "openalex_id": ""
+  },
+  {
+    "title": "circRNA Mediates Silica-Induced Macrophage Activation Via HECTD1/ZC3H12A-Dependent Ubiquitination.",
+    "doi": "10.7150/thno.21648",
+    "pmid": "29290828",
+    "authors": [
+      "Zhou Z, Jiang R, Yang X, Guo H, Fang S, Zhang Y, Cheng Y, Wang J, Yao H, Chao J."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-01",
+    "cited_by_count": 126,
+    "journal": "",
+    "abstract": "<b>Rationale:</b> Phagocytosis of silicon dioxide (SiO<sub>2</sub>) into lung cells causes an inflammatory cascade that results in fibroblast proliferation and migration, followed by fibrosis. Circular RNAs (circRNAs) are a subclass of non-coding RNAs detected within mammalian cells; however, researchers have not determined whether circRNAs are involved in the pathophysiological process of silicosis. The upstream molecular mechanisms and functional effects on cell apoptosis, proliferation and migration were investigated to elucidate the role of circRNAs in SiO<sub>2</sub>-induced inflammation in pulmonary macrophages. <b>Methods:</b> Primary cultures of alveolar macrophages from healthy donors and patients as well as the RAW264.7 macrophage cell line were used to explore the functions of circHECTD1 (HECT domain E3 ubiquitin protein ligase 1) in macrophage activation. <b>Results:</b> The results of the experiments indicated that 1) SiO<sub>2</sub> concomitantly decreased circHECTD1 levels and increased HECTD1 protein expression; 2) circHECTD1 and HECTD1 were involved in SiO<sub>2</sub>-induced macrophage activation via ubiquitination; and 3) SiO<sub>2</sub>-activated macrophages promoted fibroblast proliferation and migration via the circHECTD1/HECTD1 pathway. Tissue samples from silicosis patients confirmed the upregulation of HECTD1. <b>Conclusions:</b> Our study elucidated a link between SiO<sub>2</sub>-induced macrophage activation and the circHECTD1/HECTD1 pathway, thereby providing new insight into the potential use of HECTD1 in the development of novel therapeutic strategies for treating silicosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Translational regulation of specific mRNAs controls feedback inhibition and survival during macrophage activation.",
+    "doi": "10.1371/journal.pgen.1004368",
+    "pmid": "24945926",
+    "authors": [
+      "Schott J, Reitter S, Philipp J, Haneke K, Schäfer H, Stoecklin G."
+    ],
+    "year": "2014",
+    "publication_date": "2014-06-19",
+    "cited_by_count": 119,
+    "journal": "",
+    "abstract": "For a rapid induction and efficient resolution of the inflammatory response, gene expression in cells of the immune system is tightly regulated at the transcriptional and post-transcriptional level. The control of mRNA translation has emerged as an important determinant of protein levels, yet its role in macrophage activation is not well understood. We systematically analyzed the contribution of translational regulation to the early phase of the macrophage response by polysome fractionation from mouse macrophages stimulated with lipopolysaccharide (LPS). Individual mRNAs whose translation is specifically regulated during macrophage activation were identified by microarray analysis. Stimulation with LPS for 1 h caused translational activation of many feedback inhibitors of the inflammatory response including NF-κB inhibitors (Nfkbid, Nfkbiz, Nr4a1, Ier3), a p38 MAPK antagonist (Dusp1) and post-transcriptional suppressors of cytokine expression (Zfp36 and Zc3h12a). Our analysis showed that their translation is repressed in resting and de-repressed in activated macrophages. Quantification of mRNA levels at a high temporal resolution by RNASeq allowed us to define groups with different expression patterns. Thereby, we were able to distinguish mRNAs whose translation is actively regulated from mRNAs whose polysomal shifts are due to changes in mRNA levels. Active up-regulation of translation was associated with a higher content in AU-rich elements (AREs). For one example, Ier3 mRNA, we show that repression in resting cells as well as de-repression after stimulation depends on the ARE. Bone-marrow derived macrophages from Ier3 knockout mice showed reduced survival upon activation, indicating that IER3 induction protects macrophages from LPS-induced cell death. Taken together, our analysis reveals that translational control during macrophage activation is important for cellular survival as well as the expression of anti-inflammatory feedback inhibitors that promote the resolution of inflammation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Binding specificities of human RNA-binding proteins toward structured and linear RNA sequences.",
+    "doi": "10.1101/gr.258848.119",
+    "pmid": "32703884",
+    "authors": [
+      "Jolma A, Zhang J, Mondragón E, Morgunova E, Kivioja T, Laverty KU, Yin Y, Zhu F, Bourenkov G, Morris Q, Hughes TR, Maher LJ, Taipale J."
+    ],
+    "year": "2020",
+    "publication_date": "2020-07-23",
+    "cited_by_count": 114,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) regulate RNA metabolism at multiple levels by affecting splicing of nascent transcripts, RNA folding, base modification, transport, localization, translation, and stability. Despite their central role in RNA function, the RNA-binding specificities of most RBPs remain unknown or incompletely defined. To address this, we have assembled a genome-scale collection of RBPs and their RNA-binding domains (RBDs) and assessed their specificities using high-throughput RNA-SELEX (HTR-SELEX). Approximately 70% of RBPs for which we obtained a motif bound to short linear sequences, whereas ∼30% preferred structured motifs folding into stem-loops. We also found that many RBPs can bind to multiple distinctly different motifs. Analysis of the matches of the motifs in human genomic sequences suggested novel roles for many RBPs. We found that three cytoplasmic proteins-ZC3H12A, ZC3H12B, and ZC3H12C-bound to motifs resembling the splice donor sequence, suggesting that these proteins are involved in degradation of cytoplasmic viral and/or unspliced transcripts. Structural analysis revealed that the RNA motif was not bound by the conventional C3H1 RNA-binding domain of ZC3H12B. Instead, the RNA motif was bound by the ZC3H12B's PilT N terminus (PIN) RNase domain, revealing a potential mechanism by which unconventional RBDs containing active sites or molecule-binding pockets could interact with short, structured RNA molecules. Our collection containing 145 high-resolution binding specificity models for 86 RBPs is the largest systematic resource for the analysis of human RBPs and will greatly facilitate future analysis of the various biological roles of this important class of proteins.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TRAF Family Member-associated NF-κB Activator (TANK) Inhibits Genotoxic Nuclear Factor κB Activation by Facilitating Deubiquitinase USP10-dependent Deubiquitination of TRAF6 Ligase.",
+    "doi": "10.1074/jbc.m115.643767",
+    "pmid": "25861989",
+    "authors": [
+      "Wang W, Huang X, Xin HB, Fu M, Xue A, Wu ZH."
+    ],
+    "year": "2015",
+    "publication_date": "2015-04-10",
+    "cited_by_count": 99,
+    "journal": "",
+    "abstract": "DNA damage-induced NF-κB activation plays a critical role in regulating cellular response to genotoxic stress. However, the molecular mechanisms controlling the magnitude and duration of this genotoxic NF-κB signaling cascade are poorly understood. We recently demonstrated that genotoxic NF-κB activation is regulated by reversible ubiquitination of several essential mediators involved in this signaling pathway. Here we show that TRAF family member-associated NF-κB activator (TANK) negatively regulates NF-κB activation by DNA damage via inhibiting ubiquitination of TRAF6. Despite the lack of a deubiquitination enzyme domain, TANK has been shown to negatively regulate the ubiquitination of TRAF proteins. We found TANK formed a complex with MCPIP1 (also known as ZC3H12A) and a deubiquitinase, USP10, which was essential for the USP10-dependent deubiquitination of TRAF6 and the resolution of genotoxic NF-κB activation upon DNA damage. Clustered regularly interspaced short palindromic repeats (CRISPR)/Cas9-mediated deletion of TANK in human cells significantly enhanced NF-κB activation by genotoxic treatment, resulting in enhanced cell survival and increased inflammatory cytokine production. Furthermore, we found that the TANK-MCPIP1-USP10 complex also decreased TRAF6 ubiquitination in cells treated with IL-1β or LPS. In accordance, depletion of USP10 enhanced NF-κB activation induced by IL-1β or LPS. Collectively, our data demonstrate that TANK serves as an important negative regulator of NF-κB signaling cascades induced by genotoxic stress and IL-1R/Toll-like receptor stimulation in a manner dependent on MCPIP1/USP10-mediated TRAF6 deubiquitination.",
+    "openalex_id": ""
+  },
+  {
+    "title": "USP10 inhibits genotoxic NF-κB activation by MCPIP1-facilitated deubiquitination of NEMO.",
+    "doi": "10.1038/emboj.2013.247",
+    "pmid": "24270572",
+    "authors": [
+      "Niu J, Shi Y, Xue J, Miao R, Huang S, Wang T, Wu J, Fu M, Wu ZH."
+    ],
+    "year": "2013",
+    "publication_date": "2013-11-22",
+    "cited_by_count": 98,
+    "journal": "",
+    "abstract": "DNA damage-induced activation of the transcription factor NF-κB plays an important role in the cellular response to genotoxic stress. However, uncontrolled NF-κB activation upon DNA damage may lead to deleterious consequences. Although the mechanisms mediating genotoxic NF-κB activation have been elucidated, how this signalling is terminated remains poorly understood. Here, we show that the CCCH-type zinc finger-containing protein MCPIP1 (monocyte chemotactic protein-1-induced protein-1; also known as ZC3H12A) is induced upon genotoxic treatment in an NF-κB-dependent manner. MCPIP1 upregulation reduces NEMO linear ubiquitylation, resulting in decreased activation of IKK and NF-κB. NEMO ubiquitylation is decreased through the deubiquitinase USP10, which interacts with NEMO via MCPIP1 upon genotoxic stress. USP10 association with NEMO leads to removal of NEMO-attached linear polyubiquitin chains and subsequent inhibition of the genotoxic NF-κB signalling cascade. Consistently, USP10 is required for MCPIP1-mediated inhibition of genotoxic NF-κB activation and promotion of apoptosis. Thus, by mediating USP10-dependent deubiquitination of NEMO, MCPIP1 induction serves as a negative feedback mechanism for attenuating genotoxic NF-κB activation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Monocyte chemotactic protein-1-induced protein-1 (MCPIP1) is a novel multifunctional modulator of inflammatory reactions.",
+    "doi": "10.1016/j.bbamcr.2012.06.029",
+    "pmid": "22771441",
+    "authors": [
+      "Jura J, Skalniak L, Koj A."
+    ],
+    "year": "2012",
+    "publication_date": "2012-07-04",
+    "cited_by_count": 75,
+    "journal": "",
+    "abstract": "The generalized inflammatory response leads to activation of hundreds of genes transcribed in an established sequence in specialized cells. Transcriptome analysis of human monocyte-derived cells stimulated with IL-1beta or with monocyte chemotactic protein-1 (MCP-1) has led to the identification of a new inflammation-related gene ZC3H12A encoding a chain of 599 amino acids corresponding to a 66-kDa protein. The protein, given a provisional name of MCPIP1 (monocyte chemotactic protein-induced protein-1), is expressed in several human and murine tissues such as bone marrow, spleen, heart and placenta. In in vivo studies, mice with inactivated MCPIP1-encoding gene showed growth retardation, lymphadenopathy, splenomegaly and enhanced inflammatory symptoms. Principal molecular features of MCPIP1 include a single zinc finger motif, an RNase-like PIN domain and ubiquitin-binding domain. Reports from independent laboratories suggest that MCPIP1 may function also as a deubiquitinase. Although MCPIP1 is regarded by some authors as a new transcription factor or cell differentiation factor modulating angiogenesis or adipogenesis, its principal function appears to be downregulation of inflammatory responses through at least two independent mechanisms: increased degradation of cytokine mRNAs and inhibition of LPS- and IL-1-induced NF-kappaB signaling pathway. The interference with NF-kappaB activation is highly complex and includes TRAF6 and TANK interaction with the ubiquitin-associated (UBA) domain of MCPIP1. Purified MCPIP1 protein was reported to degrade specific mRNA and cleave K48- and K63-linked polyubiquitin chains. Although some structural features and the mechanism of action of MCPIP1 are not fully explained yet, its importance in the regulation of inflammatory reactions has been firmly established.",
+    "openalex_id": ""
+  },
+  {
+    "title": "mRNA degradation by the endoribonuclease Regnase-1/ZC3H12a/MCPIP-1.",
+    "doi": "10.1016/j.bbagrm.2013.03.001",
+    "pmid": "23500036",
+    "authors": [
+      "Uehata T, Akira S."
+    ],
+    "year": "2013",
+    "publication_date": "2013-03-13",
+    "cited_by_count": 69,
+    "journal": "",
+    "abstract": "Post-transcriptional regulation is a crucial step for coordinating immune responses. Post-transcriptional mechanisms exquisitely control inflammation by increasing or decreasing both the stability of mRNAs and the efficiency of protein translation. Regulatory RNase 1 (Regnase-1, also known as Zc3h12a or MCPIP1) was identified as a novel protein harboring a CCCH-type zinc-finger domain and a PIN-like RNase domain. Regnase-1 mRNA expression is induced by Toll-like receptor (TLR) ligands, interleukin (IL)-1β and MCP-1. Regnase-1 destabilizes mRNAs encoding immune related proteins including IL-6 and IL-12p40 via their 3' untranslated regions. In Regnase-1-deficient (-/-) macrophages, IL-6 is overproduced in response to LPS because Il6 mRNA is stabilized because of Regnase-1 deficiency. Regnase-1(-/-) mice developed severe systemic inflammation, characterized by production of autoantibodies. It is now known that Regnase-1 protein expression is dynamically regulated during the course of inflammation. Upon IL-1β and TLR stimulation, Regnase-1 is rapidly phosphorylated by IκB kinases (IKKs) and degraded via ubiquitin-proteasome machinery. Regnase-1 degradation allows Il6 mRNA to be expressed rapidly and robustly upon stimulation. Furthermore, Regnase-1 destabilizes its own mRNA, thereby preventing excessive translation of Regnase-1 and degradation of cytokine-encoding mRNAs. In this review, we will discuss the mechanism of Regnase-1-mediated mRNA decay and describe the mechanism by which Regnase-1 is tightly regulated in innate immune cells. This article is part of a Special Issue entitled: RNA Decay mechanisms.",
+    "openalex_id": ""
+  }
+]

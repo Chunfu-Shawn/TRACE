@@ -1187,6 +1187,24 @@ def plot_rbp_nucleotide_contribution_cases(
         case = contribution_df[
             contribution_df['Hit_ID'].astype(str) == str(hit_id)
         ].sort_values('Relative_Position')
+        if (
+            contribution_score == 'pwm_least_preferred'
+            and not pd.to_numeric(
+                case[contribution_col], errors='coerce'
+            ).notna().any()
+        ):
+            matrix_id = (
+                str(case.iloc[0]['Matrix_ID'])
+                if 'Matrix_ID' in case.columns and not case.empty
+                else 'unknown'
+            )
+            print(
+                f"[WARN] Skipping hit {hit_id}: PWM least-preferred "
+                f"scores are unavailable for matrix {matrix_id}. Use "
+                "contribution_score='mean_alternatives' or pass the "
+                "matching PWM library during saturation mutagenesis."
+            )
+            continue
         first = case.iloc[0]
         fig, (architecture_ax, logo_ax) = plt.subplots(
             2, 1, figsize=(width, height),

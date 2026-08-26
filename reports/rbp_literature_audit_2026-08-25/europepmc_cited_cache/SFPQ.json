@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Long noncoding RNA NEAT1-dependent SFPQ relocation from promoter region to paraspeckle mediates IL8 expression upon immune stimuli.",
+    "doi": "10.1016/j.molcel.2014.01.009",
+    "pmid": "24507715",
+    "authors": [
+      "Imamura K, Imamachi N, Akizuki G, Kumakura M, Kawaguchi A, Nagata K, Kato A, Kawaguchi Y, Sato H, Yoneda M, Kai C, Yada T, Suzuki Y, Yamada T, Ozawa T, Kaneki K, Inoue T, Kobayashi M, Kodama T, Wada Y, Sekimizu K, Akimitsu N."
+    ],
+    "year": "2014",
+    "publication_date": "2014-02-01",
+    "cited_by_count": 571,
+    "journal": "",
+    "abstract": "Although thousands of long noncoding RNAs (lncRNAs) are localized in the nucleus, only a few dozen have been functionally characterized. Here we show that nuclear enriched abundant transcript 1 (NEAT1), an essential lncRNA for the formation of nuclear body paraspeckles, is induced by influenza virus and herpes simplex virus infection as well as by Toll-like receptor3-p38 pathway-triggered poly I:C stimulation, resulting in excess formation of paraspeckles. We found that NEAT1 facilitates the expression of antiviral genes including cytokines such as interleukin-8 (IL8). We found that splicing factor proline/glutamine-rich (SFPQ), a NEAT1-binding paraspeckle protein, is a repressor of IL8 transcription, and that NEAT1 induction relocates SFPQ from the IL8 promoter to the paraspeckles, leading to transcriptional activation of IL8. Together, our data show that NEAT1 plays an important role in the innate immune response through the transcriptional regulation of antiviral genes by the stimulus-responsive cooperative action of NEAT1 and SFPQ.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Functional Domains of NEAT1 Architectural lncRNA Induce Paraspeckle Assembly through Phase Separation.",
+    "doi": "10.1016/j.molcel.2018.05.019",
+    "pmid": "29932899",
+    "authors": [
+      "Yamazaki T, Souquere S, Chujo T, Kobelke S, Chong YS, Fox AH, Bond CS, Nakagawa S, Pierron G, Hirose T."
+    ],
+    "year": "2018",
+    "publication_date": "2018-06-01",
+    "cited_by_count": 528,
+    "journal": "",
+    "abstract": "A class of long noncoding RNAs (lncRNAs) has architectural functions in nuclear body construction; however, specific RNA domains dictating their architectural functions remain uninvestigated. Here, we identified the domains of the architectural NEAT1 lncRNA that construct paraspeckles. Systematic deletion of NEAT1 portions using CRISPR/Cas9 in haploid cells revealed modular domains of NEAT1 important for RNA stability, isoform switching, and paraspeckle assembly. The middle domain, containing functionally redundant subdomains, was responsible for paraspeckle assembly. Artificial tethering of the NONO protein to a NEAT1_2 mutant lacking the functional subdomains rescued paraspeckle assembly, and this required the NOPS dimerization domain of NONO. Paraspeckles exhibit phase-separated properties including susceptibility to 1,6-hexanediol treatment. RNA fragments of the NEAT1_2 subdomains preferentially bound NONO/SFPQ, leading to phase-separated aggregates in vitro. Thus, we demonstrate that the enrichment of NONO dimers on the redundant NEAT1_2 subdomains initiates construction of phase-separated paraspeckles, providing mechanistic insights into lncRNA-based nuclear body formation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "NEAT1 long noncoding RNA regulates transcription via protein sequestration within subnuclear bodies.",
+    "doi": "10.1091/mbc.e13-09-0558",
+    "pmid": "24173718",
+    "authors": [
+      "Hirose T, Virnicchi G, Tanigawa A, Naganuma T, Li R, Kimura H, Yokoi T, Nakagawa S, Bénard M, Fox AH, Pierron G."
+    ],
+    "year": "2014",
+    "publication_date": "2013-10-30",
+    "cited_by_count": 396,
+    "journal": "",
+    "abstract": "Paraspeckles are subnuclear structures formed around nuclear paraspeckle assembly transcript 1 (NEAT1)/MENε/β long noncoding RNA (lncRNA). Here we show that paraspeckles become dramatically enlarged after proteasome inhibition. This enlargement is mainly caused by NEAT1 transcriptional up-regulation rather than accumulation of undegraded paraspeckle proteins. Of interest, however, using immuno-electron microscopy, we find that key paraspeckle proteins become effectively depleted from the nucleoplasm by 50% when paraspeckle assembly is enhanced, suggesting a sequestration mechanism. We also perform microarrays from NEAT1-knockdown cells and find that NEAT1 represses transcription of several genes, including the RNA-specific adenosine deaminase B2 (ADARB2) gene. In contrast, the NEAT1-binding paraspeckle protein splicing factor proline/glutamine-rich (SFPQ) is required for ADARB2 transcription. This leads us to hypothesize that ADARB2 expression is controlled by NEAT1-dependent sequestration of SFPQ. Accordingly, we find that ADARB2 expression is strongly reduced upon enhanced SFPQ sequestration by proteasome inhibition, with concomitant reduction in SFPQ binding to the ADARB2 promoter. Finally, NEAT1(-/-) fibroblasts are more sensitive to proteasome inhibition, which triggers cell death, suggesting that paraspeckles/NEAT1 attenuates the cell death pathway. These data further confirm that paraspeckles are stress-responsive nuclear bodies and provide a model in which induced NEAT1 controls target gene transcription by protein sequestration into paraspeckles.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Paraspeckles: nuclear bodies built on long noncoding RNA.",
+    "doi": "10.1083/jcb.200906113",
+    "pmid": "19720872",
+    "authors": [
+      "Bond CS, Fox AH."
+    ],
+    "year": "2009",
+    "publication_date": "2009-08-31",
+    "cited_by_count": 375,
+    "journal": "",
+    "abstract": "Paraspeckles are ribonucleoprotein bodies found in the interchromatin space of mammalian cell nuclei. These structures play a role in regulating the expression of certain genes in differentiated cells by nuclear retention of RNA. The core paraspeckle proteins (PSF/SFPQ, P54NRB/NONO, and PSPC1 [paraspeckle protein 1]) are members of the DBHS (Drosophila melanogaster behavior, human splicing) family. These proteins, together with the long nonprotein-coding RNA NEAT1 (MEN-epsilon/beta), associate to form paraspeckles and maintain their integrity. Given the large numbers of long noncoding transcripts currently being discovered through whole transcriptome analysis, paraspeckles may be a paradigm for a class of subnuclear bodies formed around long noncoding RNA.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Long non-coding RNA MALAT1 promotes tumour growth and metastasis in colorectal cancer through binding to SFPQ and releasing oncogene PTBP2 from SFPQ/PTBP2 complex.",
+    "doi": "10.1038/bjc.2014.383",
+    "pmid": "25025966",
+    "authors": [
+      "Ji Q, Zhang L, Liu X, Zhou L, Wang W, Han Z, Sui H, Tang Y, Wang Y, Liu N, Ren J, Hou F, Li Q."
+    ],
+    "year": "2014",
+    "publication_date": "2014-07-15",
+    "cited_by_count": 321,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Metastasis associated with lung adenocarcinoma transcript-1 (MALAT1) is a functional long non-coding RNA (lncRNA), which is highly expressed in several tumours, including colorectal cancer (CRC). Its biological function and mechanism in the prognosis of human CRC is still largely under investigation.<h4>Methods</h4>This study aimed to investigate the new effect mechanism of MALAT1 on the proliferation and migration of CRC cells in vitro and in vivo, and detect the expression of MALAT1, SFPQ (also known as PSF (PTB-associated splicing factor)), and PTBP2 (also known as PTB (polypyrimidine-tract-binding protein)) in CRC tumour tissues, followed by correlated analysis with clinicopathological parameters.<h4>Results</h4>We found that overexpression of MALAT1 could promote cell proliferation and migration in vitro, and promote tumour growth and metastasis in nude mice. The underlying mechanism was associated with tumour suppressor gene SFPQ and proto-oncogene PTBP2. In CRC, MALAT1 could bind to SFPQ, thus releasing PTBP2 from the SFPQ/PTBP2 complex. In turn, the increased SFPQ-detached PTBP2 promoted cell proliferation and migration. SFPQ critically mediated the regulatory effects of MALAT1. Moreover, in CRC tissues, MALAT1 and PTBP2 were overexpressed, both of which were associated closely with the invasion and metastasis of CRC. However, the SFPQ showed unchanged expression either in CRC tissues or adjacent normal tissues.<h4>Conclusions</h4>Our findings implied that MALAT1 might be a potential predictor for tumour metastasis and prognosis. Furthermore, the interaction between MALAT1 and SFPQ could be a novel therapeutic target for CRC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The DBHS proteins SFPQ, NONO and PSPC1: a multipurpose molecular scaffold.",
+    "doi": "10.1093/nar/gkw271",
+    "pmid": "27084935",
+    "authors": [
+      "Knott GJ, Bond CS, Fox AH."
+    ],
+    "year": "2016",
+    "publication_date": "2016-04-15",
+    "cited_by_count": 288,
+    "journal": "",
+    "abstract": "Nuclear proteins are often given a concise title that captures their function, such as 'transcription factor,' 'polymerase' or 'nuclear-receptor.' However, for members of the Drosophila behavior/human splicing (DBHS) protein family, no such clean-cut title exists. DBHS proteins are frequently identified engaging in almost every step of gene regulation, including but not limited to, transcriptional regulation, RNA processing and transport, and DNA repair. Herein, we present a coherent picture of DBHS proteins, integrating recent structural insights on dimerization, nucleic acid binding modalities and oligomerization propensity with biological function. The emerging paradigm describes a family of dynamic proteins mediating a wide range of protein-protein and protein-nucleic acid interactions, on the whole acting as a multipurpose molecular scaffold. Overall, significant steps toward appreciating the role of DBHS proteins have been made, but we are only beginning to understand the complexity and broader importance of this family in cellular biology.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Molecular genetics and cellular features of TFE3 and TFEB fusion kidney cancers.",
+    "doi": "10.1038/nrurol.2014.162",
+    "pmid": "25048860",
+    "authors": [
+      "Kauffman EC, Ricketts CJ, Rais-Bahrami S, Yang Y, Merino MJ, Bottaro DP, Srinivasan R, Linehan WM."
+    ],
+    "year": "2014",
+    "publication_date": "2014-07-22",
+    "cited_by_count": 272,
+    "journal": "",
+    "abstract": "Despite nearly two decades passing since the discovery of gene fusions involving TFE3 or TFEB in sporadic renal cell carcinoma (RCC), the molecular mechanisms underlying the renal-specific tumorigenesis of these genes remain largely unclear. The recently published findings of The Cancer Genome Atlas Network reported that five of the 416 surveyed clear cell RCC tumours (1.2%) harboured SFPQ-TFE3 fusions, providing further evidence for the importance of gene fusions. A total of five TFE3 gene fusions (PRCC-TFE3, ASPSCR1-TFE3, SFPQ-TFE3, NONO-TFE3, and CLTC-TFE3) and one TFEB gene fusion (MALAT1-TFEB) have been identified in RCC tumours and characterized at the mRNA transcript level. A multitude of molecular pathways well-described in carcinogenesis are regulated in part by TFE3 or TFEB proteins, including activation of TGFβ and ETS transcription factors, E-cadherin expression, CD40L-dependent lymphocyte activation, mTORC1 signalling, insulin-dependent metabolism regulation, folliculin signalling, and retinoblastoma-dependent cell cycle arrest. Determining which pathways are most important to RCC oncogenesis will be critical in discovering the most promising therapeutic targets for this disease.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Paraspeckles.",
+    "doi": "10.1101/cshperspect.a000687",
+    "pmid": "20573717",
+    "authors": [
+      "Fox AH, Lamond AI."
+    ],
+    "year": "2010",
+    "publication_date": "2010-06-23",
+    "cited_by_count": 270,
+    "journal": "",
+    "abstract": "Paraspeckles are a relatively new class of subnuclear bodies found in the interchromatin space of mammalian cells. They are RNA-protein structures formed by the interaction between a long nonprotein-coding RNA species, NEAT1/Men epsilon/beta, and members of the DBHS (Drosophila Behavior Human Splicing) family of proteins: P54NRB/NONO, PSPC1, and PSF/SFPQ. Paraspeckles are critical to the control of gene expression through the nuclear retention of RNA containing double-stranded RNA regions that have been subject to adenosine-to-inosine editing. Through this mechanism paraspeckles and their components may ultimately have a role in controlling gene expression during many cellular processes including differentiation, viral infection, and stress responses.",
+    "openalex_id": ""
+  },
+  {
+    "title": "HEXIM1 and NEAT1 Long Non-coding RNA Form a Multi-subunit Complex that Regulates DNA-Mediated Innate Immune Response.",
+    "doi": "10.1016/j.molcel.2017.06.020",
+    "pmid": "28712728",
+    "authors": [
+      "Morchikh M, Cribier A, Raffel R, Amraoui S, Cau J, Severac D, Dubois E, Schwartz O, Bennasser Y, Benkirane M."
+    ],
+    "year": "2017",
+    "publication_date": "2017-07-14",
+    "cited_by_count": 202,
+    "journal": "",
+    "abstract": "The DNA-mediated innate immune response underpins anti-microbial defenses and certain autoimmune diseases. Here we used immunoprecipitation, mass spectrometry, and RNA sequencing to identify a ribonuclear complex built around HEXIM1 and the long non-coding RNA NEAT1 that we dubbed the HEXIM1-DNA-PK-paraspeckle components-ribonucleoprotein complex (HDP-RNP). The HDP-RNP contains DNA-PK subunits (DNAPKc, Ku70, and Ku80) and paraspeckle proteins (SFPQ, NONO, PSPC1, RBM14, and MATRIN3). We show that binding of HEXIM1 to NEAT1 is required for its assembly. We further demonstrate that the HDP-RNP is required for the innate immune response to foreign DNA, through the cGAS-STING-IRF3 pathway. The HDP-RNP interacts with cGAS and its partner PQBP1, and their interaction is remodeled by foreign DNA. Remodeling leads to the release of paraspeckle proteins, recruitment of STING, and activation of DNAPKc and IRF3. Our study establishes the HDP-RNP as a key nuclear regulator of DNA-mediated activation of innate immune response through the cGAS-STING pathway.",
+    "openalex_id": ""
+  },
+  {
+    "title": "TFE3-Fusion Variant Analysis Defines Specific Clinicopathologic Associations Among Xp11 Translocation Cancers.",
+    "doi": "10.1097/pas.0000000000000631",
+    "pmid": "26975036",
+    "authors": [
+      "Argani P, Zhong M, Reuter VE, Fallon JT, Epstein JI, Netto GJ, Antonescu CR."
+    ],
+    "year": "2016",
+    "publication_date": "2016-06-01",
+    "cited_by_count": 192,
+    "journal": "",
+    "abstract": "Xp11 translocation cancers include Xp11 translocation renal cell carcinoma (RCC), Xp11 translocation perivascular epithelioid cell tumor (PEComa), and melanotic Xp11 translocation renal cancer. In Xp11 translocation cancers, oncogenic activation of TFE3 is driven by the fusion of TFE3 with a number of different gene partners; however, the impact of individual fusion variant on specific clinicopathologic features of Xp11 translocation cancers has not been well defined. In this study, we analyze 60 Xp11 translocation cancers by fluorescence in situ hybridization using custom bacterial artificial chromosome probes to establish their TFE3 fusion gene partner. In 5 cases RNA sequencing was also used to further characterize the fusion transcripts. The 60 Xp11 translocation cancers included 47 Xp11 translocation RCC, 8 Xp11 translocation PEComas, and 5 melanotic Xp11 translocation renal cancers. A fusion partner was identified in 53/60 (88%) cases, including 18 SFPQ (PSF), 16 PRCC, 12 ASPSCR1 (ASPL), 6 NONO, and 1 DVL2. We provide the first morphologic description of the NONO-TFE3 RCC, which frequently demonstrates subnuclear vacuoles leading to distinctive suprabasal nuclear palisading. Similar subnuclear vacuolization was also characteristic of SFPQ-TFE3 RCC, creating overlapping features with clear cell papillary RCC. We also describe the first RCC with a DVL2-TFE3 gene fusion, in addition to an extrarenal pigmented PEComa with a NONO-TFE3 gene fusion. Furthermore, among neoplasms with the SFPQ-TFE3, NONO-TFE3, DVL2-TFE3, and ASPL-TFE3 gene fusions, the RCCs are almost always PAX8 positive, cathepsin K negative by immunohistochemistry, whereas the mesenchymal counterparts (Xp11 translocation PEComas, melanotic Xp11 translocation renal cancers, and alveolar soft part sarcoma) are PAX8 negative, cathepsin K positive. These findings support the concept that despite an identical gene fusion, the RCCs are distinct from the corresponding mesenchymal neoplasms, perhaps due to the cellular context in which the translocation occurs. We corroborate prior data showing that the PRCC-TFE3 RCCs are the only known Xp11 translocation RCC molecular subtype that are consistently cathepsin K positive. In summary, our data expand further the clinicopathologic features of cancers with specific TFE3 gene fusions and should allow for more meaningful clinicopathologic associations to be drawn.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dichotomy of Genetic Abnormalities in PEComas With Therapeutic Implications.",
+    "doi": "10.1097/pas.0000000000000389",
+    "pmid": "25651471",
+    "authors": [
+      "Agaram NP, Sung YS, Zhang L, Chen CL, Chen HW, Singer S, Dickson MA, Berger MF, Antonescu CR."
+    ],
+    "year": "2015",
+    "publication_date": "2015-06-01",
+    "cited_by_count": 186,
+    "journal": "",
+    "abstract": "Perivascular epithelioid cell neoplasms (PEComa) are a family of rare mesenchymal tumors with hybrid myo-melanocytic differentiation. Although most PEComas harbor loss-of-function TSC1/TSC2 mutations, a small subset were reported to carry TFE3 gene rearrangements. As no comprehensive genomic study has addressed the molecular classification of PEComa, we sought to investigate by multiple methodologies the incidence and spectrum of genetic abnormalities and their potential genotype-phenotype correlations in a large group of 38 PEComas. The tumors were located in soft tissue (11 cases) and visceral sites (27) including uterus, kidney, liver, lung, and urinary bladder. Combined RNA sequencing and fluorescence in situ hybridization analysis identified 9 (23%) TFE3 gene-rearranged tumors, with 3 cases showing an SFPQ/PSF-TFE3 fusion and 1 case showing a novel DVL2-TFE3 gene fusion. The TFE3-positive lesions showed a distinctive nested/alveolar morphology and were equally distributed between soft tissue and visceral sites. In addition, novel RAD51B gene rearrangements were identified in 3 (8%) uterine PEComas, which showed a complex fusion pattern and were fused to RRAGB/OPHN1 genes in 2 cases. Other nonrecurrent gene fusions, HTR4-ST3GAL1 and RASSF1-PDZRN3, were identified in 2 cases. Targeted exome sequencing using the IMPACT assay was used to address whether the presence of gene fusions is mutually exclusive from TSC gene abnormalities. TSC2 mutations were identified in 80% of the TFE3 fusion-negative cases tested. Coexistent TP53 mutations were identified in 63% of the TSC2-mutated PEComas. Our results showed that TFE3-rearranged PEComas lacked coexisting TSC2 mutations, indicating alternative pathways of tumorigenesis. In summary, this comprehensive genetic analysis significantly expands our understanding of molecular alterations in PEComas and brings forth the genetic heterogeneity of these tumors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "FUS-dependent liquid-liquid phase separation is important for DNA repair initiation.",
+    "doi": "10.1083/jcb.202008030",
+    "pmid": "33704371",
+    "authors": [
+      "Levone BR, Lenzken SC, Antonaci M, Maiser A, Rapp A, Conte F, Reber S, Mechtersheimer J, Ronchi AE, Mühlemann O, Leonhardt H, Cardoso MC, Ruepp MD, Barabino SML."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-01",
+    "cited_by_count": 181,
+    "journal": "",
+    "abstract": "RNA-binding proteins (RBPs) are emerging as important effectors of the cellular DNA damage response (DDR). The RBP FUS is implicated in RNA metabolism and DNA repair, and it undergoes reversible liquid-liquid phase separation (LLPS) in vitro. Here, we demonstrate that FUS-dependent LLPS is necessary for the initiation of the DDR. Using laser microirradiation in FUS-knockout cells, we show that FUS is required for the recruitment to DNA damage sites of the DDR factors KU80, NBS1, and 53BP1 and of SFPQ, another RBP implicated in the DDR. The relocation of KU80, NBS1, and SFPQ is similarly impaired by LLPS inhibitors, or LLPS-deficient FUS variants. We also show that LLPS is necessary for efficient γH2AX foci formation. Finally, using superresolution structured illumination microscopy, we demonstrate that the absence of FUS impairs the proper arrangement of γH2AX nanofoci into higher-order clusters. These findings demonstrate the early requirement for FUS-dependent LLPS in the activation of the DDR and the proper assembly of DSB repair complexes.",
+    "openalex_id": ""
+  }
+]

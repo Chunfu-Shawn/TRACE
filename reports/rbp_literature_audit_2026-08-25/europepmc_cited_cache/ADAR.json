@@ -1,0 +1,170 @@
+[
+  {
+    "title": "A diverse range of gene products are effectors of the type I interferon antiviral response.",
+    "doi": "10.1038/nature09907",
+    "pmid": "21478870",
+    "authors": [
+      "Schoggins JW, Wilson SJ, Panis M, Murphy MY, Jones CT, Bieniasz P, Rice CM."
+    ],
+    "year": "2011",
+    "publication_date": "2011-04-10",
+    "cited_by_count": 2139,
+    "journal": "",
+    "abstract": "The type I interferon response protects cells against invading viral pathogens. The cellular factors that mediate this defence are the products of interferon-stimulated genes (ISGs). Although hundreds of ISGs have been identified since their discovery more than 25 years ago, only a few have been characterized with respect to antiviral activity. For most ISG products, little is known about their antiviral potential, their target specificity and their mechanisms of action. Using an overexpression screening approach, here we show that different viruses are targeted by unique sets of ISGs. We find that each viral species is susceptible to multiple antiviral genes, which together encompass a range of inhibitory activities. To conduct the screen, more than 380 human ISGs were tested for their ability to inhibit the replication of several important human and animal viruses, including hepatitis C virus, yellow fever virus, West Nile virus, chikungunya virus, Venezuelan equine encephalitis virus and human immunodeficiency virus type-1. Broadly acting effectors included IRF1, C6orf150 (also known as MB21D1), HPSE, RIG-I (also known as DDX58), MDA5 (also known as IFIH1) and IFITM3, whereas more targeted antiviral specificity was observed with DDX60, IFI44L, IFI6, IFITM2, MAP3K14, MOV10, NAMPT (also known as PBEF1), OASL, RTP4, TREX1 and UNC84B (also known as SUN2). Combined expression of pairs of ISGs showed additive antiviral effects similar to those of moderate type I interferon doses. Mechanistic studies uncovered a common theme of translational inhibition for numerous effectors. Several ISGs, including ADAR, FAM46C, LY6E and MCOLN2, enhanced the replication of certain viruses, highlighting another layer of complexity in the highly pleiotropic type I interferon system.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Antiviral actions of interferons.",
+    "doi": "10.1128/cmr.14.4.778-809.2001",
+    "pmid": "11585785",
+    "authors": [
+      "Samuel CE."
+    ],
+    "year": "2001",
+    "publication_date": "2001-10-01",
+    "cited_by_count": 1990,
+    "journal": "",
+    "abstract": "Tremendous progress has been made in understanding the molecular basis of the antiviral actions of interferons (IFNs), as well as strategies evolved by viruses to antagonize the actions of IFNs. Furthermore, advances made while elucidating the IFN system have contributed significantly to our understanding in multiple areas of virology and molecular cell biology, ranging from pathways of signal transduction to the biochemical mechanisms of transcriptional and translational control to the molecular basis of viral pathogenesis. IFNs are approved therapeutics and have moved from the basic research laboratory to the clinic. Among the IFN-induced proteins important in the antiviral actions of IFNs are the RNA-dependent protein kinase (PKR), the 2',5'-oligoadenylate synthetase (OAS) and RNase L, and the Mx protein GTPases. Double-stranded RNA plays a central role in modulating protein phosphorylation and RNA degradation catalyzed by the IFN-inducible PKR kinase and the 2'-5'-oligoadenylate-dependent RNase L, respectively, and also in RNA editing by the IFN-inducible RNA-specific adenosine deaminase (ADAR1). IFN also induces a form of inducible nitric oxide synthase (iNOS2) and the major histocompatibility complex class I and II proteins, all of which play important roles in immune response to infections. Several additional genes whose expression profiles are altered in response to IFN treatment and virus infection have been identified by microarray analyses. The availability of cDNA and genomic clones for many of the components of the IFN system, including IFN-alpha, IFN-beta, and IFN-gamma, their receptors, Jak and Stat and IRF signal transduction components, and proteins such as PKR, 2',5'-OAS, Mx, and ADAR, whose expression is regulated by IFNs, has permitted the generation of mutant proteins, cells that overexpress different forms of the proteins, and animals in which their expression has been disrupted by targeted gene disruption. The use of these IFN system reagents, both in cell culture and in whole animals, continues to provide important contributions to our understanding of the virus-host interaction and cellular antiviral response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Functions and regulation of RNA editing by ADAR deaminases.",
+    "doi": "10.1146/annurev-biochem-060208-105251",
+    "pmid": "20192758",
+    "authors": [
+      "Nishikura K."
+    ],
+    "year": "2010",
+    "publication_date": "2010-01-01",
+    "cited_by_count": 1061,
+    "journal": "",
+    "abstract": "One type of RNA editing converts adenosines to inosines (A-->I editing) in double-stranded RNA (dsRNA) substrates. A-->I RNA editing is mediated by adenosine deaminase acting on RNA (ADAR) enzymes. A-->I RNA editing of protein-coding sequences of a limited number of mammalian genes results in recoding and subsequent alterations of their functions. However, A-->I RNA editing most frequently targets repetitive RNA sequences located within introns and 5' and 3' untranslated regions (UTRs). Although the biological significance of noncoding RNA editing remains largely unknown, several possibilities, including its role in the control of endogenous short interfering RNAs (esiRNAs), have been proposed. Furthermore, recent studies have revealed that the biogenesis and functions of certain microRNAs (miRNAs) are regulated by the editing of their precursors. Here, I review the recent findings that indicate new functions for A-->I editing in the regulation of noncoding RNAs and for interactions between RNA editing and RNA interference mechanisms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA editing by ADAR1 prevents MDA5 sensing of endogenous dsRNA as nonself.",
+    "doi": "10.1126/science.aac7049",
+    "pmid": "26275108",
+    "authors": [
+      "Liddicoat BJ, Piskol R, Chalk AM, Ramaswami G, Higuchi M, Hartner JC, Li JB, Seeburg PH, Walkley CR."
+    ],
+    "year": "2015",
+    "publication_date": "2015-07-23",
+    "cited_by_count": 832,
+    "journal": "",
+    "abstract": "Adenosine-to-inosine (A-to-I) editing is a highly prevalent posttranscriptional modification of RNA, mediated by ADAR (adenosine deaminase acting on RNA) enzymes. In addition to RNA editing, additional functions have been proposed for ADAR1. To determine the specific role of RNA editing by ADAR1, we generated mice with an editing-deficient knock-in mutation (Adar1(E861A), where E861A denotes Glu(861)→Ala(861)). Adar1(E861A/E861A) embryos died at ~E13.5 (embryonic day 13.5), with activated interferon and double-stranded RNA (dsRNA)-sensing pathways. Genome-wide analysis of the in vivo substrates of ADAR1 identified clustered hyperediting within long dsRNA stem loops within 3' untranslated regions of endogenous transcripts. Finally, embryonic death and phenotypes of Adar1(E861A/E861A) were rescued by concurrent deletion of the cytosolic sensor of dsRNA, MDA5. A-to-I editing of endogenous dsRNA is the essential function of ADAR1, preventing the activation of the cytosolic dsRNA response by endogenous transcripts.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Mutations in ADAR1 cause Aicardi-Goutières syndrome associated with a type I interferon signature.",
+    "doi": "10.1038/ng.2414",
+    "pmid": "23001123",
+    "authors": [
+      "Rice GI, Kasher PR, Forte GM, Mannion NM, Greenwood SM, Szynkiewicz M, Dickerson JE, Bhaskar SS, Zampini M, Briggs TA, Jenkinson EM, Bacino CA, Battini R, Bertini E, Brogan PA, Brueton LA, Carpanelli M, De Laet C, de Lonlay P, del Toro M, Desguerre I, Fazzi E, Garcia-Cazorla A, Heiberg A, Kawaguchi M, Kumar R, Lin JP, Lourenco CM, Male AM, Marques W, Mignot C, Olivieri I, Orcesi S, Prabhakar P, Rasmussen M, Robinson RA, Rozenberg F, Schmidt JL, Steindl K, Tan TY, van der Merwe WG, Vanderver A, Vassallo G, Wakeling EL, Wassmer E, Whittaker E, Livingston JH, Lebon P, Suzuki T, McLaughlin PJ, Keegan LP, O'Connell MA, Lovell SC, Crow YJ."
+    ],
+    "year": "2012",
+    "publication_date": "2012-09-23",
+    "cited_by_count": 813,
+    "journal": "",
+    "abstract": "Adenosine deaminases acting on RNA (ADARs) catalyze the hydrolytic deamination of adenosine to inosine in double-stranded RNA (dsRNA) and thereby potentially alter the information content and structure of cellular RNAs. Notably, although the overwhelming majority of such editing events occur in transcripts derived from Alu repeat elements, the biological function of non-coding RNA editing remains uncertain. Here, we show that mutations in ADAR1 (also known as ADAR) cause the autoimmune disorder Aicardi-Goutières syndrome (AGS). As in Adar1-null mice, the human disease state is associated with upregulation of interferon-stimulated genes, indicating a possible role for ADAR1 as a suppressor of type I interferon signaling. Considering recent insights derived from the study of other AGS-related proteins, we speculate that ADAR1 may limit the cytoplasmic accumulation of the dsRNA generated from genomic repetitive elements.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Modulation of microRNA processing and expression through RNA editing by ADAR deaminases.",
+    "doi": "10.1038/nsmb1041",
+    "pmid": "16369484",
+    "authors": [
+      "Yang W, Chendrimada TP, Wang Q, Higuchi M, Seeburg PH, Shiekhattar R, Nishikura K."
+    ],
+    "year": "2006",
+    "publication_date": "2005-12-20",
+    "cited_by_count": 617,
+    "journal": "",
+    "abstract": "Adenosine deaminases acting on RNA (ADARs) are involved in editing of adenosine residues to inosine in double-stranded RNA (dsRNA). Although this editing recodes and alters functions of several mammalian genes, its most common targets are noncoding repeat sequences, indicating the involvement of this editing system in currently unknown functions other than recoding of protein sequences. Here we show that specific adenosine residues of certain microRNA (miRNA) precursors are edited by ADAR1 and ADAR2. Editing of pri-miR-142, the precursor of miRNA-142, expressed in hematopoietic tissues, resulted in suppression of its processing by Drosha. The edited pri-miR-142 was degraded by Tudor-SN, a component of RISC and also a ribonuclease specific to inosine-containing dsRNAs. Consequently, mature miRNA-142 expression levels increased substantially in ADAR1 null or ADAR2 null mice. Our results demonstrate a new function of RNA editing in the control of miRNA biogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The RNA-editing enzyme ADAR1 controls innate immune responses to RNA.",
+    "doi": "10.1016/j.celrep.2014.10.041",
+    "pmid": "25456137",
+    "authors": [
+      "Mannion NM, Greenwood SM, Young R, Cox S, Brindle J, Read D, Nellåker C, Vesely C, Ponting CP, McLaughlin PJ, Jantsch MF, Dorin J, Adams IR, Scadden AD, Ohman M, Keegan LP, O'Connell MA."
+    ],
+    "year": "2014",
+    "publication_date": "2014-11-13",
+    "cited_by_count": 587,
+    "journal": "",
+    "abstract": "The ADAR RNA-editing enzymes deaminate adenosine bases to inosines in cellular RNAs. Aberrant interferon expression occurs in patients in whom ADAR1 mutations cause Aicardi-Goutières syndrome (AGS) or dystonia arising from striatal neurodegeneration. Adar1 mutant mouse embryos show aberrant interferon induction and die by embryonic day E12.5. We demonstrate that Adar1 embryonic lethality is rescued to live birth in Adar1; Mavs double mutants in which the antiviral interferon induction response to cytoplasmic double-stranded RNA (dsRNA) is prevented. Aberrant immune responses in Adar1 mutant mouse embryo fibroblasts are dramatically reduced by restoring the expression of editing-active cytoplasmic ADARs. We propose that inosine in cellular RNA inhibits antiviral inflammatory and interferon responses by altering RLR interactions. Transfecting dsRNA oligonucleotides containing inosine-uracil base pairs into Adar1 mutant mouse embryo fibroblasts reduces the aberrant innate immune response. ADAR1 mutations causing AGS affect the activity of the interferon-inducible cytoplasmic isoform more severely than the nuclear isoform.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic landscape and regulation of RNA editing in mammals.",
+    "doi": "10.1038/nature24041",
+    "pmid": "29022589",
+    "authors": [
+      "Tan MH, Li Q, Shanmugam R, Piskol R, Kohler J, Young AN, Liu KI, Zhang R, Ramaswami G, Ariyoshi K, Gupte A, Keegan LP, George CX, Ramu A, Huang N, Pollina EA, Leeman DS, Rustighi A, Goh YPS, GTEx Consortium, Laboratory, Data Analysis &Coordinating Center (LDACC)—Analysis Working Group, Statistical Methods groups—Analysis Working Group, Enhancing GTEx (eGTEx) groups, NIH Common Fund, NIH/NCI, NIH/NHGRI, NIH/NIMH, NIH/NIDA, Biospecimen Collection Source Site—NDRI, Biospecimen Collection Source Site—RPCI, Biospecimen Core Resource—VARI, Brain Bank Repository—University of Miami Brain Endowment Bank, Leidos Biomedical—Project Management, ELSI Study, Genome Browser Data Integration &Visualization—EBI, Genome Browser Data Integration &Visualization—UCSC Genomics Institute, University of California Santa Cruz, Chawla A, Del Sal G, Peltz G, Brunet A, Conrad DF, Samuel CE, O'Connell MA, Walkley CR, Nishikura K, Li JB."
+    ],
+    "year": "2017",
+    "publication_date": "2017-10-01",
+    "cited_by_count": 539,
+    "journal": "",
+    "abstract": "Adenosine-to-inosine (A-to-I) RNA editing is a conserved post-transcriptional mechanism mediated by ADAR enzymes that diversifies the transcriptome by altering selected nucleotides in RNA molecules. Although many editing sites have recently been discovered, the extent to which most sites are edited and how the editing is regulated in different biological contexts are not fully understood. Here we report dynamic spatiotemporal patterns and new regulators of RNA editing, discovered through an extensive profiling of A-to-I RNA editing in 8,551 human samples (representing 53 body sites from 552 individuals) from the Genotype-Tissue Expression (GTEx) project and in hundreds of other primate and mouse samples. We show that editing levels in non-repetitive coding regions vary more between tissues than editing levels in repetitive regions. Globally, ADAR1 is the primary editor of repetitive sites and ADAR2 is the primary editor of non-repetitive coding sites, whereas the catalytically inactive ADAR3 predominantly acts as an inhibitor of editing. Cross-species analysis of RNA editing in several tissues revealed that species, rather than tissue type, is the primary determinant of editing levels, suggesting stronger cis-directed regulation of RNA editing for most sites, although the small set of conserved coding sites is under stronger trans-regulation. In addition, we curated an extensive set of ADAR1 and ADAR2 targets and showed that many editing sites display distinct tissue-specific regulation by the ADAR enzymes in vivo. Further analysis of the GTEx data revealed several potential regulators of editing, such as AIMP2, which reduces editing in muscles by enhancing the degradation of the ADAR proteins. Collectively, our work provides insights into the complex cis- and trans-regulation of A-to-I editing.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A-to-I RNA editing occurs at over a hundred million genomic sites, located in a majority of human genes.",
+    "doi": "10.1101/gr.164749.113",
+    "pmid": "24347612",
+    "authors": [
+      "Bazak L, Haviv A, Barak M, Jacob-Hirsch J, Deng P, Zhang R, Isaacs FJ, Rechavi G, Li JB, Eisenberg E, Levanon EY."
+    ],
+    "year": "2014",
+    "publication_date": "2013-12-17",
+    "cited_by_count": 533,
+    "journal": "",
+    "abstract": "RNA molecules transmit the information encoded in the genome and generally reflect its content. Adenosine-to-inosine (A-to-I) RNA editing by ADAR proteins converts a genomically encoded adenosine into inosine. It is known that most RNA editing in human takes place in the primate-specific Alu sequences, but the extent of this phenomenon and its effect on transcriptome diversity are not yet clear. Here, we analyzed large-scale RNA-seq data and detected ∼1.6 million editing sites. As detection sensitivity increases with sequencing coverage, we performed ultradeep sequencing of selected Alu sequences and showed that the scope of editing is much larger than anticipated. We found that virtually all adenosines within Alu repeats that form double-stranded RNA undergo A-to-I editing, although most sites exhibit editing at only low levels (<1%). Moreover, using high coverage sequencing, we observed editing of transcripts resulting from residual antisense expression, doubling the number of edited sites in the human genome. Based on bioinformatic analyses and deep targeted sequencing, we estimate that there are over 100 million human Alu RNA editing sites, located in the majority of human genes. These findings set the stage for exploring how this primate-specific massive diversification of the transcriptome is utilized.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Characterization of human disease phenotypes associated with mutations in TREX1, RNASEH2A, RNASEH2B, RNASEH2C, SAMHD1, ADAR, and IFIH1.",
+    "doi": "10.1002/ajmg.a.36887",
+    "pmid": "25604658",
+    "authors": [
+      "Crow YJ, Chase DS, Lowenstein Schmidt J, Szynkiewicz M, Forte GM, Gornall HL, Oojageer A, Anderson B, Pizzino A, Helman G, Abdel-Hamid MS, Abdel-Salam GM, Ackroyd S, Aeby A, Agosta G, Albin C, Allon-Shalev S, Arellano M, Ariaudo G, Aswani V, Babul-Hirji R, Baildam EM, Bahi-Buisson N, Bailey KM, Barnerias C, Barth M, Battini R, Beresford MW, Bernard G, Bianchi M, Billette de Villemeur T, Blair EM, Bloom M, Burlina AB, Carpanelli ML, Carvalho DR, Castro-Gago M, Cavallini A, Cereda C, Chandler KE, Chitayat DA, Collins AE, Sierra Corcoles C, Cordeiro NJ, Crichiutti G, Dabydeen L, Dale RC, D'Arrigo S, De Goede CG, De Laet C, De Waele LM, Denzler I, Desguerre I, Devriendt K, Di Rocco M, Fahey MC, Fazzi E, Ferrie CD, Figueiredo A, Gener B, Goizet C, Gowrinathan NR, Gowrishankar K, Hanrahan D, Isidor B, Kara B, Khan N, King MD, Kirk EP, Kumar R, Lagae L, Landrieu P, Lauffer H, Laugel V, La Piana R, Lim MJ, Lin JP, Linnankivi T, Mackay MT, Marom DR, Marques Lourenço C, McKee SA, Moroni I, Morton JE, Moutard ML, Murray K, Nabbout R, Nampoothiri S, Nunez-Enamorado N, Oades PJ, Olivieri I, Ostergaard JR, Pérez-Dueñas B, Prendiville JS, Ramesh V, Rasmussen M, Régal L, Ricci F, Rio M, Rodriguez D, Roubertie A, Salvatici E, Segers KA, Sinha GP, Soler D, Spiegel R, Stödberg TI, Straussberg R, Swoboda KJ, Suri M, Tacke U, Tan TY, te Water Naude J, Wee Teik K, Thomas MM, Till M, Tonduti D, Valente EM, Van Coster RN, van der Knaap MS, Vassallo G, Vijzelaar R, Vogt J, Wallace GB, Wassmer E, Webb HJ, Whitehouse WP, Whitney RN, Zaki MS, Zuberi SM, Livingston JH, Rozenberg F, Lebon P, Vanderver A, Orcesi S, Rice GI."
+    ],
+    "year": "2015",
+    "publication_date": "2015-01-16",
+    "cited_by_count": 504,
+    "journal": "",
+    "abstract": "Aicardi-Goutières syndrome is an inflammatory disease occurring due to mutations in any of TREX1, RNASEH2A, RNASEH2B, RNASEH2C, SAMHD1, ADAR or IFIH1. We report on 374 patients from 299 families with mutations in these seven genes. Most patients conformed to one of two fairly stereotyped clinical profiles; either exhibiting an in utero disease-onset (74 patients; 22.8% of all patients where data were available), or a post-natal presentation, usually within the first year of life (223 patients; 68.6%), characterized by a sub-acute encephalopathy and a loss of previously acquired skills. Other clinically distinct phenotypes were also observed; particularly, bilateral striatal necrosis (13 patients; 3.6%) and non-syndromic spastic paraparesis (12 patients; 3.4%). We recorded 69 deaths (19.3% of patients with follow-up data). Of 285 patients for whom data were available, 210 (73.7%) were profoundly disabled, with no useful motor, speech and intellectual function. Chilblains, glaucoma, hypothyroidism, cardiomyopathy, intracerebral vasculitis, peripheral neuropathy, bowel inflammation and systemic lupus erythematosus were seen frequently enough to be confirmed as real associations with the Aicardi-Goutieres syndrome phenotype. We observed a robust relationship between mutations in all seven genes with increased type I interferon activity in cerebrospinal fluid and serum, and the increased expression of interferon-stimulated gene transcripts in peripheral blood. We recorded a positive correlation between the level of cerebrospinal fluid interferon activity assayed within one year of disease presentation and the degree of subsequent disability. Interferon-stimulated gene transcripts remained high in most patients, indicating an ongoing disease process. On the basis of substantial morbidity and mortality, our data highlight the urgent need to define coherent treatment strategies for the phenotypes associated with mutations in the Aicardi-Goutières syndrome-related genes. Our findings also make it clear that a window of therapeutic opportunity exists relevant to the majority of affected patients and indicate that the assessment of type I interferon activity might serve as a useful biomarker in future clinical trials.",
+    "openalex_id": ""
+  },
+  {
+    "title": "DHX9 suppresses RNA processing defects originating from the Alu invasion of the human genome.",
+    "doi": "10.1038/nature21715",
+    "pmid": "28355180",
+    "authors": [
+      "Aktaş T, Avşar Ilık İ, Maticzka D, Bhardwaj V, Pessoa Rodrigues C, Mittler G, Manke T, Backofen R, Akhtar A."
+    ],
+    "year": "2017",
+    "publication_date": "2017-03-29",
+    "cited_by_count": 489,
+    "journal": "",
+    "abstract": "Transposable elements are viewed as 'selfish genetic elements', yet they contribute to gene regulation and genome evolution in diverse ways. More than half of the human genome consists of transposable elements. Alu elements belong to the short interspersed nuclear element (SINE) family of repetitive elements, and with over 1 million insertions they make up more than 10% of the human genome. Despite their abundance and the potential evolutionary advantages they confer, Alu elements can be mutagenic to the host as they can act as splice acceptors, inhibit translation of mRNAs and cause genomic instability. Alu elements are the main targets of the RNA-editing enzyme ADAR and the formation of Alu exons is suppressed by the nuclear ribonucleoprotein HNRNPC, but the broad effect of massive secondary structures formed by inverted-repeat Alu elements on RNA processing in the nucleus remains unknown. Here we show that DHX9, an abundant nuclear RNA helicase, binds specifically to inverted-repeat Alu elements that are transcribed as parts of genes. Loss of DHX9 leads to an increase in the number of circular-RNA-producing genes and amount of circular RNAs, translational repression of reporters containing inverted-repeat Alu elements, and transcriptional rewiring (the creation of mostly nonsensical novel connections between exons) of susceptible loci. Biochemical purifications of DHX9 identify the interferon-inducible isoform of ADAR (p150), but not the constitutively expressed ADAR isoform (p110), as an RNA-independent interaction partner. Co-depletion of ADAR and DHX9 augments the double-stranded RNA accumulation defects, leading to increased circular RNA production, revealing a functional link between these two enzymes. Our work uncovers an evolutionarily conserved function of DHX9. We propose that it acts as a nuclear RNA resolvase that neutralizes the immediate threat posed by transposon insertions and allows these elements to evolve as tools for the post-transcriptional regulation of gene expression.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress-induced apoptosis associated with null mutation of ADAR1 RNA editing deaminase gene.",
+    "doi": "10.1074/jbc.m310162200",
+    "pmid": "14613934",
+    "authors": [
+      "Wang Q, Miyakoda M, Yang W, Khillan J, Stachura DL, Weiss MJ, Nishikura K."
+    ],
+    "year": "2004",
+    "publication_date": "2003-11-12",
+    "cited_by_count": 440,
+    "journal": "",
+    "abstract": "One type of RNA editing involves the conversion of adenosine residues into inosine in double-stranded RNA through the action of adenosine deaminases acting on RNA (ADAR). A-to-I RNA editing of the coding sequence could result in synthesis of proteins not directly encoded in the genome. ADAR edits also non-coding sequences of target RNAs, such as introns and 3'-untranslated regions, which may affect splicing, translation, and mRNA stability. Three mammalian ADAR gene family members (ADAR1-3) have been identified. Here we investigated phenotypes of mice homozygous for ADAR1 null mutation. Although live ADAR1-/- embryos with normal gross appearance could be recovered up to E11.5, widespread apoptosis was detected in many tissues. Fibroblasts derived from ADAR1-/- embryos were also prone to apoptosis induced by serum deprivation. Our results demonstrate an essential requirement for ADAR1 in embryogenesis and suggest that it functions to promote survival of numerous tissues by editing one or more double-stranded RNAs required for protection against stress-induced apoptosis.",
+    "openalex_id": ""
+  }
+]

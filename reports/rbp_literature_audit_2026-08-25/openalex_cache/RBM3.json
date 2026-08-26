@@ -1,0 +1,197 @@
+[
+  {
+    "title": "Genome analysis: RNA recognition motif (RRM) and K homology (KH) domain RNA-binding proteins from the flowering plant Arabidopsis thaliana",
+    "doi": "10.1093/nar/30.3.623",
+    "authors": [
+      "Z. J. LorkoviM"
+    ],
+    "year": 2002,
+    "publication_date": "2002-02-01",
+    "cited_by_count": 428,
+    "journal": "Nucleic Acids Research",
+    "abstract": "Regulation of gene expression at the post-transcriptional level is mainly achieved by proteins containing well-defined sequence motifs involved in RNA binding. The most widely spread motifs are the RNA recognition motif (RRM) and the K homology (KH) domain. In this article, we survey the complete Arabidopsis thaliana genome for proteins containing RRM and KH RNA-binding domains. The Arabidopsis genome encodes 196 RRM-containing proteins, a more complex set than found in Caenorhabditis elegans an",
+    "openalex_id": "https://openalex.org/W2118986137",
+    "relevance_score": 126.47046
+  },
+  {
+    "title": "Circadian rhythms and post-transcriptional regulation in higher plants",
+    "doi": "10.3389/fpls.2015.00437",
+    "authors": [
+      "Andrés Romanowski",
+      "Marcelo J. Yanovsky"
+    ],
+    "year": 2015,
+    "publication_date": "2015-06-12",
+    "cited_by_count": 92,
+    "journal": "Frontiers in Plant Science",
+    "abstract": "The circadian clock of plants allows them to cope with daily changes in their environment. This is accomplished by the rhythmic regulation of gene expression, in a process that involves many regulatory steps. One of the key steps involved at the RNA level is post-transcriptional regulation, which ensures a correct control on the different amounts and types of mRNA that will ultimately define the current physiological state of the plant cell. Recent advances in the study of the processes of regul",
+    "openalex_id": "https://openalex.org/W1500657054",
+    "relevance_score": 56.33128
+  },
+  {
+    "title": "Circadian Posttranscriptional Regulatory Mechanisms in Mammals",
+    "doi": "10.1101/cshperspect.a030692",
+    "authors": [
+      "Carla B. Green"
+    ],
+    "year": 2017,
+    "publication_date": "2017-08-04",
+    "cited_by_count": 47,
+    "journal": "Cold Spring Harbor Perspectives in Biology",
+    "abstract": "The circadian clock drives rhythms in the levels of thousands of proteins in the mammalian cell, arising in part from rhythmic transcriptional regulation of the genes that encode them. However, recent evidence has shown that posttranscriptional processes also play a major role in generating the rhythmic protein makeup and ultimately the rhythmic physiology of the cell. Regulation of steps throughout the life of the messenger RNA (mRNA), ranging from initial mRNA processing and export from the nu",
+    "openalex_id": "https://openalex.org/W2744079082",
+    "relevance_score": 42.623943
+  },
+  {
+    "title": "Circular RNAs in neurological conditions – computational identification, functional validation, and potential clinical applications",
+    "doi": "10.1038/s41380-025-02925-1",
+    "authors": [
+      "Oak Hatzimanolis",
+      "Alex M. Sykes",
+      "Alexandre S. Cristino"
+    ],
+    "year": 2025,
+    "publication_date": "2025-02-17",
+    "cited_by_count": 36,
+    "journal": "Molecular Psychiatry",
+    "abstract": "Non-coding RNAs (ncRNAs) have gained significant attention in recent years due to advancements in biotechnology, particularly high-throughput total RNA sequencing. These developments have led to new understandings of non-coding biology, revealing that approximately 80% of non-coding regions in the genome possesses biochemical functionality. Among ncRNAs, circular RNAs (circRNAs), first identified in 1976, have emerged as a prominent research field. CircRNAs are abundant in most human cell types,",
+    "openalex_id": "https://openalex.org/W4407704161",
+    "relevance_score": 36.385517
+  },
+  {
+    "title": "Roles of RNA-binding proteins in neurological disorders, COVID-19, and cancer",
+    "doi": "10.1007/s13577-022-00843-w",
+    "authors": [
+      "Daniel Ruben Akiola Sanya",
+      "Claudia Cava",
+      "Djamila Onésime"
+    ],
+    "year": 2022,
+    "publication_date": "2022-12-18",
+    "cited_by_count": 32,
+    "journal": "Human Cell",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4311843027",
+    "relevance_score": 35.915016
+  },
+  {
+    "title": "Pathogenic diversity of RNA variants and RNA variation-associated factors in cancer development",
+    "doi": "10.1038/s12276-020-0429-6",
+    "authors": [
+      "Hee Doo Yang",
+      "Suk Woo Nam"
+    ],
+    "year": 2020,
+    "publication_date": "2020-04-01",
+    "cited_by_count": 25,
+    "journal": "Experimental & Molecular Medicine",
+    "abstract": "Recently, with the development of RNA sequencing technologies such as next-generation sequencing (NGS) for RNA, numerous variations of alternatively processed RNAs made by alternative splicing, RNA editing, alternative maturation of microRNA (miRNA), RNA methylation, and alternative polyadenylation have been uncovered. Furthermore, abnormally processed RNAs can cause a variety of diseases, including obesity, diabetes, Alzheimer's disease, and cancer. Especially in cancer development, aberrant RN",
+    "openalex_id": "https://openalex.org/W3017928292",
+    "relevance_score": 32.3351
+  },
+  {
+    "title": "Cross-talk between circRNAs and m6A modifications in solid tumors",
+    "doi": "10.1186/s12967-024-05500-4",
+    "authors": [
+      "Fenfang Liu",
+      "Wendong Gu",
+      "Yingjie Shao"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-29",
+    "cited_by_count": 13,
+    "journal": "Journal of Translational Medicine",
+    "abstract": "Circular RNAs (circRNAs) possess unique biological properties and distribution characteristics that enable a variety of biological functions. N6-methyladenosine (m6A), a prevalent epigenetic modification in organisms, is regulated by factors including methyltransferases (writers), demethylases (erasers), and m6A-binding proteins (readers). These factors play critical roles in various pathophysiological processes. There is growing evidence that m6A modifications are common within circRNAs, affect",
+    "openalex_id": "https://openalex.org/W4401079070",
+    "relevance_score": 24.367546
+  },
+  {
+    "title": "Biological function of RNA-binding proteins in myocardial infarction: a potential emerging therapeutic limelight",
+    "doi": "10.1186/s13578-025-01408-8",
+    "authors": [
+      "C. Jin",
+      "Yutong Ye",
+      "Longzhe Gao",
+      "Zikan Zhong",
+      "Changzuan Zhou"
+    ],
+    "year": 2025,
+    "publication_date": "2025-05-24",
+    "cited_by_count": 4,
+    "journal": "Cell & Bioscience",
+    "abstract": "Myocardial infarction (MI) is currently one of the most fatal cardiovascular diseases worldwide. The screening, treatment, and prognosis of MI are top priorities for cardiovascular centers globally due to its characteristic occult onset, high lethality, and poor prognosis. MI is caused by coronary artery occlusion induced by coronary atherosclerotic plaque blockage or other factors, leading to ischemic necrosis and apoptosis of cardiomyocytes. Although significant advancements have been made in ",
+    "openalex_id": "https://openalex.org/W4410701269",
+    "relevance_score": 15.379598
+  },
+  {
+    "title": "From bone marrow mesenchymal stem cells to diseases: the crucial role of m6A methylation in orthopedics",
+    "doi": "10.1186/s13287-025-04364-9",
+    "authors": [
+      "Jing Li",
+      "Chu Zhang",
+      "Wen Yin",
+      "Mijia Tao",
+      "Zhipeng Niu"
+    ],
+    "year": 2025,
+    "publication_date": "2025-05-06",
+    "cited_by_count": 4,
+    "journal": "Stem Cell Research & Therapy",
+    "abstract": "Elucidating the molecular mechanisms underlying orthopedic diseases is crucial for guiding therapeutic strategies and developing innovative interventions. N6-methyladenosine (m 6 A)—an epitranscriptomic modification—has emerged as a key regulator of cellular fate and tissue homeostasis. Specifically, m 6 A plays a pivotal role in several RNA biological processes such as precursor RNA splicing, 3’-end processing, nuclear export, translation, and stability. Recent advancements indicate that m 6 A ",
+    "openalex_id": "https://openalex.org/W4410122522",
+    "relevance_score": 13.614727
+  },
+  {
+    "title": "Repurposed hnRNPC binds mature mRNAs and safeguards the mitotic transcriptome",
+    "doi": "10.1093/nar/gkag391",
+    "authors": [
+      "Liat Lev-Ari",
+      "Sandra Laster",
+      "Andrea Atzmon",
+      "Daniel Blumenkrants",
+      "Daniel Benhalevy"
+    ],
+    "year": 2026,
+    "publication_date": "2026-04-15",
+    "cited_by_count": 1,
+    "journal": "Nucleic Acids Research",
+    "abstract": "Upon entry to mitosis, RNA metabolism is broadly suppressed. While mechanistic understanding is limited, the mitotic transcriptome is generally preserved, allowing daughter cells an economical start. We used highly effective cell cycle synchronization to specifically characterize mitotic heterogeneous nuclear ribonucleoprotein C (hnRNPC), an abundant nuclear RNA-binding protein known for intron binding and splicing regulation. Mitotic hnRNPC exhibited a density shift, forming low- and high-densi",
+    "openalex_id": "https://openalex.org/W4414598076",
+    "relevance_score": 12.408465
+  },
+  {
+    "title": "Inducible formation of fusion transcripts upregulates haploinsufficient CHD2 gene expression",
+    "doi": "10.1101/2025.05.28.656657",
+    "authors": [
+      "Caroline Jane Ross",
+      "Yael Sarusi",
+      "Yoav Lubelsky",
+      "Rotem Ben‐Tov Perry",
+      "Anat Mavashov"
+    ],
+    "year": 2025,
+    "publication_date": "2025-05-28",
+    "cited_by_count": 2,
+    "journal": "bioRxiv (Cold Spring Harbor Laboratory)",
+    "abstract": "Abstract Modes of action of long noncoding RNAs (lncRNAs) are poorly understood. CHASERR is a broadly expressed lncRNA located immediately upstream of the promoter of the CHD2 gene. We show that antisense oligonucleotides (ASOs) targeting conserved motifs in CHASERR’s last exon induce the formation of a fusion transcript joining CHASERR to CHD2. This fusion transcript is exported to the cytoplasm and translated into full-length CHD2 protein. Deleting the same motifs in mice mimics the ASO effect",
+    "openalex_id": "https://openalex.org/W4410870881",
+    "relevance_score": 12.230041
+  },
+  {
+    "title": "Redes automáticas de control de la calidad de las aguas superficiales: experiencias prácticas en la detección y seguimiento de episodios de contaminación en la cuenca del río Llobregat",
+    "doi": null,
+    "authors": [
+      "Ramón Ariño",
+      "Lleonard Matia i Ribot",
+      "Carmen Serena",
+      "Lluís Xavier Godé"
+    ],
+    "year": 1997,
+    "publication_date": "1997-01-01",
+    "cited_by_count": 0,
+    "journal": "Tecnología del agua",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W11809873",
+    "relevance_score": 2.928552
+  }
+]

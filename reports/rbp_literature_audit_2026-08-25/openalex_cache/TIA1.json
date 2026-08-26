@@ -1,0 +1,198 @@
+[
+  {
+    "title": "Unraveling the Pathways to Neuronal Homeostasis and Disease: Mechanistic Insights into the Role of RNA-Binding Proteins and Associated Factors",
+    "doi": "10.3390/ijms19082280",
+    "authors": [
+      "Stylianos Ravanidis",
+      "Fedon-Giasin Kattan",
+      "Epaminondas Doxakis"
+    ],
+    "year": 2018,
+    "publication_date": "2018-08-03",
+    "cited_by_count": 68,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "The timing, dosage and location of gene expression are fundamental determinants of brain architectural complexity. In neurons, this is, primarily, achieved by specific sets of trans-acting RNA-binding proteins (RBPs) and their associated factors that bind to specific cis elements throughout the RNA sequence to regulate splicing, polyadenylation, stability, transport and localized translation at both axons and dendrites. Not surprisingly, misregulation of RBP expression or disruption of its funct",
+    "openalex_id": "https://openalex.org/W2887769003",
+    "relevance_score": 104.13372
+  },
+  {
+    "title": "TAR DNA-binding protein 43 (TDP-43) regulates stress granule dynamics via differential regulation of G3BP and TIA-1",
+    "doi": "10.1093/hmg/ddr021",
+    "authors": [
+      "Karli K. McDonald",
+      "Anaïs Aulas",
+      "Laurie Destroismaisons",
+      "Sarah Pickles",
+      "Evghenia Beleac"
+    ],
+    "year": 2011,
+    "publication_date": "2011-01-21",
+    "cited_by_count": 400,
+    "journal": "Human Molecular Genetics",
+    "abstract": "TAR deoxyribonucleic acid-binding protein 43 (TDP-43) is a multifunctional protein with roles in transcription, pre-messenger ribonucleic acid (mRNA) splicing, mRNA stability and transport. TDP-43 interacts with other heterogeneous nuclear ribonucleoproteins (hnRNPs), including hnRNP A2, via its C-terminus and several hnRNP family members are involved in the cellular stress response. This relationship led us to investigate the role of TDP-43 in cellular stress. Our results demonstrate that TDP-4",
+    "openalex_id": "https://openalex.org/W2148253741",
+    "relevance_score": 101.164474
+  },
+  {
+    "title": "Double-Stranded RNA Sensors and Modulators in Innate Immunity",
+    "doi": "10.1146/annurev-immunol-042718-041356",
+    "authors": [
+      "Sun Hur"
+    ],
+    "year": 2019,
+    "publication_date": "2019-01-23",
+    "cited_by_count": 436,
+    "journal": "Annual Review of Immunology",
+    "abstract": "Detection of double-stranded RNAs (dsRNAs) is a central mechanism of innate immune defense in many organisms. We here discuss several families of dsRNA-binding proteins involved in mammalian antiviral innate immunity. These include RIG-I-like receptors, protein kinase R, oligoadenylate synthases, adenosine deaminases acting on RNA, RNA interference systems, and other proteins containing dsRNA-binding domains and helicase domains. Studies suggest that their functions are highly interdependent and",
+    "openalex_id": "https://openalex.org/W2913776187",
+    "relevance_score": 89.51887
+  },
+  {
+    "title": "Auto-regulatory feedback by RNA-binding proteins",
+    "doi": "10.1093/jmcb/mjz043",
+    "authors": [
+      "Michaela Müller-McNicoll",
+      "Oliver Roßbach",
+      "Jingyi Hui",
+      "Jan Medenbach"
+    ],
+    "year": 2019,
+    "publication_date": "2019-05-08",
+    "cited_by_count": 155,
+    "journal": "Journal of Molecular Cell Biology",
+    "abstract": "RNA-binding proteins (RBPs) are key regulators in post-transcriptional control of gene expression. Mutations that alter their activity or abundance have been implicated in numerous diseases such as neurodegenerative disorders and various types of cancer. This highlights the importance of RBP proteostasis and the necessity to tightly control the expression levels and activities of RBPs. In many cases, RBPs engage in an auto-regulatory feedback by directly binding to and influencing the fate of th",
+    "openalex_id": "https://openalex.org/W2946950202",
+    "relevance_score": 76.42474
+  },
+  {
+    "title": "Pattern recognition receptors: function, regulation and therapeutic potential",
+    "doi": "10.1038/s41392-025-02264-1",
+    "authors": [
+      "Ruochan Chen",
+      "Ju Zou",
+      "Jiawang Chen",
+      "Xiao Yan Zhong",
+      "Rui Kang"
+    ],
+    "year": 2025,
+    "publication_date": "2025-07-10",
+    "cited_by_count": 246,
+    "journal": "Signal Transduction and Targeted Therapy",
+    "abstract": "Pattern recognition receptors (PRRs) are sensors in the immune system, detecting pathogen-associated molecular patterns (PAMPs) and damage-associated molecular patterns (DAMPs). They serve as essential links between the innate and adaptive immune responses, initiating defense mechanisms against pathogens and maintaining immune homeostasis. This review examines the classification, structure, and signaling cascades of key PRR families, including toll-like receptors (TLRs), C-type lectin receptors ",
+    "openalex_id": "https://openalex.org/W4412170483",
+    "relevance_score": 73.614494
+  },
+  {
+    "title": "Phosphorylation-Mediated Regulation of Alternative Splicing in Cancer",
+    "doi": "10.1155/2013/151839",
+    "authors": [
+      "Chiara Naro",
+      "Claudio Sette"
+    ],
+    "year": 2013,
+    "publication_date": "2013-01-01",
+    "cited_by_count": 142,
+    "journal": "International Journal of Cell Biology",
+    "abstract": "Alternative splicing (AS) is one of the key processes involved in the regulation of gene expression in eukaryotic cells. AS catalyzes the removal of intronic sequences and the joining of selected exons, thus ensuring the correct processing of the primary transcript into the mature mRNA. The combinatorial nature of AS allows a great expansion of the genome coding potential, as multiple splice-variants encoding for different proteins may arise from a single gene. Splicing is mediated by a large ma",
+    "openalex_id": "https://openalex.org/W2119380188",
+    "relevance_score": 69.45732
+  },
+  {
+    "title": "Uncovering the Role of RNA-Binding Proteins in Gene Expression in the Immune System",
+    "doi": "10.3389/fimmu.2018.01094",
+    "authors": [
+      "Manuel D. Díaz‐Muñoz",
+      "Martin Turner"
+    ],
+    "year": 2018,
+    "publication_date": "2018-05-23",
+    "cited_by_count": 88,
+    "journal": "Frontiers in Immunology",
+    "abstract": "Fighting external pathogens requires an ever-changing immune system that relies on tight regulation of gene expression. Transcriptional control is the first step to build efficient responses while preventing immunodeficiencies and autoimmunity. Post-transcriptional regulation of RNA editing, location, stability, and translation are the other key steps for final gene expression, and they are all controlled by RNA-binding proteins (RBPs). Nowadays we have a deep understanding of how transcription ",
+    "openalex_id": "https://openalex.org/W2804378101",
+    "relevance_score": 60.074825
+  },
+  {
+    "title": "Translation dysregulation in neurodegenerative diseases: a focus on ALS",
+    "doi": "10.1186/s13024-023-00642-3",
+    "authors": [
+      "Shaopeng Wang",
+      "Shuying Sun"
+    ],
+    "year": 2023,
+    "publication_date": "2023-08-25",
+    "cited_by_count": 44,
+    "journal": "Molecular Neurodegeneration",
+    "abstract": "RNA translation is tightly controlled in eukaryotic cells to regulate gene expression and maintain proteome homeostasis. RNA binding proteins, translation factors, and cell signaling pathways all modulate the translation process. Defective translation is involved in multiple neurological diseases including amyotrophic lateral sclerosis (ALS). ALS is a progressive neurodegenerative disorder and poses a major public health challenge worldwide. Over the past few years, tremendous advances have been",
+    "openalex_id": "https://openalex.org/W4386162235",
+    "relevance_score": 47.728622
+  },
+  {
+    "title": "RNA dysregulation in neurodegenerative diseases",
+    "doi": "10.1038/s44318-024-00352-6",
+    "authors": [
+      "Yini Li",
+      "Shuying Sun"
+    ],
+    "year": 2025,
+    "publication_date": "2025-01-09",
+    "cited_by_count": 50,
+    "journal": "The EMBO Journal",
+    "abstract": "Dysregulation of RNA processing has in recent years emerged as a significant contributor to neurodegeneration. The diverse mechanisms and molecular functions underlying RNA processing underscore the essential role of RNA regulation in maintaining neuronal health and function. RNA molecules are bound by RNA-binding proteins (RBPs), and interactions between RNAs and RBPs are commonly affected in neurodegeneration. In this review, we highlight recent progress in understanding dysregulated RNA-proce",
+    "openalex_id": "https://openalex.org/W4406234470",
+    "relevance_score": 45.45724
+  },
+  {
+    "title": "hnRNP A/B Proteins: An Encyclopedic Assessment of Their Roles in Homeostasis and Disease",
+    "doi": "10.3390/biology10080712",
+    "authors": [
+      "Patricia A. Thibault",
+      "Aravindhan Ganesan",
+      "Subha Kalyaanamoorthy",
+      "Joseph-Patrick W. E. Clarke",
+      "Hannah E. Salapa"
+    ],
+    "year": 2021,
+    "publication_date": "2021-07-24",
+    "cited_by_count": 61,
+    "journal": "Biology",
+    "abstract": "The hnRNP A/B family of proteins is canonically central to cellular RNA metabolism, but due to their highly conserved nature, the functional differences between hnRNP A1, A2/B1, A0, and A3 are often overlooked. In this review, we explore and identify the shared and disparate homeostatic and disease-related functions of the hnRNP A/B family proteins, highlighting areas where the proteins have not been clearly differentiated. Herein, we provide a comprehensive assembly of the literature on these p",
+    "openalex_id": "https://openalex.org/W3184408414",
+    "relevance_score": 45.10527
+  },
+  {
+    "title": "Decoding protein–RNA interactions using CLIP-based methodologies",
+    "doi": "10.1038/s41576-024-00749-3",
+    "authors": [
+      "Joy S. Xiang",
+      "Danielle Schafer",
+      "Katherine Rothamel",
+      "G Yeo"
+    ],
+    "year": 2024,
+    "publication_date": "2024-07-09",
+    "cited_by_count": 44,
+    "journal": "Nature Reviews Genetics",
+    "abstract": "",
+    "openalex_id": "https://openalex.org/W4400454456",
+    "relevance_score": 44.28722
+  },
+  {
+    "title": "Non-canonical functions of spliceosome components in cancer progression",
+    "doi": "10.1038/s41419-022-05470-9",
+    "authors": [
+      "O.M. Ivanova",
+      "Ksenia S. Anufrieva",
+      "Anastasia N. Kazakova",
+      "Irina K. Malyants",
+      "Polina V. Shnaider"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-02",
+    "cited_by_count": 42,
+    "journal": "Cell Death and Disease",
+    "abstract": "Dysregulation of pre-mRNA splicing is a common hallmark of cancer cells and it is associated with altered expression, localization, and mutations of the components of the splicing machinery. In the last few years, it has been elucidated that spliceosome components can also influence cellular processes in a splicing-independent manner. Here, we analyze open source data to understand the effect of the knockdown of splicing factors in human cells on the expression and splicing of genes relevant to ",
+    "openalex_id": "https://openalex.org/W4319036458",
+    "relevance_score": 42.98796
+  }
+]

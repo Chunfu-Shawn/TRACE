@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Genome-Wide Impact of Human DBR1 Depletion on RNA Processing Networks Reveal a Connection Between Pre-mRNA Splicing, mRNA Surveillance and Stress Granule Dynamics.",
+    "doi": "10.1016/j.jmb.2026.169968",
+    "pmid": "42551782",
+    "authors": [
+      "Barwell T, Embree CM, Reid R, Dreau D, Singh G, Chakrabarti K."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-04",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "The RNA lariat debranching enzyme DBR1 is essential for intron turnover and RNA metabolism, yet its broader impact on transcriptome regulation remains incompletely defined. To elucidate the consequences of DBR1 depletion, we performed transcriptome-wide RNA sequencing of DBR1-knockdown and wild-type HEK293 cells. Differential expression analysis revealed widespread perturbations in pathways linked to RNA splicing, mRNA surveillance, translational control, and stress-granule biology. Many of the most significantly altered transcripts encode splicing factors and RNA quality-control components, underscoring DBR1's influence on post-transcriptional regulation. Alternative splicing analysis showed changes across multiple event types, with exon skipping accounting for >50% of events, followed by mutually exclusive exons, alternative 5' and 3' splice sites, and retained introns, indicating that DBR1 depletion induces pervasive splicing defects. Direct spliceosome inhibition using isoginkgetin (blocks tri-snRNP recruitment) and pladienolide B (targets SF3B1) reproduced the DBR1-KD mis-splicing patterns of cell signaling genes and factors involved in RNA metabolism, supporting a functional link between DBR1 activity and alternative splicing. Notably, DBR1 knockdown revealed a subset of transcripts that are both NMD-sensitive and enriched within stress granules. Consistent with this observation, G3BP1 immunopurification and confocal microscopy further support a role for DBR1 and UPF1 in stress-granule dynamics, suggesting that these factors may participate at distinct stages to influence mRNA fate under stress conditions. Together, these findings indicate that DBR1 functions beyond lariat RNA turnover as a common regulator of RNA processing, transcriptome stability, and stress granule homeostasis, revealing intricate crosstalk between RNA splicing and RNA quality control pathways in human cells.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress granules at the crossroads of retroviral replication and antiviral immunity: mechanisms and therapeutic opportunities.",
+    "doi": "10.1007/s11033-026-11747-5",
+    "pmid": "41931190",
+    "authors": [
+      "Akbarin MM, Farjami Z, Álvarez HR."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-03",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Stress granules (SGs) are dynamic cytoplasmic ribonucleoprotein aggregates that form in response to cellular stress and function as key regulators of mRNA translation, stability, and antiviral defense. Increasing evidence demonstrates that retroviruses, including HIV-1, HTLV-1, and other oncogenic retroviruses, interact extensively with stress granule pathways to promote viral replication, persistence, and immune evasion. This review summarizes current knowledge of the molecular mechanisms governing stress granule assembly and highlights how retroviruses manipulate SG components, such as G3BP1, TIA-1, TIAR, and eIF2α signaling, to control host translational arrest and innate immune responses. In HIV-1 infection, viral proteins, including Gag, Tat, and Vpr, interfere with SG formation to support viral RNA translation and replication. Similarly, HTLV-1 modulates stress-response pathways to favor viral persistence and transformation. We also discuss the dual role of stress granules as both antiviral platforms and viral replication facilitators, depending on the stage of infection and cellular context. Importantly, emerging data suggest that dysregulated stress granule dynamics may contribute to chronic inflammation, neurodegeneration, and virus-associated malignancies. Understanding the interplay between retroviruses and stress granule biology provides insight into host-virus coevolution and identifies potential therapeutic targets to restore antiviral stress responses. Targeting SG-associated pathways may represent a novel strategy to limit retroviral replication and virus-induced pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SNORD88B promotes proliferation and invasion of trophoblast by regulating G3BP1 m6 A modification and alternative splicing.",
+    "doi": "10.1007/s00018-025-05758-x",
+    "pmid": "40471366",
+    "authors": [
+      "Lu B, Li Q, Wang H, Cheng J, Zhang Y, Chen X, Li B, Zhao Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-06-05",
+    "cited_by_count": 5,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Small nucleolar RNA (snoRNA) has recently been shown to play a key role in different diseases, but how snoRNA works to promote the biological behavior of trophoblast remains unclear.<h4>Methods</h4>The expression of snoRNA in the placental villi of females were detected by RNA-seq and qPCR. RNA immunoprecipitation (RIP), RNA methylation co-immunoprecipitation (Me-RIP), and cell experiments were used to explore the molecular mechanism of SNORD88B in regulating the function of villous trophoblasts.<h4>Results</h4>SNORD88B was down-regulated in the placental villi of patients with spontaneous abortion, while the overexpression of SNORD88B could promote the proliferation, invasion, and migration of villous trophoblast cells. Mechanistically, SNORD88B directly binds to m6A methyltransferase METTL14 to regulate the m6A modification of G3BP1 mRNA and enhances its mRNA stability by recruiting the reader IGF2BP2. Besides, SNORD88B also regulates the alternative splicing of pre-G3BP1 by recruiting splicing factors SRSF1 and U2AF1, which ameliorates the expression of its effective transcripts to further promote the expression of G3BP1 protein.<h4>Conclusions</h4>We investigated the functional roles and the underlying regulatory mechanisms of SNORD88B in the enhancement of villous trophoblasts' development and that under-expressed SNORD88B could contribute to the maldevelopment of placental villi, which may be related to spontaneous abortion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Equine infectious anemia virus blocks interferon responses through Rev-mediated activation of the stress granule-PKR-eIF2α pathway.",
+    "doi": "10.1371/journal.ppat.1014262",
+    "pmid": "42166486",
+    "authors": [
+      "Ren H, Chen K, Zhou B, Zhang W, Wang XF, Wang X."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-21",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Type I interferons (IFNs) play a pivotal role in antiviral defence by inducing interferon-stimulated genes (ISGs) that target multiple stages of viral replication. Equine infectious anemia virus (EIAV) is an ancient lentivirus that establishes long-term asymptomatic infections in equids, suggesting its exceptional immune evasion capabilities. However, the mechanisms by which EIAV modulates IFN responses remain unclear. Here, we demonstrate that EIAV infection attenuates ISG expression at the post-transcriptional level. The viral Rev protein plays a central role by interacting with the stress granule (SG) nucleating protein Ras-GTPase-activating protein binding protein 1 (G3BP1) to induce SG formation. This triggers the phosphorylation of double-stranded RNA-dependent protein kinase (PKR) and eukaryotic initiation factor 2α (eIF2α), which then block the translation of ISGs. Knockdown of G3BP1 or inhibition of PKR activation restores ISGs expression and enhances the antiviral effect of IFN against EIAV. Furthermore, the dimerization and RNA-binding domains of Rev are essential for SG assembly and the subsequent inhibition of IFN responses. Collectively, our findings reveal that EIAV has evolved a unique strategy to evade IFN responses, where the Rev protein reprograms SGs into proviral platforms by suppressing the translation of ISGs.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Analysis of the Porcine Reproductive and Respiratory Syndrome Virus Nucleocapsid Interactome.",
+    "doi": "10.1021/acs.jproteome.5c00121",
+    "pmid": "40994299",
+    "authors": [
+      "Kovanich D, Ketsuwan K, Hengphasatporn K, Thepparit C, Sittipaisankul P, Wongkongkathep P, Sirisereewan C, Techakriengkrai N, Nedumpun T, Shigeta Y, Pisitkun T, Suradhat S."
+    ],
+    "year": "2025",
+    "publication_date": "2025-09-25",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Porcine reproductive and respiratory syndrome virus (PRRSV) is a major swine pathogen that causes significant economic losses worldwide. The nucleocapsid (N) protein, the most abundant viral protein in infected cells, plays roles beyond its structural function, influencing various host cellular processes. Here, we report the identification of 301 cellular protein candidates interacting with PRRSV N using EGFP immunoprecipitation combined with label-free quantitative mass spectrometry. The analysis underscores the versatile nature of the N protein in targeting a wide range of cellular proteins and processes across multiple subcellular compartments. We observed strong enrichment of ribosomal proteins, nucleolar proteins involved in ribosome biogenesis, splicing factors, RNA helicases, and DNA-binding proteins involved in chromatin remodeling and DNA damage response. Additionally, we identified proteins involved in viral RNA sensing and intrinsic antiviral mechanisms that may contribute to the immunosuppressive properties of the viral protein. Several interactions were validated and further characterized for RNA dependence, including MYBBP1A, NCL, IGF2BP1, UPF3B, G3BP1, EIF2S1, RFC4, ABCF1, PPM1G, NSUN2, and NOP2. Notably, RTCB and MYBBP1A were identified as host dependency factors for PRRSV infection. Our findings expand the current understanding of PRRSV-host interactions and reveal novel N-interacting proteins that may contribute to viral pathogenesis and immune evasion.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of G3BP1 phosphorylation in the regulation of plant immunity in &lt;i&gt;Arabidopsis thaliana&lt;/i&gt;.",
+    "doi": "10.3389/fpls.2026.1777344",
+    "pmid": "42267125",
+    "authors": [
+      "Abdulhakim F, Abulfaraj A, Rayapuram N, Hirt H."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-25",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "A central regulator of condensate formation in mammals is the Ras GTPase-activating protein SH3 domain-binding protein (G3BP) family of RNA-binding proteins. In Arabidopsis, G3BP homologs can also form condensates and exhibit diverse expression patterns and subcellular localization. Previously, we identified G3BP1 as a negative regulator of plant immunity that is phosphorylated at Ser257 <i>in vivo</i>. Here, we generated phospho-mimic (G3BP1<sup>D</sup>) and phospho-dead (G3BP1<sup>A</sup>) variants and expressed them in Arabidopsis, revealing that the phosphorylation state of G3BP1 affects susceptibility to bacterial infection by influencing ROS production and salicylic acid (SA) accumulation. G3BP1 phosphorylation also influences stomatal immunity by maintaining stomatal opening, thereby modulating pre-invasive defense mechanisms. Furthermore, we show that phosphorylation at Ser257 contributes to the stabilization of G3BP1 by limiting its degradation. Collectively, these findings identify G3BP1 phosphorylation as an important regulatory mechanism in plant immunity and provide new insights into the role of RNA-binding proteins in plant defense responses.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Tuning tRNA synthetase inhibition reveals parabolic induction of stress granules limited in size and RNA content.",
+    "doi": "10.1261/rna.080883.125",
+    "pmid": "41656003",
+    "authors": [
+      "Baymiller M, Helton NS, Dodd B, Moon SL."
+    ],
+    "year": "2026",
+    "publication_date": "2026-05-18",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Translation elongation defects cause ribosome stalling and activate the integrated stress response (ISR). During the ISR, translation initiation suppression and ribosome runoff drive mRNA condensation into stress granules. However, the effects of partial translation elongation inhibition on stress granules are poorly defined. We demonstrate that intermediate levels of tRNA synthetase inhibitors activate the ISR and cause assembly of stress granules in a parabolic dose-response pattern. These stress granules are limited in size and number due to ribosome association with mRNAs. Assembly of stress granules by intermediate levels of the prolyl-tRNA synthetase inhibitor halofuginone requires the canonical stress granule scaffolding proteins G3BP1/2 and GCN2-mediated ISR activation. We performed a candidate-based comparative analysis of the composition of stress granules induced by intermediate levels of halofuginone or canonical stressors arsenite or thapsigargin. The stress granules induced by halofuginone, arsenite, or thapsigargin harbor polyadenylated RNA and the canonical stress granule proteins PABPC1, G3BP1, and UBAP2L. We observe stress- and transcript-specific differences in the localization of candidate RNA molecules to stress granules. These results demonstrate that partial translation elongation inhibition permits stress granule assembly through the balance of ISR activation and mRNA association with ribosomes, with implications for the stress response associated with amino acid or tRNA deficiency, therapeutic tRNA synthetase inhibition, or diseases associated with tRNA synthetase mutations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Stress granules promote DNA damage repair through the G3BP1/NAT10/ATF3 axis to facilitate nasopharyngeal carcinoma progression.",
+    "doi": "10.1038/s41388-026-03792-y",
+    "pmid": "42032366",
+    "authors": [
+      "Yue T, Yin H, Yuan L, Xie X, Xie H, Gong M, Xu X, Sun C, Zhang K, Liu J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-24",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Aberrantly enhanced DNA damage repair contributes to therapy resistance and poor prognosis in nasopharyngeal carcinoma (NPC), but its regulatory mechanisms remain unclear. Stress granules (SGs) mediate tumor stress adaptation, yet their role in NPC DNA damage repair is unknown. Here, we show that SGs are significantly enriched in NPC cells under stress, and the SG core protein G3BP1 is highly expressed in NPC tissues (n = 111), correlating with metastasis and poor survival. Mechanistically, under stress, N-acetyltransferase 10 (NAT10)-catalyzed N4-acetylcytosine (ac4C) modification targets mRNAs of DNA repair genes (ATF3, LIG1, RNF168) to SGs, protecting them from degradation. Upon stress relief, these mRNAs are released for translation, enhancing DNA damage repair. The G3BP1/NAT10/ATF3 axis is critical for NPC DNA repair and metastasis, as blocking this axis (via G3BP1 depletion, NAT10 inhibitor remodelin, or ATF3 knockout) inhibits tumor growth and metastasis in vitro and in vivo. This study uncovers a novel ac4C-dependent mechanism by which SGs regulate DNA damage repair in NPC, identifying the G3BP1/NAT10/ATF3 axis as a potential therapeutic target for improving NPC prognosis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "BOULE is Essential for the Dynamic Disassembly of Heat Shock Granules in Male Germ Cells.",
+    "doi": "10.1002/advs.77155",
+    "pmid": "42593831",
+    "authors": [
+      "Li X, Zhang N, Bian Z, Geng B, Cao L, Liu P, Li Z, Zhao Y, Tan J."
+    ],
+    "year": "2026",
+    "publication_date": "2026-08-13",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Heat shock triggers stress granule (SG) formation, yet their dynamics in mammalian germ cells remain unclear. Through systematic analysis, we uncovered distinct heat shock granule (HSG) composition and stage-specific assembly/disassembly in the mouse testis. Ribosome profiling revealed that germ cells selectively sustain translation of spermatogenic genes during heat shock. We identified that the germ cell-specific RNA-binding protein BOULE is essential for HSG clearance. BOULE deficiency under heat shock impairs HSG disassembly, with increased germ cell apoptosis and a disrupted ubiquitinome. Mechanistically, BOULE orchestrates HSG clearance through a two-pronged mechanism. It post-transcriptionally maintains the expression of the disassembly factors G3BP1 and FAF2. Additionally, BOULE promotes heat-shock-induced ubiquitination of G3BP1 by regulating the E3 ligase TRIM27, thereby recruiting the VCP/FAF2 complex. Our findings establish BOULE as a key regulator of proteostasis that coordinates HSG disassembly in germ cells, providing mechanistic insight into heat shock-induced germ cell damage that may contribute to male infertility.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Pharmacological modulation of stress granules &lt;i&gt;via&lt;/i&gt; G3BP1/2: A pathway to treat cancer, inflammatory disease, and neurodegeneration.",
+    "doi": "10.3389/fphar.2026.1780146",
+    "pmid": "41924133",
+    "authors": [
+      "Yang J, Gao F."
+    ],
+    "year": "2026",
+    "publication_date": "2026-03-17",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Stress granules (SGs) are membraneless ribonucleoprotein condensates formed by liquid-liquid phase separation of non-translating mRNAs under stress, acting as dynamic platforms for translational reprogramming and cytoprotection. Ras-GAP SH3 domain-binding proteins 1 and 2 (G3BP1/2) are core nucleators of mammalian SGs-their dual knockout almost abolishes SG assembly, while G3BP1 overexpression alone can drive SG assembly. By sensing cytosolic RNA, G3BP1/2 couple the cyclic GMP-AMP synthase (cGAS)-STING innate immune pathway to stress signaling in cancer and neurodegeneration, positioning these proteins as central hubs linking stress-responsive translation control to disease phenotypes. Recent years have witnessed growing interest in targeting the G3BP-SG axis pharmacologically. Small molecules and peptides that bind G3BP1/2 have revealed that manipulating SG assembly/disassembly is feasible and can modulate downstream stress pathways. However, existing reviews have primarily covered G3BP structure, signaling, and pathology, without a unified focus on direct pharmacological modulators. Here, we present a comprehensive review of G3BP1/2 as druggable stress granule hubs, summarizing all currently reported direct inhibitors and activators, comparing their mechanisms, selectivity and limitations, and discussing translational opportunities and challenges across cancer, viral infection, and neurodegenerative disease contexts. By integrating these findings, we aim to provide an up-to-date framework that not only highlights the novelty of recent G3BP-directed modulators but also addresses prior reviewer concerns regarding overlap with existing literature-emphasizing how our synthesis uniquely compiles both SG inhibitors and \"agonists\" in one analysis. Ultimately, leveraging the G3BP1/2-SG axis may enable multi-pathway reprogramming of stress responses for therapeutic benefit.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Proteolytic cleavage of G3BP1 by calpain 1 couples NMDAR activation to mTOR-dependent local translation.",
+    "doi": "10.1038/s44319-026-00766-9",
+    "pmid": "41935238",
+    "authors": [
+      "Park DH, Ahn SY, Kim J, Choi J, Lee S, Kang M, Song JM, Suh YH."
+    ],
+    "year": "2026",
+    "publication_date": "2026-04-04",
+    "cited_by_count": 0,
+    "journal": "",
+    "abstract": "Ribonucleoprotein (RNP) granules are dynamic, membraneless organelles that sequester translationally repressed mRNAs and RNA-binding proteins, playing a pivotal role in the regulation of localized protein synthesis. While disassembly of RNP granules is essential for reactivating translation, the mechanisms by which neuronal activity regulates this process remain poorly understood. In this study, we show that stimulation of N-methyl-D-aspartate (NMDA) receptor (NMDAR) triggers calcium influx, leading to activation of calpain 1 and subsequent proteolytic cleavage of Ras-GTPase-activating protein binding protein 1 (G3BP1), a core component of stress granules. This cleavage results in the disassembly of G3BP1 granules in the neurites and promotes mTOR-dependent local translation, thereby linking synaptic activity to spatially restricted protein synthesis. Finally, we demonstrate that the NMDAR-calpain 1-G3BP1-mTOR signaling axis contributes to axonal regeneration, establishing proteolytic remodeling of RNP granules as a key mechanism of activity-dependent neural repair.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Chemotherapeutic drug-triggered AEP-cleaved G3BP1 orchestrates stress granules/nucleoli/mitochondria in osteosarcoma.",
+    "doi": "10.1038/s41413-025-00453-w",
+    "pmid": "40858563",
+    "authors": [
+      "Shi Z, Zhao J, Lv Q, Liao K, Cao L, Yang J, Wang M, Zhou L, Xu H, Ge J, Qiu Y, Chen J, Chen J, Ma C, Lin Y."
+    ],
+    "year": "2025",
+    "publication_date": "2025-08-26",
+    "cited_by_count": 1,
+    "journal": "",
+    "abstract": "Osteosarcoma (OS) is the most frequent primary bone sarcomas with high recurrence and poor prognosis. Emerging evidence indicates that membraneless organelles stress granules (SGs), whose assemblies are driven by scaffold protein G3BP1, are extensively involved in tumor, especially in OS. However, how SGs behave and communicate with organelles, particularly nucleoli and mitochondria, during drug challenges remain unknown. This study revealed that chemotherapeutic drugs activated the cysteine protease asparagine endopeptidase (AEP) to specifically cleave the SG core protein G3BP1 at N258/N309 in OS and malignant glioma. tG3BP1-Ns modulated SG dynamics by competitively binding to full-length G3BP1. Strikingly, tG3BP1-Cs, containing a conserved RNA recognition motif CCUBSCUS, sequestered mRNAs of ribosomal proteins and oxidative phosphorylation genes in the nucleoli and mitochondria to repress translation and oxidative stress. Moreover, the inhibition of AEP promoted the tumor-suppressing effect of chemotherapeutic drugs, whereas AEP-cleaved G3BP1 rescue reversed the effect in both OS and glioma models. Cancerous tissues exhibited high levels of AEP and G3BP1 truncations, which were strongly associated with poor prognosis. Accordingly, this study proposed a new paradigm and potential therapeutic targets to address chemotherapy sensitivity conferred by AEP-cleaved G3BP1-mediated SGs/nucleoli/mitochondria coordination.",
+    "openalex_id": ""
+  }
+]

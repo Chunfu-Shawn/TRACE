@@ -1,0 +1,170 @@
+[
+  {
+    "title": "RNA-seq analysis of prostate cancer in the Chinese population identifies recurrent gene fusions, cancer-associated long noncoding RNAs and aberrant alternative splicings.",
+    "doi": "10.1038/cr.2012.30",
+    "pmid": "22349460",
+    "authors": [
+      "Ren S, Peng Z, Mao JH, Yu Y, Yin C, Gao X, Cui Z, Zhang J, Yi K, Xu W, Chen C, Wang F, Guo X, Lu J, Yang J, Wei M, Tian Z, Guan Y, Tang L, Xu C, Wang L, Gao X, Tian W, Wang J, Yang H, Wang J, Sun Y."
+    ],
+    "year": "2012",
+    "publication_date": "2012-02-21",
+    "cited_by_count": 293,
+    "journal": "",
+    "abstract": "There are remarkable disparities among patients of different races with prostate cancer; however, the mechanism underlying this difference remains unclear. Here, we present a comprehensive landscape of the transcriptome profiles of 14 primary prostate cancers and their paired normal counterparts from the Chinese population using RNA-seq, revealing tremendous diversity across prostate cancer transcriptomes with respect to gene fusions, long noncoding RNAs (long ncRNA), alternative splicing and somatic mutations. Three of the 14 tumors (21.4%) harbored a TMPRSS2-ERG fusion, and the low prevalence of this fusion in Chinese patients was further confirmed in an additional tumor set (10/54=18.5%). Notably, two novel gene fusions, CTAGE5-KHDRBS3 (20/54=37%) and USP9Y-TTTY15 (19/54=35.2%), occurred frequently in our patient cohort. Further systematic transcriptional profiling identified numerous long ncRNAs that were differentially expressed in the tumors. An analysis of the correlation between expression of long ncRNA and genes suggested that long ncRNAs may have functions beyond transcriptional regulation. This study yielded new insights into the pathogenesis of prostate cancer in the Chinese population.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Complexity and graded regulation of neuronal cell-type-specific alternative splicing revealed by single-cell RNA sequencing.",
+    "doi": "10.1073/pnas.2013056118",
+    "pmid": "33674385",
+    "authors": [
+      "Feng H, Moakley DF, Chen S, McKenzie MG, Menon V, Zhang C."
+    ],
+    "year": "2021",
+    "publication_date": "2021-03-01",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "The enormous cellular diversity in the mammalian brain, which is highly prototypical and organized in a hierarchical manner, is dictated by cell-type-specific gene-regulatory programs at the molecular level. Although prevalent in the brain, the contribution of alternative splicing (AS) to the molecular diversity across neuronal cell types is just starting to emerge. Here, we systematically investigated AS regulation across over 100 transcriptomically defined neuronal types of the adult mouse cortex using deep single-cell RNA-sequencing data. We found distinct splicing programs between glutamatergic and GABAergic neurons and between subclasses within each neuronal class. These programs consist of overlapping sets of alternative exons showing differential splicing at multiple hierarchical levels. Using an integrative approach, our analysis suggests that RNA-binding proteins (RBPs) Celf1/2, Mbnl2, and Khdrbs3 are preferentially expressed and more active in glutamatergic neurons, while Elavl2 and Qk are preferentially expressed and more active in GABAergic neurons. Importantly, these and additional RBPs also contribute to differential splicing between neuronal subclasses at multiple hierarchical levels, and some RBPs contribute to splicing dynamics that do not conform to the hierarchical structure defined by the transcriptional profiles. Thus, our results suggest graded regulation of AS across neuronal cell types, which may provide a molecular mechanism to specify neuronal identity and function that are orthogonal to established classifications based on transcriptional regulation.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Amplification and overexpression of Hsa-miR-30b, Hsa-miR-30d and KHDRBS3 at 8q24.22-q24.23 in medulloblastoma.",
+    "doi": "10.1371/journal.pone.0006159",
+    "pmid": "19584924",
+    "authors": [
+      "Lu Y, Ryan SL, Elliott DJ, Bignell GR, Futreal PA, Ellison DW, Bailey S, Clifford SC."
+    ],
+    "year": "2009",
+    "publication_date": "2009-07-07",
+    "cited_by_count": 73,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Medulloblastoma is the most common malignant brain tumour of childhood. The identification of critical genes involved in its pathogenesis will be central to advances in our understanding of its molecular basis, and the development of improved therapeutic approaches.<h4>Methodology/principal findings</h4>We performed a SNP-array based genome-wide copy number analysis in medulloblastoma cell lines, to identify regions of genomic amplification and homozygous deletion, which may harbour critical disease genes. A series of novel and established medulloblastoma defects were detected (MYC amplification (n = 4), 17q21.31 high-level gain (n = 1); 9p21.1-p21.3 (n = 1) and 6q23.1 (n = 1) homozygous deletion). Most notably, a novel recurrent region of genomic amplification at 8q24.22-q24.23 was identified (n = 2), and selected for further investigation. Additional analysis by interphase fluorescence in situ hybridisation (iFISH), PCR-based mapping and SNP-array revealed this novel amplification at 8q24.22-q24.23 is independent of MYC amplification at 8q24.21, and is unique to medulloblastoma in over 800 cancer cell lines assessed from different tumour types, suggesting it contains key genes specifically involved in medulloblastoma development. Detailed mapping identified a 3Mb common minimal region of amplification harbouring 3 coding genes (ZFAT1, LOC286094, KHDRBS3) and two genes encoding micro-RNAs (hsa-miR-30b, hsa-miR-30d). Of these, only expression of hsa-miR-30b, hsa-miR-30d and KHDRBS3 correlated with copy number status, and all three of these transcripts also displayed evidence of elevated expression in sub-sets of primary medulloblastomas, measured relative to the normal cerebellum.<h4>Conclusions/significance</h4>These data implicate hsa-miR-30b, hsa-miR-30d and KHDRBS3 as putative oncogenic target(s) of a novel recurrent medulloblastoma amplicon at 8q24.22-q24.23. Our findings suggest critical roles for these genes in medulloblastoma development, and further support the contribution of micro-RNA species to medulloblastoma pathogenesis.",
+    "openalex_id": ""
+  },
+  {
+    "title": "SALL4 - KHDRBS3 network enhances stemness by modulating CD44 splicing in basal-like breast cancer.",
+    "doi": "10.1002/cam4.1296",
+    "pmid": "29356399",
+    "authors": [
+      "Matsumoto Y, Itou J, Sato F, Toi M."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-22",
+    "cited_by_count": 40,
+    "journal": "",
+    "abstract": "Understanding the mechanism by which cancer cells enhance stemness facilitates cancer therapies. Here, we revealed that a stem cell transcription factor, SALL4, functions to enhance stemness in basal-like breast cancer cells. We used shRNA-mediated knockdown and gene overexpression systems to analyze gene functions. To evaluate stemness, we performed a sphere formation assay. In SALL4 knockdown cells, the sphere formation ability was reduced, indicating that SALL4 enhances stemness. CD44 is a membrane protein and is known as a stemness factor in cancer. CD44 splicing variants are involved in cancer stemness. We discovered that SALL4 modulates CD44 alternative splicing through the upregulation of KHDRBS3, a splicing factor for CD44. We cloned the KHDRBS3-regulated CD44 splicing isoform (CD44v), which lacks exons 8 and 9. CD44v overexpression prevented a reduction in the sphere formation ability by KHDRBS3 knockdown, indicating that CD44v is positively involved in cancer stemness. In addition, CD44v enhanced anoikis resistance under the control of the SALL4 - KHDRBS3 network. Basal-like breast cancer is an aggressive subtype among breast cancers, and there is no effective therapy so far. Our findings provide molecular targets for basal-like breast cancer therapy. In the future, this study may contribute to the establishment of drugs targeting cancer stemness.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Exosomal circ_0088300 Derived From Cancer-Associated Fibroblasts Acts as a miR-1305 Sponge and Promotes Gastric Carcinoma Cell Tumorigenesis.",
+    "doi": "10.3389/fcell.2021.676319",
+    "pmid": "34124064",
+    "authors": [
+      "Shi H, Huang S, Qin M, Xue X, Guo X, Jiang L, Hong H, Fang J, Gao L."
+    ],
+    "year": "2021",
+    "publication_date": "2021-05-26",
+    "cited_by_count": 39,
+    "journal": "",
+    "abstract": "Cancer-associated fibroblast (CAF)-derived exosomes play a major role in gastric carcinoma (GC) tumorigenesis. However, the mechanism behind the activity of circular RNAs in CAF-derived exosomes in GC remains unclear. In the present study, we identified differentially expressed circ_0088300 in GC tissues and plasma exosomes. We found that CAFs delivered functional circ_0088300 to GC tumor cells via exosomes and promoted the proliferation, migration and invasion abilities of GC cells. Furthermore, we demonstrated that circ_0088300 packaging into exosomes was driven by KHDRBS3. In addition, we verified that circ_0088300 served as a sponge that directly targeted miR-1305 and promoted GC cell proliferation, migration and invasion. Finally, the JAK/STAT signaling pathway was found to be involved in the circ_0088300/miR-1305 axis, which accelerates GC tumorigenesis. In conclusion, our results indicated a previously unknown regulatory pathway in which exosomal circ_0088300 derived from CAFs acts as a sponge of miR-1305 and promotes GC cell proliferation, migration and invasion; these data identify a potential biomarker and novel therapeutic target for GC in the future.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KHDRBS3 regulates the permeability of blood-tumor barrier via cDENND4C/miR-577 axis.",
+    "doi": "10.1038/s41419-019-1771-2",
+    "pmid": "31296839",
+    "authors": [
+      "Wu P, Gao Y, Shen S, Xue Y, Liu X, Ruan X, Shao L, Liu Y, Wang P."
+    ],
+    "year": "2019",
+    "publication_date": "2019-07-11",
+    "cited_by_count": 37,
+    "journal": "",
+    "abstract": "The existence of blood-tumor barrier (BTB) severely restricts the efficient delivery of antitumor drugs to cranial glioma tissues. Various strategies have been explored to increase BTB permeability. RNA-binding proteins and circular RNAs have recently emerged as potential regulators of endothelial cells functions. In this study, RNA-binding protein KH RNA-binding domain containing, signal transduction associated 3 (KHDRBS3) and circular RNA DENND4C (cDENND4C) were enriched in GECs. KHDRBS3 bound to cDENND4C and increased its stability. The knockdown of cDENND4C increased the permeability of BTB via downregulating the expressions of tight junction-related proteins. The miR-577 was lower expressed in GECs. The overexpressed miR-577 increased the permeability of BTB by reducing the tight junction-related protein expressions, and vice versa. Furthermore, cDENND4C acted as a molecular sponge of miR-577, which bound to miR-577 and inhibited its negative regulation of target genes ZO-1, occludin and claudin-1 to regulate BTB permeability. Single or combined treatment of KHDRBS3, cDENND4C, and miR-577 effectively promoted antitumor drug doxorubicin (DOX) across BTB to induce apoptosis of glioma cells. Collectively, the present study indicated that KHDRBS3 could regulate BTB permeability through the cDENND4C/miR-577 axis, which enhanced doxorubicin delivery across BTB. These findings may provide a novel strategy for chemotherapy of brain tumors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Robust and annotation-free analysis of alternative splicing across diverse cell types in mice.",
+    "doi": "10.7554/elife.73520",
+    "pmid": "35229721",
+    "authors": [
+      "Benegas G, Fischer J, Song YS."
+    ],
+    "year": "2022",
+    "publication_date": "2022-03-01",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "Although alternative splicing is a fundamental and pervasive aspect of gene expression in higher eukaryotes, it is often omitted from single-cell studies due to quantification challenges inherent to commonly used short-read sequencing technologies. Here, we undertake the analysis of alternative splicing across numerous diverse murine cell types from two large-scale single-cell datasets-the <i>Tabula Muris</i> and BRAIN Initiative Cell Census Network-while accounting for understudied technical artifacts and unannotated events. We find strong and general cell-type-specific alternative splicing, complementary to total gene expression but of similar discriminatory value, and identify a large volume of novel splicing events. We specifically highlight splicing variation across different cell types in primary motor cortex neurons, bone marrow B cells, and various epithelial cells, and we show that the implicated transcripts include many genes which do not display total expression differences. To elucidate the regulation of alternative splicing, we build a custom predictive model based on splicing factor activity, recovering several known interactions while generating new hypotheses, including potential regulatory roles for novel alternative splicing events in critical genes like <i>Khdrbs3</i> and <i>Rbfox1</i>. We make our results available using public interactive browsers to spur further exploration by the community.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KHDRBS3 promotes multi-drug resistance and anchorage-independent growth in colorectal cancer.",
+    "doi": "10.1111/cas.14805",
+    "pmid": "33423358",
+    "authors": [
+      "Ukai S, Sakamoto N, Taniyama D, Harada K, Honma R, Maruyama R, Naka K, Hinoi T, Takakura Y, Shimizu W, Ohdan H, Yasui W."
+    ],
+    "year": "2021",
+    "publication_date": "2021-02-02",
+    "cited_by_count": 20,
+    "journal": "",
+    "abstract": "5-Fluorouracil (5-FU) is one of the most frequently used pharmacological agents in the treatment of colorectal cancer (CRC). Resistance to chemotherapy is a major cause of treatment failure of CRC, and it is a well known fact that cancer stem cells play a significant role in the acquisition of drug resistance. In this study, we focused on the KHDRBS3 gene that encodes KH RNA Binding Domain Containing, Signal Transduction Associated 3. We first clarified the relationship between KHDRBS3 and 5-FU resistance. We then observed higher expression levels of KHDRBS3 in KRAS-mutant organoids and cell lines in comparison with KRAS wild-type organoids and cell lines. Immunohistochemical analysis using CRC cases revealed that the prognosis of KHDRBS3-positive patients was significantly worse compared with that of KHDRBS3-negative patients. Univariate and multivariate Cox proportional hazards analyses showed that KHDRBS3 was an independent prognostic factor in patients with CRC. We determined that KHDRBS3 might play a crucial role in the acquisition of stem cell properties, such as drug resistance and spheroid/organoid formation, by regulating CD44 variant expression and the Wnt signaling pathway. In an immunodeficient mouse model, KHDRBS3-positive cells showed efficient tumor formation and formed metastatic lesions in the lungs. These results indicated that KHDRBS3 plays a crucial role in drug resistance and anchorage-independent growth by maintaining stem cell-like features in CRC cells. KHDRBS3 could be a promising candidate marker for predicting chemotherapeutic effect and prognosis in CRC patients.",
+    "openalex_id": ""
+  },
+  {
+    "title": "A new genome scan for primary nonsyndromic vesicoureteric reflux emphasizes high genetic heterogeneity and shows linkage and association with various genes already implicated in urinary tract development.",
+    "doi": "10.1002/mgg3.22",
+    "pmid": "24498626",
+    "authors": [
+      "Darlow JM, Dobson MG, Darlay R, Molony CM, Hunziker M, Green AJ, Cordell HJ, Puri P, Barton DE."
+    ],
+    "year": "2014",
+    "publication_date": "2013-07-07",
+    "cited_by_count": 19,
+    "journal": "",
+    "abstract": "Primary vesicoureteric reflux (VUR), the retrograde flow of urine from the bladder toward the kidneys, results from a developmental anomaly of the vesicoureteric valve mechanism, and is often associated with other urinary tract anomalies. It is the most common urological problem in children, with an estimated prevalence of 1-2%, and is a major cause of hypertension in childhood and of renal failure in childhood or adult life. We present the results of a genetic linkage and association scan using 900,000 markers. Our linkage results show a large number of suggestive linkage peaks, with different results in two groups of families, suggesting that VUR is even more genetically heterogeneous than previously imagined. The only marker achieving P < 0.02 for linkage in both groups of families is 270 kb from EMX2. In three sibships, we found recessive linkage to KHDRBS3, previously reported in a Somali family. In another family we discovered sex-reversal associated with VUR, implicating PRKX, for which there was weak support for dominant linkage in the overall data set. Several other candidate genes are suggested by our linkage or association results, and four of our linkage peaks are within copy-number variants recently found to be associated with renal hypodysplasia. Undoubtedly there are many genes related to VUR. Our study gives support to some loci suggested by earlier studies as well as suggesting new ones, and provides numerous indications for further investigations.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dynamic expression of the RNA-binding protein Sam68 during mouse pre-implantation development.",
+    "doi": "10.1016/j.gep.2008.01.005",
+    "pmid": "18321792",
+    "authors": [
+      "Paronetto MP, Bianchi E, Geremia R, Sette C."
+    ],
+    "year": "2008",
+    "publication_date": "2008-02-02",
+    "cited_by_count": 16,
+    "journal": "",
+    "abstract": "The STAR protein Sam68 (KHDRBS1) is involved in several aspects of post-transcriptional mRNA metabolism. Herein, we have investigated the expression and subcellular localization of Sam68 during early mouse embryogenesis. We found that mouse oocytes express high levels of Sam68 mRNA, low levels of the transcript for Khdrbs2 (current symbol for Slm-1) and no Khdrbs3 (current symbol for Slm-2), two highly homologous STAR genes. Sam68 protein is expressed throughout oocyte meiotic maturation and early embryogenesis. It is released in the cytoplasm upon meiotic resumption and it slowly accumulates in the nucleus after fertilization. Unlike what was observed for other RNA-binding proteins, nuclear accumulation of Sam68 was independent of de novo mRNA transcription. However, we found that inhibition of mRNA translation by either cycloheximide or puromycin in one-cell embryos caused the accumulation of Sam68 in cytoplasmic granules. Analysis of these granules by deconvolution microscopy demonstrated that they are sites of accumulation for proteins involved in the initiation of mRNA translation, such as eIF4A1, eIF4E and eIF4G. These granules contained RNA and were dissolved by treatment with RNase A. Other proteins expressed by the zygote, like the splicing factor SC35 or the cytoplasmic kinase ERK2, did not accumulate in such structures after treatment with inhibitors of mRNA translation, indicating that the localization of Sam68 and of the translation initiation factors in these granules is a specific event. These results indicate that Sam68 is involved in translational regulation of maternal mRNAs in the zygote and in the early signaling events triggered by fertilization.",
+    "openalex_id": ""
+  },
+  {
+    "title": "KHDRBS3 accelerates glycolysis and promotes malignancy of hepatocellular carcinoma via upregulating 14-3-3ζ.",
+    "doi": "10.1186/s12935-023-03085-4",
+    "pmid": "37848941",
+    "authors": [
+      "Zhao M, Zhang Y, Li L, Liu X, Zhou W, Wang C, Tang Y."
+    ],
+    "year": "2023",
+    "publication_date": "2023-10-17",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Primary hepatocellular carcinoma (HCC) is a malignancy with high morbidity and mortality. KH domain-containing, RNA-binding signal transduction-associated protein 3 (KHDRBS3) is an RNA-binding protein that is aberrantly expressed in multiple tumors; however, its expression and biological function in HCC have not been reported.<h4>Methods</h4>KHDRBS3 knockdown and overexpression were performed using the lentiviral vector system to investigate the effects of KHDRBS3 on cell proliferation, apoptosis, chemoresistance, and glycolysis. Murine xenograft tumor models were constructed to study the role of KHDRBS3 on tumor growth in vivo. Furthermore, RNA-Pull Down and RNA immunoprecipitation were utilized to explore the interaction between KHDRBS3 and 14-3-3ζ, a phosphopeptide-binding molecule encoded by YWHAZ.<h4>Results</h4>KHDRBS3 was highly expressed in human HCC tissues and predicted the poor prognosis of patients with HCC. Knockdown of KHDRBS3 exhibited a carcinostatic effect in HCC and impeded proliferation and tumor growth, reduced glycolysis, enhanced cell sensitivity to doxorubicin, and induced apoptosis. On the contrary, forced expression of KHDRBS3 expedited the malignant biological behaviors of HCC cells. The expression of KHDRBS3 was positively correlated with the expression of 14-3-3ζ. RNA immunoprecipitation and RNA pull-down assays demonstrated that KHDRBS3 bound to YWHAZ. We further confirmed that 14-3-3ζ silencing significantly reversed the promotion of proliferation and glycolysis and the inhibition of apoptosis caused by KHDRBS3 overexpression.<h4>Conclusions</h4>Our findings suggest that KHDRBS3 promotes glycolysis and malignant progression of HCC through upregulating 14-3-3ζ expression, providing a possible target for HCC therapy.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Integrated analysis of microRNA and mRNA expressions in peripheral blood leukocytes of Warmblood horses before and after exercise.",
+    "doi": "10.4142/jvs.2018.19.1.99",
+    "pmid": "28927254",
+    "authors": [
+      "Kim HA, Kim MC, Kim NY, Ryu DY, Lee HS, Kim Y."
+    ],
+    "year": "2018",
+    "publication_date": "2018-01-01",
+    "cited_by_count": 8,
+    "journal": "",
+    "abstract": "Exercise capacity is a valuable trait in horses, and it has been used as a horse selection criterion. Although exercise affects molecular homeostasis and adaptation in horses, the mechanisms underlying these effects are not fully described. This study was carried out to identify changes in the blood profiles of microRNAs (miRNAs) and mRNAs induced by exercise in horse leukocytes. Total RNAs isolated from the peripheral blood leukocytes of four Warmblood horses before and after exercise were subjected to next-generation sequencing (NGS) and microarray analyses to determine the miRNA and mRNA expression profiles, respectively. The expressions of 6 miRNAs, including 4 known and 2 novel miRNAs, were altered by exercise. The predicted target genes of the differentially expressed miRNAs identified by NGS were matched to the exercise-induced mRNAs determined by microarray analysis. Five genes (<i>LOC100050849</i>, <i>LOC100054517</i>, <i>KHDRBS3</i>, <i>LOC100053996</i>, and <i>LOC100062720</i>) from the microarray analysis were matched to the predicted target genes of the 6 miRNAs. The subset of mRNAs and miRNAs affected by exercise in peripheral blood leukocytes may be useful in elucidating the molecular mechanisms of exercise-associated physiology in horses.",
+    "openalex_id": ""
+  }
+]

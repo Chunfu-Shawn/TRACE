@@ -1,0 +1,32 @@
+[
+  {
+    "title": "The Proteins of mRNA Modification: Writers, Readers, and Erasers",
+    "doi": "10.1146/annurev-biochem-052521-035330",
+    "authors": [
+      "Mathieu N. Flamand",
+      "Matthew Tegowski",
+      "Kate D. Meyer"
+    ],
+    "year": 2023,
+    "publication_date": "2023-04-17",
+    "cited_by_count": 158,
+    "journal": "Annual Review of Biochemistry",
+    "abstract": "Over the past decade, mRNA modifications have emerged as important regulators of gene expression control in cells. Fueled in large part by the development of tools for detecting RNA modifications transcriptome wide, researchers have uncovered a diverse epitranscriptome that serves as an additional layer of gene regulation beyond simple RNA sequence. Here, we review the proteins that write, read, and erase these marks, with a particular focus on the most abundant internal modification, N 6 -methy",
+    "openalex_id": "https://openalex.org/W4366138140",
+    "relevance_score": 76.22895
+  },
+  {
+    "title": "New oncogenic networks regulated by the RNA binding factor CUGBP1 in melanoma",
+    "doi": null,
+    "authors": [
+      "Metehan Cifdaloz"
+    ],
+    "year": 2016,
+    "publication_date": "2016-05-13",
+    "cited_by_count": 0,
+    "journal": "Biblos-e Archivo (Universidad Autónoma de Madrid)",
+    "abstract": "Tesis Doctoral inédita leída en la Universidad Autónoma de Madrid, Facultad de Ciencias, Departamento de Biología Molecular. Fecha de lectura: 13-05-2016",
+    "openalex_id": "https://openalex.org/W2587350062",
+    "relevance_score": 2.182682
+  }
+]

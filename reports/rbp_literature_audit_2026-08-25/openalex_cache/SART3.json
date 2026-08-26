@@ -1,0 +1,200 @@
+[
+  {
+    "title": "Rasputin a decade on and more promiscuous than ever? A review of G3BPs",
+    "doi": "10.1016/j.bbamcr.2018.09.001",
+    "authors": [
+      "Umber Alam",
+      "Derek Kennedy"
+    ],
+    "year": 2018,
+    "publication_date": "2018-09-05",
+    "cited_by_count": 82,
+    "journal": "Biochimica et Biophysica Acta (BBA) - Molecular Cell Research",
+    "abstract": "Ras-GTPase-activating protein (SH3 domain)-binding proteins (G3BPs, also known as Rasputin) are a family of RNA binding proteins that regulate gene expression in response to environmental stresses by controlling mRNA stability and translation. G3BPs appear to facilitate this activity through their role in stress granules for which they are considered a core component, however, it should be noted that not all stress granules contain G3BPs and this appears to be contextual depending on the environ",
+    "openalex_id": "https://openalex.org/W2890222365",
+    "relevance_score": 54.284073
+  },
+  {
+    "title": "Epigenetic Regulation of Alternative Splicing: How LncRNAs Tailor the Message",
+    "doi": "10.3390/ncrna7010021",
+    "authors": [
+      "Giuseppina Pisignano",
+      "Michael Ladomery"
+    ],
+    "year": 2021,
+    "publication_date": "2021-03-10",
+    "cited_by_count": 61,
+    "journal": "Non-Coding RNA",
+    "abstract": "Alternative splicing is a highly fine-tuned regulated process and one of the main drivers of proteomic diversity across eukaryotes. The vast majority of human multi-exon genes is alternatively spliced in a cell type- and tissue-specific manner, and defects in alternative splicing can dramatically alter RNA and protein functions and lead to disease. The eukaryotic genome is also intensively transcribed into long and short non-coding RNAs which account for up to 90% of the entire transcriptome. Ov",
+    "openalex_id": "https://openalex.org/W3134512236",
+    "relevance_score": 47.97217
+  },
+  {
+    "title": "Non-canonical functions of spliceosome components in cancer progression",
+    "doi": "10.1038/s41419-022-05470-9",
+    "authors": [
+      "O.M. Ivanova",
+      "Ksenia S. Anufrieva",
+      "Anastasia N. Kazakova",
+      "Irina K. Malyants",
+      "Polina V. Shnaider"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-02",
+    "cited_by_count": 42,
+    "journal": "Cell Death and Disease",
+    "abstract": "Dysregulation of pre-mRNA splicing is a common hallmark of cancer cells and it is associated with altered expression, localization, and mutations of the components of the splicing machinery. In the last few years, it has been elucidated that spliceosome components can also influence cellular processes in a splicing-independent manner. Here, we analyze open source data to understand the effect of the knockdown of splicing factors in human cells on the expression and splicing of genes relevant to ",
+    "openalex_id": "https://openalex.org/W4319036458",
+    "relevance_score": 44.611183
+  },
+  {
+    "title": "Biology of the mRNA Splicing Machinery and Its Dysregulation in Cancer Providing Therapeutic Opportunities",
+    "doi": "10.3390/ijms22105110",
+    "authors": [
+      "Maxime Blijlevens",
+      "Jing Li",
+      "Victor W. van Beusechem"
+    ],
+    "year": 2021,
+    "publication_date": "2021-05-12",
+    "cited_by_count": 45,
+    "journal": "International Journal of Molecular Sciences",
+    "abstract": "Dysregulation of messenger RNA (mRNA) processing-in particular mRNA splicing-is a hallmark of cancer. Compared to normal cells, cancer cells frequently present aberrant mRNA splicing, which promotes cancer progression and treatment resistance. This hallmark provides opportunities for developing new targeted cancer treatments. Splicing of precursor mRNA into mature mRNA is executed by a dynamic complex of proteins and small RNAs called the spliceosome. Spliceosomes are part of the supraspliceosom",
+    "openalex_id": "https://openalex.org/W3160794741",
+    "relevance_score": 39.27747
+  },
+  {
+    "title": "The Pol III transcriptome: Basic features, recurrent patterns, and emerging roles in cancer",
+    "doi": "10.1002/wrna.1782",
+    "authors": [
+      "Sihang Zhou",
+      "Kevin Van Bortle"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-08",
+    "cited_by_count": 37,
+    "journal": "Wiley Interdisciplinary Reviews - RNA",
+    "abstract": "The RNA polymerase III (Pol III) transcriptome is universally comprised of short, highly structured noncoding RNA (ncRNA). Through RNA-protein interactions, the Pol III transcriptome actuates functional activities ranging from nuclear gene regulation (7SK), splicing (U6, U6atac), and RNA maturation and stability (RMRP, RPPH1, Y RNA), to cytoplasmic protein targeting (7SL) and translation (tRNA, 5S rRNA). In higher eukaryotes, the Pol III transcriptome has expanded to include additional, recently",
+    "openalex_id": "https://openalex.org/W4319656340",
+    "relevance_score": 38.1675
+  },
+  {
+    "title": "Regulation of Pre-mRNA Splicing: Indispensable Role of Post-Translational Modifications of Splicing Factors",
+    "doi": "10.3390/life13030604",
+    "authors": [
+      "Miroslava Kretová",
+      "Tomas Selicky",
+      "Ingrid Čipáková",
+      "Luboš Čipák"
+    ],
+    "year": 2023,
+    "publication_date": "2023-02-21",
+    "cited_by_count": 33,
+    "journal": "Life",
+    "abstract": "Pre-mRNA splicing is a process used by eukaryotic cells to generate messenger RNAs that can be translated into proteins. During splicing, the non-coding regions of the RNAs (introns) are removed from pre-mRNAs and the coding regions (exons) are joined together, resulting in mature mRNAs. The particular steps of splicing are executed by the multimegadalton complex called a spliceosome. This complex is composed of small nuclear ribonucleoproteins, various splicing factors, and other regulatory and",
+    "openalex_id": "https://openalex.org/W4321500375",
+    "relevance_score": 32.571243
+  },
+  {
+    "title": "Biomolecular condensates: molecular structure, biological functions, diseases, and therapeutic targets",
+    "doi": "10.1186/s43556-025-00350-y",
+    "authors": [
+      "Sunkyung Choi",
+      "Jung‐Min Lee",
+      "Kee K. Kim"
+    ],
+    "year": 2025,
+    "publication_date": "2025-11-05",
+    "cited_by_count": 24,
+    "journal": "Molecular Biomedicine",
+    "abstract": "Cells constantly encounter environmental and physiological fluctuations that challenge homeostasis and threaten viability. In response to these cues, specific proteins and nucleic acids engage in multivalent interactions and undergo phase separation to form membraneless assemblies known as biomolecular condensates. Nuclear condensates include paraspeckles, nuclear speckles, and Cajal bodies, while cytoplasmic condensates include stress granules, processing bodies, RNA transport granules, U-bodie",
+    "openalex_id": "https://openalex.org/W4415907970",
+    "relevance_score": 32.40052
+  },
+  {
+    "title": "Functional nuclear retention of pre-mRNA involving Cajal bodies during meiotic prophase in European larch (Larix decidua)",
+    "doi": "10.1093/plcell/koac091",
+    "authors": [
+      "Magda Rudzka",
+      "Patrycja Wróblewska-Ankiewicz",
+      "Karolina Majewska",
+      "Malwina Hyjek‐Składanowska",
+      "Marcin Gołębiewski"
+    ],
+    "year": 2022,
+    "publication_date": "2022-03-15",
+    "cited_by_count": 11,
+    "journal": "The Plant Cell",
+    "abstract": "Gene regulation ensures that the appropriate genes are expressed at the proper time. Nuclear retention of incompletely spliced or mature mRNAs is emerging as a novel, previously underappreciated layer of posttranscriptional regulation. Studies on this phenomenon indicated that it exerts a significant influence on the regulation of gene expression by regulating export and translation delay, which allows the synthesis of specific proteins in response to a stimulus or at strictly controlled time po",
+    "openalex_id": "https://openalex.org/W4221106166",
+    "relevance_score": 25.626131
+  },
+  {
+    "title": "Nuclear retention of pre-mRNA involving Cajal bodies during meiotic prophase in plants",
+    "doi": "10.1101/2021.04.19.440419",
+    "authors": [
+      "Magda Rudzka",
+      "Malwina Hyjek‐Składanowska",
+      "Patrycja Wróblewska-Ankiewicz",
+      "Karolina Majewska",
+      "Marcin Gołębiewski"
+    ],
+    "year": 2021,
+    "publication_date": "2021-04-20",
+    "cited_by_count": 1,
+    "journal": "bioRxiv (Cold Spring Harbor Laboratory)",
+    "abstract": "Summary Gene regulation ensures that the appropriate genes are expressed at the proper times. Nuclear retention of incompletely spliced or mature mRNAs emerges as a novel, previously underappreciated layer of post-transcriptional gene regulation. Studies on this phenomenon indicated that it exerted significant impact on the regulation of gene expression by regulating export and translation delay, which allows synthesis of specific proteins in response to a stimulus, e.g. under stress conditions ",
+    "openalex_id": "https://openalex.org/W3156855291",
+    "relevance_score": 11.701107
+  },
+  {
+    "title": "2′-O-methylation-dependent installation of N2-methylguanosine in the U6 internal stem loop facilitates efficient spliceosome assembly",
+    "doi": "10.1038/s41467-026-72355-2",
+    "authors": [
+      "Nicole Kleiber",
+      "Jonny Petrosyan",
+      "Maria Greve",
+      "Chairini C. Thomé",
+      "Olexandr Dybkov"
+    ],
+    "year": 2026,
+    "publication_date": "2026-04-24",
+    "cited_by_count": 1,
+    "journal": "Nature Communications",
+    "abstract": "Abstract The internal stem loop (ISL) of the human U6 snRNA, which catalyzes pre-mRNA splicing, contains LARP7-dependent, snoRNA-guided 2′- O -methylations and an N 2 -methylguanosine (m 2 G) that is required for splicing of weak splice sites. Here, we show that installation of m 2 G 72 by the THUMPD2-TRMT112 methyltransferase complex is one of the last maturation events during U6 snRNP biogenesis. We dissect features of THUMPD2 required for association with U6 and present an experimentally vali",
+    "openalex_id": "https://openalex.org/W7155535567",
+    "relevance_score": 11.4061365
+  },
+  {
+    "title": "An experimental and genomic approach to the regulation of alternative pre-mRNA splicing in Drosophila rnp-4f",
+    "doi": null,
+    "authors": [
+      "Rebecca A. Fetherson"
+    ],
+    "year": 2005,
+    "publication_date": "2005-04-30",
+    "cited_by_count": 0,
+    "journal": "OhioLink ETD Center (Ohio Library and Information Network)",
+    "abstract": "An experimental and genomic approach to the regulation of alternative pre-mRNA splicing in Drosophila rnp-4fBy Rebecca A. Fetherson rnp-4f , a Drosophila gene containing nine spliceosomal introns, encodes a nuclear PRP protein that functions constitutively in spliceosome assembly.Nothing is known about molecular mechanisms regulating splicing decisions for this gene, or the factors that modulate the degree of mRNA translation for the encoded spliceosomal assembly factor during development.Here w",
+    "openalex_id": "https://openalex.org/W2600189731",
+    "relevance_score": 2.935388
+  },
+  {
+    "title": "2′-O-methylation-dependent installation of N2-methylguanosine in the U6 internal stem loop facilitates efficient spliceosome assembly facilitates efficient spliceosome assembly",
+    "doi": null,
+    "authors": [
+      "N. Kleiber",
+      "J. Petrosyan",
+      "M. Greve",
+      "C. Thomé",
+      "O. Dybkov"
+    ],
+    "year": 2026,
+    "publication_date": "2026-04-24",
+    "cited_by_count": 0,
+    "journal": "MPG.PuRe (Max Planck Society)",
+    "abstract": "The internal stem loop (ISL) of the human U6 snRNA, which catalyzes pre-mRNA splicing, contains LARP7-dependent, snoRNA-guided 2′-O-methylations and an N2-methylguanosine (m2G) that is required for splicing of weak splice sites. Here, we show that installation of m2G72 by the THUMPD2-TRMT112 methyltransferase complex is one of the last maturation events during U6 snRNP biogenesis. We dissect features of THUMPD2 required for association with U6 and present an experimentally validated model of the",
+    "openalex_id": "https://openalex.org/W7162923318",
+    "relevance_score": 2.8797178
+  }
+]

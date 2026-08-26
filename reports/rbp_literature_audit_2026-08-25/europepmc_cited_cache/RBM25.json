@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Pervasive Chromatin-RNA Binding Protein Interactions Enable RNA-Based Regulation of Transcription.",
+    "doi": "10.1016/j.cell.2019.06.001",
+    "pmid": "31251911",
+    "authors": [
+      "Xiao R, Chen JY, Liang Z, Luo D, Chen G, Lu ZJ, Chen Y, Zhou B, Li H, Du X, Yang Y, San M, Wei X, Liu W, Lécuyer E, Graveley BR, Yeo GW, Burge CB, Zhang MQ, Zhou Y, Fu XD."
+    ],
+    "year": "2019",
+    "publication_date": "2019-06-01",
+    "cited_by_count": 321,
+    "journal": "",
+    "abstract": "Increasing evidence suggests that transcriptional control and chromatin activities at large involve regulatory RNAs, which likely enlist specific RNA-binding proteins (RBPs). Although multiple RBPs have been implicated in transcription control, it has remained unclear how extensively RBPs directly act on chromatin. We embarked on a large-scale RBP ChIP-seq analysis, revealing widespread RBP presence in active chromatin regions in the human genome. Like transcription factors (TFs), RBPs also show strong preference for hotspots in the genome, particularly gene promoters, where their association is frequently linked to transcriptional output. Unsupervised clustering reveals extensive co-association between TFs and RBPs, as exemplified by YY1, a known RNA-dependent TF, and RBM25, an RBP involved in splicing regulation. Remarkably, RBM25 depletion attenuates all YY1-dependent activities, including chromatin binding, DNA looping, and transcription. We propose that various RBPs may enhance network interaction through harnessing regulatory RNAs to control transcription.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Dysregulation of p53-RBM25-mediated circAMOTL1L biogenesis contributes to prostate cancer progression through the circAMOTL1L-miR-193a-5p-Pcdha pathway.",
+    "doi": "10.1038/s41388-018-0602-8",
+    "pmid": "30531834",
+    "authors": [
+      "Yang Z, Qu CB, Zhang Y, Zhang WF, Wang DD, Gao CC, Ma L, Chen JS, Liu KL, Zheng B, Zhang XH, Zhang ML, Wang XL, Wen JK, Li W."
+    ],
+    "year": "2019",
+    "publication_date": "2018-12-07",
+    "cited_by_count": 151,
+    "journal": "",
+    "abstract": "p53, circRNAs and miRNAs are important components of the regulatory network that activates the EMT program in cancer metastasis. In prostate cancer (PCa), however, it has not been investigated whether and how p53 regulates EMT by circRNAs and miRNAs. Here we show that a Amotl1-derived circRNA, termed circAMOTL1L, is downregulated in human PCa, and that decreased circAMOTL1L facilitates PCa cell migration and invasion through downregulating E-cadherin and upregulating vimentin, thus leading to EMT and PCa progression. Mechanistically, we demonstrate that circAMOTL1L serves as a sponge for binding miR-193a-5p in PCa cells, relieving miR-193a-5p repression of Pcdha gene cluster (a subset of the cadherin superfamily members). Accordingly, dysregulation of the circAMOTL1L-miR-193a-5p-Pcdha8 regulatory pathway mediated by circAMOTL1L downregulation contributes to PCa growth in vivo. Further, we show that RBM25 binds directly to circAMOTL1L and induces its biogenesis, whereas p53 regulates EMT via direct activation of RBM25 gene. These findings have linked p53/RBM25-mediated circAMOTL1L-miR-193a-5p-Pcdha regulatory axis to EMT in metastatic progression of PCa. Targeting this newly identified regulatory axis provides a potential therapeutic strategy for aggressive PCa.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Novel splicing factor RBM25 modulates Bcl-x pre-mRNA 5' splice site selection.",
+    "doi": "10.1128/mcb.00560-08",
+    "pmid": "18663000",
+    "authors": [
+      "Zhou A, Ou AC, Cho A, Benz EJ, Huang SC."
+    ],
+    "year": "2008",
+    "publication_date": "2008-07-28",
+    "cited_by_count": 120,
+    "journal": "",
+    "abstract": "RBM25 has been shown to associate with splicing cofactors SRm160/300 and assembled splicing complexes, but little is known about its splicing regulation. Here, we characterize the functional role of RBM25 in alternative pre-mRNA splicing. Increased RBM25 expression correlated with increased apoptosis and specifically affected the expression of Bcl-x isoforms. RBM25 stimulated proapoptotic Bcl-x(S) 5' splice site (5' ss) selection in a dose-dependent manner, whereas its depletion caused the accumulation of antiapoptotic Bcl-x(L). Furthermore, RBM25 specifically bound to Bcl-x RNA through a CGGGCA sequence located within exon 2. Mutation in this element abolished the ability of RBM25 to enhance Bcl-x(S) 5' ss selection, leading to decreased Bcl-x(S) isoform expression. Binding of RBM25 was shown to promote the recruitment of the U1 small nuclear ribonucleoprotein particle (snRNP) to the weak 5' ss; however, it was not required when a strong consensus 5' ss was present. In support of a role for RBM25 in modulating the selection of a 5' ss, we demonstrated that RBM25 associated selectively with the human homolog of yeast U1 snRNP-associated factor hLuc7A. These data suggest a novel mode for Bcl-x(S) 5' ss activation in which binding of RBM25 with exonic element CGGGCA may stabilize the pre-mRNA-U1 snRNP through interactions with hLuc7A.",
+    "openalex_id": ""
+  },
+  {
+    "title": "ABA signalling is fine-tuned by antagonistic HAB1 variants.",
+    "doi": "10.1038/ncomms9138",
+    "pmid": "26419884",
+    "authors": [
+      "Wang Z, Ji H, Yuan B, Wang S, Su C, Yao B, Zhao H, Li X."
+    ],
+    "year": "2015",
+    "publication_date": "2015-09-25",
+    "cited_by_count": 107,
+    "journal": "",
+    "abstract": "Group A protein type 2C phosphatases (PP2Cs) are negative regulators of abscisic acid (ABA) signalling and plant adaptation to stress. However, our knowledge of the regulation of PP2C activity is limited. Here we report that the PP2C HAB1 undergoes alternative splicing to produce two splice variants, which encode HAB1.1 and HAB1.2, that play opposing roles in ABA-mediated seed germination and ABA-mediated post-germination developmental arrest. HAB1.2 is predominately formed in the presence of ABA and prevents seed germination and post-germinative growth. HAB1.2 interacts with OST1, but cannot inhibit OST1 kinase activity; thus, it functions as a positive regulator of ABA signalling. We also identified an RNA-recognition motif-containing protein, RBM25, as a potential regulator of HAB1 alternative splicing and molecular diversity. Our results reveal a mechanism for turning ABA signalling on and off and for plant adaptation to abiotic stress.",
+    "openalex_id": ""
+  },
+  {
+    "title": "An Arabidopsis PWI and RRM motif-containing protein is critical for pre-mRNA splicing and ABA responses.",
+    "doi": "10.1038/ncomms9139",
+    "pmid": "26404089",
+    "authors": [
+      "Zhan X, Qian B, Cao F, Wu W, Yang L, Guan Q, Gu X, Wang P, Okusolubo TA, Dunn SL, Zhu JK, Zhu J."
+    ],
+    "year": "2015",
+    "publication_date": "2015-09-25",
+    "cited_by_count": 101,
+    "journal": "",
+    "abstract": "The phytohormone abscisic acid (ABA) is important for growth, development and stress responses in plants. Recent research has identified ABA receptors and signalling components that regulate seed germination and stomatal closure. However, proteins that regulate ABA signalling remain poorly understood. Here we use a forward-genetic screen to identify rbm25-1 and rbm25-2, two Arabidopsis mutants with increased sensitivity to growth inhibition by ABA. Using RNA-seq, we found that RBM25 controls the splicing of many pre-mRNAs. The protein phosphatase 2C HAB1, a critical component in ABA signalling, shows a dramatic defect in pre-mRNA splicing in rbm25 mutants. Ectopic expression of a HAB1 complementary DNA derived from wild-type mRNAs partially suppresses the rbm25-2 mutant phenotype. We suggest that RNA splicing is of particular importance for plant response to ABA and that the splicing factor RBM25 has a critical role in this response.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Role of RBM25/LUC7L3 in abnormal cardiac sodium channel splicing regulation in human heart failure.",
+    "doi": "10.1161/circulationaha.111.044495",
+    "pmid": "21859973",
+    "authors": [
+      "Gao G, Xie A, Huang SC, Zhou A, Zhang J, Herman AM, Ghassemzadeh S, Jeong EM, Kasturirangan S, Raicu M, Sobieski MA, Bhat G, Tatooles A, Benz EJ, Kamp TJ, Dudley SC."
+    ],
+    "year": "2011",
+    "publication_date": "2011-08-22",
+    "cited_by_count": 78,
+    "journal": "",
+    "abstract": "<h4>Background</h4>Human heart failure is associated with decreased cardiac voltage-gated Na+ channel current (encoded by SCN5A), and the changes have been implicated in the increased risk of sudden death in heart failure. Nevertheless, the mechanism of SCN5A downregulation is unclear. A number of human diseases are associated with alternative mRNA splicing, which has received comparatively little attention in the study of cardiac disease. Splicing factor expression profiles during human heart failure and a specific splicing pathway for SCN5A regulation were explored in this study.<h4>Methods and results</h4>Gene array comparisons between normal human and heart failure tissues demonstrated that 17 splicing factors, associated with all major spliceosome components, were upregulated. Two of these splicing factors, RBM25 and LUC7L3, were elevated in human heart failure tissue and mediated truncation of SCN5A mRNA in both Jurkat cells and human embryonic stem cell-derived cardiomyocytes. RBM25/LUC7L3-mediated abnormal SCN5A mRNA splicing reduced Na+ channel current 91.1±9.3% to a range known to cause sudden death. Overexpression of either splicing factor resulted in an increase in truncated mRNA and a concomitant decrease in the full-length SCN5A transcript.<h4>Conclusions</h4>Of the 17 mRNA splicing factors upregulated in heart failure, RBM25 and LUC7L3 were sufficient to explain the increase in truncated forms and the reduction in full-length Na+ channel transcript. Because the reduction in channels was in the range known to be associated with sudden death, interruption of this abnormal mRNA processing may reduce arrhythmic risk in heart failure.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RNA-binding proteins with basic-acidic dipeptide (BAD) domains self-assemble and aggregate in Alzheimer's disease.",
+    "doi": "10.1074/jbc.ra118.001747",
+    "pmid": "29802200",
+    "authors": [
+      "Bishof I, Dammer EB, Duong DM, Kundinger SR, Gearing M, Lah JJ, Levey AI, Seyfried NT."
+    ],
+    "year": "2018",
+    "publication_date": "2018-05-25",
+    "cited_by_count": 77,
+    "journal": "",
+    "abstract": "The U1 small nuclear ribonucleoprotein 70 kDa (U1-70K) and other RNA-binding proteins (RBPs) are mislocalized to cytoplasmic neurofibrillary Tau aggregates in Alzheimer's disease (AD), yet the co-aggregation mechanisms are incompletely understood. U1-70K harbors two disordered low-complexity domains (LC1 and LC2) that are necessary for aggregation in AD brain extracts. The LC1 domain contains highly repetitive basic (Arg/Lys) and acidic (Asp/Glu) residues, referred to as a basic-acidic dipeptide (BAD) domain. We report here that this domain shares many of the properties of the Gln/Asn-rich LC domains in RBPs that also aggregate in neurodegenerative disease. These properties included self-assembly into oligomers and localization to nuclear granules. Co-immunoprecipitations of recombinant U1-70K and deletions lacking the LC domain(s) followed by quantitative proteomic analyses were used to resolve functional classes of U1-70K-interacting proteins that depend on the BAD domain for their interaction. Within this interaction network, we identified a class of RBPs with BAD domains nearly identical to that found in U1-70K. Two members of this class, LUC7L3 and RBM25, required their respective BAD domains for reciprocal interactions with U1-70K and nuclear granule localization. Strikingly, a significant proportion of RBPs with BAD domains had elevated insolubility in the AD brain proteome. Furthermore, we show that the BAD domain of U1-70K can interact with Tau from AD brains but not from other tauopathies. These findings highlight a mechanistic role for BAD domains in stabilizing RBP interactions and in potentially mediating co-aggregation with the pathological AD-specific Tau isoforms.",
+    "openalex_id": ""
+  },
+  {
+    "title": "The splicing factor RBM25 controls MYC activity in acute myeloid leukemia.",
+    "doi": "10.1038/s41467-018-08076-y",
+    "pmid": "30635567",
+    "authors": [
+      "Ge Y, Schuster MB, Pundhir S, Rapin N, Bagger FO, Sidiropoulos N, Hashem N, Porse BT."
+    ],
+    "year": "2019",
+    "publication_date": "2019-01-11",
+    "cited_by_count": 58,
+    "journal": "",
+    "abstract": "Cancer sequencing studies have implicated regulators of pre-mRNA splicing as important disease determinants in acute myeloid leukemia (AML), but the underlying mechanisms have remained elusive. We hypothesized that \"non-mutated\" splicing regulators may also play a role in AML biology and therefore conducted an in vivo shRNA screen in a mouse model of CEBPA mutant AML. This has led to the identification of the splicing regulator RBM25 as a novel tumor suppressor. In multiple human leukemic cell lines, knockdown of RBM25 promotes proliferation and decreases apoptosis. Mechanistically, we show that RBM25 controls the splicing of key genes, including those encoding the apoptotic regulator BCL-X and the MYC inhibitor BIN1. This mechanism is also operative in human AML patients where low RBM25 levels are associated with high MYC activity and poor outcome. Thus, we demonstrate that RBM25 acts as a regulator of MYC activity and sensitizes cells to increased MYC levels.",
+    "openalex_id": ""
+  },
+  {
+    "title": "RBM25 is a global splicing factor promoting inclusion of alternatively spliced exons and is itself regulated by lysine mono-methylation.",
+    "doi": "10.1074/jbc.m117.784371",
+    "pmid": "28655759",
+    "authors": [
+      "Carlson SM, Soulette CM, Yang Z, Elias JE, Brooks AN, Gozani O."
+    ],
+    "year": "2017",
+    "publication_date": "2017-06-27",
+    "cited_by_count": 56,
+    "journal": "",
+    "abstract": "In eukaryotes, precursor mRNA (pre-mRNA) splicing removes non-coding intron sequences to produce mature mRNA. This removal is controlled in part by RNA-binding proteins that regulate alternative splicing decisions through interactions with the splicing machinery. RNA binding motif protein 25 (RBM25) is a putative splicing factor strongly conserved across eukaryotic lineages. However, the role of RBM25 in global splicing regulation and its cellular functions are unknown. Here we show that RBM25 is required for the viability of multiple human cell lines, suggesting that it could play a key role in pre-mRNA splicing. Indeed, transcriptome-wide analysis of splicing events demonstrated that RBM25 regulates a large fraction of alternatively spliced exons throughout the human genome. Moreover, proteomic analysis indicated that RBM25 interacts with components of the early spliceosome and regulators of alternative splicing. Previously, we identified an RBM25 species that is mono-methylated at lysine 77 (RBM25K77me1), and here we used quantitative mass spectrometry to show that RBM25K77me1 is abundant in multiple human cell lines. We also identified a region of RBM25 spanning Lys-77 that binds with high affinity to serine- and arginine-rich splicing factor 2 (SRSF2), a crucial protein in exon definition, but only when Lys-77 is unmethylated. Together, our findings uncover a pivotal role for RBM25 as an essential regulator of alternative splicing and reveal a new potential mechanism for regulation of pre-mRNA splicing by lysine methylation of a splicing factor.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Direct targets of pSTAT5 signalling in erythropoiesis.",
+    "doi": "10.1371/journal.pone.0180922",
+    "pmid": "28732065",
+    "authors": [
+      "Gillinder KR, Tuckey H, Bell CC, Magor GW, Huang S, Ilsley MD, Perkins AC."
+    ],
+    "year": "2017",
+    "publication_date": "2017-07-21",
+    "cited_by_count": 47,
+    "journal": "",
+    "abstract": "Erythropoietin (EPO) acts through the dimeric erythropoietin receptor to stimulate proliferation, survival, differentiation and enucleation of erythroid progenitor cells. We undertook two complimentary approaches to find EPO-dependent pSTAT5 target genes in murine erythroid cells: RNA-seq of newly transcribed (4sU-labelled) RNA, and ChIP-seq for pSTAT5 30 minutes after EPO stimulation. We found 302 pSTAT5-occupied sites: ~15% of these reside in promoters while the rest reside within intronic enhancers or intergenic regions, some >100kb from the nearest TSS. The majority of pSTAT5 peaks contain a central palindromic GAS element, TTCYXRGAA. There was significant enrichment for GATA motifs and CACCC-box motifs within the neighbourhood of pSTAT5-bound peaks, and GATA1 and/or KLF1 co-occupancy at many sites. Using 4sU-RNA-seq we determined the EPO-induced transcriptome and validated differentially expressed genes using dynamic CAGE data and qRT-PCR. We identified known direct pSTAT5 target genes such as Bcl2l1, Pim1 and Cish, and many new targets likely to be involved in driving erythroid cell differentiation including those involved in mRNA splicing (Rbm25), epigenetic regulation (Suv420h2), and EpoR turnover (Clint1/EpsinR). Some of these new EpoR-JAK2-pSTAT5 target genes could be used as biomarkers for monitoring disease activity in polycythaemia vera, and for monitoring responses to JAK inhibitors.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Gene expression profiles and pathway enrichment analysis to identification of differentially expressed gene and signaling pathways in epithelial ovarian cancer based on high-throughput RNA-seq data.",
+    "doi": "10.1016/j.ygeno.2021.11.031",
+    "pmid": "34839022",
+    "authors": [
+      "Siavoshi A, Taghizadeh M, Dookhe E, Piran M."
+    ],
+    "year": "2022",
+    "publication_date": "2021-11-25",
+    "cited_by_count": 36,
+    "journal": "",
+    "abstract": "Epithelial ovarian cancer (EOC) can be considered as a stressful and challenging disease among all women in the world, which has been associated with a poor prognosis and its molecular pathogenesis has remained unclear. In recent years, RNA Sequencing (RNA-seq) has become a functional and amazing technology for profiling gene expression. In the present study, RNA-seq raw data from Sequence Read Archive (SRA) of six tumor and normal ovarian sample was extracted, and then analysis and statistical interpretation was done with Linux and R Packages from the open-source Bioconductor. Gene Ontology (GO) term enrichment and Kyoto Encyclopedia of Genes and Genomes (KEGG) pathway analysis were applied for the identification of key genes and pathways involved in EOC. We identified 1091 Differential Expression Genes (DEGs) which have been reported in various studies of ovarian cancer as well as other types of cancer. Among them, 333 genes were up-regulated and 273 genes were down-regulated. In addition, Differentially Expressed Genes (DEGs) including RPL41, ALDH3A2, ERBB2, MIEN1, RBM25, ATF4, UPF2, DDIT3, HOXB8 and IL17D as well as Ribosome and Glycolysis/Gluconeogenesis pathway have had the potentiality to be used as targets for EOC diagnosis and treatment. In this study, unlike that of any other studies on various cancers, ALDH3A2 was most down-regulated gene in most KEGG pathways, and ATF4 was most up-regulated gene in leucine zipper domain binding term. In the other hand, RPL41 as a regulatory of cellular ATF4 level was up-regulated in many term and pathways and augmentation of ATF4 could justify the increase of RPL41 in the EOC. Pivotal pathways and significant genes, which were identified in the present study, can be used for adaptation of different EOC study. However, further molecular biological experiments and computational processes are required to confirm the function of the identified genes associated with EOC.",
+    "openalex_id": ""
+  },
+  {
+    "title": "Metformin attenuates multiple myeloma cell proliferation and encourages apoptosis by suppressing METTL3-mediated m6A methylation of THRAP3, RBM25, and USP4.",
+    "doi": "10.1080/15384101.2023.2170521",
+    "pmid": "36762777",
+    "authors": [
+      "Chen CJ, Huang JY, Huang JQ, Deng JY, Shangguan XH, Chen AZ, Chen LT, Wu WH."
+    ],
+    "year": "2023",
+    "publication_date": "2023-02-10",
+    "cited_by_count": 34,
+    "journal": "",
+    "abstract": "Based on the results of epidemiological and preclinical studies, metformin can improve the prognosis of patients with malignant tumors. Studies have confirmed that metformin inhibits multiple myeloma (MM) cell proliferation and promotes apoptosis. Nevertheless, the specific mechanism remains to be elucidated. MM cells were intervened with different doses of metformin to detect cell proliferation and apoptosis. Western blotting and RT-qPCR were employed to assess the expression of METTL3, METTL14, WTAP, FTO, and ALKBH5 after metformin intervention. The microarray dataset GSE29023 was retrieved from the Gene Expression Omnibus (GEO) database and calculated using the R language (limma package) to authenticate differentially expressed genes (DEGs). The database for annotation, visualization, and integrated discovery (David) was applied for GO annotation analysis of DEGs. Subsequently, the string database and Cytoscape software were applied to construct protein-protein interaction (PPI) and DEM hub gene networks. Bioinformatics analysis and MeRIP were applied to predict and test METTL3-mediated m6A levels on mRNA of THRAP3, RBM25, and USP4 in METTL3 knocked-down cells. Then rescue experiments were performed to explore effects of METTL3 and THRAP3, RBM25, or USP4 on cell proliferation and apoptosis. The effect on MM cell xenograft tumor growth was observed by injection of metformin or/and overexpression of METTL3 in in vivo experiments. Metformin decreased cell proliferation and encouraged cell apoptosis in a dose-dependent manner. Global m6A modification was elevated in MM cells compared to normal cells, which was counteracted by metformin treatment. Furthermore, THRAP3, RBM25, and USP4 were identified as possible candidate genes for metformin treatment by GSE29023 data mining. METTL3 interference impaired m6A modification on mRNA of THRAP3, RBM25, and USP4 as well as expression levels. The mRNA stability and expression of THRAP3, RBM25, and USP4 was decreased after metformin treatment, which was reversed by METTL3 overexpression. THRAP3, RBM25 or USP4 knockdown reversed the assistance of METTL3 overexpression on the malignant behavior of MM cells. Finally, upregulation of METTL3 was shown to exert facilitative effects on xenograft tumor growth by blocking metformin injection. The present study demonstrates that metformin can repress the expression of THRAP3, RBM25, and USP4 by inhibiting METTL3-mediated m6A modification, which in turn hamper cell proliferation and promotes cell apoptosis.<b>Abbreviations:</b> multiple myeloma (MM), Gene Expression Omnibus (GEO), differentially expressed genes (DEGs), database for annotation, visualization and integrated discovery (David), protein-protein interaction (PPI), epithelial‑mesenchymal transition (EMT), methyltransferase like 3 (METTL3), methyltransferase like 14 (METTL14), wilms tumor 1-associated protein (WTAP), methyltransferase like 16 (METTL16), acute myeloid leukemia (AML), non-small lung cancer (NSCLC), glioma stem cells (GSCs), normal bone marrow-derived plasma cells (nPCs), false discovery rate (FDR), biological process (BP), optical density (OD), horseradish peroxidase (HRP), M6A RNA immunoprecipitation assay (MeRIP).",
+    "openalex_id": ""
+  }
+]
