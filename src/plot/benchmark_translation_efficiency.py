@@ -1255,23 +1255,65 @@ def plot_silac_correlation_bar(
         metric_name: str = "Model Translation Prediction",
         corr_abs: bool = False,
         suffix: str = "",
-        w=6, h=5
+        w=6, h=5,
+        point_shape_by: str = "study",
         ):
     """
     Plot bar chart with error bars and jitter points for SILAC translation rate correlations.
-    Points are mapped to Dataset via shapes. Group variance is aggregated.
+
+    Parameters
+    ----------
+    agg_df : pandas.DataFrame
+        Output from ``load_and_calculate_silac_correlation``. It must contain
+        ``Model``, ``Mean``, and the column selected by ``point_shape_by``.
+    point_shape_by : {"study", "cell_type"}, default="study"
+        Map point shapes to SILAC studies using ``Dataset`` or to cell types
+        using ``Group``.
     """
     if agg_df.empty:
         print("No data to plot.")
         return
+
+    required_columns = {'Model', 'Mean'}
+    missing_columns = required_columns.difference(agg_df.columns)
+    if missing_columns:
+        raise ValueError(
+            "The input DataFrame is missing required columns: "
+            f"{sorted(missing_columns)}."
+        )
+
+    shape_by_aliases = {
+        'study': ('Dataset', 'Study'),
+        'dataset': ('Dataset', 'Study'),
+        'cell_type': ('Group', 'Cell type'),
+        'celltype': ('Group', 'Cell type'),
+        'group': ('Group', 'Cell type'),
+    }
+    normalized_shape_by = str(point_shape_by).strip().lower().replace('-', '_')
+    if normalized_shape_by not in shape_by_aliases:
+        raise ValueError(
+            "point_shape_by must be either 'study' or 'cell_type', "
+            f"got {point_shape_by!r}."
+        )
+
+    shape_column, shape_title = shape_by_aliases[normalized_shape_by]
+    if shape_column not in agg_df.columns:
+        raise ValueError(
+            f"point_shape_by={point_shape_by!r} requires a '{shape_column}' "
+            "column. Use the DataFrame returned by "
+            "load_and_calculate_silac_correlation()."
+        )
     
     file_suffix = f".{suffix}" if suffix else ""
     os.makedirs(out_dir, exist_ok=True)
 
-    agg_df.to_csv(out_dir + f"silac_correlation{file_suffix}.csv")
-    if corr_abs:
-        agg_df['Mean'] = np.absolute(agg_df['Mean'])
+    agg_df.to_csv(
+        os.path.join(out_dir, f"silac_correlation{file_suffix}.csv"),
+        index=False,
+    )
     plot_df = agg_df.copy()
+    if corr_abs:
+        plot_df['Mean'] = np.absolute(plot_df['Mean'])
 
     summary_df = plot_df.groupby('Model', observed=False).agg(
         Overall_Mean=('Mean', 'mean'),
@@ -1291,12 +1333,21 @@ def plot_silac_correlation_bar(
 
     model_colors = {m: GLOBAL_MODEL_COLORS.get(m, "#C0C0C0") for m in valid_models}
 
-    unique_datasets = plot_df['Dataset'].unique().tolist()
-    plot_df['Dataset'] = pd.Categorical(plot_df['Dataset'], categories=unique_datasets, ordered=True)
+    shape_labels = plot_df[shape_column].astype('string').fillna('Unknown').str.strip()
+    shape_labels = shape_labels.mask(shape_labels.eq(''), 'Unknown')
+    unique_shape_groups = shape_labels.drop_duplicates().astype(str).tolist()
+    plot_df[shape_column] = pd.Categorical(
+        shape_labels.astype(str),
+        categories=unique_shape_groups,
+        ordered=True,
+    )
     
-    # Use high-contrast shapes to distinguish different Datasets
+    # Use high-contrast shapes to distinguish the selected point groups.
     shapes_pool = ['o', '^', 's', 'D', 'v', '*', '>', '<', 'X']
-    dataset_shapes = {ds: shapes_pool[i % len(shapes_pool)] for i, ds in enumerate(unique_datasets)}
+    point_shapes = {
+        group: shapes_pool[i % len(shapes_pool)]
+        for i, group in enumerate(unique_shape_groups)
+    }
 
     print(f"Generating SILAC Correlation Bar Chart...")
     
@@ -1316,7 +1367,7 @@ def plot_silac_correlation_bar(
         )
         + geom_jitter(
             data=plot_df, 
-            mapping=aes(x='Model', y='Mean', shape='Dataset'), 
+            mapping=aes(x='Model', y='Mean', shape=shape_column),
             width=0.2, 
             size=3.5, 
             color="#202020",
@@ -1324,11 +1375,15 @@ def plot_silac_correlation_bar(
             alpha=0.85
         )
         + scale_fill_manual(values=model_colors, guide=None) 
-        + scale_shape_manual(values=dataset_shapes, name="SILAC Dataset") 
+        + scale_shape_manual(values=point_shapes, name=shape_title)
         + theme_bw()
         + labs(
             x="",
-            y=f"{metric_name} correlation with SILAC Translation Rate"
+            y=(
+                f"Absolute {metric_name} correlation with SILAC Translation Rate"
+                if corr_abs
+                else f"{metric_name} correlation with SILAC Translation Rate"
+            )
         )
         + theme(
             axis_text_x=element_text(angle=45, hjust=1, color="black"),
