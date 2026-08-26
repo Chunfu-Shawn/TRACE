@@ -639,14 +639,21 @@ def load_and_calculate_polysome_correlation(
 def plot_polysome_correlation_heatmap(
         agg_df: pd.DataFrame, 
         out_dir: str = "./", 
-        metric_name: str = "Spearman correlation coefficient",
-        suffix: str = ""):
+        metric_name: str = "Mean Spearman",
+        suffix: str = "",
+        cluster_rows: bool = False,
+        cluster_columns: bool = False,
+        vmin: float = 0.0,
+        vmax: float = None,
+        w: float = None,
+        h: float = None):
     """
-    Plot a hierarchically clustered correlation heatmap for polysome datasets.
+    Plot a polysome correlation heatmap using a compact benchmark style.
 
-    Higher correlations are represented by progressively darker blue. Missing
-    values are imputed only for linkage calculation and remain masked in the
-    displayed heatmap.
+    Low correlations are shown in pale blue-gray and high correlations in
+    coral red. Optional hierarchical clustering can be enabled independently
+    for rows and columns. Missing values are imputed only for linkage
+    calculation and remain masked in the displayed heatmap.
     """
     if agg_df.empty:
         print("No data to plot.")
@@ -658,7 +665,11 @@ def plot_polysome_correlation_heatmap(
     # Build dataset labels and pivot to model-by-dataset correlation matrix.
     if 'Dataset' in plot_df.columns and 'Cell_type' in plot_df.columns:
         plot_df['x_label'] = plot_df.apply(
-            lambda x: f"{x['Dataset']}-{x['Cell_type']}" if str(x['Cell_type']) not in str(x['Dataset']) else x['Dataset'], 
+            lambda x: (
+                f"{x['Dataset']} ({x['Cell_type']})"
+                if str(x['Cell_type']) not in str(x['Dataset'])
+                else str(x['Dataset'])
+            ),
             axis=1
         )
     elif 'Dataset' in plot_df.columns:
@@ -666,7 +677,13 @@ def plot_polysome_correlation_heatmap(
     else:
         plot_df['x_label'] = plot_df['Cell_type']
 
-    heatmap_data = plot_df.pivot(index='Model', columns='x_label', values='Mean')
+    heatmap_data = plot_df.pivot_table(
+        index='Model',
+        columns='x_label',
+        values='Mean',
+        aggfunc='mean',
+        sort=False,
+    )
     heatmap_data = heatmap_data.replace([np.inf, -np.inf], np.nan)
     heatmap_data = heatmap_data.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
@@ -685,14 +702,14 @@ def plot_polysome_correlation_heatmap(
 
     row_linkage = None
     col_linkage = None
-    if len(clustering_data.index) > 1:
+    if cluster_rows and len(clustering_data.index) > 1:
         row_linkage = linkage(
             clustering_data.to_numpy(dtype=float),
             method='average',
             metric='euclidean',
             optimal_ordering=True,
         )
-    if len(clustering_data.columns) > 1:
+    if cluster_columns and len(clustering_data.columns) > 1:
         col_linkage = linkage(
             clustering_data.to_numpy(dtype=float).T,
             method='average',
@@ -700,22 +717,47 @@ def plot_polysome_correlation_heatmap(
             optimal_ordering=True,
         )
 
-    print("Generating clustered polysome heatmap...")
+    print("Generating polysome correlation heatmap...")
 
-    width = max(8, len(heatmap_data.columns) * 0.7 + 3)
-    height = max(5, len(heatmap_data.index) * 0.6 + 2)
+    width = w if w is not None else max(5.5, len(heatmap_data.columns) * 0.52 + 1.5)
+    height = h if h is not None else max(4.5, len(heatmap_data.index) * 0.42 + 2.4)
 
     row_colors = pd.Series(
         [GLOBAL_MODEL_COLORS.get(model, "#C0C0C0") for model in heatmap_data.index],
         index=heatmap_data.index,
         name="Model",
     )
-    cmap = sns.light_palette("#08306B", as_cmap=True)
+    cmap = LinearSegmentedColormap.from_list(
+        "polysome_benchmark",
+        [
+            (0.00, "#E7EEF3"),
+            (0.10, "#F4EFEC"),
+            (0.45, "#EEC5BB"),
+            (1.00, "#E45736"),
+        ],
+    )
+
+    finite_display_values = heatmap_data.to_numpy(dtype=float)
+    finite_display_values = finite_display_values[np.isfinite(finite_display_values)]
+    display_vmin = float(vmin) if vmin is not None else float(finite_display_values.min())
+    display_vmax = float(vmax) if vmax is not None else float(finite_display_values.max())
+    if display_vmax <= display_vmin:
+        display_vmax = display_vmin + 1.0
+
+    if display_vmin == 0 and display_vmax <= 1:
+        tick_max = np.floor(display_vmax * 10) / 10
+        cbar_ticks = (
+            np.arange(0, tick_max + 0.01, 0.1)
+            if tick_max >= 0.1
+            else np.linspace(display_vmin, display_vmax, 3)
+        )
+    else:
+        cbar_ticks = np.linspace(display_vmin, display_vmax, 5)
 
     grid = sns.clustermap(
         heatmap_data,
-        row_cluster=row_linkage is not None,
-        col_cluster=col_linkage is not None,
+        row_cluster=cluster_rows and row_linkage is not None,
+        col_cluster=cluster_columns and col_linkage is not None,
         row_linkage=row_linkage,
         col_linkage=col_linkage,
         row_colors=row_colors,
@@ -723,31 +765,42 @@ def plot_polysome_correlation_heatmap(
         annot=True,
         fmt=".2f",
         cmap=cmap,
-        vmin=-1,
-        vmax=1,
+        vmin=display_vmin,
+        vmax=display_vmax,
         linewidths=1,
         linecolor='white',
-        annot_kws={"size": 12},
+        annot_kws={"size": 9, "color": "black"},
         cbar_kws={
             'label': metric_name,
-            'ticks': [-1, -0.5, 0, 0.5, 1],
+            'ticks': cbar_ticks,
         },
-        dendrogram_ratio=(0.14, 0.12),
-        colors_ratio=0.025,
-        cbar_pos=(0.92, 0.25, 0.02, 0.35),
+        dendrogram_ratio=(0.12 if cluster_rows else 0.01,
+                          0.10 if cluster_columns else 0.01),
+        colors_ratio=0.035,
+        cbar_pos=(0.93, 0.42, 0.025, 0.25),
         figsize=(width, height),
     )
+
+    # Use white annotation text only on sufficiently dark cells.
+    color_norm = mpl.colors.Normalize(vmin=display_vmin, vmax=display_vmax)
+    for annotation in grid.ax_heatmap.texts:
+        try:
+            value = float(annotation.get_text())
+        except ValueError:
+            continue
+        annotation.set_color('white' if color_norm(value) >= 0.58 else 'black')
 
     grid.ax_heatmap.set_xlabel('')
     grid.ax_heatmap.set_ylabel('')
     grid.ax_heatmap.set_xticklabels(
-        grid.ax_heatmap.get_xticklabels(), rotation=45, ha='right', fontsize=11
+        grid.ax_heatmap.get_xticklabels(), rotation=45, ha='right', fontsize=9
     )
     grid.ax_heatmap.set_yticklabels(
-        grid.ax_heatmap.get_yticklabels(), rotation=0, fontsize=12
+        grid.ax_heatmap.get_yticklabels(), rotation=0, fontsize=10
     )
     grid.ax_heatmap.tick_params(axis='both', length=0)
-    grid.cax.set_ylabel(metric_name, fontsize=11)
+    grid.cax.set_ylabel(metric_name, fontsize=9, rotation=270, labelpad=12)
+    grid.cax.tick_params(labelsize=8, length=2)
 
     file_suffix = f".{suffix}" if suffix else ""
     save_path = os.path.join(out_dir, f"polysome_multidataset_correlation_heatmap{file_suffix}.pdf")
@@ -757,17 +810,7 @@ def plot_polysome_correlation_heatmap(
 
     print(f"✅ Heatmap saved to: {save_path}")
 
-    row_order = (
-        grid.dendrogram_row.reordered_ind
-        if grid.dendrogram_row is not None
-        else list(range(len(heatmap_data.index)))
-    )
-    col_order = (
-        grid.dendrogram_col.reordered_ind
-        if grid.dendrogram_col is not None
-        else list(range(len(heatmap_data.columns)))
-    )
-    return heatmap_data.iloc[row_order, col_order]
+    return grid.data2d.copy()
 
 
 

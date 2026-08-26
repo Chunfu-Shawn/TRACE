@@ -48,7 +48,7 @@ def calculate_morf_mean_signal(density_array, m_start, m_end, eps=1e-6):
     return morf_mean
 
 
-def calculate_morf_codon_mean_signal(density_array, m_start, m_end, eps=1e-6):
+def calculate_morf_ribosome_load_codon(density_array, m_start, m_end, eps=1e-6):
     """
     计算翻译效率 (TE) for frame 0
     """
@@ -61,9 +61,9 @@ def calculate_morf_codon_mean_signal(density_array, m_start, m_end, eps=1e-6):
 
     codon_n = (valid_end - m_start)/3
     
-    morf_mean = np.mean(density_array[m_start:valid_end:3])/codon_n + eps
+    rbl_per_codon = np.median(density_array[m_start:valid_end])/codon_n + eps
 
-    return morf_mean
+    return rbl_per_codon
 
 
 def calculate_morf_median_signal(density_array, m_start, m_end, eps=1e-6):

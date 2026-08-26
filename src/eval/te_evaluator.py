@@ -150,7 +150,7 @@ class TranslationEfficiencyAnalyzer:
         te_morf_ratio = calculate_morf_signal_ratio(density_profile, cds_start, cds_end)
         te_morf_mean_ratio = calculate_morf_mean_signal_ratio(density_profile, cds_start, cds_end)
         te_morf_mean_signal = calculate_morf_mean_signal(density_profile, cds_start, cds_end)
-        te_morf_codon_mean_signal = calculate_morf_codon_mean_signal(density_profile, cds_start, cds_end)
+        te_morf_ribosome_load_codon = calculate_morf_ribosome_load_codon(density_profile, cds_start, cds_end)
         te_total_sum = calculate_sum_signal(density_profile, cds_start, cds_end)
         te_total_mean = calculate_mean_signal(density_profile)
 
@@ -162,7 +162,7 @@ class TranslationEfficiencyAnalyzer:
             'mORF_Sum_Ratio': te_morf_ratio,
             'mORF_Mean_Ratio': te_morf_mean_ratio,
             'mORF_Mean_Density': te_morf_mean_signal,
-            'mORF_Codon_Mean_Density': te_morf_codon_mean_signal,
+            'mORF_Ribo_Load_Codon': te_morf_ribosome_load_codon,
             'mORF_Ribo_Load': te_total_sum,
             'Global_Mean_Density': te_total_mean,
             'Transcript_Length': len(density_profile)
