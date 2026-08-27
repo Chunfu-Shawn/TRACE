@@ -284,6 +284,422 @@ def load_and_calculate_te_correlation(
     return df
 
 
+def _normalize_transcript_id_for_ptr(value):
+    """Remove versions from ENST IDs while preserving other ID namespaces."""
+    if pd.isna(value):
+        return np.nan
+    transcript_id = str(value).strip()
+    if transcript_id.startswith("ENST"):
+        return transcript_id.split(".", 1)[0]
+    return transcript_id
+
+
+def plot_mean_density_ptr_correlation_by_cell_type(
+        mean_density_paths,
+        ref_df,
+        target_cell_types,
+        out_dir="./",
+        metric_col="mORF_Mean_Density",
+        corr_method="spearman",
+        transform="log",
+        suffix="",
+        ref_id_col=None,
+        prediction_id_col=None,
+        prediction_cell_type_col="Cell_Type",
+        cell_type_colors=None,
+        min_points=5,
+        point_size=10,
+        point_alpha=0.28,
+        line_width=1.6,
+        rasterize_points=True,
+        w=7.2,
+        h=5.4,
+        save_tables=True):
+    """Plot transcript-level Mean density versus PTR for multiple cell types.
+
+    Each cell type receives a distinct point color and an independently fitted
+    ordinary-least-squares line in the displayed coordinate system. The
+    reported correlation is also calculated in that displayed coordinate
+    system. ``mean_density_paths`` may be a path, a sequence of paths, or a
+    data-config dictionary containing the ``Mean density`` entry.
+    """
+    if isinstance(mean_density_paths, dict):
+        if "Mean density" not in mean_density_paths:
+            raise ValueError(
+                "mean_density_paths is a dictionary but has no "
+                "'Mean density' entry."
+            )
+        mean_density_paths = mean_density_paths["Mean density"]
+    if isinstance(mean_density_paths, (str, os.PathLike)):
+        mean_density_paths = [mean_density_paths]
+    else:
+        mean_density_paths = list(mean_density_paths)
+    if not mean_density_paths:
+        raise ValueError("At least one Mean density result path is required.")
+
+    if isinstance(target_cell_types, str):
+        target_cell_types = [target_cell_types]
+    else:
+        target_cell_types = list(dict.fromkeys(
+            str(cell_type) for cell_type in target_cell_types
+        ))
+    if not target_cell_types:
+        raise ValueError("target_cell_types cannot be empty.")
+    if int(min_points) < 3:
+        raise ValueError("min_points must be at least 3.")
+    if not 0 < float(point_alpha) <= 1:
+        raise ValueError("point_alpha must be within (0, 1].")
+
+    corr_method = str(corr_method).lower()
+    if corr_method not in {"spearman", "pearson"}:
+        raise ValueError("corr_method must be 'spearman' or 'pearson'.")
+    transform = str(transform).lower()
+    if transform not in {"none", "log", "log10", "log2"}:
+        raise ValueError(
+            "transform must be 'none', 'log', 'log10', or 'log2'."
+        )
+
+    prediction_tables = []
+    for file_path in mean_density_paths:
+        file_path = os.fspath(file_path)
+        if not os.path.isfile(file_path):
+            raise FileNotFoundError(
+                f"Mean density result file not found: {file_path}"
+            )
+        separator = "\t" if file_path.endswith((".tsv", ".txt")) else ","
+        prediction_table = pd.read_csv(file_path, sep=separator)
+        if metric_col not in prediction_table and "TE" in prediction_table:
+            print(
+                f"Metric column '{metric_col}' was not found in "
+                f"{file_path}; using the exported baseline column 'TE'."
+            )
+            prediction_table = prediction_table.rename(
+                columns={"TE": metric_col}
+            )
+        prediction_tables.append(prediction_table)
+    prediction_df = pd.concat(prediction_tables, ignore_index=True)
+
+    prediction_id_candidates = [
+        "Tid", "EnsemblTranscriptID", "TranscriptID"
+    ]
+    if prediction_id_col is None:
+        prediction_id_col = next(
+            (
+                column for column in prediction_id_candidates
+                if column in prediction_df.columns
+            ),
+            None,
+        )
+    if prediction_id_col is None or prediction_id_col not in prediction_df:
+        raise ValueError(
+            "Mean density results must contain one transcript ID column from "
+            f"{prediction_id_candidates}."
+        )
+    prediction_required = {
+        prediction_id_col, prediction_cell_type_col, metric_col
+    }
+    prediction_missing = prediction_required.difference(prediction_df.columns)
+    if prediction_missing:
+        raise ValueError(
+            "Mean density results are missing columns: "
+            f"{sorted(prediction_missing)}."
+        )
+
+    reference_id_candidates = ["Tid", "EnsemblTranscriptID"]
+    if ref_id_col is None:
+        ref_id_col = next(
+            (
+                column for column in reference_id_candidates
+                if column in ref_df.columns
+            ),
+            None,
+        )
+    if ref_id_col is None or ref_id_col not in ref_df:
+        raise ValueError(
+            "PTR reference must contain 'Tid' or 'EnsemblTranscriptID'."
+        )
+    missing_cell_types = [
+        cell_type for cell_type in target_cell_types
+        if cell_type not in ref_df.columns
+    ]
+    if missing_cell_types:
+        raise ValueError(
+            "PTR reference is missing requested cell-type columns: "
+            + ", ".join(missing_cell_types)
+        )
+
+    prediction_working = prediction_df[
+        [prediction_id_col, prediction_cell_type_col, metric_col]
+    ].copy()
+    prediction_working = prediction_working[
+        prediction_working[prediction_cell_type_col]
+        .astype(str)
+        .isin(target_cell_types)
+    ].copy()
+    prediction_working[metric_col] = pd.to_numeric(
+        prediction_working[metric_col], errors="coerce"
+    )
+    prediction_working["ID_clean"] = prediction_working[
+        prediction_id_col
+    ].map(_normalize_transcript_id_for_ptr)
+    prediction_working = prediction_working.replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna(subset=["ID_clean", metric_col])
+    prediction_working = prediction_working[
+        prediction_working["ID_clean"].ne("")
+    ]
+    prediction_working = (
+        prediction_working.groupby(
+            ["ID_clean", prediction_cell_type_col],
+            observed=True,
+            as_index=False,
+        )[metric_col]
+        .mean()
+        .rename(columns={prediction_cell_type_col: "Cell_Type"})
+    )
+
+    reference_long = ref_df[
+        [ref_id_col] + target_cell_types
+    ].melt(
+        id_vars=[ref_id_col],
+        value_vars=target_cell_types,
+        var_name="Cell_Type",
+        value_name="PTR",
+    )
+    reference_long["PTR"] = pd.to_numeric(
+        reference_long["PTR"], errors="coerce"
+    )
+    reference_long["ID_clean"] = reference_long[ref_id_col].map(
+        _normalize_transcript_id_for_ptr
+    )
+    reference_long = reference_long.replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna(subset=["ID_clean", "PTR"])
+    reference_long = reference_long[reference_long["ID_clean"].ne("")]
+    reference_long = reference_long.groupby(
+        ["ID_clean", "Cell_Type"],
+        observed=True,
+        as_index=False,
+    )["PTR"].mean()
+
+    paired_df = prediction_working.merge(
+        reference_long,
+        on=["ID_clean", "Cell_Type"],
+        how="inner",
+        validate="one_to_one",
+    )
+    if paired_df.empty:
+        raise ValueError(
+            "No transcript-level Mean density/PTR pairs were found."
+        )
+
+    paired_df = paired_df.rename(columns={metric_col: "Mean_Density"})
+    paired_df["Cell_Type"] = pd.Categorical(
+        paired_df["Cell_Type"],
+        categories=target_cell_types,
+        ordered=True,
+    )
+    paired_df["X_Plot"] = paired_df["Mean_Density"]
+    paired_df["Y_Plot"] = paired_df["PTR"]
+    pre_transform_counts = (
+        paired_df.groupby("Cell_Type", observed=True)
+        .size()
+        .to_dict()
+    )
+
+    transform_functions = {
+        "log": np.log,
+        "log10": np.log10,
+        "log2": np.log2,
+    }
+    if transform != "none":
+        before_transform = len(paired_df)
+        positive = (
+            (paired_df["Mean_Density"] > 0)
+            & (paired_df["PTR"] > 0)
+        )
+        paired_df = paired_df[positive].copy()
+        transform_function = transform_functions[transform]
+        paired_df["X_Plot"] = transform_function(
+            paired_df["Mean_Density"].to_numpy(float)
+        )
+        paired_df["Y_Plot"] = transform_function(
+            paired_df["PTR"].to_numpy(float)
+        )
+        print(
+            "Positive-value filtering for logarithmic plotting: "
+            f"{before_transform} -> {len(paired_df)} pairs."
+        )
+
+    default_colors = [
+        "#2C6B9A", "#C44E52", "#55A868", "#8172B3",
+        "#CCB974", "#64B5CD", "#8C6D51",
+    ]
+    if cell_type_colors is None:
+        color_mapping = {
+            cell_type: default_colors[index % len(default_colors)]
+            for index, cell_type in enumerate(target_cell_types)
+        }
+    else:
+        color_mapping = dict(cell_type_colors)
+        missing_colors = [
+            cell_type for cell_type in target_cell_types
+            if cell_type not in color_mapping
+        ]
+        if missing_colors:
+            raise ValueError(
+                "cell_type_colors is missing: " + ", ".join(missing_colors)
+            )
+
+    os.makedirs(out_dir, exist_ok=True)
+    file_suffix = f".{suffix}" if suffix else ""
+    pdf_path = os.path.join(
+        out_dir,
+        f"mean_density_ptr_correlation_by_cell_type{file_suffix}.pdf",
+    )
+
+    fig, ax = plt.subplots(figsize=(w, h))
+    correlation_records = []
+    plotted_cell_types = []
+    for cell_type in target_cell_types:
+        group = paired_df[
+            paired_df["Cell_Type"].astype(str).eq(cell_type)
+        ].dropna(subset=["X_Plot", "Y_Plot"])
+        n_points = len(group)
+        if n_points < int(min_points):
+            print(
+                f"[Warning] {cell_type}: skipped because n={n_points} "
+                f"is below min_points={int(min_points)}."
+            )
+            continue
+        x_values = group["X_Plot"].to_numpy(float)
+        y_values = group["Y_Plot"].to_numpy(float)
+        if corr_method == "spearman":
+            correlation, p_value = spearmanr(x_values, y_values)
+            symbol = "ρ"
+        else:
+            correlation, p_value = pearsonr(x_values, y_values)
+            symbol = "r"
+
+        slope = np.nan
+        intercept = np.nan
+        can_fit = (
+            np.unique(x_values).size >= 2
+            and np.isfinite(x_values).all()
+            and np.isfinite(y_values).all()
+        )
+        if can_fit:
+            slope, intercept = np.polyfit(x_values, y_values, deg=1)
+        display_name = cell_type.replace("_", " ")
+        legend_label = (
+            f"{display_name} ({symbol}={correlation:.2f}, "
+            f"P={p_value:.1e}, n={n_points:,})"
+        )
+        color = color_mapping[cell_type]
+        ax.scatter(
+            x_values,
+            y_values,
+            s=float(point_size),
+            alpha=float(point_alpha),
+            color=color,
+            edgecolors="none",
+            rasterized=bool(rasterize_points),
+            label=legend_label,
+            zorder=2,
+        )
+        if can_fit:
+            x_line = np.linspace(x_values.min(), x_values.max(), 200)
+            ax.plot(
+                x_line,
+                slope * x_line + intercept,
+                color=color,
+                linewidth=float(line_width),
+                alpha=0.95,
+                zorder=3,
+            )
+        correlation_records.append({
+            "Cell_Type": cell_type,
+            "Correlation_Method": corr_method.capitalize(),
+            "Correlation": correlation,
+            "P_Value": p_value,
+            "N": n_points,
+            "N_Before_Transform": int(
+                pre_transform_counts.get(cell_type, n_points)
+            ),
+            "N_Removed_By_Transform": int(
+                pre_transform_counts.get(cell_type, n_points) - n_points
+            ),
+            "Fit_Slope": slope,
+            "Fit_Intercept": intercept,
+            "Transform": transform,
+        })
+        plotted_cell_types.append(cell_type)
+
+    if not correlation_records:
+        plt.close(fig)
+        raise ValueError(
+            "No cell type contained enough paired observations to plot."
+        )
+
+    transform_labels = {
+        "none": ("mORF mean density", "Protein-to-mRNA ratio"),
+        "log": ("ln(mORF mean density)", "ln(protein-to-mRNA ratio)"),
+        "log10": (
+            r"$\log_{10}$(mORF mean density)",
+            r"$\log_{10}$(protein-to-mRNA ratio)",
+        ),
+        "log2": (
+            r"$\log_{2}$(mORF mean density)",
+            r"$\log_{2}$(protein-to-mRNA ratio)",
+        ),
+    }
+    x_label, y_label = transform_labels[transform]
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title("Mean density versus protein-to-mRNA ratio")
+    ax.grid(color="#E6E6E6", linewidth=0.6)
+    ax.set_axisbelow(True)
+    ax.legend(
+        title=f"Cell type ({corr_method.capitalize()})",
+        loc="upper left",
+        bbox_to_anchor=(1.01, 1.0),
+        frameon=False,
+        fontsize=7,
+        title_fontsize=8,
+        markerscale=1.4,
+        borderaxespad=0,
+    )
+    fig.subplots_adjust(left=0.13, right=0.68, bottom=0.13, top=0.92)
+    fig.savefig(pdf_path, bbox_inches="tight")
+    plt.close(fig)
+
+    correlation_df = pd.DataFrame(correlation_records)
+    paired_output = paired_df[
+        paired_df["Cell_Type"].astype(str).isin(plotted_cell_types)
+    ].copy()
+    if save_tables:
+        paired_output.to_csv(
+            os.path.join(
+                out_dir,
+                f"mean_density_ptr_paired_values{file_suffix}.csv",
+            ),
+            index=False,
+        )
+        correlation_df.to_csv(
+            os.path.join(
+                out_dir,
+                f"mean_density_ptr_correlations{file_suffix}.csv",
+            ),
+            index=False,
+        )
+    print(f"Mean density/PTR correlation plot saved to: {pdf_path}")
+    return {
+        "paired_data": paired_output,
+        "correlations": correlation_df,
+        "pdf_path": pdf_path,
+    }
+
+
 def plot_te_correlation_performance(
         agg_df, cell_types=None, metric_name="mORF Mean Density", 
         corr_method="Spearman", out_dir="./", suffix="", 

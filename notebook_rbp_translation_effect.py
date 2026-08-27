@@ -130,6 +130,7 @@ selected_rbps = [
 
 plot_rbp_translation_effect_summary(
     rbp_effect_summary,
+    fdr_reference_df=rbp_effect_summary,
     out_path=os.path.join(
         out_dir,
         "rbp_translation_effect_summary.selected.pdf",
@@ -153,6 +154,7 @@ plot_rbp_translation_effect_summary(
 """
 plot_rbp_translation_effect_summary(
     rbp_effect_summary,
+    fdr_reference_df=rbp_effect_summary,
     out_path=os.path.join(
         out_dir,
         "rbp_translation_effect_significant.selected.pdf",

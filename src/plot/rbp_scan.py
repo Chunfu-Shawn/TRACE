@@ -28,6 +28,21 @@ def _as_pdf_path(path):
     """Return an output path with a PDF suffix."""
     return f"{os.path.splitext(str(path))[0]}.pdf"
 
+
+def _benjamini_hochberg_full_family(p_values):
+    """Adjust all finite p-values within one explicitly defined test family."""
+    values = np.asarray(p_values, dtype=float)
+    adjusted = np.full(values.shape, np.nan, dtype=float)
+    valid = np.flatnonzero(np.isfinite(values))
+    if valid.size == 0:
+        return adjusted
+    order = valid[np.argsort(values[valid])]
+    ranked = values[order] * valid.size / np.arange(1, valid.size + 1)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    adjusted[order] = np.minimum(ranked, 1.0)
+    return adjusted
+
+
 def plot_rbp_metagene_heatmap(mapped_peaks_df, out_path, FIXED_CDS_LEN=600, bin_size=20, up_len=300, down_len=300):
     """Plot a metagene probability heatmap of RBP binding sites."""
     from plotnine import (
@@ -581,7 +596,8 @@ def plot_rbp_translation_effect_summary(
         region_offset=0.20,
         point_size_range=(20.0, 90.0),
         alternate_rbp_background=True,
-        alternate_rbp_color='#F3F3F3'):
+        alternate_rbp_color='#F3F3F3',
+        fdr_reference_df=None):
     """Plot regional RBP-motif effects with uncertainty and sample sizes.
 
     When ``combine_regions=True``, all requested regions share one RBP axis.
@@ -589,10 +605,13 @@ def plot_rbp_translation_effect_summary(
     area encodes the number of transcripts. If ``fdr_threshold`` is provided,
     non-significant effects remain visible in gray rather than being removed.
     Alternating row backgrounds visually bind regional points to each RBP.
+    BH correction is calculated before any plotting subset is selected. Pass
+    the complete, unfiltered result as ``fdr_reference_df`` when
+    ``summary_df`` itself contains only a plotting subset.
     """
     required = {
         'RBP_Name', 'Region', 'N_Transcripts', 'Median_Delta_Log2_TE',
-        'CI_Lower', 'CI_Upper', 'FDR_BH', 'Direction',
+        'CI_Lower', 'CI_Upper', 'Direction',
     }
     missing = required.difference(summary_df.columns)
     if missing:
@@ -605,6 +624,77 @@ def plot_rbp_translation_effect_summary(
     working['RBP_Name'] = working['RBP_Name'].astype(str)
     working['Region'] = working['Region'].astype(str)
     nonfinite_removed = input_count - len(working)
+
+    fdr_family_size = 0
+    fdr_reference_label = None
+    if fdr_threshold is not None:
+        if not 0 <= float(fdr_threshold) <= 1:
+            raise ValueError("fdr_threshold must be between 0 and 1.")
+        reference = (
+            summary_df if fdr_reference_df is None else fdr_reference_df
+        ).copy()
+        reference_required = {'RBP_Name', 'Region', 'P_Value'}
+        reference_missing = reference_required.difference(reference.columns)
+        if reference_missing:
+            raise ValueError(
+                "The complete FDR reference table is missing columns: "
+                f"{sorted(reference_missing)}."
+            )
+        reference = reference.replace([np.inf, -np.inf], np.nan)
+        reference['RBP_Name'] = reference['RBP_Name'].astype(str)
+        reference['Region'] = reference['Region'].astype(str)
+        key_columns = ['RBP_Name', 'Region']
+        duplicate_keys = reference.duplicated(key_columns, keep=False)
+        if duplicate_keys.any():
+            duplicate_preview = (
+                reference.loc[duplicate_keys, key_columns]
+                .drop_duplicates()
+                .head(5)
+                .apply(lambda row: f"{row['RBP_Name']}|{row['Region']}", axis=1)
+                .tolist()
+            )
+            raise ValueError(
+                "The FDR reference table must contain one row per RBP and "
+                "region. Duplicate keys include: "
+                + ", ".join(duplicate_preview)
+            )
+        reference['_Global_FDR_BH'] = _benjamini_hochberg_full_family(
+            reference['P_Value']
+        )
+        fdr_family_size = int(reference['P_Value'].notna().sum())
+        fdr_reference_label = (
+            'summary_df'
+            if fdr_reference_df is None
+            else 'fdr_reference_df'
+        )
+        fdr_lookup = reference[
+            key_columns + ['_Global_FDR_BH']
+        ]
+        working = working.drop(
+            columns=['FDR_BH', '_Global_FDR_BH'], errors='ignore'
+        ).merge(
+            fdr_lookup,
+            on=key_columns,
+            how='left',
+            validate='many_to_one',
+            indicator='_FDR_Merge',
+        )
+        unmatched = working['_FDR_Merge'].ne('both')
+        if unmatched.any():
+            missing_preview = (
+                working.loc[unmatched, key_columns]
+                .drop_duplicates()
+                .head(5)
+                .apply(lambda row: f"{row['RBP_Name']}|{row['Region']}", axis=1)
+                .tolist()
+            )
+            raise ValueError(
+                "Some plotted effects are absent from the complete FDR "
+                "reference table: " + ", ".join(missing_preview)
+            )
+        working = working.drop(columns='_FDR_Merge').rename(
+            columns={'_Global_FDR_BH': 'FDR_BH'}
+        )
     if target_rbps is not None:
         if isinstance(target_rbps, str):
             requested_rbps = [target_rbps]
@@ -654,8 +744,6 @@ def plot_rbp_translation_effect_summary(
         requested_regions = list(valid_regions)
 
     if fdr_threshold is not None:
-        if not 0 <= float(fdr_threshold) <= 1:
-            raise ValueError("fdr_threshold must be between 0 and 1.")
         working['Significant'] = (
             working['FDR_BH'].notna()
             & (working['FDR_BH'] <= float(fdr_threshold))
@@ -668,6 +756,12 @@ def plot_rbp_translation_effect_summary(
         f"nonfinite_removed={nonfinite_removed}, "
         f"nonsignificant_gray={nonsignificant_count}."
     )
+    if fdr_threshold is not None:
+        print(
+            "Global BH correction: "
+            f"family={fdr_reference_label}, finite_tests={fdr_family_size}; "
+            "target RBP, region, and top-N filters were applied afterward."
+        )
     if working.empty:
         raise ValueError("No RBP effects remain after regional filtering.")
     if float(region_offset) < 0 or float(region_offset) >= 0.5:

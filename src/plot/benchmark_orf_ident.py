@@ -38,9 +38,10 @@ GLOBAL_MODEL_COLORS = {
     "RiboTIE": "#777777",
     "TIS-Transformer": "#777777",
     "RibORF": "#BBBBBB",
+    "CPPred": "#BBBBBB",
     "RiboTISH": "#999999",
     "Kozak-score": "#AF804F",
-    "ORF-length": "#AF804F",
+    "ORF-length": "#EBC67F",
     "Transcription-level": "#EBC67F"
 }
 
@@ -51,6 +52,7 @@ GLOBAL_MODEL_ORDER = [
     "RiboTIE", 
     "TIS-Transformer",
     "RibORF",
+    "CPPred",
     "RiboTISH", 
     "Kozak-score",
     "ORF-length", 
