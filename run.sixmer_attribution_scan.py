@@ -70,6 +70,16 @@ SCAN_FIELDS = (
     "CDS_Mean_Prediction",
 )
 SCAN_CACHE_VERSION = 1
+SUMMARY_CACHE_VERSION = 2
+BUBBLE_CACHE_VERSION = 1
+START_LIKE_CODONS = frozenset({"ATG", "CTG", "GTG", "TTG"})
+STOP_CODONS = frozenset({"TAA", "TAG", "TGA"})
+YEAST_INHIBITORY_CODON_PAIRS = frozenset({
+    "AGGCGA", "AGGCGG", "ATACGA", "ATACGG", "CGAATA", "CGACCG",
+    "CGACGA", "CGACGG", "CGACTG", "CGAGCG", "CTCCCG", "CTGATA",
+    "CTGCCG", "CTGCGA", "GTACCG", "GTACGA", "GTGCGA",
+})
+YEAST_CODON_PAIR_SOURCE = "Gamble et al., Cell 2016, Figure 3A"
 
 
 def _json_default(value):
@@ -1499,18 +1509,27 @@ def _summary_from_accumulator(
             ] = len(background_values)
             positive_values = values[values > 0]
             if np.isfinite(background_mean) and not positive_values.empty:
+                region_observed = (
+                    summary["Region"].eq(region)
+                    & summary[f"N_{score_name}"].gt(0)
+                    & summary[mean_column].notna()
+                )
                 pseudocount = max(
                     np.finfo(float).eps,
                     float(positive_values.median()) * 1e-6,
                 )
-                summary.loc[region_eligible, pseudocount_column] = pseudocount
+                summary.loc[region_observed, background_column] = background_mean
+                summary.loc[
+                    region_observed, background_n_column
+                ] = len(background_values)
+                summary.loc[region_observed, pseudocount_column] = pseudocount
                 folds = (
-                    summary.loc[region_eligible, mean_column] + pseudocount
+                    summary.loc[region_observed, mean_column] + pseudocount
                 ) / (
                     background_mean + pseudocount
                 )
-                summary.loc[region_eligible, fold_column] = folds
-                summary.loc[region_eligible, log_fold_column] = np.log2(folds)
+                summary.loc[region_observed, fold_column] = folds
+                summary.loc[region_observed, log_fold_column] = np.log2(folds)
     return summary
 
 
@@ -1877,6 +1896,656 @@ def _plot_top_motifs(
     plt.close(fig)
 
 
+def _load_known_translation_rbps(path):
+    """Load a curated table of RBPs with reported translation effects."""
+    if path is None:
+        return {}
+    source = Path(path).expanduser().resolve()
+    suffix = source.suffix.lower()
+    if suffix in {".xlsx", ".xls"}:
+        try:
+            table = pd.read_excel(source)
+        except ImportError as error:
+            raise ImportError(
+                "Reading the curated RBP workbook requires openpyxl."
+            ) from error
+    else:
+        separator = "\t" if suffix in {".tsv", ".txt"} else ","
+        table = pd.read_csv(source, sep=separator)
+    name_column = next(
+        (
+            column for column in ("Name", "RBP", "RBP_Name", "Gene_name")
+            if column in table.columns
+        ),
+        None,
+    )
+    if name_column is None:
+        raise ValueError(
+            "Known-translation RBP table must contain Name, RBP, "
+            "RBP_Name, or Gene_name."
+        )
+    direction_column = next(
+        (
+            column for column in (
+                "Translation_direction", "Direction", "RNA_effect"
+            )
+            if column in table.columns
+        ),
+        None,
+    )
+    motif_column = next(
+        (column for column in ("Motif", "Known_motif") if column in table),
+        None,
+    )
+    evidence_column = next(
+        (
+            column for column in ("Evidence_summary", "Evidence", "Note")
+            if column in table.columns
+        ),
+        None,
+    )
+    annotations = {}
+    for row in table.itertuples(index=False):
+        record = row._asdict()
+        name = str(record.get(name_column, "")).strip()
+        if not name or name.lower() == "nan":
+            continue
+        annotations[name.upper()] = {
+            "Name": name,
+            "Direction": (
+                str(record.get(direction_column, "")).strip()
+                if direction_column else ""
+            ),
+            "Motif": (
+                str(record.get(motif_column, "")).strip()
+                if motif_column else ""
+            ),
+            "Evidence": (
+                str(record.get(evidence_column, "")).strip()
+                if evidence_column else ""
+            ),
+        }
+    return annotations
+
+
+def _load_rbp_match_records(path):
+    """Load and expand local PWM matches into one row per RBP name."""
+    if path is None or not Path(path).is_file():
+        return pd.DataFrame()
+    table = pd.read_csv(path)
+    required = {
+        "Sixmer", "RBP_Names", "Matrix_ID",
+        "Local_PWM_Compatibility", "Empirical_PWM_Percentile",
+    }
+    if not required.issubset(table.columns):
+        return pd.DataFrame()
+    records = []
+    for row in table.itertuples(index=False):
+        names = [
+            value.strip() for value in str(row.RBP_Names).split(";")
+            if value.strip()
+        ]
+        for name in names:
+            records.append({
+                "Sixmer": str(row.Sixmer),
+                "RBP": name,
+                "Matrix_ID": str(row.Matrix_ID),
+                "Local_PWM_Compatibility": float(
+                    row.Local_PWM_Compatibility
+                ),
+                "Empirical_PWM_Percentile": float(
+                    row.Empirical_PWM_Percentile
+                ),
+            })
+    return pd.DataFrame(records)
+
+
+def _build_bubble_plot_tables(
+        summary,
+        min_hits,
+        minimum_regions,
+        rbp_matches,
+        known_translation_rbps,
+        annotation_pool_size,
+        labels_per_panel):
+    """Build regional, cross-region, and selected annotation source tables."""
+    score_specs = (
+        ("Attention", "Attention_Mean"),
+        ("Saliency", "Saliency_L1_Mean"),
+    )
+    regional_records = []
+    for display_name, score_name in score_specs:
+        columns = [
+            "Region", "Sixmer", "N_Hits", "N_Transcripts",
+            "N_InFrame_CodonPair_Hits",
+            f"Fold_vs_Bottom_{score_name}",
+            f"Log2_Fold_vs_Bottom_{score_name}",
+        ]
+        subset = summary[columns].copy()
+        subset = subset.rename(columns={
+            f"Fold_vs_Bottom_{score_name}": "Fold_Change",
+            f"Log2_Fold_vs_Bottom_{score_name}": "Log2_Fold_Change",
+        })
+        subset["Metric"] = display_name
+        subset["Reliable"] = subset["N_Hits"].ge(int(min_hits))
+        regional_records.append(subset)
+    regional = pd.concat(regional_records, ignore_index=True)
+
+    summary_records = []
+    for (metric, sixmer), group in regional.groupby(
+            ["Metric", "Sixmer"], observed=True, sort=False):
+        observed = group.dropna(subset=["Fold_Change"])
+        n_regions = int(observed["Region"].nunique())
+        fold_change = (
+            float(observed["Fold_Change"].mean())
+            if n_regions >= int(minimum_regions) else np.nan
+        )
+        summary_records.append({
+            "Region": "Mean of regions",
+            "Metric": metric,
+            "Sixmer": sixmer,
+            "N_Hits": int(group["N_Hits"].sum()),
+            "N_Transcripts": int(group["N_Transcripts"].sum()),
+            "N_InFrame_CodonPair_Hits": int(
+                group.loc[
+                    group["Region"].eq("CDS"),
+                    "N_InFrame_CodonPair_Hits",
+                ].sum()
+            ),
+            "Regions_Observed": n_regions,
+            "Fold_Change": fold_change,
+            "Log2_Fold_Change": (
+                math.log2(fold_change)
+                if np.isfinite(fold_change) and fold_change > 0 else np.nan
+            ),
+            "Reliable": bool(group["Reliable"].all()),
+        })
+    cross_region = pd.DataFrame(summary_records)
+
+    match_lookup = defaultdict(list)
+    if not rbp_matches.empty:
+        ordered_matches = rbp_matches.sort_values(
+            ["Empirical_PWM_Percentile", "Local_PWM_Compatibility"],
+            ascending=False,
+        )
+        for row in ordered_matches.itertuples(index=False):
+            match_lookup[str(row.Sixmer)].append(row._asdict())
+
+    annotation_records = []
+    panels = [
+        ("Summary", cross_region),
+        *[(region, regional[regional["Region"].eq(region)]) for region in REGIONS],
+    ]
+    for scope, panel_table in panels:
+        for metric in ("Attention", "Saliency"):
+            data = panel_table[
+                panel_table["Metric"].eq(metric)
+                & panel_table["Reliable"]
+                & panel_table["Log2_Fold_Change"].notna()
+            ].nlargest(int(annotation_pool_size), "Log2_Fold_Change")
+            candidates = []
+            for row in data.itertuples(index=False):
+                sixmer = str(row.Sixmer)
+                annotation = None
+                if (
+                        scope in {"CDS", "Summary"}
+                        and sixmer in YEAST_INHIBITORY_CODON_PAIRS
+                        and int(row.N_InFrame_CodonPair_Hits) > 0):
+                    annotation = {
+                        "Priority": 0,
+                        "Annotation_Type": "Yeast inhibitory codon pair",
+                        "Label": f"{sixmer[:3]}-{sixmer[3:]}",
+                        "RBP": "",
+                        "RBP_Direction": "",
+                        "PWM_Compatibility": np.nan,
+                        "PWM_Percentile": np.nan,
+                        "Evidence_Source": YEAST_CODON_PAIR_SOURCE,
+                    }
+                if annotation is None:
+                    for match in match_lookup.get(sixmer, []):
+                        rbp_key = str(match["RBP"]).upper()
+                        if rbp_key not in known_translation_rbps:
+                            continue
+                        curated = known_translation_rbps[rbp_key]
+                        direction = curated["Direction"]
+                        direction_label = (
+                            f" (lit.: {direction})" if direction
+                            and direction.lower() != "nan" else ""
+                        )
+                        annotation = {
+                            "Priority": 1,
+                            "Annotation_Type": "Known translation RBP",
+                            "Label": f"{curated['Name']}{direction_label}",
+                            "RBP": curated["Name"],
+                            "RBP_Direction": direction,
+                            "PWM_Compatibility": match[
+                                "Local_PWM_Compatibility"
+                            ],
+                            "PWM_Percentile": match[
+                                "Empirical_PWM_Percentile"
+                            ],
+                            "Evidence_Source": "Curated translation RBP table",
+                        }
+                        break
+                codons = {sixmer[:3], sixmer[3:]}
+                if annotation is None and codons.intersection(
+                        START_LIKE_CODONS):
+                    present = sorted(codons.intersection(START_LIKE_CODONS))
+                    annotation = {
+                        "Priority": 2,
+                        "Annotation_Type": "Start-like codon sequence",
+                        "Label": f"{sixmer} ({'/'.join(present)})",
+                        "RBP": "",
+                        "RBP_Direction": "",
+                        "PWM_Compatibility": np.nan,
+                        "PWM_Percentile": np.nan,
+                        "Evidence_Source": "Sequence-content annotation",
+                    }
+                if annotation is None and codons.intersection(STOP_CODONS):
+                    present = sorted(codons.intersection(STOP_CODONS))
+                    annotation = {
+                        "Priority": 3,
+                        "Annotation_Type": "Stop-codon sequence",
+                        "Label": f"{sixmer} ({'/'.join(present)})",
+                        "RBP": "",
+                        "RBP_Direction": "",
+                        "PWM_Compatibility": np.nan,
+                        "PWM_Percentile": np.nan,
+                        "Evidence_Source": "Sequence-content annotation",
+                    }
+                if annotation is None:
+                    continue
+                candidates.append({
+                    "Scope": scope,
+                    "Region": str(row.Region),
+                    "Metric": metric,
+                    "Sixmer": sixmer,
+                    "Hit_N": int(row.N_Hits),
+                    "Fold_Change": float(row.Fold_Change),
+                    "Log2_Fold_Change": float(row.Log2_Fold_Change),
+                    "N_InFrame_CodonPair_Hits": int(
+                        row.N_InFrame_CodonPair_Hits
+                    ),
+                    **annotation,
+                })
+            candidates.sort(
+                key=lambda record: (
+                    record["Priority"], -record["Log2_Fold_Change"]
+                )
+            )
+            selected = []
+            used_labels = set()
+            if int(labels_per_panel) > 0:
+                best_by_type = {}
+                for candidate in candidates:
+                    annotation_type = candidate["Annotation_Type"]
+                    current = best_by_type.get(annotation_type)
+                    if (
+                            current is None
+                            or candidate["Log2_Fold_Change"]
+                            > current["Log2_Fold_Change"]):
+                        best_by_type[annotation_type] = candidate
+                for annotation_type in (
+                        "Known translation RBP",
+                        "Yeast inhibitory codon pair",
+                        "Start-like codon sequence",
+                        "Stop-codon sequence"):
+                    candidate = best_by_type.get(annotation_type)
+                    if candidate is None:
+                        continue
+                    selected.append(candidate)
+                    used_labels.add(candidate["Label"].upper())
+                    if len(selected) >= int(labels_per_panel):
+                        break
+                for candidate in candidates:
+                    if len(selected) >= int(labels_per_panel):
+                        break
+                    label_key = candidate["Label"].upper()
+                    if label_key in used_labels:
+                        continue
+                    selected.append(candidate)
+                    used_labels.add(label_key)
+            annotation_records.extend(selected)
+    annotations = pd.DataFrame(annotation_records)
+    return regional, cross_region, annotations
+
+
+def _bubble_sizes(fold_change, reference_values):
+    """Map fold changes monotonically to marker areas with robust clipping."""
+    values = np.asarray(fold_change, dtype=float)
+    reference = np.asarray(reference_values, dtype=float)
+    reference = reference[np.isfinite(reference) & (reference > 0)]
+    if reference.size == 0:
+        return np.full(len(values), 18.0)
+    transformed = np.log2(np.maximum(values, np.finfo(float).tiny))
+    reference_transformed = np.log2(reference)
+    lower, upper = np.nanquantile(reference_transformed, [0.02, 0.98])
+    if not np.isfinite(lower) or not np.isfinite(upper) or upper <= lower:
+        return np.full(len(values), 30.0)
+    scaled = (np.clip(transformed, lower, upper) - lower) / (upper - lower)
+    return 8.0 + 105.0 * scaled
+
+
+def _draw_bubble_panel(
+        axis,
+        data,
+        annotations,
+        metric,
+        scope,
+        size_reference,
+        bottom_quantile,
+        panel_letter=None):
+    """Draw one hit-count versus fold-change bubble panel."""
+    metric_colors = {"Attention": "#4C78A8", "Saliency": "#2A9D8F"}
+    annotation_colors = {
+        "Known translation RBP": "#D55E00",
+        "Yeast inhibitory codon pair": "#7B2CBF",
+        "Start-like codon sequence": "#2E7D32",
+        "Stop-codon sequence": "#B2182B",
+    }
+    valid = data[
+        data["Metric"].eq(metric)
+        & data["N_Hits"].gt(0)
+        & data["Log2_Fold_Change"].notna()
+    ].copy()
+    if panel_letter is not None:
+        axis.text(
+            -0.14, 1.04, panel_letter,
+            transform=axis.transAxes,
+            fontsize=8,
+            fontweight="bold",
+            ha="left",
+            va="bottom",
+        )
+    if valid.empty:
+        axis.text(
+            0.5, 0.5, "No observed motifs",
+            transform=axis.transAxes,
+            ha="center",
+            va="center",
+        )
+        return
+    low_count = ~valid["Reliable"].astype(bool)
+    sizes = _bubble_sizes(valid["Fold_Change"], size_reference)
+    axis.scatter(
+        valid.loc[low_count, "N_Hits"],
+        valid.loc[low_count, "Log2_Fold_Change"],
+        s=sizes[low_count.to_numpy()],
+        color="#D9D9D9",
+        alpha=0.36,
+        linewidth=0,
+        rasterized=False,
+        zorder=1,
+    )
+    axis.scatter(
+        valid.loc[~low_count, "N_Hits"],
+        valid.loc[~low_count, "Log2_Fold_Change"],
+        s=sizes[(~low_count).to_numpy()],
+        color=metric_colors[metric],
+        alpha=0.50,
+        edgecolor="white",
+        linewidth=0.25,
+        rasterized=False,
+        zorder=2,
+    )
+    y_min = float(valid["Log2_Fold_Change"].min())
+    y_max = float(valid["Log2_Fold_Change"].max())
+    y_span = max(y_max - y_min, 0.25)
+    axis.set_ylim(y_min - 0.08 * y_span, y_max + 0.42 * y_span)
+    selected = annotations[
+        annotations["Scope"].eq(scope)
+        & annotations["Metric"].eq(metric)
+    ] if not annotations.empty else pd.DataFrame()
+    selected_points = []
+    for row in selected.itertuples(index=False):
+        point = valid[valid["Sixmer"].eq(str(row.Sixmer))]
+        if point.empty:
+            continue
+        selected_points.append((row, point.iloc[0]))
+    selected_points.sort(key=lambda value: value[1]["N_Hits"])
+    if selected_points:
+        x_min = float(valid["N_Hits"].min())
+        x_max = float(valid["N_Hits"].max())
+        label_x_positions = np.geomspace(
+            max(x_min, 1.0),
+            max(x_max, max(x_min, 1.0) * 1.01),
+            len(selected_points) + 2,
+        )[1:-1]
+    else:
+        label_x_positions = []
+    for index, ((row, point), label_x) in enumerate(zip(
+            selected_points, label_x_positions)):
+        edge_color = annotation_colors.get(row.Annotation_Type, "#333333")
+        point_size = _bubble_sizes(
+            [point["Fold_Change"]], size_reference
+        )[0]
+        axis.scatter(
+            [point["N_Hits"]],
+            [point["Log2_Fold_Change"]],
+            s=point_size + 18,
+            facecolor=metric_colors[metric],
+            edgecolor=edge_color,
+            linewidth=1.0,
+            alpha=0.95,
+            zorder=4,
+        )
+        label_y = y_max + (0.10 if index % 2 == 0 else 0.25) * y_span
+        axis.annotate(
+            str(row.Label),
+            xy=(point["N_Hits"], point["Log2_Fold_Change"]),
+            xytext=(label_x, label_y),
+            textcoords="data",
+            fontsize=5.0,
+            color=edge_color,
+            ha="center",
+            va="bottom",
+            arrowprops={
+                "arrowstyle": "-",
+                "color": edge_color,
+                "linewidth": 0.45,
+            },
+            zorder=5,
+        )
+    axis.axhline(0, color="#777777", linewidth=0.65, linestyle="--")
+    axis.set_xscale("log")
+    axis.grid(color="#E7E7E7", linewidth=0.45)
+    axis.set_axisbelow(True)
+    axis.set_title(f"{scope}: {metric}", fontsize=7.5, pad=8)
+    axis.set_xlabel("Hit N (log scale)")
+    axis.set_ylabel(
+        f"log2 fold change vs bottom {100 * float(bottom_quantile):g}%"
+    )
+    axis.text(
+        0.98, 0.04,
+        f"{len(valid):,} / {4 ** 6:,} motifs",
+        transform=axis.transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=5.2,
+        color="#555555",
+    )
+
+
+def _add_bubble_legends(fig, fold_values, anchor_y=0.01):
+    """Add shared fold-change size and annotation legends."""
+    from matplotlib.lines import Line2D
+
+    finite = np.asarray(fold_values, dtype=float)
+    finite = finite[np.isfinite(finite) & (finite > 0)]
+    size_handles = []
+    if finite.size:
+        example_values = np.unique(np.nanquantile(finite, [0.25, 0.50, 0.90]))
+        example_sizes = _bubble_sizes(example_values, finite)
+        for value, size in zip(example_values, example_sizes):
+            size_handles.append(Line2D(
+                [], [], marker="o", linestyle="",
+                markerfacecolor="#808080", markeredgecolor="white",
+                markersize=math.sqrt(size),
+                label=f"FC {value:.2g}",
+            ))
+    annotation_specs = (
+        ("Known translation RBP", "#D55E00"),
+        ("Yeast inhibitory codon pair", "#7B2CBF"),
+        ("Start-like codon sequence", "#2E7D32"),
+        ("Stop-codon sequence", "#B2182B"),
+    )
+    annotation_handles = [
+        Line2D(
+            [], [], marker="o", linestyle="",
+            markerfacecolor="white", markeredgecolor=color,
+            markersize=5.5, label=label,
+        )
+        for label, color in annotation_specs
+    ]
+    if size_handles:
+        fig.legend(
+            handles=size_handles,
+            title="Bubble area",
+            loc="lower left",
+            bbox_to_anchor=(0.07, anchor_y),
+            ncol=len(size_handles),
+            fontsize=5.5,
+            title_fontsize=5.8,
+            handletextpad=0.2,
+            columnspacing=0.8,
+            frameon=False,
+        )
+    fig.legend(
+        handles=annotation_handles,
+        loc="lower right",
+        bbox_to_anchor=(0.99, anchor_y),
+        ncol=2,
+        fontsize=5.5,
+        handletextpad=0.2,
+        columnspacing=0.8,
+        frameon=False,
+    )
+
+
+def _configure_bubble_style():
+    """Configure an editable, compact journal-style matplotlib theme."""
+    import matplotlib as mpl
+    if "matplotlib.pyplot" not in sys.modules:
+        mpl.use("Agg")
+    mpl.rcParams.update({
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+        "font.size": 6.5,
+        "axes.titlesize": 7.5,
+        "axes.labelsize": 6.5,
+        "xtick.labelsize": 5.8,
+        "ytick.labelsize": 5.8,
+        "axes.spines.right": False,
+        "axes.spines.top": False,
+        "axes.linewidth": 0.7,
+        "legend.frameon": False,
+        "pdf.fonttype": 42,
+        "svg.fonttype": "none",
+    })
+
+
+def _plot_sixmer_bubble_summary(
+        cross_region,
+        annotations,
+        output_pdf,
+        width,
+        height,
+        bottom_quantile):
+    """Plot cross-region mean fold changes for attention and saliency."""
+    _configure_bubble_style()
+    import matplotlib.pyplot as plt
+
+    figure, axes = plt.subplots(
+        1, 2, figsize=(float(width), float(height)), squeeze=False
+    )
+    fold_reference = cross_region["Fold_Change"].to_numpy(dtype=float)
+    for index, metric in enumerate(("Attention", "Saliency")):
+        _draw_bubble_panel(
+            axes[0, index],
+            cross_region,
+            annotations,
+            metric=metric,
+            scope="Summary",
+            size_reference=fold_reference,
+            bottom_quantile=bottom_quantile,
+            panel_letter=chr(ord("a") + index),
+        )
+    figure.suptitle(
+        "6-mer importance averaged across 5′UTR, CDS, and 3′UTR",
+        y=0.985,
+        fontsize=8.5,
+    )
+    figure.text(
+        0.5, 0.005,
+        "RBP labels indicate local PWM compatibility. Yeast codon-pair "
+        "evidence applies to in-frame CDS contexts; start/stop labels denote "
+        "sequence content, not verified sites.",
+        ha="center",
+        va="bottom",
+        fontsize=5.0,
+        color="#555555",
+    )
+    _add_bubble_legends(figure, fold_reference, anchor_y=0.035)
+    figure.tight_layout(rect=(0, 0.16, 1, 0.94))
+    output_pdf = Path(output_pdf)
+    output_pdf.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_pdf, bbox_inches="tight")
+    plt.close(figure)
+
+
+def _plot_sixmer_bubbles_by_region(
+        regional,
+        annotations,
+        output_pdf,
+        width,
+        height,
+        bottom_quantile):
+    """Plot separate 5′UTR, CDS, and 3′UTR bubble panels."""
+    _configure_bubble_style()
+    import matplotlib.pyplot as plt
+
+    figure, axes = plt.subplots(
+        3, 2, figsize=(float(width), float(height)), squeeze=False
+    )
+    fold_reference = regional["Fold_Change"].to_numpy(dtype=float)
+    panel_index = 0
+    for region_index, region in enumerate(REGIONS):
+        region_data = regional[regional["Region"].eq(region)]
+        for metric_index, metric in enumerate(("Attention", "Saliency")):
+            _draw_bubble_panel(
+                axes[region_index, metric_index],
+                region_data,
+                annotations,
+                metric=metric,
+                scope=region,
+                size_reference=fold_reference,
+                bottom_quantile=bottom_quantile,
+                panel_letter=chr(ord("a") + panel_index),
+            )
+            panel_index += 1
+    figure.suptitle(
+        "Region-resolved 6-mer importance",
+        y=0.992,
+        fontsize=8.5,
+    )
+    figure.text(
+        0.5, 0.004,
+        "Low-count motifs are gray. Codon-pair labels are restricted to "
+        "in-frame CDS hits; other labels describe sequence or local PWM "
+        "compatibility.",
+        ha="center",
+        va="bottom",
+        fontsize=5.0,
+        color="#555555",
+    )
+    _add_bubble_legends(figure, fold_reference, anchor_y=0.026)
+    figure.tight_layout(rect=(0, 0.11, 1, 0.97))
+    output_pdf = Path(output_pdf)
+    output_pdf.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_pdf, bbox_inches="tight")
+    plt.close(figure)
+
+
 def _load_valid_summary(path, kmer_length):
     """Load a complete region-by-k-mer summary or return None."""
     path = Path(path)
@@ -1975,9 +2644,24 @@ def build_parser():
     )
     parser.add_argument("--max-rbp-matches", type=int, default=5)
     parser.add_argument("--codon-pair-table")
+    parser.add_argument(
+        "--known-translation-rbp-table",
+        help=(
+            "Optional XLSX/CSV/TSV table used to distinguish curated "
+            "translation-regulatory RBPs from generic local PWM matches."
+        ),
+    )
     parser.add_argument("--plot-width", type=float, default=7.2)
     parser.add_argument("--plot-height", type=float, default=8.0)
     parser.add_argument("--skip-plot", action="store_true")
+    parser.add_argument("--bubble-labels-per-panel", type=int, default=6)
+    parser.add_argument("--bubble-annotation-pool-size", type=int, default=200)
+    parser.add_argument("--bubble-min-regions", type=int, default=3)
+    parser.add_argument("--bubble-summary-width", type=float, default=7.2)
+    parser.add_argument("--bubble-summary-height", type=float, default=3.8)
+    parser.add_argument("--bubble-region-width", type=float, default=7.2)
+    parser.add_argument("--bubble-region-height", type=float, default=8.8)
+    parser.add_argument("--skip-bubble-plots", action="store_true")
     return parser
 
 
@@ -2017,6 +2701,22 @@ def _validate_args(args):
         raise ValueError(
             "pwm-pkl and metadata-tsv must be supplied together."
         )
+    if args.bubble_labels_per_panel < 0:
+        raise ValueError("bubble-labels-per-panel must be non-negative.")
+    if args.bubble_annotation_pool_size < args.bubble_labels_per_panel:
+        raise ValueError(
+            "bubble-annotation-pool-size must be at least "
+            "bubble-labels-per-panel."
+        )
+    if not 1 <= args.bubble_min_regions <= len(REGIONS):
+        raise ValueError(
+            f"bubble-min-regions must be within [1, {len(REGIONS)}]."
+        )
+    for name in (
+            "bubble_summary_width", "bubble_summary_height",
+            "bubble_region_width", "bubble_region_height"):
+        if float(getattr(args, name)) <= 0:
+            raise ValueError(f"{name.replace('_', '-')} must be positive.")
 
 
 def main(argv=None):
@@ -2038,6 +2738,12 @@ def main(argv=None):
         "rbp_matches": out_dir / "sixmer_rbp_pwm_matches.csv",
         "plot": out_dir / "sixmer_attribution_ranking.pdf",
         "plot_complete": out_dir / "sixmer_plot_complete.json",
+        "bubble_summary_data": out_dir / "sixmer_bubble_summary_data.csv",
+        "bubble_regional_data": out_dir / "sixmer_bubble_by_region_data.csv",
+        "bubble_annotations": out_dir / "sixmer_bubble_annotations.csv",
+        "bubble_summary": out_dir / "sixmer_bubble_summary.pdf",
+        "bubble_regions": out_dir / "sixmer_bubble_by_region.pdf",
+        "bubble_complete": out_dir / "sixmer_bubble_complete.json",
         "manifest": out_dir / "sixmer_scan_manifest.json",
     }
     dataset = _load_dataset(args.dataset)
@@ -2078,6 +2784,7 @@ def main(argv=None):
 
     scan_signature = scan_audit["Scan_Signature"]
     summary_specification = {
+        "Summary_Cache_Version": int(SUMMARY_CACHE_VERSION),
         "Scan_Signature": scan_signature,
         "Kmer_Length": int(args.kmer_length),
         "Minimum_Hits": int(args.min_hits),
@@ -2206,6 +2913,111 @@ def main(argv=None):
         )
         print(f"Saved PDF: {paths['plot']}", flush=True)
 
+    bubble_specification = {
+        "Bubble_Cache_Version": int(BUBBLE_CACHE_VERSION),
+        "Summary_Signature": summary_signature,
+        "Known_Translation_RBP_Table": (
+            _portable_file_identity(
+                args.known_translation_rbp_table,
+                content_hash=True,
+            )
+            if args.known_translation_rbp_table else None
+        ),
+        "Minimum_Hits": int(args.min_hits),
+        "Minimum_Regions": int(args.bubble_min_regions),
+        "Labels_Per_Panel": int(args.bubble_labels_per_panel),
+        "Annotation_Pool_Size": int(args.bubble_annotation_pool_size),
+        "Summary_Width": float(args.bubble_summary_width),
+        "Summary_Height": float(args.bubble_summary_height),
+        "Regional_Width": float(args.bubble_region_width),
+        "Regional_Height": float(args.bubble_region_height),
+        "Yeast_Inhibitory_Codon_Pairs": sorted(
+            YEAST_INHIBITORY_CODON_PAIRS
+        ),
+        "Yeast_Codon_Pair_Source": YEAST_CODON_PAIR_SOURCE,
+    }
+    bubble_signature = _stable_hash(bubble_specification)
+    bubble_files = {
+        "Summary_Data": paths["bubble_summary_data"],
+        "Regional_Data": paths["bubble_regional_data"],
+        "Annotations": paths["bubble_annotations"],
+        "Summary_PDF": paths["bubble_summary"],
+        "Regional_PDF": paths["bubble_regions"],
+    }
+    bubble_cache_valid = (
+        not summary_ran
+        and _stage_cache_is_valid(
+            paths["bubble_complete"],
+            bubble_signature,
+            bubble_files,
+        )
+        and _pdf_is_valid(paths["bubble_summary"])
+        and _pdf_is_valid(paths["bubble_regions"])
+    )
+    if args.skip_bubble_plots:
+        print(
+            "[SKIP] bubble plots: --skip-bubble-plots was requested",
+            flush=True,
+        )
+    elif bubble_cache_valid:
+        print(
+            f"[SKIP] bubble plots: found {paths['bubble_summary'].name} "
+            f"and {paths['bubble_regions'].name}",
+            flush=True,
+        )
+    else:
+        curated_rbps = _load_known_translation_rbps(
+            args.known_translation_rbp_table
+        )
+        rbp_match_records = _load_rbp_match_records(
+            paths["rbp_matches"] if args.pwm_pkl else None
+        )
+        regional_bubbles, cross_region_bubbles, bubble_annotations = (
+            _build_bubble_plot_tables(
+                summary,
+                min_hits=args.min_hits,
+                minimum_regions=args.bubble_min_regions,
+                rbp_matches=rbp_match_records,
+                known_translation_rbps=curated_rbps,
+                annotation_pool_size=args.bubble_annotation_pool_size,
+                labels_per_panel=args.bubble_labels_per_panel,
+            )
+        )
+        if bubble_annotations.empty:
+            bubble_annotations = pd.DataFrame(columns=[
+                "Scope", "Region", "Metric", "Sixmer", "Hit_N",
+                "Fold_Change", "Log2_Fold_Change",
+                "N_InFrame_CodonPair_Hits", "Priority",
+                "Annotation_Type", "Label", "RBP", "RBP_Direction",
+                "PWM_Compatibility", "PWM_Percentile", "Evidence_Source",
+            ])
+        _atomic_csv(cross_region_bubbles, paths["bubble_summary_data"])
+        _atomic_csv(regional_bubbles, paths["bubble_regional_data"])
+        _atomic_csv(bubble_annotations, paths["bubble_annotations"])
+        _plot_sixmer_bubble_summary(
+            cross_region_bubbles,
+            bubble_annotations,
+            output_pdf=paths["bubble_summary"],
+            width=args.bubble_summary_width,
+            height=args.bubble_summary_height,
+            bottom_quantile=args.bottom_quantile,
+        )
+        _plot_sixmer_bubbles_by_region(
+            regional_bubbles,
+            bubble_annotations,
+            output_pdf=paths["bubble_regions"],
+            width=args.bubble_region_width,
+            height=args.bubble_region_height,
+            bottom_quantile=args.bottom_quantile,
+        )
+        _commit_stage(
+            paths["bubble_complete"],
+            bubble_signature,
+            bubble_files,
+        )
+        print(f"Saved PDF: {paths['bubble_summary']}", flush=True)
+        print(f"Saved PDF: {paths['bubble_regions']}", flush=True)
+
     manifest = {
         "Arguments": vars(args),
         "Effective_Expression_Mode": expression_mode,
@@ -2216,6 +3028,8 @@ def main(argv=None):
         "Summary_Signature": summary_signature,
         "Top_Signature": top_signature,
         "Plot_Signature": plot_signature,
+        "Bubble_Specification": bubble_specification,
+        "Bubble_Signature": bubble_signature,
         "Selected_Transcripts": int(len(selected)),
         "Summary_Rows": int(len(summary)),
         "Expected_Region_Kmer_Rows": int(

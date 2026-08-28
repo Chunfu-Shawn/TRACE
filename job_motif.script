@@ -21,7 +21,7 @@ mkdir -p "${OUT_DIR}"
 cd "${PROJECT_DIR}"
 
 # Add --target-transcript-file /path/to/evaluated_tids.txt to restrict the scan.
-# Add --codon-pair-table /path/to/reference.csv when a reference is available.
+# Add --codon-pair-table /path/to/reference.csv for extra external annotations.
 python -u "${TRACE_DIR}/run.sixmer_attribution_scan.py" \
     --model-config "${TRACE_DIR}/src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml" \
     --checkpoint "${PROJECT_DIR}/checkpoint/train/base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.200_0.001.best_profile.pt" \
@@ -46,5 +46,13 @@ python -u "${TRACE_DIR}/run.sixmer_attribution_scan.py" \
     --rbp-match-threshold 0.85 \
     --rbp-match-percentile 0.99 \
     --max-rbp-matches 5 \
+    --known-translation-rbp-table "${PROJECT_DIR}/translation_RBP.xlsx" \
     --plot-width 7.2 \
-    --plot-height 8.0
+    --plot-height 8.0 \
+    --bubble-labels-per-panel 6 \
+    --bubble-annotation-pool-size 200 \
+    --bubble-min-regions 3 \
+    --bubble-summary-width 7.2 \
+    --bubble-summary-height 3.8 \
+    --bubble-region-width 7.2 \
+    --bubble-region-height 8.8
