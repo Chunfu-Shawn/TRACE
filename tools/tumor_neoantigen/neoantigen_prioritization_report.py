@@ -243,17 +243,35 @@ def main():
         sys.exit(1)
     print(f"[Lookup] Loaded Junction CPM values for tumor run {args.tumor_run_id}.")
 
-    # 2. 整合 TRACE 输出与 JCPM
+    # 2. 整合 TRACE 输出、ORF score 与 JCPM
     df_trans = pd.read_csv(args.translation_csv)
+
+    required_translation_cols = {'Tid', 'start', 'stop', 'collapse_score'}
+    missing_translation_cols = required_translation_cols.difference(df_trans.columns)
+    if missing_translation_cols:
+        print(
+            "[Error] translation_csv is missing required columns: "
+            f"{sorted(missing_translation_cols)}"
+        )
+        sys.exit(1)
+
     df_trans['Match_ID'] = df_trans['Tid'].apply(safe_clean_id)
+    df_trans['collapse_score'] = pd.to_numeric(
+        df_trans['collapse_score'], errors='coerce'
+    ).fillna(0.0)
     
     trans_lookup = {}
     for _, row in df_trans.iterrows():
         tid_clean = row['Match_ID']
         key = (tid_clean, int(row['start']), int(row['stop']))
         
-        tumor_tpm = row.get('tpm', 0.0)
-        mean_int = row.get('mean_intensity', 0.0)
+        tumor_tpm = pd.to_numeric(row.get('tpm', 0.0), errors='coerce')
+        mean_int = pd.to_numeric(row.get('mean_intensity', 0.0), errors='coerce')
+        orf_score = pd.to_numeric(row.get('collapse_score', 0.0), errors='coerce')
+
+        tumor_tpm = 0.0 if pd.isna(tumor_tpm) else float(tumor_tpm)
+        mean_int = 0.0 if pd.isna(mean_int) else float(mean_int)
+        orf_score = 0.0 if pd.isna(orf_score) else float(orf_score)
         tumor_jcpm = jcpm_dict.get(tid_clean, 0.0)
         transcript_gtex_context = {
             'GTEx_Transcript_TPM_Covered': False,
@@ -276,6 +294,7 @@ def main():
         prot_expr_c = tumor_jcpm * mean_int
         
         trans_lookup[key] = {
+            'ORF Score': orf_score,
             'Tumor_TPM': tumor_tpm,
             'Junction_CPM': tumor_jcpm,
             'mean_intensity': mean_int,
@@ -295,8 +314,12 @@ def main():
         pep_prot_pos_1b = int(row['Peptide_Protein_Pos'])
         prot_start_0b = pep_prot_pos_1b - 1 
         
-        best_expr = -1.0
+        # If one peptide maps to multiple compatible ORFs, select the ORF with
+        # the highest TRACE collapse_score; use mean_intensity as a tie-breaker.
+        best_orf_score = float('-inf')
+        best_expr = float('-inf')
         best_metrics = {
+            'ORF Score': 0.0,
             'Tumor_TPM': 0.0, 'Junction_CPM': 0.0, 'mean_intensity': 0.0,
             'Protein_Expression_T': 0.0, 'Protein_Expression_C': 0.0,
             'GTEx_Transcript_TPM_Covered': False,
@@ -329,9 +352,15 @@ def main():
                         metrics = trans_lookup.get(key)
                         if metrics is None:
                             continue
+                        orf_score = metrics.get('ORF Score', 0.0)
                         expr = metrics.get('mean_intensity', 0.0)
-                        
-                        if expr > best_expr:
+
+                        is_better_orf = (
+                            orf_score > best_orf_score
+                            or (orf_score == best_orf_score and expr > best_expr)
+                        )
+                        if is_better_orf:
+                            best_orf_score = orf_score
                             best_expr = expr
                             best_metrics = metrics
                             mapped_orf_pos = f"{orf['start']}:{orf['stop']}"
@@ -359,33 +388,34 @@ def main():
     
     cols_order = [
         'Peptide', 'MHC', 'Identity', 
-        'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 
+        'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 'ORF Score',
         'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Tumor_TPM', 
         'Protein_Expression_C', 'Junction_CPM', 
         'mean_intensity', 
+        'Score_EL', 'Aff(nM)', 'BindLevel', '%Rank_EL',
         'GTEx_Transcript_TPM_Covered', 'GTEx_Transcript_Filter_Source',
         'GTEx_Step2_Applied', 'GTEx_Step2_Status', 'GTEx_Background_Statistic',
         'Global_Max_GTEx_TPM', 'Global_Max_GTEx_JCPM',
         'GTEx_Junction_Background_Assessed', 'GTEx_Junction_Coverage',
         'GTEx_Junction_Filter_Source', 'GTEx_Junction_IDs_Assessed',
-        'GTEx_Junction_IDs_Missing',
-        'Score_EL', 'Aff(nM)', 'BindLevel', '%Rank_EL'
+        'GTEx_Junction_IDs_Missing'
     ]
     remaining_cols = [c for c in df_mapped.columns if c not in cols_order]
     df_mapped = df_mapped[cols_order + remaining_cols]
     
-    # Rank without adding TPM-derived and junction-derived quantities.
+    # Prioritize candidates by TRACE ORF confidence. HLA presentation score
+    # and translation intensity are used only as deterministic tie-breakers.
     df_mapped.sort_values(
-        by=['mean_intensity', 'Score_EL'],
-        ascending=[False, False],
+        by=['ORF Score', 'Score_EL', 'mean_intensity'],
+        ascending=[False, False, False],
         inplace=True,
     )
     
     round_cols = [
         'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Protein_Expression_C', 
-        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'Score_EL'
+        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF Score', 'Score_EL'
     ]
     df_mapped[round_cols] = df_mapped[round_cols].round(4)
     
