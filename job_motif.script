@@ -1,0 +1,50 @@
+#!/bin/bash
+#BSUB -J trace_sixmer_motif
+#BSUB -n 4
+#BSUB -q gpuA
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -o job_motif.%J.out
+#BSUB -e job_motif.%J.err
+
+set -euo pipefail
+
+# Keep Python output unbuffered so LSF logs update during the run.
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS="${LSB_DJOB_NUMPROC:-4}"
+
+PROJECT_DIR=/public-supool/home/annie/translation_model
+TRACE_DIR=${PROJECT_DIR}/TRACE
+OUT_DIR=${PROJECT_DIR}/results/explainability/sixmer_motif
+
+# Copy the complete OUT_DIR to another server to preserve reusable stages.
+mkdir -p "${OUT_DIR}"
+cd "${PROJECT_DIR}"
+
+# Add --target-transcript-file /path/to/evaluated_tids.txt to restrict the scan.
+# Add --codon-pair-table /path/to/reference.csv when a reference is available.
+python -u "${TRACE_DIR}/run.sixmer_attribution_scan.py" \
+    --model-config "${TRACE_DIR}/src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml" \
+    --checkpoint "${PROJECT_DIR}/checkpoint/train/base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.200_0.001.best_profile.pt" \
+    --dataset "${PROJECT_DIR}/dataset/human_tissue_22c_6k_depth0.1_cov0.1_rpm1.test.h5" \
+    --out-dir "${OUT_DIR}" \
+    --device auto \
+    --head-hidden-dim 384 \
+    --num-transcripts 500 \
+    --min-length 100 \
+    --max-length 1200 \
+    --kmer-length 6 \
+    --stride 1 \
+    --cds-overlap-threshold 3 \
+    --attention-query-chunk-size 256 \
+    --saliency-output-transform none \
+    --expression-mode zero \
+    --min-hits 20 \
+    --bottom-quantile 0.05 \
+    --top-n 12 \
+    --pwm-pkl "${PROJECT_DIR}/results/rbp_effect/Unified_RBP_PWMs.pkl" \
+    --metadata-tsv "${PROJECT_DIR}/results/rbp_effect/Unified_RBP_Metadata_Annotated.tsv" \
+    --rbp-match-threshold 0.85 \
+    --rbp-match-percentile 0.99 \
+    --max-rbp-matches 5 \
+    --plot-width 7.2 \
+    --plot-height 8.0
