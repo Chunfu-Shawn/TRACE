@@ -243,7 +243,7 @@ def main():
         sys.exit(1)
     print(f"[Lookup] Loaded Junction CPM values for tumor run {args.tumor_run_id}.")
 
-    # 2. 整合 TRACE 输出、ORF score 与 JCPM
+    # 2. 整合 TRACE 输出、ORF_Score 与 JCPM
     df_trans = pd.read_csv(args.translation_csv)
 
     required_translation_cols = {'Tid', 'start', 'stop', 'collapse_score'}
@@ -294,7 +294,7 @@ def main():
         prot_expr_c = tumor_jcpm * mean_int
         
         trans_lookup[key] = {
-            'ORF Score': orf_score,
+            'ORF_Score': orf_score,
             'Tumor_TPM': tumor_tpm,
             'Junction_CPM': tumor_jcpm,
             'mean_intensity': mean_int,
@@ -319,7 +319,7 @@ def main():
         best_orf_score = float('-inf')
         best_expr = float('-inf')
         best_metrics = {
-            'ORF Score': 0.0,
+            'ORF_Score': 0.0,
             'Tumor_TPM': 0.0, 'Junction_CPM': 0.0, 'mean_intensity': 0.0,
             'Protein_Expression_T': 0.0, 'Protein_Expression_C': 0.0,
             'GTEx_Transcript_TPM_Covered': False,
@@ -352,7 +352,7 @@ def main():
                         metrics = trans_lookup.get(key)
                         if metrics is None:
                             continue
-                        orf_score = metrics.get('ORF Score', 0.0)
+                        orf_score = metrics.get('ORF_Score', 0.0)
                         expr = metrics.get('mean_intensity', 0.0)
 
                         is_better_orf = (
@@ -388,7 +388,7 @@ def main():
     
     cols_order = [
         'Peptide', 'MHC', 'Identity', 
-        'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 'ORF Score',
+        'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 'ORF_Score',
         'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Tumor_TPM', 
         'Protein_Expression_C', 'Junction_CPM', 
@@ -407,7 +407,7 @@ def main():
     # Prioritize candidates by TRACE ORF confidence. HLA presentation score
     # and translation intensity are used only as deterministic tie-breakers.
     df_mapped.sort_values(
-        by=['ORF Score', 'Score_EL', 'mean_intensity'],
+        by=['ORF_Score', 'Score_EL', 'mean_intensity'],
         ascending=[False, False, False],
         inplace=True,
     )
@@ -415,7 +415,7 @@ def main():
     round_cols = [
         'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Protein_Expression_C', 
-        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF Score', 'Score_EL'
+        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF_Score', 'Score_EL'
     ]
     df_mapped[round_cols] = df_mapped[round_cols].round(4)
     
