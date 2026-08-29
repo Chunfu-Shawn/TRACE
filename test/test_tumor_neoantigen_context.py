@@ -39,6 +39,12 @@ from analyze_transcript_types import (
     micro_category,
     summarize,
 )
+from analyze_tumor_associated_neoantigens import (
+    add_sharing_statistics,
+    classify_source,
+    collapse_patient_peptides,
+    peptide_crosses_junction,
+)
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
@@ -48,6 +54,56 @@ from model.translation_utils import normalize_initiator_codon
 
 
 class MetadataContextTests(unittest.TestCase):
+    def test_de_novo_antigen_requires_same_transcript_sequence(self):
+        row = {
+            "Transcript_ID": "TX1",
+            "Peptide": "PEPTIDE",
+            "Is_De_Novo": True,
+        }
+        unverified = classify_source(
+            row,
+            canonical_proteins={},
+            denovo_proteins={"TX2": "XXPEPTIDEXX"},
+            class_codes={},
+            exon_boundaries={},
+        )
+        verified = classify_source(
+            row,
+            canonical_proteins={},
+            denovo_proteins={"TX1": "XXPEPTIDEXX"},
+            class_codes={},
+            exon_boundaries={},
+        )
+        self.assertEqual(unverified, ("De novo Gene", "Other ORFs", "id_only_not_sequence_verified"))
+        self.assertEqual(verified, ("De novo Gene", "De novo Gene", "verified_id_and_sequence"))
+
+    def test_peptide_junction_interval_uses_open_boundaries(self):
+        boundaries = {"MSTRG.1": [9, 18]}
+        self.assertTrue(peptide_crosses_junction("MSTRG.1", "6:12", boundaries))
+        self.assertFalse(peptide_crosses_junction("MSTRG.1", "9:12", boundaries))
+        self.assertFalse(peptide_crosses_junction("MSTRG.1", "Unmapped", boundaries))
+
+    def test_patient_peptide_collapse_prevents_hla_double_counting(self):
+        sources = pd.DataFrame(
+            {
+                "Patient": ["P1", "P1", "P1", "P2"],
+                "Peptide": ["PEPTIDE"] * 4,
+                "Macro_Origin": ["Canonical CDS", "Canonical CDS", "Novel Transcript", "Novel Transcript"],
+                "Micro_Origin": ["Canonical CDS", "Canonical CDS", "Intergenic (u)", "Intergenic (u)"],
+                "Clean_Transcript_ID": ["ENST1", "ENST1", "MSTRG.1", "MSTRG.1"],
+                "MHC": ["HLA-A02:01", "HLA-A11:01", "HLA-A02:01", "HLA-A02:01"],
+                "Aff(nM)": [30.0, 20.0, 50.0, 40.0],
+                "%Rank_EL": [0.4, 0.2, 0.8, 0.5],
+                "mean_intensity": [0.5, 0.5, 0.8, 0.7],
+            }
+        )
+        peptide_units = collapse_patient_peptides(sources)
+        peptide_units, sharing = add_sharing_statistics(peptide_units)
+        self.assertEqual(len(peptide_units), 2)
+        self.assertEqual(peptide_units.set_index("Patient").at["P1", "Macro_Origin"], "Multiple Origins")
+        self.assertEqual(peptide_units.set_index("Patient").at["P1", "Best_Affinity_nM"], 20.0)
+        self.assertEqual(sharing.iloc[0]["Shared_Patient_Count"], 2)
+
     def test_transcript_type_annotation_uses_denovo_and_novel_precedence(self):
         reference_gtf = (
             'chr1\ttest\ttranscript\t1\t100\t.\t+\t.\tgene_id "G1"; transcript_id "ENST1.1"; transcript_type "protein_coding";\n'

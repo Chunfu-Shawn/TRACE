@@ -26,6 +26,11 @@ RUN_NORMAL_TRACE=${RUN_NORMAL_TRACE:-no}
 # Cohort transcript-type tables and figures are generated after the final GTEx filter.
 RUN_TRANSCRIPT_TYPE_ANALYSIS=${RUN_TRANSCRIPT_TYPE_ANALYSIS:-yes}
 DENOVO_ID_FILE=${DENOVO_ID_FILE:-/home/user/data3/rbase/small_peptide/denovo_genes/denovo_genes_NEE_CG.tid.tsv}
+# Cohort tumor-associated antigen landscape analysis runs after canonical filtering.
+RUN_TAA_LANDSCAPE_ANALYSIS=${RUN_TAA_LANDSCAPE_ANALYSIS:-yes}
+CANONICAL_PROTEIN_FASTA=${CANONICAL_PROTEIN_FASTA:-/home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa}
+DENOVO_PROTEIN_FASTA=${DENOVO_PROTEIN_FASTA:-/home/user/data3/rbase/small_peptide/denovo_genes/fasta/denovo_gene_proteins.fasta}
+TAA_TARGET_PATIENTS_FILE=${TAA_TARGET_PATIENTS_FILE:-}
 TRACE_BATCH_SIZE=${TRACE_BATCH_SIZE:-5}
 TRACE_MAX_PATIENTS=${TRACE_MAX_PATIENTS:-}
 
@@ -370,5 +375,45 @@ echo "---------------------------"
 TAA_REPORT_DIR=${WORK_DIR}/patient_tumor_associated_antigen_reports
 python ${SCRIPT_DIR}/filter_canonical_offtargets.py \
     --input_dir ${NORMAL_FILTERED_DIR} \
-    --fasta /home/user/data3/rbase/genome_ref/Homo_sapiens/hg38/fasta/translations/gencode.v49.pc_translations.fa \
+    --fasta ${CANONICAL_PROTEIN_FASTA} \
     --output_dir ${TAA_REPORT_DIR}
+
+if is_true "${RUN_TAA_LANDSCAPE_ANALYSIS}"; then
+    echo -e "\n"
+    echo "======================================================"
+    echo "==== Analyze tumor-associated antigen landscape ====="
+    echo "======================================================"
+    TAA_ANALYSIS_DIR=${WORK_DIR}/tumor_associated_neoantigen
+    TRANSCRIPT_META_FILE=${WORK_DIR}/tumor_specific_tx/transcript_type_analysis/annotated_tumor_associated_transcripts.csv
+    if [ ! -s "${TRANSCRIPT_META_FILE}" ]; then
+        TRANSCRIPT_META_FILE=${FINAL_TARGET_CSV}
+    fi
+    TAA_ANALYSIS_ARGS=(
+        --input_dir "${TAA_REPORT_DIR}"
+        --reference_gtf "${GTF_FILE}"
+        --novel_gtf "${ADD_GTF_FILE}"
+        --canonical_protein_fasta "${CANONICAL_PROTEIN_FASTA}"
+        --transcript_meta "${TRANSCRIPT_META_FILE}"
+        --output_dir "${TAA_ANALYSIS_DIR}"
+        --mode count
+        --formats pdf svg png tiff
+    )
+    if [ -s "${DENOVO_ID_FILE}" ]; then
+        TAA_ANALYSIS_ARGS+=(--denovo_ids "${DENOVO_ID_FILE}")
+    else
+        echo "[Warning] De novo transcript ID file is unavailable: ${DENOVO_ID_FILE}"
+    fi
+    if [ -s "${DENOVO_PROTEIN_FASTA}" ]; then
+        TAA_ANALYSIS_ARGS+=(--denovo_protein_fasta "${DENOVO_PROTEIN_FASTA}")
+    else
+        echo "[Warning] De novo protein FASTA is unavailable: ${DENOVO_PROTEIN_FASTA}"
+    fi
+    if [ -n "${TAA_TARGET_PATIENTS_FILE}" ]; then
+        if [ -s "${TAA_TARGET_PATIENTS_FILE}" ]; then
+            TAA_ANALYSIS_ARGS+=(--target_patients_file "${TAA_TARGET_PATIENTS_FILE}")
+        else
+            echo "[Warning] Target-patient file is unavailable: ${TAA_TARGET_PATIENTS_FILE}"
+        fi
+    fi
+    python "${SCRIPT_DIR}/analyze_tumor_associated_neoantigens.py" "${TAA_ANALYSIS_ARGS[@]}"
+fi
