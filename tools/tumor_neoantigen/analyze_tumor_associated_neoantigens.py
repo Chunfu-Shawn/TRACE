@@ -84,8 +84,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--formats",
         nargs="+",
-        choices=("pdf", "svg", "png", "tiff"),
-        default=("pdf", "svg", "png", "tiff"),
+        choices=("pdf",),
+        default=("pdf",),
+        help="Figure output format; only PDF is supported.",
     )
     parser.add_argument("--no_plots", action="store_true")
     parser.add_argument("--no_patient_shards", action="store_true")
@@ -467,17 +468,15 @@ def configure_matplotlib() -> None:
             "axes.spines.right": False,
             "legend.frameon": False,
             "pdf.fonttype": 42,
-            "ps.fonttype": 42,
-            "svg.fonttype": "none",
         }
     )
 
 
 def save_figure(figure, prefix: Path, formats: Iterable[str]) -> None:
-    suffixes = {"pdf": ".pdf", "svg": ".svg", "png": ".png", "tiff": ".tiff"}
     for file_format in formats:
-        dpi = 600 if file_format in {"png", "tiff"} else 300
-        figure.savefig(prefix.with_suffix(suffixes[file_format]), dpi=dpi, bbox_inches="tight")
+        if file_format != "pdf":
+            raise ValueError(f"Unsupported figure format: {file_format}")
+        figure.savefig(prefix.with_suffix(".pdf"), dpi=600, bbox_inches="tight")
 
 
 def plot_global_bar(

@@ -131,7 +131,7 @@ if is_true "${RUN_TRANSCRIPT_TYPE_ANALYSIS}"; then
         --novel_gtf "${ADD_GTF_FILE}"
         --output_dir "${TRANSCRIPT_TYPE_DIR}"
         --mode count
-        --formats pdf svg png tiff
+        --formats pdf
     )
     if [ -s "${DENOVO_ID_FILE}" ]; then
         TRANSCRIPT_TYPE_ARGS+=(--denovo_ids "${DENOVO_ID_FILE}")
@@ -396,7 +396,7 @@ if is_true "${RUN_TAA_LANDSCAPE_ANALYSIS}"; then
         --transcript_meta "${TRANSCRIPT_META_FILE}"
         --output_dir "${TAA_ANALYSIS_DIR}"
         --mode count
-        --formats pdf svg png tiff
+        --formats pdf
     )
     if [ -s "${DENOVO_ID_FILE}" ]; then
         TAA_ANALYSIS_ARGS+=(--denovo_ids "${DENOVO_ID_FILE}")
