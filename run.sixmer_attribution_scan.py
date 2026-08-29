@@ -71,7 +71,7 @@ SCAN_FIELDS = (
 )
 SCAN_CACHE_VERSION = 1
 SUMMARY_CACHE_VERSION = 2
-BUBBLE_CACHE_VERSION = 1
+BUBBLE_CACHE_VERSION = 2
 START_LIKE_CODONS = frozenset({"ATG", "CTG", "GTG", "TTG"})
 STOP_CODONS = frozenset({"TAA", "TAG", "TGA"})
 YEAST_INHIBITORY_CODON_PAIRS = frozenset({
@@ -2234,6 +2234,7 @@ def _draw_bubble_panel(
         scope,
         size_reference,
         bottom_quantile,
+        show_low_count=True,
         panel_letter=None):
     """Draw one hit-count versus fold-change bubble panel."""
     metric_colors = {"Attention": "#4C78A8", "Saliency": "#2A9D8F"}
@@ -2267,16 +2268,17 @@ def _draw_bubble_panel(
         return
     low_count = ~valid["Reliable"].astype(bool)
     sizes = _bubble_sizes(valid["Fold_Change"], size_reference)
-    axis.scatter(
-        valid.loc[low_count, "N_Hits"],
-        valid.loc[low_count, "Log2_Fold_Change"],
-        s=sizes[low_count.to_numpy()],
-        color="#D9D9D9",
-        alpha=0.36,
-        linewidth=0,
-        rasterized=False,
-        zorder=1,
-    )
+    if show_low_count:
+        axis.scatter(
+            valid.loc[low_count, "N_Hits"],
+            valid.loc[low_count, "Log2_Fold_Change"],
+            s=sizes[low_count.to_numpy()],
+            color="#D9D9D9",
+            alpha=0.36,
+            linewidth=0,
+            rasterized=False,
+            zorder=1,
+        )
     axis.scatter(
         valid.loc[~low_count, "N_Hits"],
         valid.loc[~low_count, "Log2_Fold_Change"],
@@ -2291,7 +2293,7 @@ def _draw_bubble_panel(
     y_min = float(valid["Log2_Fold_Change"].min())
     y_max = float(valid["Log2_Fold_Change"].max())
     y_span = max(y_max - y_min, 0.25)
-    axis.set_ylim(y_min - 0.08 * y_span, y_max + 0.42 * y_span)
+    axis.set_ylim(y_min - 0.08 * y_span, y_max + 0.10 * y_span)
     selected = annotations[
         annotations["Scope"].eq(scope)
         & annotations["Metric"].eq(metric)
@@ -2303,18 +2305,12 @@ def _draw_bubble_panel(
             continue
         selected_points.append((row, point.iloc[0]))
     selected_points.sort(key=lambda value: value[1]["N_Hits"])
-    if selected_points:
-        x_min = float(valid["N_Hits"].min())
-        x_max = float(valid["N_Hits"].max())
-        label_x_positions = np.geomspace(
-            max(x_min, 1.0),
-            max(x_max, max(x_min, 1.0) * 1.01),
-            len(selected_points) + 2,
-        )[1:-1]
-    else:
-        label_x_positions = []
-    for index, ((row, point), label_x) in enumerate(zip(
-            selected_points, label_x_positions)):
+    label_positions = _nonoverlapping_side_label_positions(
+        selected_points,
+        y_min=y_min,
+        y_max=y_max,
+    )
+    for row, point, label_x, label_y, horizontal_alignment in label_positions:
         edge_color = annotation_colors.get(row.Annotation_Type, "#333333")
         point_size = _bubble_sizes(
             [point["Fold_Change"]], size_reference
@@ -2329,16 +2325,21 @@ def _draw_bubble_panel(
             alpha=0.95,
             zorder=4,
         )
-        label_y = y_max + (0.10 if index % 2 == 0 else 0.25) * y_span
         axis.annotate(
             str(row.Label),
             xy=(point["N_Hits"], point["Log2_Fold_Change"]),
             xytext=(label_x, label_y),
-            textcoords="data",
+            textcoords="axes fraction",
             fontsize=5.0,
             color=edge_color,
-            ha="center",
-            va="bottom",
+            ha=horizontal_alignment,
+            va="center",
+            bbox={
+                "boxstyle": "round,pad=0.12",
+                "facecolor": "white",
+                "edgecolor": "none",
+                "alpha": 0.78,
+            },
             arrowprops={
                 "arrowstyle": "-",
                 "color": edge_color,
@@ -2364,6 +2365,70 @@ def _draw_bubble_panel(
         fontsize=5.2,
         color="#555555",
     )
+
+
+def _nonoverlapping_side_label_positions(
+        selected_points,
+        y_min,
+        y_max,
+        minimum_gap=0.105,
+        x_column="N_Hits",
+        y_column="Log2_Fold_Change"):
+    """Place labels in balanced side columns with deterministic y repulsion."""
+    if not selected_points:
+        return []
+    y_span = max(float(y_max) - float(y_min), np.finfo(float).eps)
+    ordered = sorted(
+        selected_points,
+        key=lambda value: float(value[1][x_column]),
+    )
+    split = int(math.ceil(len(ordered) / 2))
+    sides = (
+        (ordered[:split], 0.015, "left"),
+        (ordered[split:], 0.985, "right"),
+    )
+    positions = []
+    for points, x_fraction, horizontal_alignment in sides:
+        if not points:
+            continue
+        desired = sorted(
+            [
+                (
+                    np.clip(
+                        (
+                            float(point[y_column])
+                            - float(y_min)
+                        ) / y_span,
+                        0.10,
+                        0.90,
+                    ),
+                    row,
+                    point,
+                )
+                for row, point in points
+            ],
+            key=lambda value: value[0],
+        )
+        adjusted = []
+        for desired_y, row, point in desired:
+            y_fraction = max(
+                float(desired_y),
+                adjusted[-1][0] + float(minimum_gap) if adjusted else 0.10,
+            )
+            adjusted.append([y_fraction, row, point])
+        overflow = max(0.0, adjusted[-1][0] - 0.90)
+        if overflow:
+            for item in adjusted:
+                item[0] -= overflow
+        for y_fraction, row, point in adjusted:
+            positions.append((
+                row,
+                point,
+                x_fraction,
+                float(np.clip(y_fraction, 0.08, 0.92)),
+                horizontal_alignment,
+            ))
+    return positions
 
 
 def _add_bubble_legends(fig, fold_values, anchor_y=0.01):
@@ -2468,6 +2533,7 @@ def _plot_sixmer_bubble_summary(
             scope="Summary",
             size_reference=fold_reference,
             bottom_quantile=bottom_quantile,
+            show_low_count=False,
             panel_letter=chr(ord("a") + index),
         )
     figure.suptitle(
@@ -2477,9 +2543,9 @@ def _plot_sixmer_bubble_summary(
     )
     figure.text(
         0.5, 0.005,
-        "RBP labels indicate local PWM compatibility. Yeast codon-pair "
-        "evidence applies to in-frame CDS contexts; start/stop labels denote "
-        "sequence content, not verified sites.",
+        "RBP labels require both local PWM compatibility and membership in "
+        "the curated translation-regulatory RBP table. Yeast codon-pair "
+        "evidence applies to in-frame CDS contexts.",
         ha="center",
         va="bottom",
         fontsize=5.0,
@@ -2520,6 +2586,7 @@ def _plot_sixmer_bubbles_by_region(
                 scope=region,
                 size_reference=fold_reference,
                 bottom_quantile=bottom_quantile,
+                show_low_count=True,
                 panel_letter=chr(ord("a") + panel_index),
             )
             panel_index += 1
@@ -2531,8 +2598,8 @@ def _plot_sixmer_bubbles_by_region(
     figure.text(
         0.5, 0.004,
         "Low-count motifs are gray. Codon-pair labels are restricted to "
-        "in-frame CDS hits; other labels describe sequence or local PWM "
-        "compatibility.",
+        "in-frame CDS hits; RBP labels require a PWM match plus curated "
+        "translation evidence.",
         ha="center",
         va="bottom",
         fontsize=5.0,
@@ -2540,6 +2607,314 @@ def _plot_sixmer_bubbles_by_region(
     )
     _add_bubble_legends(figure, fold_reference, anchor_y=0.026)
     figure.tight_layout(rect=(0, 0.11, 1, 0.97))
+    output_pdf = Path(output_pdf)
+    output_pdf.parent.mkdir(parents=True, exist_ok=True)
+    figure.savefig(output_pdf, bbox_inches="tight")
+    plt.close(figure)
+
+
+def _build_attention_saliency_bubble_table(cross_region):
+    """Join cross-region attention and saliency fold changes by 6-mer."""
+    shared_columns = [
+        "Sixmer", "N_Hits", "N_Transcripts", "Regions_Observed",
+        "N_InFrame_CodonPair_Hits", "Reliable",
+        "Fold_Change", "Log2_Fold_Change",
+    ]
+    attention = cross_region[
+        cross_region["Metric"].eq("Attention")
+    ][shared_columns].rename(columns={
+        "N_Hits": "Attention_Hit_N",
+        "N_Transcripts": "Attention_Transcript_N",
+        "Regions_Observed": "Attention_Regions_Observed",
+        "N_InFrame_CodonPair_Hits": "Attention_InFrame_Pair_Hit_N",
+        "Reliable": "Attention_Reliable",
+        "Fold_Change": "Attention_FC",
+        "Log2_Fold_Change": "Log2_Attention_FC",
+    })
+    saliency = cross_region[
+        cross_region["Metric"].eq("Saliency")
+    ][shared_columns].rename(columns={
+        "N_Hits": "Saliency_Hit_N",
+        "N_Transcripts": "Saliency_Transcript_N",
+        "Regions_Observed": "Saliency_Regions_Observed",
+        "N_InFrame_CodonPair_Hits": "Saliency_InFrame_Pair_Hit_N",
+        "Reliable": "Saliency_Reliable",
+        "Fold_Change": "Saliency_FC",
+        "Log2_Fold_Change": "Log2_Saliency_FC",
+    })
+    combined = attention.merge(
+        saliency,
+        on="Sixmer",
+        how="outer",
+        validate="one_to_one",
+    )
+    combined["Hit_N"] = combined[
+        ["Attention_Hit_N", "Saliency_Hit_N"]
+    ].max(axis=1)
+    combined["Transcript_N"] = combined[
+        ["Attention_Transcript_N", "Saliency_Transcript_N"]
+    ].max(axis=1)
+    combined["Regions_Observed"] = combined[
+        ["Attention_Regions_Observed", "Saliency_Regions_Observed"]
+    ].min(axis=1)
+    combined["N_InFrame_CodonPair_Hits"] = combined[
+        ["Attention_InFrame_Pair_Hit_N", "Saliency_InFrame_Pair_Hit_N"]
+    ].max(axis=1)
+    combined["Reliable"] = (
+        combined["Attention_Reliable"].fillna(False).astype(bool)
+        & combined["Saliency_Reliable"].fillna(False).astype(bool)
+    )
+    combined["Mean_Log2_FC"] = combined[
+        ["Log2_Attention_FC", "Log2_Saliency_FC"]
+    ].mean(axis=1)
+    return combined
+
+
+def _select_joint_bubble_annotations(
+        joint_table,
+        annotations,
+        labels_per_panel):
+    """Select balanced biological annotations for the joint FC panel."""
+    if annotations.empty or int(labels_per_panel) <= 0:
+        return pd.DataFrame(columns=annotations.columns)
+    candidates = annotations[annotations["Scope"].eq("Summary")].copy()
+    candidates = candidates.sort_values(
+        "Log2_Fold_Change", ascending=False
+    ).drop_duplicates("Sixmer")
+    candidates = candidates.merge(
+        joint_table[
+            [
+                "Sixmer", "Hit_N", "Attention_FC", "Saliency_FC",
+                "Log2_Attention_FC", "Log2_Saliency_FC", "Mean_Log2_FC",
+                "N_InFrame_CodonPair_Hits", "Reliable",
+            ]
+        ],
+        on="Sixmer",
+        how="inner",
+        suffixes=("", "_Joint"),
+        validate="one_to_one",
+    )
+    candidates = candidates[
+        candidates["Reliable"]
+        & candidates["Mean_Log2_FC"].notna()
+    ].sort_values("Mean_Log2_FC", ascending=False)
+    selected_indices = []
+    for annotation_type in (
+            "Known translation RBP",
+            "Yeast inhibitory codon pair",
+            "Start-like codon sequence",
+            "Stop-codon sequence"):
+        subset = candidates[candidates["Annotation_Type"].eq(annotation_type)]
+        if not subset.empty:
+            selected_indices.append(subset.index[0])
+    for index in candidates.index:
+        if index not in selected_indices:
+            selected_indices.append(index)
+        if len(selected_indices) >= int(labels_per_panel):
+            break
+    selected = candidates.loc[
+        selected_indices[:int(labels_per_panel)]
+    ].copy()
+    selected["Scope"] = "Attention vs Saliency"
+    selected["Region"] = "Mean of regions"
+    selected["Metric"] = "Joint"
+    selected["Hit_N"] = selected["Hit_N"].astype(int)
+    selected["Fold_Change"] = np.sqrt(
+        selected["Attention_FC"] * selected["Saliency_FC"]
+    )
+    selected["Log2_Fold_Change"] = selected["Mean_Log2_FC"]
+    output_columns = list(annotations.columns)
+    return selected[output_columns]
+
+
+def _hit_count_sizes(hit_counts, reference_values):
+    """Map hit counts monotonically to bubble areas."""
+    values = np.asarray(hit_counts, dtype=float)
+    reference = np.asarray(reference_values, dtype=float)
+    reference = reference[np.isfinite(reference) & (reference > 0)]
+    if reference.size == 0:
+        return np.full(len(values), 18.0)
+    transformed = np.log10(np.maximum(values, 1.0))
+    reference_transformed = np.log10(reference)
+    lower, upper = np.nanquantile(reference_transformed, [0.02, 0.98])
+    if not np.isfinite(lower) or not np.isfinite(upper) or upper <= lower:
+        return np.full(len(values), 30.0)
+    scaled = (np.clip(transformed, lower, upper) - lower) / (upper - lower)
+    return 8.0 + 105.0 * scaled
+
+
+def _plot_attention_vs_saliency_bubbles(
+        joint_table,
+        annotations,
+        output_pdf,
+        width,
+        height):
+    """Plot attention FC against saliency FC with hit-count bubble areas."""
+    _configure_bubble_style()
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    data = joint_table[
+        joint_table["Hit_N"].gt(0)
+        & joint_table["Log2_Attention_FC"].notna()
+        & joint_table["Log2_Saliency_FC"].notna()
+    ].copy()
+    if data.empty:
+        raise ValueError(
+            "No motifs have paired attention and saliency fold changes."
+        )
+    figure, axis = plt.subplots(
+        1, 1, figsize=(float(width), float(height)), squeeze=True
+    )
+    hit_reference = data["Hit_N"].to_numpy(dtype=float)
+    sizes = _hit_count_sizes(data["Hit_N"], hit_reference)
+    axis.scatter(
+        data["Log2_Attention_FC"],
+        data["Log2_Saliency_FC"],
+        s=sizes,
+        color="#5276A7",
+        alpha=0.42,
+        edgecolor="white",
+        linewidth=0.25,
+        rasterized=False,
+        zorder=2,
+    )
+    x_min = float(data["Log2_Attention_FC"].min())
+    x_max = float(data["Log2_Attention_FC"].max())
+    y_min = float(data["Log2_Saliency_FC"].min())
+    y_max = float(data["Log2_Saliency_FC"].max())
+    x_span = max(x_max - x_min, 0.25)
+    y_span = max(y_max - y_min, 0.25)
+    axis.set_xlim(x_min - 0.08 * x_span, x_max + 0.08 * x_span)
+    axis.set_ylim(y_min - 0.08 * y_span, y_max + 0.08 * y_span)
+    diagonal_min = max(axis.get_xlim()[0], axis.get_ylim()[0])
+    diagonal_max = min(axis.get_xlim()[1], axis.get_ylim()[1])
+    axis.plot(
+        [diagonal_min, diagonal_max],
+        [diagonal_min, diagonal_max],
+        color="#8A8A8A",
+        linestyle=":",
+        linewidth=0.7,
+        zorder=1,
+    )
+    axis.axvline(0, color="#777777", linewidth=0.65, linestyle="--")
+    axis.axhline(0, color="#777777", linewidth=0.65, linestyle="--")
+
+    annotation_colors = {
+        "Known translation RBP": "#D55E00",
+        "Yeast inhibitory codon pair": "#7B2CBF",
+        "Start-like codon sequence": "#2E7D32",
+        "Stop-codon sequence": "#B2182B",
+    }
+    selected = annotations[
+        annotations["Scope"].eq("Attention vs Saliency")
+    ] if not annotations.empty else pd.DataFrame()
+    selected_points = []
+    for row in selected.itertuples(index=False):
+        point = data[data["Sixmer"].eq(str(row.Sixmer))]
+        if not point.empty:
+            selected_points.append((row, point.iloc[0]))
+    label_positions = _nonoverlapping_side_label_positions(
+        selected_points,
+        y_min=y_min,
+        y_max=y_max,
+        x_column="Log2_Attention_FC",
+        y_column="Log2_Saliency_FC",
+    )
+    for row, point, label_x, label_y, horizontal_alignment in label_positions:
+        edge_color = annotation_colors.get(row.Annotation_Type, "#333333")
+        point_size = _hit_count_sizes(
+            [point["Hit_N"]], hit_reference
+        )[0]
+        axis.scatter(
+            [point["Log2_Attention_FC"]],
+            [point["Log2_Saliency_FC"]],
+            s=point_size + 18,
+            facecolor="#5276A7",
+            edgecolor=edge_color,
+            linewidth=1.0,
+            alpha=0.95,
+            zorder=4,
+        )
+        axis.annotate(
+            str(row.Label),
+            xy=(
+                point["Log2_Attention_FC"],
+                point["Log2_Saliency_FC"],
+            ),
+            xytext=(label_x, label_y),
+            textcoords="axes fraction",
+            fontsize=5.2,
+            color=edge_color,
+            ha=horizontal_alignment,
+            va="center",
+            bbox={
+                "boxstyle": "round,pad=0.12",
+                "facecolor": "white",
+                "edgecolor": "none",
+                "alpha": 0.80,
+            },
+            arrowprops={
+                "arrowstyle": "-",
+                "color": edge_color,
+                "linewidth": 0.45,
+            },
+            zorder=5,
+        )
+    axis.grid(color="#E7E7E7", linewidth=0.45)
+    axis.set_axisbelow(True)
+    axis.set_xlabel("Attention log2 fold change")
+    axis.set_ylabel("Saliency log2 fold change")
+    axis.set_title(
+        "Attention and saliency importance across 6-mer motifs",
+        fontsize=8.5,
+        pad=8,
+    )
+    axis.text(
+        0.98, 0.03,
+        f"{len(data):,} / {4 ** 6:,} motifs",
+        transform=axis.transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=5.2,
+        color="#555555",
+    )
+    finite_hits = hit_reference[np.isfinite(hit_reference) & (hit_reference > 0)]
+    if finite_hits.size:
+        example_hits = np.unique(
+            np.rint(np.nanquantile(finite_hits, [0.25, 0.50, 0.90])).astype(int)
+        )
+        example_sizes = _hit_count_sizes(example_hits, finite_hits)
+        size_handles = [
+            Line2D(
+                [], [], marker="o", linestyle="",
+                markerfacecolor="#5276A7", markeredgecolor="white",
+                markersize=math.sqrt(size), label=f"n={int(hit_n):,}",
+            )
+            for hit_n, size in zip(example_hits, example_sizes)
+        ]
+        axis.legend(
+            handles=size_handles,
+            title="Hit N",
+            loc="lower left",
+            ncol=len(size_handles),
+            fontsize=5.5,
+            title_fontsize=5.8,
+            handletextpad=0.2,
+            columnspacing=0.7,
+            frameon=False,
+        )
+    figure.text(
+        0.5, 0.005,
+        "Fold changes are averaged across 5′UTR, CDS, and 3′UTR before "
+        "log2 transformation; bubble area represents total motif hits. RBP "
+        "labels require a PWM match plus curated translation evidence.",
+        ha="center",
+        va="bottom",
+        fontsize=5.0,
+        color="#555555",
+    )
+    figure.tight_layout(rect=(0, 0.045, 1, 1))
     output_pdf = Path(output_pdf)
     output_pdf.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(output_pdf, bbox_inches="tight")
@@ -2661,6 +3036,8 @@ def build_parser():
     parser.add_argument("--bubble-summary-height", type=float, default=3.8)
     parser.add_argument("--bubble-region-width", type=float, default=7.2)
     parser.add_argument("--bubble-region-height", type=float, default=8.8)
+    parser.add_argument("--bubble-joint-width", type=float, default=4.8)
+    parser.add_argument("--bubble-joint-height", type=float, default=4.2)
     parser.add_argument("--skip-bubble-plots", action="store_true")
     return parser
 
@@ -2714,7 +3091,8 @@ def _validate_args(args):
         )
     for name in (
             "bubble_summary_width", "bubble_summary_height",
-            "bubble_region_width", "bubble_region_height"):
+            "bubble_region_width", "bubble_region_height",
+            "bubble_joint_width", "bubble_joint_height"):
         if float(getattr(args, name)) <= 0:
             raise ValueError(f"{name.replace('_', '-')} must be positive.")
 
@@ -2740,9 +3118,15 @@ def main(argv=None):
         "plot_complete": out_dir / "sixmer_plot_complete.json",
         "bubble_summary_data": out_dir / "sixmer_bubble_summary_data.csv",
         "bubble_regional_data": out_dir / "sixmer_bubble_by_region_data.csv",
+        "bubble_joint_data": (
+            out_dir / "sixmer_attention_vs_saliency_bubble_data.csv"
+        ),
         "bubble_annotations": out_dir / "sixmer_bubble_annotations.csv",
         "bubble_summary": out_dir / "sixmer_bubble_summary.pdf",
         "bubble_regions": out_dir / "sixmer_bubble_by_region.pdf",
+        "bubble_joint": (
+            out_dir / "sixmer_attention_vs_saliency_bubble.pdf"
+        ),
         "bubble_complete": out_dir / "sixmer_bubble_complete.json",
         "manifest": out_dir / "sixmer_scan_manifest.json",
     }
@@ -2931,6 +3315,8 @@ def main(argv=None):
         "Summary_Height": float(args.bubble_summary_height),
         "Regional_Width": float(args.bubble_region_width),
         "Regional_Height": float(args.bubble_region_height),
+        "Joint_Width": float(args.bubble_joint_width),
+        "Joint_Height": float(args.bubble_joint_height),
         "Yeast_Inhibitory_Codon_Pairs": sorted(
             YEAST_INHIBITORY_CODON_PAIRS
         ),
@@ -2940,9 +3326,11 @@ def main(argv=None):
     bubble_files = {
         "Summary_Data": paths["bubble_summary_data"],
         "Regional_Data": paths["bubble_regional_data"],
+        "Joint_Data": paths["bubble_joint_data"],
         "Annotations": paths["bubble_annotations"],
         "Summary_PDF": paths["bubble_summary"],
         "Regional_PDF": paths["bubble_regions"],
+        "Joint_PDF": paths["bubble_joint"],
     }
     bubble_cache_valid = (
         not summary_ran
@@ -2953,6 +3341,7 @@ def main(argv=None):
         )
         and _pdf_is_valid(paths["bubble_summary"])
         and _pdf_is_valid(paths["bubble_regions"])
+        and _pdf_is_valid(paths["bubble_joint"])
     )
     if args.skip_bubble_plots:
         print(
@@ -2962,7 +3351,8 @@ def main(argv=None):
     elif bubble_cache_valid:
         print(
             f"[SKIP] bubble plots: found {paths['bubble_summary'].name} "
-            f"and {paths['bubble_regions'].name}",
+            f"and {paths['bubble_regions'].name} and "
+            f"{paths['bubble_joint'].name}",
             flush=True,
         )
     else:
@@ -2991,8 +3381,21 @@ def main(argv=None):
                 "Annotation_Type", "Label", "RBP", "RBP_Direction",
                 "PWM_Compatibility", "PWM_Percentile", "Evidence_Source",
             ])
+        joint_bubbles = _build_attention_saliency_bubble_table(
+            cross_region_bubbles
+        )
+        joint_annotations = _select_joint_bubble_annotations(
+            joint_bubbles,
+            bubble_annotations,
+            labels_per_panel=args.bubble_labels_per_panel,
+        )
+        bubble_annotations = pd.concat(
+            [bubble_annotations, joint_annotations],
+            ignore_index=True,
+        )
         _atomic_csv(cross_region_bubbles, paths["bubble_summary_data"])
         _atomic_csv(regional_bubbles, paths["bubble_regional_data"])
+        _atomic_csv(joint_bubbles, paths["bubble_joint_data"])
         _atomic_csv(bubble_annotations, paths["bubble_annotations"])
         _plot_sixmer_bubble_summary(
             cross_region_bubbles,
@@ -3010,6 +3413,13 @@ def main(argv=None):
             height=args.bubble_region_height,
             bottom_quantile=args.bottom_quantile,
         )
+        _plot_attention_vs_saliency_bubbles(
+            joint_bubbles,
+            bubble_annotations,
+            output_pdf=paths["bubble_joint"],
+            width=args.bubble_joint_width,
+            height=args.bubble_joint_height,
+        )
         _commit_stage(
             paths["bubble_complete"],
             bubble_signature,
@@ -3017,6 +3427,7 @@ def main(argv=None):
         )
         print(f"Saved PDF: {paths['bubble_summary']}", flush=True)
         print(f"Saved PDF: {paths['bubble_regions']}", flush=True)
+        print(f"Saved PDF: {paths['bubble_joint']}", flush=True)
 
     manifest = {
         "Arguments": vars(args),

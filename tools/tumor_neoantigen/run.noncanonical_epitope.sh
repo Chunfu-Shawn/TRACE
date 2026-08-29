@@ -17,7 +17,7 @@ JUNCTION_COUNTS_IN=${WORK_DIR}/featureCounts_tumor/junction_counts.complete_gtf.
 TPM_MATRIX=${WORK_DIR}/featureCounts_tumor/transcript_true_tpm_matrix.csv
 META_FILE=${WORK_DIR}/meta_info_patient_run.csv
 # Step 2 requires local GTEx BAMs and is disabled by default on servers without raw data.
-RUN_GTEX_STEP2=${RUN_GTEX_STEP2:-no}
+RUN_GTEX_STEP2=${RUN_GTEX_STEP2:-yes}
 GTEX_BAM_DIR=${GTEX_BAM_DIR:-/home/user/data/share/GTExV8}
 # Cohort mode loads TRACE and shared FASTA/expression resources once.
 RUN_COHORT_TRACE=${RUN_COHORT_TRACE:-yes}

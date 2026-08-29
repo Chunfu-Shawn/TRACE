@@ -14,7 +14,7 @@ export OMP_NUM_THREADS="${LSB_DJOB_NUMPROC:-4}"
 
 PROJECT_DIR=/public-supool/home/annie/translation_model
 TRACE_DIR=${PROJECT_DIR}/TRACE
-OUT_DIR=${PROJECT_DIR}/results/explainability/sixmer_motif
+OUT_DIR=${PROJECT_DIR}/results/sixmer_motif
 
 # Copy the complete OUT_DIR to another server to preserve reusable stages.
 mkdir -p "${OUT_DIR}"
@@ -29,9 +29,9 @@ python -u "${TRACE_DIR}/run.sixmer_attribution_scan.py" \
     --out-dir "${OUT_DIR}" \
     --device auto \
     --head-hidden-dim 384 \
-    --num-transcripts 500 \
-    --min-length 100 \
-    --max-length 1200 \
+    --num-transcripts 4000 \
+    --min-length 500 \
+    --max-length 3000 \
     --kmer-length 6 \
     --stride 1 \
     --cds-overlap-threshold 3 \
@@ -49,10 +49,12 @@ python -u "${TRACE_DIR}/run.sixmer_attribution_scan.py" \
     --known-translation-rbp-table "${PROJECT_DIR}/translation_RBP.xlsx" \
     --plot-width 7.2 \
     --plot-height 8.0 \
-    --bubble-labels-per-panel 6 \
+    --bubble-labels-per-panel 10 \
     --bubble-annotation-pool-size 200 \
     --bubble-min-regions 3 \
-    --bubble-summary-width 7.2 \
-    --bubble-summary-height 3.8 \
-    --bubble-region-width 7.2 \
-    --bubble-region-height 8.8
+    --bubble-summary-width 10 \
+    --bubble-summary-height 7 \
+    --bubble-region-width 7 \
+    --bubble-region-height 13 \
+    --bubble-joint-width 5.5 \
+    --bubble-joint-height 4.8
