@@ -23,6 +23,9 @@ GTEX_BAM_DIR=${GTEX_BAM_DIR:-/home/user/data/share/GTExV8}
 RUN_COHORT_TRACE=${RUN_COHORT_TRACE:-yes}
 # Normal-tissue TRACE is an optional second-tier safety screen.
 RUN_NORMAL_TRACE=${RUN_NORMAL_TRACE:-no}
+# Cohort transcript-type tables and figures are generated after the final GTEx filter.
+RUN_TRANSCRIPT_TYPE_ANALYSIS=${RUN_TRANSCRIPT_TYPE_ANALYSIS:-yes}
+DENOVO_ID_FILE=${DENOVO_ID_FILE:-/home/user/data3/rbase/small_peptide/denovo_genes/denovo_genes_NEE_CG.tid.tsv}
 TRACE_BATCH_SIZE=${TRACE_BATCH_SIZE:-5}
 TRACE_MAX_PATIENTS=${TRACE_MAX_PATIENTS:-}
 
@@ -109,6 +112,28 @@ if is_true "${RUN_GTEX_STEP2}"; then
     fi
 else
     echo "[Info] GTEx Step 2 is disabled; using precomputed GTEx Step 1 only."
+fi
+
+if is_true "${RUN_TRANSCRIPT_TYPE_ANALYSIS}"; then
+    echo -e "\n"
+    echo "======================================================"
+    echo "==== Analyze tumor-associated transcript types ======"
+    echo "======================================================"
+    TRANSCRIPT_TYPE_DIR=${WORK_DIR}/tumor_specific_tx/transcript_type_analysis
+    TRANSCRIPT_TYPE_ARGS=(
+        --input "${FINAL_TARGET_CSV}"
+        --reference_gtf "${GTF_FILE}"
+        --novel_gtf "${ADD_GTF_FILE}"
+        --output_dir "${TRANSCRIPT_TYPE_DIR}"
+        --mode count
+        --formats pdf svg png tiff
+    )
+    if [ -s "${DENOVO_ID_FILE}" ]; then
+        TRANSCRIPT_TYPE_ARGS+=(--denovo_ids "${DENOVO_ID_FILE}")
+    else
+        echo "[Warning] De novo transcript ID file is unavailable: ${DENOVO_ID_FILE}"
+    fi
+    python "${SCRIPT_DIR}/analyze_transcript_types.py" "${TRANSCRIPT_TYPE_ARGS[@]}"
 fi
 
 echo -e "\n"

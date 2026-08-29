@@ -32,6 +32,13 @@ from cohort_annotation_utils import (
 from select_shared_vaccine_peptides import largest_remainder_quotas, parse_netmhcpan_log
 from run_trace_cohort_prediction import build_clean_sequence_dict, clean_id
 from neoantigen_orf_config import build_neoantigen_orf_kwargs
+from analyze_transcript_types import (
+    MACRO_ORDER,
+    MICRO_ORDER,
+    annotate_transcripts,
+    micro_category,
+    summarize,
+)
 
 SRC_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if SRC_DIR not in sys.path:
@@ -41,6 +48,76 @@ from model.translation_utils import normalize_initiator_codon
 
 
 class MetadataContextTests(unittest.TestCase):
+    def test_transcript_type_annotation_uses_denovo_and_novel_precedence(self):
+        reference_gtf = (
+            'chr1\ttest\ttranscript\t1\t100\t.\t+\t.\tgene_id "G1"; transcript_id "ENST1.1"; transcript_type "protein_coding";\n'
+            'chr1\ttest\texon\t1\t100\t.\t+\t.\tgene_id "G1"; transcript_id "ENST1.1"; transcript_type "protein_coding";\n'
+            'chr1\ttest\ttranscript\t201\t300\t.\t+\t.\tgene_id "G2"; transcript_id "ENST2.1"; transcript_type "processed_pseudogene";\n'
+            'chr1\ttest\texon\t201\t300\t.\t+\t.\tgene_id "G2"; transcript_id "ENST2.1"; transcript_type "processed_pseudogene";\n'
+        )
+        novel_gtf = (
+            'chr1\ttest\ttranscript\t401\t500\t.\t+\t.\tgene_id "MSTRG.1"; transcript_id "MSTRG.1.1";\n'
+            'chr1\ttest\texon\t401\t500\t.\t+\t.\tgene_id "MSTRG.1"; transcript_id "MSTRG.1.1";\n'
+        )
+        with tempfile.NamedTemporaryFile("w", suffix=".gtf", delete=False) as ref_handle:
+            ref_handle.write(reference_gtf)
+            ref_path = ref_handle.name
+        with tempfile.NamedTemporaryFile("w", suffix=".gtf", delete=False) as novel_handle:
+            novel_handle.write(novel_gtf)
+            novel_path = novel_handle.name
+        frame = pd.DataFrame(
+            {
+                "Patient": ["P 1", "P 1", "P 1", "P 1"],
+                "Transcript_ID": ["ENST1.1", "ENST2.1", "MSTRG.1.1", "MSTRG.1.1"],
+                "Class_Code": ["Unknown", "Unknown", "u", "u"],
+                "Biotype": ["old_annotation"] * 4,
+            }
+        )
+        try:
+            annotated, metrics = annotate_transcripts(
+                frame,
+                reference_gtf=ref_path,
+                novel_gtf=novel_path,
+                denovo_ids={"ENST1"},
+            )
+        finally:
+            os.unlink(ref_path)
+            os.unlink(novel_path)
+        categories = annotated.set_index("Clean_Transcript_ID")["Broad_Category"].to_dict()
+        self.assertEqual(categories["ENST1"], "De novo Gene")
+        self.assertEqual(categories["ENST2"], "Pseudogene")
+        self.assertEqual(categories["MSTRG.1.1"], "Novel Transcript")
+        self.assertEqual(
+            annotated.set_index("Clean_Transcript_ID").at["MSTRG.1.1", "Sub_Category"],
+            "Intergenic (u)",
+        )
+        self.assertEqual(metrics["Duplicate_Rows_Removed"], 1)
+
+    def test_transcript_type_summary_retains_zero_count_patients(self):
+        frame = pd.DataFrame(
+            {
+                "Patient": ["P1", "P2"],
+                "Broad_Category": ["Protein Coding", "Novel Transcript"],
+            }
+        )
+        matrix = summarize(frame, "Broad_Category", MACRO_ORDER, ["P1", "P2", "P3"])
+        self.assertEqual(matrix.loc["P1", "Protein Coding"], 1)
+        self.assertEqual(matrix.loc["P3"].sum(), 0)
+        self.assertEqual(
+            micro_category({"Broad_Category": "Novel Transcript", "Class_Code": "m"}),
+            "Retained Intron (m/n)",
+        )
+
+    def test_transcript_type_summary_handles_no_novel_transcripts(self):
+        matrix = summarize(
+            pd.DataFrame(columns=["Patient", "Sub_Category"]),
+            "Sub_Category",
+            MICRO_ORDER,
+            ["P1", "P2"],
+        )
+        self.assertEqual(matrix.index.tolist(), ["P1", "P2"])
+        self.assertEqual(matrix.shape, (2, 0))
+
     def test_neoantigen_orf_configuration_matches_coding_orf_profile(self):
         config = build_neoantigen_orf_kwargs()
         self.assertEqual(config["start_codons"], ["ATG", "CTG", "GTG", "TTG"])

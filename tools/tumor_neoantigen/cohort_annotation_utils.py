@@ -31,6 +31,8 @@ def clean_transcript_id(value: object) -> str:
     transcript_id = str(value).strip().split("|")[0]
     if transcript_id.startswith("ENS"):
         return transcript_id.split(".")[0]
+    if transcript_id.startswith("PB"):
+        return transcript_id.split(":", 1)[0]
     return transcript_id
 
 

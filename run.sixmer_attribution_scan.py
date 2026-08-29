@@ -71,7 +71,7 @@ SCAN_FIELDS = (
 )
 SCAN_CACHE_VERSION = 1
 SUMMARY_CACHE_VERSION = 2
-BUBBLE_CACHE_VERSION = 2
+BUBBLE_CACHE_VERSION = 3
 START_LIKE_CODONS = frozenset({"ATG", "CTG", "GTG", "TTG"})
 STOP_CODONS = frozenset({"TAA", "TAG", "TGA"})
 YEAST_INHIBITORY_CODON_PAIRS = frozenset({
@@ -2000,6 +2000,117 @@ def _load_rbp_match_records(path):
     return pd.DataFrame(records)
 
 
+def _build_rbp_match_lookup(rbp_matches):
+    """Index PWM matches by 6-mer, strongest compatibility first."""
+    lookup = defaultdict(list)
+    if rbp_matches.empty:
+        return lookup
+    ordered = rbp_matches.sort_values(
+        ["Empirical_PWM_Percentile", "Local_PWM_Compatibility"],
+        ascending=False,
+    )
+    for row in ordered.itertuples(index=False):
+        lookup[str(row.Sixmer)].append(row._asdict())
+    return lookup
+
+
+def _classify_bubble_motif_annotation(
+        sixmer,
+        scope,
+        in_frame_pair_hits,
+        match_lookup,
+        known_translation_rbps):
+    """Assign one transparent biological or sequence label to a top 6-mer."""
+    matches = match_lookup.get(str(sixmer), [])
+    for match in matches:
+        rbp_key = str(match["RBP"]).upper()
+        if rbp_key not in known_translation_rbps:
+            continue
+        curated = known_translation_rbps[rbp_key]
+        direction = curated["Direction"]
+        direction_label = (
+            f"lit.: {direction}" if direction
+            and direction.lower() != "nan" else "curated translation evidence"
+        )
+        return {
+            "Priority": 0,
+            "Annotation_Type": "Known translation RBP",
+            "Label": (
+                f"{curated['Name']} ({direction_label}) · {sixmer}"
+            ),
+            "RBP": curated["Name"],
+            "RBP_Direction": direction,
+            "PWM_Compatibility": match["Local_PWM_Compatibility"],
+            "PWM_Percentile": match["Empirical_PWM_Percentile"],
+            "Evidence_Source": (
+                "PWM sequence match plus curated translation RBP table"
+            ),
+        }
+    if (
+            scope in {"CDS", "Summary", "Attention vs Saliency"}
+            and sixmer in YEAST_INHIBITORY_CODON_PAIRS
+            and int(in_frame_pair_hits) > 0):
+        return {
+            "Priority": 1,
+            "Annotation_Type": "Yeast inhibitory codon pair",
+            "Label": f"{sixmer[:3]}-{sixmer[3:]}",
+            "RBP": "",
+            "RBP_Direction": "",
+            "PWM_Compatibility": np.nan,
+            "PWM_Percentile": np.nan,
+            "Evidence_Source": YEAST_CODON_PAIR_SOURCE,
+        }
+    if matches:
+        match = matches[0]
+        return {
+            "Priority": 2,
+            "Annotation_Type": "RBP PWM match",
+            "Label": f"{match['RBP']} (PWM only) · {sixmer}",
+            "RBP": match["RBP"],
+            "RBP_Direction": "",
+            "PWM_Compatibility": match["Local_PWM_Compatibility"],
+            "PWM_Percentile": match["Empirical_PWM_Percentile"],
+            "Evidence_Source": (
+                "Local PWM compatibility only; translation effect not curated"
+            ),
+        }
+    codons = {sixmer[:3], sixmer[3:]}
+    if codons.intersection(START_LIKE_CODONS):
+        present = sorted(codons.intersection(START_LIKE_CODONS))
+        return {
+            "Priority": 3,
+            "Annotation_Type": "Start-like codon sequence",
+            "Label": f"{sixmer} ({'/'.join(present)})",
+            "RBP": "",
+            "RBP_Direction": "",
+            "PWM_Compatibility": np.nan,
+            "PWM_Percentile": np.nan,
+            "Evidence_Source": "Sequence-content annotation",
+        }
+    if codons.intersection(STOP_CODONS):
+        present = sorted(codons.intersection(STOP_CODONS))
+        return {
+            "Priority": 4,
+            "Annotation_Type": "Stop-codon sequence",
+            "Label": f"{sixmer} ({'/'.join(present)})",
+            "RBP": "",
+            "RBP_Direction": "",
+            "PWM_Compatibility": np.nan,
+            "PWM_Percentile": np.nan,
+            "Evidence_Source": "Sequence-content annotation",
+        }
+    return {
+        "Priority": 5,
+        "Annotation_Type": "Top motif sequence",
+        "Label": str(sixmer),
+        "RBP": "",
+        "RBP_Direction": "",
+        "PWM_Compatibility": np.nan,
+        "PWM_Percentile": np.nan,
+        "Evidence_Source": "Top model-derived motif without extra annotation",
+    }
+
+
 def _build_bubble_plot_tables(
         summary,
         min_hits,
@@ -2062,14 +2173,7 @@ def _build_bubble_plot_tables(
         })
     cross_region = pd.DataFrame(summary_records)
 
-    match_lookup = defaultdict(list)
-    if not rbp_matches.empty:
-        ordered_matches = rbp_matches.sort_values(
-            ["Empirical_PWM_Percentile", "Local_PWM_Compatibility"],
-            ascending=False,
-        )
-        for row in ordered_matches.itertuples(index=False):
-            match_lookup[str(row.Sixmer)].append(row._asdict())
+    match_lookup = _build_rbp_match_lookup(rbp_matches)
 
     annotation_records = []
     panels = [
@@ -2078,84 +2182,25 @@ def _build_bubble_plot_tables(
     ]
     for scope, panel_table in panels:
         for metric in ("Attention", "Saliency"):
+            top_count = min(
+                int(labels_per_panel),
+                int(annotation_pool_size),
+            )
             data = panel_table[
                 panel_table["Metric"].eq(metric)
                 & panel_table["Reliable"]
                 & panel_table["Log2_Fold_Change"].notna()
-            ].nlargest(int(annotation_pool_size), "Log2_Fold_Change")
-            candidates = []
+            ].nlargest(top_count, "Log2_Fold_Change")
             for row in data.itertuples(index=False):
                 sixmer = str(row.Sixmer)
-                annotation = None
-                if (
-                        scope in {"CDS", "Summary"}
-                        and sixmer in YEAST_INHIBITORY_CODON_PAIRS
-                        and int(row.N_InFrame_CodonPair_Hits) > 0):
-                    annotation = {
-                        "Priority": 0,
-                        "Annotation_Type": "Yeast inhibitory codon pair",
-                        "Label": f"{sixmer[:3]}-{sixmer[3:]}",
-                        "RBP": "",
-                        "RBP_Direction": "",
-                        "PWM_Compatibility": np.nan,
-                        "PWM_Percentile": np.nan,
-                        "Evidence_Source": YEAST_CODON_PAIR_SOURCE,
-                    }
-                if annotation is None:
-                    for match in match_lookup.get(sixmer, []):
-                        rbp_key = str(match["RBP"]).upper()
-                        if rbp_key not in known_translation_rbps:
-                            continue
-                        curated = known_translation_rbps[rbp_key]
-                        direction = curated["Direction"]
-                        direction_label = (
-                            f" (lit.: {direction})" if direction
-                            and direction.lower() != "nan" else ""
-                        )
-                        annotation = {
-                            "Priority": 1,
-                            "Annotation_Type": "Known translation RBP",
-                            "Label": f"{curated['Name']}{direction_label}",
-                            "RBP": curated["Name"],
-                            "RBP_Direction": direction,
-                            "PWM_Compatibility": match[
-                                "Local_PWM_Compatibility"
-                            ],
-                            "PWM_Percentile": match[
-                                "Empirical_PWM_Percentile"
-                            ],
-                            "Evidence_Source": "Curated translation RBP table",
-                        }
-                        break
-                codons = {sixmer[:3], sixmer[3:]}
-                if annotation is None and codons.intersection(
-                        START_LIKE_CODONS):
-                    present = sorted(codons.intersection(START_LIKE_CODONS))
-                    annotation = {
-                        "Priority": 2,
-                        "Annotation_Type": "Start-like codon sequence",
-                        "Label": f"{sixmer} ({'/'.join(present)})",
-                        "RBP": "",
-                        "RBP_Direction": "",
-                        "PWM_Compatibility": np.nan,
-                        "PWM_Percentile": np.nan,
-                        "Evidence_Source": "Sequence-content annotation",
-                    }
-                if annotation is None and codons.intersection(STOP_CODONS):
-                    present = sorted(codons.intersection(STOP_CODONS))
-                    annotation = {
-                        "Priority": 3,
-                        "Annotation_Type": "Stop-codon sequence",
-                        "Label": f"{sixmer} ({'/'.join(present)})",
-                        "RBP": "",
-                        "RBP_Direction": "",
-                        "PWM_Compatibility": np.nan,
-                        "PWM_Percentile": np.nan,
-                        "Evidence_Source": "Sequence-content annotation",
-                    }
-                if annotation is None:
-                    continue
-                candidates.append({
+                annotation = _classify_bubble_motif_annotation(
+                    sixmer=sixmer,
+                    scope=scope,
+                    in_frame_pair_hits=row.N_InFrame_CodonPair_Hits,
+                    match_lookup=match_lookup,
+                    known_translation_rbps=known_translation_rbps,
+                )
+                annotation_records.append({
                     "Scope": scope,
                     "Region": str(row.Region),
                     "Metric": metric,
@@ -2168,44 +2213,6 @@ def _build_bubble_plot_tables(
                     ),
                     **annotation,
                 })
-            candidates.sort(
-                key=lambda record: (
-                    record["Priority"], -record["Log2_Fold_Change"]
-                )
-            )
-            selected = []
-            used_labels = set()
-            if int(labels_per_panel) > 0:
-                best_by_type = {}
-                for candidate in candidates:
-                    annotation_type = candidate["Annotation_Type"]
-                    current = best_by_type.get(annotation_type)
-                    if (
-                            current is None
-                            or candidate["Log2_Fold_Change"]
-                            > current["Log2_Fold_Change"]):
-                        best_by_type[annotation_type] = candidate
-                for annotation_type in (
-                        "Known translation RBP",
-                        "Yeast inhibitory codon pair",
-                        "Start-like codon sequence",
-                        "Stop-codon sequence"):
-                    candidate = best_by_type.get(annotation_type)
-                    if candidate is None:
-                        continue
-                    selected.append(candidate)
-                    used_labels.add(candidate["Label"].upper())
-                    if len(selected) >= int(labels_per_panel):
-                        break
-                for candidate in candidates:
-                    if len(selected) >= int(labels_per_panel):
-                        break
-                    label_key = candidate["Label"].upper()
-                    if label_key in used_labels:
-                        continue
-                    selected.append(candidate)
-                    used_labels.add(label_key)
-            annotation_records.extend(selected)
     annotations = pd.DataFrame(annotation_records)
     return regional, cross_region, annotations
 
@@ -2240,9 +2247,11 @@ def _draw_bubble_panel(
     metric_colors = {"Attention": "#4C78A8", "Saliency": "#2A9D8F"}
     annotation_colors = {
         "Known translation RBP": "#D55E00",
+        "RBP PWM match": "#0072B2",
         "Yeast inhibitory codon pair": "#7B2CBF",
         "Start-like codon sequence": "#2E7D32",
         "Stop-codon sequence": "#B2182B",
+        "Top motif sequence": "#3F3F3F",
     }
     valid = data[
         data["Metric"].eq(metric)
@@ -2450,9 +2459,11 @@ def _add_bubble_legends(fig, fold_values, anchor_y=0.01):
             ))
     annotation_specs = (
         ("Known translation RBP", "#D55E00"),
+        ("RBP PWM match only", "#0072B2"),
         ("Yeast inhibitory codon pair", "#7B2CBF"),
         ("Start-like codon sequence", "#2E7D32"),
         ("Stop-codon sequence", "#B2182B"),
+        ("Top motif sequence", "#3F3F3F"),
     )
     annotation_handles = [
         Line2D(
@@ -2479,7 +2490,7 @@ def _add_bubble_legends(fig, fold_values, anchor_y=0.01):
         handles=annotation_handles,
         loc="lower right",
         bbox_to_anchor=(0.99, anchor_y),
-        ncol=2,
+        ncol=3,
         fontsize=5.5,
         handletextpad=0.2,
         columnspacing=0.8,
@@ -2543,9 +2554,9 @@ def _plot_sixmer_bubble_summary(
     )
     figure.text(
         0.5, 0.005,
-        "RBP labels require both local PWM compatibility and membership in "
-        "the curated translation-regulatory RBP table. Yeast codon-pair "
-        "evidence applies to in-frame CDS contexts.",
+        "The strongest motifs are labeled. RBP labels distinguish curated "
+        "translation evidence from PWM-only matches; yeast codon-pair "
+        "evidence applies only to in-frame CDS contexts.",
         ha="center",
         va="bottom",
         fontsize=5.0,
@@ -2597,9 +2608,9 @@ def _plot_sixmer_bubbles_by_region(
     )
     figure.text(
         0.5, 0.004,
-        "Low-count motifs are gray. Codon-pair labels are restricted to "
-        "in-frame CDS hits; RBP labels require a PWM match plus curated "
-        "translation evidence.",
+        "Low-count motifs are gray. The strongest motifs are labeled; RBP "
+        "labels distinguish curated translation evidence from PWM-only "
+        "matches.",
         ha="center",
         va="bottom",
         fontsize=5.0,
@@ -2672,59 +2683,49 @@ def _build_attention_saliency_bubble_table(cross_region):
 
 def _select_joint_bubble_annotations(
         joint_table,
-        annotations,
+        rbp_matches,
+        known_translation_rbps,
         labels_per_panel):
-    """Select balanced biological annotations for the joint FC panel."""
-    if annotations.empty or int(labels_per_panel) <= 0:
-        return pd.DataFrame(columns=annotations.columns)
-    candidates = annotations[annotations["Scope"].eq("Summary")].copy()
-    candidates = candidates.sort_values(
-        "Log2_Fold_Change", ascending=False
-    ).drop_duplicates("Sixmer")
-    candidates = candidates.merge(
-        joint_table[
-            [
-                "Sixmer", "Hit_N", "Attention_FC", "Saliency_FC",
-                "Log2_Attention_FC", "Log2_Saliency_FC", "Mean_Log2_FC",
-                "N_InFrame_CodonPair_Hits", "Reliable",
-            ]
-        ],
-        on="Sixmer",
-        how="inner",
-        suffixes=("", "_Joint"),
-        validate="one_to_one",
-    )
-    candidates = candidates[
-        candidates["Reliable"]
-        & candidates["Mean_Log2_FC"].notna()
-    ].sort_values("Mean_Log2_FC", ascending=False)
-    selected_indices = []
-    for annotation_type in (
-            "Known translation RBP",
-            "Yeast inhibitory codon pair",
-            "Start-like codon sequence",
-            "Stop-codon sequence"):
-        subset = candidates[candidates["Annotation_Type"].eq(annotation_type)]
-        if not subset.empty:
-            selected_indices.append(subset.index[0])
-    for index in candidates.index:
-        if index not in selected_indices:
-            selected_indices.append(index)
-        if len(selected_indices) >= int(labels_per_panel):
-            break
-    selected = candidates.loc[
-        selected_indices[:int(labels_per_panel)]
-    ].copy()
-    selected["Scope"] = "Attention vs Saliency"
-    selected["Region"] = "Mean of regions"
-    selected["Metric"] = "Joint"
-    selected["Hit_N"] = selected["Hit_N"].astype(int)
-    selected["Fold_Change"] = np.sqrt(
-        selected["Attention_FC"] * selected["Saliency_FC"]
-    )
-    selected["Log2_Fold_Change"] = selected["Mean_Log2_FC"]
-    output_columns = list(annotations.columns)
-    return selected[output_columns]
+    """Annotate the strongest joint attention-saliency 6-mers."""
+    columns = [
+        "Scope", "Region", "Metric", "Sixmer", "Hit_N",
+        "Fold_Change", "Log2_Fold_Change",
+        "N_InFrame_CodonPair_Hits", "Priority",
+        "Annotation_Type", "Label", "RBP", "RBP_Direction",
+        "PWM_Compatibility", "PWM_Percentile", "Evidence_Source",
+    ]
+    if int(labels_per_panel) <= 0:
+        return pd.DataFrame(columns=columns)
+    match_lookup = _build_rbp_match_lookup(rbp_matches)
+    selected = joint_table[
+        joint_table["Reliable"]
+        & joint_table["Mean_Log2_FC"].notna()
+    ].nlargest(int(labels_per_panel), "Mean_Log2_FC")
+    records = []
+    for row in selected.itertuples(index=False):
+        annotation = _classify_bubble_motif_annotation(
+            sixmer=str(row.Sixmer),
+            scope="Attention vs Saliency",
+            in_frame_pair_hits=row.N_InFrame_CodonPair_Hits,
+            match_lookup=match_lookup,
+            known_translation_rbps=known_translation_rbps,
+        )
+        records.append({
+            "Scope": "Attention vs Saliency",
+            "Region": "Mean of regions",
+            "Metric": "Joint",
+            "Sixmer": str(row.Sixmer),
+            "Hit_N": int(row.Hit_N),
+            "Fold_Change": float(
+                math.sqrt(row.Attention_FC * row.Saliency_FC)
+            ),
+            "Log2_Fold_Change": float(row.Mean_Log2_FC),
+            "N_InFrame_CodonPair_Hits": int(
+                row.N_InFrame_CodonPair_Hits
+            ),
+            **annotation,
+        })
+    return pd.DataFrame(records, columns=columns)
 
 
 def _hit_count_sizes(hit_counts, reference_values):
@@ -2802,9 +2803,11 @@ def _plot_attention_vs_saliency_bubbles(
 
     annotation_colors = {
         "Known translation RBP": "#D55E00",
+        "RBP PWM match": "#0072B2",
         "Yeast inhibitory codon pair": "#7B2CBF",
         "Start-like codon sequence": "#2E7D32",
         "Stop-codon sequence": "#B2182B",
+        "Top motif sequence": "#3F3F3F",
     }
     selected = annotations[
         annotations["Scope"].eq("Attention vs Saliency")
@@ -2908,7 +2911,8 @@ def _plot_attention_vs_saliency_bubbles(
         0.5, 0.005,
         "Fold changes are averaged across 5′UTR, CDS, and 3′UTR before "
         "log2 transformation; bubble area represents total motif hits. RBP "
-        "labels require a PWM match plus curated translation evidence.",
+        "labels distinguish curated translation evidence from PWM-only "
+        "matches.",
         ha="center",
         va="bottom",
         fontsize=5.0,
@@ -3029,7 +3033,7 @@ def build_parser():
     parser.add_argument("--plot-width", type=float, default=7.2)
     parser.add_argument("--plot-height", type=float, default=8.0)
     parser.add_argument("--skip-plot", action="store_true")
-    parser.add_argument("--bubble-labels-per-panel", type=int, default=6)
+    parser.add_argument("--bubble-labels-per-panel", type=int, default=10)
     parser.add_argument("--bubble-annotation-pool-size", type=int, default=200)
     parser.add_argument("--bubble-min-regions", type=int, default=3)
     parser.add_argument("--bubble-summary-width", type=float, default=7.2)
@@ -3386,7 +3390,8 @@ def main(argv=None):
         )
         joint_annotations = _select_joint_bubble_annotations(
             joint_bubbles,
-            bubble_annotations,
+            rbp_matches=rbp_match_records,
+            known_translation_rbps=curated_rbps,
             labels_per_panel=args.bubble_labels_per_panel,
         )
         bubble_annotations = pd.concat(
@@ -3474,6 +3479,17 @@ def main(argv=None):
             "motif means within the same region. A pseudocount equal to "
             "1e-6 times the median positive motif mean is applied to both "
             "numerator and denominator."
+        ),
+        "RBP_Bubble_Annotation_Definition": (
+            "Sequence matching always uses the supplied PWM library. The "
+            "curated translation-RBP table is used only to attach reported "
+            "translation direction and evidence. PWM matches absent from "
+            "that table are labeled explicitly as PWM only."
+        ),
+        "Bubble_Label_Definition": (
+            "Each attention or saliency panel labels its highest fold-change "
+            "reliable motifs up to bubble-labels-per-panel. The joint panel "
+            "uses the highest mean attention-saliency log2 fold change."
         ),
     }
     _atomic_json(manifest, paths["manifest"])
