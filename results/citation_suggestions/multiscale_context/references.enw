@@ -1,0 +1,162 @@
+%0 Journal Article
+%T Effective gene expression prediction from sequence by integrating long-range interactions
+%A Avsec, Žiga
+%A Agarwal, Vikram
+%A Visentin, Daniel
+%A Ledsam, Joseph R.
+%A Grabska-Barwinska, Agnieszka
+%A Taylor, Kyle R.
+%A Assael, Yannis
+%A Jumper, John
+%A Kohli, Pushmeet
+%A Kelley, David R.
+%J Nature Methods
+%V 18
+%N 10
+%P 1196-1203
+%D 2021
+%@ 1548-7091
+%R 10.1038/s41592-021-01252-x
+%U https://doi.org/10.1038/s41592-021-01252-x
+
+%0 Journal Article
+%T FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness
+%A Dao, Tri
+%A Fu, Dan
+%A Ermon, Stefano
+%A Rudra, Atri
+%A Ré, Christopher
+%J Advances in Neural Information Processing Systems 35
+%P 16344-16359
+%D 2022
+%R 10.52202/068431-1189
+%U https://doi.org/10.52202/068431-1189
+
+%0 Journal Article
+%T Efficient Transformers: A Survey
+%A Tay, Yi
+%A Dehghani, Mostafa
+%A Bahri, Dara
+%A Metzler, Donald
+%J ACM Computing Surveys
+%V 55
+%N 6
+%P 1-28
+%D 2023
+%@ 0360-0300
+%R 10.1145/3530811
+%U https://doi.org/10.1145/3530811
+
+%0 Journal Article
+%T Heterogeneity and specialized functions of translation machinery: from genes to organisms
+%A Genuth, Naomi R.
+%A Barna, Maria
+%J Nature Reviews Genetics
+%V 19
+%N 7
+%P 431-452
+%D 2018
+%@ 1471-0056
+%R 10.1038/s41576-018-0008-z
+%U https://doi.org/10.1038/s41576-018-0008-z
+
+%0 Journal Article
+%T Translation efficiency covariation identifies conserved coordination patterns across cell types
+%A Liu, Yue
+%A Rao, Shilpa
+%A Hoskins, Ian
+%A Geng, Michael
+%A Zhao, Qiuxia
+%A Chacko, Jonathan
+%A Ghatpande, Vighnesh
+%A Qi, Kangsheng
+%A Persyn, Logan
+%A Wang, Jun
+%A Zheng, Dinghai
+%A Zhong, Yochen
+%A Park, Dayea
+%A Sarinay Cenik, Elif
+%A Agarwal, Vikram
+%A Ozadam, Hakan
+%A Cenik, Can
+%J Nature Biotechnology
+%V 44
+%N 5
+%P 797-809
+%D 2026
+%@ 1087-0156
+%R 10.1038/s41587-025-02718-5
+%U https://doi.org/10.1038/s41587-025-02718-5
+
+%0 Journal Article
+%T Predicting the translation efficiency of messenger RNA in mammalian cells
+%A Zheng, Dinghai
+%A Persyn, Logan
+%A Wang, Jun
+%A Liu, Yue
+%A Ulloa-Montoya, Fernando
+%A Cenik, Can
+%A Agarwal, Vikram
+%J Nature Biotechnology
+%V 44
+%N 5
+%P 783-796
+%D 2026
+%@ 1087-0156
+%R 10.1038/s41587-025-02712-x
+%U https://doi.org/10.1038/s41587-025-02712-x
+
+%0 Journal Article
+%T Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants
+%A He, Jialin
+%A Xiong, Lei
+%A Shi, Shaohui
+%A Li, Chengyu
+%A Chen, Kexuan
+%A Fang, Qianchen
+%A Nan, Jiuhong
+%A Ding, Ke
+%A Mao, Yuanhui
+%A Boix, Carles A.
+%A Hu, Xinyang
+%A Kellis, Manolis
+%A Li, Jingyun
+%A Xiong, Xushen
+%J Nature Machine Intelligence
+%V 6
+%N 11
+%P 1314-1329
+%D 2024
+%@ 2522-5839
+%R 10.1038/s42256-024-00915-6
+%U https://doi.org/10.1038/s42256-024-00915-6
+
+%0 Journal Article
+%T Deep generative optimization of mRNA codon sequences for enhanced mRNA translation and therapeutic efficacy
+%A Li, Yupeng
+%A Wang, Fan
+%A Yang, Jiaqi
+%A Han, Zirong
+%A Chen, Linfeng
+%A Jiang, Wenbing
+%A Zhou, Hao
+%A Li, Tong
+%A Tang, Zehua
+%A Deng, Jianxiang
+%A He, Xin
+%A Zha, Gaofeng
+%A Hu, Zhaoyu
+%A Hu, Yong
+%A Wu, Linping
+%A Zhan, Changyou
+%A Sun, Caijun
+%A He, Yao
+%A Xie, Zhi
+%J Nature Communications
+%V 16
+%N 1
+%P 9957
+%D 2025
+%@ 2041-1723
+%R 10.1038/s41467-025-64894-x
+%U https://doi.org/10.1038/s41467-025-64894-x

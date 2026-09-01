@@ -875,6 +875,17 @@ def load_and_calculate_polysome_correlation(
         target_level = 'Transcript' if ref_merge_key in ['Tid', 'EnsemblTranscriptID'] else 'Gene'
         
         ref_clean = ref_df[[ref_merge_key, current_ref_metric]].copy()
+        ref_clean[current_ref_metric] = pd.to_numeric(
+            ref_clean[current_ref_metric], errors='coerce'
+        )
+        non_finite_ref_mask = ~np.isfinite(ref_clean[current_ref_metric].to_numpy(dtype=float))
+        non_finite_ref_n = int(non_finite_ref_mask.sum())
+        if non_finite_ref_n > 0:
+            print(
+                f"  [Info] Removed {non_finite_ref_n} non-finite "
+                f"'{current_ref_metric}' values from {ref_name}."
+            )
+        ref_clean.loc[non_finite_ref_mask, current_ref_metric] = np.nan
         ref_clean = ref_clean.dropna(subset=[current_ref_metric])
         ref_clean['ID_clean'] = ref_clean[ref_merge_key].astype(str).str.split('.').str[0]
         
@@ -952,6 +963,16 @@ def load_and_calculate_polysome_correlation(
                 combined_df = combined_df[combined_df['Cell_Type'] == target_cell]
                 if combined_df.empty:
                     continue
+
+            combined_df[current_model_metric] = pd.to_numeric(
+                combined_df[current_model_metric], errors='coerce'
+            )
+            combined_df[current_model_metric] = combined_df[current_model_metric].replace(
+                [np.inf, -np.inf], np.nan
+            )
+            combined_df = combined_df.dropna(subset=[current_model_metric])
+            if combined_df.empty:
+                continue
             
             has_tid = [c for c in ['Tid', 'EnsemblTranscriptID', 'TranscriptID'] if c in combined_df.columns]
             has_gid = [c for c in ['Gid', 'EnsemblGeneID', 'GeneID'] if c in combined_df.columns]
@@ -980,7 +1001,12 @@ def load_and_calculate_polysome_correlation(
             processed_models[model_name][ref_name] = (merged_df, current_model_metric, ref_metric_name)
             
             for cell_type, group_df in merged_df.groupby('Cell_Type'):
-                group_clean = group_df.dropna(subset=[current_model_metric, ref_metric_name])
+                metric_columns = [current_model_metric, ref_metric_name]
+                group_clean = group_df.copy()
+                group_clean[metric_columns] = group_clean[metric_columns].replace(
+                    [np.inf, -np.inf], np.nan
+                )
+                group_clean = group_clean.dropna(subset=metric_columns)
                 key = (ref_name, cell_type)
                 if key not in global_id_sets:
                     global_id_sets[key] = []
@@ -1007,7 +1033,12 @@ def load_and_calculate_polysome_correlation(
             for cell_type, group_df in merged_df.groupby('Cell_Type'):
                 
                 valid_ids = intersected_ids_dict.get((ref_name, cell_type), set())
-                group_clean_raw = group_df.dropna(subset=[current_model_metric, ref_metric_name])
+                metric_columns = [current_model_metric, ref_metric_name]
+                group_clean_raw = group_df.copy()
+                group_clean_raw[metric_columns] = group_clean_raw[metric_columns].replace(
+                    [np.inf, -np.inf], np.nan
+                )
+                group_clean_raw = group_clean_raw.dropna(subset=metric_columns)
                 n_before = len(group_clean_raw)
                 
                 group_clean = group_clean_raw[group_clean_raw['ID_clean'].isin(valid_ids)]
@@ -1039,6 +1070,13 @@ def load_and_calculate_polysome_correlation(
                     r_val, p_val = spearmanr(x, y)
                 else:
                     r_val, p_val = pearsonr(x, y)
+
+                if not np.isfinite(r_val):
+                    print(
+                        f"  [Warning] Non-finite correlation for {model_name}, "
+                        f"{ref_name} ({cell_type}); skipping this point."
+                    )
+                    continue
                     
                 aggregated_data.append({
                     'Dataset': ref_name,           
@@ -1259,6 +1297,19 @@ def plot_polysome_correlation_bar(
         
     os.makedirs(out_dir, exist_ok=True)
     plot_df = agg_df.copy()
+    plot_df['Mean'] = pd.to_numeric(plot_df['Mean'], errors='coerce')
+    finite_mean_mask = np.isfinite(plot_df['Mean'].to_numpy(dtype=float))
+    removed_non_finite = int((~finite_mean_mask).sum())
+    if removed_non_finite > 0:
+        print(
+            f"[Warning] Excluding {removed_non_finite} rows with non-finite "
+            "correlations from the polysome bar chart."
+        )
+        plot_df = plot_df.loc[finite_mean_mask].copy()
+    if plot_df.empty:
+        print("No finite correlation values to plot.")
+        return
+
     if corr_abs:
         plot_df['Mean'] = plot_df['Mean'].abs()
 
@@ -1476,6 +1527,18 @@ def load_and_calculate_silac_correlation(
         
         ref_clean = ref_clean.groupby(['ID_clean', 'Ref_Group'], as_index=False)[ref_metric].mean()
         surviving_groups = ref_clean['Ref_Group'].unique().tolist()
+        
+        ref_clean = ref_df[[ref_merge_key, current_ref_metric]].copy()
+
+        ref_clean[current_ref_metric] = pd.to_numeric(
+            ref_clean[current_ref_metric],
+            errors="coerce",
+        )
+        ref_clean[current_ref_metric] = ref_clean[current_ref_metric].replace(
+            [np.inf, -np.inf],
+            np.nan,
+        )
+        ref_clean = ref_clean.dropna(subset=[current_ref_metric])
         
         processed_refs[ref_name] = {
             'df': ref_clean,

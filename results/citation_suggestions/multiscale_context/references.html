@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nature Citation Browser</title>
+  <style>
+    :root {
+      --ink: #1f1f1f;
+      --muted: #5f6368;
+      --paper: #f8f9fa;
+      --panel: #ffffff;
+      --line: #dadce0;
+      --accent: #1a73e8;
+      --accent-2: #d93025;
+      --soft: #e8f0fe;
+      --soft-2: #f1f3f4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+    header {
+      padding: 26px clamp(16px, 4vw, 40px) 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .subhead {
+      max-width: 980px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .toolbar {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      padding: 16px clamp(16px, 4vw, 40px);
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 8;
+    }
+    .toolbar a, .toolbar button, .toolbar input, .toolbar select {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 20px;
+      padding: 10px 14px;
+      font: 500 14px Arial, Helvetica, sans-serif;
+      text-decoration: none;
+    }
+    .toolbar button, .toolbar a {
+      cursor: pointer;
+    }
+    .toolbar button.primary, .toolbar a.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .filters {
+      display: grid;
+      gap: 10px;
+    }
+    .filter-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .search-input {
+      width: 100%;
+    }
+    .summary-strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: var(--soft-2);
+      font-size: 13px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      padding: 22px clamp(16px, 4vw, 40px) 48px;
+    }
+    main {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    aside {
+      position: sticky;
+      top: 124px;
+      align-self: start;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(60, 64, 67, 0.12);
+    }
+    .segment-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 4px rgba(60, 64, 67, 0.12);
+    }
+    .segment-head {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .segment-id {
+      background: var(--soft);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .query {
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 780px;
+    }
+    .segment-text {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+    .insert-row {
+      display: grid;
+      gap: 6px;
+      margin: 12px 0 16px;
+      padding: 12px;
+      background: var(--soft);
+      border-radius: 10px;
+    }
+    .insert-row span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    code {
+      white-space: normal;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+    .references-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .reference {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+    .ref-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .marker {
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .grade {
+      color: var(--accent-2);
+      font-weight: 800;
+    }
+    .ref-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .check-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.35;
+      font-weight: 500;
+    }
+    .meta, .authors, .empty {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .reference a {
+      color: var(--accent);
+      overflow-wrap: anywhere;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .abstract {
+      margin: 8px 0 0;
+      color: #3c4043;
+      font-size: 14px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      background: rgba(20, 33, 31, 0.42);
+      backdrop-filter: blur(3px);
+      z-index: 20;
+    }
+    .modal-overlay.is-hidden {
+      display: none;
+    }
+    .modal-panel {
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      width: min(680px, calc(100vw - 28px));
+      box-shadow: 0 16px 40px rgba(60, 64, 67, 0.28);
+      background: var(--panel);
+      color: var(--ink);
+    }
+    .modal-inner {
+      padding: 24px;
+    }
+    .modal-inner h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      background: var(--soft-2);
+    }
+    .stat b {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+    }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .modal-actions a, .modal-actions button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fffdf8;
+      border-radius: 20px;
+      padding: 10px 12px;
+      font: 700 14px Arial, Helvetica, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .modal-actions button {
+      background: var(--panel);
+      color: var(--accent);
+    }
+    .selection-title {
+      margin: 0 0 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .selection-meta {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .selection-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 14px;
+      max-height: 48vh;
+      overflow: auto;
+    }
+    .selection-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: var(--soft-2);
+    }
+    .selection-item h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .selection-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .empty-state {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      background: var(--soft-2);
+    }
+    @media (max-width: 680px) {
+      .stats { grid-template-columns: 1fr; }
+      .segment-head { align-items: flex-start; }
+    }
+    @media (max-width: 1040px) {
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+      .summary-strip {
+        justify-content: flex-start;
+      }
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Nature Citation Browser</h1>
+    <p class="subhead">Scholar-style browsing for strict Nature/CNS-family candidates. Filter by year, compare related hits, choose the references you actually want, then download them as ENW, RIS, or Zotero RDF.</p>
+  </header>
+  <nav class="toolbar">
+    <div class="filters">
+      <input id="queryFilter" class="search-input" type="text" placeholder="Filter by title, journal, DOI, author, or segment text">
+      <div class="filter-group">
+        <label for="yearFrom">From year</label>
+        <input id="yearFrom" type="number" min="1900" max="2100" placeholder="2019">
+        <label for="yearTo">To year</label>
+        <input id="yearTo" type="number" min="1900" max="2100" placeholder="2026">
+        <button id="applyFilters" type="button">Apply filters</button>
+        <button id="clearFilters" type="button">Clear</button>
+      </div>
+      <div class="filter-group">
+        <label class="check-row"><input id="selectedOnly" type="checkbox"> Show selected only</label>
+      </div>
+    </div>
+    <div class="summary-strip">
+      <span class="pill"><strong id="visibleCount">0</strong> visible</span>
+      <span class="pill"><strong id="selectedCount">0</strong> selected</span>
+      <span class="pill"><strong>0</strong> segments</span>
+    </div>
+    <div class="summary-strip">
+      <button id="openSummary" type="button">Guide</button>
+      <label for="downloadFormat">Format</label>
+      <select id="downloadFormat">
+        <option value="enw">ENW</option>
+        <option value="ris">RIS</option>
+        <option value="zotero-rdf">Zotero RDF</option>
+      </select>
+      <a class="primary" id="downloadSelected" href="references.enw" download="references.enw">Download selected / all</a>
+    </div>
+  </nav>
+  <div class="layout">
+    <main id="results">
+      
+    </main>
+    <aside>
+      <h2 class="selection-title">Selected references</h2>
+      <p class="selection-meta">Tick the references you want. The download button exports the selection in the chosen format. If nothing is selected, it exports all references.</p>
+      <div id="selectionList" class="selection-list"></div>
+      <div id="selectionEmpty" class="empty-state">No references selected yet.</div>
+    </aside>
+  </div>
+  <div class="modal-overlay" id="summaryModal" aria-hidden="false">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+      <div class="modal-inner">
+        <h2 id="summaryTitle">Ready to review citations</h2>
+        <p>This page behaves more like a compact Scholar browser: filter by year, browse related results, select the citations you trust, and download them as ENW, RIS, or Zotero RDF.</p>
+        <div class="stats">
+          <div class="stat"><b>0</b><span>segments</span></div>
+          <div class="stat"><b>8</b><span>unique references</span></div>
+        </div>
+        <p class="meta">Important: these are still metadata-level candidates. Selection is your decision, not an automatic validity guarantee.</p>
+        <div class="modal-actions">
+          <a href="references.enw" download>Download original ENW file</a>
+          <button id="closeSummary" type="button" onclick="document.getElementById('summaryModal').classList.add('is-hidden'); document.getElementById('summaryModal').setAttribute('aria-hidden', 'true');">Start browsing</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script id="citationData" type="application/json">{"segmentCount": 0, "referenceCount": 8, "defaultExportFormat": "enw", "defaultExportName": "references.enw", "references": [{"title": "Effective gene expression prediction from sequence by integrating long-range interactions", "journal": "Nature Methods", "family": "Nature Portfolio", "year": "2021", "doi": "10.1038/s41592-021-01252-x", "url": "https://doi.org/10.1038/s41592-021-01252-x", "doi_url": "https://doi.org/10.1038/s41592-021-01252-x", "volume": "18", "issue": "10", "start_page": "1196", "end_page": "1203", "issn": "1548-7091", "authors": ["Avsec, Žiga", "Agarwal, Vikram", "Visentin, Daniel", "Ledsam, Joseph R.", "Grabska-Barwinska, Agnieszka", "Taylor, Kyle R.", "Assael, Yannis", "Jumper, John", "Kohli, Pushmeet", "Kelley, David R."], "abstract": "Abstract How noncoding DNA determines gene expression in different cell types is a major unsolved problem, and critical downstream applications in human genetics depend on improved solutions. Here, we report substantially improved gene expression prediction accuracy from DNA sequences through the use of a deep learning architecture, called Enformer, that is able to integrate information from long-range interactions (up to 100 kb away) in the genome. This improvement yielded more accurate variant effect predictions on gene expression for both natural genetic variants and saturation mutagenesis measured by massively parallel reporter assays. Furthermore, Enformer learned to predict enhancer–promoter interactions directly from the DNA sequence competitively with methods that take direct experimental data as input. We expect that these advances will enable more effective fine-mapping of human disease associations and provide a framework to interpret cis -regulatory evolution.", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s41592-021-01252-x", "citation_marker": "(Avsec et al., 2021)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Effective gene expression prediction from sequence by integrating long-range interactions\n%A Avsec, Žiga\n%A Agarwal, Vikram\n%A Visentin, Daniel\n%A Ledsam, Joseph R.\n%A Grabska-Barwinska, Agnieszka\n%A Taylor, Kyle R.\n%A Assael, Yannis\n%A Jumper, John\n%A Kohli, Pushmeet\n%A Kelley, David R.\n%J Nature Methods\n%V 18\n%N 10\n%P 1196-1203\n%D 2021\n%@ 1548-7091\n%R 10.1038/s41592-021-01252-x\n%U https://doi.org/10.1038/s41592-021-01252-x", "ris_record": "TY  - JOUR\nTI  - Effective gene expression prediction from sequence by integrating long-range interactions\nAU  - Avsec, Žiga\nAU  - Agarwal, Vikram\nAU  - Visentin, Daniel\nAU  - Ledsam, Joseph R.\nAU  - Grabska-Barwinska, Agnieszka\nAU  - Taylor, Kyle R.\nAU  - Assael, Yannis\nAU  - Jumper, John\nAU  - Kohli, Pushmeet\nAU  - Kelley, David R.\nT2  - Nature Methods\nJO  - Nature Methods\nPY  - 2021\nY1  - 2021/10/01\nVL  - 18\nIS  - 10\nSP  - 1196\nEP  - 1203\nDO  - 10.1038/s41592-021-01252-x\nUR  - https://doi.org/10.1038/s41592-021-01252-x\nSN  - 1548-7091\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:1548-7091:vol:18:issue:10", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s41592-021-01252-x\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:1548-7091:vol:18:issue:10\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Avsec</foaf:surname>\n                        <foaf:givenName>Žiga</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Agarwal</foaf:surname>\n                        <foaf:givenName>Vikram</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Visentin</foaf:surname>\n                        <foaf:givenName>Daniel</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ledsam</foaf:surname>\n                        <foaf:givenName>Joseph R.</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Grabska-Barwinska</foaf:surname>\n                        <foaf:givenName>Agnieszka</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Taylor</foaf:surname>\n                        <foaf:givenName>Kyle R.</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Assael</foaf:surname>\n                        <foaf:givenName>Yannis</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Jumper</foaf:surname>\n                        <foaf:givenName>John</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Kohli</foaf:surname>\n                        <foaf:givenName>Pushmeet</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Kelley</foaf:surname>\n                        <foaf:givenName>David R.</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Effective gene expression prediction from sequence by integrating long-range interactions</dc:title>\n        <dc:date>2021-10-01</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s41592-021-01252-x</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s41592-021-01252-x</dc:identifier>\n        <bib:pages>1196-1203</bib:pages>\n        <z:citationKey>avsecEffectiveGeneExpression2021</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:1548-7091:vol:18:issue:10\">\n        <prism:volume>18</prism:volume>\n        <dc:title>Nature Methods</dc:title>\n        <prism:number>10</prism:number>\n        <dc:identifier>ISSN 1548-7091</dc:identifier>\n    </bib:Journal>"}, {"title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness", "journal": "Advances in Neural Information Processing Systems 35", "family": "", "year": "2022", "doi": "10.52202/068431-1189", "url": "https://doi.org/10.52202/068431-1189", "doi_url": "https://doi.org/10.52202/068431-1189", "volume": "", "issue": "", "start_page": "16344", "end_page": "16359", "issn": "", "authors": ["Dao, Tri", "Fu, Dan", "Ermon, Stefano", "Rudra, Atri", "Ré, Christopher"], "abstract": "", "type": "proceedings-article", "score": 1.0, "source_query": "doi:10.52202/068431-1189", "citation_marker": "(Dao et al., 2022)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness\n%A Dao, Tri\n%A Fu, Dan\n%A Ermon, Stefano\n%A Rudra, Atri\n%A Ré, Christopher\n%J Advances in Neural Information Processing Systems 35\n%P 16344-16359\n%D 2022\n%R 10.52202/068431-1189\n%U https://doi.org/10.52202/068431-1189", "ris_record": "TY  - JOUR\nTI  - FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness\nAU  - Dao, Tri\nAU  - Fu, Dan\nAU  - Ermon, Stefano\nAU  - Rudra, Atri\nAU  - Ré, Christopher\nT2  - Advances in Neural Information Processing Systems 35\nJO  - Advances in Neural Information Processing Systems 35\nPY  - 2022\nY1  - 2022/01/01\nSP  - 16344\nEP  - 16359\nDO  - 10.52202/068431-1189\nUR  - https://doi.org/10.52202/068431-1189\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:title:advances-in-neural-information-processing-systems-35", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.52202/068431-1189\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:title:advances-in-neural-information-processing-systems-35\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Dao</foaf:surname>\n                        <foaf:givenName>Tri</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Fu</foaf:surname>\n                        <foaf:givenName>Dan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ermon</foaf:surname>\n                        <foaf:givenName>Stefano</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Rudra</foaf:surname>\n                        <foaf:givenName>Atri</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ré</foaf:surname>\n                        <foaf:givenName>Christopher</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</dc:title>\n        <dc:date>2022-01-01</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.52202/068431-1189</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.52202/068431-1189</dc:identifier>\n        <bib:pages>16344-16359</bib:pages>\n        <z:citationKey>daoFlashattentionFastAnd2022</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:title:advances-in-neural-information-processing-systems-35\">\n        <dc:title>Advances in Neural Information Processing Systems 35</dc:title>\n    </bib:Journal>"}, {"title": "Efficient Transformers: A Survey", "journal": "ACM Computing Surveys", "family": "", "year": "2023", "doi": "10.1145/3530811", "url": "https://doi.org/10.1145/3530811", "doi_url": "https://doi.org/10.1145/3530811", "volume": "55", "issue": "6", "start_page": "1", "end_page": "28", "issn": "0360-0300", "authors": ["Tay, Yi", "Dehghani, Mostafa", "Bahri, Dara", "Metzler, Donald"], "abstract": "Transformer model architectures have garnered immense interest lately due to their effectiveness across a range of domains like language, vision, and reinforcement learning. In the field of natural language processing for example, Transformers have become an indispensable staple in the modern deep learning stack. Recently, a dizzying number of “X-former” models have been proposed—Reformer, Linformer, Performer, Longformer, to name a few—which improve upon the original Transformer architecture, many of which make improvements around computational and memory efficiency . With the aim of helping the avid researcher navigate this flurry, this article characterizes a large and thoughtful selection of recent efficiency-flavored “X-former” models, providing an organized and comprehensive overview of existing work and models across multiple domains.", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1145/3530811", "citation_marker": "(Tay et al., 2023)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Efficient Transformers: A Survey\n%A Tay, Yi\n%A Dehghani, Mostafa\n%A Bahri, Dara\n%A Metzler, Donald\n%J ACM Computing Surveys\n%V 55\n%N 6\n%P 1-28\n%D 2023\n%@ 0360-0300\n%R 10.1145/3530811\n%U https://doi.org/10.1145/3530811", "ris_record": "TY  - JOUR\nTI  - Efficient Transformers: A Survey\nAU  - Tay, Yi\nAU  - Dehghani, Mostafa\nAU  - Bahri, Dara\nAU  - Metzler, Donald\nT2  - ACM Computing Surveys\nJO  - ACM Computing Surveys\nPY  - 2023\nY1  - 2023/06/30\nVL  - 55\nIS  - 6\nSP  - 1\nEP  - 28\nDO  - 10.1145/3530811\nUR  - https://doi.org/10.1145/3530811\nSN  - 0360-0300\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:0360-0300:vol:55:issue:6", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1145/3530811\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:0360-0300:vol:55:issue:6\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Tay</foaf:surname>\n                        <foaf:givenName>Yi</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Dehghani</foaf:surname>\n                        <foaf:givenName>Mostafa</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Bahri</foaf:surname>\n                        <foaf:givenName>Dara</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Metzler</foaf:surname>\n                        <foaf:givenName>Donald</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Efficient Transformers: A Survey</dc:title>\n        <dc:date>2023-06-30</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1145/3530811</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1145/3530811</dc:identifier>\n        <bib:pages>1-28</bib:pages>\n        <z:citationKey>tayEfficientTransformersA2023</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:0360-0300:vol:55:issue:6\">\n        <prism:volume>55</prism:volume>\n        <dc:title>ACM Computing Surveys</dc:title>\n        <prism:number>6</prism:number>\n        <dc:identifier>ISSN 0360-0300</dc:identifier>\n    </bib:Journal>"}, {"title": "Heterogeneity and specialized functions of translation machinery: from genes to organisms", "journal": "Nature Reviews Genetics", "family": "Nature Portfolio", "year": "2018", "doi": "10.1038/s41576-018-0008-z", "url": "https://doi.org/10.1038/s41576-018-0008-z", "doi_url": "https://doi.org/10.1038/s41576-018-0008-z", "volume": "19", "issue": "7", "start_page": "431", "end_page": "452", "issn": "1471-0056", "authors": ["Genuth, Naomi R.", "Barna, Maria"], "abstract": "", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s41576-018-0008-z", "citation_marker": "(Genuth et al., 2018)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Heterogeneity and specialized functions of translation machinery: from genes to organisms\n%A Genuth, Naomi R.\n%A Barna, Maria\n%J Nature Reviews Genetics\n%V 19\n%N 7\n%P 431-452\n%D 2018\n%@ 1471-0056\n%R 10.1038/s41576-018-0008-z\n%U https://doi.org/10.1038/s41576-018-0008-z", "ris_record": "TY  - JOUR\nTI  - Heterogeneity and specialized functions of translation machinery: from genes to organisms\nAU  - Genuth, Naomi R.\nAU  - Barna, Maria\nT2  - Nature Reviews Genetics\nJO  - Nature Reviews Genetics\nPY  - 2018\nY1  - 2018/07/01\nVL  - 19\nIS  - 7\nSP  - 431\nEP  - 452\nDO  - 10.1038/s41576-018-0008-z\nUR  - https://doi.org/10.1038/s41576-018-0008-z\nSN  - 1471-0056\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:1471-0056:vol:19:issue:7", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s41576-018-0008-z\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:1471-0056:vol:19:issue:7\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Genuth</foaf:surname>\n                        <foaf:givenName>Naomi R.</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Barna</foaf:surname>\n                        <foaf:givenName>Maria</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Heterogeneity and specialized functions of translation machinery: from genes to organisms</dc:title>\n        <dc:date>2018-07-01</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s41576-018-0008-z</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s41576-018-0008-z</dc:identifier>\n        <bib:pages>431-452</bib:pages>\n        <z:citationKey>genuthHeterogeneityAndSpecialized2018</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:1471-0056:vol:19:issue:7\">\n        <prism:volume>19</prism:volume>\n        <dc:title>Nature Reviews Genetics</dc:title>\n        <prism:number>7</prism:number>\n        <dc:identifier>ISSN 1471-0056</dc:identifier>\n    </bib:Journal>"}, {"title": "Translation efficiency covariation identifies conserved coordination patterns across cell types", "journal": "Nature Biotechnology", "family": "Nature Portfolio", "year": "2026", "doi": "10.1038/s41587-025-02718-5", "url": "https://doi.org/10.1038/s41587-025-02718-5", "doi_url": "https://doi.org/10.1038/s41587-025-02718-5", "volume": "44", "issue": "5", "start_page": "797", "end_page": "809", "issn": "1087-0156", "authors": ["Liu, Yue", "Rao, Shilpa", "Hoskins, Ian", "Geng, Michael", "Zhao, Qiuxia", "Chacko, Jonathan", "Ghatpande, Vighnesh", "Qi, Kangsheng", "Persyn, Logan", "Wang, Jun", "Zheng, Dinghai", "Zhong, Yochen", "Park, Dayea", "Sarinay Cenik, Elif", "Agarwal, Vikram", "Ozadam, Hakan", "Cenik, Can"], "abstract": "", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s41587-025-02718-5", "citation_marker": "(Liu et al., 2026)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Translation efficiency covariation identifies conserved coordination patterns across cell types\n%A Liu, Yue\n%A Rao, Shilpa\n%A Hoskins, Ian\n%A Geng, Michael\n%A Zhao, Qiuxia\n%A Chacko, Jonathan\n%A Ghatpande, Vighnesh\n%A Qi, Kangsheng\n%A Persyn, Logan\n%A Wang, Jun\n%A Zheng, Dinghai\n%A Zhong, Yochen\n%A Park, Dayea\n%A Sarinay Cenik, Elif\n%A Agarwal, Vikram\n%A Ozadam, Hakan\n%A Cenik, Can\n%J Nature Biotechnology\n%V 44\n%N 5\n%P 797-809\n%D 2026\n%@ 1087-0156\n%R 10.1038/s41587-025-02718-5\n%U https://doi.org/10.1038/s41587-025-02718-5", "ris_record": "TY  - JOUR\nTI  - Translation efficiency covariation identifies conserved coordination patterns across cell types\nAU  - Liu, Yue\nAU  - Rao, Shilpa\nAU  - Hoskins, Ian\nAU  - Geng, Michael\nAU  - Zhao, Qiuxia\nAU  - Chacko, Jonathan\nAU  - Ghatpande, Vighnesh\nAU  - Qi, Kangsheng\nAU  - Persyn, Logan\nAU  - Wang, Jun\nAU  - Zheng, Dinghai\nAU  - Zhong, Yochen\nAU  - Park, Dayea\nAU  - Sarinay Cenik, Elif\nAU  - Agarwal, Vikram\nAU  - Ozadam, Hakan\nAU  - Cenik, Can\nT2  - Nature Biotechnology\nJO  - Nature Biotechnology\nPY  - 2026\nY1  - 2026/05/01\nVL  - 44\nIS  - 5\nSP  - 797\nEP  - 809\nDO  - 10.1038/s41587-025-02718-5\nUR  - https://doi.org/10.1038/s41587-025-02718-5\nSN  - 1087-0156\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:1087-0156:vol:44:issue:5", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s41587-025-02718-5\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:1087-0156:vol:44:issue:5\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Liu</foaf:surname>\n                        <foaf:givenName>Yue</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Rao</foaf:surname>\n                        <foaf:givenName>Shilpa</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Hoskins</foaf:surname>\n                        <foaf:givenName>Ian</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Geng</foaf:surname>\n                        <foaf:givenName>Michael</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zhao</foaf:surname>\n                        <foaf:givenName>Qiuxia</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Chacko</foaf:surname>\n                        <foaf:givenName>Jonathan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ghatpande</foaf:surname>\n                        <foaf:givenName>Vighnesh</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Qi</foaf:surname>\n                        <foaf:givenName>Kangsheng</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Persyn</foaf:surname>\n                        <foaf:givenName>Logan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Wang</foaf:surname>\n                        <foaf:givenName>Jun</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zheng</foaf:surname>\n                        <foaf:givenName>Dinghai</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zhong</foaf:surname>\n                        <foaf:givenName>Yochen</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Park</foaf:surname>\n                        <foaf:givenName>Dayea</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Sarinay Cenik</foaf:surname>\n                        <foaf:givenName>Elif</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Agarwal</foaf:surname>\n                        <foaf:givenName>Vikram</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ozadam</foaf:surname>\n                        <foaf:givenName>Hakan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Cenik</foaf:surname>\n                        <foaf:givenName>Can</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Translation efficiency covariation identifies conserved coordination patterns across cell types</dc:title>\n        <dc:date>2026-05-01</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s41587-025-02718-5</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s41587-025-02718-5</dc:identifier>\n        <bib:pages>797-809</bib:pages>\n        <z:citationKey>liuTranslationEfficiencyCovariation2026</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:1087-0156:vol:44:issue:5\">\n        <prism:volume>44</prism:volume>\n        <dc:title>Nature Biotechnology</dc:title>\n        <prism:number>5</prism:number>\n        <dc:identifier>ISSN 1087-0156</dc:identifier>\n    </bib:Journal>"}, {"title": "Predicting the translation efficiency of messenger RNA in mammalian cells", "journal": "Nature Biotechnology", "family": "Nature Portfolio", "year": "2026", "doi": "10.1038/s41587-025-02712-x", "url": "https://doi.org/10.1038/s41587-025-02712-x", "doi_url": "https://doi.org/10.1038/s41587-025-02712-x", "volume": "44", "issue": "5", "start_page": "783", "end_page": "796", "issn": "1087-0156", "authors": ["Zheng, Dinghai", "Persyn, Logan", "Wang, Jun", "Liu, Yue", "Ulloa-Montoya, Fernando", "Cenik, Can", "Agarwal, Vikram"], "abstract": "", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s41587-025-02712-x", "citation_marker": "(Zheng et al., 2026)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Predicting the translation efficiency of messenger RNA in mammalian cells\n%A Zheng, Dinghai\n%A Persyn, Logan\n%A Wang, Jun\n%A Liu, Yue\n%A Ulloa-Montoya, Fernando\n%A Cenik, Can\n%A Agarwal, Vikram\n%J Nature Biotechnology\n%V 44\n%N 5\n%P 783-796\n%D 2026\n%@ 1087-0156\n%R 10.1038/s41587-025-02712-x\n%U https://doi.org/10.1038/s41587-025-02712-x", "ris_record": "TY  - JOUR\nTI  - Predicting the translation efficiency of messenger RNA in mammalian cells\nAU  - Zheng, Dinghai\nAU  - Persyn, Logan\nAU  - Wang, Jun\nAU  - Liu, Yue\nAU  - Ulloa-Montoya, Fernando\nAU  - Cenik, Can\nAU  - Agarwal, Vikram\nT2  - Nature Biotechnology\nJO  - Nature Biotechnology\nPY  - 2026\nY1  - 2026/05/01\nVL  - 44\nIS  - 5\nSP  - 783\nEP  - 796\nDO  - 10.1038/s41587-025-02712-x\nUR  - https://doi.org/10.1038/s41587-025-02712-x\nSN  - 1087-0156\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:1087-0156:vol:44:issue:5", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s41587-025-02712-x\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:1087-0156:vol:44:issue:5\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zheng</foaf:surname>\n                        <foaf:givenName>Dinghai</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Persyn</foaf:surname>\n                        <foaf:givenName>Logan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Wang</foaf:surname>\n                        <foaf:givenName>Jun</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Liu</foaf:surname>\n                        <foaf:givenName>Yue</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ulloa-Montoya</foaf:surname>\n                        <foaf:givenName>Fernando</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Cenik</foaf:surname>\n                        <foaf:givenName>Can</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Agarwal</foaf:surname>\n                        <foaf:givenName>Vikram</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Predicting the translation efficiency of messenger RNA in mammalian cells</dc:title>\n        <dc:date>2026-05-01</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s41587-025-02712-x</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s41587-025-02712-x</dc:identifier>\n        <bib:pages>783-796</bib:pages>\n        <z:citationKey>zhengPredictingTheTranslation2026</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:1087-0156:vol:44:issue:5\">\n        <prism:volume>44</prism:volume>\n        <dc:title>Nature Biotechnology</dc:title>\n        <prism:number>5</prism:number>\n        <dc:identifier>ISSN 1087-0156</dc:identifier>\n    </bib:Journal>"}, {"title": "Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants", "journal": "Nature Machine Intelligence", "family": "Nature Portfolio", "year": "2024", "doi": "10.1038/s42256-024-00915-6", "url": "https://doi.org/10.1038/s42256-024-00915-6", "doi_url": "https://doi.org/10.1038/s42256-024-00915-6", "volume": "6", "issue": "11", "start_page": "1314", "end_page": "1329", "issn": "2522-5839", "authors": ["He, Jialin", "Xiong, Lei", "Shi, Shaohui", "Li, Chengyu", "Chen, Kexuan", "Fang, Qianchen", "Nan, Jiuhong", "Ding, Ke", "Mao, Yuanhui", "Boix, Carles A.", "Hu, Xinyang", "Kellis, Manolis", "Li, Jingyun", "Xiong, Xushen"], "abstract": "", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s42256-024-00915-6", "citation_marker": "(He et al., 2024)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants\n%A He, Jialin\n%A Xiong, Lei\n%A Shi, Shaohui\n%A Li, Chengyu\n%A Chen, Kexuan\n%A Fang, Qianchen\n%A Nan, Jiuhong\n%A Ding, Ke\n%A Mao, Yuanhui\n%A Boix, Carles A.\n%A Hu, Xinyang\n%A Kellis, Manolis\n%A Li, Jingyun\n%A Xiong, Xushen\n%J Nature Machine Intelligence\n%V 6\n%N 11\n%P 1314-1329\n%D 2024\n%@ 2522-5839\n%R 10.1038/s42256-024-00915-6\n%U https://doi.org/10.1038/s42256-024-00915-6", "ris_record": "TY  - JOUR\nTI  - Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants\nAU  - He, Jialin\nAU  - Xiong, Lei\nAU  - Shi, Shaohui\nAU  - Li, Chengyu\nAU  - Chen, Kexuan\nAU  - Fang, Qianchen\nAU  - Nan, Jiuhong\nAU  - Ding, Ke\nAU  - Mao, Yuanhui\nAU  - Boix, Carles A.\nAU  - Hu, Xinyang\nAU  - Kellis, Manolis\nAU  - Li, Jingyun\nAU  - Xiong, Xushen\nT2  - Nature Machine Intelligence\nJO  - Nature Machine Intelligence\nPY  - 2024\nY1  - 2024/10/23\nVL  - 6\nIS  - 11\nSP  - 1314\nEP  - 1329\nDO  - 10.1038/s42256-024-00915-6\nUR  - https://doi.org/10.1038/s42256-024-00915-6\nSN  - 2522-5839\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:2522-5839:vol:6:issue:11", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s42256-024-00915-6\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:2522-5839:vol:6:issue:11\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>He</foaf:surname>\n                        <foaf:givenName>Jialin</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Xiong</foaf:surname>\n                        <foaf:givenName>Lei</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Shi</foaf:surname>\n                        <foaf:givenName>Shaohui</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Li</foaf:surname>\n                        <foaf:givenName>Chengyu</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Chen</foaf:surname>\n                        <foaf:givenName>Kexuan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Fang</foaf:surname>\n                        <foaf:givenName>Qianchen</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Nan</foaf:surname>\n                        <foaf:givenName>Jiuhong</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Ding</foaf:surname>\n                        <foaf:givenName>Ke</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Mao</foaf:surname>\n                        <foaf:givenName>Yuanhui</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Boix</foaf:surname>\n                        <foaf:givenName>Carles A.</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Hu</foaf:surname>\n                        <foaf:givenName>Xinyang</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Kellis</foaf:surname>\n                        <foaf:givenName>Manolis</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Li</foaf:surname>\n                        <foaf:givenName>Jingyun</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Xiong</foaf:surname>\n                        <foaf:givenName>Xushen</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants</dc:title>\n        <dc:date>2024-10-23</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s42256-024-00915-6</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s42256-024-00915-6</dc:identifier>\n        <bib:pages>1314-1329</bib:pages>\n        <z:citationKey>heDeepLearningPrediction2024</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:2522-5839:vol:6:issue:11\">\n        <prism:volume>6</prism:volume>\n        <dc:title>Nature Machine Intelligence</dc:title>\n        <prism:number>11</prism:number>\n        <dc:identifier>ISSN 2522-5839</dc:identifier>\n    </bib:Journal>"}, {"title": "Deep generative optimization of mRNA codon sequences for enhanced mRNA translation and therapeutic efficacy", "journal": "Nature Communications", "family": "Nature Portfolio", "year": "2025", "doi": "10.1038/s41467-025-64894-x", "url": "https://doi.org/10.1038/s41467-025-64894-x", "doi_url": "https://doi.org/10.1038/s41467-025-64894-x", "volume": "16", "issue": "1", "start_page": "9957", "end_page": "", "issn": "2041-1723", "authors": ["Li, Yupeng", "Wang, Fan", "Yang, Jiaqi", "Han, Zirong", "Chen, Linfeng", "Jiang, Wenbing", "Zhou, Hao", "Li, Tong", "Tang, Zehua", "Deng, Jianxiang", "He, Xin", "Zha, Gaofeng", "Hu, Zhaoyu", "Hu, Yong", "Wu, Linping", "Zhan, Changyou", "Sun, Caijun", "He, Yao", "Xie, Zhi"], "abstract": "", "type": "journal-article", "score": 1.0, "source_query": "doi:10.1038/s41467-025-64894-x", "citation_marker": "(Li et al., 2025)", "support_grade": "metadata-only candidate", "screening_note": "Inspect abstract/publisher page before citing this paper as support.", "enw_record": "%0 Journal Article\n%T Deep generative optimization of mRNA codon sequences for enhanced mRNA translation and therapeutic efficacy\n%A Li, Yupeng\n%A Wang, Fan\n%A Yang, Jiaqi\n%A Han, Zirong\n%A Chen, Linfeng\n%A Jiang, Wenbing\n%A Zhou, Hao\n%A Li, Tong\n%A Tang, Zehua\n%A Deng, Jianxiang\n%A He, Xin\n%A Zha, Gaofeng\n%A Hu, Zhaoyu\n%A Hu, Yong\n%A Wu, Linping\n%A Zhan, Changyou\n%A Sun, Caijun\n%A He, Yao\n%A Xie, Zhi\n%J Nature Communications\n%V 16\n%N 1\n%P 9957\n%D 2025\n%@ 2041-1723\n%R 10.1038/s41467-025-64894-x\n%U https://doi.org/10.1038/s41467-025-64894-x", "ris_record": "TY  - JOUR\nTI  - Deep generative optimization of mRNA codon sequences for enhanced mRNA translation and therapeutic efficacy\nAU  - Li, Yupeng\nAU  - Wang, Fan\nAU  - Yang, Jiaqi\nAU  - Han, Zirong\nAU  - Chen, Linfeng\nAU  - Jiang, Wenbing\nAU  - Zhou, Hao\nAU  - Li, Tong\nAU  - Tang, Zehua\nAU  - Deng, Jianxiang\nAU  - He, Xin\nAU  - Zha, Gaofeng\nAU  - Hu, Zhaoyu\nAU  - Hu, Yong\nAU  - Wu, Linping\nAU  - Zhan, Changyou\nAU  - Sun, Caijun\nAU  - He, Yao\nAU  - Xie, Zhi\nT2  - Nature Communications\nJO  - Nature Communications\nPY  - 2025\nY1  - 2025/11/12\nVL  - 16\nIS  - 1\nSP  - 9957\nDO  - 10.1038/s41467-025-64894-x\nUR  - https://doi.org/10.1038/s41467-025-64894-x\nSN  - 2041-1723\nN1  - Metadata-only candidate. Inspect abstract or publisher page before citing as support.\nER  -", "journal_resource": "urn:issn:2041-1723:vol:16:issue:1", "zotero_rdf_article": "    <bib:Article rdf:about=\"https://doi.org/10.1038/s41467-025-64894-x\">\n        <z:itemType>journalArticle</z:itemType>\n        <dcterms:isPartOf rdf:resource=\"urn:issn:2041-1723:vol:16:issue:1\"/>\n        <bib:authors>\n            <rdf:Seq>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Li</foaf:surname>\n                        <foaf:givenName>Yupeng</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Wang</foaf:surname>\n                        <foaf:givenName>Fan</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Yang</foaf:surname>\n                        <foaf:givenName>Jiaqi</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Han</foaf:surname>\n                        <foaf:givenName>Zirong</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Chen</foaf:surname>\n                        <foaf:givenName>Linfeng</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Jiang</foaf:surname>\n                        <foaf:givenName>Wenbing</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zhou</foaf:surname>\n                        <foaf:givenName>Hao</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Li</foaf:surname>\n                        <foaf:givenName>Tong</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Tang</foaf:surname>\n                        <foaf:givenName>Zehua</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Deng</foaf:surname>\n                        <foaf:givenName>Jianxiang</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>He</foaf:surname>\n                        <foaf:givenName>Xin</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zha</foaf:surname>\n                        <foaf:givenName>Gaofeng</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Hu</foaf:surname>\n                        <foaf:givenName>Zhaoyu</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Hu</foaf:surname>\n                        <foaf:givenName>Yong</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Wu</foaf:surname>\n                        <foaf:givenName>Linping</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Zhan</foaf:surname>\n                        <foaf:givenName>Changyou</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Sun</foaf:surname>\n                        <foaf:givenName>Caijun</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>He</foaf:surname>\n                        <foaf:givenName>Yao</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n                <rdf:li>\n                    <foaf:Person>\n                        <foaf:surname>Xie</foaf:surname>\n                        <foaf:givenName>Zhi</foaf:givenName>\n                    </foaf:Person>\n                </rdf:li>\n            </rdf:Seq>\n        </bib:authors>\n        <dc:title>Deep generative optimization of mRNA codon sequences for enhanced mRNA translation and therapeutic efficacy</dc:title>\n        <dc:date>2025-11-12</dc:date>\n        <z:libraryCatalog>Crossref</z:libraryCatalog>\n        <dc:identifier>\n            <dcterms:URI>\n                <rdf:value>https://doi.org/10.1038/s41467-025-64894-x</rdf:value>\n            </dcterms:URI>\n        </dc:identifier>\n        <dc:identifier>DOI 10.1038/s41467-025-64894-x</dc:identifier>\n        <bib:pages>9957</bib:pages>\n        <z:citationKey>liDeepGenerativeOptimization2025</z:citationKey>\n    </bib:Article>", "zotero_rdf_journal": "    <bib:Journal rdf:about=\"urn:issn:2041-1723:vol:16:issue:1\">\n        <prism:volume>16</prism:volume>\n        <dc:title>Nature Communications</dc:title>\n        <prism:number>1</prism:number>\n        <dc:identifier>ISSN 2041-1723</dc:identifier>\n    </bib:Journal>"}], "segments": []}</script>
+  <script>
+    const data = JSON.parse(document.getElementById('citationData').textContent);
+    const modal = document.getElementById('summaryModal');
+    const closeSummary = document.getElementById('closeSummary');
+    const openSummary = document.getElementById('openSummary');
+    const yearFromInput = document.getElementById('yearFrom');
+    const yearToInput = document.getElementById('yearTo');
+    const queryFilterInput = document.getElementById('queryFilter');
+    const selectedOnlyInput = document.getElementById('selectedOnly');
+    const applyFiltersButton = document.getElementById('applyFilters');
+    const clearFiltersButton = document.getElementById('clearFilters');
+    const visibleCount = document.getElementById('visibleCount');
+    const selectedCount = document.getElementById('selectedCount');
+    const selectionList = document.getElementById('selectionList');
+    const selectionEmpty = document.getElementById('selectionEmpty');
+    const downloadSelected = document.getElementById('downloadSelected');
+    const downloadFormat = document.getElementById('downloadFormat');
+    const selectedMap = new Map();
+    let currentDownloadUrl = null;
+
+    downloadFormat.value = data.defaultExportFormat || 'enw';
+
+    function showModal() {
+      if (modal) {
+        modal.classList.remove('is-hidden');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+    }
+    function hideModal() {
+      if (modal) {
+        modal.classList.add('is-hidden');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    }
+    window.addEventListener('DOMContentLoaded', showModal);
+    openSummary.addEventListener('click', showModal);
+    closeSummary.addEventListener('click', hideModal);
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        hideModal();
+      }
+    });
+
+    function revokeDownloadUrl() {
+      if (currentDownloadUrl) {
+        URL.revokeObjectURL(currentDownloadUrl);
+        currentDownloadUrl = null;
+      }
+    }
+
+    function selectedItems() {
+      return Array.from(selectedMap.values());
+    }
+
+    function exportItems() {
+      const items = selectedItems();
+      return items.length ? items : (data.references || []);
+    }
+
+    function buildEnw(items) {
+      return items.map((item) => item.enw_record).join('\n\n');
+    }
+
+    function buildRis(items) {
+      return items.map((item) => item.ris_record).join('\n\n');
+    }
+
+    function buildZoteroRdf(items) {
+      const journals = new Map();
+      const articles = [];
+      for (const item of items) {
+        if (item.zotero_rdf_article) {
+          articles.push(item.zotero_rdf_article);
+        }
+        if (item.journal_resource && item.zotero_rdf_journal && !journals.has(item.journal_resource)) {
+          journals.set(item.journal_resource, item.zotero_rdf_journal);
+        }
+      }
+      const header = [
+        '<rdf:RDF',
+        ' xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"',
+        ' xmlns:z="http://www.zotero.org/namespaces/export#"',
+        ' xmlns:dcterms="http://purl.org/dc/terms/"',
+        ' xmlns:bib="http://purl.org/net/biblio#"',
+        ' xmlns:foaf="http://xmlns.com/foaf/0.1/"',
+        ' xmlns:dc="http://purl.org/dc/elements/1.1/"',
+        ' xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"',
+        '>',
+      ].join('');
+      return [header, ...articles, ...journals.values(), '</rdf:RDF>'].join('\n');
+    }
+
+    function exportFileName(format, hasSelection) {
+      const base = hasSelection ? 'selected-references' : 'all-references';
+      if (format === 'ris') return `${base}.ris`;
+      if (format === 'zotero-rdf') return `${base}.rdf`;
+      return `${base}.enw`;
+    }
+
+    function updateDownloadLink() {
+      const items = exportItems();
+      const format = downloadFormat.value || 'enw';
+      const hasSelection = selectedItems().length > 0;
+      let content = '';
+      if (format === 'ris') {
+        content = buildRis(items);
+      } else if (format === 'zotero-rdf') {
+        content = buildZoteroRdf(items);
+      } else {
+        content = buildEnw(items);
+      }
+      revokeDownloadUrl();
+      currentDownloadUrl = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
+      downloadSelected.href = currentDownloadUrl;
+      downloadSelected.download = exportFileName(format, hasSelection);
+    }
+
+    function updateSelectedPanel() {
+      selectionList.innerHTML = '';
+      const items = selectedItems();
+      selectedCount.textContent = String(items.length);
+      if (!items.length) {
+        selectionEmpty.classList.remove('hidden');
+      } else {
+        selectionEmpty.classList.add('hidden');
+      }
+      for (const item of items) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'selection-item';
+        wrapper.innerHTML = `<h4>${item.title}</h4><p>${item.journal} · ${item.year || 'n.d.'}</p>`;
+        selectionList.appendChild(wrapper);
+      }
+      updateDownloadLink();
+    }
+
+    function yearPass(year) {
+      const fromYear = Number(yearFromInput.value || 0);
+      const toYear = Number(yearToInput.value || 0);
+      const y = Number(year || 0);
+      if (fromYear && (!y || y < fromYear)) return false;
+      if (toYear && (!y || y > toYear)) return false;
+      return true;
+    }
+
+    function queryPass(text) {
+      const needle = queryFilterInput.value.trim().toLowerCase();
+      if (!needle) return true;
+      return text.toLowerCase().includes(needle);
+    }
+
+    function applyFilters() {
+      let totalVisible = 0;
+      document.querySelectorAll('.segment-card').forEach((card) => {
+        let visibleRefs = 0;
+        card.querySelectorAll('.reference').forEach((ref) => {
+          const title = ref.dataset.title || '';
+          const journal = ref.dataset.journal || '';
+          const doi = ref.dataset.doi || '';
+          const authors = ref.dataset.authors || '';
+          const segmentText = ref.dataset.segment || '';
+          const year = ref.dataset.year || '';
+          const key = ref.dataset.key || '';
+          const searchText = `${title} ${journal} ${doi} ${authors} ${segmentText}`;
+          const matches = yearPass(year) && queryPass(searchText) && (!selectedOnlyInput.checked || selectedMap.has(key));
+          ref.classList.toggle('hidden', !matches);
+          if (matches) visibleRefs += 1;
+        });
+        const noRefsMessage = card.querySelector('.empty');
+        if (noRefsMessage) {
+          const matches = !selectedOnlyInput.checked && queryPass(card.dataset.segment || '');
+          noRefsMessage.classList.toggle('hidden', !matches);
+          card.classList.toggle('hidden', !matches);
+          if (matches) totalVisible += 1;
+          return;
+        }
+        card.classList.toggle('hidden', visibleRefs === 0);
+        totalVisible += visibleRefs;
+      });
+      visibleCount.textContent = String(totalVisible);
+    }
+
+    document.querySelectorAll('.reference').forEach((ref) => {
+      const checkbox = ref.querySelector('input[type="checkbox"]');
+      checkbox.addEventListener('change', () => {
+        const key = ref.dataset.key;
+        const record = JSON.parse(ref.dataset.record);
+        if (checkbox.checked) {
+          selectedMap.set(key, record);
+        } else {
+          selectedMap.delete(key);
+        }
+        updateSelectedPanel();
+        applyFilters();
+      });
+    });
+
+    applyFiltersButton.addEventListener('click', applyFilters);
+    downloadFormat.addEventListener('change', updateDownloadLink);
+    clearFiltersButton.addEventListener('click', () => {
+      yearFromInput.value = '';
+      yearToInput.value = '';
+      queryFilterInput.value = '';
+      selectedOnlyInput.checked = false;
+      applyFilters();
+    });
+    queryFilterInput.addEventListener('input', applyFilters);
+    selectedOnlyInput.addEventListener('change', applyFilters);
+    yearFromInput.addEventListener('change', applyFilters);
+    yearToInput.addEventListener('change', applyFilters);
+    updateSelectedPanel();
+    applyFilters();
+  </script>
+</body>
+</html>

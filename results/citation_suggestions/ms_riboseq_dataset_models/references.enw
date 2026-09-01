@@ -1,0 +1,199 @@
+%0 Journal Article
+%T Mass-spectrometric exploration of proteome structure and function
+%A Aebersold, Ruedi
+%A Mann, Matthias
+%J Nature
+%V 537
+%N 7620
+%P 347-355
+%D 2016
+%@ 0028-0836
+%R 10.1038/nature19949
+%U https://doi.org/10.1038/nature19949
+
+%0 Journal Article
+%T Unannotated proteins expand the MHC-I-restricted immunopeptidome in cancer
+%A Ouspenskaia, Tamara
+%A Law, Travis
+%A Clauser, Karl R.
+%A Klaeger, Susan
+%A Sarkizova, Siranush
+%A Aguet, François
+%A Li, Bo
+%A Christian, Elena
+%A Knisbacher, Binyamin A.
+%A Le, Phuong M.
+%A Hartigan, Christina R.
+%A Keshishian, Hasmik
+%A Apffel, Annie
+%A Oliveira, Giacomo
+%A Zhang, Wandi
+%A Chen, Sarah
+%A Chow, Yuen Ting
+%A Ji, Zhe
+%A Jungreis, Irwin
+%A Shukla, Sachet A.
+%A Justesen, Sune
+%A Bachireddy, Pavan
+%A Kellis, Manolis
+%A Getz, Gad
+%A Hacohen, Nir
+%A Keskin, Derin B.
+%A Carr, Steven A.
+%A Wu, Catherine J.
+%A Regev, Aviv
+%J Nature Biotechnology
+%V 40
+%N 2
+%P 209-217
+%D 2022
+%@ 1087-0156
+%R 10.1038/s41587-021-01021-3
+%U https://doi.org/10.1038/s41587-021-01021-3
+
+%0 Journal Article
+%T Genome-Wide Analysis in Vivo of Translation with Nucleotide Resolution Using Ribosome Profiling
+%A Ingolia, Nicholas T.
+%A Ghaemmaghami, Sina
+%A Newman, John R. S.
+%A Weissman, Jonathan S.
+%J Science
+%V 324
+%N 5924
+%P 218-223
+%D 2009
+%@ 0036-8075
+%R 10.1126/science.1168978
+%U https://doi.org/10.1126/science.1168978
+
+%0 Journal Article
+%T Ribosome profiling reveals the what, when, where and how of protein synthesis
+%A Brar, Gloria A.
+%A Weissman, Jonathan S.
+%J Nature Reviews Molecular Cell Biology
+%V 16
+%N 11
+%P 651-664
+%D 2015
+%@ 1471-0072
+%R 10.1038/nrm4069
+%U https://doi.org/10.1038/nrm4069
+
+%0 Journal Article
+%T Estimation of ribosome profiling performance and reproducibility at various levels of resolution
+%A Diament, Alon
+%A Tuller, Tamir
+%J Biology Direct
+%V 11
+%N 1
+%P 24
+%D 2016
+%@ 1745-6150
+%R 10.1186/s13062-016-0127-4
+%U https://doi.org/10.1186/s13062-016-0127-4
+
+%0 Journal Article
+%T Ribonuclease selection for ribosome profiling
+%A Gerashchenko, Maxim V.
+%A Gladyshev, Vadim N.
+%J Nucleic Acids Research
+%V 45
+%N 2
+%P e6-e6
+%D 2017
+%@ 0305-1048
+%R 10.1093/nar/gkw822
+%U https://doi.org/10.1093/nar/gkw822
+
+%0 Journal Article
+%T mRNAs, proteins and the emerging principles of gene expression control
+%A Buccitelli, Christopher
+%A Selbach, Matthias
+%J Nature Reviews Genetics
+%V 21
+%N 10
+%P 630-644
+%D 2020
+%@ 1471-0056
+%R 10.1038/s41576-020-0258-4
+%U https://doi.org/10.1038/s41576-020-0258-4
+
+%0 Journal Article
+%T Predicting the translation efficiency of messenger RNA in mammalian cells
+%A Zheng, Dinghai
+%A Persyn, Logan
+%A Wang, Jun
+%A Liu, Yue
+%A Ulloa-Montoya, Fernando
+%A Cenik, Can
+%A Agarwal, Vikram
+%J Nature Biotechnology
+%V 44
+%N 5
+%P 783-796
+%D 2026
+%@ 1087-0156
+%R 10.1038/s41587-025-02712-x
+%U https://doi.org/10.1038/s41587-025-02712-x
+
+%0 Journal Article
+%T Deep learning prediction of ribosome profiling with Translatomer reveals translational regulation and interprets disease variants
+%A He, Jialin
+%A Xiong, Lei
+%A Shi, Shaohui
+%A Li, Chengyu
+%A Chen, Kexuan
+%A Fang, Qianchen
+%A Nan, Jiuhong
+%A Ding, Ke
+%A Mao, Yuanhui
+%A Boix, Carles A.
+%A Hu, Xinyang
+%A Kellis, Manolis
+%A Li, Jingyun
+%A Xiong, Xushen
+%J Nature Machine Intelligence
+%V 6
+%N 11
+%P 1314-1329
+%D 2024
+%@ 2522-5839
+%R 10.1038/s42256-024-00915-6
+%U https://doi.org/10.1038/s42256-024-00915-6
+
+%0 Journal Article
+%T Human 5′ UTR design and variant effect prediction from a massively parallel translation assay
+%A Sample, Paul J.
+%A Wang, Ban
+%A Reid, David W.
+%A Presnyak, Vlad
+%A McFadyen, Iain J.
+%A Morris, David R.
+%A Seelig, Georg
+%J Nature Biotechnology
+%V 37
+%N 7
+%P 803-809
+%D 2019
+%@ 1087-0156
+%R 10.1038/s41587-019-0164-5
+%U https://doi.org/10.1038/s41587-019-0164-5
+
+%0 Journal Article
+%T Deep learning to decode sites of RNA translation in normal and cancerous tissues
+%A Clauwaert, Jim
+%A McVey, Zahra
+%A Gupta, Ramneek
+%A Yannuzzi, Ian
+%A Basrur, Venkatesha
+%A Nesvizhskii, Alexey I.
+%A Menschaert, Gerben
+%A Prensner, John R.
+%J Nature Communications
+%V 16
+%N 1
+%P 1275
+%D 2025
+%@ 2041-1723
+%R 10.1038/s41467-025-56543-0
+%U https://doi.org/10.1038/s41467-025-56543-0
