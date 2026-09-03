@@ -730,15 +730,17 @@ def main() -> int:
     novel_units = peptide_units[peptide_units["Source_Origins"].eq("Novel Transcript")].copy()
     micro_matrix = summarize(novel_units, "Micro_Origin", MICRO_ORDER, patients)
 
-    annotated.to_csv(output_dir / "tumor_associated_antigen_hits.annotated.csv", index=False)
-    source_units.to_csv(output_dir / "tumor_associated_source_hla_hits.unique.csv", index=False)
-    peptide_units.to_csv(output_dir / "tumor_associated_patient_peptides.unique.csv", index=False)
-    sharing.to_csv(output_dir / "tumor_associated_shared_peptides.csv", index=False)
+    summary_dir = output_dir / "summary"
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    annotated.to_csv(summary_dir / "tumor_associated_antigen_hits.annotated.csv", index=False)
+    source_units.to_csv(summary_dir / "tumor_associated_source_hla_hits.unique.csv", index=False)
+    peptide_units.to_csv(summary_dir / "tumor_associated_patient_peptides.unique.csv", index=False)
+    sharing.to_csv(summary_dir / "tumor_associated_shared_peptides.csv", index=False)
     source_units[source_units["Origin_Evidence"].isin({"annotation_not_found", "id_only_not_sequence_verified"})].to_csv(
-        output_dir / "unresolved_or_unverified_antigen_sources.csv", index=False
+        summary_dir / "unresolved_or_unverified_antigen_sources.csv", index=False
     )
-    write_matrix(macro_matrix, output_dir / "antigen_origin_macro_counts")
-    write_matrix(micro_matrix, output_dir / "antigen_origin_micro_counts")
+    write_matrix(macro_matrix, summary_dir / "antigen_origin_macro_counts")
+    write_matrix(micro_matrix, summary_dir / "antigen_origin_micro_counts")
     global_rows = []
     for level, frame, category in (
         ("macro", peptide_units, "Macro_Origin"),
@@ -755,16 +757,16 @@ def main() -> int:
                     "Percent": float(count / total * 100) if total else 0.0,
                 }
             )
-    pd.DataFrame(global_rows).to_csv(output_dir / "antigen_origin_global_summary.csv", index=False)
+    pd.DataFrame(global_rows).to_csv(summary_dir / "antigen_origin_global_summary.csv", index=False)
 
     targets = export_target_patient_peptides(
         peptide_units,
         args.target_patients_file,
-        output_dir / "shared_peptides_target_patients.csv",
+        summary_dir / "shared_peptides_target_patients.csv",
     )
     if not args.no_patient_shards:
-        shard_dir = output_dir / "per_patient_landscapes"
-        shard_dir.mkdir(exist_ok=True)
+        shard_dir = output_dir / "per_patient_landscape"
+        shard_dir.mkdir(parents=True, exist_ok=True)
         for patient, frame in peptide_units.groupby("Patient", sort=False):
             frame.to_csv(shard_dir / f"{normalize_patient_id(patient)}.csv", index=False)
 
@@ -787,7 +789,7 @@ def main() -> int:
             "Stacked_Bar_Mode": args.mode,
         }
     )
-    (output_dir / "tumor_associated_neoantigen_analysis_qc.json").write_text(
+    (summary_dir / "tumor_associated_neoantigen_analysis_qc.json").write_text(
         json.dumps(metrics, indent=2), encoding="utf-8"
     )
 
@@ -798,7 +800,7 @@ def main() -> int:
             "Macro_Origin",
             MACRO_ORDER,
             MACRO_PALETTE,
-            output_dir / "antigen_origin_macro_global",
+            summary_dir / "antigen_origin_macro_global",
             args.formats,
         )
         plot_patient_stacked(
@@ -806,7 +808,7 @@ def main() -> int:
             args.mode,
             MACRO_PALETTE,
             "Number of unique tumor-associated peptides",
-            output_dir / f"antigen_origin_macro_patient_stacked_{args.mode}",
+            summary_dir / f"antigen_origin_macro_patient_stacked_{args.mode}",
             args.formats,
             args.width_per_patient,
         )
@@ -816,7 +818,7 @@ def main() -> int:
                 "Micro_Origin",
                 MICRO_ORDER,
                 MICRO_PALETTE,
-                output_dir / "antigen_origin_micro_global",
+                summary_dir / "antigen_origin_micro_global",
                 args.formats,
             )
             plot_patient_stacked(
@@ -824,13 +826,13 @@ def main() -> int:
                 args.mode,
                 MICRO_PALETTE,
                 "Number of unique novel-transcript peptides",
-                output_dir / f"antigen_origin_micro_patient_stacked_{args.mode}",
+                summary_dir / f"antigen_origin_micro_patient_stacked_{args.mode}",
                 args.formats,
                 args.width_per_patient,
             )
         plot_metrics(
             peptide_units,
-            output_dir / "antigen_origin_translation_and_affinity",
+            summary_dir / "antigen_origin_translation_and_affinity",
             args.formats,
         )
         plot_sharing(
@@ -838,7 +840,7 @@ def main() -> int:
             sharing,
             patients,
             args.top_shared_peptides,
-            output_dir / "shared_peptide_distribution_and_presence",
+            summary_dir / "shared_peptide_distribution_and_presence",
             args.formats,
         )
     return 0

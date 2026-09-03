@@ -383,13 +383,9 @@ def main():
 
     print("\n=== Phase 4: Final Prioritization and Export ===")
     
-    df_mapped['TPM_HLA_Score'] = df_mapped['Protein_Expression_T'] * df_mapped['Score_EL']
-    df_mapped['Junction_HLA_Score'] = df_mapped['Protein_Expression_C'] * df_mapped['Score_EL']
-    
     cols_order = [
         'Peptide', 'MHC', 'Identity', 
         'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 'ORF_Score',
-        'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Tumor_TPM', 
         'Protein_Expression_C', 'Junction_CPM', 
         'mean_intensity', 
@@ -413,7 +409,6 @@ def main():
     )
     
     round_cols = [
-        'TPM_HLA_Score', 'Junction_HLA_Score',
         'Protein_Expression_T', 'Protein_Expression_C', 
         'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF_Score', 'Score_EL'
     ]

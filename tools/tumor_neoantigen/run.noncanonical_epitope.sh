@@ -383,7 +383,7 @@ if is_true "${RUN_TAA_LANDSCAPE_ANALYSIS}"; then
     echo "======================================================"
     echo "==== Analyze tumor-associated antigen landscape ====="
     echo "======================================================"
-    TAA_ANALYSIS_DIR=${WORK_DIR}/tumor_associated_neoantigen
+    TAA_ANALYSIS_DIR=${WORK_DIR}/patient_tumor_associated_antigen_reports
     TRANSCRIPT_META_FILE=${WORK_DIR}/tumor_specific_tx/transcript_type_analysis/annotated_tumor_associated_transcripts.csv
     if [ ! -s "${TRANSCRIPT_META_FILE}" ]; then
         TRANSCRIPT_META_FILE=${FINAL_TARGET_CSV}
