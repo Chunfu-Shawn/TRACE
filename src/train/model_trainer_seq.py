@@ -369,9 +369,7 @@ class Trainer:
             "learning_rate": self.lr,
             "alpha_limit": self.alpha_limit,
             "ranking_loss_weight": self.ranking_loss_weight,
-            "force_zero_expression": self.force_zero_expression,
-            "training_epoch_data": self.training_epoch_data,
-            "training_batch_data": self.training_batch_data,
+            "force_zero_expression": self.force_zero_expression
         }
         torch.save(state, paths["latest"])
         for kind in best_kinds:

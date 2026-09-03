@@ -2,8 +2,73 @@
 import os
 import sys
 import argparse
+import numpy as np
 import pandas as pd
 import re
+
+
+def calculate_orf_hla_index(frame, affinity_reference_nm=50000.0):
+    """Combine ORF confidence and HLA affinity on a bounded 0-1 scale.
+
+    ORF confidence is converted to a patient-level percentile across unique
+    ORFs. HLA affinity uses the conventional log-scaled 50,000 nM reference,
+    with lower affinity values receiving higher scores. Their harmonic mean
+    favors candidates that are strong on both axes.
+    """
+    required = {'ORF_Score', 'Aff(nM)'}
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(
+            f"Cannot calculate ORF_HLA_Index; missing columns: {sorted(missing)}"
+        )
+    if not np.isfinite(affinity_reference_nm) or affinity_reference_nm <= 1.0:
+        raise ValueError("affinity_reference_nm must be finite and greater than 1.")
+
+    orf_scores = pd.to_numeric(frame['ORF_Score'], errors='coerce')
+    orf_key_columns = [
+        column for column in ('Identity', 'ORF_Pos') if column in frame.columns
+    ]
+    if orf_key_columns:
+        orf_keys = frame[orf_key_columns].astype(str).agg('\x1f'.join, axis=1)
+    else:
+        orf_keys = pd.Series(frame.index.astype(str), index=frame.index)
+    orf_units = pd.DataFrame({
+        'ORF_Key': orf_keys,
+        'ORF_Score': orf_scores,
+    }).dropna(subset=['ORF_Score'])
+    orf_unit_scores = orf_units.groupby('ORF_Key')['ORF_Score'].max()
+    orf_percentiles = orf_unit_scores.rank(
+        method='average',
+        pct=True,
+        ascending=True,
+    )
+    orf_component = orf_keys.map(orf_percentiles).astype(float)
+
+    affinities = pd.to_numeric(frame['Aff(nM)'], errors='coerce')
+    affinity_component = pd.Series(np.nan, index=frame.index, dtype=float)
+    valid_affinity = np.isfinite(affinities) & affinities.gt(0)
+    affinity_component.loc[valid_affinity] = np.clip(
+        1.0
+        - np.log10(affinities.loc[valid_affinity])
+        / np.log10(float(affinity_reference_nm)),
+        0.0,
+        1.0,
+    )
+
+    combined = pd.Series(np.nan, index=frame.index, dtype=float)
+    denominator = orf_component + affinity_component
+    valid_components = (
+        np.isfinite(orf_component)
+        & np.isfinite(affinity_component)
+        & denominator.gt(0)
+    )
+    combined.loc[valid_components] = (
+        2.0
+        * orf_component.loc[valid_components]
+        * affinity_component.loc[valid_components]
+        / denominator.loc[valid_components]
+    )
+    return combined
 
 def safe_clean_id(tid):
     """
@@ -382,10 +447,13 @@ def main():
     print(f"[Mapping] Sequence positional alignment complete. Retained {len(df_mapped)} highly traceable candidates.")
 
     print("\n=== Phase 4: Final Prioritization and Export ===")
+
+    df_mapped['ORF_HLA_Index'] = calculate_orf_hla_index(df_mapped)
     
     cols_order = [
         'Peptide', 'MHC', 'Identity', 
         'Peptide_Protein_Pos', 'Peptide_Tx_Pos', 'ORF_Pos', 'ORF_Score',
+        'ORF_HLA_Index',
         'Protein_Expression_T', 'Tumor_TPM', 
         'Protein_Expression_C', 'Junction_CPM', 
         'mean_intensity', 
@@ -400,17 +468,17 @@ def main():
     remaining_cols = [c for c in df_mapped.columns if c not in cols_order]
     df_mapped = df_mapped[cols_order + remaining_cols]
     
-    # Prioritize candidates by TRACE ORF confidence. HLA presentation score
-    # and translation intensity are used only as deterministic tie-breakers.
+    # Prioritize candidates that have both ORF and HLA-binding support.
     df_mapped.sort_values(
-        by=['ORF_Score', 'Score_EL', 'mean_intensity'],
-        ascending=[False, False, False],
+        by=['ORF_HLA_Index', 'ORF_Score', 'Score_EL', 'mean_intensity'],
+        ascending=[False, False, False, False],
         inplace=True,
     )
     
     round_cols = [
         'Protein_Expression_T', 'Protein_Expression_C', 
-        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF_Score', 'Score_EL'
+        'Tumor_TPM', 'Junction_CPM', 'mean_intensity', 'ORF_Score',
+        'ORF_HLA_Index', 'Score_EL'
     ]
     df_mapped[round_cols] = df_mapped[round_cols].round(4)
     
