@@ -7,22 +7,20 @@ import pandas as pd
 import re
 
 
-def calculate_orf_hla_index(frame, affinity_reference_nm=50000.0):
-    """Combine ORF confidence and HLA affinity on a bounded 0-1 scale.
+def calculate_orf_hla_index(frame):
+    """Combine ORF confidence and EL presentation rank on a 0-1 scale.
 
     ORF confidence is converted to a patient-level percentile across unique
-    ORFs. HLA affinity uses the conventional log-scaled 50,000 nM reference,
-    with lower affinity values receiving higher scores. Their harmonic mean
-    favors candidates that are strong on both axes.
+    ORFs. EL rank is converted to a patient-level percentile across unique
+    peptide-MHC pairs, with lower ranks receiving higher scores. Their
+    harmonic mean favors candidates that are strong on both axes.
     """
-    required = {'ORF_Score', 'Aff(nM)'}
+    required = {'ORF_Score', '%Rank_EL'}
     missing = required.difference(frame.columns)
     if missing:
         raise ValueError(
             f"Cannot calculate ORF_HLA_Index; missing columns: {sorted(missing)}"
         )
-    if not np.isfinite(affinity_reference_nm) or affinity_reference_nm <= 1.0:
-        raise ValueError("affinity_reference_nm must be finite and greater than 1.")
 
     orf_scores = pd.to_numeric(frame['ORF_Score'], errors='coerce')
     orf_key_columns = [
@@ -44,28 +42,37 @@ def calculate_orf_hla_index(frame, affinity_reference_nm=50000.0):
     )
     orf_component = orf_keys.map(orf_percentiles).astype(float)
 
-    affinities = pd.to_numeric(frame['Aff(nM)'], errors='coerce')
-    affinity_component = pd.Series(np.nan, index=frame.index, dtype=float)
-    valid_affinity = np.isfinite(affinities) & affinities.gt(0)
-    affinity_component.loc[valid_affinity] = np.clip(
-        1.0
-        - np.log10(affinities.loc[valid_affinity])
-        / np.log10(float(affinity_reference_nm)),
-        0.0,
-        1.0,
+    el_ranks = pd.to_numeric(frame['%Rank_EL'], errors='coerce')
+    hla_key_columns = [
+        column for column in ('Peptide', 'MHC') if column in frame.columns
+    ]
+    if hla_key_columns:
+        hla_keys = frame[hla_key_columns].astype(str).agg('\x1f'.join, axis=1)
+    else:
+        hla_keys = pd.Series(frame.index.astype(str), index=frame.index)
+    hla_units = pd.DataFrame({
+        'HLA_Key': hla_keys,
+        '%Rank_EL': el_ranks,
+    }).dropna(subset=['%Rank_EL'])
+    hla_unit_ranks = hla_units.groupby('HLA_Key')['%Rank_EL'].min()
+    hla_percentiles = hla_unit_ranks.rank(
+        method='average',
+        pct=True,
+        ascending=False,
     )
+    hla_component = hla_keys.map(hla_percentiles).astype(float)
 
     combined = pd.Series(np.nan, index=frame.index, dtype=float)
-    denominator = orf_component + affinity_component
+    denominator = orf_component + hla_component
     valid_components = (
         np.isfinite(orf_component)
-        & np.isfinite(affinity_component)
+        & np.isfinite(hla_component)
         & denominator.gt(0)
     )
     combined.loc[valid_components] = (
         2.0
         * orf_component.loc[valid_components]
-        * affinity_component.loc[valid_components]
+        * hla_component.loc[valid_components]
         / denominator.loc[valid_components]
     )
     return combined
