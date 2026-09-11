@@ -1,4 +1,4 @@
-# TRACE: Translation Resolution Across Cell Environments
+# TRACE: Translatome Representation Across Cell Environments
 
 ## Overview
 
@@ -495,7 +495,7 @@ the model using the current unwrapped model's map location.
 
 ```bibtex
 @article{trace2026,
-  title={TRACE: Translation Resolution Across Cell Environments},
+  title={TRACE: Deciphering Translation Grammar to Predict Translation Dynamics from RNA Sequences},
   author={Xiao, Chunfu},
   year={2026}
 }
