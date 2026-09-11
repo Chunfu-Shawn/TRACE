@@ -8,6 +8,9 @@ log/
 Riboformer/
 RiboMIMO/
 Translatomer/
+scripts/
+output/
+tmp/
 
 # misc
 .DS_Store
