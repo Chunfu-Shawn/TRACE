@@ -293,12 +293,14 @@ class TranslationProfilePredictor:
             max_len: int = 20000,
             batch_size: int = 32,
             rank: Optional[int] = None, 
-            world_size: Optional[int] = None):
+            world_size: Optional[int] = None,
+            num_workers: int = 0):
         """
         Run FASTA reading and prediction.
         If target_tids is provided, only predict transcripts present in that list.
         If cell_expr_vector is omitted, use an all-zero vector with the model's
         expected expression dimension.
+        Data loading defaults to the main process for portable demo execution.
         """
 
         os.makedirs(out_dir, exist_ok=True)
@@ -357,7 +359,7 @@ class TranslationProfilePredictor:
         dataset = DeNovoSequenceDataset(seq_dict, species, cell_type, cell_expr_vector, min_len, max_len)
         dataloader, run_rank, run_world_size = _prepare_prediction_dataloader(
             dataset, collate_fn_denovo, num_samples=None, batch_size=batch_size,
-            rank=rank, world_size=world_size
+            rank=rank, world_size=world_size, num_workers=num_workers
         )
         
         saved_data = {cell_type: {}}

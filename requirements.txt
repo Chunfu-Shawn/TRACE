@@ -1,12 +1,9 @@
-einops==0.8.1
 biopython==1.85
 gffutils==0.13
 h5py==3.14.0
 lightgbm==4.6.0
 intervaltree==3.1.0
 llvmlite==0.45.1
-loralib==0.1.2
-logomaker==0.8.7
 matplotlib==3.10.7
 numba==0.62.1
 numpy==2.3.1

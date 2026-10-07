@@ -26,8 +26,6 @@ from this overview.
 
 ```text
 TRACE/
-├── run.train_seq.py
-│   Editable Python launcher for sequence-only model training.
 ├── environment.yml / requirements.txt
 │   Conda and pip dependency definitions.
 ├── src/model/
@@ -69,8 +67,14 @@ TRACE/
 
 Python 3.11 and PyTorch 2.6 are the reference versions.
 
+TRACE has been tested on Linux (CentOS 7) with the reference software versions
+listed below. Allow approximately **1 hour** for installation in this setup;
+the actual time depends on package downloads and whether FlashAttention needs to
+be compiled. CPU and Apple MPS inference are supported by the code, but the
+reference training environment is the tested Linux/CUDA setup.
+
 ```bash
-git clone <repository-url>
+git clone https://github.com/Chunfu-Shawn/TRACE.git
 cd TRACE
 
 # Conda
@@ -88,12 +92,13 @@ export PYTHONPATH="$PWD/src:${PYTHONPATH}"
 
 ### Reference GPU training environment
 
-The model-training environment used by the launchers is pinned to the following
-reference combination. `flash-attn` is compiled against the installed PyTorch and
+The reference model-training environment uses the following pinned versions.
+`flash-attn` is compiled against the installed PyTorch and
 CUDA toolkit, so changing PyTorch or CUDA may require reinstalling it.
 
 | Component | Reference version | Purpose |
 |---|---:|---|
+| Operating system | Linux, CentOS 7 | Tested training and inference environment |
 | Python | 3.11.13 | Runtime |
 | PyTorch | 2.6.0 with CUDA 12.4 | Model training and CUDA kernels |
 | CUDA toolkit | 12.4, including `nvcc` | Compiles FlashAttention CUDA extensions |
@@ -138,7 +143,29 @@ than the only compatible versions. FlashAttention remains optional: if it is not
 installed or cannot be used for the current device and dtype, TRACE falls back to
 standard PyTorch self-attention. It is not needed for CPU inference.
 
+To verify native FlashAttention on a supported Linux NVIDIA GPU, place the
+`best_profile.pt` checkpoint under `checkpoint/` as described below, then run:
+
+```bash
+python test/run_flash_attention_test.py
+# If the checkpoint is stored elsewhere:
+python test/run_flash_attention_test.py --checkpoint /path/to/checkpoint.best_profile.pt
+```
+
+This test compares native and standard attention, checks a padded batch, and runs
+the three-transcript FASTA demo with `num_workers=0`. It disables attention fallback
+only for the test: a successful run must report **49 native kernel calls** and
+`TRACE native FlashAttention demo passed (no standard-attention fallback).`
+The normal inference workflow still supports automatic fallback.
+
 ## Hardware
+
+The reference Linux setup was tested with NVIDIA A2 and NVIDIA H20 GPUs. The
+reference server had **1 TB of host RAM**; this is the server's installed capacity,
+not a minimum requirement for TRACE. Observed host-memory use during GPU inference
+was approximately a few hundred MB. This observation is not a peak-memory bound:
+CPU inference, model loading, FlashAttention compilation, training, and loading
+larger datasets can require more host RAM.
 
 The following estimates apply to inference with the default 384-dimensional,
 16-head, 12-layer model, `batch_size=1`, and FP16 autocast:
@@ -168,16 +195,43 @@ Place the supplied expression dictionaries under `src/config/`, or pass their ac
 paths explicitly. All repository paths in the examples below are relative to the
 repository root.
 
-Important configuration files are:
+The reference BaseModel checkpoint filenames are:
 
 ```text
-src/config/base_model_384d_16h_12l_64env_16ad.yaml
-src/config/global_anchor_gene_order.txt
-src/config/global_species_id_mapping.json
-src/config/human_expression_dict.pt
-src/config/macaque_expression_dict.pt
-src/config/mouse_expression_dict.pt
+base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.150_0.001.best_profile.pt
+base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.150_0.001.best_scale.pt
+base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_e50_a1_b0_exp_aug_i03_m15.150_0.001.best_total.pt
 ```
+
+Place the downloaded checkpoint under `checkpoint/`, or update its path in the
+inference example. The three variants are selected independently on the validation
+set:
+
+| Checkpoint suffix | Selection criterion | Intended use |
+|---|---|---|
+| `best_profile.pt` | Highest mean per-RNA profile Spearman correlation | Nucleotide-level ribosome-density profiles |
+| `best_scale.pt` | Highest Spearman correlation between predicted and target CDS mean density | Transcript-level translation scale and TE-related analyses |
+| `best_total.pt` | Lowest weighted validation loss combining profile and CDS-scale objectives | Joint optimization of profile and translation scale |
+
+`best_scale` is selected using CDS mean density, not an external TE benchmark.
+`best_total` minimizes the training run's weighted validation objective; it is not
+the arithmetic mean of the profile and scale correlations.
+
+The main files and their roles are:
+
+| File | Purpose | Corresponding configuration or workflow |
+|---|---|---|
+| `src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml` | Model architecture parameters, including AdaLN bounds | Required by `BaseModel.from_config()` to initialize the model for the checkpoints above |
+| `*.best_profile.pt`, `*.best_scale.pt`, `*.best_total.pt` listed above | Trained model weights | Use the `_bs` YAML above and `PsiteDensityHead` with `d_pred_h=384` |
+| `src/config/global_anchor_gene_order.txt` | Human anchor-gene order for aligned expression vectors | Expression generation: `--ref_order`; produces 16,840 features in a fixed order |
+| `src/config/global_species_id_mapping.json` | Maps supported native-species gene IDs to human anchor genes | Expression generation: `--mapping_json`; used together with the anchor order |
+| `src/config/human_expression_dict.pt` | Human cell-context expression arrays, keyed by cell type | Load for human RNA inference; vectors match `d_expr=16840` |
+| `src/config/macaque_expression_dict.pt` | Macaque cell-context expression arrays, keyed by cell type | Load for macaque RNA inference; vectors use the same human anchor order |
+| `src/config/mouse_expression_dict.pt` | Mouse cell-context expression arrays, keyed by cell type | Load for mouse RNA inference; vectors use the same human anchor order |
+| `*.train.h5`, `*.valid.h5`, `*.test.h5` | Preprocessed sequence features, cell context, and RPF targets | Load with `TranslationDataset`; training and validation paths are passed to `Trainer` |
+
+Use the `_bs` YAML above, including its AdaLN modulation bounds, and register a
+`PsiteDensityHead` with `d_pred_h=384` before loading these checkpoints.
 
 ## HDF5 dataset contract
 
@@ -185,8 +239,8 @@ src/config/mouse_expression_dict.pt
 
 ```text
 <dataset>.h5
-├── .attrs["n_samples"]          int           total number of transcripts
-├── .attrs["cell_type_counts"]   JSON str      cell-type distribution
+├── .attrs["n_samples"]          int           total number of sample records
+├── .attrs["cell_type_counts"]   JSON str      sample counts per cell type
 ├── /cell_exprs/
 │   └── <cell_type>              (d_expr,)     Z-scored expression vector per cell type
 ├── /sequences/
@@ -195,14 +249,34 @@ src/config/mouse_expression_dict.pt
     ├── .attrs["tid"]            str           key into the sequences group
     ├── .attrs["species"]        str           human | macaque | mouse
     ├── .attrs["cell_type"]      str           e.g., "heart", "liver", "HepG2"
-    ├── .attrs["cds_start_pos"]  int16         CDS start (1-based), -1 if unknown
-    ├── .attrs["cds_end_pos"]    int16         CDS end (1-based), -1 if unknown
-    ├── .attrs["te_scale"]       float32       translation efficiency (Z-scored), None if missing
-    ├── .attrs["rpf_depth"]      float32       ribosome profiling depth
-    ├── .attrs["rpf_coverage"]   float32       ribosome profiling coverage
-    ├── .attrs["motif_occ"]      list[int]     upstream motif occurrences
-    └── count_emb                (L, d_count)  per-position RPF density (target)
+    ├── .attrs["cds_start_pos"]  int16         CDS start (1-based, inclusive), -1 if unknown
+    ├── .attrs["cds_end_pos"]    int16         CDS end (1-based, inclusive), -1 if unknown
+    ├── .attrs["te_scale"]       float32       CLR regression residual; NaN if missing
+    ├── .attrs["rpf_depth"]      float32       full-RNA RPF reads per nucleotide
+    ├── .attrs["rpf_coverage"]   float32       fraction of covered 3-nt bins in the QC region
+    ├── .attrs["motif_occ"]      (N, 2) int    motif intervals (0-based, end-exclusive)
+    └── count_emb                (L, d_count)  normalized, log1p-transformed RPF target
 ```
+
+`n_samples` counts entries in `/samples/`, not unique transcript IDs. Multiple
+sample records can share a sequence in `/sequences/`, for example across cell types
+or experimental runs.
+
+In the current dataset generator, `te_scale` is the residual from a within-sample
+linear regression of RPF centered log-ratio (CLR) values on RNA CLR values; it is
+not a Z-score. A missing `te_scale` attribute is read as `NaN`, not `None`.
+
+The generator winsorizes RPF counts and constructs the target as:
+
+```text
+count_emb = log1p((winsorized_RPF_counts / mean_nonzero_RPF_count) * exp(te_scale))
+```
+
+The non-zero mean is computed per transcript. Predictions use this transformed
+target scale, not raw read counts. `rpf_depth` and `rpf_coverage` are computed from
+the winsorized counts before this transformation. Coverage uses the CDS when valid
+CDS coordinates are available, otherwise the full RNA. `motif_occ` stores matched
+intervals along the full RNA sequence.
 
 `count_emb` is the prediction target during training. It is loaded by the trainer
 but is never passed into the sequence-only BaseModel.
@@ -239,14 +313,19 @@ else:
     device = torch.device("cpu")
 
 model = BaseModel.from_config(
-    "src/config/base_model_384d_16h_12l_64env_16ad.yaml"
+    "src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
 )
 model.add_head(
     "count",
     PsiteDensityHead.create_from_model(model, d_pred_h=384),
 )
+checkpoint_name = (
+    "base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead."
+    "hs_22c_18c_26c_rm_4c_mm_3c_6k_depth0.1_cov0.1_rpm1_"
+    "e50_a1_b0_exp_aug_i03_m15.150_0.001.best_profile.pt"
+)
 model.load_pretrained_weights(
-    "/path/to/pretrained.latest.pt",
+    f"checkpoint/{checkpoint_name}",
     strict=False,
     map_location="cpu",
 )
@@ -272,6 +351,8 @@ profile = prediction["count"]
 print(profile.shape)
 ```
 
+Expected shape for this 12-nt example: `torch.Size([12, 1])`.
+
 `predict()` accepts one RNA string, a list of strings, an `(L, 4)` array, or a
 batched `(B, L, 4)` tensor. A direct expression vector can replace `cell_type`:
 
@@ -292,16 +373,28 @@ interface and automatically disables CUDA autocast on CPU.
 
 ### Test Case: Predict Translation Profiles from FASTA
 
-After loading `model` as shown above, provide one or more transcript FASTA files and
-select a cell type from the registered expression dictionary:
+After loading `model` as shown above, run a quick demo on three fixed transcripts
+from the bundled 2,000-record FASTA. Set `quick_demo=False` to process the full file
+instead; records outside `min_len` and `max_len` are skipped.
 
 ```python
+import pickle
+import time
+
 from model.translation_predictor import TranslationProfilePredictor
 
 species = "human"
 cell_type = "liver"
-fasta_files = ["/path/to/transcriptome.fasta"]
+fasta_files = ["test/gencode.v43.pc_transcripts.test_2000.fa"]
+quick_demo = True
+demo_tids = [
+    "ENST00000412698",  # 1,810 nt
+    "ENST00000005995",  # 1,091 nt
+    "ENST00000518804",  # 612 nt
+]
+suffix = "liver_demo" if quick_demo else "liver_full"
 
+started_at = time.perf_counter()
 predictor = TranslationProfilePredictor(
     model=model,
     fasta_files=fasta_files,
@@ -312,27 +405,89 @@ output_path = predictor.run(
     species=species,
     cell_type=cell_type,
     cell_expr_vector=cell_expression,
-    target_tids=None,
+    target_tids=demo_tids if quick_demo else None,
     out_dir="results",
-    suffix="liver",
+    suffix=suffix,
     min_len=200,
     max_len=10000,
     batch_size=1,
+    num_workers=0,
 )
+elapsed_seconds = time.perf_counter() - started_at
 
+with open(output_path, "rb") as handle:
+    saved_profiles = pickle.load(handle)[cell_type]
+
+for tid in demo_tids:
+    profile = saved_profiles[tid]
+    print(f"{tid}: shape={profile.shape}, dtype={profile.dtype}")
 print(f"Predictions saved to: {output_path}")
+print(f"TRACE FASTA demo completed successfully ({len(saved_profiles)} RNAs).")
+print(f"Elapsed time: {elapsed_seconds:.2f} s on {device}.")
 ```
 
-The output pickle has the following structure:
+FASTA inference defaults to `num_workers=0`, so this example also runs in a
+notebook or a standalone script without starting DataLoader child processes.
+For larger datasets, increase `num_workers` if needed. When using multiple workers
+in a script on macOS or Windows, put the inference workflow inside `main()` and
+call it under `if __name__ == "__main__":`.
+
+The quick demo's expected summary is:
+
+```text
+ENST00000412698: shape=(1810,), dtype=float16
+ENST00000005995: shape=(1091,), dtype=float16
+ENST00000518804: shape=(612,), dtype=float16
+Predictions saved to: results/predictions_count.base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.liver_demo.pkl
+TRACE FASTA demo completed successfully (3 RNAs).
+Elapsed time: <measured seconds> s on <device>.
+```
+
+The elapsed time is measured on your machine and includes FASTA parsing, sequence
+encoding, inference, and pickle writing; it excludes installation and model loading
+from the preceding example. The reported reference demo runtime is approximately
+**2 minutes on an NVIDIA A2 GPU**; the H20 reference runtime has not yet been
+recorded here. A separate local CPU check on macOS
+15.6.1 (ARM64), Python 3.11.13, and PyTorch 2.6.0 completed this three-transcript
+demo in approximately **1.7 seconds** with `num_workers=0` and no FlashAttention.
+This is a measurement for that machine, not a guaranteed runtime on other CPUs.
+Actual runtime can vary, so use the printed measurement for your setup. The
+full-file option uses the suffix `liver_full`.
+
+Replace `fasta_files` with your own transcript FASTA paths to predict another
+dataset. The output filename follows this rule:
+
+```text
+<out_dir>/predictions_count.<model.model_name>.<suffix>.pkl
+```
+
+For the configuration and suffix above, the file is:
+
+```text
+results/predictions_count.base_model_384d_16h_12l_64env_16ad_bs-PsiteDensityHead.liver_demo.pkl
+```
+
+Each saved profile is a one-dimensional NumPy array of shape `(L,)` and dtype
+`float16`, where `L` is the length of a retained transcript. This differs
+from the `(L, 1)` tensor returned by `model.predict()` for a single RNA. The output
+pickle has the following structure:
 
 ```python
 {
     "liver": {
-        "ENST00000335137": profile_array,  # shape: (sequence_length, 1)
-        "ENST00000448941": profile_array,
+        "ENST00000412698": profile_array,  # shape: (1810,), dtype: float16
+        "ENST00000005995": profile_array,  # shape: (1091,), dtype: float16
+        "ENST00000518804": profile_array,  # shape: (612,), dtype: float16
     }
 }
 ```
+
+Transcript IDs are taken from the first whitespace-delimited token in each FASTA
+header. Compound headers are truncated at the first `|`, and human `ENST` IDs have
+their version suffix removed, for example `ENST00000335137.4|...` becomes
+`ENST00000335137`. Use IDs that remain unique after cleaning. Avoid hyphens in
+custom transcript IDs: the current output serializer retains only the prefix
+before the first `-`.
 
 ## Build an expression dictionary from featureCounts
 
@@ -370,11 +525,37 @@ the human anchor-gene list. The command prints the detected ID namespaces and ma
 coverage; very low coverage usually means the wrong ID type or a heavily filtered
 count matrix was supplied.
 
+To use the generated dictionary, reuse the loaded `model` and `inference_context()`
+from Quick inference, then select a sample by its dictionary key. The expression
+builder has already aligned and normalized the vectors; do not normalize them
+again. Set `species` to the species of the RNA sequence being predicted.
+
+```python
+expression_dict = torch.load("expression_dict.pt", map_location="cpu")
+print("Available samples:", list(expression_dict))
+sample_name = next(iter(expression_dict))  # Replace with your desired sample key.
+model.load_expression_dict(expression_dict)
+
+with inference_context():
+    prediction = model.predict(
+        seq_batch="AUGCCGAUGCAG",
+        species="human",
+        cell_type=sample_name,
+        head_names=["count"],
+    )
+print(prediction["count"].shape)  # torch.Size([12, 1])
+```
+
+For FASTA inference, pass
+`cell_expr_vector=model.cell_expr_dict[sample_name].cpu().numpy()` and
+`cell_type=sample_name` to `predictor.run()`.
+
 ## Model training
 
-Edit the experiment configuration at the top of `run.train_seq.py`, including
-dataset paths, output directories, batch size, learning rate, and epoch count. The
-essential Python workflow is:
+The essential Python workflow for training a sequence-only BaseModel is shown
+below. Update the dataset paths, output directories, batch size, learning rate, and
+epoch count for your experiment. These parameters are an editable example, not a
+complete reproduction recipe for the released checkpoints.
 
 ```python
 import torch
@@ -401,7 +582,7 @@ valid_paths = [
 ]
 
 model = BaseModel.from_config(
-    "src/config/base_model_384d_16h_12l_64env_16ad.yaml"
+    "src/config/base_model_384d_16h_12l_64env_16ad_bs.yaml"
 )
 model.add_head(
     "count",
@@ -437,20 +618,10 @@ trainer = Trainer(
 trainer.fit()
 ```
 
-The provided launcher supports one GPU or multiple GPUs on one machine. Multi-node
-training is intentionally not supported. After editing its configuration section,
-run it directly on one GPU:
-
-```bash
-python run.train_seq.py
-```
-
-For multiple GPUs on one machine, use `torchrun` without additional command-line
-arguments:
-
-```bash
-torchrun --standalone --nproc_per_node=4 run.train_seq.py
-```
+The example uses one process with `world_size=1` and `rank=0`. For multiple GPUs on
+one machine, your training script must initialize a PyTorch distributed process
+group, assign one GPU per process, wrap the model with `DistributedDataParallel`,
+and pass the actual `world_size` and `rank` to `Trainer`.
 
 The trainer prints and records the decomposed count loss:
 
@@ -461,8 +632,8 @@ The trainer prints and records the decomposed count loss:
   warmup, while validation always uses
   `total = micro + 4 * macro + 0.2 * ranking`.
 
-Early stopping monitoring starts only after learning-rate warmup unless the launcher
-sets a later epoch explicitly. Each validation epoch reports:
+Early stopping monitoring starts only after learning-rate warmup unless
+`early_stopping_start_epoch` sets a later epoch explicitly. Each validation epoch reports:
 
 - `profile_spearman`: the mean position-wise density Spearman correlation across
   all RNAs with non-constant targets; a constant prediction for an evaluable RNA
@@ -493,15 +664,26 @@ the model using the current unwrapped model's map location.
 
 ## Citation
 
+Until a complete manuscript citation is available, please cite the software
+repository:
+
 ```bibtex
-@article{trace2026,
-  title={TRACE: Deciphering Translation Grammar to Predict Translation Dynamics from RNA Sequences},
+@misc{trace_software,
+  title={{TRACE}: Translatome Representation Across Cell Environments},
   author={Xiao, Chunfu},
-  year={2026}
+  howpublished={GitHub software repository},
+  url={https://github.com/Chunfu-Shawn/TRACE},
+  note={Accessed 2026-10-07}
 }
 ```
 
+The manuscript title is *TRACE: Deciphering Translation Grammar to Predict
+Translation Dynamics from RNA Sequences*. Its full author list and publication or
+preprint details will be added when available; no journal or DOI is assigned here.
+
 ## License
 
-This project is licensed for academic research use. Contact the author for commercial
-licensing.
+TRACE is licensed under the **Apache License, Version 2.0**. See [LICENSE](LICENSE)
+for the full terms. This license permits academic and commercial use subject to
+its conditions, including the patent-license provisions in Section 3. Third-party
+dependencies retain their respective licenses.

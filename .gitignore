@@ -20,7 +20,7 @@ tmp/
 *.log
 */*.log
 */*/*.log
-
+__pycache__/
 manuscript*
 *.docx
 

@@ -22,6 +22,7 @@ def _prepare_prediction_dataloader(
     batch_size: int,
     rank: Optional[int] = None,
     world_size: Optional[int] = None,
+    num_workers: int = 4,
 ):
     """Resolve distributed settings, select samples, and build a bucketed loader."""
     if torch.distributed.is_initialized():
@@ -35,6 +36,8 @@ def _prepare_prediction_dataloader(
         raise ValueError("batch_size must be at least 1")
     if num_samples is not None and num_samples < 1:
         raise ValueError("num_samples must be positive or None")
+    if num_workers < 0:
+        raise ValueError("num_workers must be non-negative")
 
     all_indices = np.arange(len(dataset))
     if num_samples is not None and len(all_indices) > num_samples:
@@ -61,7 +64,6 @@ def _prepare_prediction_dataloader(
         drop_last=False,
     )
 
-    num_workers = 4
     dataloader = DataLoader(
         subset,
         batch_sampler=sampler,
